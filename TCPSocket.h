@@ -43,10 +43,10 @@ namespace NET
 		 * If you try to use sendAll() on a not connected socket, SocketException will be thrown.
 		 *
 		 * When using a stream oriented socket, the operating system is allowed to send only
-		 * a bit of the data you requested it to send. Because of this, you have to check the number
-		 * of sent bytes when using send(), and resend not sent data manually.
-		 * sendAll() takes that responsibility from you, and resends as long as it is needed to
-		 * completly send the data given to it.
+		 * a bit of the data you requested it to send. Because of this, you would have to
+		 * check the number of sent bytes when using send(), and resend unsent data manually.
+		 * sendAll() takes that responsibility from you, and resends as long as it needs, to
+		 * completely send the data given to it.
 		 *
 		 * \param buffer data to send
 		 * \param len length of the data to be sent
@@ -55,7 +55,7 @@ namespace NET
 		 */
 		int sendAll( const void* buffer, size_t len);
 
-		//! ???
+		//! TODO
 		void listen( int backlog = 0);
 
 		//! wait for another socket to connect

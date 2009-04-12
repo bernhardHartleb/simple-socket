@@ -139,11 +139,11 @@ namespace NET
 		 */
 		void shutdown( ShutdownDirection type);
 
-		//! tells wheter the peer disconnected or not
+		//! returns whether a peer disconnected or not
 		/*!
 		 * Will only work if you use an connection oriented, connected socket.
 		 * Returns true if the peer disconnected. Use this function after
-		 * receive, returned 0.
+		 * a call to receive, returned 0.
 		 *
 		 * \return bool true if the peer disconnected
 		 */

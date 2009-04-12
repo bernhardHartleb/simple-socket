@@ -14,8 +14,8 @@ namespace NET
 			Construct a UDP socket
 			Eventually bind the socket to the specified port and address.
 			Contructing the socket with port and/or address parameters will
-			have the same effect as contructing it without parameters, and
-			later call bind on that socket.
+			have the same effect as constructing it without parameters, and
+			calling bind on that socket at a later time.
 
 			\param localAddress local address
 			\param localPort local port
@@ -49,12 +49,12 @@ namespace NET
 
 		//@{
 		/*!
-			Read read up to bufferLen bytes data from this socket.  The given buffer
-			is where the data will be placed
+			Read read up to bufferLen bytes data from this socket. The given buffer
+			is where the data will be placed.
 
 			In order to receive data, the socket has to be bound at least to a specific port.
-			This can be done by passing the port in the constructor, explicitly binding the socket
-			or sending data through the socket.
+			This can be done by passing a port number to the constructor,
+			explicitly binding the socket, or sending data through the socket.
 
 			\param buffer buffer to receive data
 			\param bufferLen maximum number of bytes to receive
