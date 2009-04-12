@@ -51,7 +51,7 @@ namespace NET
 		SCTPSocket( Handle handle);
 
 		using InternetSocket::bind;
-		int bind(const std::vector<std::string>& localAddresses, unsigned port = 0);
+		int bind( const std::vector<std::string>& localAddresses, unsigned short port = 0);
 
 		int state();
 		int notAckedData();
@@ -72,6 +72,7 @@ namespace NET
 		int receive( void* data, int maxLen, unsigned& stream);
 		int receive( void* data, int maxLen, unsigned& stream, receiveFlag& flag);
 
+		using SimpleSocket::timedReceive;
 		int timedReceive( void* data, int maxLen, unsigned& stream, unsigned timeout);
 		int timedReceive( void* data, int maxLen, unsigned& stream, receiveFlag& flag, unsigned timeout);
 

@@ -56,7 +56,7 @@ SCTPSocket::SCTPSocket( Handle handle)
 		throw SocketException("Tried to initialize SCTPSocket with invalid Handle");
 }
 
-int SCTPSocket::bind( const std::vector<std::string>& localAddresses, unsigned port /* = 0 */)
+int SCTPSocket::bind( const std::vector<std::string>& localAddresses, unsigned short port /* = 0 */)
 {
 	sockaddr_in *dest = new sockaddr_in[localAddresses.size()];
 	int i = 0;
