@@ -102,10 +102,10 @@ namespace NET
 		 * If you try to use receive() on a not bound socket, SocketException
 		 * will be thrown.
 		 *
-		 * If using a stream oriented Socket, receive can return a part of an
+		 * If using a stream oriented Socket, receive can return a part of a
 		 * received messge, e.g. if you send 100 bytes, it's possible you will receive
 		 * 50 bytes two times in a row. However, the order of the sent data will be preserved.
-		 * It is possible
+		 *
 		 * If you are using a datagram oriented sockets, you will only receive whole datagrams.
 		 * But beware of using a too small buffer. If the receive buffer is too small for the
 		 * received datagram, the data you didn't read in the receive call will be discared.
