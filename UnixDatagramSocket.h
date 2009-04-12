@@ -32,7 +32,7 @@ namespace NET
 			\return true if send is successful
 			\exception SocketException thrown if unable to send datagram
 		*/
-		void sendTo( const void* buffer, int bufferLen, const std::string& foreignPath);
+		void sendTo( const void* buffer, size_t len, const std::string& foreignPath);
 
 		/*!
 			Read read up to bufferLen bytes data from this socket.  The given buffer
@@ -44,7 +44,7 @@ namespace NET
 			\return number of bytes received and -1 for error
 			\exception SocketException thrown if unable to receive datagram
 		*/
-		int recvFrom( void* buffer, int bufferLen, std::string& sourcePath);
+		int receiveFrom( void* buffer, size_t len, std::string& sourcePath);
 	};
 
 } // namespace NET

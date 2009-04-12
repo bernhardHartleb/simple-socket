@@ -72,7 +72,7 @@ namespace NET
 
 		//! send data through a connected socket
 		/*!
-		 * send() can only be used on a socket that called connect() before. 
+		 * send() can only be used on a socket that called connect() before.
 		 * If you try to use send() on a not connected socket, SocketException
 		 * will be thrown.
 		 *
@@ -91,7 +91,7 @@ namespace NET
 		 * \return returns the number of sent bytes
 		 * \exception SocketException if sending goes wrong
 		 */
-		int send( const void* buffer, int len);
+		int send( const void* buffer, size_t len);
 
 		//@{
 		//! will receive data from a bound socket
@@ -102,10 +102,10 @@ namespace NET
 		 * If you try to use receive() on a not bound socket, SocketException
 		 * will be thrown.
 		 *
-		 * If using a stream oriented Socket, receive can return a part of an 
+		 * If using a stream oriented Socket, receive can return a part of an
 		 * received messge, e.g. if you send 100 bytes, it's possible you will receive
 		 * 50 bytes two times in a row. However, the order of the sent data will be preserved.
-		 * It is possible 
+		 * It is possible
 		 * If you are using a datagram oriented sockets, you will only receive whole datagrams.
 		 * But beware of using a too small buffer. If the receive buffer is too small for the
 		 * received datagram, the data you didn't read in the receive call will be discared.
@@ -121,10 +121,10 @@ namespace NET
 		 * \return int number of received bytes
 		 * \exception SocketException
 		 */
-		int receive( void* buffer, int len);
-		int timedReceive( void* buffer, int len, int timeout);
+		int receive( void* buffer, size_t len);
+		int timedReceive( void* buffer, size_t len, int timeout);
 		//@}
-		
+
 		//! will shutdown the connection in the specified direction
 		/*!
 		 * Depending on the specified ShutdownDirection, calls for that direction
@@ -132,7 +132,7 @@ namespace NET
 		 * Use this function if you want to have a little more control than just destroing
 		 * the socket. It allows you to cut the connection in one direction, or both.
 		 *
-		 * If shutdown fails SocketException will be thrown. 
+		 * If shutdown fails SocketException will be thrown.
 		 *
 		 * If you use shutdown() on an unconnected socket, the corresponding calls will simply
 		 * stop working. But shutdown can be used on a connected UDP socket.
@@ -149,7 +149,7 @@ namespace NET
 		 */
 		bool peerDisconnected();
 	protected:
-		//! to be able to return an accepted socket
+		//! enables return of an accepted socket
 		SimpleSocket( int sockfd);
 
 		// socket descriptor
@@ -157,10 +157,10 @@ namespace NET
 		bool m_peerDisconnected;
 	private:
 		// dont' allow
-		SimpleSocket();
 		SimpleSocket( const SimpleSocket&);
 		const SimpleSocket& operator=( const SimpleSocket&);
 	};
 
-}
+} // namespace NET
+
 #endif // NET_SimpleSocket_h__

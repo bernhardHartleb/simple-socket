@@ -34,13 +34,13 @@ namespace NET
 
 		//@{
 		/*!
-		 * \name 
+		 * \name
 		 * Set the local port to the specified port and the local address
-		 * to any interface. 
-		 * 
+		 * to any interface.
+		 *
 		 * bind() attaches the local endpoint of the socket to the specified
-		 * interface and port. 
-		 * Typically all servers use bind() to attach to the local port specified by the 
+		 * interface and port.
+		 * Typically all servers use bind() to attach to the local port specified by the
 		 * used protocol. You just need to call bind if you want to restrict the connection
 		 * to a specific local interface, or if you want to listen on a specific port.
 		 * If you are just a client using connect() to connect to a server, calling
@@ -86,7 +86,7 @@ namespace NET
 		*/
 		unsigned short getForeignPort();
 	protected:
-		//! to create socket from a SocketHandle returned by an accept() call
+		//! create socket from a SocketHandle returned by an accept() call
 		InternetSocket( int sockfd);
 
 		InternetSocket( int type, int protocol);

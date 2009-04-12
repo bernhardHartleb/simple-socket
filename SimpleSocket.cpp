@@ -26,13 +26,18 @@ SimpleSocket::SimpleSocket( int domain, int type, int protocol)
 		throw SocketException("Socket creation failed (socket)");
 }
 
+SimpleSocket::SimpleSocket( int sockfd)
+: m_socket(sockfd)
+, m_peerDisconnected(false)
+{}
+
 SimpleSocket::~SimpleSocket()
 {
 	::close(m_socket);
 	// on Windows do cleanup here
 }
 
-int SimpleSocket::send( const void* buffer, int len)
+int SimpleSocket::send( const void* buffer, size_t len)
 {
 	int sent;
 	if( (sent = ::send( m_socket, (raw_type*) buffer, len, 0)) < 0)
@@ -40,43 +45,39 @@ int SimpleSocket::send( const void* buffer, int len)
 	return sent;
 }
 
-int SimpleSocket::receive( void* buffer, int len)
+int SimpleSocket::receive( void* buffer, size_t len)
 {
-	int rtn;
-	if( (rtn = ::recv( m_socket, (raw_type*) buffer, len, 0)) < 0)
-		throw SocketException("Received failed (receive)");
-	if( !rtn)
-		m_peerDisconnected = true;
-	return rtn;
+	int ret = ::recv( m_socket, (raw_type*) buffer, len, 0);
+
+	if( ret < 0) throw SocketException("Received failed (receive)");
+	if( ret > 0) m_peerDisconnected = true;
+	return ret;
 }
 
-int SimpleSocket::timedReceive( void* buffer, int len, int timeout)
+int SimpleSocket::timedReceive( void* buffer, size_t len, int timeout)
 {
-	int rtn;
 	struct pollfd poll;
 	poll.fd = m_socket;
 	poll.events = POLLIN | POLLPRI | POLLRDHUP;
 
-	rtn = ::poll( &poll, 1, timeout);
-	
+	int ret = ::poll( &poll, 1, timeout);
+
 	if( poll.revents & POLLRDHUP)
 	{
 		m_peerDisconnected = true;
 		return 0;
-	}	
-	
-	if( rtn == 0)
-		return 0;
-	if( rtn < 0)
-		throw SocketException("Receive failed (poll)");
+	}
 
-	if( (rtn = ::recv( m_socket, (raw_type*) buffer, len, 0)) < 0)
-		throw SocketException("Receive failed (receive)");
-	if( !rtn)
-		m_peerDisconnected = true;
-	return rtn;
+	if( ret == 0) return 0;
+	if( ret < 0)  throw SocketException("Receive failed (poll)");
+
+	ret = ::recv( m_socket, (raw_type*) buffer, len, 0);
+
+	if( ret < 0) throw SocketException("Receive failed (receive)");
+	if( ret > 0) m_peerDisconnected = true;
+
+	return ret;
 }
-
 
 void SimpleSocket::shutdown( ShutdownDirection type)
 {
@@ -88,7 +89,3 @@ bool SimpleSocket::peerDisconnected()
 {
 	return m_peerDisconnected;
 }
-
-SimpleSocket::SimpleSocket( int sockfd)
-: m_socket(sockfd)
-, m_peerDisconnected(false) {}

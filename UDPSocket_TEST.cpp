@@ -16,15 +16,15 @@ int main()
 
 	UDPSocket send_socket;
 	send_socket.setMulticastTTL(0);
-	send_socket.connect("224.40.0.1", 4777);
+	send_socket.connect( "224.40.0.1", 4777);
 
 	UDPSocket recv_socket(4777);
 	recv_socket.joinGroup("224.40.0.1");
 
-	send_socket.send(send_msg, sizeof(send_msg));
+	send_socket.send( send_msg, sizeof(send_msg));
 	cout << "send: " << send_msg << endl;
 
-	recv_socket.recv(recv_msg, sizeof(send_msg));
+	recv_socket.receive( recv_msg, sizeof(send_msg));
 	cout << "recv: " << recv_msg << endl;
 
 	if( std::memcmp( send_msg, recv_msg, sizeof(send_msg))) return 1;

@@ -9,12 +9,15 @@ namespace NET
 	class TCPSocket : public InternetSocket
 	{
 	public:
-		class Handle {
-			Handle( int sock) : m_sockfd(sock) {}
-			friend class TCPSocket;
-			int m_sockfd;
+		//!
+		class Handle
+		{
 		public:
+			friend class TCPSocket;
 			operator bool () { return m_sockfd != 0; }
+		private:
+			Handle( int sock) : m_sockfd(sock) {}
+			int m_sockfd;
 		};
 
 		/*!
@@ -31,9 +34,7 @@ namespace NET
 		*/
 		TCPSocket( const std::string &foreignAddress, unsigned short foreignPort);
 
-		/*!
-		 * Construct a Socket from a TCPSocketHandle returned by accept()
-		 */
+		//! Construct a Socket from a TCPSocketHandle returned by accept()
 		TCPSocket( Handle handle);
 
 		//! send data through a connected socket
@@ -43,7 +44,7 @@ namespace NET
 		 *
 		 * When using a stream oriented socket, the operating system is allowed to send only
 		 * a bit of the data you requested it to send. Because of this, you have to check the number
-		 * of sent bytes when using send(), and resend not sent data manually. 
+		 * of sent bytes when using send(), and resend not sent data manually.
 		 * sendAll() takes that responsibility from you, and resends as long as it is needed to
 		 * completly send the data given to it.
 		 *
@@ -52,19 +53,21 @@ namespace NET
 		 * \return returns the number of sent bytes
 		 * \exception SocketException
 		 */
-		int sendAll( const void* buffer, int len);
-		
+		int sendAll( const void* buffer, size_t len);
+
+		//! ???
 		void listen( int backlog = 0);
 
 		//! wait for another socket to connect
 		/*!
-		 * 
-		 */
+
+		*/
 		Handle accept() const;
 
-		// somebody please code me
-		Handle timedAccept() const;
+		// TODO
+		//Handle timedAccept() const;
 	};
 
-}
+} // namespace NET
+
 #endif // NET_TCPSocket_h__

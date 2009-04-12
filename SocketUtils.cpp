@@ -1,18 +1,12 @@
 #include "SocketUtils.h"
-
 #include "SimpleSocket.h"
 
-#include <sys/types.h>		// for data types
 #include <sys/ioctl.h>
-#include <net/if.h>
-#include <net/if_arp.h>
 #include <arpa/inet.h>
-#include <unistd.h>
+#include <net/if.h>
 #include <netdb.h>		// for gethostbyname()
 #include <cstring>		// for memset()
 #include <cstdlib>		// for ntohs() and atoi()
-
-#include <string>
 #include <vector>
 
 using namespace NET;
@@ -49,20 +43,22 @@ unsigned short NET::resolveService( const std::string& service, const std::strin
 		return ntohs( serv->s_port);
 }
 
-/*std::vector<std::string> NET::getNetworkInterfaces() {
+/*std::vector<std::string> NET::getNetworkInterfaces()
+{
 
 }*/
 
 #define inaddrr(x) (*(struct in_addr *) &ifr->x[sizeof sa.sin_port])
 
-std::string NET::getInterfaceAddress( const std::string& interface) {
+std::string NET::getInterfaceAddress( const std::string& interface)
+{
 	struct ifreq* ifr;
 	struct ifreq ifrr;
 	struct sockaddr_in sa;
 
 	ifr = &ifrr;
 	ifrr.ifr_addr.sa_family = AF_INET;
-	strncpy(ifrr.ifr_name, interface.c_str(), sizeof(ifrr.ifr_name));
+	std::strncpy( ifrr.ifr_name, interface.c_str(), sizeof(ifrr.ifr_name));
 
 	int sock = socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
 	if( sock < 0)
@@ -70,10 +66,15 @@ std::string NET::getInterfaceAddress( const std::string& interface) {
 
 	if( ioctl( sock, SIOCGIFADDR, ifr) < 0)
 		throw SocketException("ioctl failed (getInterfaceAddress");
-	
-	return inet_ntoa(inaddrr(ifr_addr.sa_data));
+
+	return inet_ntoa( inaddrr( ifr_addr.sa_data));
 }
 
-std::string NET::getBroadcastAddress( const std::string& interface) {
-	
+#undef inaddrr
+
+// TODO
+std::string NET::getBroadcastAddress( const std::string& interface)
+{
+	(void) interface;
+	return "255.255.255.255";
 }

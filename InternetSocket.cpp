@@ -14,6 +14,9 @@ InternetSocket::InternetSocket( int type, int protocol)
 : SimpleSocket( INTERNET, type, protocol)
 {}
 
+InternetSocket::InternetSocket( int sockfd)
+: SimpleSocket(sockfd) {}
+
 void InternetSocket::connect( const std::string& foreignAddress, unsigned short foreignPort)
 {
 	sockaddr_in destAddr;
@@ -99,6 +102,3 @@ unsigned short InternetSocket::getForeignPort()
 		throw SocketException("Fetch of foreign port failed (getpeername)");
 	return ntohs( addr.sin_port);
 }
-
-InternetSocket::InternetSocket( int sockfd)
-: SimpleSocket(sockfd) {}

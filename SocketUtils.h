@@ -18,10 +18,10 @@ namespace NET
 	*/
 	unsigned short resolveService( const std::string& service, const std::string& protocol = "tcp");
 
-	std::string resolveHostname( const std::string& hostname);
+	//std::string resolveHostname( const std::string& hostname);
 
+	//! Return the IPv4 address of a network interface
 	std::string getInterfaceAddress( const std::string& interface);
-
 
 	//! retrieve the broadcast address for an interface
 	/*!

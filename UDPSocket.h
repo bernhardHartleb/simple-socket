@@ -30,8 +30,8 @@ namespace NET
 			Send the given buffer as a UDP datagram to the
 			specified address / port.
 
-			Can be substituted with send() if the socket is first connected to an 
-			address and port. If sendTo() is used on a connected socket, the 
+			Can be substituted with send() if the socket is first connected to an
+			address and port. If sendTo() is used on a connected socket, the
 			destination parameters will be ignored, and the datagram will be sent
 			to the connected socket.
 
@@ -45,16 +45,16 @@ namespace NET
 			\return true if send is successful
 			\exception SocketException thrown if unable to send datagram
 		*/
-		void sendTo( const void* buffer, int bufferLen, const std::string& foreignAddress, unsigned short foreignPort);
+		void sendTo( const void* buffer, size_t bufferLen, const std::string& foreignAddress, unsigned short foreignPort);
 
 		//@{
 		/*!
 			Read read up to bufferLen bytes data from this socket.  The given buffer
 			is where the data will be placed
-		
+
 			In order to receive data, the socket has to be bound at least to a specific port.
 			This can be done by passing the port in the constructor, explicitly binding the socket
-			or sending data through the socket. 
+			or sending data through the socket.
 
 			\param buffer buffer to receive data
 			\param bufferLen maximum number of bytes to receive
@@ -64,8 +64,8 @@ namespace NET
 			\return number of bytes received and -1 for error
 			\exception SocketException thrown if unable to receive datagram
 		*/
-		int receiveFrom( void* buffer, int bufferLen, std::string& sourceAddress, unsigned short& sourcePort);
-		int receiveFrom( void* buffer, int bufferLen, std::string& sourceAddress, unsigned short& sourcePort, int timeout);
+		int receiveFrom( void* buffer, size_t len, std::string& sourceAddress, unsigned short& sourcePort);
+		int receiveFrom( void* buffer, size_t len, std::string& sourceAddress, unsigned short& sourcePort, int timeout);
 		//@}
 
 		/*!
@@ -95,6 +95,7 @@ namespace NET
 		*/
 		void leaveGroup( const std::string& multicastGroup);
 	};
+
 } // namespace NET
 
 #endif // NET_UDPSocket_h__

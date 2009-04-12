@@ -36,7 +36,6 @@ namespace NET
 		*/
 		std::string getLocalPath();
 
-
 		/*!
 			Get the foreign path
 			\return foreign path
