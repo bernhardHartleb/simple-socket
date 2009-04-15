@@ -50,7 +50,7 @@ int SimpleSocket::receive( void* buffer, size_t len)
 	int ret = ::recv( m_socket, (raw_type*) buffer, len, 0);
 
 	if( ret < 0) throw SocketException("Received failed (receive)");
-	if( ret > 0) m_peerDisconnected = true;
+	if( !ret) m_peerDisconnected = true;
 	return ret;
 }
 
@@ -74,8 +74,7 @@ int SimpleSocket::timedReceive( void* buffer, size_t len, int timeout)
 	ret = ::recv( m_socket, (raw_type*) buffer, len, 0);
 
 	if( ret < 0) throw SocketException("Receive failed (receive)");
-	if( ret > 0) m_peerDisconnected = true;
-
+	if( !ret) m_peerDisconnected = true;
 	return ret;
 }
 

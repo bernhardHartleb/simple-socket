@@ -7,8 +7,6 @@
 #include <arpa/inet.h>		// for inet_addr()
 #include <netinet/in.h>		// for sockaddr_in
 
-#include <cstring>
-
 using namespace NET;
 
 namespace {
@@ -88,7 +86,6 @@ int UDPSocket::receiveFrom( void* buffer, size_t len, std::string& sourceAddress
 int UDPSocket::receiveFrom( void* buffer, size_t len, std::string& sourceAddress, unsigned short& sourcePort, int timeout)
 {
 	struct pollfd poll;
-	std::memset( &poll, 0, sizeof(poll));
 	poll.fd = m_socket;
 	poll.events = POLLIN | POLLPRI | POLLRDHUP;
 
