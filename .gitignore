@@ -1,3 +1,4 @@
 *~
-.*.swap
+.*.swp
 CMakeLists.txt.user
+build
