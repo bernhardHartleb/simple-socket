@@ -1,3 +1,4 @@
+cmake_minimum_required(VERSION 2.6)
 set(sources
 	SimpleSocket.cpp
 	SocketUtils.cpp
