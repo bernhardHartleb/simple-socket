@@ -9,7 +9,7 @@ namespace NET
 	class TCPSocket : public InternetSocket
 	{
 	public:
-		//!
+		//! handle for new socket returned on accept call
 		class Handle
 		{
 		public:
@@ -55,17 +55,44 @@ namespace NET
 		 */
 		int sendAll( const void* buffer, size_t len);
 
-		//! TODO
+		//! listen for incoming connections
+		/*!
+		 * listen can be called on a bound socket. 
+		 * The socket will then go into a passive state and accept incoming
+		 * connections. To answer to an incoming connection call accept /
+		 * timedAccept on the socket.
+		 *
+		 * The backlog is a buffer for incoming connections. If backlog is set
+		 * to 0, the number of incoming connections is only limited by the
+		 * operating system. If backlog is set to a value > 0, only the upper
+		 * limit of connections is set, the OS can limit the number further.
+		 *
+		 * after starting to listen, use accept to accept incoming connections.
+		 *
+		 * \param backlog upper limit of waiting incoming connections
+		 * \exception SocketException
+		 */
 		void listen( int backlog = 0);
 
+		//@{
 		//! wait for another socket to connect
 		/*!
-
-		*/
+		 * accept will block until a new connection arrives. It is used to
+		 * create TCP server applications. On return it will return the handle
+		 * to the incoming connection.
+		 *
+		 * accept can be called on a listening socket.
+		 *
+		 * Use this handle to create a new TCPSocket to communicate with the
+		 * new connected client. accept can be used to wait for next incoming
+		 * connection after the handle was received.
+		 *
+		 * \param timeout the timeout after which accept will give up and return
+		 * \return Handle object to the new connection
+		 */
 		Handle accept() const;
-
-		// TODO
-		//Handle timedAccept() const;
+		Handle timedAccept( int timeout) const;
+		//@}
 	};
 
 } // namespace NET

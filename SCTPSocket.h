@@ -17,11 +17,12 @@ namespace NET
 	public:
 		class Handle
 		{
+		private:
 			Handle( int sock) : m_sockfd(sock) {}
 			friend class SCTPSocket;
-			int m_sockfd;
 		public:
 			operator bool () { return m_sockfd != 0; }
+			int m_sockfd;
 		};
 
 		enum abortFlag {
@@ -78,6 +79,9 @@ namespace NET
 
 		void listen( int backlog = 10);
 		Handle accept();
+		Handle timedAccept( unsigned timeout);
+
+		static Handle emptyHandle();
 	protected:
 		void setInitValues( unsigned ostr, unsigned istr, unsigned att, unsigned time);
 	};

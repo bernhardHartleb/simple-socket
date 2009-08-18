@@ -180,22 +180,26 @@ int SCTPSocket::timedReceive( void* data, int maxLen, unsigned& stream, unsigned
 	poll.events = POLLIN | POLLPRI | POLLRDHUP;
 
 	int ret = ::poll( &poll, 1, timeout);
+	
+	if( ret == 0) return 0;
+	if( ret < 0)
+		throw SocketException("SCTPSocket::receive failed (poll)");
+
+	if( poll.revents & POLLIN || poll.revents & POLLRDHUP) {
+		struct sctp_sndrcvinfo info;
+		if( (ret = sctp_recvmsg( m_socket, data, maxLen, 0, 0, &info, 0)) <= 0)
+			throw SocketException("SCTPSocket::receive failed (receive)");
+		stream = info.sinfo_stream;
+		return ret;
+	}
+
 	if( poll.revents & POLLRDHUP)
 	{
 		m_peerDisconnected = true;
 		return 0;
 	}
 
-	if( ret == 0)
-		return 0;
-	if( ret < 0)
-		throw SocketException("SCTPSocket::receive failed (poll)");
-
-	struct sctp_sndrcvinfo info;
-	if( (ret = sctp_recvmsg( m_socket, data, maxLen, 0, 0, &info, 0)) <= 0)
-		throw SocketException("SCTPSocket::receive failed (receive)");
-	stream = info.sinfo_stream;
-	return ret;
+	return 0;
 }
 
 int SCTPSocket::timedReceive( void* data, int maxLen, unsigned& stream, receiveFlag& flag, unsigned timeout)
@@ -205,22 +209,28 @@ int SCTPSocket::timedReceive( void* data, int maxLen, unsigned& stream, receiveF
 	poll.events = POLLIN | POLLPRI | POLLRDHUP;
 
 	int ret = ::poll( &poll, 1, timeout);
-	if( poll.events & POLLRDHUP)
+	
+	if( ret == 0) return 0;
+	if( ret < 0)
+		throw SocketException("SCTPSocket::receive failed (poll)");
+	
+	if( poll.revents & POLLIN || poll.revents & POLLRDHUP) {
+		struct sctp_sndrcvinfo info;
+		if( (ret = sctp_recvmsg( m_socket, data, maxLen, 0, 0, &info, 0)) <= 0)
+			throw SocketException("SCTPSocket::receive failed (receive)");
+		stream = info.sinfo_stream;
+		// flag = info.sinfo_flags;
+		return ret;
+	}
+
+	if( poll.revents & POLLRDHUP)
 	{
 		m_peerDisconnected = true;
 		return 0;
 	}
 
-	if( ret == 0)
-		return 0;
-	if( ret < 0)
-		throw SocketException("SCTPSocket::receive failed (poll)");
-	struct sctp_sndrcvinfo info;
-	if( (ret = sctp_recvmsg( m_socket, data, maxLen, 0, 0, &info, 0)) <= 0)
-		throw SocketException("SCTPSocket::receive failed (receive)");
-	stream = info.sinfo_stream;
-	// flag = info.sinfo_flags;
-	return ret;
+	return 0;
+
 }
 
 void SCTPSocket::listen( int backlog /* = 0 */)
@@ -232,8 +242,29 @@ SCTPSocket::Handle SCTPSocket::accept()
 {
 	int ret;
 	if( (ret = ::accept( m_socket, 0, 0)) <= 0)
-		throw SocketException("TCPSocket::accept failed");
+		throw SocketException("SCTPSocket::accept failed");
 	return Handle(ret);
+}
+
+SCTPSocket::Handle SCTPSocket::timedAccept( unsigned timeout) {
+	struct pollfd poll;
+	poll.fd = m_socket;
+	poll.events = POLLIN | POLLPRI | POLLRDHUP;
+
+	int ret = ::poll( &poll, 1, timeout);
+	if( ret == 0)
+		return Handle(0);
+	if( ret < 0)
+		throw SocketException("SCTPSocket::timedAccept failed(poll)");
+	
+	if( (ret = ::accept( m_socket, 0, 0)) <= 0)
+		throw SocketException("SCTPSocket::timedAccept failed (accept)");
+	return Handle(ret);
+}
+
+SCTPSocket::Handle SCTPSocket::emptyHandle()
+{
+	return Handle(0);
 }
 
 void SCTPSocket::setInitValues( unsigned numOutStreams, unsigned maxInStreams, unsigned maxAttempts, unsigned maxInitTimeout)

@@ -1,5 +1,6 @@
 #include "TCPSocket.h"
 
+#include <poll.h>
 #include <sys/types.h>		// for data types
 #include <netinet/in.h>		// for sockaddr_in
 
@@ -40,7 +41,9 @@ int TCPSocket::sendAll( const void* buffer, size_t len)
 
 void TCPSocket::listen( int backlog /* = 0 */)
 {
-	::listen(m_socket, backlog);
+	int ret = ::listen(m_socket, backlog);
+	if( ret < 0)
+		throw SocketException("listen failed, most likely another socket is already listening on the same port");
 }
 
 TCPSocket::Handle TCPSocket::accept() const
@@ -48,5 +51,22 @@ TCPSocket::Handle TCPSocket::accept() const
 	int ret;
 	if( (ret = ::accept( m_socket, 0, 0)) <= 0)
 		throw SocketException("TCPSocket::accept failed");
+	return Handle(ret);
+}
+
+TCPSocket::Handle TCPSocket::timedAccept( int timeout) const
+{
+	struct pollfd poll;
+	poll.fd = m_socket;
+	poll.events = POLLIN;
+
+	int ret = ::poll( &poll, 1, timeout);
+
+	if( ret == 0) return Handle(0);
+	if( ret < 0) throw SocketException("Poll failed (receive)");
+
+	ret = ::accept( m_socket, 0, 0);
+	if( ret <= 0)
+		throw SocketException("TCPSocket::timedAccept failed");
 	return Handle(ret);
 }
