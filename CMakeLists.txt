@@ -1,4 +1,8 @@
 cmake_minimum_required(VERSION 2.6)
+
+# Make building of SCTP optional
+set(BUILD_SCTP true CACHE BOOL "Add support for the SCTP protocol.")
+
 set(sources
 	SimpleSocket.cpp
 	SocketUtils.cpp
@@ -6,8 +10,13 @@ set(sources
 	TCPSocket.cpp
 	UDPSocket.cpp
 	UnixSocket.cpp
-	UnixDatagramSocket.cpp
-	SCTPSocket.cpp)
+	UnixDatagramSocket.cpp)
+
+if(BUILD_SCTP)
+	set(sources
+		${sources}
+		SCTPSocket.cpp)
+endif(BUILD_SCTP)
 
 source_group(network_src FILES ${sources})
 
