@@ -57,7 +57,7 @@ namespace NET
 
 		//! listen for incoming connections
 		/*!
-		 * listen can be called on a bound socket. 
+		 * listen can be called on a bound socket.
 		 * The socket will then go into a passive state and accept incoming
 		 * connections. To answer to an incoming connection call accept /
 		 * timedAccept on the socket.

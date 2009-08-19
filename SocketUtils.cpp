@@ -103,7 +103,7 @@ std::string NET::getBroadcastAddress( const std::string& interface)
 	int sock = socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
 	if( sock < 0)
 		throw SocketException("Couldn't create socket (getBroadcastAddress)");
-	
+
 	if( ioctl( sock, SIOCGIFBRDADDR, &ifr) < 0)
 		throw SocketException("ioctl failed (getInterfaceAddress)");
 
@@ -139,7 +139,7 @@ std::string NET::getNetmask( const std::string& interface)
 	int sock = socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
 	if( sock < 0)
 		throw SocketException("Couldn't create socket (getBroadcastAddress)");
-	
+
 	if( ioctl( sock, SIOCGIFNETMASK, &ifr) < 0)
 		throw SocketException("ioctl failed (getNetmask)");
 
@@ -164,7 +164,7 @@ void NET::setNetmask( const std::string& interface, const std::string& addr)
 		throw SocketException("ioctl failed (setNetmask)");
 }
 
-std::string NET::getDestinationAddress( const std::string& interface) 
+std::string NET::getDestinationAddress( const std::string& interface)
 {
 	struct ifreq ifr;
 
@@ -174,7 +174,7 @@ std::string NET::getDestinationAddress( const std::string& interface)
 	int sock = socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
 	if( sock < 0)
 		throw SocketException("Couldn't create socket (getBroadcastAddress)");
-	
+
 	if( ioctl( sock, SIOCGIFDSTADDR, &ifr) < 0)
 		throw SocketException("ioctl failed (getDestinationAddress)");
 
@@ -202,7 +202,7 @@ void NET::setDestinationAddress( const std::string& interface, const std::string
 int NET::getMTU( const std::string& interface)
 {
 	struct ifreq ifr;
-	
+
 	ifr.ifr_addr.sa_family = AF_INET;
 	std::strncpy( ifr.ifr_name, interface.c_str(), sizeof(ifr.ifr_name));
 
@@ -237,7 +237,7 @@ void NET::setMTU( const std::string& interface, int mtu)
 std::string NET::getHardwareAddress( const std::string& interface, char separationChar)
 {
 	struct ifreq ifr;
-	
+
 	ifr.ifr_addr.sa_family = AF_INET;
 	std::strncpy( ifr.ifr_name, interface.c_str(), sizeof(ifr.ifr_name));
 
@@ -266,7 +266,7 @@ std::string NET::getHardwareAddress( const std::string& interface, char separati
 	for( int i = 0; i <= 4; ++i)
 		str << std::hex << std::uppercase << std::setw(2) << std::setfill('0')
 			<< static_cast<int>(reinterpret_cast<unsigned char*>(ifr.ifr_addr.sa_data)[i]) << separationChar;
-	str << std::hex << std::uppercase << std::setw(2) << std::setfill('0') 
+	str << std::hex << std::uppercase << std::setw(2) << std::setfill('0')
 		<< static_cast<int>(reinterpret_cast<unsigned char*>(ifr.ifr_addr.sa_data)[5]);
 	return str.str();
 }
