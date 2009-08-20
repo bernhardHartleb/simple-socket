@@ -117,7 +117,7 @@ namespace NET
 		 *
 		 * \param buffer the buffer the received data will be written to
 		 * \param len length of the provided buffer, receive will not read more than that
-		 * \param timeout the timeout after which receive will give up and return
+		 * \param timeout the timeout in ms after which receive will give up and return
 		 * \return int number of received bytes
 		 * \exception SocketException
 		 */

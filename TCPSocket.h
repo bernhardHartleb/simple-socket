@@ -87,7 +87,7 @@ namespace NET
 		 * new connected client. accept can be used to wait for next incoming
 		 * connection after the handle was received.
 		 *
-		 * \param timeout the timeout after which accept will give up and return
+		 * \param timeout the timeout in ms after which accept will give up and return
 		 * \return Handle object to the new connection
 		 */
 		Handle accept() const;
