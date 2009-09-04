@@ -64,7 +64,7 @@ void UDPSocket::sendTo( const void* buffer, size_t len, const std::string& forei
 	fillAddr( foreignAddress, foreignPort, destAddr);
 
 	// Write out the whole buffer as a single message.
-	if( sendto( m_socket, (raw_type*)buffer, len, 0, (sockaddr*)&destAddr, sizeof(destAddr)) != (int)len)
+	if( sendto( m_socket, (const raw_type*)buffer, len, 0, (sockaddr*)&destAddr, sizeof(destAddr)) != (int)len)
 		throw SocketException("Send failed (sendto)");
 }
 
@@ -91,7 +91,7 @@ int UDPSocket::receiveFrom( void* buffer, size_t len, std::string& sourceAddress
 
 	int ret = ::poll( &poll, 1, timeout);
 
-	if(poll.revents & POLLRDHUP)
+	if( poll.revents & POLLRDHUP)
 	{
 		m_peerDisconnected = true;
 		return 0;

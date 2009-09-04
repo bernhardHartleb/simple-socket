@@ -40,7 +40,7 @@ SimpleSocket::~SimpleSocket()
 int SimpleSocket::send( const void* buffer, size_t len)
 {
 	int sent;
-	if( (sent = ::send( m_socket, (raw_type*) buffer, len, 0)) < 0)
+	if( (sent = ::send( m_socket, (const raw_type*) buffer, len, 0)) < 0)
 		throw SocketException("Send failed (send)");
 	return sent;
 }
