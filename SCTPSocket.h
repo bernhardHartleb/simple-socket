@@ -17,11 +17,11 @@ namespace NET
 	public:
 		class Handle
 		{
+		public:
+			friend class SCTPSocket;
+			operator bool () { return m_sockfd != 0; }
 		private:
 			Handle( int sock) : m_sockfd(sock) {}
-			friend class SCTPSocket;
-		public:
-			operator bool () { return m_sockfd != 0; }
 			int m_sockfd;
 		};
 
