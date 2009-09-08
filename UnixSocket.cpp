@@ -42,7 +42,7 @@ void UnixSocket::bind( const std::string& localPath)
 	sockaddr_un addr;
 	addr.sun_family = AF_LOCAL;
 	std::strcpy( addr.sun_path, localPath.c_str());
-	::unlink( localPath.c_str());
+	::unlink( addr.sun_path);
 
 	if( ::bind( m_socket, (sockaddr*) &addr, sizeof(addr)) < 0)
 		throw SocketException("Set of local path failed (bind)");

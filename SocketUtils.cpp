@@ -271,4 +271,3 @@ std::string NET::getHardwareAddress( const std::string& interface, char separati
 		<< static_cast<int>(reinterpret_cast<unsigned char*>(ifr.ifr_addr.sa_data)[5]);
 	return str.str();
 }
-
