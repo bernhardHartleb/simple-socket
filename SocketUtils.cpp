@@ -18,21 +18,22 @@ using namespace NET;
 
 void NET::fillAddr( const std::string& address, unsigned short port, sockaddr_in& addr)
 {
-	std::memset( &addr, 0, sizeof(addr));
 	addr.sin_family = AF_INET;
-
-	hostent* host = gethostbyname( address.c_str());
-	if( host == NULL)
-	{
-		// strerror() will not work for gethostbyname() and hstrerror()
-		// is supposedly obsolete
-		//throw SocketException("Failed to resolve name (gethostbyname())");
-		throw; // temporary workaround
-	}
-	addr.sin_addr.s_addr = *( (ulong*)host->h_addr_list[0]);
 
 	// Assign port in network byte order
 	addr.sin_port = htons(port);
+
+	// Assume we have a simple ipv4 address
+	if( inet_aton( address.c_str(), &addr.sin_addr)) return;
+
+	// We need to resolve the address
+	hostent* host = gethostbyname( address.c_str());
+	if( host == 0)
+	{
+		// strerror() will not work for gethostbyname()
+		throw SocketException("Failed to resolve address (gethostbyname())", false);
+	}
+	addr.sin_addr.s_addr = *reinterpret_cast<uint32_t*>( host->h_addr);
 }
 
 unsigned short NET::resolveService( const std::string& service, const std::string& protocol)
