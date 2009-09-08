@@ -73,7 +73,7 @@ int UDPSocket::receiveFrom( void* buffer, size_t len, std::string& sourceAddress
 	sockaddr_in clientAddr;
 	socklen_t addrLen = sizeof(clientAddr);
 
-	int ret = recvfrom( m_socket, (raw_type*)buffer, len, 0, (sockaddr*)&clientAddr, (socklen_t*)&addrLen);
+	int ret = recvfrom( m_socket, (raw_type*)buffer, len, 0, (sockaddr*)&clientAddr, &addrLen);
 	if( ret < 0)
 		throw SocketException("Receive failed (recvfrom)");
 
@@ -103,7 +103,7 @@ int UDPSocket::receiveFrom( void* buffer, size_t len, std::string& sourceAddress
 	sockaddr_in clientAddr;
 	socklen_t addrLen = sizeof(clientAddr);
 
-	ret = recvfrom( m_socket, (raw_type*)buffer, len, 0, (sockaddr*)&clientAddr, (socklen_t*)&addrLen);
+	ret = recvfrom( m_socket, (raw_type*)buffer, len, 0, (sockaddr*)&clientAddr, &addrLen);
 	if( ret < 0)
 		throw SocketException("Receive failed (recvfrom)");
 

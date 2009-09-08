@@ -32,9 +32,9 @@ void UnixDatagramSocket::sendTo( const void* buffer, size_t len, const std::stri
 int UnixDatagramSocket::receiveFrom( void* buffer, size_t len, std::string& sourcePath)
 {
 	sockaddr_un clientAddr;
-	socklen_t addrLen = sizeof(clientAddr);
+	socklen_t addr_len = sizeof(clientAddr);
 
-	int ret = recvfrom( m_socket, (raw_type*)buffer, len, 0, (sockaddr*)&clientAddr, (socklen_t*)&addrLen);
+	int ret = recvfrom( m_socket, (raw_type*)buffer, len, 0, (sockaddr*)&clientAddr, &addr_len);
 	if( ret < 0)
 		throw SocketException("Receive failed (recvfrom)");
 

@@ -30,7 +30,7 @@ void UnixSocket::disconnect()
 	addr.sun_family = AF_UNSPEC;
 
 	// Try to disconnect
-	if( ::connect( m_socket, (sockaddr*) &addr, sizeof(sockaddr_un)) < 0) {
+	if( ::connect( m_socket, (sockaddr*) &addr, sizeof(addr)) < 0) {
 		if( errno != EAFNOSUPPORT) {
 			throw SocketException("Disconnect failed (connect)");
 		}
@@ -42,18 +42,18 @@ void UnixSocket::bind( const std::string& localPath)
 	sockaddr_un addr;
 	addr.sun_family = AF_LOCAL;
 	std::strcpy( addr.sun_path, localPath.c_str());
-	unlink( localPath.c_str());
+	::unlink( localPath.c_str());
 
-	if( ::bind( m_socket, (sockaddr*) &addr, sizeof(sockaddr_un)) < 0)
+	if( ::bind( m_socket, (sockaddr*) &addr, sizeof(addr)) < 0)
 		throw SocketException("Set of local path failed (bind)");
 }
 
 std::string UnixSocket::getLocalPath()
 {
 	sockaddr_un addr;
-	unsigned int addr_len = sizeof(addr);
+	socklen_t addr_len = sizeof(addr);
 
-	if( getsockname( m_socket, (sockaddr*) &addr, (socklen_t*) &addr_len) < 0)
+	if( getsockname( m_socket, (sockaddr*) &addr, &addr_len) < 0)
 		throw SocketException("Fetch of local path failed (getsockname)");
 
 	return addr.sun_path;
@@ -62,9 +62,9 @@ std::string UnixSocket::getLocalPath()
 std::string UnixSocket::getForeignPath()
 {
 	sockaddr_un addr;
-	unsigned int addr_len = sizeof(addr);
+	socklen_t addr_len = sizeof(addr);
 
-	if( getpeername( m_socket, (sockaddr*) &addr, (socklen_t*) &addr_len) < 0)
+	if( getpeername( m_socket, (sockaddr*) &addr, &addr_len) < 0)
 		throw SocketException("Fetch of foreign path failed (getpeername)");
 	return addr.sun_path;
 }
