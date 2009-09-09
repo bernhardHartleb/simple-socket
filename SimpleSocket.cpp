@@ -65,9 +65,10 @@ int SimpleSocket::timedReceive( void* buffer, size_t len, int timeout)
 	if( ret == 0) return 0;
 	if( ret < 0)  throw SocketException("Receive failed (poll)");
 
-	if( poll.revents & POLLIN || poll.revents & POLLPRI) {
+	if( poll.revents & POLLIN || poll.revents & POLLPRI)
+	{
 		ret = ::recv( m_socket, (raw_type*) buffer, len, 0);
-		if( ret < 0) throw SocketException("Receive failed (receive)");
+		if( ret < 0) throw SocketException("Receive failed (recv)");
 		if( !ret) m_peerDisconnected = true;
 		return ret;
 	}
@@ -75,9 +76,7 @@ int SimpleSocket::timedReceive( void* buffer, size_t len, int timeout)
 	if( poll.revents & POLLRDHUP)
 	{
 		m_peerDisconnected = true;
-		return 0;
 	}
-
 	return 0;
 }
 

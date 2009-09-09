@@ -148,6 +148,7 @@ namespace NET
 		 * \return bool true if the peer disconnected
 		 */
 		bool peerDisconnected();
+
 	protected:
 		//! enables return of an accepted socket
 		SimpleSocket( int sockfd);
@@ -155,6 +156,7 @@ namespace NET
 		// socket descriptor
 		int m_socket;
 		bool m_peerDisconnected;
+
 	private:
 		// dont' allow
 		SimpleSocket( const SimpleSocket&);

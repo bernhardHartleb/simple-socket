@@ -211,10 +211,10 @@ int SCTPSocket::timedReceive( void* data, int maxLen, unsigned& stream, receiveF
 	int ret = ::poll( &poll, 1, timeout);
 
 	if( ret == 0) return 0;
-	if( ret < 0)
-		throw SocketException("SCTPSocket::receive failed (poll)");
+	if( ret < 0) throw SocketException("SCTPSocket::receive failed (poll)");
 
-	if( poll.revents & POLLIN || poll.revents & POLLRDHUP) {
+	if( poll.revents & POLLIN || poll.revents & POLLPRI)
+	{
 		struct sctp_sndrcvinfo info;
 		if( (ret = sctp_recvmsg( m_socket, data, maxLen, 0, 0, &info, 0)) <= 0)
 			throw SocketException("SCTPSocket::receive failed (receive)");
@@ -226,9 +226,7 @@ int SCTPSocket::timedReceive( void* data, int maxLen, unsigned& stream, receiveF
 	if( poll.revents & POLLRDHUP)
 	{
 		m_peerDisconnected = true;
-		return 0;
 	}
-
 	return 0;
 
 }
