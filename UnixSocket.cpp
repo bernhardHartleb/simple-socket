@@ -31,9 +31,8 @@ void UnixSocket::disconnect()
 
 	// Try to disconnect
 	if( ::connect( m_socket, (sockaddr*) &addr, sizeof(addr)) < 0) {
-		if( errno != EAFNOSUPPORT) {
+		if( errno != EAFNOSUPPORT)
 			throw SocketException("Disconnect failed (connect)");
-		}
 	}
 }
 

@@ -142,7 +142,7 @@ int SCTPSocket::send( const void* data, int length, unsigned stream, unsigned tt
 
 int SCTPSocket::sendUnordered(  const void* data, int length, unsigned stream, unsigned ttl /* = 0 */, unsigned context /* = 0 */,
                                 unsigned ppid /* = 0 */, abortFlag abort /* = KEEPALIVE */,
-				switchAddressFlag switchAddr /* = KEEP_PRIMARY */)
+                                switchAddressFlag switchAddr /* = KEEP_PRIMARY */)
 {
 	int ret = sctp_sendmsg( m_socket, data, length, NULL, 0, ppid, abort + switchAddr + SCTP_UNORDERED, stream, ttl, context);
 	if( ret < 0)
@@ -185,7 +185,8 @@ int SCTPSocket::timedReceive( void* data, int maxLen, unsigned& stream, unsigned
 	if( ret < 0)
 		throw SocketException("SCTPSocket::receive failed (poll)");
 
-	if( poll.revents & POLLIN || poll.revents & POLLRDHUP) {
+	if( poll.revents & POLLIN || poll.revents & POLLRDHUP)
+	{
 		struct sctp_sndrcvinfo info;
 		if( (ret = sctp_recvmsg( m_socket, data, maxLen, 0, 0, &info, 0)) <= 0)
 			throw SocketException("SCTPSocket::receive failed (receive)");
@@ -196,9 +197,7 @@ int SCTPSocket::timedReceive( void* data, int maxLen, unsigned& stream, unsigned
 	if( poll.revents & POLLRDHUP)
 	{
 		m_peerDisconnected = true;
-		return 0;
 	}
-
 	return 0;
 }
 
@@ -213,7 +212,7 @@ int SCTPSocket::timedReceive( void* data, int maxLen, unsigned& stream, receiveF
 	if( ret == 0) return 0;
 	if( ret < 0) throw SocketException("SCTPSocket::receive failed (poll)");
 
-	if( poll.revents & POLLIN || poll.revents & POLLRDHUP)
+	if( poll.revents & POLLIN || poll.revents & POLLPRI)
 	{
 		struct sctp_sndrcvinfo info;
 		if( (ret = sctp_recvmsg( m_socket, data, maxLen, 0, 0, &info, 0)) <= 0)
@@ -228,7 +227,6 @@ int SCTPSocket::timedReceive( void* data, int maxLen, unsigned& stream, receiveF
 		m_peerDisconnected = true;
 	}
 	return 0;
-
 }
 
 void SCTPSocket::listen( int backlog /* = 0 */)
