@@ -1,39 +1,55 @@
 cmake_minimum_required(VERSION 2.6)
 
-# Make building of SCTP optional
-set(BUILD_SCTP true CACHE BOOL "Add support for the SCTP protocol.")
+# Building of SCTP is optional
+option(BUILD_SCTP "Add support for the SCTP protocol." false)
+
+# Building of tests is optional
+option(BUILD_TESTS "Switch to enable/disable building of tests." true)
 
 set(sources
 	SimpleSocket.cpp
 	SocketUtils.cpp
 	InternetSocket.cpp
 	TCPSocket.cpp
-	UDPSocket.cpp
-	UnixSocket.cpp
-	UnixDatagramSocket.cpp)
+	UDPSocket.cpp)
+
+set(tests
+	UDPSocket_TEST)
+
+if(UNIX)
+	set(sources
+		${sources}
+		UnixSocket.cpp
+		UnixDatagramSocket.cpp)
+
+	set(tests
+		${tests})
+endif(UNIX)
 
 if(BUILD_SCTP)
 	set(sources
 		${sources}
 		SCTPSocket.cpp)
+
+	set(tests
+		${tests})
 endif(BUILD_SCTP)
 
 source_group(network_src FILES ${sources})
-
 add_library(network STATIC ${sources})
 
-if(FALSE)
-	message("Building network tests:")
+if(BUILD_SCTP)
+	target_link_libraries(network sctp)
+endif(BUILD_SCTP)
 
-	set(TESTS
-		UDPSocket_TEST)
+if(BUILD_TESTS)
+    enable_testing()
+	message("Building tests:")
 
-	foreach(TEST ${TESTS})
-
-		add_executable(${TEST} ${TEST}.cpp)
-		target_link_libraries(${TEST} network)
-		message("* ${TEST}")
-		add_test(${TEST} ${CMAKE_CURRENT_BINARY_DIR}/${TEST})
-
+	foreach(TB ${tests})
+		add_executable(${TB} ${TB}.cpp)
+		target_link_libraries(${TB} network)
+		message("* ${TB}")
+		add_test(${TB} ${CMAKE_CURRENT_BINARY_DIR}/${TB})
 	endforeach()
-endif(FALSE)
+endif(BUILD_TESTS)
