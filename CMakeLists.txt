@@ -21,18 +21,12 @@ if(UNIX)
 		${sources}
 		UnixSocket.cpp
 		UnixDatagramSocket.cpp)
-
-	set(tests
-		${tests})
 endif(UNIX)
 
 if(BUILD_SCTP)
 	set(sources
 		${sources}
 		SCTPSocket.cpp)
-
-	set(tests
-		${tests})
 endif(BUILD_SCTP)
 
 source_group(network_src FILES ${sources})
@@ -43,7 +37,7 @@ if(BUILD_SCTP)
 endif(BUILD_SCTP)
 
 if(BUILD_TESTS)
-    enable_testing()
+	enable_testing()
 	message("Building tests:")
 
 	foreach(TB ${tests})
