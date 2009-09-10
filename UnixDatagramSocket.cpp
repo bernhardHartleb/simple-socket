@@ -18,6 +18,9 @@ UnixDatagramSocket::UnixDatagramSocket( const std::string& localPath)
 
 void UnixDatagramSocket::sendTo( const void* buffer, size_t len, const std::string& foreignPath)
 {
+	if( !isValidPath(foreignPath) )
+		throw SocketException("foreignPath is too big", false);
+
 	sockaddr_un destAddr;
 	destAddr.sun_family = AF_LOCAL;
 	std::strcpy( destAddr.sun_path, foreignPath.c_str());

@@ -11,11 +11,14 @@ UnixSocket::UnixSocket( int type, int protocol)
 : SimpleSocket( UNIX, type, protocol)
 {}
 
-void UnixSocket::connect( const std::string& path)
+void UnixSocket::connect( const std::string& foreignPath)
 {
+	if( !isValidPath(foreignPath) )
+		throw SocketException("foreignPath is too big", false);
+
 	sockaddr_un addr;
 	addr.sun_family = AF_LOCAL;
-	std::strcpy( addr.sun_path, path.c_str());
+	std::strcpy( addr.sun_path, foreignPath.c_str());
 
 	// Try to connect to the given port
 	if( ::connect( m_socket, (sockaddr*) &addr, sizeof(addr)) < 0)
@@ -37,6 +40,9 @@ void UnixSocket::disconnect()
 
 void UnixSocket::bind( const std::string& localPath)
 {
+	if( !isValidPath(localPath) )
+		throw SocketException("localPath is too big", false);
+
 	sockaddr_un addr;
 	addr.sun_family = AF_LOCAL;
 	std::strcpy( addr.sun_path, localPath.c_str());
@@ -65,4 +71,10 @@ std::string UnixSocket::getForeignPath()
 	if( getpeername( m_socket, (sockaddr*) &addr, &addr_len) < 0)
 		throw SocketException("Fetch of foreign path failed (getpeername)");
 	return addr.sun_path;
+}
+
+bool UnixSocket::isValidPath( const std::string& path)
+{
+	if( path.size() >= 104) return false;
+	else return true;
 }

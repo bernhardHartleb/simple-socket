@@ -42,6 +42,14 @@ namespace NET
 			\exception SocketException thrown if fetch fails
 		*/
 		std::string getForeignPath();
+
+		/*!
+			Check the given path for size and other constraints
+			\param path the path to check
+			\return true if path is valid, false otherwise
+		*/
+		static bool isValidPath( const std::string& path);
+
 	protected:
 		UnixSocket( int type, int protocol);
 	};
