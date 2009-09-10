@@ -79,7 +79,7 @@ void SimpleSocket::shutdown( ShutdownDirection type)
 		throw SocketException("Shutdown failed (shutdown)");
 }
 
-bool SimpleSocket::peerDisconnected()
+bool SimpleSocket::peerDisconnected() const
 {
 	return m_peerDisconnected;
 }

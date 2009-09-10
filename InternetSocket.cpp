@@ -59,7 +59,7 @@ void InternetSocket::bind( const std::string& localAddress, unsigned short local
 		throw SocketException("Set of local address and port failed (bind)");
 }
 
-std::string InternetSocket::getLocalAddress()
+std::string InternetSocket::getLocalAddress() const
 {
 	sockaddr_in addr;
 	socklen_t addr_len = sizeof(addr);
@@ -70,7 +70,7 @@ std::string InternetSocket::getLocalAddress()
 	return inet_ntoa( addr.sin_addr);
 }
 
-unsigned short InternetSocket::getLocalPort()
+unsigned short InternetSocket::getLocalPort() const
 {
 	sockaddr_in addr;
 	socklen_t addr_len = sizeof(addr);
@@ -81,7 +81,7 @@ unsigned short InternetSocket::getLocalPort()
 	return ntohs( addr.sin_port);
 }
 
-std::string InternetSocket::getForeignAddress()
+std::string InternetSocket::getForeignAddress() const
 {
 	sockaddr_in addr;
 	socklen_t addr_len = sizeof(addr);
@@ -92,7 +92,7 @@ std::string InternetSocket::getForeignAddress()
 	return inet_ntoa( addr.sin_addr);
 }
 
-unsigned short InternetSocket::getForeignPort()
+unsigned short InternetSocket::getForeignPort() const
 {
 	sockaddr_in addr;
 	socklen_t addr_len = sizeof(addr);

@@ -70,7 +70,7 @@ int SCTPSocket::bind( const std::vector<std::string>& localAddresses, unsigned s
 	return ret;
 }
 
-int SCTPSocket::state()
+int SCTPSocket::state() const
 {
 	struct sctp_status status;
 	socklen_t size = sizeof(status);
@@ -79,7 +79,7 @@ int SCTPSocket::state()
 	return status.sstat_state;
 }
 
-int SCTPSocket::notAckedData()
+int SCTPSocket::notAckedData() const
 {
 	struct sctp_status status;
 	socklen_t size = sizeof(status);
@@ -88,7 +88,7 @@ int SCTPSocket::notAckedData()
 	return status.sstat_unackdata;
 }
 
-int SCTPSocket::pendingData()
+int SCTPSocket::pendingData() const
 {
 	struct sctp_status status;
 	socklen_t size = sizeof(status);
@@ -97,7 +97,7 @@ int SCTPSocket::pendingData()
 	return status.sstat_penddata;
 }
 
-unsigned SCTPSocket::inStreams()
+unsigned SCTPSocket::inStreams() const
 {
 	struct sctp_status status;
 	socklen_t size = sizeof(status);
@@ -106,7 +106,7 @@ unsigned SCTPSocket::inStreams()
 	return status.sstat_instrms;
 }
 
-unsigned SCTPSocket::outStreams()
+unsigned SCTPSocket::outStreams() const
 {
 	struct sctp_status status;
 	socklen_t size = sizeof(status);
@@ -115,7 +115,7 @@ unsigned SCTPSocket::outStreams()
 	return status.sstat_outstrms;
 }
 
-unsigned SCTPSocket::fragmentationPoint()
+unsigned SCTPSocket::fragmentationPoint() const
 {
 	struct sctp_status status;
 	socklen_t size = sizeof(status);
@@ -124,7 +124,7 @@ unsigned SCTPSocket::fragmentationPoint()
 	return status.sstat_fragmentation_point;
 }
 
-std::string SCTPSocket::primaryAddress()
+std::string SCTPSocket::primaryAddress() const
 {
 
 }
@@ -140,9 +140,9 @@ int SCTPSocket::send( const void* data, int length, unsigned stream, unsigned tt
 	return ret;
 }
 
-int SCTPSocket::sendUnordered(  const void* data, int length, unsigned stream, unsigned ttl /* = 0 */, unsigned context /* = 0 */,
-                                unsigned ppid /* = 0 */, abortFlag abort /* = KEEPALIVE */,
-                                switchAddressFlag switchAddr /* = KEEP_PRIMARY */)
+int SCTPSocket::sendUnordered( const void* data, int length, unsigned stream, unsigned ttl /* = 0 */, unsigned context /* = 0 */,
+                               unsigned ppid /* = 0 */, abortFlag abort /* = KEEPALIVE */,
+                               switchAddressFlag switchAddr /* = KEEP_PRIMARY */)
 {
 	int ret = sctp_sendmsg( m_socket, data, length, NULL, 0, ppid, abort + switchAddr + SCTP_UNORDERED, stream, ttl, context);
 	if( ret < 0)
@@ -234,7 +234,7 @@ void SCTPSocket::listen( int backlog /* = 0 */)
 	::listen( m_socket, backlog);
 }
 
-SCTPSocket::Handle SCTPSocket::accept()
+SCTPSocket::Handle SCTPSocket::accept() const
 {
 	int ret;
 	if( (ret = ::accept( m_socket, 0, 0)) <= 0)
@@ -242,7 +242,8 @@ SCTPSocket::Handle SCTPSocket::accept()
 	return Handle(ret);
 }
 
-SCTPSocket::Handle SCTPSocket::timedAccept( unsigned timeout) {
+SCTPSocket::Handle SCTPSocket::timedAccept( unsigned timeout) const
+{
 	struct pollfd poll;
 	poll.fd = m_socket;
 	poll.events = POLLIN | POLLPRI | POLLRDHUP;
@@ -256,11 +257,6 @@ SCTPSocket::Handle SCTPSocket::timedAccept( unsigned timeout) {
 	if( (ret = ::accept( m_socket, 0, 0)) <= 0)
 		throw SocketException("SCTPSocket::timedAccept failed (accept)");
 	return Handle(ret);
-}
-
-SCTPSocket::Handle SCTPSocket::emptyHandle()
-{
-	return Handle(0);
 }
 
 void SCTPSocket::setInitValues( unsigned numOutStreams, unsigned maxInStreams, unsigned maxAttempts, unsigned maxInitTimeout)

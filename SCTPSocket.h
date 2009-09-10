@@ -54,13 +54,13 @@ namespace NET
 		using InternetSocket::bind;
 		int bind( const std::vector<std::string>& localAddresses, unsigned short port = 0);
 
-		int state();
-		int notAckedData();
-		int pendingData();
-		unsigned inStreams();
-		unsigned outStreams();
-		unsigned fragmentationPoint();
-		std::string primaryAddress();
+		int state() const;
+		int notAckedData() const;
+		int pendingData() const;
+		unsigned inStreams() const;
+		unsigned outStreams() const;
+		unsigned fragmentationPoint() const;
+		std::string primaryAddress() const;
 
 		using SimpleSocket::send;
 		int send( const void* data, int length, unsigned stream, unsigned ttl = 0, unsigned context = 0, unsigned ppid = 0,
@@ -78,10 +78,9 @@ namespace NET
 		int timedReceive( void* data, int maxLen, unsigned& stream, receiveFlag& flag, unsigned timeout);
 
 		void listen( int backlog = 10);
-		Handle accept();
-		Handle timedAccept( unsigned timeout);
+		Handle accept() const;
+		Handle timedAccept( unsigned timeout) const;
 
-		static Handle emptyHandle();
 	protected:
 		void setInitValues( unsigned ostr, unsigned istr, unsigned att, unsigned time);
 	};

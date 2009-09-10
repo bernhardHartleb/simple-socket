@@ -147,7 +147,7 @@ namespace NET
 		 *
 		 * \return bool true if the peer disconnected
 		 */
-		bool peerDisconnected();
+		bool peerDisconnected() const;
 
 	protected:
 		//! enables return of an accepted socket

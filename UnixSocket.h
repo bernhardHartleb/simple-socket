@@ -34,14 +34,14 @@ namespace NET
 			\return local path of socket
 			\exception SocketException thrown if fetch fails
 		*/
-		std::string getLocalPath();
+		std::string getLocalPath() const;
 
 		/*!
 			Get the foreign path
 			\return foreign path
 			\exception SocketException thrown if fetch fails
 		*/
-		std::string getForeignPath();
+		std::string getForeignPath() const;
 
 		/*!
 			Check the given path for size and other constraints

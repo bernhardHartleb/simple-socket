@@ -63,32 +63,32 @@ namespace NET
 			\return local address of socket
 			\exception SocketException thrown if fetch fails
 		*/
-		std::string getLocalAddress();
+		std::string getLocalAddress() const;
 
 		/*!
 			Get the local port (after binding the socket)
 			\return local port of socket
 			\exception SocketException thrown if fetch fails
 		*/
-		unsigned short getLocalPort();
+		unsigned short getLocalPort() const;
 
 		/*!
-			Get the foreign address.  Call connect() before using this function.
+			Get the foreign address. Call connect() before using this function.
 			\return foreign address
 			\exception SocketException thrown if unable to fetch foreign address
 		*/
-		std::string getForeignAddress();
+		std::string getForeignAddress() const;
 
 		/*!
-			Get the foreign port.  Call connect() before using this function.
+			Get the foreign port. Call connect() before using this function.
 			\return foreign port
 			\exception SocketException thrown if unable to fetch foreign port
 		*/
-		unsigned short getForeignPort();
+		unsigned short getForeignPort() const;
+
 	protected:
 		//! create socket from a SocketHandle returned by an accept() call
 		InternetSocket( int sockfd);
-
 		InternetSocket( int type, int protocol);
 	};
 

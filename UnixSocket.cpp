@@ -52,7 +52,7 @@ void UnixSocket::bind( const std::string& localPath)
 		throw SocketException("Set of local path failed (bind)");
 }
 
-std::string UnixSocket::getLocalPath()
+std::string UnixSocket::getLocalPath() const
 {
 	sockaddr_un addr;
 	socklen_t addr_len = sizeof(addr);
@@ -63,7 +63,7 @@ std::string UnixSocket::getLocalPath()
 	return addr.sun_path;
 }
 
-std::string UnixSocket::getForeignPath()
+std::string UnixSocket::getForeignPath() const
 {
 	sockaddr_un addr;
 	socklen_t addr_len = sizeof(addr);
