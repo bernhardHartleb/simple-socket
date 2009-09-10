@@ -13,9 +13,6 @@ set(sources
 	TCPSocket.cpp
 	UDPSocket.cpp)
 
-set(tests
-	UDPSocket_TEST)
-
 if(UNIX)
 	set(sources
 		${sources}
@@ -38,12 +35,5 @@ endif(BUILD_SCTP)
 
 if(BUILD_TESTS)
 	enable_testing()
-	message("Building tests:")
-
-	foreach(TB ${tests})
-		add_executable(${TB} ${TB}.cpp)
-		target_link_libraries(${TB} network)
-		message("* ${TB}")
-		add_test(${TB} ${CMAKE_CURRENT_BINARY_DIR}/${TB})
-	endforeach()
+	add_subdirectory( tests )
 endif(BUILD_TESTS)
