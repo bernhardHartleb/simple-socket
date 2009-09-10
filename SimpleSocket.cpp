@@ -1,11 +1,8 @@
 #include "SimpleSocket.h"
 
-#include <sys/types.h>		// for data types
-#include <sys/socket.h>		// for socket(), connect(), send(), and recv()
 #include <poll.h>
-#include <unistd.h>		// for close()
-#include <cstring>		// for strerror()
-#include <cerrno>		// for errno
+#include <cstring>
+#include <cerrno>
 
 using namespace NET;
 

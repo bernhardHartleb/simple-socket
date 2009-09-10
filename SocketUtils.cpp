@@ -1,17 +1,16 @@
 #include "SocketUtils.h"
 #include "SimpleSocket.h"
 
+#include <sys/socket.h>
 #include <sys/ioctl.h>
 #include <arpa/inet.h>
 #include <net/if.h>
 #include <net/if_arp.h>
-#include <netdb.h>		// for gethostbyname()
-#include <cstring>		// for memset()
-#include <cstdlib>		// for ntohs() and atoi()
+#include <netdb.h>
+#include <cstring>
+#include <cstdlib>
 
 #include <sstream>
-#include <string>
-#include <vector>
 #include <iomanip>
 
 using namespace NET;

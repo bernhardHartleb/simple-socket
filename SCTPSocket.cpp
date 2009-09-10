@@ -2,8 +2,8 @@
 #include "SocketUtils.h"
 
 #include <netinet/in.h>
-#include <cstring>
 #include <poll.h>
+#include <cstring>
 
 using namespace NET;
 

@@ -1,12 +1,11 @@
 #include "InternetSocket.h"
 #include "SocketUtils.h"
 
-#include <sys/types.h>		// for data types
-#include <sys/socket.h>		// for socket(), connect(), send(), and recv()
-#include <arpa/inet.h>		// for inet_addr()
-#include <netinet/in.h>		// for sockaddr_in
-#include <cstring>		// for memset()
-#include <cerrno>		// for errno
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <netinet/in.h>
+#include <cstring>
+#include <cerrno>
 
 using namespace NET;
 

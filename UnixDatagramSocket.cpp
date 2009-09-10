@@ -1,10 +1,8 @@
 #include "UnixDatagramSocket.h"
 
-#include <sys/types.h>		// for data types
-#include <sys/socket.h>		// for socket(), connect(), send(), and recv()
-#include <arpa/inet.h>		// for inet_addr()
-#include <sys/un.h>		// for sockaddr_un
-#include <cstring>		// for strcpy()
+#include <sys/socket.h>
+#include <sys/un.h>
+#include <cstring>
 
 using namespace NET;
 

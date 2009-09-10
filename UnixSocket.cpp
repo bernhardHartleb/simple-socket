@@ -1,10 +1,9 @@
 #include "UnixSocket.h"
 
-#include <sys/types.h>		// for data types
-#include <sys/socket.h>		// for socket(), connect(), send(), and recv()
-#include <sys/un.h>		// for sockaddr_un
-#include <cstring>		// for memset()
-#include <cerrno>		// for errno
+#include <sys/socket.h>
+#include <sys/un.h>
+#include <cstring>
+#include <cerrno>
 
 using namespace NET;
 

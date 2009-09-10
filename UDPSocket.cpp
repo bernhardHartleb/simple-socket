@@ -1,11 +1,9 @@
 #include "UDPSocket.h"
 #include "SocketUtils.h"
 
-#include <sys/types.h>		// for data types
-#include <sys/socket.h>		// for socket(), connect(), send(), and recv()
-#include <poll.h>			// for poll()
-#include <arpa/inet.h>		// for inet_addr()
-#include <netinet/in.h>		// for sockaddr_in
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <poll.h>
 
 using namespace NET;
 

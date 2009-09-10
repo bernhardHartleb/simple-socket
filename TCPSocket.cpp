@@ -1,8 +1,8 @@
 #include "TCPSocket.h"
 
+#include <sys/socket.h>
+#include <netinet/in.h>
 #include <poll.h>
-#include <sys/types.h>		// for data types
-#include <netinet/in.h>		// for sockaddr_in
 
 using namespace NET;
 
