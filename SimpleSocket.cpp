@@ -41,9 +41,15 @@ int SimpleSocket::send( const void* buffer, size_t len)
 	int sent = ::send( m_socket, (const raw_type*) buffer, len, 0);
 	if( sent < 0)
 	{
-		if( errno != ECONNREFUSED)
+		switch(errno)
+		{
+		case ECONNRESET:
+		case ECONNREFUSED:
+			m_peerDisconnected = true;
+			break;
+		default:
 			throw SocketException("Send failed (send)");
-		m_peerDisconnected = true;
+		}
 	}
 	return sent;
 }
