@@ -18,16 +18,18 @@ SCTPSocket::SCTPSocket( unsigned numOutStreams /* = 10 */,
 SCTPSocket::SCTPSocket( Handle handle)
 : InternetSocket( handle.m_sockfd)
 {
-	if( handle.m_sockfd == 0)
-		throw SocketException("Tried to initialize SCTPSocket with invalid Handle");
+	if(!handle) throw SocketException("Tried to initialize SCTPSocket with invalid Handle", false);
 }
 
 int SCTPSocket::bind( const std::vector<std::string>& localAddresses, unsigned short localPort /* = 0 */)
 {
 	sockaddr_in *dest = new sockaddr_in[localAddresses.size()];
+	std::vector<std::string>::const_iterator it;
+	std::vector<std::string>::const_iterator end;
 	int i = 0;
-	for( std::vector<std::string>::const_iterator it = localAddresses.begin(); it != localAddresses.end(); ++it) {
-		fillAddr( (*it), localPort, dest[i++]);
+	for( it = localAddresses.begin(), end = localAddresses.end(); it != end; ++it)
+	{
+		fillAddr( *it, localPort, dest[i++]);
 	}
 	int ret = sctp_bindx( m_socket, reinterpret_cast<sockaddr*>(dest), localAddresses.size(), SCTP_BINDX_ADD_ADDR);
 	delete[] dest;
@@ -39,10 +41,12 @@ int SCTPSocket::bind( const std::vector<std::string>& localAddresses, unsigned s
 int SCTPSocket::connect( const std::vector<std::string>& foreignAddresses, unsigned short foreignPort /* = 0 */)
 {
 	sockaddr_in *dest = new sockaddr_in[foreignAddresses.size()];
+	std::vector<std::string>::const_iterator it;
+	std::vector<std::string>::const_iterator end;
 	int i = 0;
-	for( std::vector<std::string>::const_iterator it = foreignAddresses.begin(); it != foreignAddresses.end(); ++it)
+	for( it = foreignAddresses.begin(), end = foreignAddresses.end(); it != end; ++it)
 	{
-		fillAddr( (*it), foreignPort, dest[i++]);
+		fillAddr( *it, foreignPort, dest[i++]);
 	}
 	int ret = sctp_connectx( m_socket, reinterpret_cast<sockaddr*>(dest), foreignAddresses.size());
 	delete[] dest;
@@ -54,7 +58,7 @@ int SCTPSocket::state() const
 {
 	struct sctp_status status;
 	socklen_t size = sizeof(status);
-	if(getsockopt( m_socket, IPPROTO_SCTP, SCTP_STATUS, &status, &size) < 0)
+	if( getsockopt( m_socket, IPPROTO_SCTP, SCTP_STATUS, &status, &size) < 0)
 		throw SocketException("SCTPSocket::state failed");
 	return status.sstat_state;
 }
@@ -63,7 +67,7 @@ int SCTPSocket::notAckedData() const
 {
 	struct sctp_status status;
 	socklen_t size = sizeof(status);
-	if(getsockopt( m_socket, IPPROTO_SCTP, SCTP_STATUS, &status, &size) < 0)
+	if( getsockopt( m_socket, IPPROTO_SCTP, SCTP_STATUS, &status, &size) < 0)
 		throw SocketException("SCTPSocket::notAckedData failed");
 	return status.sstat_unackdata;
 }
@@ -72,7 +76,7 @@ int SCTPSocket::pendingData() const
 {
 	struct sctp_status status;
 	socklen_t size = sizeof(status);
-	if(getsockopt( m_socket, IPPROTO_SCTP, SCTP_STATUS, &status, &size) < 0)
+	if( getsockopt( m_socket, IPPROTO_SCTP, SCTP_STATUS, &status, &size) < 0)
 		throw SocketException("SCTPSocket::pendingData failed");
 	return status.sstat_penddata;
 }
@@ -81,7 +85,7 @@ unsigned SCTPSocket::inStreams() const
 {
 	struct sctp_status status;
 	socklen_t size = sizeof(status);
-	if(getsockopt( m_socket, IPPROTO_SCTP, SCTP_STATUS, &status, &size) < 0)
+	if( getsockopt( m_socket, IPPROTO_SCTP, SCTP_STATUS, &status, &size) < 0)
 		throw SocketException("SCTPSocket::inStreams failed");
 	return status.sstat_instrms;
 }
@@ -90,7 +94,7 @@ unsigned SCTPSocket::outStreams() const
 {
 	struct sctp_status status;
 	socklen_t size = sizeof(status);
-	if(getsockopt( m_socket, IPPROTO_SCTP, SCTP_STATUS, &status, &size) < 0)
+	if( getsockopt( m_socket, IPPROTO_SCTP, SCTP_STATUS, &status, &size) < 0)
 		throw SocketException("SCTPSocket::outStreams failed");
 	return status.sstat_outstrms;
 }
@@ -99,7 +103,7 @@ unsigned SCTPSocket::fragmentationPoint() const
 {
 	struct sctp_status status;
 	socklen_t size = sizeof(status);
-	if(getsockopt( m_socket, IPPROTO_SCTP, SCTP_STATUS, &status, &size) < 0)
+	if( getsockopt( m_socket, IPPROTO_SCTP, SCTP_STATUS, &status, &size) < 0)
 		throw SocketException("SCTPSocket::fragmentationPoint failed");
 	return status.sstat_fragmentation_point;
 }
@@ -211,7 +215,9 @@ int SCTPSocket::timedReceive( void* data, int maxLen, unsigned& stream, receiveF
 
 void SCTPSocket::listen( int backlog /* = 0 */)
 {
-	::listen( m_socket, backlog);
+	int ret = ::listen( m_socket, backlog);
+	if( ret < 0)
+		throw SocketException("listen failed, most likely another socket is already listening on the same port");
 }
 
 SCTPSocket::Handle SCTPSocket::accept() const
@@ -246,5 +252,5 @@ void SCTPSocket::setInitValues( unsigned numOutStreams, unsigned maxInStreams, u
 	init.sinit_max_instreams = maxInStreams;
 	init.sinit_max_attempts = maxAttempts;
 	init.sinit_max_init_timeo = maxInitTimeout;
-	::setsockopt( m_socket, IPPROTO_SCTP, SCTP_INITMSG, &init, sizeof(init));
+	setsockopt( m_socket, IPPROTO_SCTP, SCTP_INITMSG, &init, sizeof(init));
 }
