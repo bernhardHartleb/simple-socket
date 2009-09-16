@@ -35,7 +35,7 @@ int TCPSocket::sendAll( const void* buffer, size_t len)
 
 void TCPSocket::listen( int backlog /* = 0 */)
 {
-	int ret = ::listen(m_socket, backlog);
+	int ret = ::listen( m_socket, backlog);
 	if( ret < 0)
 		throw SocketException("listen failed, most likely another socket is already listening on the same port");
 }

@@ -15,6 +15,7 @@ namespace NET
 	class SCTPSocket : public InternetSocket
 	{
 	public:
+		//! handle for a new socket returned by accept
 		class Handle
 		{
 		public:
@@ -25,18 +26,21 @@ namespace NET
 			int m_sockfd;
 		};
 
-		enum abortFlag {
+		enum abortFlag
+		{
 			ABORT = SCTP_ABORT,
 			SHUTDOWN = SCTP_EOF,
 			KEEPALIVE = 0
 		};
 
-		enum switchAddressFlag {
+		enum switchAddressFlag
+		{
 			KEEP_PRIMARY = 0,
 			OVERRIDE_PRIMARY = SCTP_ADDR_OVER
 		};
 
-		enum receiveFlag {
+		enum receiveFlag
+		{
 			TODO
 		};
 
@@ -74,7 +78,7 @@ namespace NET
 		int timedReceive( void* data, int maxLen, unsigned& stream, unsigned timeout);
 		int timedReceive( void* data, int maxLen, unsigned& stream, receiveFlag& flag, unsigned timeout);
 
-		void listen( int backlog = 10);
+		void listen( int backlog = 0);
 		Handle accept() const;
 		Handle timedAccept( unsigned timeout) const;
 

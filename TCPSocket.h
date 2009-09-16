@@ -9,7 +9,7 @@ namespace NET
 	class TCPSocket : public InternetSocket
 	{
 	public:
-		//! handle for new socket returned on accept call
+		//! handle for a new socket returned by accept
 		class Handle
 		{
 		public:
