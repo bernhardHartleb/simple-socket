@@ -3,7 +3,6 @@
 
 #include <netinet/in.h>
 #include <poll.h>
-#include <cstring>
 
 using namespace NET;
 
@@ -16,27 +15,29 @@ SCTPSocket::SCTPSocket( unsigned numOutStreams /* = 10 */,
 	setInitValues( numOutStreams, maxInStreams, maxAttempts, maxInitTimeout);
 }
 
-SCTPSocket::SCTPSocket( const std::string& foreignAddress,
-                        unsigned short foreignPort,
-                        unsigned numOutStreams /* = 10 */,
-                        unsigned maxInStreams /* = 65535 */,
-                        unsigned maxAttempts /* = 4 */,
-                        unsigned maxInitTimeout /* = 0 */)
-: InternetSocket( STREAM, IPPROTO_SCTP)
+SCTPSocket::SCTPSocket( Handle handle)
+: InternetSocket( handle.m_sockfd)
 {
-	setInitValues( numOutStreams, maxInStreams, maxAttempts, maxInitTimeout);
-	connect( foreignAddress, foreignPort);
+	if( handle.m_sockfd == 0)
+		throw SocketException("Tried to initialize SCTPSocket with invalid Handle");
 }
 
-SCTPSocket::SCTPSocket( const std::vector<std::string>& foreignAddresses,
-                        unsigned short foreignPort,
-                        unsigned numOutStreams /* = 10 */,
-                        unsigned maxInStreams /* = 65535 */,
-                        unsigned maxAttempts /* = 4 */,
-                        unsigned maxInitTimeout /* = 0 */)
-: InternetSocket( STREAM, IPPROTO_SCTP)
+int SCTPSocket::bind( const std::vector<std::string>& localAddresses, unsigned short localPort /* = 0 */)
 {
-	setInitValues( numOutStreams, maxInStreams, maxAttempts, maxInitTimeout);
+	sockaddr_in *dest = new sockaddr_in[localAddresses.size()];
+	int i = 0;
+	for( std::vector<std::string>::const_iterator it = localAddresses.begin(); it != localAddresses.end(); ++it) {
+		fillAddr( (*it), localPort, dest[i++]);
+	}
+	int ret = sctp_bindx( m_socket, reinterpret_cast<sockaddr*>(dest), localAddresses.size(), SCTP_BINDX_ADD_ADDR);
+	delete[] dest;
+	if(ret < 0)
+		throw SocketException("SCTPSocket::bind bindx failed");
+	return ret;
+}
+
+int SCTPSocket::connect( const std::vector<std::string>& foreignAddresses, unsigned short foreignPort /* = 0 */)
+{
 	sockaddr_in *dest = new sockaddr_in[foreignAddresses.size()];
 	int i = 0;
 	for( std::vector<std::string>::const_iterator it = foreignAddresses.begin(); it != foreignAddresses.end(); ++it)
@@ -47,27 +48,6 @@ SCTPSocket::SCTPSocket( const std::vector<std::string>& foreignAddresses,
 	delete[] dest;
 	if(ret < 0)
 		throw SocketException("SCTPSocket::SCTPSocket connect failed");
-}
-
-SCTPSocket::SCTPSocket( Handle handle)
-: InternetSocket( handle.m_sockfd)
-{
-	if( handle.m_sockfd == 0)
-		throw SocketException("Tried to initialize SCTPSocket with invalid Handle");
-}
-
-int SCTPSocket::bind( const std::vector<std::string>& localAddresses, unsigned short port /* = 0 */)
-{
-	sockaddr_in *dest = new sockaddr_in[localAddresses.size()];
-	int i = 0;
-	for( std::vector<std::string>::const_iterator it = localAddresses.begin(); it != localAddresses.end(); ++it) {
-		fillAddr( (*it), port, dest[i++]);
-	}
-	int ret = sctp_bindx( m_socket, reinterpret_cast<sockaddr*>(dest), localAddresses.size(), SCTP_BINDX_ADD_ADDR);
-	delete[] dest;
-	if(ret < 0)
-		throw SocketException("SCTPSocket::bind bindx failed");
-	return ret;
 }
 
 int SCTPSocket::state() const
@@ -262,7 +242,6 @@ SCTPSocket::Handle SCTPSocket::timedAccept( unsigned timeout) const
 void SCTPSocket::setInitValues( unsigned numOutStreams, unsigned maxInStreams, unsigned maxAttempts, unsigned maxInitTimeout)
 {
 	struct sctp_initmsg init;
-	std::memset( &init, 0, sizeof(init));
 	init.sinit_num_ostreams = numOutStreams;
 	init.sinit_max_instreams = maxInStreams;
 	init.sinit_max_attempts = maxAttempts;

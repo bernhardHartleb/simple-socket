@@ -41,18 +41,15 @@ namespace NET
 		};
 
 		SCTPSocket( unsigned numOutStreams = 10, unsigned maxInStreams = 65535, unsigned maxAttempts = 4,
-			    unsigned maxInitTimeout = 0 /*???*/);
-
-		SCTPSocket( const std::string& foreignAddress, unsigned short foreignPort, unsigned numOutStreams = 10,
-			    unsigned maxInStreams = 65535, unsigned maxAttempts = 4, unsigned maxInitTimeout = 0);
-
-		SCTPSocket( const std::vector<std::string>& foreignAddresses, unsigned short foreignPort, unsigned numOutStreams = 10,
-			    unsigned maxInStreams = 65535, unsigned maxAttempts = 4, unsigned maxInitTimeout = 0);
+		            unsigned maxInitTimeout = 0 /*???*/);
 
 		SCTPSocket( Handle handle);
 
 		using InternetSocket::bind;
-		int bind( const std::vector<std::string>& localAddresses, unsigned short port = 0);
+		int bind( const std::vector<std::string>& localAddresses, unsigned short localPort = 0);
+
+		using InternetSocket::connect;
+		int connect( const std::vector<std::string>& foreignAddresses, unsigned short foreignPort = 0);
 
 		int state() const;
 		int notAckedData() const;
@@ -64,10 +61,10 @@ namespace NET
 
 		using SimpleSocket::send;
 		int send( const void* data, int length, unsigned stream, unsigned ttl = 0, unsigned context = 0, unsigned ppid = 0,
-			  abortFlag abort = KEEPALIVE, switchAddressFlag switchAddr = KEEP_PRIMARY);
+		          abortFlag abort = KEEPALIVE, switchAddressFlag switchAddr = KEEP_PRIMARY);
 
 		int sendUnordered( const void* data, int length, unsigned stream, unsigned ttl = 0, unsigned context = 0,
-				   unsigned ppid = 0, abortFlag abort = KEEPALIVE, switchAddressFlag switchAddr = KEEP_PRIMARY);
+		                   unsigned ppid = 0, abortFlag abort = KEEPALIVE, switchAddressFlag switchAddr = KEEP_PRIMARY);
 
 		using SimpleSocket::receive;
 		int receive( void* data, int maxLen, unsigned& stream);
