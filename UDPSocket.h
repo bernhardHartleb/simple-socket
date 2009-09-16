@@ -9,22 +9,11 @@ namespace NET
 	class UDPSocket : public InternetSocket
 	{
 	public:
-		// @{
 		/*!
-			Construct a UDP socket
-			Eventually bind the socket to the specified port and address.
-			Contructing the socket with port and/or address parameters will
-			have the same effect as constructing it without parameters, and
-			calling bind on that socket at a later time.
-
-			\param localAddress local address
-			\param localPort local port
-			\exception SocketException thrown if unable to create UDP socket
+			Construct a UDP socket and enable broadcast capabilities
+			\exception SocketException thrown if unable to create the socket
 		*/
 		UDPSocket();
-		UDPSocket( unsigned short localPort);
-		UDPSocket( const std::string& localAddress, unsigned short localPort);
-		// @}
 
 		/*!
 			Send the given buffer as a UDP datagram to the

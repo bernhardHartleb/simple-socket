@@ -42,20 +42,6 @@ UDPSocket::UDPSocket()
 	setBroadcast(m_socket);
 }
 
-UDPSocket::UDPSocket( unsigned short localPort)
-: InternetSocket( DATAGRAM, IPPROTO_UDP)
-{
-	bind(localPort);
-	setBroadcast(m_socket);
-}
-
-UDPSocket::UDPSocket( const std::string& localAddress, unsigned short localPort)
-: InternetSocket( DATAGRAM, IPPROTO_UDP)
-{
-	bind( localAddress, localPort);
-	setBroadcast(m_socket);
-}
-
 void UDPSocket::sendTo( const void* buffer, size_t len, const std::string& foreignAddress, unsigned short foreignPort)
 {
 	sockaddr_in destAddr;

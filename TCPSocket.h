@@ -26,14 +26,6 @@ namespace NET
 		*/
 		TCPSocket();
 
-		/*!
-			Construct a TCP socket and connect to the given foreign port and address
-			\param foreignAddress local address
-			\param foreignPort local port
-			\exception SocketException thrown if unable to create UDP socket
-		*/
-		TCPSocket( const std::string &foreignAddress, unsigned short foreignPort);
-
 		//! Construct a Socket from a TCPSocketHandle returned by accept()
 		TCPSocket( Handle handle);
 

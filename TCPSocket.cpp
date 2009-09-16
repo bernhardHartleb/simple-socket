@@ -10,12 +10,6 @@ TCPSocket::TCPSocket()
 : InternetSocket( STREAM, IPPROTO_TCP)
 {}
 
-TCPSocket::TCPSocket( const std::string& foreignAddress, unsigned short foreignPort)
-: InternetSocket( STREAM, IPPROTO_TCP)
-{
-	connect( foreignAddress, foreignPort);
-}
-
 TCPSocket::TCPSocket( Handle handle)
 : InternetSocket( handle.m_sockfd)
 {
