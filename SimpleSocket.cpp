@@ -8,11 +8,13 @@ using namespace NET;
 
 SocketException::SocketException( const std::string& message, bool inclSysMsg /* = true */) throw()
 : m_message(message)
+, m_errorcode(0)
 {
 	if(inclSysMsg)
 	{
+		m_errorcode = errno;
 		m_message += ": ";
-		m_message += strerror(errno);
+		m_message += strerror(m_errorcode);
 	}
 }
 

@@ -22,20 +22,15 @@ namespace NET
 		//! Provided just to guarantee that no exceptions are thrown.
 		~SocketException() throw() {};
 
-		/*!
-			Get the exception message
-			\return exception message
-		*/
+		//! Returns a C-string describing the cause of the current error.
 		const char* what() const throw() { return m_message.c_str(); }
 
-		/*!
-		 * Get the glib error code
-		 * \return error code
-		 */
-		int getErrorcode() const throw() { return errorcode; }
+		//! Returns the glibc errno code of the current error.
+		int errorCode() const throw() { return m_errorcode; }
+
 	private:
-		std::string m_message;	// Exception message
-		int errorcode;
+		std::string m_message;
+		int m_errorcode;
 	};
 
 	typedef void raw_type; // data type used by transmit and receive functions

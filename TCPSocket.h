@@ -14,7 +14,7 @@ namespace NET
 		{
 		public:
 			friend class TCPSocket;
-			operator bool () { return m_sockfd != 0; }
+			operator bool() const { return m_sockfd != 0; }
 		private:
 			Handle( int sock) : m_sockfd(sock) {}
 			int m_sockfd;
