@@ -3,8 +3,6 @@
 #include <cstring>
 #include <iostream>
 
-using std::cout;
-using std::endl;
 using namespace NET;
 
 int main()
@@ -13,6 +11,7 @@ int main()
 	static char recv_msg[sizeof(send_msg)];
 	static size_t len = sizeof(send_msg);
 
+	try {
 
 	// Test peer status on a connected UDP socket
 	UDPSocket peer_socket;
@@ -22,10 +21,11 @@ int main()
 	peer_socket.send( "", 1); // icmp received, send fails
 	if( !peer_socket.peerDisconnected()) return 1;
 
-
 	// Test UDP specific calls
-	UDPSocket send_socket(47776);
-	UDPSocket recv_socket(47777);
+	UDPSocket send_socket;
+	UDPSocket recv_socket;
+	send_socket.bind(47776);
+	recv_socket.bind(47777);
 	std::string source;
 	unsigned short port = 0;
 
@@ -42,7 +42,6 @@ int main()
 	if( std::memcmp( send_msg, recv_msg, len) < 0) return 1;
 	std::memset( recv_msg, 0, len);
 
-
 	// Test multicast
 	send_socket.setMulticastTTL(0);
 	send_socket.connect( "224.40.0.1", 47777);
@@ -57,4 +56,12 @@ int main()
 	send_socket.send( send_msg, len);
 
 	if( recv_socket.timedReceive( recv_msg, len, 0) != 0) return 1;
+
+	// no errors in this testcase
+	} catch( const SocketException& e)
+	{
+		std::cerr << e.what() << std::endl;
+		std::cerr << e.errorCode() << std::endl;
+		return 1;
+	}
 }
