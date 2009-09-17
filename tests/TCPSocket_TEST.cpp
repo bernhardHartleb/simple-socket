@@ -40,5 +40,6 @@ int main()
 	{
 		std::cerr << e.what() << std::endl;
 		std::cerr << e.errorCode() << std::endl;
+		return 1;
 	}
 }
