@@ -42,8 +42,8 @@ void TCPSocket::listen( int backlog /* = 0 */)
 
 TCPSocket::Handle TCPSocket::accept() const
 {
-	int ret;
-	if( (ret = ::accept( m_socket, 0, 0)) <= 0)
+	int ret = ::accept( m_socket, 0, 0);
+	if( ret <= 0)
 		throw SocketException("TCPSocket::accept failed");
 	return Handle(ret);
 }

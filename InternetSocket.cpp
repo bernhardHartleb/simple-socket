@@ -5,7 +5,6 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include <cstring>
-#include <cerrno>
 
 using namespace NET;
 
@@ -21,7 +20,6 @@ void InternetSocket::connect( const std::string& foreignAddress, unsigned short 
 	sockaddr_in addr;
 	fillAddr( foreignAddress, foreignPort, addr);
 
-	// Try to connect to the given port
 	if( ::connect( m_socket, (sockaddr*) &addr, sizeof(addr)) < 0)
 		throw SocketException("Connect failed (connect)");
 }
@@ -32,10 +30,9 @@ void InternetSocket::disconnect()
 	std::memset( &addr, 0, sizeof(addr));
 	addr.sin_family = AF_UNSPEC;
 
-	// Try to disconnect
 	if( ::connect( m_socket, (sockaddr*) &addr, sizeof(addr)) < 0) {
-		if( errno != EAFNOSUPPORT)
-			throw SocketException("Disconnect failed (connect)");
+		// if( errno != EAFNOSUPPORT), maybe needed on windows
+		throw SocketException("Disconnect failed (connect)");
 	}
 }
 

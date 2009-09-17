@@ -3,7 +3,6 @@
 #include <sys/socket.h>
 #include <sys/un.h>
 #include <cstring>
-#include <cerrno>
 
 using namespace NET;
 
@@ -20,7 +19,6 @@ void UnixSocket::connect( const std::string& foreignPath)
 	addr.sun_family = AF_LOCAL;
 	std::strcpy( addr.sun_path, foreignPath.c_str());
 
-	// Try to connect to the given port
 	if( ::connect( m_socket, (sockaddr*) &addr, sizeof(addr)) < 0)
 		throw SocketException("Connect failed (connect)");
 }
@@ -31,11 +29,8 @@ void UnixSocket::disconnect()
 	std::memset( &addr, 0, sizeof(addr));
 	addr.sun_family = AF_UNSPEC;
 
-	// Try to disconnect
-	if( ::connect( m_socket, (sockaddr*) &addr, sizeof(addr)) < 0) {
-		if( errno != EAFNOSUPPORT)
-			throw SocketException("Disconnect failed (connect)");
-	}
+	if( ::connect( m_socket, (sockaddr*) &addr, sizeof(addr)) < 0)
+		throw SocketException("Disconnect failed (connect)");
 }
 
 void UnixSocket::bind( const std::string& localPath)
@@ -70,6 +65,7 @@ std::string UnixSocket::getForeignPath() const
 
 	if( getpeername( m_socket, (sockaddr*) &addr, &addr_len) < 0)
 		throw SocketException("Fetch of foreign path failed (getpeername)");
+
 	return addr.sun_path;
 }
 

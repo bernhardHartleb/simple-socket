@@ -24,9 +24,9 @@ void setBroadcast( int socket)
 int groupAction( int socket, const std::string& multicastGroup, int action)
 {
 	struct ip_mreq multicastRequest;
-
 	multicastRequest.imr_multiaddr.s_addr = inet_addr( multicastGroup.c_str());
 	multicastRequest.imr_interface.s_addr = htonl(INADDR_ANY);
+
 	return( setsockopt( socket,
 			    IPPROTO_IP,
 			    action,
