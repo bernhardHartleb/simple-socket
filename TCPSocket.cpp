@@ -19,16 +19,12 @@ TCPSocket::TCPSocket( Handle handle)
 int TCPSocket::sendAll( const void* buffer, size_t len)
 {
 	size_t sent = 0;
-	while(sent != len)
+	while( sent != len)
 	{
 		const char* buf = static_cast<const char*>(buffer) + sent;
-
-		int ret = ::send( m_socket, (raw_type*) buf, len - sent, 0);
-		if( ret < 0)
-			throw SocketException("Send failed (send)");
-
+		int ret = send( buf, len - sent);
+		if( ret < 0) return ret;
 		sent += static_cast<unsigned>(ret);
-		if(sent == len) break;
 	}
 	return sent;
 }
