@@ -22,7 +22,9 @@ int main()
 
 	client_socket.connect( "127.0.0.1", 47777);
 
-	const TCPSocket::Handle& handle = server_socket.accept();
+	const TCPSocket::Handle& tmp_handle = server_socket.accept();
+	TCPSocket::Handle handle;
+	handle = tmp_handle;
 	if(!handle) return 1;
 	TCPSocket session_socket(handle);
 	if( session_socket.peerDisconnected()) return 1;
