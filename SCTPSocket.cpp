@@ -222,8 +222,8 @@ void SCTPSocket::listen( int backlog /* = 0 */)
 
 SCTPSocket::Handle SCTPSocket::accept() const
 {
-	int ret;
-	if( (ret = ::accept( m_socket, 0, 0)) <= 0)
+	int ret = ::accept( m_socket, 0, 0);
+	if( ret <= 0)
 		throw SocketException("SCTPSocket::accept failed");
 	return Handle(ret);
 }
@@ -232,15 +232,15 @@ SCTPSocket::Handle SCTPSocket::timedAccept( unsigned timeout) const
 {
 	struct pollfd poll;
 	poll.fd = m_socket;
-	poll.events = POLLIN | POLLPRI | POLLRDHUP;
+	poll.events = POLLIN;
 
 	int ret = ::poll( &poll, 1, timeout);
-	if( ret == 0)
-		return Handle(0);
-	if( ret < 0)
-		throw SocketException("SCTPSocket::timedAccept failed(poll)");
 
-	if( (ret = ::accept( m_socket, 0, 0)) <= 0)
+	if( ret == 0) return Handle(0);
+	if( ret < 0) throw SocketException("SCTPSocket::timedAccept failed (poll)");
+
+	ret = ::accept( m_socket, 0, 0);
+	if( ret <= 0)
 		throw SocketException("SCTPSocket::timedAccept failed (accept)");
 	return Handle(ret);
 }
