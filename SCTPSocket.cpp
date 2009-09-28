@@ -17,10 +17,8 @@ SCTPSocket::SCTPSocket( unsigned numOutStreams /* = 10 */,
 }
 
 SCTPSocket::SCTPSocket( Handle handle)
-: InternetSocket( handle.m_sockfd)
-{
-	if(!handle) throw SocketException("Tried to initialize SCTPSocket with invalid Handle", false);
-}
+: InternetSocket( handle.release() )
+{}
 
 int SCTPSocket::bind( const std::vector<std::string>& localAddresses, unsigned short localPort /* = 0 */)
 {

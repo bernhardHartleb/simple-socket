@@ -1,6 +1,7 @@
 #ifndef NET_SCTPSocket_h_
 #define NET_SCTPSocket_h_
 
+#include "Handle.h"
 #include "InternetSocket.h"
 
 #include <netinet/in.h>
@@ -16,16 +17,7 @@ namespace NET
 	{
 	public:
 		//! handle for a new socket returned by accept
-		class Handle
-		{
-		public:
-			Handle() : m_sockfd(0) {}
-			operator bool() const { return m_sockfd != 0; }
-		private:
-			friend class SCTPSocket;
-			explicit Handle( int sock) : m_sockfd(sock) {}
-			int m_sockfd;
-		};
+		typedef SocketHandle<SCTPSocket> Handle;
 
 		enum abortFlag
 		{

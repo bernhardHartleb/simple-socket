@@ -1,6 +1,7 @@
 #ifndef NET_TCPSocket_h__
 #define NET_TCPSocket_h__
 
+#include "Handle.h"
 #include "InternetSocket.h"
 
 namespace NET
@@ -10,16 +11,7 @@ namespace NET
 	{
 	public:
 		//! handle for a new socket returned by accept
-		class Handle
-		{
-		public:
-			Handle() : m_sockfd(0) {}
-			operator bool() const { return m_sockfd != 0; }
-		private:
-			friend class TCPSocket;
-			explicit Handle( int sock) : m_sockfd(sock) {}
-			int m_sockfd;
-		};
+		typedef SocketHandle<TCPSocket> Handle;
 
 		/*!
 			Construct a TCP socket

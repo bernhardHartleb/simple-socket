@@ -11,10 +11,8 @@ TCPSocket::TCPSocket()
 {}
 
 TCPSocket::TCPSocket( Handle handle)
-: InternetSocket( handle.m_sockfd)
-{
-	if(!handle) throw SocketException("Tried to initialize TCPSocket with invalid Handle", false);
-}
+: InternetSocket( handle.release() )
+{}
 
 int TCPSocket::sendAll( const void* buffer, size_t len)
 {
