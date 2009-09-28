@@ -6,11 +6,6 @@
 
 struct sockaddr_in;
 
-// TODO change network interface name
-// TODO time of last received packet (SIOCGSTAMP / SIOCGSTAMPNS)
-// TODO routing table maintenance ( SIOCADDRT / SIOCDELRT / SIOCRTMSG )
-// TODO arp table maintenance ( SIOCDARP / SIOCGARP / SIOCSARP )
-
 namespace NET
 {
 	/*!

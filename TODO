@@ -1,0 +1,21 @@
+Testing:
+- check the TCPSocket::sendAll function
+- test Unix domain sockets
+- test SCTP socket
+
+SCTPSocket:
+- receiveFlags
+
+Socket Handles:
+- template for a socket handle
+- should have move semantics like auto_ptr
+
+General:
+- catch interruptions from signals
+- add header for TEMP_FAILURE_RETRY?
+
+SocketUtils:
+- change network interface name
+- time of last received packet (SIOCGSTAMP / SIOCGSTAMPNS)
+- routing table maintenance (SIOCADDRT / SIOCDELRT / SIOCRTMSG)
+- arp table maintenance (SIOCDARP / SIOCGARP / SIOCSARP)
