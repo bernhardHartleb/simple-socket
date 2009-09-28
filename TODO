@@ -6,10 +6,6 @@ Testing:
 SCTPSocket:
 - receiveFlags
 
-Socket Handles:
-- template for a socket handle
-- should have move semantics like auto_ptr
-
 General:
 - catch interruptions from signals
 - add header for TEMP_FAILURE_RETRY?
