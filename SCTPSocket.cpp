@@ -3,6 +3,7 @@
 
 #include <netinet/in.h>
 #include <poll.h>
+#include <cstring>
 
 using namespace NET;
 
@@ -232,6 +233,7 @@ SCTPSocket::Handle SCTPSocket::timedAccept( unsigned timeout) const
 void SCTPSocket::setInitValues( unsigned numOutStreams, unsigned maxInStreams, unsigned maxAttempts, unsigned maxInitTimeout)
 {
 	struct sctp_initmsg init;
+	std::memset( &init, 0, sizeof(init));
 	init.sinit_num_ostreams = numOutStreams;
 	init.sinit_max_instreams = maxInStreams;
 	init.sinit_max_attempts = maxAttempts;
