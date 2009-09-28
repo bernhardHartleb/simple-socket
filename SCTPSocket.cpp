@@ -166,22 +166,14 @@ int SCTPSocket::timedReceive( void* data, int maxLen, unsigned& stream, unsigned
 	int ret = ::poll( &poll, 1, timeout);
 
 	if( ret == 0) return 0;
-	if( ret < 0)
-		throw SocketException("SCTPSocket::receive failed (poll)");
-
-	if( poll.revents & POLLIN || poll.revents & POLLRDHUP)
-	{
-		struct sctp_sndrcvinfo info;
-		if( (ret = sctp_recvmsg( m_socket, data, maxLen, 0, 0, &info, 0)) <= 0)
-			throw SocketException("SCTPSocket::receive failed (receive)");
-		stream = info.sinfo_stream;
-		return ret;
-	}
+	if( ret < 0) throw SocketException("SCTPSocket::receive failed (poll)");
 
 	if( poll.revents & POLLRDHUP)
-	{
 		m_peerDisconnected = true;
-	}
+
+	if( poll.revents & POLLIN || poll.revents & POLLPRI)
+		return receive( data, maxLen, stream);
+
 	return 0;
 }
 
@@ -196,20 +188,12 @@ int SCTPSocket::timedReceive( void* data, int maxLen, unsigned& stream, receiveF
 	if( ret == 0) return 0;
 	if( ret < 0) throw SocketException("SCTPSocket::receive failed (poll)");
 
-	if( poll.revents & POLLIN || poll.revents & POLLRDHUP)
-	{
-		struct sctp_sndrcvinfo info;
-		if( (ret = sctp_recvmsg( m_socket, data, maxLen, 0, 0, &info, 0)) <= 0)
-			throw SocketException("SCTPSocket::receive failed (receive)");
-		stream = info.sinfo_stream;
-		// flag = info.sinfo_flags;
-		return ret;
-	}
-
 	if( poll.revents & POLLRDHUP)
-	{
 		m_peerDisconnected = true;
-	}
+
+	if( poll.revents & POLLIN || poll.revents & POLLPRI)
+		return receive( data, maxLen, stream, flag);
+
 	return 0;
 }
 
