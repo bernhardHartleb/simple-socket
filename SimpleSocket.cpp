@@ -28,7 +28,10 @@ SimpleSocket::SimpleSocket( int domain, int type, int protocol)
 SimpleSocket::SimpleSocket( int sockfd)
 : m_socket(sockfd)
 , m_peerDisconnected(false)
-{}
+{
+	if(sockfd <= 0)
+		throw SocketException("Tried to initialize Socket with invalid Handle", false);
+}
 
 SimpleSocket::~SimpleSocket()
 {
