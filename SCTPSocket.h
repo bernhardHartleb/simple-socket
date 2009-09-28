@@ -79,7 +79,7 @@ namespace NET
 		int timedReceive( void* data, int maxLen, unsigned& stream, unsigned timeout);
 		int timedReceive( void* data, int maxLen, unsigned& stream, receiveFlag& flag, unsigned timeout);
 
-		void listen( int backlog = 0);
+		void listen( int backlog = 10);
 		Handle accept() const;
 		Handle timedAccept( unsigned timeout) const;
 
