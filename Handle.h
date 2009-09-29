@@ -5,17 +5,11 @@
 
 namespace NET
 {
+	template<class>
+	class SocketHandle_Ref;
+
 	class TCPSocket;
 	class SCTPSocket;
-
-	//! A helper class to provide SocketHandle with reference semantics.
-	template<class Socket>
-	struct SocketHandle_Ref
-	{
-		int sockfd;
-
-		explicit SocketHandle_Ref( int sockfd) : sockfd(sockfd) {}
-	};
 
 	//! A simple class to provide strict ownership of socket handles.
 	template<class Socket>
@@ -73,6 +67,16 @@ namespace NET
 		}
 
 		int m_sockfd;
+	};
+
+	//! A helper class to provide SocketHandle with reference semantics.
+	template<class Socket>
+	class SocketHandle_Ref
+	{
+		int sockfd;
+
+		friend class SocketHandle<Socket>;
+		explicit SocketHandle_Ref( int sockfd) : sockfd(sockfd) {}
 	};
 
 } // namespace NET

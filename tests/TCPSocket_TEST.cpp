@@ -25,6 +25,8 @@ int main()
 	// Test socket handle
 	TCPSocket::Handle tmp_handle = server_socket.accept();
 	TCPSocket::Handle handle;
+	TCPSocket::Handle& ref_handle = handle;
+	handle = ref_handle;
 	if(handle) return 1;
 	if(!tmp_handle) return 1;
 	handle = tmp_handle;
