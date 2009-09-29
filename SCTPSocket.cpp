@@ -1,4 +1,5 @@
 #include "SCTPSocket.h"
+#include "TempFailure.h"
 #include "SocketUtils.h"
 
 #include <netinet/in.h>
@@ -162,7 +163,7 @@ int SCTPSocket::timedReceive( void* data, int maxLen, unsigned& stream, unsigned
 	poll.fd = m_socket;
 	poll.events = POLLIN | POLLPRI | POLLRDHUP;
 
-	int ret = ::poll( &poll, 1, timeout);
+	int ret = TEMP_FAILURE_RETRY (::poll( &poll, 1, timeout));
 
 	if( ret == 0) return 0;
 	if( ret < 0) throw SocketException("SCTPSocket::receive failed (poll)");
@@ -182,7 +183,7 @@ int SCTPSocket::timedReceive( void* data, int maxLen, unsigned& stream, receiveF
 	poll.fd = m_socket;
 	poll.events = POLLIN | POLLPRI | POLLRDHUP;
 
-	int ret = ::poll( &poll, 1, timeout);
+	int ret = TEMP_FAILURE_RETRY (::poll( &poll, 1, timeout));
 
 	if( ret == 0) return 0;
 	if( ret < 0) throw SocketException("SCTPSocket::receive failed (poll)");
@@ -217,7 +218,7 @@ SCTPSocket::Handle SCTPSocket::timedAccept( unsigned timeout) const
 	poll.fd = m_socket;
 	poll.events = POLLIN;
 
-	int ret = ::poll( &poll, 1, timeout);
+	int ret = TEMP_FAILURE_RETRY (::poll( &poll, 1, timeout));
 
 	if( ret == 0) return Handle(0);
 	if( ret < 0) throw SocketException("SCTPSocket::timedAccept failed (poll)");

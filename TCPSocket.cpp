@@ -1,4 +1,5 @@
 #include "TCPSocket.h"
+#include "TempFailure.h"
 
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -48,7 +49,7 @@ TCPSocket::Handle TCPSocket::timedAccept( int timeout) const
 	poll.fd = m_socket;
 	poll.events = POLLIN;
 
-	int ret = ::poll( &poll, 1, timeout);
+	int ret = TEMP_FAILURE_RETRY (::poll( &poll, 1, timeout));
 
 	if( ret == 0) return Handle(0);
 	if( ret < 0) throw SocketException("Poll failed (receive)");

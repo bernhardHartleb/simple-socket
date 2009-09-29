@@ -1,4 +1,5 @@
 #include "UDPSocket.h"
+#include "TempFailure.h"
 #include "SocketUtils.h"
 
 #include <sys/socket.h>
@@ -73,7 +74,7 @@ int UDPSocket::receiveFrom( void* buffer, size_t len, std::string& sourceAddress
 	poll.fd = m_socket;
 	poll.events = POLLIN | POLLPRI | POLLRDHUP;
 
-	int ret = ::poll( &poll, 1, timeout);
+	int ret = TEMP_FAILURE_RETRY (::poll( &poll, 1, timeout));
 
 	if( ret == 0) return 0;
 	if( ret < 0)  throw SocketException("Receive failed (poll)");

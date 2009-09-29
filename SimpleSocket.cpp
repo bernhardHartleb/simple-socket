@@ -1,4 +1,5 @@
 #include "SimpleSocket.h"
+#include "TempFailure.h"
 
 #include <poll.h>
 #include <cstring>
@@ -35,13 +36,13 @@ SimpleSocket::SimpleSocket( int sockfd)
 
 SimpleSocket::~SimpleSocket()
 {
-	::close(m_socket);
+	TEMP_FAILURE_RETRY (::close(m_socket));
 	// on Windows do cleanup here
 }
 
 int SimpleSocket::send( const void* buffer, size_t len)
 {
-	int sent = ::send( m_socket, (const raw_type*) buffer, len, 0);
+	int sent = TEMP_FAILURE_RETRY (::send( m_socket, (const raw_type*) buffer, len, 0));
 	if( sent < 0)
 	{
 		switch(errno)
@@ -59,7 +60,7 @@ int SimpleSocket::send( const void* buffer, size_t len)
 
 int SimpleSocket::receive( void* buffer, size_t len)
 {
-	int ret = ::recv( m_socket, (raw_type*) buffer, len, 0);
+	int ret = TEMP_FAILURE_RETRY (::recv( m_socket, (raw_type*) buffer, len, 0));
 	if( ret < 0) throw SocketException("Received failed (receive)");
 	return ret;
 }
@@ -70,7 +71,7 @@ int SimpleSocket::timedReceive( void* buffer, size_t len, int timeout)
 	poll.fd = m_socket;
 	poll.events = POLLIN | POLLPRI | POLLRDHUP;
 
-	int ret = ::poll( &poll, 1, timeout);
+	int ret = TEMP_FAILURE_RETRY (::poll( &poll, 1, timeout));
 
 	if( ret == 0) return 0;
 	if( ret < 0)  throw SocketException("timedReceive failed (poll)");
