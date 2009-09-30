@@ -59,25 +59,46 @@ namespace NET
 		 */
 		void listen( int backlog = 0);
 
-		//@{
 		//! wait for another socket to connect
 		/*!
 		 * accept will block until a new connection arrives. It is used to
 		 * create TCP server applications. On return it will return the handle
 		 * to the incoming connection.
 		 *
-		 * accept can be called on a listening socket.
+		 * accept can be only called on a listening socket.
 		 *
-		 * Use this handle to create a new TCPSocket to communicate with the
-		 * new connected client. accept can be used to wait for next incoming
-		 * connection after the handle was received.
+		 * Use the returned handle to create a new TCPSocket to communicate
+		 * with the new connected client. Regardless of what you do with a
+		 * handle, accept() can be used to wait for next incoming connection
+		 * after the handle was received.
+		 *
+		 * \return Handle object to the new connection
+		 * \exception SocketException
+		 */
+		Handle accept() const;
+		
+		//! wait for another socket to connect
+		/*!
+		 * timedAccept will block until a new connection arrives, or the given
+		 * timeout runs out. It is used to create TCP server applications. On
+		 * return it will return the handle to the incoming connection.
+		 *
+		 * This handle might be invalid, so it should be checked before it is
+		 * used. Creating a new socket object using an invalid handle will
+		 * raise an exception.
+		 *
+		 * timedAccept can only be called on a listening socket.
+		 *
+		 * Use the returned handle to create a new TCPSocket to communicate
+		 * with the new connected client. Regardless of what you do with a
+		 * handle, timedAccept() can be used to wait for next incoming
+		 * connection after the handle was returned.
 		 *
 		 * \param timeout the timeout in ms after which accept will give up and return
 		 * \return Handle object to the new connection
+		 * \exception SocketException
 		 */
-		Handle accept() const;
 		Handle timedAccept( int timeout) const;
-		//@}
 	};
 
 } // namespace NET

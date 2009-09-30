@@ -10,33 +10,40 @@ namespace NET
 	{
 	public:
 		/*!
-			Establish a socket connection with the given foreign
-			address and port
+		 * Establish a socket connection with the given foreign
+		 * address and port
 
-			If you are using a connection oriented socket, (like TCPSocket) you have to call connect() on
-			that socket in order to send data.
-			However, if you are using a non-connection oriented socket (like UDPSocket), calling connect
-			on that socket will allow you to use the send() function like on a connection oriented socket.
-			You don't have to use sendTo() in that case, but you are still allowed to.
+		 * If you are using a connection oriented socket, (like TCPSocket) you have to call connect() on
+		 * that socket in order to send data.
+		 * However, if you are using a non-connection oriented socket (like UDPSocket), calling connect
+		 * on that socket will allow you to use the send() function like on a connection oriented socket.
+		 * You don't have to use sendTo() in that case, but you are still allowed to.
 
-			\param foreignAddress foreign address (IP address or name)
-			\param foreignPort foreign port
-			\exception SocketException thrown if unable to establish connection
+		 * \param foreignAddress foreign address (IP address or name)
+		 * \param foreignPort foreign port
+		 * \exception SocketException thrown if unable to establish connection
 		*/
 		void connect( const std::string& foreignAddress, unsigned short foreignPort);
 
 		/*!
-			Unset foreign address and port
-			\return true if disassociation is successful
-			\exception SocketException thrown if unable to disconnect UDP socket
+		 * Unset foreign address and port
+		 * \return true if disassociation is successful
+		 * \exception SocketException thrown if unable to disconnect UDP socket
 		*/
 		void disconnect();
 
-		//@{
 		/*!
-		 * \name
+		 * \overload
+		 *
+		 * Instead of the richer function with more arguments, this bind()
+		 * binds to any interface / address
+		 */
+		void bind( unsigned short localPort = 0);
+		
+		//! bind socket to address / port
+		/*!
 		 * Set the local port to the specified port and the local address
-		 * to any interface.
+		 * to an interface.
 		 *
 		 * bind() attaches the local endpoint of the socket to the specified
 		 * interface and port.
@@ -52,43 +59,41 @@ namespace NET
 		 * \param localAddress local address
 		 * \param localPort local port
 		 * \exception SocketException thrown if setting local port fails
-		 * \sa NET::resolveSerice
 		*/
-		void bind( unsigned short localPort = 0);
 		void bind( const std::string& localAddress, unsigned short localPort = 0);
-		//@}
 
 		/*!
-			Get the local address (after binding the socket)
-			\return local address of socket
-			\exception SocketException thrown if fetch fails
+		 * Get the local address (after binding the socket)
+		 * \return local address of socket
+		 * \exception SocketException thrown if fetch fails
 		*/
 		std::string getLocalAddress() const;
 
 		/*!
-			Get the local port (after binding the socket)
-			\return local port of socket
-			\exception SocketException thrown if fetch fails
+		 * Get the local port (after binding the socket)
+		 * \return local port of socket
+		 * \exception SocketException thrown if fetch fails
 		*/
 		unsigned short getLocalPort() const;
 
 		/*!
-			Get the foreign address. Call connect() before using this function.
-			\return foreign address
-			\exception SocketException thrown if unable to fetch foreign address
+		 * Get the foreign address. Call connect() before using this function.
+		 * \return foreign address
+		 * \exception SocketException thrown if unable to fetch foreign address
 		*/
 		std::string getForeignAddress() const;
 
 		/*!
-			Get the foreign port. Call connect() before using this function.
-			\return foreign port
-			\exception SocketException thrown if unable to fetch foreign port
+		 * Get the foreign port. Call connect() before using this function.
+		 * \return foreign port
+		 * \exception SocketException thrown if unable to fetch foreign port
 		*/
 		unsigned short getForeignPort() const;
 
 	protected:
 		//! create socket from a SocketHandle returned by an accept() call
 		InternetSocket( int sockfd);
+		//! create new socket 
 		InternetSocket( int type, int protocol);
 	};
 

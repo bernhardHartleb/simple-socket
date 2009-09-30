@@ -88,14 +88,38 @@ namespace NET
 		 */
 		int send( const void* buffer, size_t len);
 
-		//@{
 		//! will receive data from a bound socket
 		/*!
-		 * \name Receive Functions
+		 * receive() can only be used on a socket that called bind() or
+		 * connect() before.  If you try to use receive() on a not bound
+		 * socket, SocketException will be thrown.
 		 *
-		 * receive() can only be used on a socket that called bind() before.
-		 * If you try to use receive() on a not bound socket, SocketException
-		 * will be thrown.
+		 * If using a stream oriented Socket, receive can return a part of a
+		 * received messge, e.g. if you send 100 bytes, it's possible you will receive
+		 * 50 bytes two times in a row. However, the order of the sent data will be preserved.
+		 *
+		 * If you are using a datagram oriented sockets, you will only receive whole datagrams.
+		 * But beware of using a too small buffer. If the receive buffer is too small for the
+		 * received datagram, the data you didn't read in the receive call will be discared.
+		 *
+		 * If the remote host has closed the connection (on a connection based socket
+		 * like TCP or SCTP) receive() will return 0. If you are using a connectionless
+		 * protocol (like UDP) there is no way to determine wheter the connection has
+		 * been closed by the remote host or not.
+		 *
+		 * \param buffer the buffer the received data will be written to
+		 * \param len length of the provided buffer, receive will not read more than that
+		 * \return int number of received bytes
+		 * \exception SocketException in the case an error occured
+		 */
+		int receive( void* buffer, size_t len);
+
+		//! will receive data from a bound socket, but return after the given
+		//! timespan
+		/*!
+		 * timedReceive() can only be used on a socket that called bind() or
+		 * connect before.  If you try to use receive() on a not bound socket,
+		 * SocketException will be thrown.
 		 *
 		 * If using a stream oriented Socket, receive can return a part of a
 		 * received messge, e.g. if you send 100 bytes, it's possible you will receive
@@ -114,11 +138,9 @@ namespace NET
 		 * \param len length of the provided buffer, receive will not read more than that
 		 * \param timeout the timeout in ms after which receive will give up and return
 		 * \return int number of received bytes
-		 * \exception SocketException
+		 * \exception SocketException in the case an error occured
 		 */
-		int receive( void* buffer, size_t len);
 		int timedReceive( void* buffer, size_t len, int timeout);
-		//@}
 
 		//! will shutdown the connection in the specified direction
 		/*!
