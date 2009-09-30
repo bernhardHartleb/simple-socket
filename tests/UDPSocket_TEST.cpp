@@ -34,7 +34,7 @@ int main()
 
 	if( port != 47776) return 1;
 	if( source != "127.0.0.1") return 1;
-	if( recv_socket.receiveFrom( recv_msg, len, source, port, 10) != 0) return 1;
+	if( recv_socket.timedReceiveFrom( recv_msg, len, source, port, 10) != 0) return 1;
 
 	// source must not be changed
 	if( port != 47776) return 1;
