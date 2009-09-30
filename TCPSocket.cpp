@@ -28,7 +28,7 @@ int TCPSocket::sendAll( const void* buffer, size_t len)
 	return sent;
 }
 
-void TCPSocket::listen( int backlog /* = 0 */)
+void TCPSocket::listen( int backlog /* = 5 */)
 {
 	int ret = ::listen( m_socket, backlog);
 	if( ret < 0)

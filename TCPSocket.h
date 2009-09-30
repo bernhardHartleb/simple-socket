@@ -57,7 +57,7 @@ namespace NET
 		 * \param backlog upper limit of waiting incoming connections
 		 * \exception SocketException
 		 */
-		void listen( int backlog = 0);
+		void listen( int backlog = 5);
 
 		//! wait for another socket to connect
 		/*!

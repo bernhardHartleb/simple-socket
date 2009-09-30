@@ -197,7 +197,7 @@ int SCTPSocket::timedReceive( void* data, int maxLen, unsigned& stream, receiveF
 	return 0;
 }
 
-void SCTPSocket::listen( int backlog /* = 0 */)
+void SCTPSocket::listen( int backlog /* = 5 */)
 {
 	int ret = ::listen( m_socket, backlog);
 	if( ret < 0)
