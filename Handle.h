@@ -57,9 +57,11 @@ namespace NET
 
 		SocketHandle( SocketHandle_Ref<Socket> other)
 		: m_sockfd( other.sockfd) {}
-
+		
+		//! \cond internal
 		operator SocketHandle_Ref<Socket>()
 		{ return SocketHandle_Ref<Socket>( release()); }
+		//! \endcond
 
 		SocketHandle&
 		operator=( SocketHandle& other)
@@ -113,6 +115,8 @@ namespace NET
 		int m_sockfd;
 	};
 
+	//! \cond internal
+	
 	//! A helper class to provide SocketHandle with reference semantics.
 	template<class Socket>
 	class SocketHandle_Ref
@@ -122,6 +126,7 @@ namespace NET
 		friend class SocketHandle<Socket>;
 		explicit SocketHandle_Ref( int sockfd) : sockfd(sockfd) {}
 	};
+	/// \endcond
 
 } // namespace NET
 
