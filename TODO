@@ -9,9 +9,11 @@ SCTPSocket:
 General:
 - catch interruptions from signals
 - add header for TEMP_FAILURE_RETRY?
+- adopt scheme for include guard over the whole code
 
 SocketUtils:
 - change network interface name
 - time of last received packet (SIOCGSTAMP / SIOCGSTAMPNS)
 - routing table maintenance (SIOCADDRT / SIOCDELRT / SIOCRTMSG)
-- arp table maintenance (SIOCDARP / SIOCGARP / SIOCSARP)
+- arp table maintenance (SIOCDARP / SIOCGARP / SIOCSARP) [make seperate
+  module/cmake variable for build/not build]
