@@ -55,10 +55,10 @@ namespace NET
 		SocketHandle( SocketHandle& other)
 		: m_sockfd( other.release()) {}
 
+		//! \cond internal
 		SocketHandle( SocketHandle_Ref<Socket> other)
 		: m_sockfd( other.sockfd) {}
-		
-		//! \cond internal
+
 		operator SocketHandle_Ref<Socket>()
 		{ return SocketHandle_Ref<Socket>( release()); }
 		//! \endcond
@@ -78,7 +78,6 @@ namespace NET
 		 * If accept() returned an invalid socket (e.g. timed out timedAccept()
 		 * call) this should be used to verify the handle. Trying to construct
 		 * a socket from an invalid handle will raise an exception.
-		 *
 		 */
 		operator bool() const { return m_sockfd > 0; }
 
@@ -116,7 +115,7 @@ namespace NET
 	};
 
 	//! \cond internal
-	
+
 	//! A helper class to provide SocketHandle with reference semantics.
 	template<class Socket>
 	class SocketHandle_Ref
@@ -126,7 +125,7 @@ namespace NET
 		friend class SocketHandle<Socket>;
 		explicit SocketHandle_Ref( int sockfd) : sockfd(sockfd) {}
 	};
-	/// \endcond
+	//! \endcond
 
 } // namespace NET
 

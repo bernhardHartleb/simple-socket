@@ -12,7 +12,7 @@ namespace NET
 		/*!
 		 * Construct a Unix datagram socket
 		 * \exception SocketException thrown if unable to create the socket
-		*/
+		 */
 		UnixDatagramSocket();
 
 		/*!
@@ -23,7 +23,7 @@ namespace NET
 		 * \param foreignPath filename of the datagram socket the data should be sent to
 		 * \return true if send is successful
 		 * \exception SocketException thrown if unable to send datagram
-		*/
+		 */
 		void sendTo( const void* buffer, size_t len, const std::string& foreignPath);
 
 		/*!
@@ -34,7 +34,7 @@ namespace NET
 		 * \param sourcePath path where the data originated
 		 * \return number of bytes received and -1 for error
 		 * \exception SocketException thrown if unable to receive datagram
-		*/
+		 */
 		int receiveFrom( void* buffer, size_t len, std::string& sourcePath);
 	};
 

@@ -22,14 +22,14 @@ namespace NET
 		 * \param foreignAddress foreign address (IP address or name)
 		 * \param foreignPort foreign port
 		 * \exception SocketException thrown if unable to establish connection
-		*/
+		 */
 		void connect( const std::string& foreignAddress, unsigned short foreignPort);
 
 		/*!
 		 * Unset foreign address and port
 		 * \return true if disassociation is successful
 		 * \exception SocketException thrown if unable to disconnect UDP socket
-		*/
+		 */
 		void disconnect();
 
 		/*!
@@ -39,7 +39,7 @@ namespace NET
 		 * binds to any interface / address
 		 */
 		void bind( unsigned short localPort = 0);
-		
+
 		//! bind socket to address / port
 		/*!
 		 * Set the local port to the specified port and the local address
@@ -59,41 +59,41 @@ namespace NET
 		 * \param localAddress local address
 		 * \param localPort local port
 		 * \exception SocketException thrown if setting local port fails
-		*/
+		 */
 		void bind( const std::string& localAddress, unsigned short localPort = 0);
 
 		/*!
 		 * Get the local address (after binding the socket)
 		 * \return local address of socket
 		 * \exception SocketException thrown if fetch fails
-		*/
+		 */
 		std::string getLocalAddress() const;
 
 		/*!
 		 * Get the local port (after binding the socket)
 		 * \return local port of socket
 		 * \exception SocketException thrown if fetch fails
-		*/
+		 */
 		unsigned short getLocalPort() const;
 
 		/*!
 		 * Get the foreign address. Call connect() before using this function.
 		 * \return foreign address
 		 * \exception SocketException thrown if unable to fetch foreign address
-		*/
+		 */
 		std::string getForeignAddress() const;
 
 		/*!
 		 * Get the foreign port. Call connect() before using this function.
 		 * \return foreign port
 		 * \exception SocketException thrown if unable to fetch foreign port
-		*/
+		 */
 		unsigned short getForeignPort() const;
 
 	protected:
 		//! create socket from a SocketHandle returned by an accept() call
 		InternetSocket( int sockfd);
-		//! create new socket 
+		//! create new socket
 		InternetSocket( int type, int protocol);
 	};
 

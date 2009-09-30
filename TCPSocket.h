@@ -76,7 +76,7 @@ namespace NET
 		 * \exception SocketException
 		 */
 		Handle accept() const;
-		
+
 		//! wait for another socket to connect
 		/*!
 		 * timedAccept will block until a new connection arrives, or the given
