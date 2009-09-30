@@ -16,13 +16,6 @@ namespace NET
 		UnixDatagramSocket();
 
 		/*!
-		 * Construct a UDP socket with the given local port and address
-		 * \param localPath parth to bind
-		 * \exception SocketException thrown if unable to create the socket
-		*/
-		UnixDatagramSocket( const std::string &localPath);
-
-		/*!
 		 * Send the given buffer as a UDP datagram to the
 		 * specified address / port
 		 * \param buffer buffer to be written

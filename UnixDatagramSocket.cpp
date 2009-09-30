@@ -10,12 +10,6 @@ UnixDatagramSocket::UnixDatagramSocket()
 : UnixSocket( DATAGRAM, 0)
 {}
 
-UnixDatagramSocket::UnixDatagramSocket( const std::string& localPath)
-: UnixSocket( DATAGRAM, 0)
-{
-	bind(localPath);
-}
-
 void UnixDatagramSocket::sendTo( const void* buffer, size_t len, const std::string& foreignPath)
 {
 	if( !isValidPath(foreignPath) )
