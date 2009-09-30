@@ -7,9 +7,7 @@ SCTPSocket:
 - receiveFlags
 
 General:
-- catch interruptions from signals
-- add header for TEMP_FAILURE_RETRY?
-- adopt scheme for include guard over the whole code
+- catch interruptions from signals (on all send/receive calls)
 
 SocketUtils:
 - change network interface name

@@ -1,5 +1,5 @@
-#ifndef _TEMPFAILURE_H
-#define _TEMPFAILURE_H
+#ifndef NET_TempFailure_h__
+#define NET_TempFailure_h__
 
 #include <unistd.h>
 #include <errno.h>
@@ -8,4 +8,4 @@
 #define TEMP_FAILURE_RETRY(expression) (expression)
 #endif
 
-#endif
+#endif // NET_TempFailure_h__

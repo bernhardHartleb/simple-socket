@@ -1,5 +1,5 @@
-#ifndef NET_SCTPSocket_h_
-#define NET_SCTPSocket_h_
+#ifndef NET_SCTPSocket_h__
+#define NET_SCTPSocket_h__
 
 #include "Handle.h"
 #include "InternetSocket.h"
@@ -81,4 +81,4 @@ namespace NET
 
 } // namespace NET
 
-#endif // NET_SCTPSocket_h_
+#endif // NET_SCTPSocket_h__
