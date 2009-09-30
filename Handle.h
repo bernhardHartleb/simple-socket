@@ -113,6 +113,8 @@ namespace NET
 		int m_sockfd;
 	};
 
+	//! \cond internal
+	
 	//! A helper class to provide SocketHandle with reference semantics.
 	template<class Socket>
 	class SocketHandle_Ref
@@ -122,6 +124,7 @@ namespace NET
 		friend class SocketHandle<Socket>;
 		explicit SocketHandle_Ref( int sockfd) : sockfd(sockfd) {}
 	};
+	/// \endcond
 
 } // namespace NET
 
