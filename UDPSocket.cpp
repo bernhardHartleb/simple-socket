@@ -48,8 +48,10 @@ void UDPSocket::sendTo( const void* buffer, size_t len, const std::string& forei
 	sockaddr_in destAddr;
 	fillAddr( foreignAddress, foreignPort, destAddr);
 
-	// Write out the whole buffer as a single message.
-	if( ::sendto( m_socket, (const raw_type*)buffer, len, 0, (sockaddr*)&destAddr, sizeof(destAddr)) != (int)len)
+	int sent = TEMP_FAILURE_RETRY (::sendto( m_socket, (const raw_type*)buffer, len, 0, (sockaddr*)&destAddr, sizeof(destAddr)));
+
+	// Write out the whole buffer as a single message
+	if( sent != (int)len)
 		throw SocketException("Send failed (sendto)");
 }
 
@@ -58,7 +60,7 @@ int UDPSocket::receiveFrom( void* buffer, size_t len, std::string& sourceAddress
 	sockaddr_in clientAddr;
 	socklen_t addrLen = sizeof(clientAddr);
 
-	int ret = ::recvfrom( m_socket, (raw_type*)buffer, len, 0, (sockaddr*)&clientAddr, &addrLen);
+	int ret = TEMP_FAILURE_RETRY (::recvfrom( m_socket, (raw_type*)buffer, len, 0, (sockaddr*)&clientAddr, &addrLen));
 	if( ret < 0)
 		throw SocketException("Receive failed (recvfrom)");
 

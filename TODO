@@ -1,3 +1,7 @@
+Documentation:
+- define out-of-memory behaviour
+- check exception specifications
+
 Testing:
 - check the TCPSocket::sendAll function
 - test Unix domain sockets
@@ -5,10 +9,10 @@ Testing:
 
 SCTPSocket:
 - receiveFlags
+- use auto_ptr for allocated memory
 
 General:
 - add timed receiveFrom for unix socket
-- catch interruptions from signals (on all send/receive calls)
 
 SocketUtils:
 - change network interface name
