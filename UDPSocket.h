@@ -72,7 +72,7 @@ namespace NET
 		 * \return number of bytes received and -1 for error
 		 * \exception SocketException thrown if unable to receive datagram
 		*/
-		int receiveFrom( void* buffer, size_t len, std::string& sourceAddress, unsigned short& sourcePort, int timeout);
+		int timedReceiveFrom( void* buffer, size_t len, std::string& sourceAddress, unsigned short& sourcePort, int timeout);
 
 		/*!
 		 * Set the multicast TTL

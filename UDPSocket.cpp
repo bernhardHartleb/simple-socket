@@ -68,7 +68,7 @@ int UDPSocket::receiveFrom( void* buffer, size_t len, std::string& sourceAddress
 	return ret;
 }
 
-int UDPSocket::receiveFrom( void* buffer, size_t len, std::string& sourceAddress, unsigned short& sourcePort, int timeout)
+int UDPSocket::timedReceiveFrom( void* buffer, size_t len, std::string& sourceAddress, unsigned short& sourcePort, int timeout)
 {
 	struct pollfd poll;
 	poll.fd = m_socket;
