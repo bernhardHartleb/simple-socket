@@ -12,7 +12,7 @@ SCTPSocket:
 - use auto_ptr for allocated memory
 
 General:
-- add timed receiveFrom for unix socket
+- implement a Unix stream socket
 
 SocketUtils:
 - change network interface name

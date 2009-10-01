@@ -41,8 +41,7 @@ namespace NET
 		 * is where the data will be placed.
 		 *
 		 * In order to receive data, the socket has to be bound at least to a specific port.
-		 * This can be done by passing a port number to the constructor,
-		 * explicitly binding the socket, or sending data through the socket.
+		 * This is done by explicitly binding the socket, or sending data through the socket.
 		 *
 		 * \param buffer buffer to receive data
 		 * \param len maximum number of bytes to receive
@@ -57,12 +56,10 @@ namespace NET
 		 * Read read up to bufferLen bytes data from this socket. The given
 		 * buffer is where the data will be placed. If no host has sent a
 		 * datagram before the timeout runs out, the function will return
-		 * without changing the buffer
+		 * without changing the buffer.
 		 *
-		 * In order to receive data, the socket has to be bound at least to a
-		 * specific port.  This can be done by passing a port number to the
-		 * constructor, explicitly binding the socket, or sending data through
-		 * the socket.
+		 * In order to receive data, the socket has to be bound at least to a specific port.
+		 * This is done by explicitly binding the socket, or sending data through the socket.
 		 *
 		 * \param buffer buffer to receive data
 		 * \param len maximum number of bytes to receive

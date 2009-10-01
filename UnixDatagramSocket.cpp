@@ -3,6 +3,7 @@
 
 #include <sys/socket.h>
 #include <sys/un.h>
+#include <poll.h>
 #include <cstring>
 
 using namespace NET;
@@ -38,4 +39,24 @@ int UnixDatagramSocket::receiveFrom( void* buffer, size_t len, std::string& sour
 
 	sourcePath = clientAddr.sun_path;
 	return ret;
+}
+
+int UnixDatagramSocket::timedReceiveFrom( void* buffer, size_t len, std::string& sourcePath, int timeout)
+{
+	struct pollfd poll;
+	poll.fd = m_socket;
+	poll.events = POLLIN | POLLPRI | POLLRDHUP;
+
+	int ret = TEMP_FAILURE_RETRY (::poll( &poll, 1, timeout));
+
+	if( ret == 0) return 0;
+	if( ret < 0)  throw SocketException("Receive failed (poll)");
+
+	if( poll.revents & POLLRDHUP)
+		m_peerDisconnected = true;
+
+	if( poll.revents & POLLIN || poll.revents & POLLPRI)
+		return receiveFrom( buffer, len, sourcePath);
+
+	return 0;
 }
