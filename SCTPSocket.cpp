@@ -29,7 +29,7 @@ int SCTPSocket::bind( const std::vector<std::string>& localAddresses, unsigned s
 	int i = 0;
 	for( it = localAddresses.begin(), end = localAddresses.end(); it != end; ++it)
 	{
-		fillAddr( *it, localPort, dest[i++]);
+		fillAddress( *it, localPort, dest[i++]);
 	}
 	int ret = sctp_bindx( m_socket, reinterpret_cast<sockaddr*>(dest), localAddresses.size(), SCTP_BINDX_ADD_ADDR);
 	delete[] dest;
@@ -46,7 +46,7 @@ int SCTPSocket::connect( const std::vector<std::string>& foreignAddresses, unsig
 	int i = 0;
 	for( it = foreignAddresses.begin(), end = foreignAddresses.end(); it != end; ++it)
 	{
-		fillAddr( *it, foreignPort, dest[i++]);
+		fillAddress( *it, foreignPort, dest[i++]);
 	}
 	int ret = sctp_connectx( m_socket, reinterpret_cast<sockaddr*>(dest), foreignAddresses.size());
 	delete[] dest;

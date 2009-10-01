@@ -3,6 +3,8 @@
 
 #include "SimpleSocket.h"
 
+struct sockaddr_in;
+
 namespace NET
 {
 	//! Internet Socket
@@ -95,6 +97,17 @@ namespace NET
 		InternetSocket( int sockfd);
 		//! create new socket
 		InternetSocket( int type, int protocol);
+
+		/*!
+			Function to fill an address structure with the given address and port number.
+			If the given address is not a valid IPv4 address, it will be resolved
+			by hostname or DNS lookup. addr will be unchanged if this resolve fails.
+
+			\param address IPv4 domain name or address
+			\param port IP port number to fill in
+			\param addr address structure to fill
+		*/
+		static void fillAddress( const std::string& address, unsigned short port, sockaddr_in& addr);
 	};
 
 } // namespace NET

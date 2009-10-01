@@ -4,6 +4,7 @@
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <netinet/in.h>
+#include <netdb.h>
 #include <cstring>
 
 using namespace NET;
@@ -18,7 +19,7 @@ InternetSocket::InternetSocket( int sockfd)
 void InternetSocket::connect( const std::string& foreignAddress, unsigned short foreignPort)
 {
 	sockaddr_in addr;
-	fillAddr( foreignAddress, foreignPort, addr);
+	fillAddress( foreignAddress, foreignPort, addr);
 
 	if( ::connect( m_socket, (sockaddr*) &addr, sizeof(addr)) < 0)
 		throw SocketException("Connect failed (connect)");
@@ -50,7 +51,7 @@ void InternetSocket::bind( unsigned short localPort /* = 0 */)
 void InternetSocket::bind( const std::string& localAddress, unsigned short localPort /* = 0 */)
 {
 	sockaddr_in addr;
-	fillAddr( localAddress, localPort, addr);
+	fillAddress( localAddress, localPort, addr);
 
 	if( ::bind( m_socket, (sockaddr*) &addr, sizeof(addr)) < 0)
 		throw SocketException("Set of local address and port failed (bind)");
@@ -98,4 +99,24 @@ unsigned short InternetSocket::getForeignPort() const
 		throw SocketException("Fetch of foreign port failed (getpeername)");
 
 	return ntohs( addr.sin_port);
+}
+
+void InternetSocket::fillAddress( const std::string& address, unsigned short port, sockaddr_in& addr)
+{
+	addr.sin_family = AF_INET;
+
+	// Assign port in network byte order
+	addr.sin_port = htons(port);
+
+	// Assume we have a simple ipv4 address
+	if( inet_aton( address.c_str(), &addr.sin_addr)) return;
+
+	// We need to resolve the address
+	hostent* host = gethostbyname( address.c_str());
+	if( host == 0)
+	{
+		// strerror() will not work for gethostbyname()
+		throw SocketException("Failed to resolve address (gethostbyname())", false);
+	}
+	addr.sin_addr.s_addr = *reinterpret_cast<uint32_t*>( host->h_addr);
 }

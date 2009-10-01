@@ -46,7 +46,7 @@ UDPSocket::UDPSocket()
 void UDPSocket::sendTo( const void* buffer, size_t len, const std::string& foreignAddress, unsigned short foreignPort)
 {
 	sockaddr_in destAddr;
-	fillAddr( foreignAddress, foreignPort, destAddr);
+	fillAddress( foreignAddress, foreignPort, destAddr);
 
 	int sent = TEMP_FAILURE_RETRY (::sendto( m_socket, (const raw_type*)buffer, len, 0, (sockaddr*)&destAddr, sizeof(destAddr)));
 

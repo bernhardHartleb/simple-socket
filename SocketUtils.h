@@ -4,20 +4,16 @@
 #include <vector>
 #include <string>
 
-struct sockaddr_in;
-
 namespace NET
 {
 	/*!
-		Function to fill an address structure with the given address and port number.
-		If the given address is not a valid IPv4 address, it will be resolved
-		by hostname or DNS lookup. addr will be unchanged if this resolve fails.
+		Resolve the specified hostname to a standard IPv4 address.
+		If the operating system doesn't know the hostname yet this means a DNS lookup.
 
-		\param address IPv4 domain name or address
-		\param port IP port number to fill in
-		\param addr address structure to fill
+		\param address domain name
+		\return resolved hostname as standard IPv4 address
 	*/
-	void fillAddr( const std::string& address, unsigned short port, sockaddr_in& addr);
+	std::string resolveHostname( const std::string& address);
 
 	/*!
 		Resolve the specified service for the specified protocol to the
