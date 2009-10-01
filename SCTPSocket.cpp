@@ -23,15 +23,13 @@ SCTPSocket::SCTPSocket( Handle handle)
 
 int SCTPSocket::bind( const std::vector<std::string>& localAddresses, unsigned short localPort /* = 0 */)
 {
-	sockaddr_in *dest = new sockaddr_in[localAddresses.size()];
-	std::vector<std::string>::const_iterator it;
-	std::vector<std::string>::const_iterator end;
-	int i = 0;
-	for( it = localAddresses.begin(), end = localAddresses.end(); it != end; ++it)
-	{
-		fillAddress( *it, localPort, dest[i++]);
-	}
-	int ret = sctp_bindx( m_socket, reinterpret_cast<sockaddr*>(dest), localAddresses.size(), SCTP_BINDX_ADD_ADDR);
+	size_t size = localAddresses.size();
+	sockaddr_in *dest = new sockaddr_in[size];
+
+	for( int i = 0; i < size; ++i)
+		fillAddress( localAddresses[i], localPort, dest[i]);
+
+	int ret = sctp_bindx( m_socket, reinterpret_cast<sockaddr*>(dest), size, SCTP_BINDX_ADD_ADDR);
 	delete[] dest;
 	if(ret < 0)
 		throw SocketException("SCTPSocket::bind bindx failed");
@@ -40,15 +38,13 @@ int SCTPSocket::bind( const std::vector<std::string>& localAddresses, unsigned s
 
 int SCTPSocket::connect( const std::vector<std::string>& foreignAddresses, unsigned short foreignPort /* = 0 */)
 {
-	sockaddr_in *dest = new sockaddr_in[foreignAddresses.size()];
-	std::vector<std::string>::const_iterator it;
-	std::vector<std::string>::const_iterator end;
-	int i = 0;
-	for( it = foreignAddresses.begin(), end = foreignAddresses.end(); it != end; ++it)
-	{
-		fillAddress( *it, foreignPort, dest[i++]);
-	}
-	int ret = sctp_connectx( m_socket, reinterpret_cast<sockaddr*>(dest), foreignAddresses.size());
+	size_t size = foreignAddresses.size();
+	sockaddr_in *dest = new sockaddr_in[size];
+
+	for( int i = 0; i < size; ++i)
+		fillAddress( foreignAddresses[i], foreignPort, dest[i]);
+
+	int ret = sctp_connectx( m_socket, reinterpret_cast<sockaddr*>(dest), size);
 	delete[] dest;
 	if(ret < 0)
 		throw SocketException("SCTPSocket::SCTPSocket connect failed");
