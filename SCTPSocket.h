@@ -34,13 +34,15 @@ namespace NET
 
 		enum receiveFlag
 		{
-			TODO
 		};
 
 		SCTPSocket( unsigned numOutStreams = 10, unsigned maxInStreams = 65535, unsigned maxAttempts = 4,
-		            unsigned maxInitTimeout = 0 /*???*/);
+		            unsigned maxInitTimeout = 0 /* TODO */);
 
-		//! Construct a Socket from a Handle returned by accept()
+		/*!
+		 * Construct a Socket from a Handle returned by accept()
+		 * \exception SocketException thrown if handle is invalid
+		*/
 		SCTPSocket( Handle handle);
 
 		using InternetSocket::bind;

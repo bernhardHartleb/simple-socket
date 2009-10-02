@@ -17,6 +17,7 @@ Testing:
 SCTPSocket:
 - receiveFlags
 - use auto_ptr for allocated memory
+- implement all SCTP functions (primaryAddress)
 
 SocketUtils:
 - change network interface name

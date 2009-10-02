@@ -19,7 +19,10 @@ namespace NET
 		*/
 		TCPSocket();
 
-		//! Construct a Socket from a Handle returned by accept()
+		/*!
+		 * Construct a Socket from a Handle returned by accept()
+		 * \exception SocketException thrown if handle is invalid
+		*/
 		TCPSocket( Handle handle);
 
 		//! send data through a connected socket
