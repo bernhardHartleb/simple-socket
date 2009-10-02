@@ -82,7 +82,7 @@ namespace NET
 		operator bool() const { return m_sockfd > 0; }
 
 	private:
-		//!
+		//! constructor for sockets using this handle
 		explicit SocketHandle( int sockfd) : m_sockfd(sockfd) {}
 
 		//! transfers the socket to an other entity
@@ -115,7 +115,6 @@ namespace NET
 	};
 
 	//! \cond internal
-
 	//! A helper class to provide SocketHandle with reference semantics.
 	template<class Socket>
 	class SocketHandle_Ref

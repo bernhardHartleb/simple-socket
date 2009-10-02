@@ -7,24 +7,22 @@
 namespace NET
 {
 	/*!
-		Resolve the specified hostname to a standard IPv4 address.
-		If the operating system doesn't know the hostname yet this means a DNS lookup.
-
-		\param address domain name
-		\return resolved hostname as standard IPv4 address
-	*/
-	std::string resolveHostname( const std::string& address);
+	 * Resolve the specified hostname to a standard IPv4 address.
+	 * If the operating system doesn't know the hostname yet this means a DNS lookup.
+	 *
+	 * \param address domain name
+	 * \return resolved hostname as standard IPv4 address
+	 */
+	std::string resolveHostname( const std::string& hostname);
 
 	/*!
-		Resolve the specified service for the specified protocol to the
-		corresponding port number in host byte order.
-
-		\param service service to resolve (e.g., "http")
-		\param protocol protocol of service to resolve. Default is "tcp".
-	*/
+	 * Resolve the specified service for the specified protocol to the
+	 * corresponding port number in host byte order.
+	 *
+	 * \param service service to resolve (e.g., "http")
+	 * \param protocol protocol of service to resolve. Default is "tcp".
+	 */
 	unsigned short resolveService( const std::string& service, const std::string& protocol = "tcp");
-
-	//std::string resolveHostname( const std::string& hostname);
 
 	//! Return a list of available network interfaces
 	std::vector<std::string> getNetworkInterfaces();
@@ -56,6 +54,5 @@ namespace NET
 	void setMTU( const std::string& interface, int mtu);
 
 	std::string getHardwareAddress( const std::string& interface, char separationChar);
-
 }
 #endif // NET_SocketUtils_h__

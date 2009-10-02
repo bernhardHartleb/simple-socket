@@ -12,11 +12,11 @@ namespace NET
 	{
 	public:
 		/*!
-			Construct a SocketException with a explanatory message.
-			\param message explanatory message
-			\param inclSysMsg true if system message from strerror(errno)
-			should be postfixed to the user provided message
-		*/
+		 * Construct a SocketException with a explanatory message.
+		 * \param message explanatory message
+		 * \param inclSysMsg true if system message from strerror(errno)
+		 * should be postfixed to the user provided message
+		 */
 		SocketException( const std::string& message, bool inclSysMsg = true) throw();
 
 		//! Provided just to guarantee that no exceptions are thrown.
@@ -37,32 +37,19 @@ namespace NET
 
 	//! A socket representing a basic communication endpoint
 	/*!
-		All sockets must inherit from this class.
-		It provides the basic interface for network communication.
-	*/
+	 * All sockets must inherit from this class.
+	 * It provides the basic interface for network communication.
+	 */
 	class SimpleSocket
 	{
 	public:
-		enum SocketDomain
-		{
-			INTERNET = PF_INET,
-			UNIX = PF_LOCAL
-		};
-
-		enum SocketType
-		{
-			STREAM = SOCK_STREAM,
-			DATAGRAM = SOCK_DGRAM
-		};
-
 		enum ShutdownDirection
 		{
-			STOP_SEND = SHUT_WR,		///< disable all variants of send() on the socket, receive calls still work
-			STOP_RECEIVE = SHUT_RD,		///< disable all variants of receive() on the socket, send calls still work
-			STOP_BOTH = SHUT_RDWR		///< disable all send() and receive() calls on the socket
+			STOP_SEND = SHUT_WR,        ///< disable all variants of send() on the socket, receive calls still work
+			STOP_RECEIVE = SHUT_RD,     ///< disable all variants of receive() on the socket, send calls still work
+			STOP_BOTH = SHUT_RDWR       ///< disable all send() and receive() calls on the socket
 		};
 
-		SimpleSocket( int domain, int type, int protocol);
 		~SimpleSocket();
 
 		//! send data through a connected socket
@@ -160,13 +147,28 @@ namespace NET
 		/*!
 		 * Will only work if you use an connection oriented, connected socket.
 		 * Returns true if the peer disconnected. Use this function after
-		 * a call to receive, returned 0.
+		 * a call to receive, returned 0 received bytes.
 		 *
 		 * \return bool true if the peer disconnected
 		 */
 		bool peerDisconnected() const;
 
 	protected:
+		enum SocketDomain
+		{
+			INTERNET = PF_INET,
+			UNIX = PF_LOCAL
+		};
+
+		enum SocketType
+		{
+			STREAM = SOCK_STREAM,
+			DATAGRAM = SOCK_DGRAM
+		};
+
+		//! allows a subclass to create new socket
+		SimpleSocket( int domain, int type, int protocol);
+
 		//! enables return of an accepted socket
 		SimpleSocket( int sockfd);
 

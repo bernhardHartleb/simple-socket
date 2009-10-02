@@ -104,8 +104,6 @@ unsigned short InternetSocket::getForeignPort() const
 void InternetSocket::fillAddress( const std::string& address, unsigned short port, sockaddr_in& addr)
 {
 	addr.sin_family = AF_INET;
-
-	// Assign port in network byte order
 	addr.sin_port = htons(port);
 
 	// Assume we have a simple ipv4 address

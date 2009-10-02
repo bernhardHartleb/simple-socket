@@ -14,12 +14,12 @@ namespace NET
 		typedef SocketHandle<TCPSocket> Handle;
 
 		/*!
-			Construct a TCP socket
-			\exception SocketException thrown if unable to create the socket
+		 * Construct a TCP socket
+		 * \exception SocketException thrown if unable to create the socket
 		*/
 		TCPSocket();
 
-		//! Construct a Socket from a TCPSocketHandle returned by accept()
+		//! Construct a Socket from a Handle returned by accept()
 		TCPSocket( Handle handle);
 
 		//! send data through a connected socket

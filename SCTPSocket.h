@@ -12,7 +12,7 @@
 
 namespace NET
 {
-	//! put docu here
+	//! SCTP socket class
 	class SCTPSocket : public InternetSocket
 	{
 	public:
@@ -40,6 +40,7 @@ namespace NET
 		SCTPSocket( unsigned numOutStreams = 10, unsigned maxInStreams = 65535, unsigned maxAttempts = 4,
 		            unsigned maxInitTimeout = 0 /*???*/);
 
+		//! Construct a Socket from a Handle returned by accept()
 		SCTPSocket( Handle handle);
 
 		using InternetSocket::bind;

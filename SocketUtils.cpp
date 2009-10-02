@@ -15,9 +15,9 @@
 
 using namespace NET;
 
-std::string NET::resolveHostname( const std::string& address)
+std::string NET::resolveHostname( const std::string& hostname)
 {
-	hostent* host = gethostbyname( address.c_str());
+	hostent* host = gethostbyname( hostname.c_str());
 	if( host == 0)
 	{
 		// strerror() will not work for gethostbyname()
