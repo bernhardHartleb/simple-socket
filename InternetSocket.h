@@ -14,13 +14,13 @@ namespace NET
 		/*!
 		 * Establish a socket connection with the given foreign
 		 * address and port
-
+		 *
 		 * If you are using a connection oriented socket, (like TCPSocket) you have to call connect() on
 		 * that socket in order to send data.
 		 * However, if you are using a non-connection oriented socket (like UDPSocket), calling connect
 		 * on that socket will allow you to use the send() function like on a connection oriented socket.
 		 * You don't have to use sendTo() in that case, but you are still allowed to.
-
+		 *
 		 * \param foreignAddress foreign address (IP address or name)
 		 * \param foreignPort foreign port
 		 * \exception SocketException thrown if unable to establish connection

@@ -1,18 +1,22 @@
+General:
+- implement a Unix stream socket
+- handle peerDisconnected correctly
+- make decision about wether a license should be used
+
 Documentation:
 - define out-of-memory behaviour
 - check exception specifications
 
 Testing:
 - check the TCPSocket::sendAll function
-- test Unix domain sockets
-- test SCTP socket
+- testcases for Unix domain sockets
+- testcase SCTP socket
+- test library with other compilers (gcc3,icc,...)
+- test library with other os (BSD, Mac, Windows?)
 
 SCTPSocket:
 - receiveFlags
 - use auto_ptr for allocated memory
-
-General:
-- implement a Unix stream socket
 
 SocketUtils:
 - change network interface name
