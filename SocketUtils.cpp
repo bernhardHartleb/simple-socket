@@ -15,6 +15,20 @@
 
 using namespace NET;
 
+namespace
+{
+	class sockaddr_ptr
+	{
+	public:
+		sockaddr_ptr( const sockaddr* sa) : msa(*sa) {}
+		const sockaddr_in& operator*() const { return msi; }
+		const sockaddr_in* operator->() const { return &msi; }
+
+	private:
+		union { sockaddr msa; sockaddr_in msi; };
+	};
+}
+
 std::string NET::resolveHostname( const std::string& hostname)
 {
 	hostent* host = gethostbyname( hostname.c_str());
@@ -65,10 +79,10 @@ std::string NET::getInterfaceAddress( const std::string& interface)
 
 	close(sock);
 
-	return inet_ntoa( reinterpret_cast<sockaddr_in*>(&ifr.ifr_addr)->sin_addr);
+	return inet_ntoa( sockaddr_ptr( &ifr.ifr_addr)->sin_addr);
 }
 
-void NET::setInterfaceAddress( const std::string& interface, const std::string& addr)
+void NET::setInterfaceAddress( const std::string& interface, const std::string& address)
 {
 	struct ifreq ifr;
 
@@ -79,7 +93,8 @@ void NET::setInterfaceAddress( const std::string& interface, const std::string& 
 	if( sock < 0)
 		throw SocketException("Couldn't create socket (setInterfaceAddress)");
 
-	inet_aton( addr.c_str(), &(reinterpret_cast<sockaddr_in*>(&ifr.ifr_addr)->sin_addr));
+	inet_aton( address.c_str(), &(reinterpret_cast<sockaddr_in*>(&ifr.ifr_addr)->sin_addr));
+
 	if( ioctl( sock, SIOCSIFADDR, &ifr) < 0)
 		throw SocketException("ioctl failed (setInterfaceAddress)");
 }
@@ -100,10 +115,10 @@ std::string NET::getBroadcastAddress( const std::string& interface)
 
 	close(sock);
 
-	return inet_ntoa( reinterpret_cast<sockaddr_in*>(&ifr.ifr_broadaddr)->sin_addr);
+	return inet_ntoa( sockaddr_ptr( &ifr.ifr_broadaddr)->sin_addr);
 }
 
-void NET::setBroadcastAddress( const std::string& interface, const std::string& addr)
+void NET::setBroadcastAddress( const std::string& interface, const std::string& address)
 {
 	struct ifreq ifr;
 
@@ -114,7 +129,7 @@ void NET::setBroadcastAddress( const std::string& interface, const std::string& 
 	if( sock < 0)
 		throw SocketException("Couldn't create socket (setBroadcastAddress)");
 
-	inet_aton( addr.c_str(), &(reinterpret_cast<sockaddr_in*>(&ifr.ifr_broadaddr)->sin_addr));
+	inet_aton( address.c_str(), &(reinterpret_cast<sockaddr_in*>(&ifr.ifr_broadaddr)->sin_addr));
 
 	if( ioctl( sock, SIOCSIFBRDADDR, &ifr) < 0)
 		throw SocketException("ioctl failed (setBroadcastAddress)");
@@ -136,10 +151,10 @@ std::string NET::getNetmask( const std::string& interface)
 
 	close(sock);
 
-	return inet_ntoa( reinterpret_cast<sockaddr_in*>(&ifr.ifr_netmask)->sin_addr);
+	return inet_ntoa( sockaddr_ptr( &ifr.ifr_netmask)->sin_addr);
 }
 
-void NET::setNetmask( const std::string& interface, const std::string& addr)
+void NET::setNetmask( const std::string& interface, const std::string& address)
 {
 	struct ifreq ifr;
 
@@ -150,7 +165,8 @@ void NET::setNetmask( const std::string& interface, const std::string& addr)
 	if( sock < 0)
 		throw SocketException("Couldn't create socket (setNetmask)");
 
-	inet_aton( addr.c_str(), &(reinterpret_cast<sockaddr_in*>(&ifr.ifr_netmask)->sin_addr));
+	inet_aton( address.c_str(), &(reinterpret_cast<sockaddr_in*>(&ifr.ifr_netmask)->sin_addr));
+
 	if( ioctl( sock, SIOCSIFNETMASK, &ifr) < 0)
 		throw SocketException("ioctl failed (setNetmask)");
 }
@@ -171,10 +187,10 @@ std::string NET::getDestinationAddress( const std::string& interface)
 
 	close(sock);
 
-	return inet_ntoa( reinterpret_cast<sockaddr_in*>(&ifr.ifr_dstaddr)->sin_addr);
+	return inet_ntoa( sockaddr_ptr( &ifr.ifr_dstaddr)->sin_addr);
 }
 
-void NET::setDestinationAddress( const std::string& interface, const std::string& addr)
+void NET::setDestinationAddress( const std::string& interface, const std::string& address)
 {
 	struct ifreq ifr;
 
@@ -185,7 +201,8 @@ void NET::setDestinationAddress( const std::string& interface, const std::string
 	if( sock < 0)
 		throw SocketException("Couldn't create socket (setDestinationAddress)");
 
-	inet_aton( addr.c_str(), &(reinterpret_cast<sockaddr_in*>(&ifr.ifr_dstaddr)->sin_addr));
+	inet_aton( address.c_str(), &(reinterpret_cast<sockaddr_in*>(&ifr.ifr_dstaddr)->sin_addr));
+
 	if( ioctl( sock, SIOCSIFDSTADDR, &ifr) < 0)
 		throw SocketException("ioctl failed (setDestinationAddress)");
 }
@@ -221,6 +238,7 @@ void NET::setMTU( const std::string& interface, int mtu)
 		throw SocketException("Couldn't create socket (setMTU)");
 
 	ifr.ifr_mtu = mtu;
+
 	if( ioctl( sock, SIOCSIFDSTADDR, &ifr) < 0)
 		throw SocketException("ioctl failed (setMTU)");
 }
