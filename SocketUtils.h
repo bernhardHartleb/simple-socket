@@ -10,7 +10,7 @@ namespace NET
 	 * Resolve the specified hostname to a standard IPv4 address.
 	 * If the operating system doesn't know the hostname yet this means a DNS lookup.
 	 *
-	 * \param address domain name
+	 * \param hostname domain name
 	 * \return resolved hostname as standard IPv4 address
 	 */
 	std::string resolveHostname( const std::string& hostname);

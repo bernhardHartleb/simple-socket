@@ -15,15 +15,29 @@
 
 using namespace NET;
 
-std::string NET::resolveHostname( const std::string& hostname)
+union convert {
+	sockaddr sa;
+	sockaddr_in si;
+};
+
+void NET::fillAddr( const std::string& address, unsigned short port, sockaddr_in& addr)
 {
-	hostent* host = gethostbyname( hostname.c_str());
+	addr.sin_family = AF_INET;
+
+	// Assign port in network byte order
+	addr.sin_port = htons(port);
+
+	// Assume we have a simple ipv4 address
+	if( inet_aton( address.c_str(), &addr.sin_addr)) return;
+
+	// We need to resolve the address
+	hostent* host = gethostbyname( address.c_str());
 	if( host == 0)
 	{
 		// strerror() will not work for gethostbyname()
 		throw SocketException("Failed to resolve address (gethostbyname())", false);
 	}
-	return std::string(host->h_addr);
+	addr.sin_addr.s_addr = *reinterpret_cast<uint32_t*>( host->h_addr);
 }
 
 unsigned short NET::resolveService( const std::string& service, const std::string& protocol)
@@ -65,7 +79,10 @@ std::string NET::getInterfaceAddress( const std::string& interface)
 
 	close(sock);
 
-	return inet_ntoa( reinterpret_cast<sockaddr_in*>(&ifr.ifr_addr)->sin_addr);
+	convert conv;
+	conv.sa = ifr.ifr_addr;
+
+	return inet_ntoa( (&conv.si)->sin_addr);
 }
 
 void NET::setInterfaceAddress( const std::string& interface, const std::string& addr)
@@ -100,7 +117,10 @@ std::string NET::getBroadcastAddress( const std::string& interface)
 
 	close(sock);
 
-	return inet_ntoa( reinterpret_cast<sockaddr_in*>(&ifr.ifr_broadaddr)->sin_addr);
+	convert conv;
+	conv.sa = ifr.ifr_broadaddr;
+
+	return inet_ntoa( (&conv.si)->sin_addr);
 }
 
 void NET::setBroadcastAddress( const std::string& interface, const std::string& addr)
@@ -136,7 +156,10 @@ std::string NET::getNetmask( const std::string& interface)
 
 	close(sock);
 
-	return inet_ntoa( reinterpret_cast<sockaddr_in*>(&ifr.ifr_netmask)->sin_addr);
+	convert conv;
+	conv.sa = ifr.ifr_netmask;
+
+	return inet_ntoa( (&conv.si)->sin_addr);
 }
 
 void NET::setNetmask( const std::string& interface, const std::string& addr)
@@ -171,7 +194,10 @@ std::string NET::getDestinationAddress( const std::string& interface)
 
 	close(sock);
 
-	return inet_ntoa( reinterpret_cast<sockaddr_in*>(&ifr.ifr_dstaddr)->sin_addr);
+	convert conv;
+	conv.sa = ifr.ifr_dstaddr;
+
+	return inet_ntoa( (&conv.si)->sin_addr);
 }
 
 void NET::setDestinationAddress( const std::string& interface, const std::string& addr)
