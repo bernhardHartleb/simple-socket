@@ -1,5 +1,4 @@
 #include "InternetSocket.h"
-#include "SocketUtils.h"
 
 #include <sys/socket.h>
 #include <arpa/inet.h>

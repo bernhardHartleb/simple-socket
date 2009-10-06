@@ -1,6 +1,5 @@
 #include "UDPSocket.h"
 #include "TempFailure.h"
-#include "SocketUtils.h"
 
 #include <sys/socket.h>
 #include <arpa/inet.h>

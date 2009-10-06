@@ -1,6 +1,5 @@
 #include "SCTPSocket.h"
 #include "TempFailure.h"
-#include "SocketUtils.h"
 
 #include <netinet/in.h>
 #include <poll.h>
