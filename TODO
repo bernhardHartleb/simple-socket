@@ -3,6 +3,10 @@ General:
 - handle peerDisconnected correctly
 - make decision about wether a license should be used
 
+UnixSockets:
+- do more checks on socket paths
+- allow to unlink created socket files
+
 Documentation:
 - define out-of-memory behaviour
 - check exception specifications

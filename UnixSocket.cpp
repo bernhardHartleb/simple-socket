@@ -55,7 +55,7 @@ std::string UnixSocket::getLocalPath() const
 	if( getsockname( m_socket, (sockaddr*) &addr, &addr_len) < 0)
 		throw SocketException("Fetch of local path failed (getsockname)");
 
-	return std::string( addr.sun_path, addr_len);
+	return extractPath( addr, addr_len);
 }
 
 std::string UnixSocket::getForeignPath() const
@@ -66,11 +66,16 @@ std::string UnixSocket::getForeignPath() const
 	if( getpeername( m_socket, (sockaddr*) &addr, &addr_len) < 0)
 		throw SocketException("Fetch of foreign path failed (getpeername)");
 
-	return std::string( addr.sun_path, addr_len);
+	return extractPath( addr, addr_len);
 }
 
 bool UnixSocket::isValidPath( const std::string& path)
 {
 	if( path.size() >= 104) return false;
 	else return true;
+}
+
+std::string UnixSocket::extractPath( const sockaddr_un& addr, socklen_t len)
+{
+	return std::string( addr.sun_path, len - sizeof(sa_family_t) - 1);
 }

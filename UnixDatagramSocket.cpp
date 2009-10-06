@@ -37,7 +37,7 @@ int UnixDatagramSocket::receiveFrom( void* buffer, size_t len, std::string& sour
 	if( ret < 0)
 		throw SocketException("Receive failed (recvfrom)");
 
-	sourcePath = std::string( clientAddr.sun_path, addr_len);
+	sourcePath = extractPath( clientAddr, addr_len);
 	return ret;
 }
 

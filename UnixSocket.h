@@ -3,6 +3,8 @@
 
 #include "SimpleSocket.h"
 
+struct sockaddr_un;
+
 namespace NET
 {
 	//! Unix Domain Socket class
@@ -53,6 +55,9 @@ namespace NET
 	protected:
 		//! allows a subclass to create new socket
 		UnixSocket( int type, int protocol);
+
+		//! extracts a path string from the socket address structure
+		static std::string extractPath( const sockaddr_un& addr, socklen_t len);
 	};
 
 } // namespace NET
