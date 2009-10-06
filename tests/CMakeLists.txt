@@ -2,7 +2,8 @@ message("Building tests:")
 
 set(tests
 	UDPSocket_TEST
-	TCPSocket_TEST)
+	TCPSocket_TEST
+	UnixDatagramSocket_TEST)
 
 foreach(TB ${tests})
 
