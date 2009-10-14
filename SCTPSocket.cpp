@@ -3,7 +3,6 @@
 
 #include <netinet/in.h>
 #include <poll.h>
-#include <cstring>
 
 using namespace NET;
 
@@ -25,7 +24,7 @@ int SCTPSocket::bind( const std::vector<std::string>& localAddresses, unsigned s
 	size_t size = localAddresses.size();
 	sockaddr_in *dest = new sockaddr_in[size];
 
-	for( int i = 0; i < size; ++i)
+	for( size_t i = 0; i < size; ++i)
 		fillAddress( localAddresses[i], localPort, dest[i]);
 
 	int ret = sctp_bindx( m_socket, reinterpret_cast<sockaddr*>(dest), size, SCTP_BINDX_ADD_ADDR);
@@ -40,13 +39,14 @@ int SCTPSocket::connect( const std::vector<std::string>& foreignAddresses, unsig
 	size_t size = foreignAddresses.size();
 	sockaddr_in *dest = new sockaddr_in[size];
 
-	for( int i = 0; i < size; ++i)
+	for( size_t i = 0; i < size; ++i)
 		fillAddress( foreignAddresses[i], foreignPort, dest[i]);
 
 	int ret = sctp_connectx( m_socket, reinterpret_cast<sockaddr*>(dest), size);
 	delete[] dest;
 	if(ret < 0)
 		throw SocketException("SCTPSocket::SCTPSocket connect failed");
+	return ret;
 }
 
 int SCTPSocket::state() const
@@ -105,7 +105,7 @@ unsigned SCTPSocket::fragmentationPoint() const
 
 std::string SCTPSocket::primaryAddress() const
 {
-
+	return std::string(); // TODO
 }
 
 int SCTPSocket::send( const void* data, int length, unsigned stream, unsigned ttl /* = 0 */, unsigned context /* = 0 */,
@@ -148,7 +148,7 @@ int SCTPSocket::receive( void* data, int maxLen, unsigned& stream, receiveFlag& 
 	if( (ret = sctp_recvmsg( m_socket, data, maxLen, 0, 0, &info, 0)) <= 0)
 		throw SocketException("SCTPSocket::receive failed");
 	stream = info.sinfo_stream;
-	// flag = info.sinfo_flags;
+	flag = static_cast<receiveFlag>(info.sinfo_flags);
 	return ret;
 }
 
@@ -227,7 +227,6 @@ SCTPSocket::Handle SCTPSocket::timedAccept( unsigned timeout) const
 void SCTPSocket::setInitValues( unsigned numOutStreams, unsigned maxInStreams, unsigned maxAttempts, unsigned maxInitTimeout)
 {
 	struct sctp_initmsg init;
-	std::memset( &init, 0, sizeof(init));
 	init.sinit_num_ostreams = numOutStreams;
 	init.sinit_max_instreams = maxInStreams;
 	init.sinit_max_attempts = maxAttempts;
