@@ -1,7 +1,6 @@
 General:
 - implement a Unix stream socket
 - handle peerDisconnected correctly
-- make decision about wether a license should be used
 
 UnixSockets:
 - do more checks on socket paths
