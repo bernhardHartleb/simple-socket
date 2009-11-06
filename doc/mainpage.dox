@@ -1,0 +1,19 @@
+/*! \mainpage
+
+An easy to use C++ socket and network library, mainly for UNIX systems.
+
+\section Overview
+
+The following features are currently available:
+
+- Streams (TCP) and Datagrams (UDP)
+- IPv4 and Unix Domain Sockets
+- SCTP Protocol support
+- UDP Multicast
+- Reentrant and Signal Safe
+
+\section License
+
+This library is released under the <a href="http://en.wikipedia.org/wiki/MIT_License" target="_blank">MIT License</a>.
+
+*/
