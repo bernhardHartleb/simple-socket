@@ -29,14 +29,14 @@ namespace NET
 	 *
 	 * Usage example:
 	 * \code
-	 * // socket is a TCPSocket listening on connections
+	 * // socket is a TCPSocket listening for connections
 	 * TCPSocket::Handle handle = socket.timedAccept(1000);
-	 * if( !handle) {
+	 * if(!handle) {
 	 *   std::cout << "no one tried to connect in time" << std::endl;
 	 *   return;
 	 * }
 	 * TCPSocket acceptedSocket(handle);
-	 * ... do something with the socket
+	 * // use the socket
 	 * \endcode
 	 */
 	template<class Socket>
@@ -46,7 +46,7 @@ namespace NET
 		friend class TCPSocket;
 		friend class SCTPSocket;
 
-		//! The Type that was provided as template argument
+		//! socket type that was provided as template argument
 		typedef Socket socket_type;
 
 		//! constructs an invalid socket handle
@@ -77,7 +77,7 @@ namespace NET
 		 * Checks wheter a socket can be constructed from the handle or not.
 		 * If accept() returned an invalid socket (e.g. timed out timedAccept()
 		 * call) this should be used to verify the handle. Trying to construct
-		 * a socket from an invalid handle will raise an exception.
+		 * a socket from an invalid handle will raise a SocketException.
 		 */
 		operator bool() const { return m_sockfd > 0; }
 
@@ -85,10 +85,9 @@ namespace NET
 		//! constructor for sockets using this handle
 		explicit SocketHandle( int sockfd) : m_sockfd(sockfd) {}
 
-		//! transfers the socket to an other entity
+		//! releases ownership of the socket file descriptor
 		/*!
-		 * This also transfers the obligation to close the handle to the other
-		 * entity
+		 * This also transfers the obligation to close the handle.
 		 */
 		int release()
 		{
@@ -100,7 +99,7 @@ namespace NET
 		//! resets the handle to an other socket file descriptor
 		/*!
 		 * If the handle is reset to a different file descriptor than itself,
-		 * handle closes the previously held socket descriptor.
+		 * the previously held socket descriptor is closed.
 		 */
 		void reset( int fd = 0)
 		{

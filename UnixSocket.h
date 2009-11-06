@@ -32,14 +32,14 @@ namespace NET
 		void bind( const std::string& localPath);
 
 		/*!
-		 * Get the local path
+		 * Get the local path (after binding the socket)
 		 * \return local path of socket
 		 * \exception SocketException thrown if fetch fails
 		 */
 		std::string getLocalPath() const;
 
 		/*!
-		 * Get the foreign path
+		 * Get the foreign path. Call connect() before using this function.
 		 * \return foreign path
 		 * \exception SocketException thrown if fetch fails
 		 */

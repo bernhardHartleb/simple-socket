@@ -19,19 +19,19 @@ namespace NET
 		 * Send the given buffer as a UDP datagram to the
 		 * specified address / port.
 		 *
-		 * Can be substituted with send() if the socket is first connected to an
-		 * address and port. If sendTo() is used on a connected socket, the
+		 * Can be substituted with send() if the socket is first connected to
+		 * an address and port. If sendTo() is used on a connected socket, the
 		 * destination parameters will be ignored, and the datagram will be sent
 		 * to the connected socket.
 		 *
-		 * If the message you are trying to send is too long for one of the underlying protocols
-		 * a SocketException will be thrown. Like send(), sendTo() blocks until the message was sent.
+		 * If the message you are trying to send is too long for one of
+		 * the underlying protocols a SocketException will be thrown.
+		 * Like send(), sendTo() blocks until the message was sent.
 		 *
-		 * \param buffer buffer to be written
+		 * \param buffer data to be send
 		 * \param bufferLen number of bytes to write
 		 * \param foreignAddress address (IP address or name) to send to
 		 * \param foreignPort port number to send to
-		 * \return true if send is successful
 		 * \exception SocketException thrown if unable to send datagram
 		 */
 		void sendTo( const void* buffer, size_t bufferLen, const std::string& foreignAddress, unsigned short foreignPort);
@@ -47,7 +47,7 @@ namespace NET
 		 * \param len maximum number of bytes to receive
 		 * \param sourceAddress address of datagram source
 		 * \param sourcePort port of data source
-		 * \return number of bytes received and -1 for error
+		 * \return number of bytes received
 		 * \exception SocketException thrown if unable to receive datagram
 		 */
 		int receiveFrom( void* buffer, size_t len, std::string& sourceAddress, unsigned short& sourcePort);
@@ -66,7 +66,7 @@ namespace NET
 		 * \param sourceAddress address of datagram source
 		 * \param sourcePort port of data source
 		 * \param timeout timeout in milliseconds
-		 * \return number of bytes received and -1 for error
+		 * \return number of bytes received, 0 on timeout
 		 * \exception SocketException thrown if unable to receive datagram
 		 */
 		int timedReceiveFrom( void* buffer, size_t len, std::string& sourceAddress, unsigned short& sourcePort, int timeout);

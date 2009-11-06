@@ -11,15 +11,13 @@ namespace NET
 	class InternetSocket : public SimpleSocket
 	{
 	public:
+		//! establish a connection with the given foreign address and port
 		/*!
-		 * Establish a socket connection with the given foreign
-		 * address and port
-		 *
-		 * If you are using a connection oriented socket, (like TCPSocket) you have to call connect() on
-		 * that socket in order to send data.
-		 * However, if you are using a non-connection oriented socket (like UDPSocket), calling connect
-		 * on that socket will allow you to use the send() function like on a connection oriented socket.
-		 * You don't have to use sendTo() in that case, but you are still allowed to.
+		 * If you are using a connection oriented socket (like TCPSocket),
+		 * you have to call connect() on that socket in order to send data.
+		 * However, if you are using a non-connection oriented socket
+		 * (like UDPSocket), calling connect on that socket will allow you to
+		 * use the send() function like on a connection oriented socket.
 		 *
 		 * \param foreignAddress foreign address (IP address or name)
 		 * \param foreignPort foreign port
@@ -29,16 +27,14 @@ namespace NET
 
 		/*!
 		 * Unset foreign address and port
-		 * \return true if disassociation is successful
 		 * \exception SocketException thrown if unable to disconnect UDP socket
 		 */
 		void disconnect();
 
 		/*!
 		 * \overload
-		 *
 		 * Instead of the richer function with more arguments, this bind()
-		 * binds to any interface / address
+		 * binds to any available interface / address
 		 */
 		void bind( unsigned short localPort = 0);
 
@@ -65,14 +61,14 @@ namespace NET
 		void bind( const std::string& localAddress, unsigned short localPort = 0);
 
 		/*!
-		 * Get the local address (after binding the socket)
+		 * Get the local address (after binding the socket).
 		 * \return local address of socket
 		 * \exception SocketException thrown if fetch fails
 		 */
 		std::string getLocalAddress() const;
 
 		/*!
-		 * Get the local port (after binding the socket)
+		 * Get the local port (after binding the socket).
 		 * \return local port of socket
 		 * \exception SocketException thrown if fetch fails
 		 */

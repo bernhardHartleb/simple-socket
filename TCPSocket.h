@@ -10,61 +10,63 @@ namespace NET
 	class TCPSocket : public InternetSocket
 	{
 	public:
-		//! handle for a new socket returned by accept
+		//! Handle for a new socket returned by accept
 		typedef SocketHandle<TCPSocket> Handle;
 
 		/*!
 		 * Construct a TCP socket
 		 * \exception SocketException thrown if unable to create the socket
-		*/
+		 */
 		TCPSocket();
 
 		/*!
 		 * Construct a Socket from a Handle returned by accept()
 		 * \exception SocketException thrown if handle is invalid
-		*/
+		 */
 		TCPSocket( Handle handle);
 
 		//! send data through a connected socket
 		/*!
-		 * sendAll() can only be used on a socket that called connect() before (Or was contructed connected)
-		 * If you try to use sendAll() on a not connected socket, SocketException will be thrown.
+		 * sendAll() can only be used on a socket that called connect()
+		 * before. If you try to use sendAll() on a unconnected socket,
+		 * a SocketException will be thrown.
 		 *
-		 * When using a stream oriented socket, the operating system is allowed to send only
-		 * a bit of the data you requested it to send. Because of this, you would have to
-		 * check the number of sent bytes when using send(), and resend unsent data manually.
-		 * sendAll() takes that responsibility from you, and resends as long as it needs, to
+		 * When using a stream oriented socket, the operating system is allowed
+		 * to send only a bit of the data you requested it to send.
+		 * Because of this, you would have to check the number of sent bytes
+		 * when using send(), and resend unsent data manually. sendAll() takes
+		 * that responsibility from you and resends as long as it needs, to
 		 * completely send the data given to it.
 		 *
-		 * \param buffer data to send
+		 * \param buffer data to be send
 		 * \param len length of the data to be sent
-		 * \return returns the number of sent bytes
+		 * \return number of bytes sent
 		 * \exception SocketException
 		 */
 		int sendAll( const void* buffer, size_t len);
 
 		//! listen for incoming connections
 		/*!
-		 * listen can be called on a bound socket.
+		 * listen() can be called on a bound socket.
 		 * The socket will then go into a passive state and accept incoming
-		 * connections. To answer to an incoming connection call accept /
-		 * timedAccept on the socket.
+		 * connections. To answer to an incoming connection call accept() or
+		 * timedAccept() on the socket.
 		 *
 		 * The backlog is a buffer for incoming connections. If backlog is set
 		 * to 0, the number of incoming connections is only limited by the
 		 * operating system. If backlog is set to a value > 0, only the upper
 		 * limit of connections is set, the OS can limit the number further.
 		 *
-		 * after starting to listen, use accept to accept incoming connections.
+		 * After starting to listen, use accept to accept incoming connections.
 		 *
-		 * \param backlog upper limit of waiting incoming connections
+		 * \param backlog upper limit of pending incoming connections
 		 * \exception SocketException
 		 */
 		void listen( int backlog = 5);
 
 		//! wait for another socket to connect
 		/*!
-		 * accept will block until a new connection arrives. It is used to
+		 * accept() will block until a new connection arrives. It is used to
 		 * create TCP server applications. On return it will return the handle
 		 * to the incoming connection.
 		 *
@@ -82,7 +84,7 @@ namespace NET
 
 		//! wait for another socket to connect
 		/*!
-		 * timedAccept will block until a new connection arrives, or the given
+		 * timedAccept() will block until a new connection arrives, or the given
 		 * timeout runs out. It is used to create TCP server applications. On
 		 * return it will return the handle to the incoming connection.
 		 *
@@ -90,7 +92,7 @@ namespace NET
 		 * used. Creating a new socket object using an invalid handle will
 		 * raise an exception.
 		 *
-		 * timedAccept can only be called on a listening socket.
+		 * timedAccept() can only be called on a listening socket.
 		 *
 		 * Use the returned handle to create a new TCPSocket to communicate
 		 * with the new connected client. Regardless of what you do with a

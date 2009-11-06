@@ -68,10 +68,10 @@ namespace NET
 		 * will fail if you are trying to send too much data. In that case SocketException
 		 * will be thrown.
 		 *
-		 * \param buffer data to send
+		 * \param buffer data to be send
 		 * \param len length of the data to be sent
-		 * \return returns the number of sent bytes
-		 * \exception SocketException if sending goes wrong
+		 * \return number of bytes sent
+		 * \exception SocketException if sending went wrong
 		 */
 		int send( const void* buffer, size_t len);
 
@@ -96,8 +96,8 @@ namespace NET
 		 *
 		 * \param buffer the buffer the received data will be written to
 		 * \param len length of the provided buffer, receive will not read more than that
-		 * \return int number of received bytes
-		 * \exception SocketException in the case an error occured
+		 * \return number of bytes received
+		 * \exception SocketException in case an error occured
 		 */
 		int receive( void* buffer, size_t len);
 
@@ -124,32 +124,33 @@ namespace NET
 		 * \param buffer the buffer the received data will be written to
 		 * \param len length of the provided buffer, receive will not read more than that
 		 * \param timeout the timeout in ms after which receive will give up and return
-		 * \return int number of received bytes
-		 * \exception SocketException in the case an error occured
+		 * \return number of bytes received, 0 on timeout
+		 * \exception SocketException in case an error occured
 		 */
 		int timedReceive( void* buffer, size_t len, int timeout);
 
 		//! will shutdown the connection in the specified direction
 		/*!
 		 * Depending on the specified ShutdownDirection, calls for that direction
-		 * will stop working.
-		 * Use this function if you want to have a little more control than just destroing
-		 * the socket. It allows you to cut the connection in one direction, or both.
+		 * will stop working. Use this function if you want to have more control
+		 * than just destroing the socket. It allows you to cut the connection
+		 * in one direction, or both.
 		 *
-		 * If shutdown fails SocketException will be thrown.
-		 *
-		 * If you use shutdown() on an unconnected socket, the corresponding calls will simply
-		 * stop working. But shutdown can be used on a connected UDP socket.
+		 * If you use shutdown() on an unconnected socket, the corresponding
+		 * calls will simply stop working.
+
+		 * \param type the ShutdownDirection that be used
+		 * \exception SocketException in case an error occured
 		 */
 		void shutdown( ShutdownDirection type);
 
-		//! returns whether a peer disconnected or not
+		//! returns whether a peer disconnected
 		/*!
-		 * Will only work if you use an connection oriented, connected socket.
+		 * Will only work if you use a connection oriented, connected socket.
 		 * Returns true if the peer disconnected. Use this function after
 		 * a call to receive, returned 0 received bytes.
 		 *
-		 * \return bool true if the peer disconnected
+		 * \return true if a peer disconnected
 		 */
 		bool peerDisconnected() const;
 

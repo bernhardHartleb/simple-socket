@@ -16,9 +16,9 @@ namespace NET
 		UnixDatagramSocket();
 
 		/*!
-		 * Send the given buffer as a UDP datagram to the
+		 * Send the given buffer as a datagram to the
 		 * specified address / port
-		 * \param buffer buffer to be written
+		 * \param buffer data to be send
 		 * \param len number of bytes to write
 		 * \param foreignPath filename of the datagram socket the data should be sent to
 		 * \return true if send is successful
@@ -33,7 +33,7 @@ namespace NET
 		 * \param buffer buffer to receive data
 		 * \param len maximum number of bytes to receive
 		 * \param sourcePath path where the data originated
-		 * \return number of bytes received and -1 for error
+		 * \return number of bytes received
 		 * \exception SocketException thrown if unable to receive datagram
 		 */
 		int receiveFrom( void* buffer, size_t len, std::string& sourcePath);
@@ -48,7 +48,7 @@ namespace NET
 		 * \param len maximum number of bytes to receive
 		 * \param sourcePath path where the data originated
 		 * \param timeout timeout in milliseconds
-		 * \return number of bytes received and -1 for error
+		 * \return number of bytes received, 0 on timeout
 		 * \exception SocketException thrown if unable to receive datagram
 		 */
 		int timedReceiveFrom( void* buffer, size_t len, std::string& sourcePath, int timeout);

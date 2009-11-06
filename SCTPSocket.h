@@ -16,7 +16,7 @@ namespace NET
 	class SCTPSocket : public InternetSocket
 	{
 	public:
-		//! handle for a new socket returned by accept
+		//! Handle for a new socket returned by accept
 		typedef SocketHandle<SCTPSocket> Handle;
 
 		enum abortFlag
