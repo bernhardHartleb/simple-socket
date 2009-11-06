@@ -1,2 +1,4 @@
-<area shape="rect" id="node3" href="$a00030.html" title="UnixSocket.h" alt="" coords="104,83,208,112">
-<area shape="rect" id="node5" href="$a00016.html" title="SimpleSocket.h" alt="" coords="96,160,216,189">
+<area shape="rect" id="node3" href="$a00028.html" title="UnixDatagramSocket.h" alt="" coords="35,83,205,112">
+<area shape="rect" id="node15" href="$a00023.html" title="TempFailure.h" alt="" coords="280,83,389,112">
+<area shape="rect" id="node5" href="$a00031.html" title="UnixSocket.h" alt="" coords="72,160,176,189">
+<area shape="rect" id="node7" href="$a00017.html" title="SimpleSocket.h" alt="" coords="65,237,185,267">

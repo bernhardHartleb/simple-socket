@@ -1,6 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-<title>simple-socket library: TCPSocket.cpp File Reference</title>
+<title>simple-socket library: SocketUtils.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css">
 <link href="doxygen.css" rel="stylesheet" type="text/css">
 </head><body>
@@ -23,27 +23,66 @@
   </div>
 </div>
 <div class="contents">
-<h1>TCPSocket.cpp File Reference</h1><code>#include &quot;<a class="el" href="a00020_source.html">TCPSocket.h</a>&quot;</code><br>
-<code>#include &quot;<a class="el" href="a00022_source.html">TempFailure.h</a>&quot;</code><br>
-<code>#include &lt;sys/socket.h&gt;</code><br>
-<code>#include &lt;netinet/in.h&gt;</code><br>
-<code>#include &lt;poll.h&gt;</code><br>
+<h1>SocketUtils.h File Reference</h1><code>#include &lt;vector&gt;</code><br>
+<code>#include &lt;string&gt;</code><br>
 
 <p>
 <div class="dynheader">
-Include dependency graph for TCPSocket.cpp:</div>
+Include dependency graph for SocketUtils.h:</div>
 <div class="dynsection">
-<p><center><img src="a00049.png" border="0" usemap="#TCPSocket.cpp_map" alt=""></center>
-<map name="TCPSocket.cpp_map">
-<area shape="rect" id="node3" href="a00020.html" title="TCPSocket.h" alt="" coords="225,83,327,112"><area shape="rect" id="node9" href="a00022.html" title="TempFailure.h" alt="" coords="315,237,424,267"><area shape="rect" id="node5" href="a00010.html" title="Handle.h" alt="" coords="244,160,321,189"><area shape="rect" id="node14" href="a00012.html" title="InternetSocket.h" alt="" coords="92,160,220,189"><area shape="rect" id="node16" href="a00016.html" title="SimpleSocket.h" alt="" coords="96,237,216,267"></map>
+<p><center><img src="a00048.png" border="0" usemap="#SocketUtils.h_map" alt=""></center>
+</div>
+
+<p>
+<div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dynsection">
+<p><center><img src="a00049.png" border="0" usemap="#SocketUtils.hdep_map" alt=""></center>
+<map name="SocketUtils.hdep_map">
+<area shape="rect" id="node3" href="a00018.html" title="SocketUtils.cpp" alt="" coords="5,83,125,112"></map>
 </div>
 
 <p>
 <a href="a00019_source.html">Go to the source code of this file.</a><table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
+<tr><td colspan="2"><br><h2>Namespaces</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">namespace &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00034.html">NET</a></td></tr>
+
+<tr><td colspan="2"><br><h2>Functions</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00034.html#592b8bc436eb0d4d1f737970408c7a62">NET::getBroadcastAddress</a> (const std::string &amp;interface)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">retrieve the broadcast address for an interface  <a href="#592b8bc436eb0d4d1f737970408c7a62"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00034.html#514405219550a876f6da1fb63be5754f">NET::getDestinationAddress</a> (const std::string &amp;interface)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00034.html#0c174bdf3f4db00d21f51805d194f313">NET::getHardwareAddress</a> (const std::string &amp;interface, char separationChar)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00034.html#cd20e23776526ae626ade5a49c4a6f23">NET::getInterfaceAddress</a> (const std::string &amp;interface)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return the IPv4 address of a network interface.  <a href="#cd20e23776526ae626ade5a49c4a6f23"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00034.html#ee6172b4b73501ded03e2bc0f5dd58f4">NET::getMTU</a> (const std::string &amp;interface)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00034.html#bdb4c62549949aa5e241e190917ec5e3">NET::getNetmask</a> (const std::string &amp;interface)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">std::vector&lt; std::string &gt;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00034.html#562d8bbf23502459495eb4d720fb6950">NET::getNetworkInterfaces</a> ()</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Return a list of available network interfaces.  <a href="#562d8bbf23502459495eb4d720fb6950"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00034.html#c207188d9fe7362a8fb80b8d46677a3c">NET::resolveHostname</a> (const std::string &amp;hostname)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">unsigned short&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00034.html#978b8ebb080d86d4a02233a3eb26986f">NET::resolveService</a> (const std::string &amp;service, const std::string &amp;protocol=&quot;tcp&quot;)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00034.html#daf97ab8a59850b2a91eea3a6a1ee0d9">NET::setBroadcastAddress</a> (const std::string &amp;interface, const std::string &amp;address)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00034.html#9d73559d08bfcab81b769fead324ff99">NET::setDestinationAddress</a> (const std::string &amp;interface, const std::string &amp;address)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00034.html#c8b92ebc47b8d2cff945af66efd3c27e">NET::setInterfaceAddress</a> (const std::string &amp;interface, const std::string &amp;address)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00034.html#96f7b4a72c23b2838d07279b9e9125cf">NET::setMTU</a> (const std::string &amp;interface, int mtu)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00034.html#33c03d040f8ac3ab8aeb81d4e24328b6">NET::setNetmask</a> (const std::string &amp;interface, const std::string &amp;address)</td></tr>
+
 </table>
 </div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Sat Oct 31 14:32:24 2009 for simple-socket library by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Fri Nov 6 18:20:33 2009 for simple-socket library by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.9 </small></address>
 </body>

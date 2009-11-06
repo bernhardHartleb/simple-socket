@@ -1,6 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-<title>simple-socket library: TCPSocket.h File Reference</title>
+<title>simple-socket library: TCPSocket.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css">
 <link href="doxygen.css" rel="stylesheet" type="text/css">
 </head><body>
@@ -23,40 +23,27 @@
   </div>
 </div>
 <div class="contents">
-<h1>TCPSocket.h File Reference</h1><code>#include &quot;<a class="el" href="a00010_source.html">Handle.h</a>&quot;</code><br>
-<code>#include &quot;<a class="el" href="a00012_source.html">InternetSocket.h</a>&quot;</code><br>
+<h1>TCPSocket.cpp File Reference</h1><code>#include &quot;<a class="el" href="a00021_source.html">TCPSocket.h</a>&quot;</code><br>
+<code>#include &quot;<a class="el" href="a00023_source.html">TempFailure.h</a>&quot;</code><br>
+<code>#include &lt;sys/socket.h&gt;</code><br>
+<code>#include &lt;netinet/in.h&gt;</code><br>
+<code>#include &lt;poll.h&gt;</code><br>
 
 <p>
 <div class="dynheader">
-Include dependency graph for TCPSocket.h:</div>
+Include dependency graph for TCPSocket.cpp:</div>
 <div class="dynsection">
-<p><center><img src="a00050.png" border="0" usemap="#TCPSocket.h_map" alt=""></center>
-<map name="TCPSocket.h_map">
-<area shape="rect" id="node3" href="a00010.html" title="Handle.h" alt="" coords="95,83,172,112"><area shape="rect" id="node12" href="a00012.html" title="InternetSocket.h" alt="" coords="219,83,347,112"><area shape="rect" id="node7" href="a00022.html" title="TempFailure.h" alt="" coords="79,160,188,189"><area shape="rect" id="node14" href="a00016.html" title="SimpleSocket.h" alt="" coords="247,160,367,189"></map>
-</div>
-
-<p>
-<div class="dynheader">
-This graph shows which files directly or indirectly include this file:</div>
-<div class="dynsection">
-<p><center><img src="a00051.png" border="0" usemap="#TCPSocket.hdep_map" alt=""></center>
-<map name="TCPSocket.hdep_map">
-<area shape="rect" id="node3" href="a00019.html" title="TCPSocket.cpp" alt="" coords="5,83,120,112"><area shape="rect" id="node5" href="a00021.html" title="TCPSocket_TEST.cpp" alt="" coords="144,83,296,112"></map>
+<p><center><img src="a00050.png" border="0" usemap="#TCPSocket.cpp_map" alt=""></center>
+<map name="TCPSocket.cpp_map">
+<area shape="rect" id="node3" href="a00021.html" title="TCPSocket.h" alt="" coords="225,83,327,112"><area shape="rect" id="node9" href="a00023.html" title="TempFailure.h" alt="" coords="315,237,424,267"><area shape="rect" id="node5" href="a00010.html" title="Handle.h" alt="" coords="244,160,321,189"><area shape="rect" id="node14" href="a00012.html" title="InternetSocket.h" alt="" coords="92,160,220,189"><area shape="rect" id="node16" href="a00017.html" title="SimpleSocket.h" alt="" coords="96,237,216,267"></map>
 </div>
 
 <p>
 <a href="a00020_source.html">Go to the source code of this file.</a><table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
-<tr><td colspan="2"><br><h2>Classes</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">class &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html">NET::TCPSocket</a></td></tr>
-
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">TCP socket class.  <a href="a00006.html#_details">More...</a><br></td></tr>
-<tr><td colspan="2"><br><h2>Namespaces</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">namespace &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00033.html">NET</a></td></tr>
-
 </table>
 </div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Sat Oct 31 14:32:25 2009 for simple-socket library by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Fri Nov 6 18:20:33 2009 for simple-socket library by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.9 </small></address>
 </body>

@@ -25,9 +25,9 @@
 <a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define NET_SocketHandle_h__</span>
 <a name="l00003"></a>00003 <span class="preprocessor"></span>
 <a name="l00004"></a>00004 <span class="preprocessor">#include &lt;unistd.h&gt;</span>
-<a name="l00005"></a>00005 <span class="preprocessor">#include "<a class="code" href="a00022.html">TempFailure.h</a>"</span>
+<a name="l00005"></a>00005 <span class="preprocessor">#include "<a class="code" href="a00023.html">TempFailure.h</a>"</span>
 <a name="l00006"></a>00006 
-<a name="l00007"></a><a class="code" href="a00033.html">00007</a> <span class="keyword">namespace </span>NET
+<a name="l00007"></a><a class="code" href="a00034.html">00007</a> <span class="keyword">namespace </span>NET
 <a name="l00008"></a>00008 {
 <a name="l00009"></a>00009     <span class="keyword">template</span>&lt;<span class="keyword">class</span>&gt;
 <a name="l00010"></a>00010     <span class="keyword">class </span>SocketHandle_Ref;
@@ -84,7 +84,7 @@
 <a name="l00106"></a>00106         {
 <a name="l00107"></a>00107             <span class="keywordflow">if</span>( fd != m_sockfd)
 <a name="l00108"></a>00108             {
-<a name="l00109"></a>00109                 <a class="code" href="a00022.html#e3924d534a2de097f5cccb535330e8c2">TEMP_FAILURE_RETRY</a> (::close(m_sockfd));
+<a name="l00109"></a>00109                 <a class="code" href="a00023.html#e3924d534a2de097f5cccb535330e8c2">TEMP_FAILURE_RETRY</a> (::close(m_sockfd));
 <a name="l00110"></a>00110                 m_sockfd = fd;
 <a name="l00111"></a>00111             }
 <a name="l00112"></a>00112         }
@@ -105,7 +105,7 @@
 <a name="l00130"></a>00130 
 <a name="l00131"></a>00131 <span class="preprocessor">#endif // NET_SocketHandle_h__</span>
 </pre></div></div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Sat Oct 31 14:32:24 2009 for simple-socket library by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Fri Nov 6 18:20:33 2009 for simple-socket library by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.9 </small></address>
 </body>

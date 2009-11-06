@@ -1,6 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-<title>simple-socket library: SocketUtils.cpp Source File</title>
+<title>simple-socket library: SimpleSocket.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css">
 <link href="doxygen.css" rel="stylesheet" type="text/css">
 </head><body>
@@ -21,289 +21,93 @@
       <li><a href="globals.html"><span>File&nbsp;Members</span></a></li>
     </ul>
   </div>
-<h1>SocketUtils.cpp</h1><a href="a00017.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#include "<a class="code" href="a00018.html">SocketUtils.h</a>"</span>
-<a name="l00002"></a>00002 <span class="preprocessor">#include "<a class="code" href="a00016.html">SimpleSocket.h</a>"</span>
-<a name="l00003"></a>00003 
+<h1>SimpleSocket.h</h1><a href="a00017.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef NET_SimpleSocket_h__</span>
+<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define NET_SimpleSocket_h__</span>
+<a name="l00003"></a>00003 <span class="preprocessor"></span>
 <a name="l00004"></a>00004 <span class="preprocessor">#include &lt;sys/socket.h&gt;</span>
-<a name="l00005"></a>00005 <span class="preprocessor">#include &lt;sys/ioctl.h&gt;</span>
-<a name="l00006"></a>00006 <span class="preprocessor">#include &lt;arpa/inet.h&gt;</span>
-<a name="l00007"></a>00007 <span class="preprocessor">#include &lt;net/if.h&gt;</span>
-<a name="l00008"></a>00008 <span class="preprocessor">#include &lt;net/if_arp.h&gt;</span>
-<a name="l00009"></a>00009 <span class="preprocessor">#include &lt;netdb.h&gt;</span>
-<a name="l00010"></a>00010 
-<a name="l00011"></a>00011 <span class="preprocessor">#include &lt;cstring&gt;</span>
-<a name="l00012"></a>00012 <span class="preprocessor">#include &lt;cstdlib&gt;</span>
-<a name="l00013"></a>00013 <span class="preprocessor">#include &lt;sstream&gt;</span>
-<a name="l00014"></a>00014 <span class="preprocessor">#include &lt;iomanip&gt;</span>
-<a name="l00015"></a>00015 
-<a name="l00016"></a>00016 <span class="keyword">using namespace </span>NET;
-<a name="l00017"></a>00017 
-<a name="l00018"></a>00018 <span class="keyword">namespace</span>
-<a name="l00019"></a>00019 {
-<a name="l00020"></a>00020     <span class="keyword">class </span>sockaddr_ptr
-<a name="l00021"></a>00021     {
-<a name="l00022"></a>00022     <span class="keyword">public</span>:
-<a name="l00023"></a>00023         sockaddr_ptr( <span class="keyword">const</span> sockaddr* sa) : msa(*sa) {}
-<a name="l00024"></a>00024         <span class="keyword">const</span> sockaddr_in&amp; operator*()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> msi; }
-<a name="l00025"></a>00025         <span class="keyword">const</span> sockaddr_in* operator-&gt;()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> &amp;msi; }
-<a name="l00026"></a>00026 
-<a name="l00027"></a>00027     <span class="keyword">private</span>:
-<a name="l00028"></a>00028         <span class="keyword">union </span>{ sockaddr msa; sockaddr_in msi; };
-<a name="l00029"></a>00029     };
-<a name="l00030"></a>00030 }
-<a name="l00031"></a>00031 
-<a name="l00032"></a><a class="code" href="a00033.html#c207188d9fe7362a8fb80b8d46677a3c">00032</a> std::string <a class="code" href="a00033.html#c207188d9fe7362a8fb80b8d46677a3c">NET::resolveHostname</a>( <span class="keyword">const</span> std::string&amp; hostname)
-<a name="l00033"></a>00033 {
-<a name="l00034"></a>00034     hostent* host = gethostbyname( hostname.c_str());
-<a name="l00035"></a>00035     <span class="keywordflow">if</span>( host == 0)
-<a name="l00036"></a>00036     {
-<a name="l00037"></a>00037         <span class="comment">// strerror() will not work for gethostbyname()</span>
-<a name="l00038"></a>00038         <span class="keywordflow">throw</span> <a class="code" href="a00004.html" title="Signals a problem with the execution of a socket call.">SocketException</a>(<span class="stringliteral">"Failed to resolve address (gethostbyname())"</span>, <span class="keyword">false</span>);
-<a name="l00039"></a>00039     }
-<a name="l00040"></a>00040     <span class="keywordflow">return</span> std::string(host-&gt;h_addr);
-<a name="l00041"></a>00041 }
-<a name="l00042"></a>00042 
-<a name="l00043"></a><a class="code" href="a00033.html#978b8ebb080d86d4a02233a3eb26986f">00043</a> <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> <a class="code" href="a00033.html#978b8ebb080d86d4a02233a3eb26986f">NET::resolveService</a>( <span class="keyword">const</span> std::string&amp; service, <span class="keyword">const</span> std::string&amp; protocol)
-<a name="l00044"></a>00044 {
-<a name="l00045"></a>00045     <span class="comment">// Structure containing service information</span>
-<a name="l00046"></a>00046     <span class="keyword">struct </span>servent* serv = getservbyname( service.c_str(), protocol.c_str());
-<a name="l00047"></a>00047 
-<a name="l00048"></a>00048     <span class="keywordflow">if</span>(!serv)
-<a name="l00049"></a>00049         <span class="comment">// Service is port number</span>
-<a name="l00050"></a>00050         <span class="keywordflow">return</span> std::atoi( service.c_str());
-<a name="l00051"></a>00051     <span class="keywordflow">else</span>
-<a name="l00052"></a>00052         <span class="comment">// Found port (network byte order) by name</span>
-<a name="l00053"></a>00053         <span class="keywordflow">return</span> ntohs( serv-&gt;s_port);
-<a name="l00054"></a>00054 }
-<a name="l00055"></a>00055 
-<a name="l00056"></a><a class="code" href="a00033.html#562d8bbf23502459495eb4d720fb6950">00056</a> std::vector&lt;std::string&gt; <a class="code" href="a00033.html#562d8bbf23502459495eb4d720fb6950" title="Return a list of available network interfaces.">NET::getNetworkInterfaces</a>()
-<a name="l00057"></a>00057 {
-<a name="l00058"></a>00058     std::vector&lt;std::string&gt; ret;
-<a name="l00059"></a>00059     <span class="keyword">struct </span>if_nameindex* index = if_nameindex();
-<a name="l00060"></a>00060     <span class="keywordflow">for</span>( <span class="keywordtype">int</span> i = 0; index[i].if_index != 0; ++i)
-<a name="l00061"></a>00061         ret.push_back( std::string(index[i].if_name));
-<a name="l00062"></a>00062     if_freenameindex(index);
-<a name="l00063"></a>00063     <span class="keywordflow">return</span> ret;
-<a name="l00064"></a>00064 }
-<a name="l00065"></a>00065 
-<a name="l00066"></a><a class="code" href="a00033.html#cd20e23776526ae626ade5a49c4a6f23">00066</a> std::string <a class="code" href="a00033.html#cd20e23776526ae626ade5a49c4a6f23" title="Return the IPv4 address of a network interface.">NET::getInterfaceAddress</a>( <span class="keyword">const</span> std::string&amp; interface)
-<a name="l00067"></a>00067 {
-<a name="l00068"></a>00068     <span class="keyword">struct </span>ifreq ifr;
-<a name="l00069"></a>00069 
-<a name="l00070"></a>00070     ifr.ifr_addr.sa_family = AF_INET;
-<a name="l00071"></a>00071     std::strncpy( ifr.ifr_name, interface.c_str(), <span class="keyword">sizeof</span>(ifr.ifr_name));
-<a name="l00072"></a>00072 
-<a name="l00073"></a>00073     <span class="keywordtype">int</span> sock = socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
-<a name="l00074"></a>00074     <span class="keywordflow">if</span>( sock &lt; 0)
-<a name="l00075"></a>00075         <span class="keywordflow">throw</span> <a class="code" href="a00004.html" title="Signals a problem with the execution of a socket call.">SocketException</a>(<span class="stringliteral">"Couldn't create socket (getInterfaceAddress)"</span>);
-<a name="l00076"></a>00076 
-<a name="l00077"></a>00077     <span class="keywordflow">if</span>( ioctl( sock, SIOCGIFADDR, &amp;ifr) &lt; 0)
-<a name="l00078"></a>00078         <span class="keywordflow">throw</span> <a class="code" href="a00004.html" title="Signals a problem with the execution of a socket call.">SocketException</a>(<span class="stringliteral">"ioctl failed (getInterfaceAddress)"</span>);
+<a name="l00005"></a>00005 <span class="preprocessor">#include &lt;string&gt;</span>
+<a name="l00006"></a>00006 <span class="preprocessor">#include &lt;exception&gt;</span>
+<a name="l00007"></a>00007 
+<a name="l00008"></a>00008 <span class="keyword">namespace </span>NET
+<a name="l00009"></a>00009 {
+<a name="l00011"></a><a class="code" href="a00004.html">00011</a>     <span class="keyword">class </span><a class="code" href="a00004.html" title="Signals a problem with the execution of a socket call.">SocketException</a> : <span class="keyword">public</span> std::exception
+<a name="l00012"></a>00012     {
+<a name="l00013"></a>00013     <span class="keyword">public</span>:
+<a name="l00020"></a>00020         <a class="code" href="a00004.html#51123bbb7e353513bf469a375632f286">SocketException</a>( <span class="keyword">const</span> std::string&amp; message, <span class="keywordtype">bool</span> inclSysMsg = <span class="keyword">true</span>) <span class="keywordflow">throw</span>();
+<a name="l00021"></a>00021 
+<a name="l00023"></a><a class="code" href="a00004.html#2a16da6ee3b4e720f43edee18e2ae8cd">00023</a>         <a class="code" href="a00004.html#2a16da6ee3b4e720f43edee18e2ae8cd" title="Provided just to guarantee that no exceptions are thrown.">~SocketException</a>() throw() {};
+<a name="l00024"></a>00024 
+<a name="l00026"></a><a class="code" href="a00004.html#1e1ae56e5ffac5f0f5dd8cfa8a456741">00026</a>         <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="a00004.html#1e1ae56e5ffac5f0f5dd8cfa8a456741" title="Returns a C-string describing the cause of the current error.">what</a>() <span class="keyword">const</span> throw() { <span class="keywordflow">return</span> m_message.c_str(); }
+<a name="l00027"></a>00027 
+<a name="l00029"></a><a class="code" href="a00004.html#411d16f55b4805e951d53810b9569bfe">00029</a>         <span class="keywordtype">int</span> <a class="code" href="a00004.html#411d16f55b4805e951d53810b9569bfe" title="Returns the glibc errno code of the current error.">errorCode</a>() <span class="keyword">const</span> throw() { <span class="keywordflow">return</span> m_errorcode; }
+<a name="l00030"></a>00030 
+<a name="l00031"></a>00031     <span class="keyword">private</span>:
+<a name="l00032"></a>00032         std::string m_message;
+<a name="l00033"></a>00033         <span class="keywordtype">int</span> m_errorcode;
+<a name="l00034"></a>00034     };
+<a name="l00035"></a>00035 
+<a name="l00036"></a><a class="code" href="a00034.html#661c66206079fbe23597e49ab1ba7ba1">00036</a>     <span class="keyword">typedef</span> <span class="keywordtype">void</span> <a class="code" href="a00034.html#661c66206079fbe23597e49ab1ba7ba1">raw_type</a>; <span class="comment">// data type used by transmit and receive functions</span>
+<a name="l00037"></a>00037 
+<a name="l00039"></a>00039 
+<a name="l00043"></a><a class="code" href="a00003.html">00043</a>     <span class="keyword">class </span><a class="code" href="a00003.html" title="A socket representing a basic communication endpoint.">SimpleSocket</a>
+<a name="l00044"></a>00044     {
+<a name="l00045"></a>00045     <span class="keyword">public</span>:
+<a name="l00046"></a><a class="code" href="a00003.html#b2d98f9c05fb0c016782269d6c053db9">00046</a>         <span class="keyword">enum</span> <a class="code" href="a00003.html#b2d98f9c05fb0c016782269d6c053db9">ShutdownDirection</a>
+<a name="l00047"></a>00047         {
+<a name="l00048"></a><a class="code" href="a00003.html#b2d98f9c05fb0c016782269d6c053db98efb8dcfe05bb52129f436538b77bc1c">00048</a>             <a class="code" href="a00003.html#b2d98f9c05fb0c016782269d6c053db98efb8dcfe05bb52129f436538b77bc1c" title="disable all variants of send() on the socket, receive calls still work">STOP_SEND</a> = SHUT_WR,        
+<a name="l00049"></a><a class="code" href="a00003.html#b2d98f9c05fb0c016782269d6c053db98cc7b3f7c09884085e7bd7f14a996f07">00049</a>             <a class="code" href="a00003.html#b2d98f9c05fb0c016782269d6c053db98cc7b3f7c09884085e7bd7f14a996f07" title="disable all variants of receive() on the socket, send calls still work">STOP_RECEIVE</a> = SHUT_RD,     
+<a name="l00050"></a><a class="code" href="a00003.html#b2d98f9c05fb0c016782269d6c053db992c5b6b1319adf4f8eec96da6fa4e8b0">00050</a>             <a class="code" href="a00003.html#b2d98f9c05fb0c016782269d6c053db992c5b6b1319adf4f8eec96da6fa4e8b0" title="disable all send() and receive() calls on the socket">STOP_BOTH</a> = SHUT_RDWR       
+<a name="l00051"></a>00051         };
+<a name="l00052"></a>00052 
+<a name="l00053"></a>00053         <a class="code" href="a00003.html#bf7d41536d2ecf56de1364d36db5fd67">~SimpleSocket</a>();
+<a name="l00054"></a>00054 
+<a name="l00056"></a>00056 
+<a name="l00076"></a>00076         <span class="keywordtype">int</span> <a class="code" href="a00003.html#6e3ec021c1ae9ea1e1d0aaa0129e7c50" title="send data through a connected socket">send</a>( <span class="keyword">const</span> <span class="keywordtype">void</span>* buffer, <span class="keywordtype">size_t</span> len);
+<a name="l00077"></a>00077 
 <a name="l00079"></a>00079 
-<a name="l00080"></a>00080     close(sock);
-<a name="l00081"></a>00081 
-<a name="l00082"></a>00082     <span class="keywordflow">return</span> inet_ntoa( sockaddr_ptr( &amp;ifr.ifr_addr)-&gt;sin_addr);
-<a name="l00083"></a>00083 }
-<a name="l00084"></a>00084 
-<a name="l00085"></a><a class="code" href="a00033.html#c8b92ebc47b8d2cff945af66efd3c27e">00085</a> <span class="keywordtype">void</span> <a class="code" href="a00033.html#c8b92ebc47b8d2cff945af66efd3c27e">NET::setInterfaceAddress</a>( <span class="keyword">const</span> std::string&amp; interface, <span class="keyword">const</span> std::string&amp; address)
-<a name="l00086"></a>00086 {
-<a name="l00087"></a>00087     <span class="keyword">struct </span>ifreq ifr;
-<a name="l00088"></a>00088 
-<a name="l00089"></a>00089     ifr.ifr_addr.sa_family = AF_INET;
-<a name="l00090"></a>00090     std::strncpy( ifr.ifr_name, interface.c_str(), <span class="keyword">sizeof</span>(ifr.ifr_name));
-<a name="l00091"></a>00091 
-<a name="l00092"></a>00092     <span class="keywordtype">int</span> sock = socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
-<a name="l00093"></a>00093     <span class="keywordflow">if</span>( sock &lt; 0)
-<a name="l00094"></a>00094         <span class="keywordflow">throw</span> <a class="code" href="a00004.html" title="Signals a problem with the execution of a socket call.">SocketException</a>(<span class="stringliteral">"Couldn't create socket (setInterfaceAddress)"</span>);
-<a name="l00095"></a>00095 
-<a name="l00096"></a>00096     inet_aton( address.c_str(), &amp;(<span class="keyword">reinterpret_cast&lt;</span>sockaddr_in*<span class="keyword">&gt;</span>(&amp;ifr.ifr_addr)-&gt;sin_addr));
-<a name="l00097"></a>00097 
-<a name="l00098"></a>00098     <span class="keywordflow">if</span>( ioctl( sock, SIOCSIFADDR, &amp;ifr) &lt; 0)
-<a name="l00099"></a>00099         <span class="keywordflow">throw</span> <a class="code" href="a00004.html" title="Signals a problem with the execution of a socket call.">SocketException</a>(<span class="stringliteral">"ioctl failed (setInterfaceAddress)"</span>);
-<a name="l00100"></a>00100 }
-<a name="l00101"></a>00101 
-<a name="l00102"></a><a class="code" href="a00033.html#592b8bc436eb0d4d1f737970408c7a62">00102</a> std::string <a class="code" href="a00033.html#592b8bc436eb0d4d1f737970408c7a62" title="retrieve the broadcast address for an interface">NET::getBroadcastAddress</a>( <span class="keyword">const</span> std::string&amp; interface)
-<a name="l00103"></a>00103 {
-<a name="l00104"></a>00104     <span class="keyword">struct </span>ifreq ifr;
-<a name="l00105"></a>00105 
-<a name="l00106"></a>00106     ifr.ifr_addr.sa_family = AF_INET;
-<a name="l00107"></a>00107     std::strncpy( ifr.ifr_name, interface.c_str(), <span class="keyword">sizeof</span>(ifr.ifr_name));
-<a name="l00108"></a>00108 
-<a name="l00109"></a>00109     <span class="keywordtype">int</span> sock = socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
-<a name="l00110"></a>00110     <span class="keywordflow">if</span>( sock &lt; 0)
-<a name="l00111"></a>00111         <span class="keywordflow">throw</span> <a class="code" href="a00004.html" title="Signals a problem with the execution of a socket call.">SocketException</a>(<span class="stringliteral">"Couldn't create socket (getBroadcastAddress)"</span>);
-<a name="l00112"></a>00112 
-<a name="l00113"></a>00113     <span class="keywordflow">if</span>( ioctl( sock, SIOCGIFBRDADDR, &amp;ifr) &lt; 0)
-<a name="l00114"></a>00114         <span class="keywordflow">throw</span> <a class="code" href="a00004.html" title="Signals a problem with the execution of a socket call.">SocketException</a>(<span class="stringliteral">"ioctl failed (getInterfaceAddress)"</span>);
-<a name="l00115"></a>00115 
-<a name="l00116"></a>00116     close(sock);
-<a name="l00117"></a>00117 
-<a name="l00118"></a>00118     <span class="keywordflow">return</span> inet_ntoa( sockaddr_ptr( &amp;ifr.ifr_broadaddr)-&gt;sin_addr);
-<a name="l00119"></a>00119 }
-<a name="l00120"></a>00120 
-<a name="l00121"></a><a class="code" href="a00033.html#daf97ab8a59850b2a91eea3a6a1ee0d9">00121</a> <span class="keywordtype">void</span> <a class="code" href="a00033.html#daf97ab8a59850b2a91eea3a6a1ee0d9">NET::setBroadcastAddress</a>( <span class="keyword">const</span> std::string&amp; interface, <span class="keyword">const</span> std::string&amp; address)
-<a name="l00122"></a>00122 {
-<a name="l00123"></a>00123     <span class="keyword">struct </span>ifreq ifr;
-<a name="l00124"></a>00124 
-<a name="l00125"></a>00125     ifr.ifr_addr.sa_family = AF_INET;
-<a name="l00126"></a>00126     std::strncpy( ifr.ifr_name, interface.c_str(), <span class="keyword">sizeof</span>(ifr.ifr_name));
-<a name="l00127"></a>00127 
-<a name="l00128"></a>00128     <span class="keywordtype">int</span> sock = socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
-<a name="l00129"></a>00129     <span class="keywordflow">if</span>( sock &lt; 0)
-<a name="l00130"></a>00130         <span class="keywordflow">throw</span> <a class="code" href="a00004.html" title="Signals a problem with the execution of a socket call.">SocketException</a>(<span class="stringliteral">"Couldn't create socket (setBroadcastAddress)"</span>);
+<a name="l00102"></a>00102         <span class="keywordtype">int</span> <a class="code" href="a00003.html#b89a477e571a47efd9ec39089aeebf56" title="will receive data from a bound socket">receive</a>( <span class="keywordtype">void</span>* buffer, <span class="keywordtype">size_t</span> len);
+<a name="l00103"></a>00103 
+<a name="l00106"></a>00106 
+<a name="l00130"></a>00130         <span class="keywordtype">int</span> <a class="code" href="a00003.html#0c14e0e6413cf606d52ab7d606a175f8" title="will receive data from a bound socket, but return after the given timespan">timedReceive</a>( <span class="keywordtype">void</span>* buffer, <span class="keywordtype">size_t</span> len, <span class="keywordtype">int</span> timeout);
 <a name="l00131"></a>00131 
-<a name="l00132"></a>00132     inet_aton( address.c_str(), &amp;(<span class="keyword">reinterpret_cast&lt;</span>sockaddr_in*<span class="keyword">&gt;</span>(&amp;ifr.ifr_broadaddr)-&gt;sin_addr));
 <a name="l00133"></a>00133 
-<a name="l00134"></a>00134     <span class="keywordflow">if</span>( ioctl( sock, SIOCSIFBRDADDR, &amp;ifr) &lt; 0)
-<a name="l00135"></a>00135         <span class="keywordflow">throw</span> <a class="code" href="a00004.html" title="Signals a problem with the execution of a socket call.">SocketException</a>(<span class="stringliteral">"ioctl failed (setBroadcastAddress)"</span>);
-<a name="l00136"></a>00136 }
-<a name="l00137"></a>00137 
-<a name="l00138"></a><a class="code" href="a00033.html#bdb4c62549949aa5e241e190917ec5e3">00138</a> std::string <a class="code" href="a00033.html#bdb4c62549949aa5e241e190917ec5e3">NET::getNetmask</a>( <span class="keyword">const</span> std::string&amp; interface)
-<a name="l00139"></a>00139 {
-<a name="l00140"></a>00140     <span class="keyword">struct </span>ifreq ifr;
-<a name="l00141"></a>00141 
-<a name="l00142"></a>00142     ifr.ifr_addr.sa_family = AF_INET;
-<a name="l00143"></a>00143     std::strncpy( ifr.ifr_name, interface.c_str(), <span class="keyword">sizeof</span>(ifr.ifr_name));
-<a name="l00144"></a>00144 
-<a name="l00145"></a>00145     <span class="keywordtype">int</span> sock = socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
-<a name="l00146"></a>00146     <span class="keywordflow">if</span>( sock &lt; 0)
-<a name="l00147"></a>00147         <span class="keywordflow">throw</span> <a class="code" href="a00004.html" title="Signals a problem with the execution of a socket call.">SocketException</a>(<span class="stringliteral">"Couldn't create socket (getBroadcastAddress)"</span>);
-<a name="l00148"></a>00148 
-<a name="l00149"></a>00149     <span class="keywordflow">if</span>( ioctl( sock, SIOCGIFNETMASK, &amp;ifr) &lt; 0)
-<a name="l00150"></a>00150         <span class="keywordflow">throw</span> <a class="code" href="a00004.html" title="Signals a problem with the execution of a socket call.">SocketException</a>(<span class="stringliteral">"ioctl failed (getNetmask)"</span>);
-<a name="l00151"></a>00151 
-<a name="l00152"></a>00152     close(sock);
-<a name="l00153"></a>00153 
-<a name="l00154"></a>00154     <span class="keywordflow">return</span> inet_ntoa( sockaddr_ptr( &amp;ifr.ifr_netmask)-&gt;sin_addr);
-<a name="l00155"></a>00155 }
-<a name="l00156"></a>00156 
-<a name="l00157"></a><a class="code" href="a00033.html#33c03d040f8ac3ab8aeb81d4e24328b6">00157</a> <span class="keywordtype">void</span> <a class="code" href="a00033.html#33c03d040f8ac3ab8aeb81d4e24328b6">NET::setNetmask</a>( <span class="keyword">const</span> std::string&amp; interface, <span class="keyword">const</span> std::string&amp; address)
-<a name="l00158"></a>00158 {
-<a name="l00159"></a>00159     <span class="keyword">struct </span>ifreq ifr;
-<a name="l00160"></a>00160 
-<a name="l00161"></a>00161     ifr.ifr_addr.sa_family = AF_INET;
-<a name="l00162"></a>00162     std::strncpy( ifr.ifr_name, interface.c_str(), <span class="keyword">sizeof</span>(ifr.ifr_name));
-<a name="l00163"></a>00163 
-<a name="l00164"></a>00164     <span class="keywordtype">int</span> sock = socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
-<a name="l00165"></a>00165     <span class="keywordflow">if</span>( sock &lt; 0)
-<a name="l00166"></a>00166         <span class="keywordflow">throw</span> <a class="code" href="a00004.html" title="Signals a problem with the execution of a socket call.">SocketException</a>(<span class="stringliteral">"Couldn't create socket (setNetmask)"</span>);
-<a name="l00167"></a>00167 
-<a name="l00168"></a>00168     inet_aton( address.c_str(), &amp;(<span class="keyword">reinterpret_cast&lt;</span>sockaddr_in*<span class="keyword">&gt;</span>(&amp;ifr.ifr_netmask)-&gt;sin_addr));
-<a name="l00169"></a>00169 
-<a name="l00170"></a>00170     <span class="keywordflow">if</span>( ioctl( sock, SIOCSIFNETMASK, &amp;ifr) &lt; 0)
-<a name="l00171"></a>00171         <span class="keywordflow">throw</span> <a class="code" href="a00004.html" title="Signals a problem with the execution of a socket call.">SocketException</a>(<span class="stringliteral">"ioctl failed (setNetmask)"</span>);
-<a name="l00172"></a>00172 }
-<a name="l00173"></a>00173 
-<a name="l00174"></a><a class="code" href="a00033.html#514405219550a876f6da1fb63be5754f">00174</a> std::string <a class="code" href="a00033.html#514405219550a876f6da1fb63be5754f">NET::getDestinationAddress</a>( <span class="keyword">const</span> std::string&amp; interface)
-<a name="l00175"></a>00175 {
-<a name="l00176"></a>00176     <span class="keyword">struct </span>ifreq ifr;
-<a name="l00177"></a>00177 
-<a name="l00178"></a>00178     ifr.ifr_addr.sa_family = AF_INET;
-<a name="l00179"></a>00179     std::strncpy( ifr.ifr_name, interface.c_str(), <span class="keyword">sizeof</span>(ifr.ifr_name));
-<a name="l00180"></a>00180 
-<a name="l00181"></a>00181     <span class="keywordtype">int</span> sock = socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
-<a name="l00182"></a>00182     <span class="keywordflow">if</span>( sock &lt; 0)
-<a name="l00183"></a>00183         <span class="keywordflow">throw</span> <a class="code" href="a00004.html" title="Signals a problem with the execution of a socket call.">SocketException</a>(<span class="stringliteral">"Couldn't create socket (getBroadcastAddress)"</span>);
+<a name="l00144"></a>00144         <span class="keywordtype">void</span> <a class="code" href="a00003.html#5b5500498eeb1292eea3c5dc4e531d19" title="will shutdown the connection in the specified direction">shutdown</a>( <a class="code" href="a00003.html#b2d98f9c05fb0c016782269d6c053db9">ShutdownDirection</a> type);
+<a name="l00145"></a>00145 
+<a name="l00147"></a>00147 
+<a name="l00154"></a>00154         <span class="keywordtype">bool</span> <a class="code" href="a00003.html#0fab04b047335c35b831885da2826f41" title="returns whether a peer disconnected or not">peerDisconnected</a>() <span class="keyword">const</span>;
+<a name="l00155"></a>00155 
+<a name="l00156"></a>00156     <span class="keyword">protected</span>:
+<a name="l00157"></a><a class="code" href="a00003.html#b11d6b3a1178f13df1aa14797dcfdf94">00157</a>         <span class="keyword">enum</span> <a class="code" href="a00003.html#b11d6b3a1178f13df1aa14797dcfdf94">SocketDomain</a>
+<a name="l00158"></a>00158         {
+<a name="l00159"></a><a class="code" href="a00003.html#b11d6b3a1178f13df1aa14797dcfdf94aaaaca35218a895fec8aa966baf5206f">00159</a>             <a class="code" href="a00003.html#b11d6b3a1178f13df1aa14797dcfdf94aaaaca35218a895fec8aa966baf5206f">INTERNET</a> = PF_INET,
+<a name="l00160"></a><a class="code" href="a00003.html#b11d6b3a1178f13df1aa14797dcfdf94e4fe659735670ad77f75783e455a435e">00160</a>             <a class="code" href="a00003.html#b11d6b3a1178f13df1aa14797dcfdf94e4fe659735670ad77f75783e455a435e">UNIX</a> = PF_LOCAL
+<a name="l00161"></a>00161         };
+<a name="l00162"></a>00162 
+<a name="l00163"></a><a class="code" href="a00003.html#1df69f02e0fb8d41b7245eab8f388766">00163</a>         <span class="keyword">enum</span> <a class="code" href="a00003.html#1df69f02e0fb8d41b7245eab8f388766">SocketType</a>
+<a name="l00164"></a>00164         {
+<a name="l00165"></a><a class="code" href="a00003.html#1df69f02e0fb8d41b7245eab8f3887662c01e1364295bb84e3e322f543242e00">00165</a>             <a class="code" href="a00003.html#1df69f02e0fb8d41b7245eab8f3887662c01e1364295bb84e3e322f543242e00">STREAM</a> = SOCK_STREAM,
+<a name="l00166"></a><a class="code" href="a00003.html#1df69f02e0fb8d41b7245eab8f388766a5ab4632f7b9c25e45f196e38858b280">00166</a>             <a class="code" href="a00003.html#1df69f02e0fb8d41b7245eab8f388766a5ab4632f7b9c25e45f196e38858b280">DATAGRAM</a> = SOCK_DGRAM
+<a name="l00167"></a>00167         };
+<a name="l00168"></a>00168 
+<a name="l00170"></a>00170         <a class="code" href="a00003.html#7059c7c1be8f34d7034ddacf8a6bb9a4" title="allows a subclass to create new socket">SimpleSocket</a>( <span class="keywordtype">int</span> domain, <span class="keywordtype">int</span> type, <span class="keywordtype">int</span> protocol);
+<a name="l00171"></a>00171 
+<a name="l00173"></a>00173         <a class="code" href="a00003.html#7059c7c1be8f34d7034ddacf8a6bb9a4" title="allows a subclass to create new socket">SimpleSocket</a>( <span class="keywordtype">int</span> sockfd);
+<a name="l00174"></a>00174 
+<a name="l00175"></a>00175         <span class="comment">// socket descriptor</span>
+<a name="l00176"></a><a class="code" href="a00003.html#721049909aca828a6dd9ee7868897d7c">00176</a>         <span class="keywordtype">int</span> <a class="code" href="a00003.html#721049909aca828a6dd9ee7868897d7c">m_socket</a>;
+<a name="l00177"></a><a class="code" href="a00003.html#9c07dffe5a98a2700dc4cb1d6e7a30fa">00177</a>         <span class="keywordtype">bool</span> <a class="code" href="a00003.html#9c07dffe5a98a2700dc4cb1d6e7a30fa">m_peerDisconnected</a>;
+<a name="l00178"></a>00178 
+<a name="l00179"></a>00179     <span class="keyword">private</span>:
+<a name="l00180"></a>00180         <span class="comment">// dont' allow</span>
+<a name="l00181"></a>00181         <a class="code" href="a00003.html#7059c7c1be8f34d7034ddacf8a6bb9a4" title="allows a subclass to create new socket">SimpleSocket</a>( <span class="keyword">const</span> <a class="code" href="a00003.html" title="A socket representing a basic communication endpoint.">SimpleSocket</a>&amp;);
+<a name="l00182"></a>00182         <span class="keyword">const</span> <a class="code" href="a00003.html" title="A socket representing a basic communication endpoint.">SimpleSocket</a>&amp; operator=( <span class="keyword">const</span> <a class="code" href="a00003.html" title="A socket representing a basic communication endpoint.">SimpleSocket</a>&amp;);
+<a name="l00183"></a>00183     };
 <a name="l00184"></a>00184 
-<a name="l00185"></a>00185     <span class="keywordflow">if</span>( ioctl( sock, SIOCGIFDSTADDR, &amp;ifr) &lt; 0)
-<a name="l00186"></a>00186         <span class="keywordflow">throw</span> <a class="code" href="a00004.html" title="Signals a problem with the execution of a socket call.">SocketException</a>(<span class="stringliteral">"ioctl failed (getDestinationAddress)"</span>);
-<a name="l00187"></a>00187 
-<a name="l00188"></a>00188     close(sock);
-<a name="l00189"></a>00189 
-<a name="l00190"></a>00190     <span class="keywordflow">return</span> inet_ntoa( sockaddr_ptr( &amp;ifr.ifr_dstaddr)-&gt;sin_addr);
-<a name="l00191"></a>00191 }
-<a name="l00192"></a>00192 
-<a name="l00193"></a><a class="code" href="a00033.html#9d73559d08bfcab81b769fead324ff99">00193</a> <span class="keywordtype">void</span> <a class="code" href="a00033.html#9d73559d08bfcab81b769fead324ff99">NET::setDestinationAddress</a>( <span class="keyword">const</span> std::string&amp; interface, <span class="keyword">const</span> std::string&amp; address)
-<a name="l00194"></a>00194 {
-<a name="l00195"></a>00195     <span class="keyword">struct </span>ifreq ifr;
-<a name="l00196"></a>00196 
-<a name="l00197"></a>00197     ifr.ifr_addr.sa_family = AF_INET;
-<a name="l00198"></a>00198     std::strncpy( ifr.ifr_name, interface.c_str(), <span class="keyword">sizeof</span>(ifr.ifr_name));
-<a name="l00199"></a>00199 
-<a name="l00200"></a>00200     <span class="keywordtype">int</span> sock = socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
-<a name="l00201"></a>00201     <span class="keywordflow">if</span>( sock &lt; 0)
-<a name="l00202"></a>00202         <span class="keywordflow">throw</span> <a class="code" href="a00004.html" title="Signals a problem with the execution of a socket call.">SocketException</a>(<span class="stringliteral">"Couldn't create socket (setDestinationAddress)"</span>);
-<a name="l00203"></a>00203 
-<a name="l00204"></a>00204     inet_aton( address.c_str(), &amp;(<span class="keyword">reinterpret_cast&lt;</span>sockaddr_in*<span class="keyword">&gt;</span>(&amp;ifr.ifr_dstaddr)-&gt;sin_addr));
-<a name="l00205"></a>00205 
-<a name="l00206"></a>00206     <span class="keywordflow">if</span>( ioctl( sock, SIOCSIFDSTADDR, &amp;ifr) &lt; 0)
-<a name="l00207"></a>00207         <span class="keywordflow">throw</span> <a class="code" href="a00004.html" title="Signals a problem with the execution of a socket call.">SocketException</a>(<span class="stringliteral">"ioctl failed (setDestinationAddress)"</span>);
-<a name="l00208"></a>00208 }
-<a name="l00209"></a>00209 
-<a name="l00210"></a><a class="code" href="a00033.html#ee6172b4b73501ded03e2bc0f5dd58f4">00210</a> <span class="keywordtype">int</span> <a class="code" href="a00033.html#ee6172b4b73501ded03e2bc0f5dd58f4">NET::getMTU</a>( <span class="keyword">const</span> std::string&amp; interface)
-<a name="l00211"></a>00211 {
-<a name="l00212"></a>00212     <span class="keyword">struct </span>ifreq ifr;
-<a name="l00213"></a>00213 
-<a name="l00214"></a>00214     ifr.ifr_addr.sa_family = AF_INET;
-<a name="l00215"></a>00215     std::strncpy( ifr.ifr_name, interface.c_str(), <span class="keyword">sizeof</span>(ifr.ifr_name));
-<a name="l00216"></a>00216 
-<a name="l00217"></a>00217     <span class="keywordtype">int</span> sock = socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
-<a name="l00218"></a>00218     <span class="keywordflow">if</span>( sock &lt; 0)
-<a name="l00219"></a>00219         <span class="keywordflow">throw</span> <a class="code" href="a00004.html" title="Signals a problem with the execution of a socket call.">SocketException</a>(<span class="stringliteral">"Couldn't create socket (getMTU)"</span>);
-<a name="l00220"></a>00220 
-<a name="l00221"></a>00221     <span class="keywordflow">if</span>( ioctl( sock, SIOCGIFMTU, &amp;ifr) &lt; 0)
-<a name="l00222"></a>00222         <span class="keywordflow">throw</span> <a class="code" href="a00004.html" title="Signals a problem with the execution of a socket call.">SocketException</a>(<span class="stringliteral">"ioctl failed (getInterfaceAddress)"</span>);
-<a name="l00223"></a>00223 
-<a name="l00224"></a>00224     close(sock);
-<a name="l00225"></a>00225 
-<a name="l00226"></a>00226     <span class="keywordflow">return</span> ifr.ifr_mtu;
-<a name="l00227"></a>00227 }
-<a name="l00228"></a>00228 
-<a name="l00229"></a><a class="code" href="a00033.html#96f7b4a72c23b2838d07279b9e9125cf">00229</a> <span class="keywordtype">void</span> <a class="code" href="a00033.html#96f7b4a72c23b2838d07279b9e9125cf">NET::setMTU</a>( <span class="keyword">const</span> std::string&amp; interface, <span class="keywordtype">int</span> mtu)
-<a name="l00230"></a>00230 {
-<a name="l00231"></a>00231     <span class="keyword">struct </span>ifreq ifr;
-<a name="l00232"></a>00232 
-<a name="l00233"></a>00233     ifr.ifr_addr.sa_family = AF_INET;
-<a name="l00234"></a>00234     std::strncpy( ifr.ifr_name, interface.c_str(), <span class="keyword">sizeof</span>(ifr.ifr_name));
-<a name="l00235"></a>00235 
-<a name="l00236"></a>00236     <span class="keywordtype">int</span> sock = socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
-<a name="l00237"></a>00237     <span class="keywordflow">if</span>( sock &lt; 0)
-<a name="l00238"></a>00238         <span class="keywordflow">throw</span> <a class="code" href="a00004.html" title="Signals a problem with the execution of a socket call.">SocketException</a>(<span class="stringliteral">"Couldn't create socket (setMTU)"</span>);
-<a name="l00239"></a>00239 
-<a name="l00240"></a>00240     ifr.ifr_mtu = mtu;
-<a name="l00241"></a>00241 
-<a name="l00242"></a>00242     <span class="keywordflow">if</span>( ioctl( sock, SIOCSIFDSTADDR, &amp;ifr) &lt; 0)
-<a name="l00243"></a>00243         <span class="keywordflow">throw</span> <a class="code" href="a00004.html" title="Signals a problem with the execution of a socket call.">SocketException</a>(<span class="stringliteral">"ioctl failed (setMTU)"</span>);
-<a name="l00244"></a>00244 }
-<a name="l00245"></a>00245 
-<a name="l00246"></a><a class="code" href="a00033.html#0c174bdf3f4db00d21f51805d194f313">00246</a> std::string <a class="code" href="a00033.html#0c174bdf3f4db00d21f51805d194f313">NET::getHardwareAddress</a>( <span class="keyword">const</span> std::string&amp; interface, <span class="keywordtype">char</span> separationChar)
-<a name="l00247"></a>00247 {
-<a name="l00248"></a>00248     <span class="keyword">struct </span>ifreq ifr;
-<a name="l00249"></a>00249 
-<a name="l00250"></a>00250     ifr.ifr_addr.sa_family = AF_INET;
-<a name="l00251"></a>00251     std::strncpy( ifr.ifr_name, interface.c_str(), <span class="keyword">sizeof</span>(ifr.ifr_name));
-<a name="l00252"></a>00252 
-<a name="l00253"></a>00253     <span class="keywordtype">int</span> sock = socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
-<a name="l00254"></a>00254     <span class="keywordflow">if</span>( sock &lt; 0)
-<a name="l00255"></a>00255         <span class="keywordflow">throw</span> <a class="code" href="a00004.html" title="Signals a problem with the execution of a socket call.">SocketException</a>(<span class="stringliteral">"Couldn't create socket (getMTU)"</span>);
-<a name="l00256"></a>00256 
-<a name="l00257"></a>00257     <span class="keywordflow">if</span>( ioctl( sock, SIOCGIFHWADDR, &amp;ifr) &lt; 0)
-<a name="l00258"></a>00258         <span class="keywordflow">throw</span> <a class="code" href="a00004.html" title="Signals a problem with the execution of a socket call.">SocketException</a>(<span class="stringliteral">"ioctl failed (getInterfaceAddress)"</span>);
-<a name="l00259"></a>00259 
-<a name="l00260"></a>00260     close(sock);
-<a name="l00261"></a>00261 
-<a name="l00262"></a>00262     <span class="keywordflow">switch</span>( ifr.ifr_hwaddr.sa_family) {
-<a name="l00263"></a>00263         <span class="keywordflow">default</span>:
-<a name="l00264"></a>00264             <span class="keywordflow">throw</span> <a class="code" href="a00004.html" title="Signals a problem with the execution of a socket call.">SocketException</a>(<span class="stringliteral">"Invalid Hardware type (getHardwareAddress)"</span>);
-<a name="l00265"></a>00265             <span class="keywordflow">break</span>;
-<a name="l00266"></a>00266         <span class="keywordflow">case</span> ARPHRD_NETROM:
-<a name="l00267"></a>00267         <span class="keywordflow">case</span> ARPHRD_ETHER:
-<a name="l00268"></a>00268         <span class="keywordflow">case</span> ARPHRD_PPP:
-<a name="l00269"></a>00269         <span class="keywordflow">case</span> ARPHRD_EETHER:
-<a name="l00270"></a>00270         <span class="keywordflow">case</span> ARPHRD_IEEE802:
-<a name="l00271"></a>00271             <span class="keywordflow">break</span>;
-<a name="l00272"></a>00272     }
-<a name="l00273"></a>00273 
-<a name="l00274"></a>00274     std::ostringstream str;
-<a name="l00275"></a>00275     <span class="keywordflow">for</span>( <span class="keywordtype">int</span> i = 0; i &lt;= 4; ++i)
-<a name="l00276"></a>00276         str &lt;&lt; std::hex &lt;&lt; std::uppercase &lt;&lt; std::setw(2) &lt;&lt; std::setfill(<span class="charliteral">'0'</span>)
-<a name="l00277"></a>00277             &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(<span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(ifr.ifr_addr.sa_data)[i]) &lt;&lt; separationChar;
-<a name="l00278"></a>00278     str &lt;&lt; std::hex &lt;&lt; std::uppercase &lt;&lt; std::setw(2) &lt;&lt; std::setfill(<span class="charliteral">'0'</span>)
-<a name="l00279"></a>00279         &lt;&lt; <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(<span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(ifr.ifr_addr.sa_data)[5]);
-<a name="l00280"></a>00280     <span class="keywordflow">return</span> str.str();
-<a name="l00281"></a>00281 }
+<a name="l00185"></a>00185 } <span class="comment">// namespace NET</span>
+<a name="l00186"></a>00186 
+<a name="l00187"></a>00187 <span class="preprocessor">#endif // NET_SimpleSocket_h__</span>
 </pre></div></div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Sat Oct 31 14:32:24 2009 for simple-socket library by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Fri Nov 6 18:20:33 2009 for simple-socket library by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.9 </small></address>
 </body>

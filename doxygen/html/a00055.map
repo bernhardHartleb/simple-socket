@@ -1,4 +1,9 @@
-<area shape="rect" id="node3" href="$a00024.html" title="UDPSocket.h" alt="" coords="84,83,188,112">
-<area shape="rect" id="node15" href="$a00022.html" title="TempFailure.h" alt="" coords="276,83,385,112">
-<area shape="rect" id="node5" href="$a00012.html" title="InternetSocket.h" alt="" coords="67,160,195,189">
-<area shape="rect" id="node7" href="$a00016.html" title="SimpleSocket.h" alt="" coords="68,237,188,267">
+<area shape="rect" id="node3" href="$a00010.html" title="Handle.h" alt="" coords="252,83,329,112">
+<area shape="rect" id="node7" href="$a00014.html" title="SCTPSocket.cpp" alt="" coords="320,237,445,267">
+<area shape="rect" id="node11" href="$a00020.html" title="TCPSocket.cpp" alt="" coords="5,237,120,267">
+<area shape="rect" id="node16" href="$a00016.html" title="SimpleSocket.cpp" alt="" coords="420,83,556,112">
+<area shape="rect" id="node19" href="$a00024.html" title="UDPSocket.cpp" alt="" coords="580,83,700,112">
+<area shape="rect" id="node21" href="$a00027.html" title="UnixDatagramSocket.cpp" alt="" coords="724,83,908,112">
+<area shape="rect" id="node5" href="$a00015.html" title="SCTPSocket.h" alt="" coords="236,160,345,189">
+<area shape="rect" id="node9" href="$a00021.html" title="TCPSocket.h" alt="" coords="111,160,212,189">
+<area shape="rect" id="node13" href="$a00022.html" title="TCPSocket_TEST.cpp" alt="" coords="144,237,296,267">

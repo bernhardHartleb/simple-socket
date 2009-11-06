@@ -1,5 +1,2 @@
-<area shape="rect" id="node3" href="$a00020.html" title="../TCPSocket.h" alt="" coords="152,83,264,112">
-<area shape="rect" id="node5" href="$a00010.html" title="Handle.h" alt="" coords="95,160,172,189">
-<area shape="rect" id="node14" href="$a00012.html" title="InternetSocket.h" alt="" coords="219,160,347,189">
-<area shape="rect" id="node9" href="$a00022.html" title="TempFailure.h" alt="" coords="79,237,188,267">
-<area shape="rect" id="node16" href="$a00016.html" title="SimpleSocket.h" alt="" coords="247,237,367,267">
+<area shape="rect" id="node3" href="$a00020.html" title="TCPSocket.cpp" alt="" coords="5,83,120,112">
+<area shape="rect" id="node5" href="$a00022.html" title="TCPSocket_TEST.cpp" alt="" coords="144,83,296,112">
