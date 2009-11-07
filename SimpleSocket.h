@@ -129,6 +129,12 @@ namespace NET
 		 */
 		int timedReceive( void* buffer, size_t len, int timeout);
 
+		/*!
+		 * Disconnect and unsed any foreign adresses
+		 * \exception SocketException thrown if unable to disconnect
+		 */
+		void disconnect();
+
 		//! will shutdown the connection in the specified direction
 		/*!
 		 * Depending on the specified ShutdownDirection, calls for that direction

@@ -23,16 +23,6 @@ void UnixSocket::connect( const std::string& foreignPath)
 		throw SocketException("Connect failed (connect)");
 }
 
-void UnixSocket::disconnect()
-{
-	sockaddr_un addr;
-	std::memset( &addr, 0, sizeof(addr));
-	addr.sun_family = AF_UNSPEC;
-
-	if( ::connect( m_socket, (sockaddr*) &addr, sizeof(addr)) < 0)
-		throw SocketException("Disconnect failed (connect)");
-}
-
 void UnixSocket::bind( const std::string& localPath)
 {
 	if( !isValidPath(localPath) )

@@ -85,6 +85,19 @@ int SimpleSocket::timedReceive( void* buffer, size_t len, int timeout)
 	return 0;
 }
 
+void SimpleSocket::disconnect()
+{
+	sockaddr addr;
+	std::memset( &addr, 0, sizeof(addr));
+	addr.sa_family = AF_UNSPEC;
+
+	if( ::connect( m_socket, &addr, sizeof(addr)) < 0)
+	{
+		if( errno != ECONNRESET)
+			throw SocketException("Disconnect failed (connect)");
+	}
+}
+
 void SimpleSocket::shutdown( ShutdownDirection type)
 {
 	if( ::shutdown( m_socket, type) < 0)

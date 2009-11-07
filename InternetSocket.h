@@ -26,12 +26,6 @@ namespace NET
 		void connect( const std::string& foreignAddress, unsigned short foreignPort);
 
 		/*!
-		 * Unset foreign address and port
-		 * \exception SocketException thrown if unable to disconnect UDP socket
-		 */
-		void disconnect();
-
-		/*!
 		 * \overload
 		 * Instead of the richer function with more arguments, this bind()
 		 * binds to any available interface / address

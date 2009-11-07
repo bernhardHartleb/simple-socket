@@ -19,12 +19,6 @@ namespace NET
 		void connect( const std::string& foreignPath);
 
 		/*!
-		 * Unset the socket path
-		 * \exception SocketException thrown if unable to disconnect socket
-		 */
-		void disconnect();
-
-		/*!
 		 * Set the local path to the specified path
 		 * \param localPath specifies where the socket should be bound
 		 * \exception SocketException thrown if setting local path fails

@@ -25,19 +25,6 @@ void InternetSocket::connect( const std::string& foreignAddress, unsigned short 
 		throw SocketException("Connect failed (connect)");
 }
 
-void InternetSocket::disconnect()
-{
-	sockaddr_in addr;
-	std::memset( &addr, 0, sizeof(addr));
-	addr.sin_family = AF_UNSPEC;
-
-	if( ::connect( m_socket, (sockaddr*) &addr, sizeof(addr)) < 0)
-	{
-		if( errno != ECONNRESET)
-			throw SocketException("Disconnect failed (connect)");
-	}
-}
-
 void InternetSocket::bind( unsigned short localPort /* = 0 */)
 {
 	sockaddr_in addr;
