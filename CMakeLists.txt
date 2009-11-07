@@ -6,6 +6,9 @@ option(BUILD_SCTP "Add support for the SCTP protocol." false)
 # Building of tests is optional
 option(BUILD_TESTS "Switch to enable/disable building of tests." true)
 
+# Building of examples is optional
+option(BUILD_EXAMPLES "Switch to enable/disable building of examples." true)
+
 set(sources
 	SimpleSocket.cpp
 	SocketUtils.cpp
@@ -37,3 +40,8 @@ if(BUILD_TESTS)
 	enable_testing()
 	add_subdirectory( tests )
 endif(BUILD_TESTS)
+
+if(BUILD_EXAMPLES)
+	enable_testing()
+	add_subdirectory( examples )
+endif(BUILD_EXAMPLES)

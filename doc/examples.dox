@@ -1,0 +1,9 @@
+/*!
+\example TCP_Server.cpp
+This is an example for a very simple TCP server application.
+*/
+
+/*!
+\example TCP_Client.cpp
+This is an example for a very simple TCP client application.
+*/
