@@ -1,3 +1,5 @@
+include_directories( ${CMAKE_SOURCE_DIR} )
+
 message("Building tests:")
 
 set(tests
