@@ -35,7 +35,7 @@ std::string NET::resolveHostname( const std::string& hostname)
 	if( host == 0)
 	{
 		// strerror() will not work for gethostbyname()
-		throw SocketException("Failed to resolve address (gethostbyname())", false);
+		throw SocketException("Failed to resolve address (gethostbyname)", false);
 	}
 	return std::string(host->h_addr);
 }

@@ -8,7 +8,6 @@ UnixSockets:
 
 Documentation:
 - define out-of-memory behaviour
-- check exception specifications
 
 Testing:
 - check the TCPSocket::sendAll function

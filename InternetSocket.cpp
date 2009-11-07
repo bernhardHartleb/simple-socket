@@ -113,7 +113,7 @@ void InternetSocket::fillAddress( const std::string& address, unsigned short por
 	if( host == 0)
 	{
 		// strerror() will not work for gethostbyname()
-		throw SocketException("Failed to resolve address (gethostbyname())", false);
+		throw SocketException("Failed to resolve address (gethostbyname)", false);
 	}
 	addr.sin_addr.s_addr = *reinterpret_cast<uint32_t*>( host->h_addr);
 }
