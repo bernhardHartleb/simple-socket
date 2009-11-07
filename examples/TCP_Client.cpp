@@ -2,15 +2,13 @@
 
 #include <iostream>
 
-using namespace NET;
-
 static char recv_msg[50];
 
 int main()
 {
 	try {
 
-	TCPSocket client_socket;
+	NET::TCPSocket client_socket;
 	client_socket.connect( "127.0.0.1", 47777);
 
 	// wait for data within the next 5s
