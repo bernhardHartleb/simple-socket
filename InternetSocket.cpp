@@ -4,6 +4,7 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 #include <netdb.h>
+#include <cerrno>
 #include <cstring>
 
 using namespace NET;
@@ -30,9 +31,10 @@ void InternetSocket::disconnect()
 	std::memset( &addr, 0, sizeof(addr));
 	addr.sin_family = AF_UNSPEC;
 
-	if( ::connect( m_socket, (sockaddr*) &addr, sizeof(addr)) < 0) {
-		// if( errno != EAFNOSUPPORT), maybe needed on windows
-		throw SocketException("Disconnect failed (connect)");
+	if( ::connect( m_socket, (sockaddr*) &addr, sizeof(addr)) < 0)
+	{
+		if( errno != ECONNRESET)
+			throw SocketException("Disconnect failed (connect)");
 	}
 }
 
