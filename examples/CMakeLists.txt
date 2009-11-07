@@ -4,7 +4,8 @@ message("Building examples:")
 
 set(tests
 	TCP_Client
-	TCP_Server)
+	TCP_Server
+	UDP_Multicast)
 
 foreach(TB ${tests})
 

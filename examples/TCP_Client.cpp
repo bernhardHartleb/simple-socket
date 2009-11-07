@@ -24,9 +24,9 @@ int main()
 	client_socket.disconnect();
 
 	// if something fails, we get here
-	} catch( const SocketException& e)
+	} catch( const NET::SocketException& e)
 	{
-		std::cerr << e.what() << e.errorCode() << std::endl;
+		std::cerr << e.what() << std::endl;
 		return 1;
 	}
 

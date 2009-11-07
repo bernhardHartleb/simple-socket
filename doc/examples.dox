@@ -1,9 +1,32 @@
 /*!
 \example TCP_Server.cpp
 This is an example for a very simple TCP server application.
+
+\b Output when the TCP_Client is started:
+\verbatim
+TCP server sucessfully sent data to the client.
+\endverbatim
 */
 
 /*!
 \example TCP_Client.cpp
 This is an example for a very simple TCP client application.
+
+\b Output when started without a server running: \c "Connection Refused"
+
+\b Output when the TCP_Server example is running:
+\verbatim
+Received data from server: The quick brown fox jumps over the lazy dog
+\endverbatim
+*/
+
+/*!
+\example UDP_Multicast.cpp
+This is a simple example on how to do UDP multicast.
+
+\b Output if any non-local network is available:
+\verbatim
+Your.local.ip.addr:47776 Welcome to our multicast group!
+We got another message.
+\endverbatim
 */
