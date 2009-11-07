@@ -1,6 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-<title>simple-socket library: NET::InternetSocket Class Reference</title>
+<title>simple-socket library: UDP_Multicast.cpp</title>
 <link href="tabs.css" rel="stylesheet" type="text/css">
 <link href="doxygen.css" rel="stylesheet" type="text/css">
 </head><body>
@@ -10,795 +10,82 @@
     <ul>
       <li><a href="main.html"><span>Main&nbsp;Page</span></a></li>
       <li><a href="namespaces.html"><span>Namespaces</span></a></li>
-      <li class="current"><a href="annotated.html"><span>Classes</span></a></li>
+      <li><a href="annotated.html"><span>Classes</span></a></li>
       <li><a href="files.html"><span>Files</span></a></li>
       <li><a href="dirs.html"><span>Directories</span></a></li>
       <li><a href="examples.html"><span>Examples</span></a></li>
     </ul>
   </div>
-  <div class="tabs">
-    <ul>
-      <li><a href="annotated.html"><span>Class&nbsp;List</span></a></li>
-      <li><a href="classes.html"><span>Class&nbsp;Index</span></a></li>
-      <li><a href="hierarchy.html"><span>Class&nbsp;Hierarchy</span></a></li>
-      <li><a href="functions.html"><span>Class&nbsp;Members</span></a></li>
-    </ul>
-  </div>
-  <div class="navpath"><a class="el" href="a00037.html">NET</a>::<a class="el" href="a00003.html">InternetSocket</a>
-  </div>
 </div>
 <div class="contents">
-<h1>NET::InternetSocket Class Reference</h1><!-- doxytag: class="NET::InternetSocket" --><!-- doxytag: inherits="NET::SimpleSocket" -->Internet Socket class.  
-<a href="#_details">More...</a>
-<p>
-<code>#include &lt;<a class="el" href="a00015_source.html">InternetSocket.h</a>&gt;</code>
-<p>
+<h1>UDP_Multicast.cpp</h1>This is a simple example on how to do UDP multicast.<p>
+<b>Output</b> if any non-local network is available: <div class="fragment"><pre class="fragment">
+Your.local.ip.addr:47776 Welcome to our multicast group!
+We got another message.
+</pre></div><p>
+<div class="fragment"><pre class="fragment"><span class="preprocessor">#include &lt;<a class="code" href="a00029.html">UDPSocket.h</a>&gt;</span>
 
-<p>
-<a href="a00078.html">List of all members.</a><table border="0" cellpadding="0" cellspacing="0">
-<tr><td></td></tr>
-<tr><td colspan="2"><br><h2>Public Types</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00005.html#b2d98f9c05fb0c016782269d6c053db9">ShutdownDirection</a> { <a class="el" href="a00005.html#b2d98f9c05fb0c016782269d6c053db98efb8dcfe05bb52129f436538b77bc1c">STOP_SEND</a> =  SHUT_WR, 
-<a class="el" href="a00005.html#b2d98f9c05fb0c016782269d6c053db98cc7b3f7c09884085e7bd7f14a996f07">STOP_RECEIVE</a> =  SHUT_RD, 
-<a class="el" href="a00005.html#b2d98f9c05fb0c016782269d6c053db992c5b6b1319adf4f8eec96da6fa4e8b0">STOP_BOTH</a> =  SHUT_RDWR
- }</td></tr>
+<span class="preprocessor">#include &lt;iostream&gt;</span>
 
-<tr><td colspan="2"><br><h2>Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00003.html#654c6a5f7076415a14497a4914a455ae">bind</a> (const std::string &amp;localAddress, unsigned short localPort=0)</td></tr>
+<span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span> send_msg[] = <span class="stringliteral">"Welcome to our multicast group!"</span>;
+<span class="keyword">static</span> <span class="keywordtype">char</span> recv_msg[<span class="keyword">sizeof</span>(send_msg)];
+<span class="keyword">static</span> <span class="keywordtype">size_t</span> len = <span class="keyword">sizeof</span>(send_msg);
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">bind socket to address / port  <a href="#654c6a5f7076415a14497a4914a455ae"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00003.html#02046392ba4e5810f7dc900686ac9a93">bind</a> (unsigned short localPort=0)</td></tr>
+<span class="keywordtype">int</span> <a name="a0"></a><a class="code" href="a00026.html#e66f6b31b5ad750f1fe042a706a4e3d4">main</a>()
+{
+    <span class="keywordflow">try</span> {
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00003.html#e7bd4ffd89a708f663de1ca1c24125f8">connect</a> (const std::string &amp;foreignAddress, unsigned short foreignPort)</td></tr>
+    <a name="_a1"></a><a class="code" href="a00010.html" title="UDP socket class.">NET::UDPSocket</a> recv_socket;
+    <span class="comment">// listen on the given port and any address</span>
+    recv_socket.<a name="a2"></a><a class="code" href="a00004.html#02046392ba4e5810f7dc900686ac9a93">bind</a>(47777);
+    <span class="comment">// receive data from our multicast group</span>
+    recv_socket.<a name="a3"></a><a class="code" href="a00010.html#c6cdb609f7f9579384129042f90cd220">joinGroup</a>(<span class="stringliteral">"224.40.0.1"</span>);
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">establish a connection with the given foreign address and port  <a href="#e7bd4ffd89a708f663de1ca1c24125f8"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00003.html#7973e83582e84e6250f0063923edd15c">disconnect</a> ()</td></tr>
+    <a class="code" href="a00010.html" title="UDP socket class.">NET::UDPSocket</a> send_socket;
+    <span class="comment">// don't route our packets</span>
+    send_socket.<a name="a4"></a><a class="code" href="a00010.html#4dcfff33b45d1b84b5a602fc6f4a27f8">setMulticastTTL</a>(0);
+    <span class="comment">// optional, the OS would select a sender port</span>
+    send_socket.<a class="code" href="a00004.html#02046392ba4e5810f7dc900686ac9a93">bind</a>(47776);
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00003.html#be5c2072d6a582429f8b5e815cda322a">getForeignAddress</a> () const </td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">unsigned short&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00003.html#775f9548ca0efa8cd5b00563a5a2cedf">getForeignPort</a> () const </td></tr>
+    <span class="keywordtype">int</span> bytes;
+    std::string source;
+    <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> port = 0;
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00003.html#048cffe75ff024d0a76a6854cee4569a">getLocalAddress</a> () const </td></tr>
+    <span class="comment">// send data to a specific destination</span>
+    send_socket.<a name="a5"></a><a class="code" href="a00010.html#b774d737c1bf9269d7aee79bd18f710a">sendTo</a>( send_msg, len, <span class="stringliteral">"224.40.0.1"</span>, 47777);
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">unsigned short&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00003.html#956f85b29a3c4143b59d4bef20ceeb47">getLocalPort</a> () const </td></tr>
+    <span class="comment">// receive data from with sender information</span>
+    bytes = recv_socket.<a name="a6"></a><a class="code" href="a00010.html#358b18cc6bdc794eb33dd0df9ccb495b">receiveFrom</a>( recv_msg, len, source, port);
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00005.html#0fab04b047335c35b831885da2826f41">peerDisconnected</a> () const </td></tr>
+    <span class="keywordflow">if</span>(bytes &gt; 0)
+        std::cout &lt;&lt; source &lt;&lt; <span class="stringliteral">":"</span> &lt;&lt; port &lt;&lt; <span class="stringliteral">" "</span> &lt;&lt; recv_msg &lt;&lt; std::endl;
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">returns whether a peer disconnected  <a href="#0fab04b047335c35b831885da2826f41"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00005.html#b89a477e571a47efd9ec39089aeebf56">receive</a> (void *buffer, size_t len)</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">will receive data from a bound socket  <a href="#b89a477e571a47efd9ec39089aeebf56"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00005.html#6e3ec021c1ae9ea1e1d0aaa0129e7c50">send</a> (const void *buffer, size_t len)</td></tr>
+    <span class="comment">// set default address for sending</span>
+    send_socket.<a name="a7"></a><a class="code" href="a00004.html#e7bd4ffd89a708f663de1ca1c24125f8" title="establish a connection with the given foreign address and port">connect</a>( <span class="stringliteral">"224.40.0.1"</span>, 47777);
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">send data through a connected socket  <a href="#6e3ec021c1ae9ea1e1d0aaa0129e7c50"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00005.html#5b5500498eeb1292eea3c5dc4e531d19">shutdown</a> (<a class="el" href="a00005.html#b2d98f9c05fb0c016782269d6c053db9">ShutdownDirection</a> type)</td></tr>
+    send_socket.<a name="a8"></a><a class="code" href="a00006.html#6e3ec021c1ae9ea1e1d0aaa0129e7c50" title="send data through a connected socket">send</a>( send_msg, len);
+    bytes = recv_socket.<a name="a9"></a><a class="code" href="a00006.html#b89a477e571a47efd9ec39089aeebf56" title="will receive data from a bound socket">receive</a>( recv_msg, len);
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">will shutdown the connection in the specified direction  <a href="#5b5500498eeb1292eea3c5dc4e531d19"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00005.html#0c14e0e6413cf606d52ab7d606a175f8">timedReceive</a> (void *buffer, size_t len, int timeout)</td></tr>
+    <span class="keywordflow">if</span>(bytes &gt; 0)
+        std::cout &lt;&lt; <span class="stringliteral">"We got another message."</span> &lt;&lt; std::endl;
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">will receive data from a bound socket, but return after the given timespan  <a href="#0c14e0e6413cf606d52ab7d606a175f8"></a><br></td></tr>
-<tr><td colspan="2"><br><h2>Protected Types</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00005.html#b11d6b3a1178f13df1aa14797dcfdf94">SocketDomain</a> { <a class="el" href="a00005.html#b11d6b3a1178f13df1aa14797dcfdf94aaaaca35218a895fec8aa966baf5206f">INTERNET</a> =  PF_INET, 
-<a class="el" href="a00005.html#b11d6b3a1178f13df1aa14797dcfdf94e4fe659735670ad77f75783e455a435e">UNIX</a> =  PF_LOCAL
- }</td></tr>
+    <span class="comment">// this is optional and just for demonstration</span>
+    recv_socket.<a name="a10"></a><a class="code" href="a00010.html#d5f835c48b840e30b471e19d7c3cc2aa">leaveGroup</a>(<span class="stringliteral">"224.40.0.1"</span>);
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00005.html#1df69f02e0fb8d41b7245eab8f388766">SocketType</a> { <a class="el" href="a00005.html#1df69f02e0fb8d41b7245eab8f3887662c01e1364295bb84e3e322f543242e00">STREAM</a> =  SOCK_STREAM, 
-<a class="el" href="a00005.html#1df69f02e0fb8d41b7245eab8f388766a5ab4632f7b9c25e45f196e38858b280">DATAGRAM</a> =  SOCK_DGRAM
- }</td></tr>
 
-<tr><td colspan="2"><br><h2>Protected Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00003.html#45bbf6a0d6d772f25d7febda49afe7df">InternetSocket</a> (int type, int protocol)</td></tr>
+    <span class="comment">// if something fails, we get here</span>
+    } <span class="keywordflow">catch</span>( <span class="keyword">const</span> <a name="_a11"></a><a class="code" href="a00007.html" title="Signals a problem with the execution of a socket call.">NET::SocketException</a>&amp; e)
+    {
+        std::cerr &lt;&lt; e.<a name="a12"></a><a class="code" href="a00007.html#1e1ae56e5ffac5f0f5dd8cfa8a456741" title="Returns a C-string describing the cause of the current error.">what</a>() &lt;&lt; std::endl;
+        <span class="keywordflow">return</span> 1;
+    }
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">allows a subclass to create new socket  <a href="#45bbf6a0d6d772f25d7febda49afe7df"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00003.html#720690007444358deac8d21a7f1a82bd">InternetSocket</a> (int sockfd)</td></tr>
-
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">create socket from a <a class="el" href="a00007.html" title="A simple class to provide strict ownership of socket handles.">SocketHandle</a> returned by an accept() call  <a href="#720690007444358deac8d21a7f1a82bd"></a><br></td></tr>
-<tr><td colspan="2"><br><h2>Static Protected Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">static void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00003.html#8256bca00fdb76dcea545602c2393ae5">fillAddress</a> (const std::string &amp;address, unsigned short port, sockaddr_in &amp;addr)</td></tr>
-
-<tr><td colspan="2"><br><h2>Protected Attributes</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00005.html#9c07dffe5a98a2700dc4cb1d6e7a30fa">m_peerDisconnected</a></td></tr>
-
-<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00005.html#721049909aca828a6dd9ee7868897d7c">m_socket</a></td></tr>
-
-</table>
-<hr><a name="_details"></a><h2>Detailed Description</h2>
-Internet Socket class. 
-<p>Definition at line <a class="el" href="a00015_source.html#l00011">11</a> of file <a class="el" href="a00015_source.html">InternetSocket.h</a>.</p>
-<hr><h2>Member Enumeration Documentation</h2>
-<a class="anchor" name="b2d98f9c05fb0c016782269d6c053db9"></a><!-- doxytag: member="NET::InternetSocket::ShutdownDirection" ref="b2d98f9c05fb0c016782269d6c053db9" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="a00005.html#b2d98f9c05fb0c016782269d6c053db9">NET::SimpleSocket::ShutdownDirection</a><code> [inherited]</code>          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-<dl compact><dt><b>Enumerator: </b></dt><dd>
-<table border="0" cellspacing="2" cellpadding="0">
-<tr><td valign="top"><em><a class="anchor" name="b2d98f9c05fb0c016782269d6c053db98efb8dcfe05bb52129f436538b77bc1c"></a><!-- doxytag: member="STOP_SEND" ref="b2d98f9c05fb0c016782269d6c053db98efb8dcfe05bb52129f436538b77bc1c" args="" -->STOP_SEND</em>&nbsp;</td><td>
-disable all variants of <a class="el" href="a00005.html#6e3ec021c1ae9ea1e1d0aaa0129e7c50" title="send data through a connected socket">send()</a> on the socket, receive calls still work </td></tr>
-<tr><td valign="top"><em><a class="anchor" name="b2d98f9c05fb0c016782269d6c053db98cc7b3f7c09884085e7bd7f14a996f07"></a><!-- doxytag: member="STOP_RECEIVE" ref="b2d98f9c05fb0c016782269d6c053db98cc7b3f7c09884085e7bd7f14a996f07" args="" -->STOP_RECEIVE</em>&nbsp;</td><td>
-disable all variants of <a class="el" href="a00005.html#b89a477e571a47efd9ec39089aeebf56" title="will receive data from a bound socket">receive()</a> on the socket, send calls still work </td></tr>
-<tr><td valign="top"><em><a class="anchor" name="b2d98f9c05fb0c016782269d6c053db992c5b6b1319adf4f8eec96da6fa4e8b0"></a><!-- doxytag: member="STOP_BOTH" ref="b2d98f9c05fb0c016782269d6c053db992c5b6b1319adf4f8eec96da6fa4e8b0" args="" -->STOP_BOTH</em>&nbsp;</td><td>
-disable all <a class="el" href="a00005.html#6e3ec021c1ae9ea1e1d0aaa0129e7c50" title="send data through a connected socket">send()</a> and <a class="el" href="a00005.html#b89a477e571a47efd9ec39089aeebf56" title="will receive data from a bound socket">receive()</a> calls on the socket </td></tr>
-</table>
-</dl>
-
-<p>Definition at line <a class="el" href="a00020_source.html#l00046">46</a> of file <a class="el" href="a00020_source.html">SimpleSocket.h</a>.</p>
-
-</div>
-</div><p>
-<a class="anchor" name="b11d6b3a1178f13df1aa14797dcfdf94"></a><!-- doxytag: member="NET::InternetSocket::SocketDomain" ref="b11d6b3a1178f13df1aa14797dcfdf94" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="a00005.html#b11d6b3a1178f13df1aa14797dcfdf94">NET::SimpleSocket::SocketDomain</a><code> [protected, inherited]</code>          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-<dl compact><dt><b>Enumerator: </b></dt><dd>
-<table border="0" cellspacing="2" cellpadding="0">
-<tr><td valign="top"><em><a class="anchor" name="b11d6b3a1178f13df1aa14797dcfdf94aaaaca35218a895fec8aa966baf5206f"></a><!-- doxytag: member="INTERNET" ref="b11d6b3a1178f13df1aa14797dcfdf94aaaaca35218a895fec8aa966baf5206f" args="" -->INTERNET</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="b11d6b3a1178f13df1aa14797dcfdf94e4fe659735670ad77f75783e455a435e"></a><!-- doxytag: member="UNIX" ref="b11d6b3a1178f13df1aa14797dcfdf94e4fe659735670ad77f75783e455a435e" args="" -->UNIX</em>&nbsp;</td><td>
-</td></tr>
-</table>
-</dl>
-
-<p>Definition at line <a class="el" href="a00020_source.html#l00158">158</a> of file <a class="el" href="a00020_source.html">SimpleSocket.h</a>.</p>
-
-</div>
-</div><p>
-<a class="anchor" name="1df69f02e0fb8d41b7245eab8f388766"></a><!-- doxytag: member="NET::InternetSocket::SocketType" ref="1df69f02e0fb8d41b7245eab8f388766" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="a00005.html#1df69f02e0fb8d41b7245eab8f388766">NET::SimpleSocket::SocketType</a><code> [protected, inherited]</code>          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-<dl compact><dt><b>Enumerator: </b></dt><dd>
-<table border="0" cellspacing="2" cellpadding="0">
-<tr><td valign="top"><em><a class="anchor" name="1df69f02e0fb8d41b7245eab8f3887662c01e1364295bb84e3e322f543242e00"></a><!-- doxytag: member="STREAM" ref="1df69f02e0fb8d41b7245eab8f3887662c01e1364295bb84e3e322f543242e00" args="" -->STREAM</em>&nbsp;</td><td>
-</td></tr>
-<tr><td valign="top"><em><a class="anchor" name="1df69f02e0fb8d41b7245eab8f388766a5ab4632f7b9c25e45f196e38858b280"></a><!-- doxytag: member="DATAGRAM" ref="1df69f02e0fb8d41b7245eab8f388766a5ab4632f7b9c25e45f196e38858b280" args="" -->DATAGRAM</em>&nbsp;</td><td>
-</td></tr>
-</table>
-</dl>
-
-<p>Definition at line <a class="el" href="a00020_source.html#l00164">164</a> of file <a class="el" href="a00020_source.html">SimpleSocket.h</a>.</p>
-
-</div>
-</div><p>
-<hr><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" name="720690007444358deac8d21a7f1a82bd"></a><!-- doxytag: member="NET::InternetSocket::InternetSocket" ref="720690007444358deac8d21a7f1a82bd" args="(int sockfd)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">InternetSocket::InternetSocket           </td>
-          <td>(</td>
-          <td class="paramtype">int&nbsp;</td>
-          <td class="paramname"> <em>sockfd</em>          </td>
-          <td>&nbsp;)&nbsp;</td>
-          <td><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-create socket from a <a class="el" href="a00007.html" title="A simple class to provide strict ownership of socket handles.">SocketHandle</a> returned by an accept() call 
-<p>
-
-<p>Definition at line <a class="el" href="a00014_source.html#l00016">16</a> of file <a class="el" href="a00014_source.html">InternetSocket.cpp</a>.</p>
-
-</div>
-</div><p>
-<a class="anchor" name="45bbf6a0d6d772f25d7febda49afe7df"></a><!-- doxytag: member="NET::InternetSocket::InternetSocket" ref="45bbf6a0d6d772f25d7febda49afe7df" args="(int type, int protocol)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">InternetSocket::InternetSocket           </td>
-          <td>(</td>
-          <td class="paramtype">int&nbsp;</td>
-          <td class="paramname"> <em>type</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&nbsp;</td>
-          <td class="paramname"> <em>protocol</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-allows a subclass to create new socket 
-<p>
-
-<p>Definition at line <a class="el" href="a00014_source.html#l00012">12</a> of file <a class="el" href="a00014_source.html">InternetSocket.cpp</a>.</p>
-
-</div>
-</div><p>
-<hr><h2>Member Function Documentation</h2>
-<a class="anchor" name="e7bd4ffd89a708f663de1ca1c24125f8"></a><!-- doxytag: member="NET::InternetSocket::connect" ref="e7bd4ffd89a708f663de1ca1c24125f8" args="(const std::string &amp;foreignAddress, unsigned short foreignPort)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void InternetSocket::connect           </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&nbsp;</td>
-          <td class="paramname"> <em>foreignAddress</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned short&nbsp;</td>
-          <td class="paramname"> <em>foreignPort</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-establish a connection with the given foreign address and port 
-<p>
-If you are using a connection oriented socket (like <a class="el" href="a00008.html" title="TCP socket class.">TCPSocket</a>), you have to call <a class="el" href="a00003.html#e7bd4ffd89a708f663de1ca1c24125f8" title="establish a connection with the given foreign address and port">connect()</a> on that socket in order to send data. However, if you are using a non-connection oriented socket (like <a class="el" href="a00009.html" title="UDP socket class.">UDPSocket</a>), calling connect on that socket will allow you to use the <a class="el" href="a00005.html#6e3ec021c1ae9ea1e1d0aaa0129e7c50" title="send data through a connected socket">send()</a> function like on a connection oriented socket.<p>
-<dl compact><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>foreignAddress</em>&nbsp;</td><td>foreign address (IP address or name) </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>foreignPort</em>&nbsp;</td><td>foreign port </td></tr>
-  </table>
-</dl>
-<dl compact><dt><b>Exceptions:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em><a class="el" href="a00006.html" title="Signals a problem with the execution of a socket call.">SocketException</a></em>&nbsp;</td><td>thrown if unable to establish connection </td></tr>
-  </table>
-</dl>
-<dl compact><dt><b>Examples: </b></dt><dd>
-<a class="el" href="a00002.html#a2">TCP_Client.cpp</a>.</dl>
-<p>Definition at line <a class="el" href="a00014_source.html#l00019">19</a> of file <a class="el" href="a00014_source.html">InternetSocket.cpp</a>.</p>
-
-</div>
-</div><p>
-<a class="anchor" name="7973e83582e84e6250f0063923edd15c"></a><!-- doxytag: member="NET::InternetSocket::disconnect" ref="7973e83582e84e6250f0063923edd15c" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void InternetSocket::disconnect           </td>
-          <td>(</td>
-          <td class="paramname">          </td>
-          <td>&nbsp;)&nbsp;</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-Unset foreign address and port <dl compact><dt><b>Exceptions:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em><a class="el" href="a00006.html" title="Signals a problem with the execution of a socket call.">SocketException</a></em>&nbsp;</td><td>thrown if unable to disconnect UDP socket </td></tr>
-  </table>
-</dl>
-<dl compact><dt><b>Examples: </b></dt><dd>
-<a class="el" href="a00002.html#a4">TCP_Client.cpp</a>, and <a class="el" href="a00001.html#a8">TCP_Server.cpp</a>.</dl>
-<p>Definition at line <a class="el" href="a00014_source.html#l00028">28</a> of file <a class="el" href="a00014_source.html">InternetSocket.cpp</a>.</p>
-
-</div>
-</div><p>
-<a class="anchor" name="02046392ba4e5810f7dc900686ac9a93"></a><!-- doxytag: member="NET::InternetSocket::bind" ref="02046392ba4e5810f7dc900686ac9a93" args="(unsigned short localPort=0)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void InternetSocket::bind           </td>
-          <td>(</td>
-          <td class="paramtype">unsigned short&nbsp;</td>
-          <td class="paramname"> <em>localPort</em> = <code>0</code>          </td>
-          <td>&nbsp;)&nbsp;</td>
-          <td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. Instead of the richer function with more arguments, this <a class="el" href="a00003.html#02046392ba4e5810f7dc900686ac9a93">bind()</a> binds to any available interface / address <dl compact><dt><b>Examples: </b></dt><dd>
-<a class="el" href="a00001.html#a2">TCP_Server.cpp</a>.</dl>
-<p>Definition at line <a class="el" href="a00014_source.html#l00041">41</a> of file <a class="el" href="a00014_source.html">InternetSocket.cpp</a>.</p>
-
-</div>
-</div><p>
-<a class="anchor" name="654c6a5f7076415a14497a4914a455ae"></a><!-- doxytag: member="NET::InternetSocket::bind" ref="654c6a5f7076415a14497a4914a455ae" args="(const std::string &amp;localAddress, unsigned short localPort=0)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void InternetSocket::bind           </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&nbsp;</td>
-          <td class="paramname"> <em>localAddress</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned short&nbsp;</td>
-          <td class="paramname"> <em>localPort</em> = <code>0</code></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-bind socket to address / port 
-<p>
-Set the local port to the specified port and the local address to an interface.<p>
-<a class="el" href="a00003.html#02046392ba4e5810f7dc900686ac9a93">bind()</a> attaches the local endpoint of the socket to the specified interface and port. Typically all servers use <a class="el" href="a00003.html#02046392ba4e5810f7dc900686ac9a93">bind()</a> to attach to the local port specified by the used protocol. You just need to call bind if you want to restrict the connection to a specific local interface, or if you want to listen on a specific port. If you are just a client using <a class="el" href="a00003.html#e7bd4ffd89a708f663de1ca1c24125f8" title="establish a connection with the given foreign address and port">connect()</a> to connect to a server, calling bind is most likely unnecessary.<p>
-To bind to a port &lt; 1023 you need eighter superuser access, or the SUID bit set on your program.<p>
-<dl compact><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>localAddress</em>&nbsp;</td><td>local address </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>localPort</em>&nbsp;</td><td>local port </td></tr>
-  </table>
-</dl>
-<dl compact><dt><b>Exceptions:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em><a class="el" href="a00006.html" title="Signals a problem with the execution of a socket call.">SocketException</a></em>&nbsp;</td><td>thrown if setting local port fails </td></tr>
-  </table>
-</dl>
-
-<p>Definition at line <a class="el" href="a00014_source.html#l00052">52</a> of file <a class="el" href="a00014_source.html">InternetSocket.cpp</a>.</p>
-
-</div>
-</div><p>
-<a class="anchor" name="048cffe75ff024d0a76a6854cee4569a"></a><!-- doxytag: member="NET::InternetSocket::getLocalAddress" ref="048cffe75ff024d0a76a6854cee4569a" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string InternetSocket::getLocalAddress           </td>
-          <td>(</td>
-          <td class="paramname">          </td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-Get the local address (after binding the socket). <dl class="return" compact><dt><b>Returns:</b></dt><dd>local address of socket </dd></dl>
-<dl compact><dt><b>Exceptions:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em><a class="el" href="a00006.html" title="Signals a problem with the execution of a socket call.">SocketException</a></em>&nbsp;</td><td>thrown if fetch fails </td></tr>
-  </table>
-</dl>
-
-<p>Definition at line <a class="el" href="a00014_source.html#l00061">61</a> of file <a class="el" href="a00014_source.html">InternetSocket.cpp</a>.</p>
-
-</div>
-</div><p>
-<a class="anchor" name="956f85b29a3c4143b59d4bef20ceeb47"></a><!-- doxytag: member="NET::InternetSocket::getLocalPort" ref="956f85b29a3c4143b59d4bef20ceeb47" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">unsigned short InternetSocket::getLocalPort           </td>
-          <td>(</td>
-          <td class="paramname">          </td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-Get the local port (after binding the socket). <dl class="return" compact><dt><b>Returns:</b></dt><dd>local port of socket </dd></dl>
-<dl compact><dt><b>Exceptions:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em><a class="el" href="a00006.html" title="Signals a problem with the execution of a socket call.">SocketException</a></em>&nbsp;</td><td>thrown if fetch fails </td></tr>
-  </table>
-</dl>
-
-<p>Definition at line <a class="el" href="a00014_source.html#l00072">72</a> of file <a class="el" href="a00014_source.html">InternetSocket.cpp</a>.</p>
-
-</div>
-</div><p>
-<a class="anchor" name="be5c2072d6a582429f8b5e815cda322a"></a><!-- doxytag: member="NET::InternetSocket::getForeignAddress" ref="be5c2072d6a582429f8b5e815cda322a" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">std::string InternetSocket::getForeignAddress           </td>
-          <td>(</td>
-          <td class="paramname">          </td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-Get the foreign address. Call <a class="el" href="a00003.html#e7bd4ffd89a708f663de1ca1c24125f8" title="establish a connection with the given foreign address and port">connect()</a> before using this function. <dl class="return" compact><dt><b>Returns:</b></dt><dd>foreign address </dd></dl>
-<dl compact><dt><b>Exceptions:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em><a class="el" href="a00006.html" title="Signals a problem with the execution of a socket call.">SocketException</a></em>&nbsp;</td><td>thrown if unable to fetch foreign address </td></tr>
-  </table>
-</dl>
-
-<p>Definition at line <a class="el" href="a00014_source.html#l00083">83</a> of file <a class="el" href="a00014_source.html">InternetSocket.cpp</a>.</p>
-
-</div>
-</div><p>
-<a class="anchor" name="775f9548ca0efa8cd5b00563a5a2cedf"></a><!-- doxytag: member="NET::InternetSocket::getForeignPort" ref="775f9548ca0efa8cd5b00563a5a2cedf" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">unsigned short InternetSocket::getForeignPort           </td>
-          <td>(</td>
-          <td class="paramname">          </td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const</td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-Get the foreign port. Call <a class="el" href="a00003.html#e7bd4ffd89a708f663de1ca1c24125f8" title="establish a connection with the given foreign address and port">connect()</a> before using this function. <dl class="return" compact><dt><b>Returns:</b></dt><dd>foreign port </dd></dl>
-<dl compact><dt><b>Exceptions:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em><a class="el" href="a00006.html" title="Signals a problem with the execution of a socket call.">SocketException</a></em>&nbsp;</td><td>thrown if unable to fetch foreign port </td></tr>
-  </table>
-</dl>
-
-<p>Definition at line <a class="el" href="a00014_source.html#l00094">94</a> of file <a class="el" href="a00014_source.html">InternetSocket.cpp</a>.</p>
-
-</div>
-</div><p>
-<a class="anchor" name="8256bca00fdb76dcea545602c2393ae5"></a><!-- doxytag: member="NET::InternetSocket::fillAddress" ref="8256bca00fdb76dcea545602c2393ae5" args="(const std::string &amp;address, unsigned short port, sockaddr_in &amp;addr)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void InternetSocket::fillAddress           </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;&nbsp;</td>
-          <td class="paramname"> <em>address</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">unsigned short&nbsp;</td>
-          <td class="paramname"> <em>port</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">sockaddr_in &amp;&nbsp;</td>
-          <td class="paramname"> <em>addr</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td><code> [static, protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-Fill an address structure with the given address and port number. If the given address is not a valid IPv4 address, it will be resolved by hostname or DNS lookup. addr will be unchanged if this resolve fails.<p>
-<dl compact><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>address</em>&nbsp;</td><td>IPv4 domain name or address </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>port</em>&nbsp;</td><td>IP port number to fill in </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>addr</em>&nbsp;</td><td>address structure to fill </td></tr>
-  </table>
-</dl>
-<dl compact><dt><b>Exceptions:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em><a class="el" href="a00006.html" title="Signals a problem with the execution of a socket call.">SocketException</a></em>&nbsp;</td><td>thrown if unable to resolve a hostname </td></tr>
-  </table>
-</dl>
-
-<p>Definition at line <a class="el" href="a00014_source.html#l00105">105</a> of file <a class="el" href="a00014_source.html">InternetSocket.cpp</a>.</p>
-
-</div>
-</div><p>
-<a class="anchor" name="6e3ec021c1ae9ea1e1d0aaa0129e7c50"></a><!-- doxytag: member="NET::InternetSocket::send" ref="6e3ec021c1ae9ea1e1d0aaa0129e7c50" args="(const void *buffer, size_t len)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int SimpleSocket::send           </td>
-          <td>(</td>
-          <td class="paramtype">const void *&nbsp;</td>
-          <td class="paramname"> <em>buffer</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t&nbsp;</td>
-          <td class="paramname"> <em>len</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td><code> [inherited]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-send data through a connected socket 
-<p>
-<a class="el" href="a00005.html#6e3ec021c1ae9ea1e1d0aaa0129e7c50" title="send data through a connected socket">send()</a> can only be used on a socket that called connect() before. If you try to use <a class="el" href="a00005.html#6e3ec021c1ae9ea1e1d0aaa0129e7c50" title="send data through a connected socket">send()</a> on a not connected socket, <a class="el" href="a00006.html" title="Signals a problem with the execution of a socket call.">SocketException</a> will be thrown.<p>
-If you are using a stream oriented socket (like <a class="el" href="a00008.html" title="TCP socket class.">TCPSocket</a>), the operating system is allowed to send only a part of the packet you told it to send, so <a class="el" href="a00005.html#6e3ec021c1ae9ea1e1d0aaa0129e7c50" title="send data through a connected socket">send()</a> will return the number of bytes actually sent. It is your responsibility to resend the data not sent by <a class="el" href="a00005.html#6e3ec021c1ae9ea1e1d0aaa0129e7c50" title="send data through a connected socket">send()</a><p>
-If you are using a datagram oriented socket (like <a class="el" href="a00009.html" title="UDP socket class.">UDPSocket</a> or <a class="el" href="a00004.html" title="SCTP socket class.">SCTPSocket</a>) the operating system will only send and receive complete datagrams, but <a class="el" href="a00005.html#6e3ec021c1ae9ea1e1d0aaa0129e7c50" title="send data through a connected socket">send()</a> will fail if you are trying to send too much data. In that case <a class="el" href="a00006.html" title="Signals a problem with the execution of a socket call.">SocketException</a> will be thrown.<p>
-<dl compact><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>buffer</em>&nbsp;</td><td>data to be send </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>len</em>&nbsp;</td><td>length of the data to be sent </td></tr>
-  </table>
-</dl>
-<dl class="return" compact><dt><b>Returns:</b></dt><dd>number of bytes sent </dd></dl>
-<dl compact><dt><b>Exceptions:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em><a class="el" href="a00006.html" title="Signals a problem with the execution of a socket call.">SocketException</a></em>&nbsp;</td><td>if sending went wrong </td></tr>
-  </table>
-</dl>
-<dl compact><dt><b>Examples: </b></dt><dd>
-<a class="el" href="a00001.html#a6">TCP_Server.cpp</a>.</dl>
-<p>Definition at line <a class="el" href="a00019_source.html#l00043">43</a> of file <a class="el" href="a00019_source.html">SimpleSocket.cpp</a>.</p>
-
-</div>
-</div><p>
-<a class="anchor" name="b89a477e571a47efd9ec39089aeebf56"></a><!-- doxytag: member="NET::InternetSocket::receive" ref="b89a477e571a47efd9ec39089aeebf56" args="(void *buffer, size_t len)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int SimpleSocket::receive           </td>
-          <td>(</td>
-          <td class="paramtype">void *&nbsp;</td>
-          <td class="paramname"> <em>buffer</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t&nbsp;</td>
-          <td class="paramname"> <em>len</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td><code> [inherited]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-will receive data from a bound socket 
-<p>
-<a class="el" href="a00005.html#b89a477e571a47efd9ec39089aeebf56" title="will receive data from a bound socket">receive()</a> can only be used on a socket that called bind() or connect() before. If you try to use <a class="el" href="a00005.html#b89a477e571a47efd9ec39089aeebf56" title="will receive data from a bound socket">receive()</a> on a not bound socket, <a class="el" href="a00006.html" title="Signals a problem with the execution of a socket call.">SocketException</a> will be thrown.<p>
-If using a stream oriented Socket, receive can return a part of a received messge, e.g. if you send 100 bytes, it's possible you will receive 50 bytes two times in a row. However, the order of the sent data will be preserved.<p>
-If you are using a datagram oriented sockets, you will only receive whole datagrams. But beware of using a too small buffer. If the receive buffer is too small for the received datagram, the data you didn't read in the receive call will be discared.<p>
-If the remote host has closed the connection (on a connection based socket like TCP or SCTP) <a class="el" href="a00005.html#b89a477e571a47efd9ec39089aeebf56" title="will receive data from a bound socket">receive()</a> will return 0. If you are using a connectionless protocol (like UDP) there is no way to determine wheter the connection has been closed by the remote host or not.<p>
-<dl compact><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>buffer</em>&nbsp;</td><td>the buffer the received data will be written to </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>len</em>&nbsp;</td><td>length of the provided buffer, receive will not read more than that </td></tr>
-  </table>
-</dl>
-<dl class="return" compact><dt><b>Returns:</b></dt><dd>number of bytes received </dd></dl>
-<dl compact><dt><b>Exceptions:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em><a class="el" href="a00006.html" title="Signals a problem with the execution of a socket call.">SocketException</a></em>&nbsp;</td><td>in case an error occured </td></tr>
-  </table>
-</dl>
-
-<p>Definition at line <a class="el" href="a00019_source.html#l00061">61</a> of file <a class="el" href="a00019_source.html">SimpleSocket.cpp</a>.</p>
-
-</div>
-</div><p>
-<a class="anchor" name="0c14e0e6413cf606d52ab7d606a175f8"></a><!-- doxytag: member="NET::InternetSocket::timedReceive" ref="0c14e0e6413cf606d52ab7d606a175f8" args="(void *buffer, size_t len, int timeout)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int SimpleSocket::timedReceive           </td>
-          <td>(</td>
-          <td class="paramtype">void *&nbsp;</td>
-          <td class="paramname"> <em>buffer</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t&nbsp;</td>
-          <td class="paramname"> <em>len</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int&nbsp;</td>
-          <td class="paramname"> <em>timeout</em></td><td>&nbsp;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td><td><code> [inherited]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-will receive data from a bound socket, but return after the given timespan 
-<p>
-<a class="el" href="a00005.html#0c14e0e6413cf606d52ab7d606a175f8" title="will receive data from a bound socket, but return after the given timespan">timedReceive()</a> can only be used on a socket that called bind() or connect before. If you try to use <a class="el" href="a00005.html#b89a477e571a47efd9ec39089aeebf56" title="will receive data from a bound socket">receive()</a> on a not bound socket, <a class="el" href="a00006.html" title="Signals a problem with the execution of a socket call.">SocketException</a> will be thrown.<p>
-If using a stream oriented Socket, receive can return a part of a received messge, e.g. if you send 100 bytes, it's possible you will receive 50 bytes two times in a row. However, the order of the sent data will be preserved.<p>
-If you are using a datagram oriented sockets, you will only receive whole datagrams. But beware of using a too small buffer. If the receive buffer is too small for the received datagram, the data you didn't read in the receive call will be discared.<p>
-If the remote host has closed the connection (on a connection based socket like TCP or SCTP) <a class="el" href="a00005.html#b89a477e571a47efd9ec39089aeebf56" title="will receive data from a bound socket">receive()</a> will return 0. If you are using a connectionless protocol (like UDP) there is no way to determine wheter the connection has been closed by the remote host or not.<p>
-<dl compact><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>buffer</em>&nbsp;</td><td>the buffer the received data will be written to </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>len</em>&nbsp;</td><td>length of the provided buffer, receive will not read more than that </td></tr>
-    <tr><td valign="top"></td><td valign="top"><em>timeout</em>&nbsp;</td><td>the timeout in ms after which receive will give up and return </td></tr>
-  </table>
-</dl>
-<dl class="return" compact><dt><b>Returns:</b></dt><dd>number of bytes received, 0 on timeout </dd></dl>
-<dl compact><dt><b>Exceptions:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em><a class="el" href="a00006.html" title="Signals a problem with the execution of a socket call.">SocketException</a></em>&nbsp;</td><td>in case an error occured </td></tr>
-  </table>
-</dl>
-<dl compact><dt><b>Examples: </b></dt><dd>
-<a class="el" href="a00002.html#a3">TCP_Client.cpp</a>.</dl>
-<p>Definition at line <a class="el" href="a00019_source.html#l00068">68</a> of file <a class="el" href="a00019_source.html">SimpleSocket.cpp</a>.</p>
-
-</div>
-</div><p>
-<a class="anchor" name="5b5500498eeb1292eea3c5dc4e531d19"></a><!-- doxytag: member="NET::InternetSocket::shutdown" ref="5b5500498eeb1292eea3c5dc4e531d19" args="(ShutdownDirection type)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void SimpleSocket::shutdown           </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="a00005.html#b2d98f9c05fb0c016782269d6c053db9">ShutdownDirection</a>&nbsp;</td>
-          <td class="paramname"> <em>type</em>          </td>
-          <td>&nbsp;)&nbsp;</td>
-          <td><code> [inherited]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-will shutdown the connection in the specified direction 
-<p>
-Depending on the specified ShutdownDirection, calls for that direction will stop working. Use this function if you want to have more control than just destroing the socket. It allows you to cut the connection in one direction, or both.<p>
-If you use <a class="el" href="a00005.html#5b5500498eeb1292eea3c5dc4e531d19" title="will shutdown the connection in the specified direction">shutdown()</a> on an unconnected socket, the corresponding calls will simply stop working.<p>
-<dl compact><dt><b>Parameters:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em>type</em>&nbsp;</td><td>the ShutdownDirection that be used </td></tr>
-  </table>
-</dl>
-<dl compact><dt><b>Exceptions:</b></dt><dd>
-  <table border="0" cellspacing="2" cellpadding="0">
-    <tr><td valign="top"></td><td valign="top"><em><a class="el" href="a00006.html" title="Signals a problem with the execution of a socket call.">SocketException</a></em>&nbsp;</td><td>in case an error occured </td></tr>
-  </table>
-</dl>
-
-<p>Definition at line <a class="el" href="a00019_source.html#l00088">88</a> of file <a class="el" href="a00019_source.html">SimpleSocket.cpp</a>.</p>
-
-</div>
-</div><p>
-<a class="anchor" name="0fab04b047335c35b831885da2826f41"></a><!-- doxytag: member="NET::InternetSocket::peerDisconnected" ref="0fab04b047335c35b831885da2826f41" args="() const " -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool SimpleSocket::peerDisconnected           </td>
-          <td>(</td>
-          <td class="paramname">          </td>
-          <td>&nbsp;)&nbsp;</td>
-          <td> const<code> [inherited]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-returns whether a peer disconnected 
-<p>
-Will only work if you use a connection oriented, connected socket. Returns true if the peer disconnected. Use this function after a call to receive, returned 0 received bytes.<p>
-<dl class="return" compact><dt><b>Returns:</b></dt><dd>true if a peer disconnected </dd></dl>
-<dl compact><dt><b>Examples: </b></dt><dd>
-<a class="el" href="a00001.html#a7">TCP_Server.cpp</a>.</dl>
-<p>Definition at line <a class="el" href="a00019_source.html#l00094">94</a> of file <a class="el" href="a00019_source.html">SimpleSocket.cpp</a>.</p>
-
-</div>
-</div><p>
-<hr><h2>Member Data Documentation</h2>
-<a class="anchor" name="721049909aca828a6dd9ee7868897d7c"></a><!-- doxytag: member="NET::InternetSocket::m_socket" ref="721049909aca828a6dd9ee7868897d7c" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int <a class="el" href="a00005.html#721049909aca828a6dd9ee7868897d7c">NET::SimpleSocket::m_socket</a><code> [protected, inherited]</code>          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
-<p>Definition at line <a class="el" href="a00020_source.html#l00177">177</a> of file <a class="el" href="a00020_source.html">SimpleSocket.h</a>.</p>
-
-</div>
-</div><p>
-<a class="anchor" name="9c07dffe5a98a2700dc4cb1d6e7a30fa"></a><!-- doxytag: member="NET::InternetSocket::m_peerDisconnected" ref="9c07dffe5a98a2700dc4cb1d6e7a30fa" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool <a class="el" href="a00005.html#9c07dffe5a98a2700dc4cb1d6e7a30fa">NET::SimpleSocket::m_peerDisconnected</a><code> [protected, inherited]</code>          </td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>
-
-<p>Definition at line <a class="el" href="a00020_source.html#l00178">178</a> of file <a class="el" href="a00020_source.html">SimpleSocket.h</a>.</p>
-
-</div>
-</div><p>
-<hr>The documentation for this class was generated from the following files:<ul>
-<li><a class="el" href="a00015_source.html">InternetSocket.h</a><li><a class="el" href="a00014_source.html">InternetSocket.cpp</a></ul>
-</div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Sat Nov 7 02:26:26 2009 for simple-socket library by&nbsp;
+    <span class="keywordflow">return</span> 0;
+}
+</pre></div> </div>
+<hr size="1"><address style="text-align: right;"><small>Generated on Sat Nov 7 14:26:13 2009 for simple-socket library by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.9 </small></address>
 </body>

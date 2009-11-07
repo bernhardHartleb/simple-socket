@@ -1,6 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-<title>simple-socket library: SimpleSocket.h Source File</title>
+<title>simple-socket library: SimpleSocket.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css">
 <link href="doxygen.css" rel="stylesheet" type="text/css">
 </head><body>
@@ -22,93 +22,118 @@
       <li><a href="globals.html"><span>File&nbsp;Members</span></a></li>
     </ul>
   </div>
-<h1>SimpleSocket.h</h1><a href="a00020.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef NET_SimpleSocket_h__</span>
-<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define NET_SimpleSocket_h__</span>
-<a name="l00003"></a>00003 <span class="preprocessor"></span>
-<a name="l00004"></a>00004 <span class="preprocessor">#include &lt;sys/socket.h&gt;</span>
-<a name="l00005"></a>00005 <span class="preprocessor">#include &lt;string&gt;</span>
-<a name="l00006"></a>00006 <span class="preprocessor">#include &lt;exception&gt;</span>
+<h1>SimpleSocket.cpp</h1><a href="a00020.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#include "<a class="code" href="a00021.html">SimpleSocket.h</a>"</span>
+<a name="l00002"></a>00002 <span class="preprocessor">#include "<a class="code" href="a00027.html">TempFailure.h</a>"</span>
+<a name="l00003"></a>00003 
+<a name="l00004"></a>00004 <span class="preprocessor">#include &lt;poll.h&gt;</span>
+<a name="l00005"></a>00005 <span class="preprocessor">#include &lt;cstring&gt;</span>
+<a name="l00006"></a>00006 <span class="preprocessor">#include &lt;cerrno&gt;</span>
 <a name="l00007"></a>00007 
-<a name="l00008"></a>00008 <span class="keyword">namespace </span>NET
-<a name="l00009"></a>00009 {
-<a name="l00011"></a><a class="code" href="a00006.html">00011</a>     <span class="keyword">class </span><a class="code" href="a00006.html" title="Signals a problem with the execution of a socket call.">SocketException</a> : <span class="keyword">public</span> std::exception
-<a name="l00012"></a>00012     {
-<a name="l00013"></a>00013     <span class="keyword">public</span>:
-<a name="l00020"></a>00020         <a class="code" href="a00006.html#51123bbb7e353513bf469a375632f286">SocketException</a>( <span class="keyword">const</span> std::string&amp; message, <span class="keywordtype">bool</span> inclSysMsg = <span class="keyword">true</span>) <span class="keywordflow">throw</span>();
+<a name="l00008"></a>00008 <span class="keyword">using namespace </span>NET;
+<a name="l00009"></a>00009 
+<a name="l00010"></a><a class="code" href="a00007.html#51123bbb7e353513bf469a375632f286">00010</a> SocketException::SocketException( <span class="keyword">const</span> std::string&amp; message, <span class="keywordtype">bool</span> inclSysMsg <span class="comment">/* = true */</span>) <span class="keywordflow">throw</span>()
+<a name="l00011"></a>00011 : m_message(message)
+<a name="l00012"></a>00012 , m_errorcode(0)
+<a name="l00013"></a>00013 {
+<a name="l00014"></a>00014     <span class="keywordflow">if</span>(inclSysMsg)
+<a name="l00015"></a>00015     {
+<a name="l00016"></a>00016         m_errorcode = errno;
+<a name="l00017"></a>00017         m_message += <span class="stringliteral">": "</span>;
+<a name="l00018"></a>00018         m_message += strerror(m_errorcode);
+<a name="l00019"></a>00019     }
+<a name="l00020"></a>00020 }
 <a name="l00021"></a>00021 
-<a name="l00023"></a><a class="code" href="a00006.html#2a16da6ee3b4e720f43edee18e2ae8cd">00023</a>         <a class="code" href="a00006.html#2a16da6ee3b4e720f43edee18e2ae8cd" title="Provided just to guarantee that no exceptions are thrown.">~SocketException</a>() throw() {};
-<a name="l00024"></a>00024 
-<a name="l00026"></a><a class="code" href="a00006.html#1e1ae56e5ffac5f0f5dd8cfa8a456741">00026</a>         <span class="keyword">const</span> <span class="keywordtype">char</span>* <a class="code" href="a00006.html#1e1ae56e5ffac5f0f5dd8cfa8a456741" title="Returns a C-string describing the cause of the current error.">what</a>() <span class="keyword">const</span> throw() { <span class="keywordflow">return</span> m_message.c_str(); }
-<a name="l00027"></a>00027 
-<a name="l00029"></a><a class="code" href="a00006.html#411d16f55b4805e951d53810b9569bfe">00029</a>         <span class="keywordtype">int</span> <a class="code" href="a00006.html#411d16f55b4805e951d53810b9569bfe" title="Returns the glibc errno code of the current error.">errorCode</a>() <span class="keyword">const</span> throw() { <span class="keywordflow">return</span> m_errorcode; }
-<a name="l00030"></a>00030 
-<a name="l00031"></a>00031     <span class="keyword">private</span>:
-<a name="l00032"></a>00032         std::string m_message;
-<a name="l00033"></a>00033         <span class="keywordtype">int</span> m_errorcode;
-<a name="l00034"></a>00034     };
-<a name="l00035"></a>00035 
-<a name="l00036"></a><a class="code" href="a00037.html#661c66206079fbe23597e49ab1ba7ba1">00036</a>     <span class="keyword">typedef</span> <span class="keywordtype">void</span> <a class="code" href="a00037.html#661c66206079fbe23597e49ab1ba7ba1">raw_type</a>; <span class="comment">// data type used by transmit and receive functions</span>
-<a name="l00037"></a>00037 
-<a name="l00039"></a>00039 
-<a name="l00043"></a><a class="code" href="a00005.html">00043</a>     <span class="keyword">class </span><a class="code" href="a00005.html" title="A socket representing a basic communication endpoint.">SimpleSocket</a>
-<a name="l00044"></a>00044     {
-<a name="l00045"></a>00045     <span class="keyword">public</span>:
-<a name="l00046"></a><a class="code" href="a00005.html#b2d98f9c05fb0c016782269d6c053db9">00046</a>         <span class="keyword">enum</span> <a class="code" href="a00005.html#b2d98f9c05fb0c016782269d6c053db9">ShutdownDirection</a>
-<a name="l00047"></a>00047         {
-<a name="l00048"></a><a class="code" href="a00005.html#b2d98f9c05fb0c016782269d6c053db98efb8dcfe05bb52129f436538b77bc1c">00048</a>             <a class="code" href="a00005.html#b2d98f9c05fb0c016782269d6c053db98efb8dcfe05bb52129f436538b77bc1c" title="disable all variants of send() on the socket, receive calls still work">STOP_SEND</a> = SHUT_WR,        
-<a name="l00049"></a><a class="code" href="a00005.html#b2d98f9c05fb0c016782269d6c053db98cc7b3f7c09884085e7bd7f14a996f07">00049</a>             <a class="code" href="a00005.html#b2d98f9c05fb0c016782269d6c053db98cc7b3f7c09884085e7bd7f14a996f07" title="disable all variants of receive() on the socket, send calls still work">STOP_RECEIVE</a> = SHUT_RD,     
-<a name="l00050"></a><a class="code" href="a00005.html#b2d98f9c05fb0c016782269d6c053db992c5b6b1319adf4f8eec96da6fa4e8b0">00050</a>             <a class="code" href="a00005.html#b2d98f9c05fb0c016782269d6c053db992c5b6b1319adf4f8eec96da6fa4e8b0" title="disable all send() and receive() calls on the socket">STOP_BOTH</a> = SHUT_RDWR       
-<a name="l00051"></a>00051         };
-<a name="l00052"></a>00052 
-<a name="l00053"></a>00053         <a class="code" href="a00005.html#bf7d41536d2ecf56de1364d36db5fd67">~SimpleSocket</a>();
-<a name="l00054"></a>00054 
-<a name="l00056"></a>00056 
-<a name="l00076"></a>00076         <span class="keywordtype">int</span> <a class="code" href="a00005.html#6e3ec021c1ae9ea1e1d0aaa0129e7c50" title="send data through a connected socket">send</a>( <span class="keyword">const</span> <span class="keywordtype">void</span>* buffer, <span class="keywordtype">size_t</span> len);
-<a name="l00077"></a>00077 
-<a name="l00079"></a>00079 
-<a name="l00102"></a>00102         <span class="keywordtype">int</span> <a class="code" href="a00005.html#b89a477e571a47efd9ec39089aeebf56" title="will receive data from a bound socket">receive</a>( <span class="keywordtype">void</span>* buffer, <span class="keywordtype">size_t</span> len);
-<a name="l00103"></a>00103 
+<a name="l00022"></a><a class="code" href="a00006.html#7059c7c1be8f34d7034ddacf8a6bb9a4">00022</a> SimpleSocket::SimpleSocket( <span class="keywordtype">int</span> domain, <span class="keywordtype">int</span> type, <span class="keywordtype">int</span> protocol)
+<a name="l00023"></a>00023 : m_peerDisconnected(false)
+<a name="l00024"></a>00024 {
+<a name="l00025"></a>00025     <span class="keywordflow">if</span>( (<a class="code" href="a00006.html#721049909aca828a6dd9ee7868897d7c">m_socket</a> = socket( domain, type, protocol)) &lt; 0)
+<a name="l00026"></a>00026         <span class="keywordflow">throw</span> <a class="code" href="a00007.html" title="Signals a problem with the execution of a socket call.">SocketException</a>(<span class="stringliteral">"Socket creation failed (socket)"</span>);
+<a name="l00027"></a>00027 }
+<a name="l00028"></a>00028 
+<a name="l00029"></a><a class="code" href="a00006.html#889ecbd4628d84380bb95fc2e58a92ba">00029</a> <a class="code" href="a00006.html#7059c7c1be8f34d7034ddacf8a6bb9a4" title="allows a subclass to create new socket">SimpleSocket::SimpleSocket</a>( <span class="keywordtype">int</span> sockfd)
+<a name="l00030"></a>00030 : m_socket(sockfd)
+<a name="l00031"></a>00031 , m_peerDisconnected(false)
+<a name="l00032"></a>00032 {
+<a name="l00033"></a>00033     <span class="keywordflow">if</span>(sockfd &lt;= 0)
+<a name="l00034"></a>00034         <span class="keywordflow">throw</span> <a class="code" href="a00007.html" title="Signals a problem with the execution of a socket call.">SocketException</a>(<span class="stringliteral">"Tried to initialize Socket with invalid Handle"</span>, <span class="keyword">false</span>);
+<a name="l00035"></a>00035 }
+<a name="l00036"></a>00036 
+<a name="l00037"></a><a class="code" href="a00006.html#bf7d41536d2ecf56de1364d36db5fd67">00037</a> <a class="code" href="a00006.html#bf7d41536d2ecf56de1364d36db5fd67">SimpleSocket::~SimpleSocket</a>()
+<a name="l00038"></a>00038 {
+<a name="l00039"></a>00039     <a class="code" href="a00027.html#e3924d534a2de097f5cccb535330e8c2">TEMP_FAILURE_RETRY</a> (::close(<a class="code" href="a00006.html#721049909aca828a6dd9ee7868897d7c">m_socket</a>));
+<a name="l00040"></a>00040     <span class="comment">// on Windows do cleanup here</span>
+<a name="l00041"></a>00041 }
+<a name="l00042"></a>00042 
+<a name="l00043"></a><a class="code" href="a00006.html#6e3ec021c1ae9ea1e1d0aaa0129e7c50">00043</a> <span class="keywordtype">int</span> <a class="code" href="a00006.html#6e3ec021c1ae9ea1e1d0aaa0129e7c50" title="send data through a connected socket">SimpleSocket::send</a>( <span class="keyword">const</span> <span class="keywordtype">void</span>* buffer, <span class="keywordtype">size_t</span> len)
+<a name="l00044"></a>00044 {
+<a name="l00045"></a>00045     <span class="keywordtype">int</span> sent = <a class="code" href="a00027.html#e3924d534a2de097f5cccb535330e8c2">TEMP_FAILURE_RETRY</a> (::<a class="code" href="a00006.html#6e3ec021c1ae9ea1e1d0aaa0129e7c50" title="send data through a connected socket">send</a>( <a class="code" href="a00006.html#721049909aca828a6dd9ee7868897d7c">m_socket</a>, (<span class="keyword">const</span> <a class="code" href="a00038.html#661c66206079fbe23597e49ab1ba7ba1">raw_type</a>*) buffer, len, 0));
+<a name="l00046"></a>00046     <span class="keywordflow">if</span>( sent &lt; 0)
+<a name="l00047"></a>00047     {
+<a name="l00048"></a>00048         <span class="keywordflow">switch</span>(errno)
+<a name="l00049"></a>00049         {
+<a name="l00050"></a>00050         <span class="keywordflow">case</span> ECONNRESET:
+<a name="l00051"></a>00051         <span class="keywordflow">case</span> ECONNREFUSED:
+<a name="l00052"></a>00052             <a class="code" href="a00006.html#9c07dffe5a98a2700dc4cb1d6e7a30fa">m_peerDisconnected</a> = <span class="keyword">true</span>;
+<a name="l00053"></a>00053             <span class="keywordflow">break</span>;
+<a name="l00054"></a>00054         <span class="keywordflow">default</span>:
+<a name="l00055"></a>00055             <span class="keywordflow">throw</span> <a class="code" href="a00007.html" title="Signals a problem with the execution of a socket call.">SocketException</a>(<span class="stringliteral">"Send failed (send)"</span>);
+<a name="l00056"></a>00056         }
+<a name="l00057"></a>00057     }
+<a name="l00058"></a>00058     <span class="keywordflow">return</span> sent;
+<a name="l00059"></a>00059 }
+<a name="l00060"></a>00060 
+<a name="l00061"></a><a class="code" href="a00006.html#b89a477e571a47efd9ec39089aeebf56">00061</a> <span class="keywordtype">int</span> <a class="code" href="a00006.html#b89a477e571a47efd9ec39089aeebf56" title="will receive data from a bound socket">SimpleSocket::receive</a>( <span class="keywordtype">void</span>* buffer, <span class="keywordtype">size_t</span> len)
+<a name="l00062"></a>00062 {
+<a name="l00063"></a>00063     <span class="keywordtype">int</span> ret = <a class="code" href="a00027.html#e3924d534a2de097f5cccb535330e8c2">TEMP_FAILURE_RETRY</a> (::recv( <a class="code" href="a00006.html#721049909aca828a6dd9ee7868897d7c">m_socket</a>, (<a class="code" href="a00038.html#661c66206079fbe23597e49ab1ba7ba1">raw_type</a>*) buffer, len, 0));
+<a name="l00064"></a>00064     <span class="keywordflow">if</span>( ret &lt; 0) <span class="keywordflow">throw</span> <a class="code" href="a00007.html" title="Signals a problem with the execution of a socket call.">SocketException</a>(<span class="stringliteral">"Received failed (receive)"</span>);
+<a name="l00065"></a>00065     <span class="keywordflow">return</span> ret;
+<a name="l00066"></a>00066 }
+<a name="l00067"></a>00067 
+<a name="l00068"></a><a class="code" href="a00006.html#0c14e0e6413cf606d52ab7d606a175f8">00068</a> <span class="keywordtype">int</span> <a class="code" href="a00006.html#0c14e0e6413cf606d52ab7d606a175f8" title="will receive data from a bound socket, but return after the given timespan">SimpleSocket::timedReceive</a>( <span class="keywordtype">void</span>* buffer, <span class="keywordtype">size_t</span> len, <span class="keywordtype">int</span> timeout)
+<a name="l00069"></a>00069 {
+<a name="l00070"></a>00070     <span class="keyword">struct </span>pollfd poll;
+<a name="l00071"></a>00071     poll.fd = <a class="code" href="a00006.html#721049909aca828a6dd9ee7868897d7c">m_socket</a>;
+<a name="l00072"></a>00072     poll.events = POLLIN | POLLPRI | POLLRDHUP;
+<a name="l00073"></a>00073 
+<a name="l00074"></a>00074     <span class="keywordtype">int</span> ret = <a class="code" href="a00027.html#e3924d534a2de097f5cccb535330e8c2">TEMP_FAILURE_RETRY</a> (::poll( &amp;poll, 1, timeout));
+<a name="l00075"></a>00075 
+<a name="l00076"></a>00076     <span class="keywordflow">if</span>( ret == 0) <span class="keywordflow">return</span> 0;
+<a name="l00077"></a>00077     <span class="keywordflow">if</span>( ret &lt; 0)  <span class="keywordflow">throw</span> <a class="code" href="a00007.html" title="Signals a problem with the execution of a socket call.">SocketException</a>(<span class="stringliteral">"timedReceive failed (poll)"</span>);
+<a name="l00078"></a>00078 
+<a name="l00079"></a>00079     <span class="keywordflow">if</span>( poll.revents &amp; POLLRDHUP)
+<a name="l00080"></a>00080         <a class="code" href="a00006.html#9c07dffe5a98a2700dc4cb1d6e7a30fa">m_peerDisconnected</a> = <span class="keyword">true</span>;
+<a name="l00081"></a>00081 
+<a name="l00082"></a>00082     <span class="keywordflow">if</span>( poll.revents &amp; POLLIN || poll.revents &amp; POLLPRI)
+<a name="l00083"></a>00083         <span class="keywordflow">return</span> <a class="code" href="a00006.html#b89a477e571a47efd9ec39089aeebf56" title="will receive data from a bound socket">receive</a>( buffer, len);
+<a name="l00084"></a>00084 
+<a name="l00085"></a>00085     <span class="keywordflow">return</span> 0;
+<a name="l00086"></a>00086 }
+<a name="l00087"></a>00087 
+<a name="l00088"></a><a class="code" href="a00006.html#107f5074fd3f153ce0c1d2329c755d8f">00088</a> <span class="keywordtype">void</span> <a class="code" href="a00006.html#107f5074fd3f153ce0c1d2329c755d8f">SimpleSocket::disconnect</a>()
+<a name="l00089"></a>00089 {
+<a name="l00090"></a>00090     sockaddr addr;
+<a name="l00091"></a>00091     std::memset( &amp;addr, 0, <span class="keyword">sizeof</span>(addr));
+<a name="l00092"></a>00092     addr.sa_family = AF_UNSPEC;
+<a name="l00093"></a>00093 
+<a name="l00094"></a>00094     <span class="keywordflow">if</span>( ::connect( <a class="code" href="a00006.html#721049909aca828a6dd9ee7868897d7c">m_socket</a>, &amp;addr, <span class="keyword">sizeof</span>(addr)) &lt; 0)
+<a name="l00095"></a>00095     {
+<a name="l00096"></a>00096         <span class="keywordflow">if</span>( errno != ECONNRESET)
+<a name="l00097"></a>00097             <span class="keywordflow">throw</span> <a class="code" href="a00007.html" title="Signals a problem with the execution of a socket call.">SocketException</a>(<span class="stringliteral">"Disconnect failed (connect)"</span>);
+<a name="l00098"></a>00098     }
+<a name="l00099"></a>00099 }
+<a name="l00100"></a>00100 
+<a name="l00101"></a><a class="code" href="a00006.html#5b5500498eeb1292eea3c5dc4e531d19">00101</a> <span class="keywordtype">void</span> <a class="code" href="a00006.html#5b5500498eeb1292eea3c5dc4e531d19" title="will shutdown the connection in the specified direction">SimpleSocket::shutdown</a>( <a class="code" href="a00006.html#b2d98f9c05fb0c016782269d6c053db9">ShutdownDirection</a> type)
+<a name="l00102"></a>00102 {
+<a name="l00103"></a>00103     <span class="keywordflow">if</span>( ::<a class="code" href="a00006.html#5b5500498eeb1292eea3c5dc4e531d19" title="will shutdown the connection in the specified direction">shutdown</a>( <a class="code" href="a00006.html#721049909aca828a6dd9ee7868897d7c">m_socket</a>, type) &lt; 0)
+<a name="l00104"></a>00104         <span class="keywordflow">throw</span> <a class="code" href="a00007.html" title="Signals a problem with the execution of a socket call.">SocketException</a>(<span class="stringliteral">"Shutdown failed (shutdown)"</span>);
+<a name="l00105"></a>00105 }
 <a name="l00106"></a>00106 
-<a name="l00130"></a>00130         <span class="keywordtype">int</span> <a class="code" href="a00005.html#0c14e0e6413cf606d52ab7d606a175f8" title="will receive data from a bound socket, but return after the given timespan">timedReceive</a>( <span class="keywordtype">void</span>* buffer, <span class="keywordtype">size_t</span> len, <span class="keywordtype">int</span> timeout);
-<a name="l00131"></a>00131 
-<a name="l00133"></a>00133 
-<a name="l00145"></a>00145         <span class="keywordtype">void</span> <a class="code" href="a00005.html#5b5500498eeb1292eea3c5dc4e531d19" title="will shutdown the connection in the specified direction">shutdown</a>( <a class="code" href="a00005.html#b2d98f9c05fb0c016782269d6c053db9">ShutdownDirection</a> type);
-<a name="l00146"></a>00146 
-<a name="l00148"></a>00148 
-<a name="l00155"></a>00155         <span class="keywordtype">bool</span> <a class="code" href="a00005.html#0fab04b047335c35b831885da2826f41" title="returns whether a peer disconnected">peerDisconnected</a>() <span class="keyword">const</span>;
-<a name="l00156"></a>00156 
-<a name="l00157"></a>00157     <span class="keyword">protected</span>:
-<a name="l00158"></a><a class="code" href="a00005.html#b11d6b3a1178f13df1aa14797dcfdf94">00158</a>         <span class="keyword">enum</span> <a class="code" href="a00005.html#b11d6b3a1178f13df1aa14797dcfdf94">SocketDomain</a>
-<a name="l00159"></a>00159         {
-<a name="l00160"></a><a class="code" href="a00005.html#b11d6b3a1178f13df1aa14797dcfdf94aaaaca35218a895fec8aa966baf5206f">00160</a>             <a class="code" href="a00005.html#b11d6b3a1178f13df1aa14797dcfdf94aaaaca35218a895fec8aa966baf5206f">INTERNET</a> = PF_INET,
-<a name="l00161"></a><a class="code" href="a00005.html#b11d6b3a1178f13df1aa14797dcfdf94e4fe659735670ad77f75783e455a435e">00161</a>             <a class="code" href="a00005.html#b11d6b3a1178f13df1aa14797dcfdf94e4fe659735670ad77f75783e455a435e">UNIX</a> = PF_LOCAL
-<a name="l00162"></a>00162         };
-<a name="l00163"></a>00163 
-<a name="l00164"></a><a class="code" href="a00005.html#1df69f02e0fb8d41b7245eab8f388766">00164</a>         <span class="keyword">enum</span> <a class="code" href="a00005.html#1df69f02e0fb8d41b7245eab8f388766">SocketType</a>
-<a name="l00165"></a>00165         {
-<a name="l00166"></a><a class="code" href="a00005.html#1df69f02e0fb8d41b7245eab8f3887662c01e1364295bb84e3e322f543242e00">00166</a>             <a class="code" href="a00005.html#1df69f02e0fb8d41b7245eab8f3887662c01e1364295bb84e3e322f543242e00">STREAM</a> = SOCK_STREAM,
-<a name="l00167"></a><a class="code" href="a00005.html#1df69f02e0fb8d41b7245eab8f388766a5ab4632f7b9c25e45f196e38858b280">00167</a>             <a class="code" href="a00005.html#1df69f02e0fb8d41b7245eab8f388766a5ab4632f7b9c25e45f196e38858b280">DATAGRAM</a> = SOCK_DGRAM
-<a name="l00168"></a>00168         };
-<a name="l00169"></a>00169 
-<a name="l00171"></a>00171         <a class="code" href="a00005.html#7059c7c1be8f34d7034ddacf8a6bb9a4" title="allows a subclass to create new socket">SimpleSocket</a>( <span class="keywordtype">int</span> domain, <span class="keywordtype">int</span> type, <span class="keywordtype">int</span> protocol);
-<a name="l00172"></a>00172 
-<a name="l00174"></a>00174         <a class="code" href="a00005.html#7059c7c1be8f34d7034ddacf8a6bb9a4" title="allows a subclass to create new socket">SimpleSocket</a>( <span class="keywordtype">int</span> sockfd);
-<a name="l00175"></a>00175 
-<a name="l00176"></a>00176         <span class="comment">// socket descriptor</span>
-<a name="l00177"></a><a class="code" href="a00005.html#721049909aca828a6dd9ee7868897d7c">00177</a>         <span class="keywordtype">int</span> <a class="code" href="a00005.html#721049909aca828a6dd9ee7868897d7c">m_socket</a>;
-<a name="l00178"></a><a class="code" href="a00005.html#9c07dffe5a98a2700dc4cb1d6e7a30fa">00178</a>         <span class="keywordtype">bool</span> <a class="code" href="a00005.html#9c07dffe5a98a2700dc4cb1d6e7a30fa">m_peerDisconnected</a>;
-<a name="l00179"></a>00179 
-<a name="l00180"></a>00180     <span class="keyword">private</span>:
-<a name="l00181"></a>00181         <span class="comment">// dont' allow</span>
-<a name="l00182"></a>00182         <a class="code" href="a00005.html#7059c7c1be8f34d7034ddacf8a6bb9a4" title="allows a subclass to create new socket">SimpleSocket</a>( <span class="keyword">const</span> <a class="code" href="a00005.html" title="A socket representing a basic communication endpoint.">SimpleSocket</a>&amp;);
-<a name="l00183"></a>00183         <span class="keyword">const</span> <a class="code" href="a00005.html" title="A socket representing a basic communication endpoint.">SimpleSocket</a>&amp; operator=( <span class="keyword">const</span> <a class="code" href="a00005.html" title="A socket representing a basic communication endpoint.">SimpleSocket</a>&amp;);
-<a name="l00184"></a>00184     };
-<a name="l00185"></a>00185 
-<a name="l00186"></a>00186 } <span class="comment">// namespace NET</span>
-<a name="l00187"></a>00187 
-<a name="l00188"></a>00188 <span class="preprocessor">#endif // NET_SimpleSocket_h__</span>
+<a name="l00107"></a><a class="code" href="a00006.html#0fab04b047335c35b831885da2826f41">00107</a> <span class="keywordtype">bool</span> <a class="code" href="a00006.html#0fab04b047335c35b831885da2826f41" title="returns whether a peer disconnected">SimpleSocket::peerDisconnected</a>()<span class="keyword"> const</span>
+<a name="l00108"></a>00108 <span class="keyword"></span>{
+<a name="l00109"></a>00109     <span class="keywordflow">return</span> <a class="code" href="a00006.html#9c07dffe5a98a2700dc4cb1d6e7a30fa">m_peerDisconnected</a>;
+<a name="l00110"></a>00110 }
 </pre></div></div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Sat Nov 7 02:26:24 2009 for simple-socket library by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Sat Nov 7 14:26:13 2009 for simple-socket library by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.9 </small></address>
 </body>
