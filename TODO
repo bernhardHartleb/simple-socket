@@ -6,15 +6,15 @@ UnixSockets:
 - do more checks on socket paths
 - allow to unlink created socket files
 
-Documentation:
-- define out-of-memory behaviour
+Dcumentation:
+- document requirements (cmake, sctp)
+- add example for SCTP communication
 
 Testing:
 - check the TCPSocket::sendAll function
-- testcases for Unix domain sockets
-- testcase SCTP socket
-- test library with other compilers (gcc3,icc,...)
+- testcase for SCTP socket
 - test library with other os (BSD, Mac, Windows?)
+- test library with other compilers (gcc3, icc, ...)
 
 SCTPSocket:
 - receiveFlags
