@@ -31,7 +31,7 @@
 <a name="l00007"></a>00007 <span class="keyword">using namespace </span>NET;
 <a name="l00008"></a>00008 
 <a name="l00009"></a><a class="code" href="a00012.html#d695ef23f071b90e2388b3c6d8c98923">00009</a> UnixSocket::UnixSocket( <span class="keywordtype">int</span> type, <span class="keywordtype">int</span> protocol)
-<a name="l00010"></a>00010 : <a class="code" href="a00006.html" title="A socket representing a basic communication endpoint.">SimpleSocket</a>( UNIX, type, protocol)
+<a name="l00010"></a>00010 : <a class="code" href="a00006.html">SimpleSocket</a>( UNIX, type, protocol)
 <a name="l00011"></a>00011 {}
 <a name="l00012"></a>00012 
 <a name="l00013"></a><a class="code" href="a00012.html#f11be6099c828e22449eec82816da820">00013</a> <span class="keywordtype">void</span> <a class="code" href="a00012.html#f11be6099c828e22449eec82816da820">UnixSocket::connect</a>( <span class="keyword">const</span> std::string&amp; foreignPath)
@@ -94,7 +94,7 @@
 <a name="l00070"></a>00070     <span class="keywordflow">return</span> std::string( addr.sun_path, len - <span class="keyword">sizeof</span>(sa_family_t) - 1);
 <a name="l00071"></a>00071 }
 </pre></div></div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Sat Nov 7 14:26:13 2009 for simple-socket library by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Fri Nov 13 15:39:00 2009 for simple-socket library by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.9 </small></address>
 </body>

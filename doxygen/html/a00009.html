@@ -76,7 +76,7 @@
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">returns whether a peer disconnected  <a href="#0fab04b047335c35b831885da2826f41"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#b89a477e571a47efd9ec39089aeebf56">receive</a> (void *buffer, size_t len)</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">will receive data from a bound socket  <a href="#b89a477e571a47efd9ec39089aeebf56"></a><br></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">receive data from a bound socket  <a href="#b89a477e571a47efd9ec39089aeebf56"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#6e3ec021c1ae9ea1e1d0aaa0129e7c50">send</a> (const void *buffer, size_t len)</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">send data through a connected socket  <a href="#6e3ec021c1ae9ea1e1d0aaa0129e7c50"></a><br></td></tr>
@@ -85,7 +85,7 @@
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">send data through a connected socket  <a href="#783afbdb9e314d176b493e1dcaea8820"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#5b5500498eeb1292eea3c5dc4e531d19">shutdown</a> (<a class="el" href="a00006.html#b2d98f9c05fb0c016782269d6c053db9">ShutdownDirection</a> type)</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">will shutdown the connection in the specified direction  <a href="#5b5500498eeb1292eea3c5dc4e531d19"></a><br></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">shutdown the connection in the specified direction  <a href="#5b5500498eeb1292eea3c5dc4e531d19"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00009.html#0a809fc9326e9d959db08208a34e653a">TCPSocket</a> (<a class="el" href="a00008.html">Handle</a> handle)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00009.html#7a50427a401d1a6f3209d51818bad901">TCPSocket</a> ()</td></tr>
@@ -95,7 +95,7 @@
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">wait for another socket to connect  <a href="#2e20e5669154459c0b5ab0c5c1788fc2"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#0c14e0e6413cf606d52ab7d606a175f8">timedReceive</a> (void *buffer, size_t len, int timeout)</td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">will receive data from a bound socket, but return after the given timespan  <a href="#0c14e0e6413cf606d52ab7d606a175f8"></a><br></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">receive data from a bound socket, return after the given timespan  <a href="#0c14e0e6413cf606d52ab7d606a175f8"></a><br></td></tr>
 <tr><td colspan="2"><br><h2>Protected Types</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#b11d6b3a1178f13df1aa14797dcfdf94">SocketDomain</a> { <a class="el" href="a00006.html#b11d6b3a1178f13df1aa14797dcfdf94aaaaca35218a895fec8aa966baf5206f">INTERNET</a> =  PF_INET, 
 <a class="el" href="a00006.html#b11d6b3a1178f13df1aa14797dcfdf94e4fe659735670ad77f75783e455a435e">UNIX</a> =  PF_LOCAL
@@ -158,13 +158,13 @@ Handle for a new socket returned by accept.
 <tr><td valign="top"><em><a class="anchor" name="b2d98f9c05fb0c016782269d6c053db98efb8dcfe05bb52129f436538b77bc1c"></a><!-- doxytag: member="STOP_SEND" ref="b2d98f9c05fb0c016782269d6c053db98efb8dcfe05bb52129f436538b77bc1c" args="" -->STOP_SEND</em>&nbsp;</td><td>
 disable all variants of <a class="el" href="a00006.html#6e3ec021c1ae9ea1e1d0aaa0129e7c50" title="send data through a connected socket">send()</a> on the socket, receive calls still work </td></tr>
 <tr><td valign="top"><em><a class="anchor" name="b2d98f9c05fb0c016782269d6c053db98cc7b3f7c09884085e7bd7f14a996f07"></a><!-- doxytag: member="STOP_RECEIVE" ref="b2d98f9c05fb0c016782269d6c053db98cc7b3f7c09884085e7bd7f14a996f07" args="" -->STOP_RECEIVE</em>&nbsp;</td><td>
-disable all variants of <a class="el" href="a00006.html#b89a477e571a47efd9ec39089aeebf56" title="will receive data from a bound socket">receive()</a> on the socket, send calls still work </td></tr>
+disable all variants of <a class="el" href="a00006.html#b89a477e571a47efd9ec39089aeebf56" title="receive data from a bound socket">receive()</a> on the socket, send calls still work </td></tr>
 <tr><td valign="top"><em><a class="anchor" name="b2d98f9c05fb0c016782269d6c053db992c5b6b1319adf4f8eec96da6fa4e8b0"></a><!-- doxytag: member="STOP_BOTH" ref="b2d98f9c05fb0c016782269d6c053db992c5b6b1319adf4f8eec96da6fa4e8b0" args="" -->STOP_BOTH</em>&nbsp;</td><td>
-disable all <a class="el" href="a00006.html#6e3ec021c1ae9ea1e1d0aaa0129e7c50" title="send data through a connected socket">send()</a> and <a class="el" href="a00006.html#b89a477e571a47efd9ec39089aeebf56" title="will receive data from a bound socket">receive()</a> calls on the socket </td></tr>
+disable all <a class="el" href="a00006.html#6e3ec021c1ae9ea1e1d0aaa0129e7c50" title="send data through a connected socket">send()</a> and <a class="el" href="a00006.html#b89a477e571a47efd9ec39089aeebf56" title="receive data from a bound socket">receive()</a> calls on the socket </td></tr>
 </table>
 </dl>
 
-<p>Definition at line <a class="el" href="a00021_source.html#l00046">46</a> of file <a class="el" href="a00021_source.html">SimpleSocket.h</a>.</p>
+<p>Definition at line <a class="el" href="a00021_source.html#l00049">49</a> of file <a class="el" href="a00021_source.html">SimpleSocket.h</a>.</p>
 
 </div>
 </div><p>
@@ -189,7 +189,7 @@ disable all <a class="el" href="a00006.html#6e3ec021c1ae9ea1e1d0aaa0129e7c50" ti
 </table>
 </dl>
 
-<p>Definition at line <a class="el" href="a00021_source.html#l00164">164</a> of file <a class="el" href="a00021_source.html">SimpleSocket.h</a>.</p>
+<p>Definition at line <a class="el" href="a00021_source.html#l00166">166</a> of file <a class="el" href="a00021_source.html">SimpleSocket.h</a>.</p>
 
 </div>
 </div><p>
@@ -214,7 +214,7 @@ disable all <a class="el" href="a00006.html#6e3ec021c1ae9ea1e1d0aaa0129e7c50" ti
 </table>
 </dl>
 
-<p>Definition at line <a class="el" href="a00021_source.html#l00170">170</a> of file <a class="el" href="a00021_source.html">SimpleSocket.h</a>.</p>
+<p>Definition at line <a class="el" href="a00021_source.html#l00172">172</a> of file <a class="el" href="a00021_source.html">SimpleSocket.h</a>.</p>
 
 </div>
 </div><p>
@@ -379,7 +379,7 @@ wait for another socket to connect
 <a class="el" href="a00009.html#808f7d326878c50ed8c4e236681750bc" title="wait for another socket to connect">accept()</a> will block until a new connection arrives. It is used to create TCP server applications. On return it will return the handle to the incoming connection.<p>
 accept can be only called on a listening socket.<p>
 Use the returned handle to create a new <a class="el" href="a00009.html" title="TCP socket class.">TCPSocket</a> to communicate with the new connected client. Regardless of what you do with a handle, <a class="el" href="a00009.html#808f7d326878c50ed8c4e236681750bc" title="wait for another socket to connect">accept()</a> can be used to wait for next incoming connection after the handle was received.<p>
-<dl class="return" compact><dt><b>Returns:</b></dt><dd>Handle object to the new connection </dd></dl>
+<dl class="return" compact><dt><b>Returns:</b></dt><dd><a class="el" href="a00008.html" title="A simple class to provide strict ownership of socket handles.">SocketHandle</a> object to the new connection </dd></dl>
 <dl compact><dt><b>Exceptions:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em><a class="el" href="a00007.html" title="Signals a problem with the execution of a socket call.">SocketException</a></em>&nbsp;</td><td></td></tr>
@@ -779,12 +779,12 @@ If you are using a datagram oriented socket (like <a class="el" href="a00010.htm
 <div class="memdoc">
 
 <p>
-will receive data from a bound socket 
+receive data from a bound socket 
 <p>
-<a class="el" href="a00006.html#b89a477e571a47efd9ec39089aeebf56" title="will receive data from a bound socket">receive()</a> can only be used on a socket that called bind() or connect() before. If you try to use <a class="el" href="a00006.html#b89a477e571a47efd9ec39089aeebf56" title="will receive data from a bound socket">receive()</a> on a not bound socket, <a class="el" href="a00007.html" title="Signals a problem with the execution of a socket call.">SocketException</a> will be thrown.<p>
+<a class="el" href="a00006.html#b89a477e571a47efd9ec39089aeebf56" title="receive data from a bound socket">receive()</a> can only be used on a socket that called bind() or connect() before. If you try to use <a class="el" href="a00006.html#b89a477e571a47efd9ec39089aeebf56" title="receive data from a bound socket">receive()</a> on a not bound socket, <a class="el" href="a00007.html" title="Signals a problem with the execution of a socket call.">SocketException</a> will be thrown.<p>
 If using a stream oriented Socket, receive can return a part of a received messge, e.g. if you send 100 bytes, it's possible you will receive 50 bytes two times in a row. However, the order of the sent data will be preserved.<p>
 If you are using a datagram oriented sockets, you will only receive whole datagrams. But beware of using a too small buffer. If the receive buffer is too small for the received datagram, the data you didn't read in the receive call will be discared.<p>
-If the remote host has closed the connection (on a connection based socket like TCP or SCTP) <a class="el" href="a00006.html#b89a477e571a47efd9ec39089aeebf56" title="will receive data from a bound socket">receive()</a> will return 0. If you are using a connectionless protocol (like UDP) there is no way to determine wheter the connection has been closed by the remote host or not.<p>
+If the remote host has closed the connection (on a connection based socket like TCP or SCTP) <a class="el" href="a00006.html#b89a477e571a47efd9ec39089aeebf56" title="receive data from a bound socket">receive()</a> will return 0. If you are using a connectionless protocol (like UDP) there is no way to determine wheter the connection has been closed by the remote host or not.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>buffer</em>&nbsp;</td><td>the buffer the received data will be written to </td></tr>
@@ -835,12 +835,12 @@ If the remote host has closed the connection (on a connection based socket like 
 <div class="memdoc">
 
 <p>
-will receive data from a bound socket, but return after the given timespan 
+receive data from a bound socket, return after the given timespan 
 <p>
-<a class="el" href="a00006.html#0c14e0e6413cf606d52ab7d606a175f8" title="will receive data from a bound socket, but return after the given timespan">timedReceive()</a> can only be used on a socket that called bind() or connect before. If you try to use <a class="el" href="a00006.html#b89a477e571a47efd9ec39089aeebf56" title="will receive data from a bound socket">receive()</a> on a not bound socket, <a class="el" href="a00007.html" title="Signals a problem with the execution of a socket call.">SocketException</a> will be thrown.<p>
+<a class="el" href="a00006.html#0c14e0e6413cf606d52ab7d606a175f8" title="receive data from a bound socket, return after the given timespan">timedReceive()</a> can only be used on a socket that called bind() or connect before. If you try to use <a class="el" href="a00006.html#b89a477e571a47efd9ec39089aeebf56" title="receive data from a bound socket">receive()</a> on a not bound socket, <a class="el" href="a00007.html" title="Signals a problem with the execution of a socket call.">SocketException</a> will be thrown.<p>
 If using a stream oriented Socket, receive can return a part of a received messge, e.g. if you send 100 bytes, it's possible you will receive 50 bytes two times in a row. However, the order of the sent data will be preserved.<p>
 If you are using a datagram oriented sockets, you will only receive whole datagrams. But beware of using a too small buffer. If the receive buffer is too small for the received datagram, the data you didn't read in the receive call will be discared.<p>
-If the remote host has closed the connection (on a connection based socket like TCP or SCTP) <a class="el" href="a00006.html#b89a477e571a47efd9ec39089aeebf56" title="will receive data from a bound socket">receive()</a> will return 0. If you are using a connectionless protocol (like UDP) there is no way to determine wheter the connection has been closed by the remote host or not.<p>
+If the remote host has closed the connection (on a connection based socket like TCP or SCTP) <a class="el" href="a00006.html#b89a477e571a47efd9ec39089aeebf56" title="receive data from a bound socket">receive()</a> will return 0. If you are using a connectionless protocol (like UDP) there is no way to determine wheter the connection has been closed by the remote host or not.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>buffer</em>&nbsp;</td><td>the buffer the received data will be written to </td></tr>
@@ -876,7 +876,7 @@ If the remote host has closed the connection (on a connection based socket like 
 <div class="memdoc">
 
 <p>
-Disconnect and unsed any foreign adresses <dl compact><dt><b>Exceptions:</b></dt><dd>
+Disconnect and unset any foreign addresses <dl compact><dt><b>Exceptions:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em><a class="el" href="a00007.html" title="Signals a problem with the execution of a socket call.">SocketException</a></em>&nbsp;</td><td>thrown if unable to disconnect </td></tr>
   </table>
@@ -904,10 +904,10 @@ Disconnect and unsed any foreign adresses <dl compact><dt><b>Exceptions:</b></dt
 <div class="memdoc">
 
 <p>
-will shutdown the connection in the specified direction 
+shutdown the connection in the specified direction 
 <p>
 Depending on the specified ShutdownDirection, calls for that direction will stop working. Use this function if you want to have more control than just destroing the socket. It allows you to cut the connection in one direction, or both.<p>
-If you use <a class="el" href="a00006.html#5b5500498eeb1292eea3c5dc4e531d19" title="will shutdown the connection in the specified direction">shutdown()</a> on an unconnected socket, the corresponding calls will simply stop working.<p>
+If you use <a class="el" href="a00006.html#5b5500498eeb1292eea3c5dc4e531d19" title="shutdown the connection in the specified direction">shutdown()</a> on an unconnected socket, the corresponding calls will simply stop working.<p>
 <dl compact><dt><b>Parameters:</b></dt><dd>
   <table border="0" cellspacing="2" cellpadding="0">
     <tr><td valign="top"></td><td valign="top"><em>type</em>&nbsp;</td><td>the ShutdownDirection that be used </td></tr>
@@ -963,7 +963,7 @@ Will only work if you use a connection oriented, connected socket. Returns true 
 
 <p>
 
-<p>Definition at line <a class="el" href="a00021_source.html#l00183">183</a> of file <a class="el" href="a00021_source.html">SimpleSocket.h</a>.</p>
+<p>Definition at line <a class="el" href="a00021_source.html#l00185">185</a> of file <a class="el" href="a00021_source.html">SimpleSocket.h</a>.</p>
 
 </div>
 </div><p>
@@ -980,14 +980,14 @@ Will only work if you use a connection oriented, connected socket. Returns true 
 
 <p>
 
-<p>Definition at line <a class="el" href="a00021_source.html#l00184">184</a> of file <a class="el" href="a00021_source.html">SimpleSocket.h</a>.</p>
+<p>Definition at line <a class="el" href="a00021_source.html#l00186">186</a> of file <a class="el" href="a00021_source.html">SimpleSocket.h</a>.</p>
 
 </div>
 </div><p>
 <hr>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="a00025_source.html">TCPSocket.h</a><li><a class="el" href="a00024_source.html">TCPSocket.cpp</a></ul>
 </div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Sat Nov 7 14:26:15 2009 for simple-socket library by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Fri Nov 13 15:39:01 2009 for simple-socket library by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.9 </small></address>
 </body>

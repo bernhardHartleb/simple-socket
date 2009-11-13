@@ -27,19 +27,17 @@ Received data from server: The quick brown fox jumps over the lazy dog
 
 <span class="preprocessor">#include &lt;iostream&gt;</span>
 
-<span class="keyword">using namespace </span>NET;
-
 <span class="keyword">static</span> <span class="keywordtype">char</span> recv_msg[50];
 
 <span class="keywordtype">int</span> <a name="a0"></a><a class="code" href="a00026.html#e66f6b31b5ad750f1fe042a706a4e3d4">main</a>()
 {
     <span class="keywordflow">try</span> {
 
-    <a name="_a1"></a><a class="code" href="a00009.html" title="TCP socket class.">TCPSocket</a> client_socket;
+    <a name="_a1"></a><a class="code" href="a00009.html" title="TCP socket class.">NET::TCPSocket</a> client_socket;
     client_socket.<a name="a2"></a><a class="code" href="a00004.html#e7bd4ffd89a708f663de1ca1c24125f8" title="establish a connection with the given foreign address and port">connect</a>( <span class="stringliteral">"127.0.0.1"</span>, 47777);
 
     <span class="comment">// wait for data within the next 5s</span>
-    <span class="keywordtype">int</span> bytes_recv = client_socket.<a name="a3"></a><a class="code" href="a00006.html#0c14e0e6413cf606d52ab7d606a175f8" title="will receive data from a bound socket, but return after the given timespan">timedReceive</a>( recv_msg, 50, 5000);
+    <span class="keywordtype">int</span> bytes_recv = client_socket.<a name="a3"></a><a class="code" href="a00006.html#0c14e0e6413cf606d52ab7d606a175f8" title="receive data from a bound socket, return after the given timespan">timedReceive</a>( recv_msg, 50, 5000);
 
     <span class="comment">// we got a message!</span>
     <span class="keywordflow">if</span>(bytes_recv &gt; 0)
@@ -58,7 +56,7 @@ Received data from server: The quick brown fox jumps over the lazy dog
     <span class="keywordflow">return</span> 0;
 }
 </pre></div> </div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Sat Nov 7 14:26:13 2009 for simple-socket library by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Fri Nov 13 15:39:00 2009 for simple-socket library by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.9 </small></address>
 </body>

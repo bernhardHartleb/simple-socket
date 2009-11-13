@@ -31,7 +31,7 @@
 <a name="l00007"></a>00007 
 <a name="l00008"></a>00008 <span class="keyword">namespace </span>NET
 <a name="l00009"></a>00009 {
-<a name="l00011"></a><a class="code" href="a00004.html">00011</a>     <span class="keyword">class </span><a class="code" href="a00004.html" title="Internet Socket class.">InternetSocket</a> : <span class="keyword">public</span> <a class="code" href="a00006.html" title="A socket representing a basic communication endpoint.">SimpleSocket</a>
+<a name="l00011"></a><a class="code" href="a00004.html">00011</a>     <span class="keyword">class </span><a class="code" href="a00004.html" title="Internet socket class.">InternetSocket</a> : <span class="keyword">public</span> <a class="code" href="a00006.html">SimpleSocket</a>
 <a name="l00012"></a>00012     {
 <a name="l00013"></a>00013     <span class="keyword">public</span>:
 <a name="l00015"></a>00015 
@@ -52,16 +52,17 @@
 <a name="l00084"></a>00084 
 <a name="l00085"></a>00085     <span class="keyword">protected</span>:
 <a name="l00087"></a>00087         <a class="code" href="a00004.html#720690007444358deac8d21a7f1a82bd" title="create socket from a SocketHandle returned by an accept() call">InternetSocket</a>( <span class="keywordtype">int</span> sockfd);
-<a name="l00089"></a>00089         <a class="code" href="a00004.html#720690007444358deac8d21a7f1a82bd" title="create socket from a SocketHandle returned by an accept() call">InternetSocket</a>( <span class="keywordtype">int</span> type, <span class="keywordtype">int</span> protocol);
-<a name="l00090"></a>00090 
-<a name="l00101"></a>00101         <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="a00004.html#8256bca00fdb76dcea545602c2393ae5">fillAddress</a>( <span class="keyword">const</span> std::string&amp; address, <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> port, sockaddr_in&amp; addr);
-<a name="l00102"></a>00102     };
-<a name="l00103"></a>00103 
-<a name="l00104"></a>00104 } <span class="comment">// namespace NET</span>
-<a name="l00105"></a>00105 
-<a name="l00106"></a>00106 <span class="preprocessor">#endif // NET_InternetSocket_h__</span>
+<a name="l00088"></a>00088 
+<a name="l00090"></a>00090         <a class="code" href="a00004.html#720690007444358deac8d21a7f1a82bd" title="create socket from a SocketHandle returned by an accept() call">InternetSocket</a>( <span class="keywordtype">int</span> type, <span class="keywordtype">int</span> protocol);
+<a name="l00091"></a>00091 
+<a name="l00102"></a>00102         <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code" href="a00004.html#8256bca00fdb76dcea545602c2393ae5">fillAddress</a>( <span class="keyword">const</span> std::string&amp; address, <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> port, sockaddr_in&amp; addr);
+<a name="l00103"></a>00103     };
+<a name="l00104"></a>00104 
+<a name="l00105"></a>00105 } <span class="comment">// namespace NET</span>
+<a name="l00106"></a>00106 
+<a name="l00107"></a>00107 <span class="preprocessor">#endif // NET_InternetSocket_h__</span>
 </pre></div></div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Sat Nov 7 14:26:13 2009 for simple-socket library by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Fri Nov 13 15:39:00 2009 for simple-socket library by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.9 </small></address>
 </body>

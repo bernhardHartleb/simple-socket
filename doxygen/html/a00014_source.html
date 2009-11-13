@@ -48,65 +48,64 @@
 <a name="l00051"></a>00051 
 <a name="l00053"></a><a class="code" href="a00008.html#79b477b6ef9b552cc1e037403ec7f4f9">00053</a>         <a class="code" href="a00008.html#79b477b6ef9b552cc1e037403ec7f4f9" title="constructs an invalid socket handle">SocketHandle</a>() : m_sockfd(0) {}
 <a name="l00054"></a>00054 
-<a name="l00055"></a><a class="code" href="a00008.html#4aab598df9764db4e4dad6d09a86a634">00055</a>         <a class="code" href="a00008.html#79b477b6ef9b552cc1e037403ec7f4f9" title="constructs an invalid socket handle">SocketHandle</a>( <a class="code" href="a00008.html" title="A simple class to provide strict ownership of socket handles.">SocketHandle</a>&amp; other)
-<a name="l00056"></a>00056         : m_sockfd( other.release()) {}
-<a name="l00057"></a>00057 
-<a name="l00059"></a>00059         <a class="code" href="a00008.html#79b477b6ef9b552cc1e037403ec7f4f9" title="constructs an invalid socket handle">SocketHandle</a>( SocketHandle_Ref&lt;Socket&gt; other)
-<a name="l00060"></a>00060         : m_sockfd( other.sockfd) {}
-<a name="l00061"></a>00061 
-<a name="l00062"></a>00062         operator SocketHandle_Ref&lt;Socket&gt;()
-<a name="l00063"></a>00063         { <span class="keywordflow">return</span> SocketHandle_Ref&lt;Socket&gt;( release()); }
-<a name="l00065"></a>00065 
-<a name="l00066"></a>00066         <a class="code" href="a00008.html#79b477b6ef9b552cc1e037403ec7f4f9" title="constructs an invalid socket handle">SocketHandle</a>&amp;
-<a name="l00067"></a><a class="code" href="a00008.html#ef03ae542fd0ae2336c4231956a3ba0b">00067</a>         <a class="code" href="a00008.html#ef03ae542fd0ae2336c4231956a3ba0b">operator=</a>( <a class="code" href="a00008.html" title="A simple class to provide strict ownership of socket handles.">SocketHandle</a>&amp; other)
-<a name="l00068"></a>00068         {
-<a name="l00069"></a>00069             reset( other.release());
-<a name="l00070"></a>00070             <span class="keywordflow">return</span> *<span class="keyword">this</span>;
-<a name="l00071"></a>00071         }
-<a name="l00072"></a>00072 
-<a name="l00073"></a><a class="code" href="a00008.html#95cde950506962fef1cc5e731230a85d">00073</a>         <a class="code" href="a00008.html#95cde950506962fef1cc5e731230a85d">~SocketHandle</a>() { reset(); }
+<a name="l00056"></a><a class="code" href="a00008.html#4aab598df9764db4e4dad6d09a86a634">00056</a>         <a class="code" href="a00008.html#79b477b6ef9b552cc1e037403ec7f4f9" title="constructs an invalid socket handle">SocketHandle</a>( <a class="code" href="a00008.html" title="A simple class to provide strict ownership of socket handles.">SocketHandle</a>&amp; other)
+<a name="l00057"></a>00057         : m_sockfd( other.release()) {}
+<a name="l00058"></a>00058 
+<a name="l00060"></a>00060         <a class="code" href="a00008.html#79b477b6ef9b552cc1e037403ec7f4f9" title="constructs an invalid socket handle">SocketHandle</a>( SocketHandle_Ref&lt;Socket&gt; other)
+<a name="l00061"></a>00061         : m_sockfd( other.sockfd) {}
+<a name="l00062"></a>00062 
+<a name="l00063"></a>00063         operator SocketHandle_Ref&lt;Socket&gt;()
+<a name="l00064"></a>00064         { <span class="keywordflow">return</span> SocketHandle_Ref&lt;Socket&gt;( release()); }
+<a name="l00066"></a>00066 
+<a name="l00068"></a>00068         <a class="code" href="a00008.html#79b477b6ef9b552cc1e037403ec7f4f9" title="constructs an invalid socket handle">SocketHandle</a>&amp;
+<a name="l00069"></a><a class="code" href="a00008.html#ef03ae542fd0ae2336c4231956a3ba0b">00069</a>         <a class="code" href="a00008.html#ef03ae542fd0ae2336c4231956a3ba0b">operator=</a>( <a class="code" href="a00008.html" title="A simple class to provide strict ownership of socket handles.">SocketHandle</a>&amp; other)
+<a name="l00070"></a>00070         {
+<a name="l00071"></a>00071             reset( other.release());
+<a name="l00072"></a>00072             <span class="keywordflow">return</span> *<span class="keyword">this</span>;
+<a name="l00073"></a>00073         }
 <a name="l00074"></a>00074 
+<a name="l00075"></a><a class="code" href="a00008.html#95cde950506962fef1cc5e731230a85d">00075</a>         <a class="code" href="a00008.html#95cde950506962fef1cc5e731230a85d">~SocketHandle</a>() { reset(); }
 <a name="l00076"></a>00076 
-<a name="l00082"></a><a class="code" href="a00008.html#7854681c3e9901cbcfe9c325ca009453">00082</a>         <a class="code" href="a00008.html#7854681c3e9901cbcfe9c325ca009453" title="returns wheter the socket is valid or not">operator bool</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_sockfd &gt; 0; }
-<a name="l00083"></a>00083 
-<a name="l00084"></a>00084     <span class="keyword">private</span>:
-<a name="l00086"></a>00086         <span class="keyword">explicit</span> <a class="code" href="a00008.html#79b477b6ef9b552cc1e037403ec7f4f9" title="constructs an invalid socket handle">SocketHandle</a>( <span class="keywordtype">int</span> sockfd) : m_sockfd(sockfd) {}
-<a name="l00087"></a>00087 
+<a name="l00078"></a>00078 
+<a name="l00084"></a><a class="code" href="a00008.html#7854681c3e9901cbcfe9c325ca009453">00084</a>         <a class="code" href="a00008.html#7854681c3e9901cbcfe9c325ca009453" title="returns whether the socket handle is valid">operator bool</a>()<span class="keyword"> const </span>{ <span class="keywordflow">return</span> m_sockfd &gt; 0; }
+<a name="l00085"></a>00085 
+<a name="l00086"></a>00086     <span class="keyword">private</span>:
+<a name="l00088"></a>00088         <span class="keyword">explicit</span> <a class="code" href="a00008.html#79b477b6ef9b552cc1e037403ec7f4f9" title="constructs an invalid socket handle">SocketHandle</a>( <span class="keywordtype">int</span> sockfd) : m_sockfd(sockfd) {}
 <a name="l00089"></a>00089 
-<a name="l00092"></a>00092         <span class="keywordtype">int</span> release()
-<a name="l00093"></a>00093         {
-<a name="l00094"></a>00094             <span class="keywordtype">int</span> tmp = m_sockfd;
-<a name="l00095"></a>00095             m_sockfd = 0;
-<a name="l00096"></a>00096             <span class="keywordflow">return</span> tmp;
-<a name="l00097"></a>00097         }
-<a name="l00098"></a>00098 
+<a name="l00094"></a>00094         <span class="keywordtype">int</span> release()
+<a name="l00095"></a>00095         {
+<a name="l00096"></a>00096             <span class="keywordtype">int</span> tmp = m_sockfd;
+<a name="l00097"></a>00097             m_sockfd = 0;
+<a name="l00098"></a>00098             <span class="keywordflow">return</span> tmp;
+<a name="l00099"></a>00099         }
 <a name="l00100"></a>00100 
-<a name="l00104"></a>00104         <span class="keywordtype">void</span> reset( <span class="keywordtype">int</span> fd = 0)
-<a name="l00105"></a>00105         {
-<a name="l00106"></a>00106             <span class="keywordflow">if</span>( fd != m_sockfd)
-<a name="l00107"></a>00107             {
-<a name="l00108"></a>00108                 <a class="code" href="a00027.html#e3924d534a2de097f5cccb535330e8c2">TEMP_FAILURE_RETRY</a> (::close(m_sockfd));
-<a name="l00109"></a>00109                 m_sockfd = fd;
-<a name="l00110"></a>00110             }
-<a name="l00111"></a>00111         }
-<a name="l00112"></a>00112 
-<a name="l00113"></a>00113         <span class="keywordtype">int</span> m_sockfd;
-<a name="l00114"></a>00114     };
-<a name="l00115"></a>00115 
-<a name="l00118"></a>00118     <span class="keyword">template</span>&lt;<span class="keyword">class</span> Socket&gt;
-<a name="l00119"></a>00119     <span class="keyword">class </span>SocketHandle_Ref
-<a name="l00120"></a>00120     {
-<a name="l00121"></a>00121         <span class="keywordtype">int</span> sockfd;
-<a name="l00122"></a>00122 
-<a name="l00123"></a>00123         <span class="keyword">friend</span> <span class="keyword">class </span>SocketHandle&lt;Socket&gt;;
-<a name="l00124"></a>00124         <span class="keyword">explicit</span> SocketHandle_Ref( <span class="keywordtype">int</span> sockfd) : sockfd(sockfd) {}
-<a name="l00125"></a>00125     };
-<a name="l00127"></a>00127 
-<a name="l00128"></a>00128 } <span class="comment">// namespace NET</span>
+<a name="l00102"></a>00102 
+<a name="l00106"></a>00106         <span class="keywordtype">void</span> reset( <span class="keywordtype">int</span> fd = 0)
+<a name="l00107"></a>00107         {
+<a name="l00108"></a>00108             <span class="keywordflow">if</span>( fd != m_sockfd)
+<a name="l00109"></a>00109             {
+<a name="l00110"></a>00110                 <a class="code" href="a00027.html#e3924d534a2de097f5cccb535330e8c2">TEMP_FAILURE_RETRY</a> (::close(m_sockfd));
+<a name="l00111"></a>00111                 m_sockfd = fd;
+<a name="l00112"></a>00112             }
+<a name="l00113"></a>00113         }
+<a name="l00114"></a>00114 
+<a name="l00115"></a>00115         <span class="keywordtype">int</span> m_sockfd;
+<a name="l00116"></a>00116     };
+<a name="l00117"></a>00117 
+<a name="l00120"></a>00120     <span class="keyword">template</span>&lt;<span class="keyword">class</span> Socket&gt;
+<a name="l00121"></a>00121     <span class="keyword">class </span>SocketHandle_Ref
+<a name="l00122"></a>00122     {
+<a name="l00123"></a>00123         <span class="keywordtype">int</span> sockfd;
+<a name="l00124"></a>00124 
+<a name="l00125"></a>00125         <span class="keyword">friend</span> <span class="keyword">class </span>SocketHandle&lt;Socket&gt;;
+<a name="l00126"></a>00126         <span class="keyword">explicit</span> SocketHandle_Ref( <span class="keywordtype">int</span> sockfd) : sockfd(sockfd) {}
+<a name="l00127"></a>00127     };
 <a name="l00129"></a>00129 
-<a name="l00130"></a>00130 <span class="preprocessor">#endif // NET_SocketHandle_h__</span>
+<a name="l00130"></a>00130 } <span class="comment">// namespace NET</span>
+<a name="l00131"></a>00131 
+<a name="l00132"></a>00132 <span class="preprocessor">#endif // NET_SocketHandle_h__</span>
 </pre></div></div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Sat Nov 7 14:26:13 2009 for simple-socket library by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Fri Nov 13 15:39:00 2009 for simple-socket library by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.9 </small></address>
 </body>

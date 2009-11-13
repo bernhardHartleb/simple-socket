@@ -75,7 +75,7 @@
 <a name="l00047"></a>00047     send_socket.<a class="code" href="a00004.html#e7bd4ffd89a708f663de1ca1c24125f8" title="establish a connection with the given foreign address and port">connect</a>( <span class="stringliteral">"224.40.0.1"</span>, 47777);
 <a name="l00048"></a>00048     recv_socket.<a class="code" href="a00010.html#c6cdb609f7f9579384129042f90cd220">joinGroup</a>(<span class="stringliteral">"224.40.0.1"</span>);
 <a name="l00049"></a>00049     send_socket.<a class="code" href="a00006.html#6e3ec021c1ae9ea1e1d0aaa0129e7c50" title="send data through a connected socket">send</a>( send_msg, len);
-<a name="l00050"></a>00050     recv_socket.<a class="code" href="a00006.html#b89a477e571a47efd9ec39089aeebf56" title="will receive data from a bound socket">receive</a>( recv_msg, len);
+<a name="l00050"></a>00050     recv_socket.<a class="code" href="a00006.html#b89a477e571a47efd9ec39089aeebf56" title="receive data from a bound socket">receive</a>( recv_msg, len);
 <a name="l00051"></a>00051 
 <a name="l00052"></a>00052     <span class="keywordflow">if</span>( std::memcmp( send_msg, recv_msg, len) &lt; 0) <span class="keywordflow">return</span> 1;
 <a name="l00053"></a>00053     std::memset( recv_msg, 0, len);
@@ -83,7 +83,7 @@
 <a name="l00055"></a>00055     recv_socket.<a class="code" href="a00010.html#d5f835c48b840e30b471e19d7c3cc2aa">leaveGroup</a>(<span class="stringliteral">"224.40.0.1"</span>);
 <a name="l00056"></a>00056     send_socket.<a class="code" href="a00006.html#6e3ec021c1ae9ea1e1d0aaa0129e7c50" title="send data through a connected socket">send</a>( send_msg, len);
 <a name="l00057"></a>00057 
-<a name="l00058"></a>00058     <span class="keywordflow">if</span>( recv_socket.<a class="code" href="a00006.html#0c14e0e6413cf606d52ab7d606a175f8" title="will receive data from a bound socket, but return after the given timespan">timedReceive</a>( recv_msg, len, 0) != 0) <span class="keywordflow">return</span> 1;
+<a name="l00058"></a>00058     <span class="keywordflow">if</span>( recv_socket.<a class="code" href="a00006.html#0c14e0e6413cf606d52ab7d606a175f8" title="receive data from a bound socket, return after the given timespan">timedReceive</a>( recv_msg, len, 0) != 0) <span class="keywordflow">return</span> 1;
 <a name="l00059"></a>00059 
 <a name="l00060"></a>00060     <span class="comment">// no errors in this testcase</span>
 <a name="l00061"></a>00061     } <span class="keywordflow">catch</span>( <span class="keyword">const</span> <a class="code" href="a00007.html" title="Signals a problem with the execution of a socket call.">SocketException</a>&amp; e)
@@ -94,7 +94,7 @@
 <a name="l00066"></a>00066     }
 <a name="l00067"></a>00067 }
 </pre></div></div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Sat Nov 7 14:26:13 2009 for simple-socket library by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Fri Nov 13 15:39:00 2009 for simple-socket library by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.9 </small></address>
 </body>

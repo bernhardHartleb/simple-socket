@@ -41,7 +41,7 @@
 <a name="l00017"></a>00017     setsockopt( socket,
 <a name="l00018"></a>00018             SOL_SOCKET,
 <a name="l00019"></a>00019             SO_BROADCAST,
-<a name="l00020"></a>00020             (<a class="code" href="a00038.html#661c66206079fbe23597e49ab1ba7ba1">raw_type</a>*)&amp;broadcastPermission,
+<a name="l00020"></a>00020             (raw_type*)&amp;broadcastPermission,
 <a name="l00021"></a>00021             <span class="keyword">sizeof</span>(broadcastPermission));
 <a name="l00022"></a>00022 }
 <a name="l00023"></a>00023 
@@ -54,14 +54,14 @@
 <a name="l00030"></a>00030     <span class="keywordflow">return</span>( setsockopt( socket,
 <a name="l00031"></a>00031                 IPPROTO_IP,
 <a name="l00032"></a>00032                 action,
-<a name="l00033"></a>00033                 (<a class="code" href="a00038.html#661c66206079fbe23597e49ab1ba7ba1">raw_type</a>*)&amp;multicastRequest,
+<a name="l00033"></a>00033                 (raw_type*)&amp;multicastRequest,
 <a name="l00034"></a>00034                 <span class="keyword">sizeof</span>(multicastRequest)));
 <a name="l00035"></a>00035 }
 <a name="l00036"></a>00036 
 <a name="l00037"></a>00037 } <span class="comment">// namespace</span>
 <a name="l00038"></a>00038 
 <a name="l00039"></a><a class="code" href="a00010.html#4f86f3023f5a08f6355802599a10e100">00039</a> UDPSocket::UDPSocket()
-<a name="l00040"></a>00040 : <a class="code" href="a00004.html" title="Internet Socket class.">InternetSocket</a>( DATAGRAM, IPPROTO_UDP)
+<a name="l00040"></a>00040 : <a class="code" href="a00004.html" title="Internet socket class.">InternetSocket</a>( DATAGRAM, IPPROTO_UDP)
 <a name="l00041"></a>00041 {
 <a name="l00042"></a>00042     setBroadcast(<a class="code" href="a00006.html#721049909aca828a6dd9ee7868897d7c">m_socket</a>);
 <a name="l00043"></a>00043 }
@@ -71,7 +71,7 @@
 <a name="l00047"></a>00047     sockaddr_in destAddr;
 <a name="l00048"></a>00048     <a class="code" href="a00004.html#8256bca00fdb76dcea545602c2393ae5">fillAddress</a>( foreignAddress, foreignPort, destAddr);
 <a name="l00049"></a>00049 
-<a name="l00050"></a>00050     <span class="keywordtype">int</span> sent = <a class="code" href="a00027.html#e3924d534a2de097f5cccb535330e8c2">TEMP_FAILURE_RETRY</a> (::sendto( <a class="code" href="a00006.html#721049909aca828a6dd9ee7868897d7c">m_socket</a>, (<span class="keyword">const</span> <a class="code" href="a00038.html#661c66206079fbe23597e49ab1ba7ba1">raw_type</a>*)buffer, len, 0, (sockaddr*)&amp;destAddr, <span class="keyword">sizeof</span>(destAddr)));
+<a name="l00050"></a>00050     <span class="keywordtype">int</span> sent = <a class="code" href="a00027.html#e3924d534a2de097f5cccb535330e8c2">TEMP_FAILURE_RETRY</a> (::sendto( <a class="code" href="a00006.html#721049909aca828a6dd9ee7868897d7c">m_socket</a>, (<span class="keyword">const</span> raw_type*)buffer, len, 0, (sockaddr*)&amp;destAddr, <span class="keyword">sizeof</span>(destAddr)));
 <a name="l00051"></a>00051 
 <a name="l00052"></a>00052     <span class="comment">// Write out the whole buffer as a single message</span>
 <a name="l00053"></a>00053     <span class="keywordflow">if</span>( sent != (<span class="keywordtype">int</span>)len)
@@ -83,7 +83,7 @@
 <a name="l00059"></a>00059     sockaddr_in clientAddr;
 <a name="l00060"></a>00060     socklen_t addrLen = <span class="keyword">sizeof</span>(clientAddr);
 <a name="l00061"></a>00061 
-<a name="l00062"></a>00062     <span class="keywordtype">int</span> ret = <a class="code" href="a00027.html#e3924d534a2de097f5cccb535330e8c2">TEMP_FAILURE_RETRY</a> (::recvfrom( <a class="code" href="a00006.html#721049909aca828a6dd9ee7868897d7c">m_socket</a>, (<a class="code" href="a00038.html#661c66206079fbe23597e49ab1ba7ba1">raw_type</a>*)buffer, len, 0, (sockaddr*)&amp;clientAddr, &amp;addrLen));
+<a name="l00062"></a>00062     <span class="keywordtype">int</span> ret = <a class="code" href="a00027.html#e3924d534a2de097f5cccb535330e8c2">TEMP_FAILURE_RETRY</a> (::recvfrom( <a class="code" href="a00006.html#721049909aca828a6dd9ee7868897d7c">m_socket</a>, (raw_type*)buffer, len, 0, (sockaddr*)&amp;clientAddr, &amp;addrLen));
 <a name="l00063"></a>00063     <span class="keywordflow">if</span>( ret &lt; 0)
 <a name="l00064"></a>00064         <span class="keywordflow">throw</span> <a class="code" href="a00007.html" title="Signals a problem with the execution of a socket call.">SocketException</a>(<span class="stringliteral">"Receive failed (recvfrom)"</span>);
 <a name="l00065"></a>00065 
@@ -118,7 +118,7 @@
 <a name="l00094"></a>00094     <span class="keywordflow">if</span>( setsockopt( <a class="code" href="a00006.html#721049909aca828a6dd9ee7868897d7c">m_socket</a>,
 <a name="l00095"></a>00095                     IPPROTO_IP,
 <a name="l00096"></a>00096                     IP_MULTICAST_TTL,
-<a name="l00097"></a>00097                     (<a class="code" href="a00038.html#661c66206079fbe23597e49ab1ba7ba1">raw_type</a>*)&amp;multicastTTL,
+<a name="l00097"></a>00097                     (raw_type*)&amp;multicastTTL,
 <a name="l00098"></a>00098                     <span class="keyword">sizeof</span>(multicastTTL)) &lt; 0)
 <a name="l00099"></a>00099         <span class="keywordflow">throw</span> <a class="code" href="a00007.html" title="Signals a problem with the execution of a socket call.">SocketException</a>(<span class="stringliteral">"Multicast set TTL failed (setsockopt)"</span>);
 <a name="l00100"></a>00100 }
@@ -135,7 +135,7 @@
 <a name="l00111"></a>00111         <span class="keywordflow">throw</span> <a class="code" href="a00007.html" title="Signals a problem with the execution of a socket call.">SocketException</a>(<span class="stringliteral">"Multicast group leave failed (setsockopt)"</span>);
 <a name="l00112"></a>00112 }
 </pre></div></div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Sat Nov 7 14:26:13 2009 for simple-socket library by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Fri Nov 13 15:39:00 2009 for simple-socket library by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.9 </small></address>
 </body>

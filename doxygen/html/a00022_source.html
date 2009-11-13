@@ -87,7 +87,7 @@
 <a name="l00063"></a>00063     <span class="keywordflow">return</span> ret;
 <a name="l00064"></a>00064 }
 <a name="l00065"></a>00065 
-<a name="l00066"></a><a class="code" href="a00038.html#cd20e23776526ae626ade5a49c4a6f23">00066</a> std::string <a class="code" href="a00038.html#cd20e23776526ae626ade5a49c4a6f23" title="Return the IPv4 address of a network interface.">NET::getInterfaceAddress</a>( <span class="keyword">const</span> std::string&amp; interface)
+<a name="l00066"></a><a class="code" href="a00038.html#cd20e23776526ae626ade5a49c4a6f23">00066</a> std::string <a class="code" href="a00038.html#cd20e23776526ae626ade5a49c4a6f23" title="Return the IPv4 address of the given network interface.">NET::getInterfaceAddress</a>( <span class="keyword">const</span> std::string&amp; interface)
 <a name="l00067"></a>00067 {
 <a name="l00068"></a>00068     <span class="keyword">struct </span>ifreq ifr;
 <a name="l00069"></a>00069 
@@ -106,7 +106,7 @@
 <a name="l00082"></a>00082     <span class="keywordflow">return</span> inet_ntoa( sockaddr_ptr( &amp;ifr.ifr_addr)-&gt;sin_addr);
 <a name="l00083"></a>00083 }
 <a name="l00084"></a>00084 
-<a name="l00085"></a><a class="code" href="a00038.html#c8b92ebc47b8d2cff945af66efd3c27e">00085</a> <span class="keywordtype">void</span> <a class="code" href="a00038.html#c8b92ebc47b8d2cff945af66efd3c27e">NET::setInterfaceAddress</a>( <span class="keyword">const</span> std::string&amp; interface, <span class="keyword">const</span> std::string&amp; address)
+<a name="l00085"></a><a class="code" href="a00038.html#c8b92ebc47b8d2cff945af66efd3c27e">00085</a> <span class="keywordtype">void</span> <a class="code" href="a00038.html#c8b92ebc47b8d2cff945af66efd3c27e" title="Set the IPv4 address of the given network interface.">NET::setInterfaceAddress</a>( <span class="keyword">const</span> std::string&amp; interface, <span class="keyword">const</span> std::string&amp; address)
 <a name="l00086"></a>00086 {
 <a name="l00087"></a>00087     <span class="keyword">struct </span>ifreq ifr;
 <a name="l00088"></a>00088 
@@ -123,7 +123,7 @@
 <a name="l00099"></a>00099         <span class="keywordflow">throw</span> <a class="code" href="a00007.html" title="Signals a problem with the execution of a socket call.">SocketException</a>(<span class="stringliteral">"ioctl failed (setInterfaceAddress)"</span>);
 <a name="l00100"></a>00100 }
 <a name="l00101"></a>00101 
-<a name="l00102"></a><a class="code" href="a00038.html#592b8bc436eb0d4d1f737970408c7a62">00102</a> std::string <a class="code" href="a00038.html#592b8bc436eb0d4d1f737970408c7a62" title="retrieve the broadcast address for an interface">NET::getBroadcastAddress</a>( <span class="keyword">const</span> std::string&amp; interface)
+<a name="l00102"></a><a class="code" href="a00038.html#592b8bc436eb0d4d1f737970408c7a62">00102</a> std::string <a class="code" href="a00038.html#592b8bc436eb0d4d1f737970408c7a62" title="Return the IPv4 broadcast address of the given network interface.">NET::getBroadcastAddress</a>( <span class="keyword">const</span> std::string&amp; interface)
 <a name="l00103"></a>00103 {
 <a name="l00104"></a>00104     <span class="keyword">struct </span>ifreq ifr;
 <a name="l00105"></a>00105 
@@ -142,7 +142,7 @@
 <a name="l00118"></a>00118     <span class="keywordflow">return</span> inet_ntoa( sockaddr_ptr( &amp;ifr.ifr_broadaddr)-&gt;sin_addr);
 <a name="l00119"></a>00119 }
 <a name="l00120"></a>00120 
-<a name="l00121"></a><a class="code" href="a00038.html#daf97ab8a59850b2a91eea3a6a1ee0d9">00121</a> <span class="keywordtype">void</span> <a class="code" href="a00038.html#daf97ab8a59850b2a91eea3a6a1ee0d9">NET::setBroadcastAddress</a>( <span class="keyword">const</span> std::string&amp; interface, <span class="keyword">const</span> std::string&amp; address)
+<a name="l00121"></a><a class="code" href="a00038.html#daf97ab8a59850b2a91eea3a6a1ee0d9">00121</a> <span class="keywordtype">void</span> <a class="code" href="a00038.html#daf97ab8a59850b2a91eea3a6a1ee0d9" title="Set the IPv4 broadcast address of the given network interface.">NET::setBroadcastAddress</a>( <span class="keyword">const</span> std::string&amp; interface, <span class="keyword">const</span> std::string&amp; address)
 <a name="l00122"></a>00122 {
 <a name="l00123"></a>00123     <span class="keyword">struct </span>ifreq ifr;
 <a name="l00124"></a>00124 
@@ -159,7 +159,7 @@
 <a name="l00135"></a>00135         <span class="keywordflow">throw</span> <a class="code" href="a00007.html" title="Signals a problem with the execution of a socket call.">SocketException</a>(<span class="stringliteral">"ioctl failed (setBroadcastAddress)"</span>);
 <a name="l00136"></a>00136 }
 <a name="l00137"></a>00137 
-<a name="l00138"></a><a class="code" href="a00038.html#bdb4c62549949aa5e241e190917ec5e3">00138</a> std::string <a class="code" href="a00038.html#bdb4c62549949aa5e241e190917ec5e3">NET::getNetmask</a>( <span class="keyword">const</span> std::string&amp; interface)
+<a name="l00138"></a><a class="code" href="a00038.html#bdb4c62549949aa5e241e190917ec5e3">00138</a> std::string <a class="code" href="a00038.html#bdb4c62549949aa5e241e190917ec5e3" title="Return the IPv4 netmask of the given network interface.">NET::getNetmask</a>( <span class="keyword">const</span> std::string&amp; interface)
 <a name="l00139"></a>00139 {
 <a name="l00140"></a>00140     <span class="keyword">struct </span>ifreq ifr;
 <a name="l00141"></a>00141 
@@ -178,7 +178,7 @@
 <a name="l00154"></a>00154     <span class="keywordflow">return</span> inet_ntoa( sockaddr_ptr( &amp;ifr.ifr_netmask)-&gt;sin_addr);
 <a name="l00155"></a>00155 }
 <a name="l00156"></a>00156 
-<a name="l00157"></a><a class="code" href="a00038.html#33c03d040f8ac3ab8aeb81d4e24328b6">00157</a> <span class="keywordtype">void</span> <a class="code" href="a00038.html#33c03d040f8ac3ab8aeb81d4e24328b6">NET::setNetmask</a>( <span class="keyword">const</span> std::string&amp; interface, <span class="keyword">const</span> std::string&amp; address)
+<a name="l00157"></a><a class="code" href="a00038.html#33c03d040f8ac3ab8aeb81d4e24328b6">00157</a> <span class="keywordtype">void</span> <a class="code" href="a00038.html#33c03d040f8ac3ab8aeb81d4e24328b6" title="Set the IPv4 netmask of the given network interface.">NET::setNetmask</a>( <span class="keyword">const</span> std::string&amp; interface, <span class="keyword">const</span> std::string&amp; address)
 <a name="l00158"></a>00158 {
 <a name="l00159"></a>00159     <span class="keyword">struct </span>ifreq ifr;
 <a name="l00160"></a>00160 
@@ -195,7 +195,7 @@
 <a name="l00171"></a>00171         <span class="keywordflow">throw</span> <a class="code" href="a00007.html" title="Signals a problem with the execution of a socket call.">SocketException</a>(<span class="stringliteral">"ioctl failed (setNetmask)"</span>);
 <a name="l00172"></a>00172 }
 <a name="l00173"></a>00173 
-<a name="l00174"></a><a class="code" href="a00038.html#514405219550a876f6da1fb63be5754f">00174</a> std::string <a class="code" href="a00038.html#514405219550a876f6da1fb63be5754f">NET::getDestinationAddress</a>( <span class="keyword">const</span> std::string&amp; interface)
+<a name="l00174"></a><a class="code" href="a00038.html#514405219550a876f6da1fb63be5754f">00174</a> std::string <a class="code" href="a00038.html#514405219550a876f6da1fb63be5754f" title="Return the IPv4 destination address of the given network interface.">NET::getDestinationAddress</a>( <span class="keyword">const</span> std::string&amp; interface)
 <a name="l00175"></a>00175 {
 <a name="l00176"></a>00176     <span class="keyword">struct </span>ifreq ifr;
 <a name="l00177"></a>00177 
@@ -214,7 +214,7 @@
 <a name="l00190"></a>00190     <span class="keywordflow">return</span> inet_ntoa( sockaddr_ptr( &amp;ifr.ifr_dstaddr)-&gt;sin_addr);
 <a name="l00191"></a>00191 }
 <a name="l00192"></a>00192 
-<a name="l00193"></a><a class="code" href="a00038.html#9d73559d08bfcab81b769fead324ff99">00193</a> <span class="keywordtype">void</span> <a class="code" href="a00038.html#9d73559d08bfcab81b769fead324ff99">NET::setDestinationAddress</a>( <span class="keyword">const</span> std::string&amp; interface, <span class="keyword">const</span> std::string&amp; address)
+<a name="l00193"></a><a class="code" href="a00038.html#9d73559d08bfcab81b769fead324ff99">00193</a> <span class="keywordtype">void</span> <a class="code" href="a00038.html#9d73559d08bfcab81b769fead324ff99" title="Set the IPv4 destination address of the given network interface.">NET::setDestinationAddress</a>( <span class="keyword">const</span> std::string&amp; interface, <span class="keyword">const</span> std::string&amp; address)
 <a name="l00194"></a>00194 {
 <a name="l00195"></a>00195     <span class="keyword">struct </span>ifreq ifr;
 <a name="l00196"></a>00196 
@@ -231,7 +231,7 @@
 <a name="l00207"></a>00207         <span class="keywordflow">throw</span> <a class="code" href="a00007.html" title="Signals a problem with the execution of a socket call.">SocketException</a>(<span class="stringliteral">"ioctl failed (setDestinationAddress)"</span>);
 <a name="l00208"></a>00208 }
 <a name="l00209"></a>00209 
-<a name="l00210"></a><a class="code" href="a00038.html#ee6172b4b73501ded03e2bc0f5dd58f4">00210</a> <span class="keywordtype">int</span> <a class="code" href="a00038.html#ee6172b4b73501ded03e2bc0f5dd58f4">NET::getMTU</a>( <span class="keyword">const</span> std::string&amp; interface)
+<a name="l00210"></a><a class="code" href="a00038.html#ee6172b4b73501ded03e2bc0f5dd58f4">00210</a> <span class="keywordtype">int</span> <a class="code" href="a00038.html#ee6172b4b73501ded03e2bc0f5dd58f4" title="Return the MTU (Maximum Transmission Unit) of the given network interface in bytes...">NET::getMTU</a>( <span class="keyword">const</span> std::string&amp; interface)
 <a name="l00211"></a>00211 {
 <a name="l00212"></a>00212     <span class="keyword">struct </span>ifreq ifr;
 <a name="l00213"></a>00213 
@@ -250,7 +250,7 @@
 <a name="l00226"></a>00226     <span class="keywordflow">return</span> ifr.ifr_mtu;
 <a name="l00227"></a>00227 }
 <a name="l00228"></a>00228 
-<a name="l00229"></a><a class="code" href="a00038.html#96f7b4a72c23b2838d07279b9e9125cf">00229</a> <span class="keywordtype">void</span> <a class="code" href="a00038.html#96f7b4a72c23b2838d07279b9e9125cf">NET::setMTU</a>( <span class="keyword">const</span> std::string&amp; interface, <span class="keywordtype">int</span> mtu)
+<a name="l00229"></a><a class="code" href="a00038.html#96f7b4a72c23b2838d07279b9e9125cf">00229</a> <span class="keywordtype">void</span> <a class="code" href="a00038.html#96f7b4a72c23b2838d07279b9e9125cf" title="Set the MTU (Maximum Transmission Unit) of the given network interface in bytes.">NET::setMTU</a>( <span class="keyword">const</span> std::string&amp; interface, <span class="keywordtype">int</span> mtu)
 <a name="l00230"></a>00230 {
 <a name="l00231"></a>00231     <span class="keyword">struct </span>ifreq ifr;
 <a name="l00232"></a>00232 
@@ -267,7 +267,7 @@
 <a name="l00243"></a>00243         <span class="keywordflow">throw</span> <a class="code" href="a00007.html" title="Signals a problem with the execution of a socket call.">SocketException</a>(<span class="stringliteral">"ioctl failed (setMTU)"</span>);
 <a name="l00244"></a>00244 }
 <a name="l00245"></a>00245 
-<a name="l00246"></a><a class="code" href="a00038.html#0c174bdf3f4db00d21f51805d194f313">00246</a> std::string <a class="code" href="a00038.html#0c174bdf3f4db00d21f51805d194f313">NET::getHardwareAddress</a>( <span class="keyword">const</span> std::string&amp; interface, <span class="keywordtype">char</span> separationChar)
+<a name="l00246"></a><a class="code" href="a00038.html#0c174bdf3f4db00d21f51805d194f313">00246</a> std::string <a class="code" href="a00038.html#0c174bdf3f4db00d21f51805d194f313" title="Return the MAC address of the given network interfaces.">NET::getHardwareAddress</a>( <span class="keyword">const</span> std::string&amp; interface, <span class="keywordtype">char</span> separationChar)
 <a name="l00247"></a>00247 {
 <a name="l00248"></a>00248     <span class="keyword">struct </span>ifreq ifr;
 <a name="l00249"></a>00249 
@@ -304,7 +304,7 @@
 <a name="l00280"></a>00280     <span class="keywordflow">return</span> str.str();
 <a name="l00281"></a>00281 }
 </pre></div></div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Sat Nov 7 14:26:13 2009 for simple-socket library by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Fri Nov 13 15:39:00 2009 for simple-socket library by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.9 </small></address>
 </body>

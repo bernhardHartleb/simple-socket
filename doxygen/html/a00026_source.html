@@ -65,7 +65,7 @@
 <a name="l00037"></a>00037     <span class="keywordflow">if</span>( session_socket.<a class="code" href="a00006.html#0fab04b047335c35b831885da2826f41" title="returns whether a peer disconnected">peerDisconnected</a>()) <span class="keywordflow">return</span> 1;
 <a name="l00038"></a>00038 
 <a name="l00039"></a>00039     session_socket.<a class="code" href="a00006.html#6e3ec021c1ae9ea1e1d0aaa0129e7c50" title="send data through a connected socket">send</a>( send_msg, len);
-<a name="l00040"></a>00040     <span class="keywordflow">if</span>( client_socket.<a class="code" href="a00006.html#b89a477e571a47efd9ec39089aeebf56" title="will receive data from a bound socket">receive</a>( recv_msg, len) != len) <span class="keywordflow">return</span> 1;
+<a name="l00040"></a>00040     <span class="keywordflow">if</span>( client_socket.<a class="code" href="a00006.html#b89a477e571a47efd9ec39089aeebf56" title="receive data from a bound socket">receive</a>( recv_msg, len) != len) <span class="keywordflow">return</span> 1;
 <a name="l00041"></a>00041     <span class="keywordflow">if</span>( std::memcmp( send_msg, recv_msg, len) &lt; 0) <span class="keywordflow">return</span> 1;
 <a name="l00042"></a>00042 
 <a name="l00043"></a>00043     client_socket.<a class="code" href="a00006.html#107f5074fd3f153ce0c1d2329c755d8f">disconnect</a>();
@@ -81,7 +81,7 @@
 <a name="l00053"></a>00053     }
 <a name="l00054"></a>00054 }
 </pre></div></div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Sat Nov 7 14:26:13 2009 for simple-socket library by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Fri Nov 13 15:39:00 2009 for simple-socket library by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.9 </small></address>
 </body>

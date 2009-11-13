@@ -34,13 +34,13 @@
 <a name="l00010"></a>00010                         <span class="keywordtype">unsigned</span> maxInStreams <span class="comment">/* = 65535 */</span>,
 <a name="l00011"></a>00011                         <span class="keywordtype">unsigned</span> maxAttempts <span class="comment">/* = 4 */</span>,
 <a name="l00012"></a>00012                         <span class="keywordtype">unsigned</span> maxInitTimeout <span class="comment">/* = 0 */</span>)
-<a name="l00013"></a>00013 : <a class="code" href="a00004.html" title="Internet Socket class.">InternetSocket</a>( STREAM, IPPROTO_SCTP)
+<a name="l00013"></a>00013 : <a class="code" href="a00004.html" title="Internet socket class.">InternetSocket</a>( STREAM, IPPROTO_SCTP)
 <a name="l00014"></a>00014 {
 <a name="l00015"></a>00015     <a class="code" href="a00005.html#4cdc008e4b0a8c6824e5bbc6d5a85f8e">setInitValues</a>( numOutStreams, maxInStreams, maxAttempts, maxInitTimeout);
 <a name="l00016"></a>00016 }
 <a name="l00017"></a>00017 
 <a name="l00018"></a><a class="code" href="a00005.html#481178d4f5310d8dcb34a8fe06b91c36">00018</a> <a class="code" href="a00005.html#872e7ae9681110699854c1dbbd4d5486">SCTPSocket::SCTPSocket</a>( <a class="code" href="a00008.html" title="A simple class to provide strict ownership of socket handles.">Handle</a> handle)
-<a name="l00019"></a>00019 : <a class="code" href="a00004.html" title="Internet Socket class.">InternetSocket</a>( handle.release() )
+<a name="l00019"></a>00019 : <a class="code" href="a00004.html" title="Internet socket class.">InternetSocket</a>( handle.release() )
 <a name="l00020"></a>00020 {}
 <a name="l00021"></a>00021 
 <a name="l00022"></a><a class="code" href="a00005.html#cac01f8cc992327ce041a407c6327ec8">00022</a> <span class="keywordtype">int</span> <a class="code" href="a00005.html#cac01f8cc992327ce041a407c6327ec8">SCTPSocket::bind</a>( <span class="keyword">const</span> std::vector&lt;std::string&gt;&amp; localAddresses, <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> localPort <span class="comment">/* = 0 */</span>)
@@ -66,7 +66,7 @@
 <a name="l00042"></a>00042     <span class="keywordflow">for</span>( <span class="keywordtype">size_t</span> i = 0; i &lt; size; ++i)
 <a name="l00043"></a>00043         <a class="code" href="a00004.html#8256bca00fdb76dcea545602c2393ae5">fillAddress</a>( foreignAddresses[i], foreignPort, dest[i]);
 <a name="l00044"></a>00044 
-<a name="l00045"></a>00045     <span class="keywordtype">int</span> ret = sctp_connectx( <a class="code" href="a00006.html#721049909aca828a6dd9ee7868897d7c">m_socket</a>, reinterpret_cast&lt;sockaddr*&gt;(dest), size, 0);
+<a name="l00045"></a>00045     <span class="keywordtype">int</span> ret = sctp_connectx( <a class="code" href="a00006.html#721049909aca828a6dd9ee7868897d7c">m_socket</a>, reinterpret_cast&lt;sockaddr*&gt;(dest), size);
 <a name="l00046"></a>00046     <span class="keyword">delete</span>[] dest;
 <a name="l00047"></a>00047     <span class="keywordflow">if</span>(ret &lt; 0)
 <a name="l00048"></a>00048         <span class="keywordflow">throw</span> <a class="code" href="a00007.html" title="Signals a problem with the execution of a socket call.">SocketException</a>(<span class="stringliteral">"SCTPSocket::SCTPSocket connect failed"</span>);
@@ -258,7 +258,7 @@
 <a name="l00234"></a>00234     setsockopt( <a class="code" href="a00006.html#721049909aca828a6dd9ee7868897d7c">m_socket</a>, IPPROTO_SCTP, SCTP_INITMSG, &amp;init, <span class="keyword">sizeof</span>(init));
 <a name="l00235"></a>00235 }
 </pre></div></div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Sat Nov 7 14:26:13 2009 for simple-socket library by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Fri Nov 13 15:39:00 2009 for simple-socket library by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.9 </small></address>
 </body>

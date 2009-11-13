@@ -66,7 +66,7 @@ We got another message.
     send_socket.<a name="a7"></a><a class="code" href="a00004.html#e7bd4ffd89a708f663de1ca1c24125f8" title="establish a connection with the given foreign address and port">connect</a>( <span class="stringliteral">"224.40.0.1"</span>, 47777);
 
     send_socket.<a name="a8"></a><a class="code" href="a00006.html#6e3ec021c1ae9ea1e1d0aaa0129e7c50" title="send data through a connected socket">send</a>( send_msg, len);
-    bytes = recv_socket.<a name="a9"></a><a class="code" href="a00006.html#b89a477e571a47efd9ec39089aeebf56" title="will receive data from a bound socket">receive</a>( recv_msg, len);
+    bytes = recv_socket.<a name="a9"></a><a class="code" href="a00006.html#b89a477e571a47efd9ec39089aeebf56" title="receive data from a bound socket">receive</a>( recv_msg, len);
 
     <span class="keywordflow">if</span>(bytes &gt; 0)
         std::cout &lt;&lt; <span class="stringliteral">"We got another message."</span> &lt;&lt; std::endl;
@@ -85,7 +85,7 @@ We got another message.
     <span class="keywordflow">return</span> 0;
 }
 </pre></div> </div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Sat Nov 7 14:26:13 2009 for simple-socket library by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Fri Nov 13 15:39:00 2009 for simple-socket library by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.9 </small></address>
 </body>

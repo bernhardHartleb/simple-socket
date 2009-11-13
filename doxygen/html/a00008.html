@@ -44,11 +44,12 @@
 <tr><td colspan="2"><br><h2>Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00008.html#7854681c3e9901cbcfe9c325ca009453">operator bool</a> () const </td></tr>
 
-<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">returns wheter the socket is valid or not  <a href="#7854681c3e9901cbcfe9c325ca009453"></a><br></td></tr>
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">returns whether the socket handle is valid  <a href="#7854681c3e9901cbcfe9c325ca009453"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="a00008.html">SocketHandle</a> &amp;&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00008.html#ef03ae542fd0ae2336c4231956a3ba0b">operator=</a> (<a class="el" href="a00008.html">SocketHandle</a> &amp;other)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00008.html#4aab598df9764db4e4dad6d09a86a634">SocketHandle</a> (<a class="el" href="a00008.html">SocketHandle</a> &amp;other)</td></tr>
 
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">copy constructor using move semantics  <a href="#4aab598df9764db4e4dad6d09a86a634"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00008.html#79b477b6ef9b552cc1e037403ec7f4f9">SocketHandle</a> ()</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">constructs an invalid socket handle  <a href="#79b477b6ef9b552cc1e037403ec7f4f9"></a><br></td></tr>
@@ -149,8 +150,10 @@ template&lt;class Socket &gt; </div>
 <div class="memdoc">
 
 <p>
+copy constructor using move semantics 
+<p>
 
-<p>Definition at line <a class="el" href="a00014_source.html#l00055">55</a> of file <a class="el" href="a00014_source.html">Handle.h</a>.</p>
+<p>Definition at line <a class="el" href="a00014_source.html#l00056">56</a> of file <a class="el" href="a00014_source.html">Handle.h</a>.</p>
 
 </div>
 </div><p>
@@ -173,7 +176,7 @@ template&lt;class Socket &gt; </div>
 
 <p>
 
-<p>Definition at line <a class="el" href="a00014_source.html#l00073">73</a> of file <a class="el" href="a00014_source.html">Handle.h</a>.</p>
+<p>Definition at line <a class="el" href="a00014_source.html#l00075">75</a> of file <a class="el" href="a00014_source.html">Handle.h</a>.</p>
 
 </div>
 </div><p>
@@ -197,8 +200,8 @@ template&lt;class Socket &gt; </div>
 <div class="memdoc">
 
 <p>
-
-<p>Definition at line <a class="el" href="a00014_source.html#l00067">67</a> of file <a class="el" href="a00014_source.html">Handle.h</a>.</p>
+assignment operator using move semantics 
+<p>Definition at line <a class="el" href="a00014_source.html#l00069">69</a> of file <a class="el" href="a00014_source.html">Handle.h</a>.</p>
 
 </div>
 </div><p>
@@ -220,10 +223,10 @@ template&lt;class Socket &gt; </div>
 <div class="memdoc">
 
 <p>
-returns wheter the socket is valid or not 
+returns whether the socket handle is valid 
 <p>
-Checks wheter a socket can be constructed from the handle or not. If accept() returned an invalid socket (e.g. timed out timedAccept() call) this should be used to verify the handle. Trying to construct a socket from an invalid handle will raise a <a class="el" href="a00007.html" title="Signals a problem with the execution of a socket call.">SocketException</a>. 
-<p>Definition at line <a class="el" href="a00014_source.html#l00082">82</a> of file <a class="el" href="a00014_source.html">Handle.h</a>.</p>
+Checks whether a socket can be constructed from the handle or not. If accept() returned an invalid handle (e.g. timed out timedAccept() call) this should be used to verify the handle. Trying to construct a socket from an invalid handle will raise a <a class="el" href="a00007.html" title="Signals a problem with the execution of a socket call.">SocketException</a>. 
+<p>Definition at line <a class="el" href="a00014_source.html#l00084">84</a> of file <a class="el" href="a00014_source.html">Handle.h</a>.</p>
 
 </div>
 </div><p>
@@ -269,7 +272,7 @@ template&lt;class Socket &gt; </div>
 <hr>The documentation for this class was generated from the following file:<ul>
 <li><a class="el" href="a00014_source.html">Handle.h</a></ul>
 </div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Sat Nov 7 14:26:15 2009 for simple-socket library by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Fri Nov 13 15:39:01 2009 for simple-socket library by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.9 </small></address>
 </body>

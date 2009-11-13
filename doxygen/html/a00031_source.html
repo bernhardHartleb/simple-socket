@@ -33,7 +33,7 @@
 <a name="l00009"></a>00009 <span class="keyword">using namespace </span>NET;
 <a name="l00010"></a>00010 
 <a name="l00011"></a><a class="code" href="a00011.html#b7f8812e08206cd15bf72aaca11a6b2f">00011</a> UnixDatagramSocket::UnixDatagramSocket()
-<a name="l00012"></a>00012 : <a class="code" href="a00012.html" title="Unix Domain Socket class.">UnixSocket</a>( DATAGRAM, 0)
+<a name="l00012"></a>00012 : <a class="code" href="a00012.html" title="Unix domain socket class.">UnixSocket</a>( DATAGRAM, 0)
 <a name="l00013"></a>00013 {}
 <a name="l00014"></a>00014 
 <a name="l00015"></a><a class="code" href="a00011.html#cfe0469c5f92740354e63612701e84f5">00015</a> <span class="keywordtype">void</span> <a class="code" href="a00011.html#cfe0469c5f92740354e63612701e84f5">UnixDatagramSocket::sendTo</a>( <span class="keyword">const</span> <span class="keywordtype">void</span>* buffer, <span class="keywordtype">size_t</span> len, <span class="keyword">const</span> std::string&amp; foreignPath)
@@ -45,7 +45,7 @@
 <a name="l00021"></a>00021     destAddr.sun_family = AF_LOCAL;
 <a name="l00022"></a>00022     std::strcpy( destAddr.sun_path, foreignPath.c_str());
 <a name="l00023"></a>00023 
-<a name="l00024"></a>00024     <span class="keywordtype">int</span> sent = <a class="code" href="a00027.html#e3924d534a2de097f5cccb535330e8c2">TEMP_FAILURE_RETRY</a> (::sendto( <a class="code" href="a00006.html#721049909aca828a6dd9ee7868897d7c">m_socket</a>, (<span class="keyword">const</span> <a class="code" href="a00038.html#661c66206079fbe23597e49ab1ba7ba1">raw_type</a>*)buffer, len, 0, (sockaddr*)&amp;destAddr, <span class="keyword">sizeof</span>(destAddr)));
+<a name="l00024"></a>00024     <span class="keywordtype">int</span> sent = <a class="code" href="a00027.html#e3924d534a2de097f5cccb535330e8c2">TEMP_FAILURE_RETRY</a> (::sendto( <a class="code" href="a00006.html#721049909aca828a6dd9ee7868897d7c">m_socket</a>, (<span class="keyword">const</span> raw_type*)buffer, len, 0, (sockaddr*)&amp;destAddr, <span class="keyword">sizeof</span>(destAddr)));
 <a name="l00025"></a>00025 
 <a name="l00026"></a>00026     <span class="comment">// Write out the whole buffer as a single message</span>
 <a name="l00027"></a>00027     <span class="keywordflow">if</span>( sent != (<span class="keywordtype">int</span>)len)
@@ -57,7 +57,7 @@
 <a name="l00033"></a>00033     sockaddr_un clientAddr;
 <a name="l00034"></a>00034     socklen_t addr_len = <span class="keyword">sizeof</span>(clientAddr);
 <a name="l00035"></a>00035 
-<a name="l00036"></a>00036     <span class="keywordtype">int</span> ret = <a class="code" href="a00027.html#e3924d534a2de097f5cccb535330e8c2">TEMP_FAILURE_RETRY</a> (::recvfrom( <a class="code" href="a00006.html#721049909aca828a6dd9ee7868897d7c">m_socket</a>, (<a class="code" href="a00038.html#661c66206079fbe23597e49ab1ba7ba1">raw_type</a>*)buffer, len, 0, (sockaddr*)&amp;clientAddr, &amp;addr_len));
+<a name="l00036"></a>00036     <span class="keywordtype">int</span> ret = <a class="code" href="a00027.html#e3924d534a2de097f5cccb535330e8c2">TEMP_FAILURE_RETRY</a> (::recvfrom( <a class="code" href="a00006.html#721049909aca828a6dd9ee7868897d7c">m_socket</a>, (raw_type*)buffer, len, 0, (sockaddr*)&amp;clientAddr, &amp;addr_len));
 <a name="l00037"></a>00037     <span class="keywordflow">if</span>( ret &lt; 0)
 <a name="l00038"></a>00038         <span class="keywordflow">throw</span> <a class="code" href="a00007.html" title="Signals a problem with the execution of a socket call.">SocketException</a>(<span class="stringliteral">"Receive failed (recvfrom)"</span>);
 <a name="l00039"></a>00039 
@@ -85,7 +85,7 @@
 <a name="l00061"></a>00061     <span class="keywordflow">return</span> 0;
 <a name="l00062"></a>00062 }
 </pre></div></div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Sat Nov 7 14:26:13 2009 for simple-socket library by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Fri Nov 13 15:39:00 2009 for simple-socket library by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.9 </small></address>
 </body>
