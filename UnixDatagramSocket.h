@@ -16,8 +16,8 @@ namespace NET
 		UnixDatagramSocket();
 
 		/*!
-		 * Send the given buffer as a datagram to the
-		 * specified address / port
+		 * Send the given buffer as a datagram to the specified address / port.
+		 *
 		 * \param buffer data to be send
 		 * \param len number of bytes to write
 		 * \param foreignPath filename of the datagram socket the data should be sent to

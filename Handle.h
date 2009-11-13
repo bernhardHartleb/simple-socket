@@ -52,6 +52,7 @@ namespace NET
 		//! constructs an invalid socket handle
 		SocketHandle() : m_sockfd(0) {}
 
+		//! copy constructor using move semantics
 		SocketHandle( SocketHandle& other)
 		: m_sockfd( other.release()) {}
 
@@ -63,6 +64,7 @@ namespace NET
 		{ return SocketHandle_Ref<Socket>( release()); }
 		//! \endcond
 
+		//! assignment operator using move semantics
 		SocketHandle&
 		operator=( SocketHandle& other)
 		{
@@ -72,10 +74,10 @@ namespace NET
 
 		~SocketHandle() { reset(); }
 
-		//! returns wheter the socket is valid or not
+		//! returns whether the socket handle is valid
 		/*!
-		 * Checks wheter a socket can be constructed from the handle or not.
-		 * If accept() returned an invalid socket (e.g. timed out timedAccept()
+		 * Checks whether a socket can be constructed from the handle or not.
+		 * If accept() returned an invalid handle (e.g. timed out timedAccept()
 		 * call) this should be used to verify the handle. Trying to construct
 		 * a socket from an invalid handle will raise a SocketException.
 		 */
@@ -85,9 +87,9 @@ namespace NET
 		//! constructor for sockets using this handle
 		explicit SocketHandle( int sockfd) : m_sockfd(sockfd) {}
 
-		//! releases ownership of the socket file descriptor
 		/*!
-		 * This also transfers the obligation to close the handle.
+		 * Releases ownership of the socket file descriptor.
+		 * It also transfers the obligation to close the handle.
 		 */
 		int release()
 		{
@@ -98,7 +100,7 @@ namespace NET
 
 		//! resets the handle to an other socket file descriptor
 		/*!
-		 * If the handle is reset to a different file descriptor than itself,
+		 * If the new file descriptor differs from the old one,
 		 * the previously held socket descriptor is closed.
 		 */
 		void reset( int fd = 0)

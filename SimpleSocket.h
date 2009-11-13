@@ -33,7 +33,10 @@ namespace NET
 		int m_errorcode;
 	};
 
-	typedef void raw_type; // data type used by transmit and receive functions
+	//! \cond internal
+	//! data type used by transmit and receive functions
+	typedef void raw_type;
+	//! \endcond
 
 	//! A socket representing a basic communication endpoint
 	/*!
@@ -45,9 +48,9 @@ namespace NET
 	public:
 		enum ShutdownDirection
 		{
-			STOP_SEND = SHUT_WR,        ///< disable all variants of send() on the socket, receive calls still work
-			STOP_RECEIVE = SHUT_RD,     ///< disable all variants of receive() on the socket, send calls still work
-			STOP_BOTH = SHUT_RDWR       ///< disable all send() and receive() calls on the socket
+			STOP_SEND = SHUT_WR,     ///< disable all variants of send() on the socket, receive calls still work
+			STOP_RECEIVE = SHUT_RD,  ///< disable all variants of receive() on the socket, send calls still work
+			STOP_BOTH = SHUT_RDWR    ///< disable all send() and receive() calls on the socket
 		};
 
 		~SimpleSocket();
@@ -75,7 +78,7 @@ namespace NET
 		 */
 		int send( const void* buffer, size_t len);
 
-		//! will receive data from a bound socket
+		//! receive data from a bound socket
 		/*!
 		 * receive() can only be used on a socket that called bind() or
 		 * connect() before.  If you try to use receive() on a not bound
@@ -101,8 +104,7 @@ namespace NET
 		 */
 		int receive( void* buffer, size_t len);
 
-		//! will receive data from a bound socket, but return after the given
-		//! timespan
+		//! receive data from a bound socket, return after the given timespan
 		/*!
 		 * timedReceive() can only be used on a socket that called bind() or
 		 * connect before.  If you try to use receive() on a not bound socket,
@@ -130,12 +132,12 @@ namespace NET
 		int timedReceive( void* buffer, size_t len, int timeout);
 
 		/*!
-		 * Disconnect and unsed any foreign adresses
+		 * Disconnect and unset any foreign addresses
 		 * \exception SocketException thrown if unable to disconnect
 		 */
 		void disconnect();
 
-		//! will shutdown the connection in the specified direction
+		//! shutdown the connection in the specified direction
 		/*!
 		 * Depending on the specified ShutdownDirection, calls for that direction
 		 * will stop working. Use this function if you want to have more control
@@ -173,11 +175,11 @@ namespace NET
 			DATAGRAM = SOCK_DGRAM
 		};
 
-		//! allows a subclass to create new socket
-		SimpleSocket( int domain, int type, int protocol);
-
 		//! enables return of an accepted socket
 		SimpleSocket( int sockfd);
+
+		//! allows a subclass to create new socket
+		SimpleSocket( int domain, int type, int protocol);
 
 		// socket descriptor
 		int m_socket;

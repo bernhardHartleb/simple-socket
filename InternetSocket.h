@@ -7,7 +7,7 @@ struct sockaddr_in;
 
 namespace NET
 {
-	//! Internet Socket class
+	//! Internet socket class
 	class InternetSocket : public SimpleSocket
 	{
 	public:
@@ -85,6 +85,7 @@ namespace NET
 	protected:
 		//! create socket from a SocketHandle returned by an accept() call
 		InternetSocket( int sockfd);
+
 		//! allows a subclass to create new socket
 		InternetSocket( int type, int protocol);
 
