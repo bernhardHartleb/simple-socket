@@ -1,6 +1,7 @@
 #include "SCTPSocket.h"
 #include "TempFailure.h"
 
+#include <vector>
 #include <netinet/in.h>
 #include <poll.h>
 
@@ -22,13 +23,12 @@ SCTPSocket::SCTPSocket( Handle handle)
 int SCTPSocket::bind( const std::vector<std::string>& localAddresses, unsigned short localPort /* = 0 */)
 {
 	size_t size = localAddresses.size();
-	sockaddr_in *dest = new sockaddr_in[size];
+	std::vector<sockaddr_in> dest(size);
 
 	for( size_t i = 0; i < size; ++i)
 		fillAddress( localAddresses[i], localPort, dest[i]);
 
-	int ret = sctp_bindx( m_socket, reinterpret_cast<sockaddr*>(dest), size, SCTP_BINDX_ADD_ADDR);
-	delete[] dest;
+	int ret = sctp_bindx( m_socket, reinterpret_cast<sockaddr*>(dest.data()), size, SCTP_BINDX_ADD_ADDR);
 	if(ret < 0)
 		throw SocketException("SCTPSocket::bind bindx failed");
 	return ret;
@@ -37,13 +37,12 @@ int SCTPSocket::bind( const std::vector<std::string>& localAddresses, unsigned s
 int SCTPSocket::connect( const std::vector<std::string>& foreignAddresses, unsigned short foreignPort /* = 0 */)
 {
 	size_t size = foreignAddresses.size();
-	sockaddr_in *dest = new sockaddr_in[size];
+	std::vector<sockaddr_in> dest(size);
 
 	for( size_t i = 0; i < size; ++i)
 		fillAddress( foreignAddresses[i], foreignPort, dest[i]);
 
-	int ret = sctp_connectx( m_socket, reinterpret_cast<sockaddr*>(dest), size);
-	delete[] dest;
+	int ret = sctp_connectx( m_socket, reinterpret_cast<sockaddr*>(dest.data()), size);
 	if(ret < 0)
 		throw SocketException("SCTPSocket::SCTPSocket connect failed");
 	return ret;
