@@ -8,3 +8,9 @@
 - Add doxygen mainpage
 - Add usage examples
 - Fix bug in disconnect()
+
+1.1.1
+~~~~~
+- Add missing test in SCTP constructor
+- Fix possible memory leak in SCTP error path
+- Changed SCTP exception messages
