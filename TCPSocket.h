@@ -77,7 +77,7 @@ namespace NET
 		 * handle, accept() can be used to wait for next incoming connection
 		 * after the handle was received.
 		 *
-		 * \return Handle object to the new connection
+		 * \return SocketHandle object to the new connection
 		 * \exception SocketException
 		 */
 		Handle accept() const;

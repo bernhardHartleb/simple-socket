@@ -7,7 +7,7 @@ struct sockaddr_un;
 
 namespace NET
 {
-	//! Unix Domain Socket class
+	//! Unix domain socket class
 	class UnixSocket : public SimpleSocket
 	{
 	public:

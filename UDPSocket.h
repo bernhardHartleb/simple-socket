@@ -12,7 +12,7 @@ namespace NET
 		/*!
 		 * Construct a UDP socket and enable broadcast capabilities
 		 * \exception SocketException thrown if unable to create the socket
-		*/
+		 */
 		UDPSocket();
 
 		/*!
