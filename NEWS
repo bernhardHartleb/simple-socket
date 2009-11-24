@@ -14,3 +14,4 @@
 - Add missing test in SCTP constructor
 - Fix possible memory leak in SCTP error path
 - Changed SCTP exception messages
+- Minor documentation updates
