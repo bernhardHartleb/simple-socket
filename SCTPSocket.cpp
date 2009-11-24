@@ -230,5 +230,8 @@ void SCTPSocket::setInitValues( unsigned numOutStreams, unsigned maxInStreams, u
 	init.sinit_max_instreams = maxInStreams;
 	init.sinit_max_attempts = maxAttempts;
 	init.sinit_max_init_timeo = maxInitTimeout;
-	setsockopt( m_socket, IPPROTO_SCTP, SCTP_INITMSG, &init, sizeof(init));
+
+	int ret = setsockopt( m_socket, IPPROTO_SCTP, SCTP_INITMSG, &init, sizeof(init));
+	if( ret < 0)
+		throw SocketException("SCTPSocket construction failed (setsockopt)");
 }
