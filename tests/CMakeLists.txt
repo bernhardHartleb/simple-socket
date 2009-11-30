@@ -2,16 +2,16 @@ include_directories( ${CMAKE_SOURCE_DIR} )
 
 message("Building tests:")
 
-set(tests
-	UDPSocket_TEST
-	TCPSocket_TEST
-	UnixDatagramSocket_TEST)
+# Collect all unit tests
+file(GLOB Test_SRC RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "*TEST.cpp")
 
-foreach(TB ${tests})
+add_executable(UnitTester test_runner.cpp ${Test_SRC})
+target_link_libraries(UnitTester network cppunit)
 
-	add_executable(${TB} ${TB}.cpp)
-	target_link_libraries(${TB} network)
-	message("* ${TB}")
-	add_test(${TB} ${CMAKE_CURRENT_BINARY_DIR}/${TB})
+foreach(TB ${Test_SRC})
+
+	get_filename_component(TestName ${TB} NAME_WE)
+	message("* ${TestName}")
+	add_test(${TestName} UnitTester ${TestName})
 
 endforeach()
