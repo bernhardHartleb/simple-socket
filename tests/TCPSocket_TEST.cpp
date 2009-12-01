@@ -7,9 +7,9 @@ static const char send_msg[] = "The quick brown fox jumps over the lazy dog";
 static char recv_msg[sizeof(send_msg)];
 static const int len = sizeof(send_msg);
 
-class TCPSocketTest : public CppUnit::TestFixture
+class TCPSocket_TEST : public CppUnit::TestFixture
 {
-	CPPUNIT_TEST_SUITE( TCPSocketTest );
+	CPPUNIT_TEST_SUITE( TCPSocket_TEST );
 	CPPUNIT_TEST( testSocketHandle );
 	CPPUNIT_TEST( testPeerStatus );
 	CPPUNIT_TEST_SUITE_END();
@@ -78,4 +78,4 @@ public:
 	}
 };
 
-CPPUNIT_TEST_SUITE_REGISTRATION( TCPSocketTest );
+CPPUNIT_TEST_SUITE_REGISTRATION( TCPSocket_TEST );

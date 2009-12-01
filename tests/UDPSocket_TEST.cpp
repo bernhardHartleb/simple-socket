@@ -7,9 +7,9 @@ static const char send_msg[] = "The quick brown fox jumps over the lazy dog";
 static char recv_msg[sizeof(send_msg)];
 static const int len = sizeof(send_msg);
 
-class UDPSocketTest : public CppUnit::TestFixture
+class UDPSocket_TEST : public CppUnit::TestFixture
 {
-	CPPUNIT_TEST_SUITE( UDPSocketTest );
+	CPPUNIT_TEST_SUITE( UDPSocket_TEST );
 	CPPUNIT_TEST( testPeerStatus );
 	CPPUNIT_TEST( testMulticast );
 	CPPUNIT_TEST( testSendTo );
@@ -46,6 +46,7 @@ public:
 		int ret;
 		send_socket->setMulticastTTL(0);
 		send_socket->connect( "224.40.0.1", 47777);
+		recv_socket->bind(47777);
 		recv_socket->joinGroup("224.40.0.1");
 
 		ret = send_socket->send( send_msg, len);
@@ -58,7 +59,7 @@ public:
 		ret = send_socket->send( send_msg, len);
 		CPPUNIT_ASSERT_EQUAL( len, ret );
 
-		ret = recv_socket->timedReceive( recv_msg, len, 0);
+		ret = recv_socket->timedReceive( recv_msg, len, 1);
 		CPPUNIT_ASSERT_EQUAL( 0, ret );
 	}
 
@@ -84,4 +85,4 @@ public:
 	}
 };
 
-CPPUNIT_TEST_SUITE_REGISTRATION( UDPSocketTest );
+CPPUNIT_TEST_SUITE_REGISTRATION( UDPSocket_TEST );

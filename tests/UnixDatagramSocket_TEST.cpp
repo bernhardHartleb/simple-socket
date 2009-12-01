@@ -8,9 +8,9 @@ static const char send_msg[] = "The quick brown fox jumps over the lazy dog";
 static char recv_msg[sizeof(send_msg)];
 static const int len = sizeof(send_msg);
 
-class UnixDatagramSocketTest : public CppUnit::TestFixture
+class UnixDatagramSocket_TEST : public CppUnit::TestFixture
 {
-	CPPUNIT_TEST_SUITE( UnixDatagramSocketTest );
+	CPPUNIT_TEST_SUITE( UnixDatagramSocket_TEST );
 	CPPUNIT_TEST( testSendTo );
 	CPPUNIT_TEST_SUITE_END();
 
@@ -53,4 +53,4 @@ public:
 	}
 };
 
-CPPUNIT_TEST_SUITE_REGISTRATION( UnixDatagramSocketTest );
+CPPUNIT_TEST_SUITE_REGISTRATION( UnixDatagramSocket_TEST );
