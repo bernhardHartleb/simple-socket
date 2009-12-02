@@ -1,67 +1,88 @@
+#include <cppunit/extensions/HelperMacros.h>
 #include <UDPSocket.h>
 
 #include <cstring>
-#include <iostream>
 
-using namespace NET;
+static const char send_msg[] = "The quick brown fox jumps over the lazy dog";
+static char recv_msg[sizeof(send_msg)];
+static const int len = sizeof(send_msg);
 
-int main()
+class UDPSocket_TEST : public CppUnit::TestFixture
 {
-	static char send_msg[] = "The quick brown fox jumps over the lazy dog";
-	static char recv_msg[sizeof(send_msg)];
-	static size_t len = sizeof(send_msg);
+	CPPUNIT_TEST_SUITE( UDPSocket_TEST );
+	CPPUNIT_TEST( testPeerStatus );
+	CPPUNIT_TEST( testMulticast );
+	CPPUNIT_TEST( testSendTo );
+	CPPUNIT_TEST_SUITE_END();
 
-	try {
+private:
+	NET::UDPSocket* send_socket;
+	NET::UDPSocket* recv_socket;
 
-	// Test peer status on a connected UDP socket
-	UDPSocket peer_socket;
-	peer_socket.connect( "127.0.0.1", 65001);
-	if( peer_socket.peerDisconnected()) return 1;
-	peer_socket.send( "", 1); // ok, no icmp received yet
-	peer_socket.send( "", 1); // icmp received, send fails
-	if( !peer_socket.peerDisconnected()) return 1;
-
-	// Test UDP specific calls
-	UDPSocket send_socket;
-	UDPSocket recv_socket;
-	send_socket.bind(47776);
-	recv_socket.bind(47777);
-	std::string source;
-	unsigned short port = 0;
-
-	send_socket.sendTo( send_msg, len, "127.0.0.1", 47777);
-	recv_socket.receiveFrom( recv_msg, len, source, port);
-
-	if( port != 47776) return 1;
-	if( source != "127.0.0.1") return 1;
-	if( recv_socket.timedReceiveFrom( recv_msg, len, source, port, 10) != 0) return 1;
-
-	// source must not be changed
-	if( port != 47776) return 1;
-	if( source != "127.0.0.1") return 1;
-	if( std::memcmp( send_msg, recv_msg, len) < 0) return 1;
-	std::memset( recv_msg, 0, len);
-
-	// Test multicast
-	send_socket.setMulticastTTL(0);
-	send_socket.connect( "224.40.0.1", 47777);
-	recv_socket.joinGroup("224.40.0.1");
-	send_socket.send( send_msg, len);
-	recv_socket.receive( recv_msg, len);
-
-	if( std::memcmp( send_msg, recv_msg, len) < 0) return 1;
-	std::memset( recv_msg, 0, len);
-
-	recv_socket.leaveGroup("224.40.0.1");
-	send_socket.send( send_msg, len);
-
-	if( recv_socket.timedReceive( recv_msg, len, 0) != 0) return 1;
-
-	// no errors in this testcase
-	} catch( const SocketException& e)
+public:
+	void setUp()
 	{
-		std::cerr << e.what() << std::endl;
-		std::cerr << e.errorCode() << std::endl;
-		return 1;
+		send_socket = new NET::UDPSocket();
+		recv_socket = new NET::UDPSocket();
 	}
-}
+
+	void tearDown()
+	{
+		delete send_socket;
+		delete recv_socket;
+	}
+
+	void testPeerStatus()
+	{
+		send_socket->connect( "127.0.0.1", 65001);
+		CPPUNIT_ASSERT( !send_socket->peerDisconnected() );
+		send_socket->send( "", 1); // ok, no icmp received yet
+		send_socket->send( "", 1); // icmp received, send fails
+		CPPUNIT_ASSERT( send_socket->peerDisconnected() );
+	}
+
+	void testMulticast()
+	{
+		int ret;
+		send_socket->setMulticastTTL(0);
+		send_socket->connect( "224.40.0.1", 47777);
+		recv_socket->bind(47777);
+		recv_socket->joinGroup("224.40.0.1");
+
+		ret = send_socket->send( send_msg, len);
+		CPPUNIT_ASSERT_EQUAL( len, ret );
+		ret = recv_socket->receive( recv_msg, len);
+		CPPUNIT_ASSERT_EQUAL( len, ret );
+		CPPUNIT_ASSERT( std::memcmp( send_msg, recv_msg, len) == 0 );
+
+		recv_socket->leaveGroup("224.40.0.1");
+		ret = send_socket->send( send_msg, len);
+		CPPUNIT_ASSERT_EQUAL( len, ret );
+
+		ret = recv_socket->timedReceive( recv_msg, len, 1);
+		CPPUNIT_ASSERT_EQUAL( 0, ret );
+	}
+
+	void testSendTo()
+	{
+		int ret;
+		std::string source;
+		unsigned short port = 0;
+		send_socket->bind(47776);
+		recv_socket->bind(47777);
+		send_socket->sendTo( send_msg, len, "127.0.0.1", 47777);
+
+		ret = recv_socket->receiveFrom( recv_msg, len, source, port);
+		CPPUNIT_ASSERT_EQUAL( len, ret );
+		CPPUNIT_ASSERT_EQUAL( (unsigned short)47776, port );
+		CPPUNIT_ASSERT_EQUAL( std::string("127.0.0.1"), source );
+
+		ret = recv_socket->timedReceiveFrom( recv_msg, len, source, port, 10);
+		CPPUNIT_ASSERT_EQUAL( 0, ret );
+		CPPUNIT_ASSERT_EQUAL( (unsigned short)47776, port );
+		CPPUNIT_ASSERT_EQUAL( std::string("127.0.0.1"), source );
+		CPPUNIT_ASSERT( std::memcmp( send_msg, recv_msg, len) == 0 );
+	}
+};
+
+CPPUNIT_TEST_SUITE_REGISTRATION( UDPSocket_TEST );
