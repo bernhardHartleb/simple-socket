@@ -66,6 +66,6 @@ namespace NET
 	void setMTU( const std::string& interface, int mtu);
 
 	//! Return the MAC address of the given network interfaces
-	std::string getHardwareAddress( const std::string& interface, char separationChar);
+	std::string getHardwareAddress( const std::string& interface, char separationChar = ':');
 }
 #endif // NET_SocketUtils_h__

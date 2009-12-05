@@ -283,10 +283,16 @@ std::string NET::getHardwareAddress( const std::string& interface, char separati
 	}
 
 	std::ostringstream str;
+	str << std::hex << std::setw(2) << std::setfill('0');
+
 	for( int i = 0; i <= 4; ++i)
-		str << std::hex << std::uppercase << std::setw(2) << std::setfill('0')
-			<< static_cast<int>(reinterpret_cast<unsigned char*>(ifr.ifr_addr.sa_data)[i]) << separationChar;
-	str << std::hex << std::uppercase << std::setw(2) << std::setfill('0')
-		<< static_cast<int>(reinterpret_cast<unsigned char*>(ifr.ifr_addr.sa_data)[5]);
+	{
+		str << std::uppercase
+		    << static_cast<int>( reinterpret_cast<unsigned char*>( ifr.ifr_addr.sa_data)[i])
+		    << separationChar;
+	}
+
+	str << std::uppercase
+	    << static_cast<int>( reinterpret_cast<unsigned char*>( ifr.ifr_addr.sa_data)[5]);
 	return str.str();
 }
