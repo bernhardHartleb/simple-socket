@@ -42,7 +42,6 @@ std::string NET::resolveHostname( const std::string& hostname)
 
 unsigned short NET::resolveService( const std::string& service, const std::string& protocol)
 {
-	// Structure containing service information
 	struct servent* serv = getservbyname( service.c_str(), protocol.c_str());
 
 	if(!serv)
@@ -57,8 +56,10 @@ std::vector<std::string> NET::getNetworkInterfaces()
 {
 	std::vector<std::string> ret;
 	struct if_nameindex* index = if_nameindex();
+
 	for( int i = 0; index[i].if_index != 0; ++i)
-		ret.push_back( std::string(index[i].if_name));
+		ret.push_back( std::string( index[i].if_name));
+
 	if_freenameindex(index);
 	return ret;
 }
@@ -70,14 +71,14 @@ std::string NET::getInterfaceAddress( const std::string& interface)
 	ifr.ifr_addr.sa_family = AF_INET;
 	std::strncpy( ifr.ifr_name, interface.c_str(), sizeof(ifr.ifr_name));
 
-	int sock = socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
+	int sock = ::socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
 	if( sock < 0)
 		throw SocketException("Couldn't create socket (getInterfaceAddress)");
 
 	if( ioctl( sock, SIOCGIFADDR, &ifr) < 0)
 		throw SocketException("ioctl failed (getInterfaceAddress)");
 
-	close(sock);
+	::close(sock);
 
 	return inet_ntoa( sockaddr_ptr( &ifr.ifr_addr)->sin_addr);
 }
@@ -89,7 +90,7 @@ void NET::setInterfaceAddress( const std::string& interface, const std::string& 
 	ifr.ifr_addr.sa_family = AF_INET;
 	std::strncpy( ifr.ifr_name, interface.c_str(), sizeof(ifr.ifr_name));
 
-	int sock = socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
+	int sock = ::socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
 	if( sock < 0)
 		throw SocketException("Couldn't create socket (setInterfaceAddress)");
 
@@ -97,6 +98,8 @@ void NET::setInterfaceAddress( const std::string& interface, const std::string& 
 
 	if( ioctl( sock, SIOCSIFADDR, &ifr) < 0)
 		throw SocketException("ioctl failed (setInterfaceAddress)");
+
+	::close(sock);
 }
 
 std::string NET::getBroadcastAddress( const std::string& interface)
@@ -106,14 +109,14 @@ std::string NET::getBroadcastAddress( const std::string& interface)
 	ifr.ifr_addr.sa_family = AF_INET;
 	std::strncpy( ifr.ifr_name, interface.c_str(), sizeof(ifr.ifr_name));
 
-	int sock = socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
+	int sock = ::socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
 	if( sock < 0)
 		throw SocketException("Couldn't create socket (getBroadcastAddress)");
 
 	if( ioctl( sock, SIOCGIFBRDADDR, &ifr) < 0)
 		throw SocketException("ioctl failed (getInterfaceAddress)");
 
-	close(sock);
+	::close(sock);
 
 	return inet_ntoa( sockaddr_ptr( &ifr.ifr_broadaddr)->sin_addr);
 }
@@ -125,7 +128,7 @@ void NET::setBroadcastAddress( const std::string& interface, const std::string& 
 	ifr.ifr_addr.sa_family = AF_INET;
 	std::strncpy( ifr.ifr_name, interface.c_str(), sizeof(ifr.ifr_name));
 
-	int sock = socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
+	int sock = ::socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
 	if( sock < 0)
 		throw SocketException("Couldn't create socket (setBroadcastAddress)");
 
@@ -133,6 +136,8 @@ void NET::setBroadcastAddress( const std::string& interface, const std::string& 
 
 	if( ioctl( sock, SIOCSIFBRDADDR, &ifr) < 0)
 		throw SocketException("ioctl failed (setBroadcastAddress)");
+
+	::close(sock);
 }
 
 std::string NET::getNetmask( const std::string& interface)
@@ -142,14 +147,14 @@ std::string NET::getNetmask( const std::string& interface)
 	ifr.ifr_addr.sa_family = AF_INET;
 	std::strncpy( ifr.ifr_name, interface.c_str(), sizeof(ifr.ifr_name));
 
-	int sock = socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
+	int sock = ::socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
 	if( sock < 0)
 		throw SocketException("Couldn't create socket (getBroadcastAddress)");
 
 	if( ioctl( sock, SIOCGIFNETMASK, &ifr) < 0)
 		throw SocketException("ioctl failed (getNetmask)");
 
-	close(sock);
+	::close(sock);
 
 	return inet_ntoa( sockaddr_ptr( &ifr.ifr_netmask)->sin_addr);
 }
@@ -161,7 +166,7 @@ void NET::setNetmask( const std::string& interface, const std::string& address)
 	ifr.ifr_addr.sa_family = AF_INET;
 	std::strncpy( ifr.ifr_name, interface.c_str(), sizeof(ifr.ifr_name));
 
-	int sock = socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
+	int sock = ::socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
 	if( sock < 0)
 		throw SocketException("Couldn't create socket (setNetmask)");
 
@@ -169,6 +174,8 @@ void NET::setNetmask( const std::string& interface, const std::string& address)
 
 	if( ioctl( sock, SIOCSIFNETMASK, &ifr) < 0)
 		throw SocketException("ioctl failed (setNetmask)");
+
+	::close(sock);
 }
 
 std::string NET::getDestinationAddress( const std::string& interface)
@@ -178,14 +185,14 @@ std::string NET::getDestinationAddress( const std::string& interface)
 	ifr.ifr_addr.sa_family = AF_INET;
 	std::strncpy( ifr.ifr_name, interface.c_str(), sizeof(ifr.ifr_name));
 
-	int sock = socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
+	int sock = ::socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
 	if( sock < 0)
 		throw SocketException("Couldn't create socket (getBroadcastAddress)");
 
 	if( ioctl( sock, SIOCGIFDSTADDR, &ifr) < 0)
 		throw SocketException("ioctl failed (getDestinationAddress)");
 
-	close(sock);
+	::close(sock);
 
 	return inet_ntoa( sockaddr_ptr( &ifr.ifr_dstaddr)->sin_addr);
 }
@@ -197,7 +204,7 @@ void NET::setDestinationAddress( const std::string& interface, const std::string
 	ifr.ifr_addr.sa_family = AF_INET;
 	std::strncpy( ifr.ifr_name, interface.c_str(), sizeof(ifr.ifr_name));
 
-	int sock = socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
+	int sock = ::socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
 	if( sock < 0)
 		throw SocketException("Couldn't create socket (setDestinationAddress)");
 
@@ -205,6 +212,8 @@ void NET::setDestinationAddress( const std::string& interface, const std::string
 
 	if( ioctl( sock, SIOCSIFDSTADDR, &ifr) < 0)
 		throw SocketException("ioctl failed (setDestinationAddress)");
+
+	::close(sock);
 }
 
 int NET::getMTU( const std::string& interface)
@@ -214,14 +223,14 @@ int NET::getMTU( const std::string& interface)
 	ifr.ifr_addr.sa_family = AF_INET;
 	std::strncpy( ifr.ifr_name, interface.c_str(), sizeof(ifr.ifr_name));
 
-	int sock = socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
+	int sock = ::socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
 	if( sock < 0)
 		throw SocketException("Couldn't create socket (getMTU)");
 
 	if( ioctl( sock, SIOCGIFMTU, &ifr) < 0)
 		throw SocketException("ioctl failed (getInterfaceAddress)");
 
-	close(sock);
+	::close(sock);
 
 	return ifr.ifr_mtu;
 }
@@ -233,7 +242,7 @@ void NET::setMTU( const std::string& interface, int mtu)
 	ifr.ifr_addr.sa_family = AF_INET;
 	std::strncpy( ifr.ifr_name, interface.c_str(), sizeof(ifr.ifr_name));
 
-	int sock = socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
+	int sock = ::socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
 	if( sock < 0)
 		throw SocketException("Couldn't create socket (setMTU)");
 
@@ -241,6 +250,8 @@ void NET::setMTU( const std::string& interface, int mtu)
 
 	if( ioctl( sock, SIOCSIFDSTADDR, &ifr) < 0)
 		throw SocketException("ioctl failed (setMTU)");
+
+	::close(sock);
 }
 
 std::string NET::getHardwareAddress( const std::string& interface, char separationChar)
@@ -250,14 +261,14 @@ std::string NET::getHardwareAddress( const std::string& interface, char separati
 	ifr.ifr_addr.sa_family = AF_INET;
 	std::strncpy( ifr.ifr_name, interface.c_str(), sizeof(ifr.ifr_name));
 
-	int sock = socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
+	int sock = ::socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
 	if( sock < 0)
 		throw SocketException("Couldn't create socket (getMTU)");
 
 	if( ioctl( sock, SIOCGIFHWADDR, &ifr) < 0)
 		throw SocketException("ioctl failed (getInterfaceAddress)");
 
-	close(sock);
+	::close(sock);
 
 	switch( ifr.ifr_hwaddr.sa_family) {
 		default:

@@ -22,7 +22,7 @@ SocketException::SocketException( const std::string& message, bool inclSysMsg /*
 SimpleSocket::SimpleSocket( int domain, int type, int protocol)
 : m_peerDisconnected(false)
 {
-	if( (m_socket = socket( domain, type, protocol)) < 0)
+	if( (m_socket = ::socket( domain, type, protocol)) < 0)
 		throw SocketException("Socket creation failed (socket)");
 }
 
