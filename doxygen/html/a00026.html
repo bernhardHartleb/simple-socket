@@ -26,34 +26,42 @@
   </div>
 </div>
 <div class="contents">
-<h1>TCPSocket_TEST.cpp File Reference</h1><code>#include &lt;<a class="el" href="a00025_source.html">TCPSocket.h</a>&gt;</code><br>
+<h1>TCPSocket_TEST.cpp File Reference</h1><code>#include &lt;cppunit/extensions/HelperMacros.h&gt;</code><br>
+<code>#include &lt;<a class="el" href="a00025_source.html">TCPSocket.h</a>&gt;</code><br>
 <code>#include &lt;cstring&gt;</code><br>
-<code>#include &lt;iostream&gt;</code><br>
 
 <p>
 <div class="dynheader">
 Include dependency graph for TCPSocket_TEST.cpp:</div>
 <div class="dynsection">
-<p><center><img src="a00060.png" border="0" usemap="#TCPSocket_TEST.cpp_map" alt=""></center>
+<p><center><img src="a00061.png" border="0" usemap="#TCPSocket_TEST.cpp_map" alt=""></center>
 <map name="TCPSocket_TEST.cpp_map">
-<area shape="rect" id="node3" href="a00025.html" title="TCPSocket.h" alt="" coords="157,83,259,112"><area shape="rect" id="node5" href="a00014.html" title="Handle.h" alt="" coords="95,160,172,189"><area shape="rect" id="node14" href="a00016.html" title="InternetSocket.h" alt="" coords="219,160,347,189"><area shape="rect" id="node9" href="a00027.html" title="TempFailure.h" alt="" coords="79,237,188,267"><area shape="rect" id="node16" href="a00021.html" title="SimpleSocket.h" alt="" coords="247,237,367,267"></map>
+<area shape="rect" id="node5" href="a00025.html" title="TCPSocket.h" alt="" coords="275,83,376,112"><area shape="rect" id="node7" href="a00014.html" title="Handle.h" alt="" coords="212,160,289,189"><area shape="rect" id="node16" href="a00016.html" title="InternetSocket.h" alt="" coords="336,160,464,189"><area shape="rect" id="node11" href="a00027.html" title="TempFailure.h" alt="" coords="196,237,305,267"><area shape="rect" id="node18" href="a00021.html" title="SimpleSocket.h" alt="" coords="364,237,484,267"></map>
 </div>
 
 <p>
 <a href="a00026_source.html">Go to the source code of this file.</a><table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
 <tr><td colspan="2"><br><h2>Functions</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00026.html#e66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00026.html#bb2c53fc606839b2057e93b344cf2d72">CPPUNIT_TEST_SUITE_REGISTRATION</a> (TCPSocket_TEST)</td></tr>
+
+<tr><td colspan="2"><br><h2>Variables</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static const int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00026.html#7c713e7a33273338003a7b605eec0538">len</a> = sizeof(<a class="el" href="a00034.html#91f12e91f0647734f40a2577ffbce84a">send_msg</a>)</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static char&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00026.html#897ddd482f24de2c49f7b8a7f725c9e5">recv_msg</a> [sizeof(<a class="el" href="a00034.html#91f12e91f0647734f40a2577ffbce84a">send_msg</a>)]</td></tr>
+
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static const char&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00026.html#91f12e91f0647734f40a2577ffbce84a">send_msg</a> [] = &quot;The quick brown fox jumps over the lazy dog&quot;</td></tr>
 
 </table>
 <hr><h2>Function Documentation</h2>
-<a class="anchor" name="e66f6b31b5ad750f1fe042a706a4e3d4"></a><!-- doxytag: member="TCPSocket_TEST.cpp::main" ref="e66f6b31b5ad750f1fe042a706a4e3d4" args="()" -->
+<a class="anchor" name="bb2c53fc606839b2057e93b344cf2d72"></a><!-- doxytag: member="TCPSocket_TEST.cpp::CPPUNIT_TEST_SUITE_REGISTRATION" ref="bb2c53fc606839b2057e93b344cf2d72" args="(TCPSocket_TEST)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int main           </td>
+          <td class="memname">CPPUNIT_TEST_SUITE_REGISTRATION           </td>
           <td>(</td>
+          <td class="paramtype">TCPSocket_TEST&nbsp;</td>
           <td class="paramname">          </td>
           <td>&nbsp;)&nbsp;</td>
           <td></td>
@@ -63,14 +71,66 @@ Include dependency graph for TCPSocket_TEST.cpp:</div>
 <div class="memdoc">
 
 <p>
+
+</div>
+</div><p>
+<hr><h2>Variable Documentation</h2>
+<a class="anchor" name="91f12e91f0647734f40a2577ffbce84a"></a><!-- doxytag: member="TCPSocket_TEST.cpp::send_msg" ref="91f12e91f0647734f40a2577ffbce84a" args="[]" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char <a class="el" href="a00034.html#91f12e91f0647734f40a2577ffbce84a">send_msg</a>[] = &quot;The quick brown fox jumps over the lazy dog&quot;<code> [static]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
 <dl compact><dt><b>Examples: </b></dt><dd>
-<a class="el" href="a00002.html#a0">TCP_Client.cpp</a>, <a class="el" href="a00001.html#a0">TCP_Server.cpp</a>, and <a class="el" href="a00003.html#a0">UDP_Multicast.cpp</a>.</dl>
+<a class="el" href="a00001.html#a0">TCP_Server.cpp</a>, and <a class="el" href="a00003.html#a0">UDP_Multicast.cpp</a>.</dl>
+<p>Definition at line <a class="el" href="a00026_source.html#l00006">6</a> of file <a class="el" href="a00026_source.html">TCPSocket_TEST.cpp</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="897ddd482f24de2c49f7b8a7f725c9e5"></a><!-- doxytag: member="TCPSocket_TEST.cpp::recv_msg" ref="897ddd482f24de2c49f7b8a7f725c9e5" args="[sizeof(send_msg)]" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char <a class="el" href="a00034.html#897ddd482f24de2c49f7b8a7f725c9e5">recv_msg</a>[sizeof(<a class="el" href="a00034.html#91f12e91f0647734f40a2577ffbce84a">send_msg</a>)]<code> [static]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+<dl compact><dt><b>Examples: </b></dt><dd>
+<a class="el" href="a00002.html#a0">TCP_Client.cpp</a>, and <a class="el" href="a00003.html#a1">UDP_Multicast.cpp</a>.</dl>
+<p>Definition at line <a class="el" href="a00026_source.html#l00007">7</a> of file <a class="el" href="a00026_source.html">TCPSocket_TEST.cpp</a>.</p>
+
+</div>
+</div><p>
+<a class="anchor" name="7c713e7a33273338003a7b605eec0538"></a><!-- doxytag: member="TCPSocket_TEST.cpp::len" ref="7c713e7a33273338003a7b605eec0538" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int <a class="el" href="a00034.html#7c713e7a33273338003a7b605eec0538">len</a> = sizeof(<a class="el" href="a00034.html#91f12e91f0647734f40a2577ffbce84a">send_msg</a>)<code> [static]</code>          </td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+<dl compact><dt><b>Examples: </b></dt><dd>
+<a class="el" href="a00003.html#a2">UDP_Multicast.cpp</a>.</dl>
 <p>Definition at line <a class="el" href="a00026_source.html#l00008">8</a> of file <a class="el" href="a00026_source.html">TCPSocket_TEST.cpp</a>.</p>
 
 </div>
 </div><p>
 </div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Tue Nov 24 19:05:56 2009 for simple-socket library by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Sat Dec 12 12:32:58 2009 for simple-socket library by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.9 </small></address>
 </body>

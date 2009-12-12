@@ -24,18 +24,18 @@
       <li><a href="functions.html"><span>Class&nbsp;Members</span></a></li>
     </ul>
   </div>
-  <div class="navpath"><a class="el" href="a00038.html">NET</a>::<a class="el" href="a00011.html">UnixDatagramSocket</a>
+  <div class="navpath"><a class="el" href="a00039.html">NET</a>::<a class="el" href="a00011.html">UnixDatagramSocket</a>
   </div>
 </div>
 <div class="contents">
 <h1>NET::UnixDatagramSocket Class Reference</h1><!-- doxytag: class="NET::UnixDatagramSocket" --><!-- doxytag: inherits="NET::UnixSocket" -->Unix datagram socket class.  
 <a href="#_details">More...</a>
 <p>
-<code>#include &lt;<a class="el" href="a00032_source.html">UnixDatagramSocket.h</a>&gt;</code>
+<code>#include &lt;<a class="el" href="a00033_source.html">UnixDatagramSocket.h</a>&gt;</code>
 <p>
 
 <p>
-<a href="a00087.html">List of all members.</a><table border="0" cellpadding="0" cellspacing="0">
+<a href="a00089.html">List of all members.</a><table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
 <tr><td colspan="2"><br><h2>Public Types</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#b2d98f9c05fb0c016782269d6c053db9">ShutdownDirection</a> { <a class="el" href="a00006.html#b2d98f9c05fb0c016782269d6c053db98efb8dcfe05bb52129f436538b77bc1c">STOP_SEND</a> =  SHUT_WR, 
@@ -57,23 +57,23 @@
 <tr><td class="memItemLeft" nowrap align="right" valign="top">bool&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#0fab04b047335c35b831885da2826f41">peerDisconnected</a> () const </td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">returns whether a peer disconnected  <a href="#0fab04b047335c35b831885da2826f41"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#b89a477e571a47efd9ec39089aeebf56">receive</a> (void *buffer, size_t len)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#b89a477e571a47efd9ec39089aeebf56">receive</a> (void *buffer, size_t <a class="el" href="a00034.html#7c713e7a33273338003a7b605eec0538">len</a>)</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">receive data from a bound socket  <a href="#b89a477e571a47efd9ec39089aeebf56"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00011.html#e8d0db6e1d5bc3c84c66ed3bd6189751">receiveFrom</a> (void *buffer, size_t len, std::string &amp;sourcePath)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00011.html#e8d0db6e1d5bc3c84c66ed3bd6189751">receiveFrom</a> (void *buffer, size_t <a class="el" href="a00034.html#7c713e7a33273338003a7b605eec0538">len</a>, std::string &amp;sourcePath)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#6e3ec021c1ae9ea1e1d0aaa0129e7c50">send</a> (const void *buffer, size_t len)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#6e3ec021c1ae9ea1e1d0aaa0129e7c50">send</a> (const void *buffer, size_t <a class="el" href="a00034.html#7c713e7a33273338003a7b605eec0538">len</a>)</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">send data through a connected socket  <a href="#6e3ec021c1ae9ea1e1d0aaa0129e7c50"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00011.html#cfe0469c5f92740354e63612701e84f5">sendTo</a> (const void *buffer, size_t len, const std::string &amp;foreignPath)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00011.html#cfe0469c5f92740354e63612701e84f5">sendTo</a> (const void *buffer, size_t <a class="el" href="a00034.html#7c713e7a33273338003a7b605eec0538">len</a>, const std::string &amp;foreignPath)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#5b5500498eeb1292eea3c5dc4e531d19">shutdown</a> (<a class="el" href="a00006.html#b2d98f9c05fb0c016782269d6c053db9">ShutdownDirection</a> type)</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">shutdown the connection in the specified direction  <a href="#5b5500498eeb1292eea3c5dc4e531d19"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#0c14e0e6413cf606d52ab7d606a175f8">timedReceive</a> (void *buffer, size_t len, int timeout)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#0c14e0e6413cf606d52ab7d606a175f8">timedReceive</a> (void *buffer, size_t <a class="el" href="a00034.html#7c713e7a33273338003a7b605eec0538">len</a>, int timeout)</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">receive data from a bound socket, return after the given timespan  <a href="#0c14e0e6413cf606d52ab7d606a175f8"></a><br></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00011.html#af252bc735198a705cffbc0dc5b58827">timedReceiveFrom</a> (void *buffer, size_t len, std::string &amp;sourcePath, int timeout)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00011.html#af252bc735198a705cffbc0dc5b58827">timedReceiveFrom</a> (void *buffer, size_t <a class="el" href="a00034.html#7c713e7a33273338003a7b605eec0538">len</a>, std::string &amp;sourcePath, int timeout)</td></tr>
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00011.html#b7f8812e08206cd15bf72aaca11a6b2f">UnixDatagramSocket</a> ()</td></tr>
 
@@ -90,7 +90,7 @@
  }</td></tr>
 
 <tr><td colspan="2"><br><h2>Static Protected Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" nowrap align="right" valign="top">static std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00012.html#69bbbefdc45247b943d7cfe4ddfbf202">extractPath</a> (const sockaddr_un &amp;addr, socklen_t len)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">static std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00012.html#69bbbefdc45247b943d7cfe4ddfbf202">extractPath</a> (const sockaddr_un &amp;addr, socklen_t <a class="el" href="a00034.html#7c713e7a33273338003a7b605eec0538">len</a>)</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">extracts a path string from the socket address structure  <a href="#69bbbefdc45247b943d7cfe4ddfbf202"></a><br></td></tr>
 <tr><td colspan="2"><br><h2>Protected Attributes</h2></td></tr>
@@ -101,7 +101,7 @@
 </table>
 <hr><a name="_details"></a><h2>Detailed Description</h2>
 Unix datagram socket class. 
-<p>Definition at line <a class="el" href="a00032_source.html#l00009">9</a> of file <a class="el" href="a00032_source.html">UnixDatagramSocket.h</a>.</p>
+<p>Definition at line <a class="el" href="a00033_source.html#l00009">9</a> of file <a class="el" href="a00033_source.html">UnixDatagramSocket.h</a>.</p>
 <hr><h2>Member Enumeration Documentation</h2>
 <a class="anchor" name="b2d98f9c05fb0c016782269d6c053db9"></a><!-- doxytag: member="NET::UnixDatagramSocket::ShutdownDirection" ref="b2d98f9c05fb0c016782269d6c053db9" args="" -->
 <div class="memitem">
@@ -203,7 +203,7 @@ Construct a Unix datagram socket <dl compact><dt><b>Exceptions:</b></dt><dd>
   </table>
 </dl>
 
-<p>Definition at line <a class="el" href="a00031_source.html#l00011">11</a> of file <a class="el" href="a00031_source.html">UnixDatagramSocket.cpp</a>.</p>
+<p>Definition at line <a class="el" href="a00032_source.html#l00011">11</a> of file <a class="el" href="a00032_source.html">UnixDatagramSocket.cpp</a>.</p>
 
 </div>
 </div><p>
@@ -255,7 +255,7 @@ Send the given buffer as a datagram to the specified address / port.<p>
   </table>
 </dl>
 
-<p>Definition at line <a class="el" href="a00031_source.html#l00015">15</a> of file <a class="el" href="a00031_source.html">UnixDatagramSocket.cpp</a>.</p>
+<p>Definition at line <a class="el" href="a00032_source.html#l00015">15</a> of file <a class="el" href="a00032_source.html">UnixDatagramSocket.cpp</a>.</p>
 
 </div>
 </div><p>
@@ -306,7 +306,7 @@ Read read up to bufferLen bytes data from this socket. The given buffer is where
   </table>
 </dl>
 
-<p>Definition at line <a class="el" href="a00031_source.html#l00031">31</a> of file <a class="el" href="a00031_source.html">UnixDatagramSocket.cpp</a>.</p>
+<p>Definition at line <a class="el" href="a00032_source.html#l00031">31</a> of file <a class="el" href="a00032_source.html">UnixDatagramSocket.cpp</a>.</p>
 
 </div>
 </div><p>
@@ -364,7 +364,7 @@ Read read up to bufferLen bytes data from this socket. The given buffer is where
   </table>
 </dl>
 
-<p>Definition at line <a class="el" href="a00031_source.html#l00044">44</a> of file <a class="el" href="a00031_source.html">UnixDatagramSocket.cpp</a>.</p>
+<p>Definition at line <a class="el" href="a00032_source.html#l00044">44</a> of file <a class="el" href="a00032_source.html">UnixDatagramSocket.cpp</a>.</p>
 
 </div>
 </div><p>
@@ -396,7 +396,7 @@ Establish a socket connection with the given socket <dl compact><dt><b>Parameter
   </table>
 </dl>
 
-<p>Definition at line <a class="el" href="a00034_source.html#l00013">13</a> of file <a class="el" href="a00034_source.html">UnixSocket.cpp</a>.</p>
+<p>Definition at line <a class="el" href="a00035_source.html#l00013">13</a> of file <a class="el" href="a00035_source.html">UnixSocket.cpp</a>.</p>
 
 </div>
 </div><p>
@@ -428,7 +428,7 @@ Set the local path to the specified path <dl compact><dt><b>Parameters:</b></dt>
   </table>
 </dl>
 
-<p>Definition at line <a class="el" href="a00034_source.html#l00026">26</a> of file <a class="el" href="a00034_source.html">UnixSocket.cpp</a>.</p>
+<p>Definition at line <a class="el" href="a00035_source.html#l00026">26</a> of file <a class="el" href="a00035_source.html">UnixSocket.cpp</a>.</p>
 
 </div>
 </div><p>
@@ -455,7 +455,7 @@ Get the local path (after binding the socket) <dl class="return" compact><dt><b>
   </table>
 </dl>
 
-<p>Definition at line <a class="el" href="a00034_source.html#l00040">40</a> of file <a class="el" href="a00034_source.html">UnixSocket.cpp</a>.</p>
+<p>Definition at line <a class="el" href="a00035_source.html#l00040">40</a> of file <a class="el" href="a00035_source.html">UnixSocket.cpp</a>.</p>
 
 </div>
 </div><p>
@@ -482,7 +482,7 @@ Get the foreign path. Call <a class="el" href="a00012.html#f11be6099c828e22449ee
   </table>
 </dl>
 
-<p>Definition at line <a class="el" href="a00034_source.html#l00051">51</a> of file <a class="el" href="a00034_source.html">UnixSocket.cpp</a>.</p>
+<p>Definition at line <a class="el" href="a00035_source.html#l00051">51</a> of file <a class="el" href="a00035_source.html">UnixSocket.cpp</a>.</p>
 
 </div>
 </div><p>
@@ -510,7 +510,7 @@ Check the given path for size and other constraints <dl compact><dt><b>Parameter
 </dl>
 <dl class="return" compact><dt><b>Returns:</b></dt><dd>true if path is valid, false otherwise </dd></dl>
 
-<p>Definition at line <a class="el" href="a00034_source.html#l00062">62</a> of file <a class="el" href="a00034_source.html">UnixSocket.cpp</a>.</p>
+<p>Definition at line <a class="el" href="a00035_source.html#l00062">62</a> of file <a class="el" href="a00035_source.html">UnixSocket.cpp</a>.</p>
 
 </div>
 </div><p>
@@ -543,7 +543,7 @@ Check the given path for size and other constraints <dl compact><dt><b>Parameter
 extracts a path string from the socket address structure 
 <p>
 
-<p>Definition at line <a class="el" href="a00034_source.html#l00068">68</a> of file <a class="el" href="a00034_source.html">UnixSocket.cpp</a>.</p>
+<p>Definition at line <a class="el" href="a00035_source.html#l00068">68</a> of file <a class="el" href="a00035_source.html">UnixSocket.cpp</a>.</p>
 
 </div>
 </div><p>
@@ -591,7 +591,7 @@ If you are using a datagram oriented socket (like <a class="el" href="a00010.htm
   </table>
 </dl>
 <dl compact><dt><b>Examples: </b></dt><dd>
-<a class="el" href="a00001.html#a6">TCP_Server.cpp</a>, and <a class="el" href="a00003.html#a8">UDP_Multicast.cpp</a>.</dl>
+<a class="el" href="a00001.html#a7">TCP_Server.cpp</a>, and <a class="el" href="a00003.html#a11">UDP_Multicast.cpp</a>.</dl>
 <p>Definition at line <a class="el" href="a00020_source.html#l00043">43</a> of file <a class="el" href="a00020_source.html">SimpleSocket.cpp</a>.</p>
 
 </div>
@@ -641,7 +641,7 @@ If the remote host has closed the connection (on a connection based socket like 
   </table>
 </dl>
 <dl compact><dt><b>Examples: </b></dt><dd>
-<a class="el" href="a00003.html#a9">UDP_Multicast.cpp</a>.</dl>
+<a class="el" href="a00003.html#a12">UDP_Multicast.cpp</a>.</dl>
 <p>Definition at line <a class="el" href="a00020_source.html#l00061">61</a> of file <a class="el" href="a00020_source.html">SimpleSocket.cpp</a>.</p>
 
 </div>
@@ -698,7 +698,7 @@ If the remote host has closed the connection (on a connection based socket like 
   </table>
 </dl>
 <dl compact><dt><b>Examples: </b></dt><dd>
-<a class="el" href="a00002.html#a3">TCP_Client.cpp</a>.</dl>
+<a class="el" href="a00002.html#a4">TCP_Client.cpp</a>.</dl>
 <p>Definition at line <a class="el" href="a00020_source.html#l00068">68</a> of file <a class="el" href="a00020_source.html">SimpleSocket.cpp</a>.</p>
 
 </div>
@@ -725,7 +725,7 @@ Disconnect and unset any foreign addresses <dl compact><dt><b>Exceptions:</b></d
   </table>
 </dl>
 <dl compact><dt><b>Examples: </b></dt><dd>
-<a class="el" href="a00002.html#a4">TCP_Client.cpp</a>, and <a class="el" href="a00001.html#a8">TCP_Server.cpp</a>.</dl>
+<a class="el" href="a00002.html#a5">TCP_Client.cpp</a>, and <a class="el" href="a00001.html#a9">TCP_Server.cpp</a>.</dl>
 <p>Definition at line <a class="el" href="a00020_source.html#l00088">88</a> of file <a class="el" href="a00020_source.html">SimpleSocket.cpp</a>.</p>
 
 </div>
@@ -787,7 +787,7 @@ returns whether a peer disconnected
 Will only work if you use a connection oriented, connected socket. Returns true if the peer disconnected. Use this function after a call to receive, returned 0 received bytes.<p>
 <dl class="return" compact><dt><b>Returns:</b></dt><dd>true if a peer disconnected </dd></dl>
 <dl compact><dt><b>Examples: </b></dt><dd>
-<a class="el" href="a00001.html#a7">TCP_Server.cpp</a>.</dl>
+<a class="el" href="a00001.html#a8">TCP_Server.cpp</a>.</dl>
 <p>Definition at line <a class="el" href="a00020_source.html#l00107">107</a> of file <a class="el" href="a00020_source.html">SimpleSocket.cpp</a>.</p>
 
 </div>
@@ -828,9 +828,9 @@ Will only work if you use a connection oriented, connected socket. Returns true 
 </div>
 </div><p>
 <hr>The documentation for this class was generated from the following files:<ul>
-<li><a class="el" href="a00032_source.html">UnixDatagramSocket.h</a><li><a class="el" href="a00031_source.html">UnixDatagramSocket.cpp</a></ul>
+<li><a class="el" href="a00033_source.html">UnixDatagramSocket.h</a><li><a class="el" href="a00032_source.html">UnixDatagramSocket.cpp</a></ul>
 </div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Tue Nov 24 19:05:57 2009 for simple-socket library by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Sat Dec 12 12:32:59 2009 for simple-socket library by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.9 </small></address>
 </body>

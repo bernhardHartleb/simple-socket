@@ -1,4 +1,5 @@
-<area shape="rect" id="node3" href="$a00014.html" title="Handle.h" alt="" coords="96,83,173,112">
-<area shape="rect" id="node12" href="$a00016.html" title="InternetSocket.h" alt="" coords="284,83,412,112">
-<area shape="rect" id="node7" href="$a00027.html" title="TempFailure.h" alt="" coords="80,160,189,189">
-<area shape="rect" id="node14" href="$a00021.html" title="SimpleSocket.h" alt="" coords="291,160,411,189">
+<area shape="rect" id="node3" href="$a00019.html" title="SCTPSocket.h" alt="" coords="387,83,496,112">
+<area shape="rect" id="node9" href="$a00027.html" title="TempFailure.h" alt="" coords="7,237,116,267">
+<area shape="rect" id="node5" href="$a00014.html" title="Handle.h" alt="" coords="183,160,260,189">
+<area shape="rect" id="node14" href="$a00016.html" title="InternetSocket.h" alt="" coords="284,160,412,189">
+<area shape="rect" id="node16" href="$a00021.html" title="SimpleSocket.h" alt="" coords="288,237,408,267">

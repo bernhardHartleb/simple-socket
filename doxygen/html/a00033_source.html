@@ -1,6 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
-<title>simple-socket library: UnixDatagramSocket_TEST.cpp Source File</title>
+<title>simple-socket library: UnixDatagramSocket.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css">
 <link href="doxygen.css" rel="stylesheet" type="text/css">
 </head><body>
@@ -22,56 +22,30 @@
       <li><a href="globals.html"><span>File&nbsp;Members</span></a></li>
     </ul>
   </div>
-  <div class="navpath"><a class="el" href="dir_ec4c7bbc045fe76af21912c55f875061.html">tests</a>
-  </div>
-</div>
-<div class="contents">
-<h1>UnixDatagramSocket_TEST.cpp</h1><a href="a00033.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#include &lt;<a class="code" href="a00032.html">UnixDatagramSocket.h</a>&gt;</span>
-<a name="l00002"></a>00002 
-<a name="l00003"></a>00003 <span class="preprocessor">#include &lt;cstring&gt;</span>
-<a name="l00004"></a>00004 <span class="preprocessor">#include &lt;iostream&gt;</span>
+<h1>UnixDatagramSocket.h</h1><a href="a00033.html">Go to the documentation of this file.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 <span class="preprocessor">#ifndef NET_UnixDatagramSocket_h__</span>
+<a name="l00002"></a>00002 <span class="preprocessor"></span><span class="preprocessor">#define NET_UnixDatagramSocket_h__</span>
+<a name="l00003"></a>00003 <span class="preprocessor"></span>
+<a name="l00004"></a>00004 <span class="preprocessor">#include "<a class="code" href="a00036.html">UnixSocket.h</a>"</span>
 <a name="l00005"></a>00005 
-<a name="l00006"></a>00006 <span class="keyword">using namespace </span>NET;
-<a name="l00007"></a>00007 
-<a name="l00008"></a><a class="code" href="a00033.html#e66f6b31b5ad750f1fe042a706a4e3d4">00008</a> <span class="keywordtype">int</span> <a class="code" href="a00026.html#e66f6b31b5ad750f1fe042a706a4e3d4">main</a>()
-<a name="l00009"></a>00009 {
-<a name="l00010"></a>00010     <span class="keyword">static</span> <span class="keywordtype">char</span> sock_file[] = <span class="stringliteral">"/tmp/simple-socket_test.sock"</span>;
-<a name="l00011"></a>00011     <span class="keyword">static</span> <span class="keywordtype">char</span> send_msg[] = <span class="stringliteral">"The quick brown fox jumps over the lazy dog"</span>;
-<a name="l00012"></a>00012     <span class="keyword">static</span> <span class="keywordtype">char</span> recv_msg[<span class="keyword">sizeof</span>(send_msg)];
-<a name="l00013"></a>00013     <span class="keyword">static</span> <span class="keywordtype">size_t</span> len = <span class="keyword">sizeof</span>(send_msg);
-<a name="l00014"></a>00014 
-<a name="l00015"></a>00015     <span class="keywordflow">try</span> {
-<a name="l00016"></a>00016 
-<a name="l00017"></a>00017     <span class="comment">// Test datagram specific calls</span>
-<a name="l00018"></a>00018     <a class="code" href="a00011.html" title="Unix datagram socket class.">UnixDatagramSocket</a> send_socket;
-<a name="l00019"></a>00019     <a class="code" href="a00011.html" title="Unix datagram socket class.">UnixDatagramSocket</a> recv_socket;
-<a name="l00020"></a>00020     send_socket.<a class="code" href="a00012.html#d29b0cffb527afb5b8950c5af994277f">bind</a>(sock_file);
-<a name="l00021"></a>00021     recv_socket.<a class="code" href="a00012.html#d29b0cffb527afb5b8950c5af994277f">bind</a>(sock_file);
-<a name="l00022"></a>00022     std::string source;
-<a name="l00023"></a>00023 
-<a name="l00024"></a>00024     send_socket.<a class="code" href="a00011.html#cfe0469c5f92740354e63612701e84f5">sendTo</a>( send_msg, len, sock_file);
-<a name="l00025"></a>00025     recv_socket.<a class="code" href="a00011.html#e8d0db6e1d5bc3c84c66ed3bd6189751">receiveFrom</a>( recv_msg, len, source);
-<a name="l00026"></a>00026 
-<a name="l00027"></a>00027     <span class="keywordflow">if</span>( source != sock_file) <span class="keywordflow">return</span> 1;
-<a name="l00028"></a>00028     <span class="keywordflow">if</span>( recv_socket.<a class="code" href="a00011.html#af252bc735198a705cffbc0dc5b58827">timedReceiveFrom</a>( recv_msg, len, source, 10) != 0) <span class="keywordflow">return</span> 1;
-<a name="l00029"></a>00029 
-<a name="l00030"></a>00030     <span class="comment">// source must not be changed</span>
-<a name="l00031"></a>00031     <span class="keywordflow">if</span>( source != sock_file) <span class="keywordflow">return</span> 1;
-<a name="l00032"></a>00032     <span class="keywordflow">if</span>( std::memcmp( send_msg, recv_msg, len) &lt; 0) <span class="keywordflow">return</span> 1;
-<a name="l00033"></a>00033     std::memset( recv_msg, 0, len);
-<a name="l00034"></a>00034 
-<a name="l00035"></a>00035     ::unlink(sock_file);
-<a name="l00036"></a>00036 
-<a name="l00037"></a>00037     <span class="comment">// no errors in this testcase</span>
-<a name="l00038"></a>00038     } <span class="keywordflow">catch</span>( <span class="keyword">const</span> <a class="code" href="a00007.html" title="Signals a problem with the execution of a socket call.">SocketException</a>&amp; e)
-<a name="l00039"></a>00039     {
-<a name="l00040"></a>00040         std::cerr &lt;&lt; e.<a class="code" href="a00007.html#1e1ae56e5ffac5f0f5dd8cfa8a456741" title="Returns a C-string describing the cause of the current error.">what</a>() &lt;&lt; std::endl;
-<a name="l00041"></a>00041         std::cerr &lt;&lt; e.<a class="code" href="a00007.html#411d16f55b4805e951d53810b9569bfe" title="Returns the glibc errno code of the current error.">errorCode</a>() &lt;&lt; std::endl;
-<a name="l00042"></a>00042         <span class="keywordflow">return</span> 1;
-<a name="l00043"></a>00043     }
-<a name="l00044"></a>00044 }
+<a name="l00006"></a>00006 <span class="keyword">namespace </span>NET
+<a name="l00007"></a>00007 {
+<a name="l00009"></a><a class="code" href="a00011.html">00009</a>     <span class="keyword">class </span><a class="code" href="a00011.html" title="Unix datagram socket class.">UnixDatagramSocket</a> : <span class="keyword">public</span> <a class="code" href="a00012.html" title="Unix domain socket class.">UnixSocket</a>
+<a name="l00010"></a>00010     {
+<a name="l00011"></a>00011     <span class="keyword">public</span>:
+<a name="l00016"></a>00016         <a class="code" href="a00011.html#b7f8812e08206cd15bf72aaca11a6b2f">UnixDatagramSocket</a>();
+<a name="l00017"></a>00017 
+<a name="l00027"></a>00027         <span class="keywordtype">void</span> <a class="code" href="a00011.html#cfe0469c5f92740354e63612701e84f5">sendTo</a>( <span class="keyword">const</span> <span class="keywordtype">void</span>* buffer, <span class="keywordtype">size_t</span> <a class="code" href="a00026.html#7c713e7a33273338003a7b605eec0538">len</a>, <span class="keyword">const</span> std::string&amp; foreignPath);
+<a name="l00028"></a>00028 
+<a name="l00039"></a>00039         <span class="keywordtype">int</span> <a class="code" href="a00011.html#e8d0db6e1d5bc3c84c66ed3bd6189751">receiveFrom</a>( <span class="keywordtype">void</span>* buffer, <span class="keywordtype">size_t</span> len, std::string&amp; sourcePath);
+<a name="l00040"></a>00040 
+<a name="l00054"></a>00054         <span class="keywordtype">int</span> <a class="code" href="a00011.html#af252bc735198a705cffbc0dc5b58827">timedReceiveFrom</a>( <span class="keywordtype">void</span>* buffer, <span class="keywordtype">size_t</span> len, std::string&amp; sourcePath, <span class="keywordtype">int</span> timeout);
+<a name="l00055"></a>00055     };
+<a name="l00056"></a>00056 
+<a name="l00057"></a>00057 } <span class="comment">// namespace NET</span>
+<a name="l00058"></a>00058 
+<a name="l00059"></a>00059 <span class="preprocessor">#endif // NET_UnixDatagramSocket_h__</span>
 </pre></div></div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Tue Nov 24 19:05:55 2009 for simple-socket library by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Sat Dec 12 12:32:57 2009 for simple-socket library by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.9 </small></address>
 </body>

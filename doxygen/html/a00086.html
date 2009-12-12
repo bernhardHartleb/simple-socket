@@ -26,47 +26,17 @@
   </div>
 </div>
 <div class="contents">
-<h1>NET::UDPSocket Member List</h1>This is the complete list of members for <a class="el" href="a00010.html">NET::UDPSocket</a>, including all inherited members.<p><table>
-  <tr class="memlist"><td><a class="el" href="a00004.html#02046392ba4e5810f7dc900686ac9a93">bind</a>(unsigned short localPort=0)</td><td><a class="el" href="a00004.html">NET::InternetSocket</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="a00004.html#654c6a5f7076415a14497a4914a455ae">bind</a>(const std::string &amp;localAddress, unsigned short localPort=0)</td><td><a class="el" href="a00004.html">NET::InternetSocket</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="a00004.html#e7bd4ffd89a708f663de1ca1c24125f8">connect</a>(const std::string &amp;foreignAddress, unsigned short foreignPort)</td><td><a class="el" href="a00004.html">NET::InternetSocket</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="a00006.html#1df69f02e0fb8d41b7245eab8f388766a5ab4632f7b9c25e45f196e38858b280">DATAGRAM</a> enum value</td><td><a class="el" href="a00006.html">NET::SimpleSocket</a></td><td><code> [protected]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="a00006.html#107f5074fd3f153ce0c1d2329c755d8f">disconnect</a>()</td><td><a class="el" href="a00006.html">NET::SimpleSocket</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="a00004.html#8256bca00fdb76dcea545602c2393ae5">fillAddress</a>(const std::string &amp;address, unsigned short port, sockaddr_in &amp;addr)</td><td><a class="el" href="a00004.html">NET::InternetSocket</a></td><td><code> [protected, static]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="a00004.html#be5c2072d6a582429f8b5e815cda322a">getForeignAddress</a>() const </td><td><a class="el" href="a00004.html">NET::InternetSocket</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="a00004.html#775f9548ca0efa8cd5b00563a5a2cedf">getForeignPort</a>() const </td><td><a class="el" href="a00004.html">NET::InternetSocket</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="a00004.html#048cffe75ff024d0a76a6854cee4569a">getLocalAddress</a>() const </td><td><a class="el" href="a00004.html">NET::InternetSocket</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="a00004.html#956f85b29a3c4143b59d4bef20ceeb47">getLocalPort</a>() const </td><td><a class="el" href="a00004.html">NET::InternetSocket</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="a00006.html#b11d6b3a1178f13df1aa14797dcfdf94aaaaca35218a895fec8aa966baf5206f">INTERNET</a> enum value</td><td><a class="el" href="a00006.html">NET::SimpleSocket</a></td><td><code> [protected]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="a00004.html#720690007444358deac8d21a7f1a82bd">InternetSocket</a>(int sockfd)</td><td><a class="el" href="a00004.html">NET::InternetSocket</a></td><td><code> [protected]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="a00004.html#45bbf6a0d6d772f25d7febda49afe7df">InternetSocket</a>(int type, int protocol)</td><td><a class="el" href="a00004.html">NET::InternetSocket</a></td><td><code> [protected]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="a00010.html#c6cdb609f7f9579384129042f90cd220">joinGroup</a>(const std::string &amp;multicastGroup)</td><td><a class="el" href="a00010.html">NET::UDPSocket</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="a00010.html#d5f835c48b840e30b471e19d7c3cc2aa">leaveGroup</a>(const std::string &amp;multicastGroup)</td><td><a class="el" href="a00010.html">NET::UDPSocket</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="a00006.html#9c07dffe5a98a2700dc4cb1d6e7a30fa">m_peerDisconnected</a></td><td><a class="el" href="a00006.html">NET::SimpleSocket</a></td><td><code> [protected]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="a00006.html#721049909aca828a6dd9ee7868897d7c">m_socket</a></td><td><a class="el" href="a00006.html">NET::SimpleSocket</a></td><td><code> [protected]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="a00006.html#0fab04b047335c35b831885da2826f41">peerDisconnected</a>() const </td><td><a class="el" href="a00006.html">NET::SimpleSocket</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="a00006.html#b89a477e571a47efd9ec39089aeebf56">receive</a>(void *buffer, size_t len)</td><td><a class="el" href="a00006.html">NET::SimpleSocket</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="a00010.html#358b18cc6bdc794eb33dd0df9ccb495b">receiveFrom</a>(void *buffer, size_t len, std::string &amp;sourceAddress, unsigned short &amp;sourcePort)</td><td><a class="el" href="a00010.html">NET::UDPSocket</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="a00006.html#6e3ec021c1ae9ea1e1d0aaa0129e7c50">send</a>(const void *buffer, size_t len)</td><td><a class="el" href="a00006.html">NET::SimpleSocket</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="a00010.html#b774d737c1bf9269d7aee79bd18f710a">sendTo</a>(const void *buffer, size_t bufferLen, const std::string &amp;foreignAddress, unsigned short foreignPort)</td><td><a class="el" href="a00010.html">NET::UDPSocket</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="a00010.html#4dcfff33b45d1b84b5a602fc6f4a27f8">setMulticastTTL</a>(unsigned char multicastTTL)</td><td><a class="el" href="a00010.html">NET::UDPSocket</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="a00006.html#5b5500498eeb1292eea3c5dc4e531d19">shutdown</a>(ShutdownDirection type)</td><td><a class="el" href="a00006.html">NET::SimpleSocket</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="a00006.html#b2d98f9c05fb0c016782269d6c053db9">ShutdownDirection</a> enum name</td><td><a class="el" href="a00006.html">NET::SimpleSocket</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="a00006.html#889ecbd4628d84380bb95fc2e58a92ba">SimpleSocket</a>(int sockfd)</td><td><a class="el" href="a00006.html">NET::SimpleSocket</a></td><td><code> [protected]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="a00006.html#7059c7c1be8f34d7034ddacf8a6bb9a4">SimpleSocket</a>(int domain, int type, int protocol)</td><td><a class="el" href="a00006.html">NET::SimpleSocket</a></td><td><code> [protected]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="a00006.html#b11d6b3a1178f13df1aa14797dcfdf94">SocketDomain</a> enum name</td><td><a class="el" href="a00006.html">NET::SimpleSocket</a></td><td><code> [protected]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="a00006.html#1df69f02e0fb8d41b7245eab8f388766">SocketType</a> enum name</td><td><a class="el" href="a00006.html">NET::SimpleSocket</a></td><td><code> [protected]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="a00006.html#b2d98f9c05fb0c016782269d6c053db992c5b6b1319adf4f8eec96da6fa4e8b0">STOP_BOTH</a> enum value</td><td><a class="el" href="a00006.html">NET::SimpleSocket</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="a00006.html#b2d98f9c05fb0c016782269d6c053db98cc7b3f7c09884085e7bd7f14a996f07">STOP_RECEIVE</a> enum value</td><td><a class="el" href="a00006.html">NET::SimpleSocket</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="a00006.html#b2d98f9c05fb0c016782269d6c053db98efb8dcfe05bb52129f436538b77bc1c">STOP_SEND</a> enum value</td><td><a class="el" href="a00006.html">NET::SimpleSocket</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="a00006.html#1df69f02e0fb8d41b7245eab8f3887662c01e1364295bb84e3e322f543242e00">STREAM</a> enum value</td><td><a class="el" href="a00006.html">NET::SimpleSocket</a></td><td><code> [protected]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="a00006.html#0c14e0e6413cf606d52ab7d606a175f8">timedReceive</a>(void *buffer, size_t len, int timeout)</td><td><a class="el" href="a00006.html">NET::SimpleSocket</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="a00010.html#1be4253434f78c9e227719c80c8074ef">timedReceiveFrom</a>(void *buffer, size_t len, std::string &amp;sourceAddress, unsigned short &amp;sourcePort, int timeout)</td><td><a class="el" href="a00010.html">NET::UDPSocket</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="a00010.html#4f86f3023f5a08f6355802599a10e100">UDPSocket</a>()</td><td><a class="el" href="a00010.html">NET::UDPSocket</a></td><td></td></tr>
-  <tr class="memlist"><td><a class="el" href="a00006.html#b11d6b3a1178f13df1aa14797dcfdf94e4fe659735670ad77f75783e455a435e">UNIX</a> enum value</td><td><a class="el" href="a00006.html">NET::SimpleSocket</a></td><td><code> [protected]</code></td></tr>
-  <tr class="memlist"><td><a class="el" href="a00006.html#bf7d41536d2ecf56de1364d36db5fd67">~SimpleSocket</a>()</td><td><a class="el" href="a00006.html">NET::SimpleSocket</a></td><td></td></tr>
+<h1>NET::SocketHandle&lt; Socket &gt; Member List</h1>This is the complete list of members for <a class="el" href="a00008.html">NET::SocketHandle&lt; Socket &gt;</a>, including all inherited members.<p><table>
+  <tr class="memlist"><td><a class="el" href="a00008.html#7854681c3e9901cbcfe9c325ca009453">operator bool</a>() const </td><td><a class="el" href="a00008.html">NET::SocketHandle&lt; Socket &gt;</a></td><td><code> [inline]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="a00008.html#ef03ae542fd0ae2336c4231956a3ba0b">operator=</a>(SocketHandle &amp;other)</td><td><a class="el" href="a00008.html">NET::SocketHandle&lt; Socket &gt;</a></td><td><code> [inline]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="a00008.html#91de491f7eb2704550d11edb1c449793">SCTPSocket</a> class</td><td><a class="el" href="a00008.html">NET::SocketHandle&lt; Socket &gt;</a></td><td><code> [friend]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="a00008.html#4a02af70ce82c2a6752347af0c869028">socket_type</a> typedef</td><td><a class="el" href="a00008.html">NET::SocketHandle&lt; Socket &gt;</a></td><td></td></tr>
+  <tr class="memlist"><td><a class="el" href="a00008.html#79b477b6ef9b552cc1e037403ec7f4f9">SocketHandle</a>()</td><td><a class="el" href="a00008.html">NET::SocketHandle&lt; Socket &gt;</a></td><td><code> [inline]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="a00008.html#4aab598df9764db4e4dad6d09a86a634">SocketHandle</a>(SocketHandle &amp;other)</td><td><a class="el" href="a00008.html">NET::SocketHandle&lt; Socket &gt;</a></td><td><code> [inline]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="a00008.html#e392721345f444f04761959f689c8ecb">TCPSocket</a> class</td><td><a class="el" href="a00008.html">NET::SocketHandle&lt; Socket &gt;</a></td><td><code> [friend]</code></td></tr>
+  <tr class="memlist"><td><a class="el" href="a00008.html#95cde950506962fef1cc5e731230a85d">~SocketHandle</a>()</td><td><a class="el" href="a00008.html">NET::SocketHandle&lt; Socket &gt;</a></td><td><code> [inline]</code></td></tr>
 </table></div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Tue Nov 24 19:05:57 2009 for simple-socket library by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Sat Dec 12 12:32:59 2009 for simple-socket library by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.9 </small></address>
 </body>

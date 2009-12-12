@@ -24,7 +24,7 @@
       <li><a href="functions.html"><span>Class&nbsp;Members</span></a></li>
     </ul>
   </div>
-  <div class="navpath"><a class="el" href="a00038.html">NET</a>::<a class="el" href="a00005.html">SCTPSocket</a>
+  <div class="navpath"><a class="el" href="a00039.html">NET</a>::<a class="el" href="a00005.html">SCTPSocket</a>
   </div>
 </div>
 <div class="contents">
@@ -35,7 +35,7 @@
 <p>
 
 <p>
-<a href="a00081.html">List of all members.</a><table border="0" cellpadding="0" cellspacing="0">
+<a href="a00083.html">List of all members.</a><table border="0" cellpadding="0" cellspacing="0">
 <tr><td></td></tr>
 <tr><td colspan="2"><br><h2>Public Types</h2></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">enum &nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00005.html#5cacc0e36b9370338ae04154d18da02a">abortFlag</a> { <a class="el" href="a00005.html#5cacc0e36b9370338ae04154d18da02abe00ed9e5acf6e938926cc0cf8d8b072">ABORT</a> =  SCTP_ABORT, 
@@ -99,7 +99,7 @@
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">std::string&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00005.html#da6a29ce4817c4b78c207056a1835ab3">primaryAddress</a> () const </td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#b89a477e571a47efd9ec39089aeebf56">receive</a> (void *buffer, size_t len)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#b89a477e571a47efd9ec39089aeebf56">receive</a> (void *buffer, size_t <a class="el" href="a00034.html#7c713e7a33273338003a7b605eec0538">len</a>)</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">receive data from a bound socket  <a href="#b89a477e571a47efd9ec39089aeebf56"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00005.html#3b61785b97c8f39fb5df86f83bc3b7b2">receive</a> (void *data, int maxLen, unsigned &amp;stream, <a class="el" href="a00005.html#abb7de5b5f3553d114ba6b4380046b56">receiveFlag</a> &amp;flag)</td></tr>
@@ -110,7 +110,7 @@
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top">&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00005.html#872e7ae9681110699854c1dbbd4d5486">SCTPSocket</a> (unsigned numOutStreams=10, unsigned maxInStreams=65535, unsigned maxAttempts=4, unsigned maxInitTimeout=0)</td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#6e3ec021c1ae9ea1e1d0aaa0129e7c50">send</a> (const void *buffer, size_t len)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#6e3ec021c1ae9ea1e1d0aaa0129e7c50">send</a> (const void *buffer, size_t <a class="el" href="a00034.html#7c713e7a33273338003a7b605eec0538">len</a>)</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">send data through a connected socket  <a href="#6e3ec021c1ae9ea1e1d0aaa0129e7c50"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00005.html#2b5c47090d62f8edbf8e8a05f5d275b2">send</a> (const void *data, int length, unsigned stream, unsigned ttl=0, unsigned context=0, unsigned ppid=0, <a class="el" href="a00005.html#5cacc0e36b9370338ae04154d18da02a">abortFlag</a> abort=KEEPALIVE, <a class="el" href="a00005.html#8e19511f74b30615a3acd79b378141f9">switchAddressFlag</a> switchAddr=KEEP_PRIMARY)</td></tr>
@@ -124,7 +124,7 @@
 
 <tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="a00008.html">Handle</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00005.html#b3ac8ecd265c1686024a708da3dbc80f">timedAccept</a> (unsigned timeout) const </td></tr>
 
-<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#0c14e0e6413cf606d52ab7d606a175f8">timedReceive</a> (void *buffer, size_t len, int timeout)</td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00006.html#0c14e0e6413cf606d52ab7d606a175f8">timedReceive</a> (void *buffer, size_t <a class="el" href="a00034.html#7c713e7a33273338003a7b605eec0538">len</a>, int timeout)</td></tr>
 
 <tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">receive data from a bound socket, return after the given timespan  <a href="#0c14e0e6413cf606d52ab7d606a175f8"></a><br></td></tr>
 <tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="a00005.html#9fa0d7d70c78e53b14d6f914e44eabb0">timedReceive</a> (void *data, int maxLen, unsigned &amp;stream, <a class="el" href="a00005.html#abb7de5b5f3553d114ba6b4380046b56">receiveFlag</a> &amp;flag, unsigned timeout)</td></tr>
@@ -1058,7 +1058,7 @@ If you are using a connection oriented socket (like <a class="el" href="a00009.h
   </table>
 </dl>
 <dl compact><dt><b>Examples: </b></dt><dd>
-<a class="el" href="a00002.html#a2">TCP_Client.cpp</a>, and <a class="el" href="a00003.html#a7">UDP_Multicast.cpp</a>.</dl>
+<a class="el" href="a00002.html#a3">TCP_Client.cpp</a>, and <a class="el" href="a00003.html#a10">UDP_Multicast.cpp</a>.</dl>
 <p>Definition at line <a class="el" href="a00015_source.html#l00019">19</a> of file <a class="el" href="a00015_source.html">InternetSocket.cpp</a>.</p>
 
 </div>
@@ -1081,7 +1081,7 @@ If you are using a connection oriented socket (like <a class="el" href="a00009.h
 
 <p>
 This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. Instead of the richer function with more arguments, this <a class="el" href="a00004.html#02046392ba4e5810f7dc900686ac9a93">bind()</a> binds to any available interface / address <dl compact><dt><b>Examples: </b></dt><dd>
-<a class="el" href="a00001.html#a2">TCP_Server.cpp</a>, and <a class="el" href="a00003.html#a2">UDP_Multicast.cpp</a>.</dl>
+<a class="el" href="a00001.html#a3">TCP_Server.cpp</a>, and <a class="el" href="a00003.html#a5">UDP_Multicast.cpp</a>.</dl>
 <p>Definition at line <a class="el" href="a00015_source.html#l00028">28</a> of file <a class="el" href="a00015_source.html">InternetSocket.cpp</a>.</p>
 
 </div>
@@ -1335,7 +1335,7 @@ If you are using a datagram oriented socket (like <a class="el" href="a00010.htm
   </table>
 </dl>
 <dl compact><dt><b>Examples: </b></dt><dd>
-<a class="el" href="a00001.html#a6">TCP_Server.cpp</a>, and <a class="el" href="a00003.html#a8">UDP_Multicast.cpp</a>.</dl>
+<a class="el" href="a00001.html#a7">TCP_Server.cpp</a>, and <a class="el" href="a00003.html#a11">UDP_Multicast.cpp</a>.</dl>
 <p>Definition at line <a class="el" href="a00020_source.html#l00043">43</a> of file <a class="el" href="a00020_source.html">SimpleSocket.cpp</a>.</p>
 
 </div>
@@ -1385,7 +1385,7 @@ If the remote host has closed the connection (on a connection based socket like 
   </table>
 </dl>
 <dl compact><dt><b>Examples: </b></dt><dd>
-<a class="el" href="a00003.html#a9">UDP_Multicast.cpp</a>.</dl>
+<a class="el" href="a00003.html#a12">UDP_Multicast.cpp</a>.</dl>
 <p>Definition at line <a class="el" href="a00020_source.html#l00061">61</a> of file <a class="el" href="a00020_source.html">SimpleSocket.cpp</a>.</p>
 
 </div>
@@ -1442,7 +1442,7 @@ If the remote host has closed the connection (on a connection based socket like 
   </table>
 </dl>
 <dl compact><dt><b>Examples: </b></dt><dd>
-<a class="el" href="a00002.html#a3">TCP_Client.cpp</a>.</dl>
+<a class="el" href="a00002.html#a4">TCP_Client.cpp</a>.</dl>
 <p>Definition at line <a class="el" href="a00020_source.html#l00068">68</a> of file <a class="el" href="a00020_source.html">SimpleSocket.cpp</a>.</p>
 
 </div>
@@ -1469,7 +1469,7 @@ Disconnect and unset any foreign addresses <dl compact><dt><b>Exceptions:</b></d
   </table>
 </dl>
 <dl compact><dt><b>Examples: </b></dt><dd>
-<a class="el" href="a00002.html#a4">TCP_Client.cpp</a>, and <a class="el" href="a00001.html#a8">TCP_Server.cpp</a>.</dl>
+<a class="el" href="a00002.html#a5">TCP_Client.cpp</a>, and <a class="el" href="a00001.html#a9">TCP_Server.cpp</a>.</dl>
 <p>Definition at line <a class="el" href="a00020_source.html#l00088">88</a> of file <a class="el" href="a00020_source.html">SimpleSocket.cpp</a>.</p>
 
 </div>
@@ -1531,7 +1531,7 @@ returns whether a peer disconnected
 Will only work if you use a connection oriented, connected socket. Returns true if the peer disconnected. Use this function after a call to receive, returned 0 received bytes.<p>
 <dl class="return" compact><dt><b>Returns:</b></dt><dd>true if a peer disconnected </dd></dl>
 <dl compact><dt><b>Examples: </b></dt><dd>
-<a class="el" href="a00001.html#a7">TCP_Server.cpp</a>.</dl>
+<a class="el" href="a00001.html#a8">TCP_Server.cpp</a>.</dl>
 <p>Definition at line <a class="el" href="a00020_source.html#l00107">107</a> of file <a class="el" href="a00020_source.html">SimpleSocket.cpp</a>.</p>
 
 </div>
@@ -1574,7 +1574,7 @@ Will only work if you use a connection oriented, connected socket. Returns true 
 <hr>The documentation for this class was generated from the following files:<ul>
 <li><a class="el" href="a00019_source.html">SCTPSocket.h</a><li><a class="el" href="a00018_source.html">SCTPSocket.cpp</a></ul>
 </div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Tue Nov 24 19:05:57 2009 for simple-socket library by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Sat Dec 12 12:32:59 2009 for simple-socket library by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.9 </small></address>
 </body>
