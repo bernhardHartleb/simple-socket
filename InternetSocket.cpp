@@ -23,6 +23,8 @@ void InternetSocket::connect( const std::string& foreignAddress, unsigned short 
 
 	if( ::connect( m_socket, (sockaddr*) &addr, sizeof(addr)) < 0)
 		throw SocketException("Connect failed (connect)");
+
+	m_peerDisconnected = false;
 }
 
 void InternetSocket::bind( unsigned short localPort /* = 0 */)

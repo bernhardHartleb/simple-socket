@@ -95,6 +95,8 @@ void SimpleSocket::disconnect()
 	{
 		if( errno != ECONNRESET)
 			throw SocketException("Disconnect failed (connect)");
+
+		m_peerDisconnected = false;
 	}
 }
 

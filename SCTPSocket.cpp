@@ -45,6 +45,8 @@ int SCTPSocket::connect( const std::vector<std::string>& foreignAddresses, unsig
 	int ret = sctp_connectx( m_socket, reinterpret_cast<sockaddr*>(dest.data()), size);
 	if(ret < 0)
 		throw SocketException("Connect failed (sctp_connectx)");
+
+	m_peerDisconnected = false;
 	return ret;
 }
 
