@@ -1,6 +1,5 @@
 General:
 - implement a Unix stream socket
-- handle peerDisconnected correctly
 
 UnixSockets:
 - do more checks on socket paths
