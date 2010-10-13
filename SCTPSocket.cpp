@@ -42,7 +42,8 @@ int SCTPSocket::connect( const std::vector<std::string>& foreignAddresses, unsig
 	for( size_t i = 0; i < size; ++i)
 		fillAddress( foreignAddresses[i], foreignPort, dest[i]);
 
-	int ret = sctp_connectx( m_socket, reinterpret_cast<sockaddr*>(dest.data()), size);
+	// TODO maybe save connection id for later use
+	int ret = sctp_connectx( m_socket, reinterpret_cast<sockaddr*>(dest.data()), size, 0);
 	if(ret < 0)
 		throw SocketException("Connect failed (sctp_connectx)");
 
