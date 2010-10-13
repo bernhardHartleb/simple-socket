@@ -72,6 +72,15 @@ namespace NET
 			return *this;
 		}
 
+		//! \cond internal
+		SocketHandle&
+		operator=( SocketHandle_Ref<Socket> other)
+		{
+			reset( other.sockfd);
+			return *this;
+		}
+		//! \endcond
+
 		~SocketHandle() { reset(); }
 
 		//! returns whether the socket handle is valid

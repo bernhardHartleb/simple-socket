@@ -37,7 +37,8 @@ public:
 		server_socket->listen();
 		client_socket->connect( "127.0.0.1", 47777);
 
-		NET::TCPSocket::Handle tmp_handle = server_socket->accept();
+		NET::TCPSocket::Handle tmp_handle;
+		tmp_handle = server_socket->accept();
 		NET::TCPSocket::Handle handle;
 		NET::TCPSocket::Handle& ref_handle = handle;
 		handle = ref_handle;

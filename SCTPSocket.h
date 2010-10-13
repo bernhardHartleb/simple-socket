@@ -1,7 +1,7 @@
 #ifndef NET_SCTPSocket_h__
 #define NET_SCTPSocket_h__
 
-#include "Handle.h"
+#include "SocketHandle.h"
 #include "InternetSocket.h"
 
 #include <netinet/in.h>

@@ -1,7 +1,7 @@
 #ifndef NET_TCPSocket_h__
 #define NET_TCPSocket_h__
 
-#include "Handle.h"
+#include "SocketHandle.h"
 #include "InternetSocket.h"
 
 namespace NET
