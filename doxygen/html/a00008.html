@@ -31,7 +31,7 @@
 <h1>NET::SocketHandle&lt; Socket &gt; Class Template Reference</h1><!-- doxytag: class="NET::SocketHandle" -->A simple class to provide strict ownership of socket handles.  
 <a href="#_details">More...</a>
 <p>
-<code>#include &lt;<a class="el" href="a00014_source.html">Handle.h</a>&gt;</code>
+<code>#include &lt;<a class="el" href="a00021_source.html">SocketHandle.h</a>&gt;</code>
 <p>
 
 <p>
@@ -82,7 +82,7 @@ Usage example: <div class="fragment"><pre class="fragment"> <span class="comment
 
 <p>
 <a class="el" href="a00001.html#_a5">TCP_Server.cpp</a>.</dl>
-<p>Definition at line <a class="el" href="a00014_source.html#l00043">43</a> of file <a class="el" href="a00014_source.html">Handle.h</a>.</p>
+<p>Definition at line <a class="el" href="a00021_source.html#l00043">43</a> of file <a class="el" href="a00021_source.html">SocketHandle.h</a>.</p>
 <hr><h2>Member Typedef Documentation</h2>
 <a class="anchor" name="4a02af70ce82c2a6752347af0c869028"></a><!-- doxytag: member="NET::SocketHandle::socket_type" ref="4a02af70ce82c2a6752347af0c869028" args="" -->
 <div class="memitem">
@@ -101,7 +101,7 @@ template&lt;class Socket &gt; </div>
 socket type that was provided as template argument 
 <p>
 
-<p>Definition at line <a class="el" href="a00014_source.html#l00050">50</a> of file <a class="el" href="a00014_source.html">Handle.h</a>.</p>
+<p>Definition at line <a class="el" href="a00021_source.html#l00050">50</a> of file <a class="el" href="a00021_source.html">SocketHandle.h</a>.</p>
 
 </div>
 </div><p>
@@ -127,7 +127,7 @@ template&lt;class Socket &gt; </div>
 constructs an invalid socket handle 
 <p>
 
-<p>Definition at line <a class="el" href="a00014_source.html#l00053">53</a> of file <a class="el" href="a00014_source.html">Handle.h</a>.</p>
+<p>Definition at line <a class="el" href="a00021_source.html#l00053">53</a> of file <a class="el" href="a00021_source.html">SocketHandle.h</a>.</p>
 
 </div>
 </div><p>
@@ -153,7 +153,7 @@ template&lt;class Socket &gt; </div>
 copy constructor using move semantics 
 <p>
 
-<p>Definition at line <a class="el" href="a00014_source.html#l00056">56</a> of file <a class="el" href="a00014_source.html">Handle.h</a>.</p>
+<p>Definition at line <a class="el" href="a00021_source.html#l00056">56</a> of file <a class="el" href="a00021_source.html">SocketHandle.h</a>.</p>
 
 </div>
 </div><p>
@@ -176,7 +176,7 @@ template&lt;class Socket &gt; </div>
 
 <p>
 
-<p>Definition at line <a class="el" href="a00014_source.html#l00075">75</a> of file <a class="el" href="a00014_source.html">Handle.h</a>.</p>
+<p>Definition at line <a class="el" href="a00021_source.html#l00084">84</a> of file <a class="el" href="a00021_source.html">SocketHandle.h</a>.</p>
 
 </div>
 </div><p>
@@ -201,7 +201,7 @@ template&lt;class Socket &gt; </div>
 
 <p>
 assignment operator using move semantics 
-<p>Definition at line <a class="el" href="a00014_source.html#l00069">69</a> of file <a class="el" href="a00014_source.html">Handle.h</a>.</p>
+<p>Definition at line <a class="el" href="a00021_source.html#l00069">69</a> of file <a class="el" href="a00021_source.html">SocketHandle.h</a>.</p>
 
 </div>
 </div><p>
@@ -226,7 +226,7 @@ template&lt;class Socket &gt; </div>
 returns whether the socket handle is valid 
 <p>
 Checks whether a socket can be constructed from the handle or not. If accept() returned an invalid handle (e.g. timed out timedAccept() call) this should be used to verify the handle. Trying to construct a socket from an invalid handle will raise a <a class="el" href="a00007.html" title="Signals a problem with the execution of a socket call.">SocketException</a>. 
-<p>Definition at line <a class="el" href="a00014_source.html#l00084">84</a> of file <a class="el" href="a00014_source.html">Handle.h</a>.</p>
+<p>Definition at line <a class="el" href="a00021_source.html#l00093">93</a> of file <a class="el" href="a00021_source.html">SocketHandle.h</a>.</p>
 
 </div>
 </div><p>
@@ -246,7 +246,7 @@ template&lt;class Socket &gt; </div>
 
 <p>
 
-<p>Definition at line <a class="el" href="a00014_source.html#l00046">46</a> of file <a class="el" href="a00014_source.html">Handle.h</a>.</p>
+<p>Definition at line <a class="el" href="a00021_source.html#l00046">46</a> of file <a class="el" href="a00021_source.html">SocketHandle.h</a>.</p>
 
 </div>
 </div><p>
@@ -265,14 +265,14 @@ template&lt;class Socket &gt; </div>
 
 <p>
 
-<p>Definition at line <a class="el" href="a00014_source.html#l00047">47</a> of file <a class="el" href="a00014_source.html">Handle.h</a>.</p>
+<p>Definition at line <a class="el" href="a00021_source.html#l00047">47</a> of file <a class="el" href="a00021_source.html">SocketHandle.h</a>.</p>
 
 </div>
 </div><p>
 <hr>The documentation for this class was generated from the following file:<ul>
-<li><a class="el" href="a00014_source.html">Handle.h</a></ul>
+<li><a class="el" href="a00021_source.html">SocketHandle.h</a></ul>
 </div>
-<hr size="1"><address style="text-align: right;"><small>Generated on Sat Apr 24 13:51:22 2010 for simple-socket library by&nbsp;
+<hr size="1"><address style="text-align: right;"><small>Generated on Wed Oct 13 23:58:24 2010 for simple-socket library by&nbsp;
 <a href="http://www.doxygen.org/index.html">
 <img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.9 </small></address>
 </body>
