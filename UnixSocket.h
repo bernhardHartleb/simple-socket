@@ -39,16 +39,19 @@ namespace NET
 		 */
 		std::string getForeignPath() const;
 
-		/*!
-		 * Check the given path for size and other constraints
-		 * \param path the path to check
-		 * \return true if path is valid, false otherwise
-		 */
-		static bool isValidPath( const std::string& path);
-
 	protected:
 		//! allows a subclass to create new socket
 		UnixSocket( int type, int protocol);
+
+		/*!
+		 * Fill an address structure with the given path.
+		 * If the given path is not valid addr will be unchanged.
+		 *
+		 * \param path path to unix domain socket
+		 * \param addr address structure to fill
+		 * \exception SocketException thrown if path is not valid
+		 */
+		static void fillAddress( const std::string& path, sockaddr_un& addr);
 
 		//! extracts a path string from the socket address structure
 		static std::string extractPath( const sockaddr_un& addr, socklen_t len);

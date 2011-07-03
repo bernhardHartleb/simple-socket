@@ -12,12 +12,8 @@ UnixSocket::UnixSocket( int type, int protocol)
 
 void UnixSocket::connect( const std::string& foreignPath)
 {
-	if( !isValidPath(foreignPath) )
-		throw SocketException("foreignPath is too big", false);
-
 	sockaddr_un addr;
-	addr.sun_family = AF_LOCAL;
-	std::strcpy( addr.sun_path, foreignPath.c_str());
+	fillAddress( foreignPath, addr);
 
 	if( ::connect( m_socket, (sockaddr*) &addr, sizeof(addr)) < 0)
 		throw SocketException("Connect failed (connect)");
@@ -25,12 +21,8 @@ void UnixSocket::connect( const std::string& foreignPath)
 
 void UnixSocket::bind( const std::string& localPath)
 {
-	if( !isValidPath(localPath) )
-		throw SocketException("localPath is too big", false);
-
 	sockaddr_un addr;
-	addr.sun_family = AF_LOCAL;
-	std::strcpy( addr.sun_path, localPath.c_str());
+	fillAddress( localPath, addr);
 	::unlink( addr.sun_path);
 
 	if( ::bind( m_socket, (sockaddr*) &addr, sizeof(addr)) < 0)
@@ -59,10 +51,14 @@ std::string UnixSocket::getForeignPath() const
 	return extractPath( addr, addr_len);
 }
 
-bool UnixSocket::isValidPath( const std::string& path)
+void UnixSocket::fillAddress( const std::string& path, sockaddr_un& addr)
 {
-	if( path.size() >= 104) return false;
-	else return true;
+	// needed space is size plus null character
+	if( path.size() >= sizeof(sockaddr_un::sun_path))
+		throw SocketException("Path to socket file is too long", false);
+
+	addr.sun_family = AF_LOCAL;
+	std::strcpy( addr.sun_path, path.c_str());
 }
 
 std::string UnixSocket::extractPath( const sockaddr_un& addr, socklen_t len)
