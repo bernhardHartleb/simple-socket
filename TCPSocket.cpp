@@ -51,7 +51,7 @@ TCPSocket::Handle TCPSocket::timedAccept( int timeout) const
 
 	int ret = TEMP_FAILURE_RETRY (::poll( &poll, 1, timeout));
 
-	if( ret == 0) return Handle(0);
+	if( ret == 0) return Handle();
 	if( ret < 0) throw SocketException("Poll failed (receive)");
 
 	ret = ::accept( m_socket, 0, 0);

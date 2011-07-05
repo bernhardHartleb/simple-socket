@@ -217,7 +217,7 @@ SCTPSocket::Handle SCTPSocket::timedAccept( unsigned timeout) const
 
 	int ret = TEMP_FAILURE_RETRY (::poll( &poll, 1, timeout));
 
-	if( ret == 0) return Handle(0);
+	if( ret == 0) return Handle();
 	if( ret < 0) throw SocketException("SCTPSocket::timedAccept failed (poll)");
 
 	ret = ::accept( m_socket, 0, 0);

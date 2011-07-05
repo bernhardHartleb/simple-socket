@@ -50,7 +50,7 @@ namespace NET
 		typedef Socket socket_type;
 
 		//! constructs an invalid socket handle
-		SocketHandle() : m_sockfd(0) {}
+		SocketHandle() : m_sockfd(-1) {}
 
 		//! copy constructor using move semantics
 		SocketHandle( SocketHandle& other)
@@ -90,7 +90,7 @@ namespace NET
 		 * call) this should be used to verify the handle. Trying to construct
 		 * a socket from an invalid handle will raise a SocketException.
 		 */
-		operator bool() const { return m_sockfd > 0; }
+		operator bool() const { return m_sockfd >= 0; }
 
 	private:
 		//! constructor for sockets using this handle
@@ -103,7 +103,7 @@ namespace NET
 		int release()
 		{
 			int tmp = m_sockfd;
-			m_sockfd = 0;
+			m_sockfd = -1;
 			return tmp;
 		}
 
@@ -112,7 +112,7 @@ namespace NET
 		 * If the new file descriptor differs from the old one,
 		 * the previously held socket descriptor is closed.
 		 */
-		void reset( int fd = 0)
+		void reset( int fd = -1)
 		{
 			if( fd != m_sockfd)
 			{

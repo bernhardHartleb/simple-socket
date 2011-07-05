@@ -1,6 +1,9 @@
-- Fixed evaluation of certain return values
+1.1.5
+~~~~~
+- Fixed evaluation and usage of invalid socket handles
   Thanks to Rimack Zelnick <rick.mack@ig.com.br> for reporting
-- fixed copy & paste error in the build files
+- Unify handling of unix socket paths
+- Fixed copy & paste error in the build files
 
 1.1.4
 ~~~~~
@@ -9,7 +12,7 @@
 
 1.1.3
 ~~~~~
-- fix resetting of the peerDisconnected flag
+- Fix resetting of the peerDisconnected flag
 
 1.1.2
 ~~~~~
