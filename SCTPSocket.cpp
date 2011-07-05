@@ -137,7 +137,7 @@ int SCTPSocket::receive( void* data, int maxLen, unsigned& stream)
 {
 	struct sctp_sndrcvinfo info;
 	int ret;
-	if( (ret = sctp_recvmsg( m_socket, data, maxLen, 0, 0, &info, 0)) <= 0)
+	if( (ret = sctp_recvmsg( m_socket, data, maxLen, 0, 0, &info, 0)) < 0)
 		throw SocketException("SCTPSocket::receive failed (sctp_recvmsg)");
 	stream = info.sinfo_stream;
 	return ret;
@@ -147,7 +147,7 @@ int SCTPSocket::receive( void* data, int maxLen, unsigned& stream, receiveFlag& 
 {
 	struct sctp_sndrcvinfo info;
 	int ret;
-	if( (ret = sctp_recvmsg( m_socket, data, maxLen, 0, 0, &info, 0)) <= 0)
+	if( (ret = sctp_recvmsg( m_socket, data, maxLen, 0, 0, &info, 0)) < 0)
 		throw SocketException("SCTPSocket::receive failed (sctp_recvmsg)");
 	stream = info.sinfo_stream;
 	flag = static_cast<receiveFlag>(info.sinfo_flags);
@@ -204,7 +204,7 @@ void SCTPSocket::listen( int backlog /* = 5 */)
 SCTPSocket::Handle SCTPSocket::accept() const
 {
 	int ret = ::accept( m_socket, 0, 0);
-	if( ret <= 0)
+	if( ret < 0)
 		throw SocketException("SCTPSocket::accept failed (accept)");
 	return Handle(ret);
 }
@@ -221,7 +221,7 @@ SCTPSocket::Handle SCTPSocket::timedAccept( unsigned timeout) const
 	if( ret < 0) throw SocketException("SCTPSocket::timedAccept failed (poll)");
 
 	ret = ::accept( m_socket, 0, 0);
-	if( ret <= 0)
+	if( ret < 0)
 		throw SocketException("SCTPSocket::timedAccept failed (accept)");
 	return Handle(ret);
 }

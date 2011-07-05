@@ -2,15 +2,15 @@ include_directories( ${CMAKE_SOURCE_DIR} )
 
 message("Building examples:")
 
-set(tests
+set(examples
 	TCP_Client
 	TCP_Server
 	UDP_Multicast)
 
-foreach(TB ${tests})
+foreach(EX ${examples})
 
-	add_executable(${TB} ${TB}.cpp)
-	target_link_libraries(${TB} network)
-	message("* ${TB}")
+	add_executable(${EX} ${EX}.cpp)
+	target_link_libraries(${EX} network)
+	message("* ${EX}")
 
 endforeach()

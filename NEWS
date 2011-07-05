@@ -1,3 +1,7 @@
+- Fixed evaluation of certain return values
+  Thanks to Rimack Zelnick <rick.mack@ig.com.br> for reporting
+- fixed copy & paste error in the build files
+
 1.1.4
 ~~~~~
 - Update SCTPSocket to fit new library interface

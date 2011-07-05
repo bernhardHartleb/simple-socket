@@ -38,7 +38,7 @@ void TCPSocket::listen( int backlog /* = 5 */)
 TCPSocket::Handle TCPSocket::accept() const
 {
 	int ret = ::accept( m_socket, 0, 0);
-	if( ret <= 0)
+	if( ret < 0)
 		throw SocketException("TCPSocket::accept failed");
 	return Handle(ret);
 }
@@ -55,7 +55,7 @@ TCPSocket::Handle TCPSocket::timedAccept( int timeout) const
 	if( ret < 0) throw SocketException("Poll failed (receive)");
 
 	ret = ::accept( m_socket, 0, 0);
-	if( ret <= 0)
+	if( ret < 0)
 		throw SocketException("TCPSocket::timedAccept failed");
 	return Handle(ret);
 }
