@@ -4,7 +4,6 @@
 #include <sys/socket.h>
 #include <sys/un.h>
 #include <poll.h>
-#include <cstring>
 
 using namespace NET;
 
@@ -14,12 +13,8 @@ UnixDatagramSocket::UnixDatagramSocket()
 
 void UnixDatagramSocket::sendTo( const void* buffer, size_t len, const std::string& foreignPath)
 {
-	if( !isValidPath(foreignPath) )
-		throw SocketException("foreignPath is too big", false);
-
 	sockaddr_un destAddr;
-	destAddr.sun_family = AF_LOCAL;
-	std::strcpy( destAddr.sun_path, foreignPath.c_str());
+	fillAddress( foreignPath, destAddr);
 
 	int sent = TEMP_FAILURE_RETRY (::sendto( m_socket, (const raw_type*)buffer, len, 0, (sockaddr*)&destAddr, sizeof(destAddr)));
 
