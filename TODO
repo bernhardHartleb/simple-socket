@@ -1,8 +1,5 @@
-General:
-- implement a Unix stream socket
-
 UnixSockets:
-- do more checks on socket paths
+- implement a unix stream socket
 - allow to unlink created socket files
 
 Dcumentation:
@@ -12,7 +9,7 @@ Dcumentation:
 Testing:
 - check the TCPSocket::sendAll function
 - testcase for SCTP socket
-- test library with other os (BSD, Mac, Windows?)
+- test library with other OS (BSD, Mac, Windows?)
 - test library with other compilers (gcc3, icc, ...)
 
 SCTPSocket:
@@ -23,5 +20,5 @@ SocketUtils:
 - add function to change the name of a network interface
 - time of last received packet (SIOCGSTAMP / SIOCGSTAMPNS)
 - routing table maintenance (SIOCADDRT / SIOCDELRT / SIOCRTMSG)
-- arp table maintenance (SIOCDARP / SIOCGARP / SIOCSARP) [make seperate
-  module/cmake variable for build/not build]
+- arp table maintenance (SIOCDARP / SIOCGARP / SIOCSARP)
+- make seperate module/cmake variable for build/not buid
