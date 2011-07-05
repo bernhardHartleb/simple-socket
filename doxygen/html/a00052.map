@@ -1,17 +1,18 @@
-<area shape="rect" id="node3" href="$a00015.html" title="InternetSocket.h" alt="" coords="305,83,433,112">
-<area shape="rect" id="node23" href="$a00019.html" title="SimpleSocket.cpp" alt="" coords="503,83,639,112">
-<area shape="rect" id="node25" href="$a00022.html" title="SocketUtils.cpp" alt="" coords="663,83,783,112">
-<area shape="rect" id="node27" href="$a00036.html" title="UnixSocket.h" alt="" coords="852,83,959,112">
-<area shape="rect" id="node5" href="$a00014.html" title="InternetSocket.cpp" alt="" coords="20,160,161,189">
-<area shape="rect" id="node7" href="$a00018.html" title="SCTPSocket.h" alt="" coords="185,160,295,189">
-<area shape="rect" id="node11" href="$a00025.html" title="TCPSocket.h" alt="" coords="319,160,420,189">
-<area shape="rect" id="node17" href="$a00030.html" title="UDPSocket.h" alt="" coords="495,160,601,189">
-<area shape="rect" id="node9" href="$a00017.html" title="SCTPSocket.cpp" alt="" coords="5,237,131,267">
-<area shape="rect" id="node13" href="$a00024.html" title="TCPSocket.cpp" alt="" coords="155,237,269,267">
-<area shape="rect" id="node15" href="$a00026.html" title="TCPSocket_TEST.cpp" alt="" coords="293,237,445,267">
-<area shape="rect" id="node19" href="$a00031.html" title="UDPSocket_TEST.cpp" alt="" coords="469,237,627,267">
-<area shape="rect" id="node21" href="$a00029.html" title="UDPSocket.cpp" alt="" coords="651,237,771,267">
-<area shape="rect" id="node29" href="$a00033.html" title="UnixDatagramSocket.h" alt="" coords="820,160,991,189">
-<area shape="rect" id="node35" href="$a00035.html" title="UnixSocket.cpp" alt="" coords="1015,160,1135,189">
-<area shape="rect" id="node31" href="$a00034.html" title="UnixDatagramSocket_TEST.cpp" alt="" coords="795,237,1016,267">
-<area shape="rect" id="node33" href="$a00032.html" title="UnixDatagramSocket.cpp" alt="" coords="1040,237,1227,267">
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$a00015.html" title="InternetSocket.h" alt="" coords="291,83,419,112"/>
+<area shape="rect" id="node21" href="$a00019.html" title="SimpleSocket.cpp" alt="" coords="471,83,607,112"/>
+<area shape="rect" id="node23" href="$a00022.html" title="SocketUtils.cpp" alt="" coords="631,83,751,112"/>
+<area shape="rect" id="node25" href="$a00036.html" title="UnixSocket.h" alt="" coords="803,83,909,112"/>
+<area shape="rect" id="node5" href="$a00014.html" title="InternetSocket.cpp" alt="" coords="5,160,147,189"/>
+<area shape="rect" id="node7" href="$a00018.html" title="SCTPSocket.h" alt="" coords="171,160,280,189"/>
+<area shape="rect" id="node11" href="$a00025.html" title="TCPSocket.h" alt="" coords="304,160,405,189"/>
+<area shape="rect" id="node15" href="$a00030.html" title="UDPSocket.h" alt="" coords="445,160,552,189"/>
+<area shape="rect" id="node9" href="$a00017.html" title="SCTPSocket.cpp" alt="" coords="132,237,257,267"/>
+<area shape="rect" id="node13" href="$a00024.html" title="TCPSocket.cpp" alt="" coords="281,237,396,267"/>
+<area shape="rect" id="node17" href="$a00031.html" title="UDPSocket_TEST.cpp" alt="" coords="420,237,577,267"/>
+<area shape="rect" id="node19" href="$a00029.html" title="UDPSocket.cpp" alt="" coords="601,237,721,267"/>
+<area shape="rect" id="node27" href="$a00033.html" title="UnixDatagramSocket.h" alt="" coords="771,160,941,189"/>
+<area shape="rect" id="node33" href="$a00035.html" title="UnixSocket.cpp" alt="" coords="965,160,1085,189"/>
+<area shape="rect" id="node29" href="$a00034.html" title="UnixDatagramSocket_TEST.cpp" alt="" coords="745,237,967,267"/>
+<area shape="rect" id="node31" href="$a00032.html" title="UnixDatagramSocket.cpp" alt="" coords="991,237,1177,267"/>
+</map>

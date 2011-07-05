@@ -1,0 +1,9 @@
+<map id="G" name="G">
+<area shape="rect" id="node1" href="$a00006.html" title="NET::SimpleSocket" alt="" coords="7,105,148,135"/>
+<area shape="rect" id="node3" href="$a00004.html" title="Internet socket class." alt="" coords="199,72,345,101"/>
+<area shape="rect" id="node11" href="$a00012.html" title="Unix domain socket class." alt="" coords="209,139,335,168"/>
+<area shape="rect" id="node5" href="$a00005.html" title="SCTP socket class." alt="" coords="425,5,556,35"/>
+<area shape="rect" id="node7" href="$a00009.html" title="TCP socket class." alt="" coords="431,59,551,88"/>
+<area shape="rect" id="node9" href="$a00010.html" title="UDP socket class." alt="" coords="428,112,553,141"/>
+<area shape="rect" id="node13" href="$a00011.html" title="Unix datagram socket class." alt="" coords="396,165,585,195"/>
+</map>
