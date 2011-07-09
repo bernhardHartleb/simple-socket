@@ -29,15 +29,15 @@ namespace NET
 		 * Like send(), sendTo() blocks until the message was sent.
 		 *
 		 * \param buffer data to be send
-		 * \param bufferLen number of bytes to write
+		 * \param len number of bytes to write
 		 * \param foreignAddress address (IP address or name) to send to
 		 * \param foreignPort port number to send to
 		 * \exception SocketException thrown if unable to send datagram
 		 */
-		void sendTo( const void* buffer, size_t bufferLen, const std::string& foreignAddress, unsigned short foreignPort);
+		void sendTo( const void* buffer, size_t len, const std::string& foreignAddress, unsigned short foreignPort);
 
 		/*!
-		 * Read read up to bufferLen bytes data from this socket. The given buffer
+		 * Read read up to len bytes data from this socket. The given buffer
 		 * is where the data will be placed.
 		 *
 		 * In order to receive data, the socket has to be bound at least to a specific port.
@@ -53,7 +53,7 @@ namespace NET
 		int receiveFrom( void* buffer, size_t len, std::string& sourceAddress, unsigned short& sourcePort);
 
 		/*!
-		 * Read read up to bufferLen bytes data from this socket. The given
+		 * Read read up to len bytes data from this socket. The given
 		 * buffer is where the data will be placed. If no host has sent a
 		 * datagram before the timeout runs out, the function will return
 		 * without changing the buffer.
