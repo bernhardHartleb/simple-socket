@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 2.6)
 
+# Building of CAN is optional
+option(BUILD_CAN "Add support for the Socket CAN layer." false)
+
 # Building of SCTP is optional
 option(BUILD_SCTP "Add support for the SCTP protocol." false)
 
@@ -22,6 +25,14 @@ if(UNIX)
 		UnixSocket.cpp
 		UnixDatagramSocket.cpp)
 endif(UNIX)
+
+if(BUILD_CAN)
+	set(sources
+		${sources}
+		CANFrame.cpp
+		CANSocket.cpp
+		CANRawSocket.cpp)
+endif(BUILD_CAN)
 
 if(BUILD_SCTP)
 	set(sources

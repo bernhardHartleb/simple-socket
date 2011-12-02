@@ -166,11 +166,13 @@ namespace NET
 		enum SocketDomain
 		{
 			INTERNET = PF_INET,
-			UNIX = PF_LOCAL
+			UNIX = PF_LOCAL,
+			CAN = PF_CAN
 		};
 
 		enum SocketType
 		{
+			RAW = SOCK_RAW,
 			STREAM = SOCK_STREAM,
 			DATAGRAM = SOCK_DGRAM
 		};
