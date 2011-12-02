@@ -37,7 +37,7 @@ namespace NET
 		void sendTo( const void* buffer, size_t len, const std::string& foreignAddress, unsigned short foreignPort);
 
 		/*!
-		 * Read read up to len bytes data from this socket. The given buffer
+		 * Read up to len bytes data from this socket. The given buffer
 		 * is where the data will be placed.
 		 *
 		 * In order to receive data, the socket has to be bound at least to a specific port.
@@ -53,7 +53,7 @@ namespace NET
 		int receiveFrom( void* buffer, size_t len, std::string& sourceAddress, unsigned short& sourcePort);
 
 		/*!
-		 * Read read up to len bytes data from this socket. The given
+		 * Read up to len bytes data from this socket. The given
 		 * buffer is where the data will be placed. If no host has sent a
 		 * datagram before the timeout runs out, the function will return
 		 * without changing the buffer.
