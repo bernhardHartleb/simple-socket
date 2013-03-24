@@ -1,6 +1,6 @@
 #include <cppunit/extensions/HelperMacros.h>
-#include <CANRawSocket.h>
-#include <CANFrame.h>
+#include <../CANRawSocket.h>
+#include <../CANFrame.h>
 
 #include <stdexcept>
 #include <cstring>

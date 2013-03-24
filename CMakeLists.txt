@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 2.6)
 
+project(simple-socket)
+
 # Building of CAN is optional
 option(BUILD_CAN "Add support for the Socket CAN layer." false)
 
@@ -11,6 +13,8 @@ option(BUILD_TESTS "Switch to enable/disable building of tests." true)
 
 # Building of examples is optional
 option(BUILD_EXAMPLES "Switch to enable/disable building of examples." true)
+
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 
 set(sources
 	SimpleSocket.cpp
