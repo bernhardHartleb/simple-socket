@@ -7,6 +7,7 @@
 #include <net/if.h>
 #include <net/if_arp.h>
 #include <netdb.h>
+#include <unistd.h>
 
 #include <cstring>
 #include <cstdlib>
