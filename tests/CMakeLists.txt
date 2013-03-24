@@ -3,7 +3,16 @@ include_directories( ${CMAKE_SOURCE_DIR} )
 message("Building tests:")
 
 # Collect all unit tests
-file(GLOB Test_SRC RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} "*TEST.cpp")
+set( Test_SRC
+	TCPSocket_TEST.cpp
+	UDPSocket_TEST.cpp
+	UnixDatagramSocket_TEST.cpp)
+
+if(BUILD_CAN)
+	set( Test_SRC
+		${Test_SRC}
+		CANSocket_TEST.cpp)
+endif(BUILD_CAN)
 
 add_executable(UnitTester test_runner.cpp ${Test_SRC})
 target_link_libraries(UnitTester network cppunit)
