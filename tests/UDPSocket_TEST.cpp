@@ -1,5 +1,5 @@
 #include <cppunit/extensions/HelperMacros.h>
-#include <./UDPSocket.h>
+#include "../UDPSocket.h"
 
 #include <cstring>
 
