@@ -14,7 +14,9 @@ option(BUILD_TESTS "Switch to enable/disable building of tests." true)
 # Building of examples is optional
 option(BUILD_EXAMPLES "Switch to enable/disable building of examples." true)
 
-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
+if(CMAKE_SOURCE_DIR STREQUAL simple-socket_SOURCE_DIR)
+	set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wconversion")
+endif()
 
 set(sources
 	SimpleSocket.cpp
