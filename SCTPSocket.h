@@ -36,8 +36,8 @@ namespace NET
 		{
 		};
 
-		SCTPSocket( unsigned numOutStreams = 10, unsigned maxInStreams = 65535, unsigned maxAttempts = 4,
-		            unsigned maxInitTimeout = 0 /* TODO */);
+		SCTPSocket( uint16_t numOutStreams = 10, uint16_t maxInStreams = 65535, uint16_t maxAttempts = 4,
+		            uint16_t maxInitTimeout = 0 /* TODO */);
 
 		/*!
 		 * Construct a Socket from a Handle returned by accept()
@@ -60,26 +60,26 @@ namespace NET
 		std::string primaryAddress() const;
 
 		using SimpleSocket::send;
-		int send( const void* data, int length, unsigned stream, unsigned ttl = 0, unsigned context = 0, unsigned ppid = 0,
+		int send( const void* data, size_t length, uint16_t stream, unsigned ttl = 0, unsigned context = 0, unsigned ppid = 0,
 		          abortFlag abort = KEEPALIVE, switchAddressFlag switchAddr = KEEP_PRIMARY);
 
-		int sendUnordered( const void* data, int length, unsigned stream, unsigned ttl = 0, unsigned context = 0,
+		int sendUnordered( const void* data, size_t length, uint16_t stream, unsigned ttl = 0, unsigned context = 0,
 		                   unsigned ppid = 0, abortFlag abort = KEEPALIVE, switchAddressFlag switchAddr = KEEP_PRIMARY);
 
 		using SimpleSocket::receive;
-		int receive( void* data, int maxLen, unsigned& stream);
-		int receive( void* data, int maxLen, unsigned& stream, receiveFlag& flag);
+		int receive( void* data, size_t maxLen, uint16_t& stream);
+		int receive( void* data, size_t maxLen, uint16_t& stream, receiveFlag& flag);
 
 		using SimpleSocket::timedReceive;
-		int timedReceive( void* data, int maxLen, unsigned& stream, unsigned timeout);
-		int timedReceive( void* data, int maxLen, unsigned& stream, receiveFlag& flag, unsigned timeout);
+		int timedReceive( void* data, size_t maxLen, uint16_t& stream, int timeout);
+		int timedReceive( void* data, size_t maxLen, uint16_t& stream, receiveFlag& flag, int timeout);
 
 		void listen( int backlog = 5);
 		Handle accept() const;
-		Handle timedAccept( unsigned timeout) const;
+		Handle timedAccept( int timeout) const;
 
 	protected:
-		void setInitValues( unsigned ostr, unsigned istr, unsigned att, unsigned time);
+		void setInitValues( uint16_t ostr, uint16_t istr, uint16_t att, uint16_t time);
 	};
 
 } // namespace NET

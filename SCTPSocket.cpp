@@ -7,10 +7,10 @@
 
 using namespace NET;
 
-SCTPSocket::SCTPSocket( unsigned numOutStreams /* = 10 */,
-                        unsigned maxInStreams /* = 65535 */,
-                        unsigned maxAttempts /* = 4 */,
-                        unsigned maxInitTimeout /* = 0 */)
+SCTPSocket::SCTPSocket( uint16_t numOutStreams /* = 10 */,
+                        uint16_t maxInStreams /* = 65535 */,
+                        uint16_t maxAttempts /* = 4 */,
+                        uint16_t maxInitTimeout /* = 0 */)
 : InternetSocket( STREAM, IPPROTO_SCTP)
 {
 	setInitValues( numOutStreams, maxInStreams, maxAttempts, maxInitTimeout);
@@ -28,7 +28,7 @@ int SCTPSocket::bind( const std::vector<std::string>& localAddresses, unsigned s
 	for( size_t i = 0; i < size; ++i)
 		fillAddress( localAddresses[i], localPort, dest[i]);
 
-	int ret = sctp_bindx( m_socket, reinterpret_cast<sockaddr*>(dest.data()), size, SCTP_BINDX_ADD_ADDR);
+	int ret = sctp_bindx( m_socket, reinterpret_cast<sockaddr*>(dest.data()), static_cast<int>(size), SCTP_BINDX_ADD_ADDR);
 	if(ret < 0)
 		throw SocketException("Set of local address and port failed (sctp_bindx)");
 	return ret;
@@ -43,7 +43,7 @@ int SCTPSocket::connect( const std::vector<std::string>& foreignAddresses, unsig
 		fillAddress( foreignAddresses[i], foreignPort, dest[i]);
 
 	// TODO maybe save connection id for later use
-	int ret = sctp_connectx( m_socket, reinterpret_cast<sockaddr*>(dest.data()), size, 0);
+	int ret = sctp_connectx( m_socket, reinterpret_cast<sockaddr*>(dest.data()), static_cast<int>(size), 0);
 	if(ret < 0)
 		throw SocketException("Connect failed (sctp_connectx)");
 
@@ -110,7 +110,7 @@ std::string SCTPSocket::primaryAddress() const
 	return std::string(); // TODO
 }
 
-int SCTPSocket::send( const void* data, int length, unsigned stream, unsigned ttl /* = 0 */, unsigned context /* = 0 */,
+int SCTPSocket::send( const void* data, size_t length, uint16_t stream, unsigned ttl /* = 0 */, unsigned context /* = 0 */,
                       unsigned ppid /* = 0 */, abortFlag abort /* = KEEPALIVE */, switchAddressFlag switchAddr /* = KEEP_PRIMARY */)
 {
 	int ret = sctp_sendmsg( m_socket, data, length, NULL, 0, ppid, abort + switchAddr, stream, ttl, context);
@@ -121,7 +121,7 @@ int SCTPSocket::send( const void* data, int length, unsigned stream, unsigned tt
 	return ret;
 }
 
-int SCTPSocket::sendUnordered( const void* data, int length, unsigned stream, unsigned ttl /* = 0 */, unsigned context /* = 0 */,
+int SCTPSocket::sendUnordered( const void* data, size_t length, uint16_t stream, unsigned ttl /* = 0 */, unsigned context /* = 0 */,
                                unsigned ppid /* = 0 */, abortFlag abort /* = KEEPALIVE */,
                                switchAddressFlag switchAddr /* = KEEP_PRIMARY */)
 {
@@ -133,7 +133,7 @@ int SCTPSocket::sendUnordered( const void* data, int length, unsigned stream, un
 	return ret;
 }
 
-int SCTPSocket::receive( void* data, int maxLen, unsigned& stream)
+int SCTPSocket::receive( void* data, size_t maxLen, uint16_t& stream)
 {
 	struct sctp_sndrcvinfo info;
 	int ret;
@@ -143,7 +143,7 @@ int SCTPSocket::receive( void* data, int maxLen, unsigned& stream)
 	return ret;
 }
 
-int SCTPSocket::receive( void* data, int maxLen, unsigned& stream, receiveFlag& flag)
+int SCTPSocket::receive( void* data, size_t maxLen, uint16_t& stream, receiveFlag& flag)
 {
 	struct sctp_sndrcvinfo info;
 	int ret;
@@ -154,7 +154,7 @@ int SCTPSocket::receive( void* data, int maxLen, unsigned& stream, receiveFlag& 
 	return ret;
 }
 
-int SCTPSocket::timedReceive( void* data, int maxLen, unsigned& stream, unsigned timeout)
+int SCTPSocket::timedReceive( void* data, size_t maxLen, uint16_t& stream, int timeout)
 {
 	struct pollfd poll;
 	poll.fd = m_socket;
@@ -174,7 +174,7 @@ int SCTPSocket::timedReceive( void* data, int maxLen, unsigned& stream, unsigned
 	return 0;
 }
 
-int SCTPSocket::timedReceive( void* data, int maxLen, unsigned& stream, receiveFlag& flag, unsigned timeout)
+int SCTPSocket::timedReceive( void* data, size_t maxLen, uint16_t& stream, receiveFlag& flag, int timeout)
 {
 	struct pollfd poll;
 	poll.fd = m_socket;
@@ -209,7 +209,7 @@ SCTPSocket::Handle SCTPSocket::accept() const
 	return Handle(ret);
 }
 
-SCTPSocket::Handle SCTPSocket::timedAccept( unsigned timeout) const
+SCTPSocket::Handle SCTPSocket::timedAccept( int timeout) const
 {
 	struct pollfd poll;
 	poll.fd = m_socket;
@@ -226,7 +226,7 @@ SCTPSocket::Handle SCTPSocket::timedAccept( unsigned timeout) const
 	return Handle(ret);
 }
 
-void SCTPSocket::setInitValues( unsigned numOutStreams, unsigned maxInStreams, unsigned maxAttempts, unsigned maxInitTimeout)
+void SCTPSocket::setInitValues( uint16_t numOutStreams, uint16_t maxInStreams, uint16_t maxAttempts, uint16_t maxInitTimeout)
 {
 	struct sctp_initmsg init;
 	init.sinit_num_ostreams = numOutStreams;

@@ -47,10 +47,10 @@ unsigned short NET::resolveService( const std::string& service, const std::strin
 
 	if(!serv)
 		// Service is port number
-		return std::atoi( service.c_str());
+		return static_cast<unsigned short>(std::atoi( service.c_str()));
 	else
 		// Found port (network byte order) by name
-		return ntohs( serv->s_port);
+		return static_cast<unsigned short>(ntohs( serv->s_port));
 }
 
 std::vector<std::string> NET::getNetworkInterfaces()
