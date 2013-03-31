@@ -18,6 +18,24 @@ if(CMAKE_SOURCE_DIR STREQUAL simple-socket_SOURCE_DIR)
 	set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -Wconversion")
 endif()
 
+# if doxygen is available, add 'doc' target and add documentation building to
+# 'all'
+find_package(Doxygen)
+if(DOXYGEN_FOUND)
+	configure_file(
+		${CMAKE_CURRENT_SOURCE_DIR}/doc/Doxyfile.in
+		${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY
+	)
+	add_custom_target(
+		doc
+		${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
+		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_BINARY_DIR}
+		COMMENT "Generating API documentation using Doxygen" VERBATIM
+	)
+else()
+	message("!! no doxygen found, no 'doc' target available")
+endif()
+
 set(sources
 	SimpleSocket.cpp
 	SocketUtils.cpp

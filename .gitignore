@@ -2,3 +2,4 @@
 .*.swp
 CMakeLists.txt.user
 build
+doxygen
