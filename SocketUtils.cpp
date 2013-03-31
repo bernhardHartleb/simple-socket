@@ -41,16 +41,17 @@ std::string NET::resolveHostname( const std::string& hostname)
 	return std::string(host->h_addr);
 }
 
-unsigned short NET::resolveService( const std::string& service, const std::string& protocol)
+uint16_t NET::resolveService( const std::string& service, const std::string& protocol)
 {
-	struct servent* serv = getservbyname( service.c_str(), protocol.c_str());
-
-	if(!serv)
-		// Service is port number
-		return static_cast<unsigned short>(std::atoi( service.c_str()));
+	struct servent* serv;
+	if(protocol == "")
+		serv = getservbyname( service.c_str(), 0);
 	else
-		// Found port (network byte order) by name
-		return static_cast<unsigned short>(ntohs( serv->s_port));
+		serv = getservbyname( service.c_str(), protocol.c_str());
+
+	if(serv)
+		return ntohs( static_cast<uint16_t>(serv->s_port));
+	return 0;
 }
 
 std::vector<std::string> NET::getNetworkInterfaces()

@@ -20,9 +20,11 @@ namespace NET
 	 * corresponding port number in host byte order.
 	 *
 	 * \param service service to resolve (e.g. "http")
-	 * \param protocol protocol of service to resolve. Default is "tcp".
+	 * \param protocol protocol of service to resolve. Default is "tcp". To
+	 * match to any protocol, pass an empty string ("").
+	 * \return port number fetched from the database. 0 if no match found.
 	 */
-	unsigned short resolveService( const std::string& service, const std::string& protocol = "tcp");
+	uint16_t resolveService( const std::string& service, const std::string& protocol = "tcp");
 
 	//! Return a list of available network interfaces
 	std::vector<std::string> getNetworkInterfaces();

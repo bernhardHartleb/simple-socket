@@ -6,7 +6,8 @@ message("Building tests:")
 set( Test_SRC
 	TCPSocket_TEST.cpp
 	UDPSocket_TEST.cpp
-	UnixDatagramSocket_TEST.cpp)
+	UnixDatagramSocket_TEST.cpp
+	SocketUtils_TEST.cpp)
 
 if(BUILD_CAN)
 	set( Test_SRC
