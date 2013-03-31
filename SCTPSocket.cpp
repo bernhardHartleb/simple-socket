@@ -116,7 +116,7 @@ int SCTPSocket::send( const void* data, size_t length, uint16_t stream, unsigned
 	int ret = sctp_sendmsg( m_socket, data, length, NULL, 0, ppid, abort + switchAddr, stream, ttl, context);
 	if( ret < 0)
 		throw SocketException("SCTPSocket::send failed (sctp_sendmsg)");
-	else if (ret < length)
+	else if (static_cast<size_t>(ret) < length)
 		throw SocketException("SCTP sent a fragemented packet!");
 	return ret;
 }
@@ -128,7 +128,7 @@ int SCTPSocket::sendUnordered( const void* data, size_t length, uint16_t stream,
 	int ret = sctp_sendmsg( m_socket, data, length, NULL, 0, ppid, abort + switchAddr + SCTP_UNORDERED, stream, ttl, context);
 	if( ret < 0)
 		throw SocketException("SCTPSocket::send failed (sctp_sendmsg)");
-	else if (ret < length)
+	else if (static_cast<size_t>(ret) < length)
 		throw SocketException("SCTP sent a fragemented packet!");
 	return ret;
 }
