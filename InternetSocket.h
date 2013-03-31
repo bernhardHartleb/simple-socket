@@ -8,6 +8,13 @@ struct sockaddr_in;
 namespace NET
 {
 	//! Internet socket class
+	/*!
+	 * InternetSocket is the base class for all sockets that use address/port to
+	 * identify communication endpoints. Those are all classes that are used for
+	 * protocols that build on the IP protocol. (TCP/UDP/etc.).
+	 * It provides the basic interface for connecting and binding the socket to
+	 * an address/interface.
+	 */
 	class InternetSocket : public SimpleSocket
 	{
 	public:
@@ -18,6 +25,7 @@ namespace NET
 		 * However, if you are using a non-connection oriented socket
 		 * (like UDPSocket), calling connect on that socket will allow you to
 		 * use the send() function like on a connection oriented socket.
+		 * If not connected, you would have to use sendTo
 		 *
 		 * \param foreignAddress foreign address (IP address or name)
 		 * \param foreignPort foreign port

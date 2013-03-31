@@ -8,6 +8,9 @@ struct sockaddr_un;
 namespace NET
 {
 	//! Unix domain socket class
+	/*!
+	 *	Base class for sockets identified by files in the filessystem.
+	 */
 	class UnixSocket : public SimpleSocket
 	{
 	public:

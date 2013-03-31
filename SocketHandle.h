@@ -24,6 +24,11 @@ namespace NET
 	 * made invalid. The SocketHandle also gets invalid if an socket is
 	 * constructed from the handle.
 	 *
+	 * The move implementation does not need C++11, and is implemented without
+	 * the need for r-value references. This also means that moving is not done
+	 * like in C++11 (using std::move and std::forward) it is instead done
+	 * silently and implicitly when copying the SocketHandle object.
+	 *
 	 * After a SocketHandle gets returned from an accept() call, the
 	 * SocketHandle has to be checked wheter it is valid or not.
 	 *
@@ -89,6 +94,7 @@ namespace NET
 		 * If accept() returned an invalid handle (e.g. timed out timedAccept()
 		 * call) this should be used to verify the handle. Trying to construct
 		 * a socket from an invalid handle will raise a SocketException.
+		 * \exception SocketException if trying to use an invalid SocketHandle to create socket
 		 */
 		operator bool() const { return m_sockfd >= 0; }
 
