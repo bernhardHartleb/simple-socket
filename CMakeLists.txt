@@ -15,7 +15,7 @@ option(BUILD_TESTS "Switch to enable/disable building of tests." true)
 option(BUILD_EXAMPLES "Switch to enable/disable building of examples." true)
 
 if(CMAKE_SOURCE_DIR STREQUAL simple-socket_SOURCE_DIR)
-	set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x -Wall -Wconversion")
+	set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++0x -Wall -Wextra")
 endif()
 
 # if doxygen is available, add 'doc' target and add documentation building to

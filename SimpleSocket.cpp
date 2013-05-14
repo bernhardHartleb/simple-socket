@@ -2,6 +2,7 @@
 #include "TempFailure.h"
 
 #include <poll.h>
+#include <unistd.h>
 #include <cstring>
 #include <cerrno>
 
