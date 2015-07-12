@@ -19,6 +19,8 @@ namespace NET
 		 */
 		SocketException( const std::string& message, bool inclSysMsg = true);
 		
+		SocketException( const SocketException&) = default;
+
 		//! Provided just to guarantee that no exceptions are thrown.
 		~SocketException() noexcept {};
 
