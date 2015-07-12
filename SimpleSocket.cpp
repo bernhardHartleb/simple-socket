@@ -81,9 +81,13 @@ int SimpleSocket::timedReceive( void* buffer, size_t len, int timeout)
 		m_peerDisconnected = true;
 
 	if( poll.revents & POLLIN || poll.revents & POLLPRI)
-		return receive( buffer, len);
+	{
+		ret = TEMP_FAILURE_RETRY (::recv(m_socket, static_cast<raw_type*>(buffer), len, MSG_WAITALL));
+		if( ret < 0)
+			throw SocketException("timedReceive failed (recv)");
+	}
 
-	return 0;
+	return ret;
 }
 
 void SimpleSocket::disconnect()
