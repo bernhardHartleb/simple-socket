@@ -17,16 +17,16 @@ namespace NET
 		 * \param inclSysMsg true if system message from strerror(errno)
 		 * should be postfixed to the user provided message
 		 */
-		SocketException( const std::string& message, bool inclSysMsg = true) throw();
-
+		SocketException( const std::string& message, bool inclSysMsg = true);
+		
 		//! Provided just to guarantee that no exceptions are thrown.
-		~SocketException() throw() {};
+		~SocketException() noexcept {};
 
 		//! Returns a C-string describing the cause of the current error.
-		const char* what() const throw() { return m_message.c_str(); }
+		const char* what() const noexcept { return m_message.c_str(); }
 
 		//! Returns the glibc errno code of the current error.
-		int errorCode() const throw() { return m_errorcode; }
+		int errorCode() const noexcept { return m_errorcode; }
 
 	private:
 		std::string m_message;

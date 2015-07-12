@@ -8,7 +8,7 @@
 
 using namespace NET;
 
-SocketException::SocketException( const std::string& message, bool inclSysMsg /* = true */) throw()
+SocketException::SocketException( const std::string& message, bool inclSysMsg /* = true */)
 : m_message(message)
 , m_errorcode(0)
 {
