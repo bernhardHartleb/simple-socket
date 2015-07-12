@@ -1,3 +1,11 @@
+General:
+- clean size_t/int inconsistencies
+  - size_t is used work together with the returns of the standard
+    library
+    this means we can e.g. ask send to send more data than the interface
+    of send() can manage, since this only takes an int...
+  - int is used as return types because e.g. recv returns an int
+  - find a solutions that cleans up the mess...
 UnixSockets:
 - implement a unix stream socket
 - allow to unlink created socket files
@@ -11,6 +19,7 @@ Testing:
 - testcase for SCTP socket
 - test library with other OS (BSD, Mac, Windows?)
 - test library with other compilers (gcc3, icc, ...)
+  - tested on gcc & clang
 
 SCTPSocket:
 - add proper receiveFlags
@@ -21,4 +30,3 @@ SocketUtils:
 - time of last received packet (SIOCGSTAMP / SIOCGSTAMPNS)
 - routing table maintenance (SIOCADDRT / SIOCDELRT / SIOCRTMSG)
 - arp table maintenance (SIOCDARP / SIOCGARP / SIOCSARP)
-- make seperate module/cmake variable for build/not buid
