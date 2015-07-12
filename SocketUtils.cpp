@@ -8,6 +8,7 @@
 #include <net/if_arp.h>
 #include <netdb.h>
 #include <unistd.h>
+#include <cstdint>
 
 #include <cstring>
 #include <cstdlib>

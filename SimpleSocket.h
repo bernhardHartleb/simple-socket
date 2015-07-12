@@ -131,14 +131,26 @@ namespace NET
 		 */
 		int timedReceive( void* buffer, size_t len, int timeout);
 
+		//! Disconnect and unset any foreign addresses
 		/*!
-		 * Disconnect and unset any foreign addresses
+		 * This will ungracefully abort the connection by sending an RST frame.
+		 * disconnect() should not be used under normal circumstances, as it will
+		 * terminate the connection OOB, preventing the other end of the
+		 * communication from retrieving data that would still be available in
+		 * the OS buffer.
+		 *
+		 * For normal termination of a connection use shutdown().
+		 *
 		 * \exception SocketException thrown if unable to disconnect
 		 */
 		void disconnect();
 
 		//! shutdown the connection in the specified direction
 		/*!
+		 * This will gracefully end a connection by sending a FIN frame.
+		 * Use this to end a normal communication cycle. To abort a connection
+		 * see disconnect().
+		 *
 		 * Depending on the specified ShutdownDirection, calls for that direction
 		 * will stop working. Use this function if you want to have more control
 		 * than just destroing the socket. It allows you to cut the connection
