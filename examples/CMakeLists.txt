@@ -5,7 +5,8 @@ message("Building examples:")
 set(examples
 	TCP_Client
 	TCP_Server
-	UDP_Multicast)
+	UDP_Multicast
+    mini_ifconfig)
 
 foreach(EX ${examples})
 

@@ -19,6 +19,7 @@ using namespace NET;
 
 namespace
 {
+	// needed because of strict aliasing rules
 	class sockaddr_ptr
 	{
 	public:
@@ -39,7 +40,14 @@ std::string NET::resolveHostname( const std::string& hostname)
 		// strerror() will not work for gethostbyname()
 		throw SocketException("Failed to resolve address (gethostbyname)", false);
 	}
-	return std::string(host->h_addr);
+
+	std::ostringstream ss;
+	for(int i = 0; i < 4; i++) {
+		if(i != 0)
+			ss << '.';
+		ss << static_cast<int>(host->h_addr[i]);
+	}
+	return ss.str();
 }
 
 uint16_t NET::resolveService( const std::string& service, const std::string& protocol)
@@ -190,7 +198,7 @@ std::string NET::getDestinationAddress( const std::string& interface)
 
 	int sock = ::socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
 	if( sock < 0)
-		throw SocketException("Couldn't create socket (getBroadcastAddress)");
+		throw SocketException("Couldn't create socket (getDestinationAddress)");
 
 	if( ioctl( sock, SIOCGIFDSTADDR, &ifr) < 0)
 		throw SocketException("ioctl failed (getDestinationAddress)");
@@ -251,7 +259,7 @@ void NET::setMTU( const std::string& interface, int mtu)
 
 	ifr.ifr_mtu = mtu;
 
-	if( ioctl( sock, SIOCSIFDSTADDR, &ifr) < 0)
+	if( ioctl( sock, SIOCSIFMTU, &ifr) < 0)
 		throw SocketException("ioctl failed (setMTU)");
 
 	::close(sock);
