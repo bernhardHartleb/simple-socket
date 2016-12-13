@@ -9,7 +9,7 @@ option(BUILD_CAN "Add support for the Socket CAN layer." false)
 option(BUILD_SCTP "Add support for the SCTP protocol." false)
 
 # Building of tests is optional
-option(BUILD_TESTS "Switch to enable/disable building of tests." true)
+option(BUILD_TESTS "Switch to enable/disable building of tests." false)
 
 # Building of examples is optional
 option(BUILD_EXAMPLES "Switch to enable/disable building of examples." true)
@@ -18,8 +18,7 @@ if(CMAKE_SOURCE_DIR STREQUAL simple-socket_SOURCE_DIR)
   include("flags.cmake")
 endif()
 
-# if doxygen is available, add 'doc' target and add documentation building to
-# 'all'
+# if doxygen is available, add 'doc' target building documentation to 'all'
 find_package(Doxygen)
 if(DOXYGEN_FOUND)
 	configure_file(
