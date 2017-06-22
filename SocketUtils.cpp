@@ -83,6 +83,9 @@ uint16_t NET::resolveService( const std::string& service, const std::string& pro
 	return 0;
 }
 
+/* This function does not understand interfaces with multiple addresses
+ * For example when using zeroconf (eth0, eth0:avahi) it would only list eth0
+ * In this case eth0 does not have an ip address yet and getInterfaceAddress("eth0") throws
 std::vector<std::string> NET::getNetworkInterfaces()
 {
 	std::vector<std::string> ret;
@@ -93,6 +96,44 @@ std::vector<std::string> NET::getNetworkInterfaces()
 		ret.push_back( std::string( index[i].if_name));
 
 	if_freenameindex(index);
+	return ret;
+}
+*/
+
+std::vector<std::string> NET::getNetworkInterfaces()
+{
+	std::vector<std::string> ret;
+	// maximum of number interfaces
+	char data[32 * sizeof(struct ifreq)];
+	struct ifconf conf;
+	struct ifreq *ifr;
+
+	conf.ifc_len = sizeof(data);
+	conf.ifc_buf = (caddr_t) data;
+
+	temp_socket sock;
+	if( ioctl( sock.nativeHandle(), SIOCGIFCONF, &conf) < 0)
+		throw SocketException("ioctl failed (getNetworkInterfaces)");
+
+	ifr = (struct ifreq*)data;
+	while( (char*)ifr < data+conf.ifc_len)
+	{
+		switch(ifr->ifr_addr.sa_family)
+		{
+		case AF_INET:
+			ret.push_back( std::string(ifr->ifr_name));
+			//printf("%s : %s\n", ifr->ifr_name, inet_ntop(ifr->ifr_addr.sa_family, &((struct sockaddr_in*)&ifr->ifr_addr)->sin_addr, addrbuf, sizeof(addrbuf)));
+			break;
+	#if 0
+		case AF_INET6:
+			printf("%s : %s\n", ifr->ifr_name, inet_ntop(ifr->ifr_addr.sa_family, &((struct sockaddr_in6*)&ifr->ifr_addr)->sin6_addr, addrbuf, sizeof(addrbuf)));
+			break;
+	#endif
+		default:
+			break;
+		}
+		++ifr;
+	}
 	return ret;
 }
 
