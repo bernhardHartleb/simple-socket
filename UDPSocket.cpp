@@ -99,6 +99,19 @@ void UDPSocket::setMulticastTTL( unsigned char multicastTTL)
 		throw SocketException("Multicast set TTL failed (setsockopt)");
 }
 
+void UDPSocket::setMulticastInterfaceAddr( const std::string& address)
+{
+	struct in_addr interfaceAddr;
+	inet_aton( address.c_str(), &interfaceAddr);
+
+	if( setsockopt( m_socket,
+	                IPPROTO_IP,
+	                IP_MULTICAST_IF,
+	                (raw_type*)&interfaceAddr,
+	                sizeof(interfaceAddr)) < 0)
+		throw SocketException("Multicast set Interface Address failed (setsockopt)");
+}
+
 void UDPSocket::joinGroup( const std::string& multicastGroup)
 {
 	if( groupAction( m_socket, multicastGroup, IP_ADD_MEMBERSHIP) < 0)

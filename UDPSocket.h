@@ -79,6 +79,13 @@ namespace NET
 		void setMulticastTTL( unsigned char multicastTTL);
 
 		/*!
+		 * Set the interface address on which to send out multicast packets
+		 * \param address IP address of the target interface
+		 * \exception SocketException thrown if unable to set address
+		 */
+		void setMulticastInterfaceAddr( const std::string& address);
+
+		/*!
 		 * Join the specified multicast group
 		 *
 		 * The multicast group has to be a valid multicast IP Address (224.0.0.0/24)
