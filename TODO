@@ -6,6 +6,7 @@ General:
     of send() can manage, since this only takes an int...
   - int is used as return types because e.g. recv returns an int
   - find a solutions that cleans up the mess...
+
 UnixSockets:
 - implement a unix stream socket
 - allow to unlink created socket files
@@ -18,8 +19,6 @@ Testing:
 - check the TCPSocket::sendAll function
 - testcase for SCTP socket
 - test library with other OS (BSD, Mac, Windows?)
-- test library with other compilers (gcc3, icc, ...)
-  - tested on gcc & clang
 
 SCTPSocket:
 - add proper receiveFlags
