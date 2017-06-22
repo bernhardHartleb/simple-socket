@@ -23,7 +23,7 @@ namespace
 	class sockaddr_ptr
 	{
 	public:
-		sockaddr_ptr( const sockaddr* sa) : msa(*sa) {}
+		explicit sockaddr_ptr( const sockaddr* sa) : msa(*sa) {}
 		const sockaddr_in& operator*() const { return msi; }
 		const sockaddr_in* operator->() const { return &msi; }
 
@@ -35,7 +35,7 @@ namespace
 std::string NET::resolveHostname( const std::string& hostname)
 {
 	hostent* host = gethostbyname( hostname.c_str());
-	if( host == 0)
+	if( host == nullptr)
 	{
 		// strerror() will not work for gethostbyname()
 		throw SocketException("Failed to resolve address (gethostbyname)", false);
@@ -54,7 +54,7 @@ uint16_t NET::resolveService( const std::string& service, const std::string& pro
 {
 	struct servent* serv;
 	if(protocol == "")
-		serv = getservbyname( service.c_str(), 0);
+		serv = getservbyname( service.c_str(), nullptr);
 	else
 		serv = getservbyname( service.c_str(), protocol.c_str());
 

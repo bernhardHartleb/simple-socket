@@ -113,7 +113,7 @@ std::string SCTPSocket::primaryAddress() const
 int SCTPSocket::send( const void* data, size_t length, uint16_t stream, unsigned ttl /* = 0 */, unsigned context /* = 0 */,
                       unsigned ppid /* = 0 */, abortFlag abort /* = KEEPALIVE */, switchAddressFlag switchAddr /* = KEEP_PRIMARY */)
 {
-	int ret = sctp_sendmsg( m_socket, data, length, NULL, 0, ppid, abort + switchAddr, stream, ttl, context);
+	int ret = sctp_sendmsg( m_socket, data, length, nullptr, 0, ppid, abort + switchAddr, stream, ttl, context);
 	if( ret < 0)
 		throw SocketException("SCTPSocket::send failed (sctp_sendmsg)");
 	else if (static_cast<size_t>(ret) < length)
@@ -125,7 +125,7 @@ int SCTPSocket::sendUnordered( const void* data, size_t length, uint16_t stream,
                                unsigned ppid /* = 0 */, abortFlag abort /* = KEEPALIVE */,
                                switchAddressFlag switchAddr /* = KEEP_PRIMARY */)
 {
-	int ret = sctp_sendmsg( m_socket, data, length, NULL, 0, ppid, abort + switchAddr + SCTP_UNORDERED, stream, ttl, context);
+	int ret = sctp_sendmsg( m_socket, data, length, nullptr, 0, ppid, abort + switchAddr + SCTP_UNORDERED, stream, ttl, context);
 	if( ret < 0)
 		throw SocketException("SCTPSocket::send failed (sctp_sendmsg)");
 	else if (static_cast<size_t>(ret) < length)

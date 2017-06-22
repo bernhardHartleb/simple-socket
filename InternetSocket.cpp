@@ -101,7 +101,7 @@ void InternetSocket::fillAddress( const std::string& address, unsigned short por
 
 	// We need to resolve the address
 	hostent* host = gethostbyname( address.c_str());
-	if( host == 0)
+	if( host == nullptr)
 	{
 		// strerror() will not work for gethostbyname()
 		throw SocketException("Failed to resolve address (gethostbyname)", false);
