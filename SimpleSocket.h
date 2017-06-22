@@ -18,7 +18,7 @@ namespace NET
 		 * should be postfixed to the user provided message
 		 */
 		SocketException( const std::string& message, bool inclSysMsg = true);
-		
+
 		SocketException( const SocketException&) = default;
 
 		//! Provided just to guarantee that no exceptions are thrown.
@@ -56,6 +56,9 @@ namespace NET
 		};
 
 		~SimpleSocket();
+
+		//! return the native handle of the open socket
+		inline int nativeHandle() { return m_socket; }
 
 		//! send data through a connected socket
 		/*!
@@ -192,7 +195,7 @@ namespace NET
 		};
 
 		//! enables return of an accepted socket
-		SimpleSocket( int sockfd);
+		explicit SimpleSocket( int sockfd);
 
 		//! allows a subclass to create new socket
 		SimpleSocket( int domain, int type, int protocol);

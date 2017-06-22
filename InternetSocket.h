@@ -92,7 +92,7 @@ namespace NET
 
 	protected:
 		//! create socket from a SocketHandle returned by an accept() call
-		InternetSocket( int sockfd);
+		explicit InternetSocket( int sockfd);
 
 		//! allows a subclass to create new socket
 		InternetSocket( int type, int protocol);
