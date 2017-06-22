@@ -30,6 +30,26 @@ namespace
 	private:
 		union { sockaddr msa; sockaddr_in msi; };
 	};
+
+	// use as temporary RAII socket
+	class temp_socket : public SimpleSocket
+	{
+	public:
+		temp_socket() : SimpleSocket( AF_INET, SOCK_DGRAM, 0) {}
+	};
+
+	// check and copy the name of the interface
+	void assign_ifreq( struct ifreq& ifr, const std::string& interface)
+	{
+		size_t len = interface.length();
+
+		if( len >= sizeof(ifr.ifr_name))
+			throw SocketException("Interface name is too long", false);
+
+		ifr.ifr_addr.sa_family = AF_INET;
+		std::memcpy( ifr.ifr_name, interface.data(), len);
+		ifr.ifr_name[len] = 0;
+	}
 }
 
 std::string NET::resolveHostname( const std::string& hostname)
@@ -67,8 +87,9 @@ std::vector<std::string> NET::getNetworkInterfaces()
 {
 	std::vector<std::string> ret;
 	struct if_nameindex* index = if_nameindex();
+	if(index == nullptr) return ret;
 
-	for( int i = 0; index[i].if_index != 0; ++i)
+	for( int i = 0; (index[i].if_index != 0); ++i)
 		ret.push_back( std::string( index[i].if_name));
 
 	if_freenameindex(index);
@@ -78,18 +99,11 @@ std::vector<std::string> NET::getNetworkInterfaces()
 std::string NET::getInterfaceAddress( const std::string& interface)
 {
 	struct ifreq ifr;
+	assign_ifreq( ifr, interface);
 
-	ifr.ifr_addr.sa_family = AF_INET;
-	std::strncpy( ifr.ifr_name, interface.c_str(), sizeof(ifr.ifr_name));
-
-	int sock = ::socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
-	if( sock < 0)
-		throw SocketException("Couldn't create socket (getInterfaceAddress)");
-
-	if( ioctl( sock, SIOCGIFADDR, &ifr) < 0)
+	temp_socket sock;
+	if( ioctl( sock.nativeHandle(), SIOCGIFADDR, &ifr) < 0)
 		throw SocketException("ioctl failed (getInterfaceAddress)");
-
-	::close(sock);
 
 	return inet_ntoa( sockaddr_ptr( &ifr.ifr_addr)->sin_addr);
 }
@@ -97,37 +111,23 @@ std::string NET::getInterfaceAddress( const std::string& interface)
 void NET::setInterfaceAddress( const std::string& interface, const std::string& address)
 {
 	struct ifreq ifr;
-
-	ifr.ifr_addr.sa_family = AF_INET;
-	std::strncpy( ifr.ifr_name, interface.c_str(), sizeof(ifr.ifr_name));
-
-	int sock = ::socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
-	if( sock < 0)
-		throw SocketException("Couldn't create socket (setInterfaceAddress)");
+	assign_ifreq( ifr, interface);
 
 	inet_aton( address.c_str(), &(reinterpret_cast<sockaddr_in*>(&ifr.ifr_addr)->sin_addr));
 
-	if( ioctl( sock, SIOCSIFADDR, &ifr) < 0)
+	temp_socket sock;
+	if( ioctl( sock.nativeHandle(), SIOCSIFADDR, &ifr) < 0)
 		throw SocketException("ioctl failed (setInterfaceAddress)");
-
-	::close(sock);
 }
 
 std::string NET::getBroadcastAddress( const std::string& interface)
 {
 	struct ifreq ifr;
+	assign_ifreq( ifr, interface);
 
-	ifr.ifr_addr.sa_family = AF_INET;
-	std::strncpy( ifr.ifr_name, interface.c_str(), sizeof(ifr.ifr_name));
-
-	int sock = ::socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
-	if( sock < 0)
-		throw SocketException("Couldn't create socket (getBroadcastAddress)");
-
-	if( ioctl( sock, SIOCGIFBRDADDR, &ifr) < 0)
-		throw SocketException("ioctl failed (getInterfaceAddress)");
-
-	::close(sock);
+	temp_socket sock;
+	if( ioctl( sock.nativeHandle(), SIOCGIFBRDADDR, &ifr) < 0)
+		throw SocketException("ioctl failed (getBroadcastAddress)");
 
 	return inet_ntoa( sockaddr_ptr( &ifr.ifr_broadaddr)->sin_addr);
 }
@@ -135,37 +135,23 @@ std::string NET::getBroadcastAddress( const std::string& interface)
 void NET::setBroadcastAddress( const std::string& interface, const std::string& address)
 {
 	struct ifreq ifr;
-
-	ifr.ifr_addr.sa_family = AF_INET;
-	std::strncpy( ifr.ifr_name, interface.c_str(), sizeof(ifr.ifr_name));
-
-	int sock = ::socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
-	if( sock < 0)
-		throw SocketException("Couldn't create socket (setBroadcastAddress)");
+	assign_ifreq( ifr, interface);
 
 	inet_aton( address.c_str(), &(reinterpret_cast<sockaddr_in*>(&ifr.ifr_broadaddr)->sin_addr));
 
-	if( ioctl( sock, SIOCSIFBRDADDR, &ifr) < 0)
+	temp_socket sock;
+	if( ioctl( sock.nativeHandle(), SIOCSIFBRDADDR, &ifr) < 0)
 		throw SocketException("ioctl failed (setBroadcastAddress)");
-
-	::close(sock);
 }
 
 std::string NET::getNetmask( const std::string& interface)
 {
 	struct ifreq ifr;
+	assign_ifreq( ifr, interface);
 
-	ifr.ifr_addr.sa_family = AF_INET;
-	std::strncpy( ifr.ifr_name, interface.c_str(), sizeof(ifr.ifr_name));
-
-	int sock = ::socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
-	if( sock < 0)
-		throw SocketException("Couldn't create socket (getBroadcastAddress)");
-
-	if( ioctl( sock, SIOCGIFNETMASK, &ifr) < 0)
+	temp_socket sock;
+	if( ioctl( sock.nativeHandle(), SIOCGIFNETMASK, &ifr) < 0)
 		throw SocketException("ioctl failed (getNetmask)");
-
-	::close(sock);
 
 	return inet_ntoa( sockaddr_ptr( &ifr.ifr_netmask)->sin_addr);
 }
@@ -173,37 +159,23 @@ std::string NET::getNetmask( const std::string& interface)
 void NET::setNetmask( const std::string& interface, const std::string& address)
 {
 	struct ifreq ifr;
-
-	ifr.ifr_addr.sa_family = AF_INET;
-	std::strncpy( ifr.ifr_name, interface.c_str(), sizeof(ifr.ifr_name));
-
-	int sock = ::socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
-	if( sock < 0)
-		throw SocketException("Couldn't create socket (setNetmask)");
+	assign_ifreq( ifr, interface);
 
 	inet_aton( address.c_str(), &(reinterpret_cast<sockaddr_in*>(&ifr.ifr_netmask)->sin_addr));
 
-	if( ioctl( sock, SIOCSIFNETMASK, &ifr) < 0)
+	temp_socket sock;
+	if( ioctl( sock.nativeHandle(), SIOCSIFNETMASK, &ifr) < 0)
 		throw SocketException("ioctl failed (setNetmask)");
-
-	::close(sock);
 }
 
 std::string NET::getDestinationAddress( const std::string& interface)
 {
 	struct ifreq ifr;
+	assign_ifreq( ifr, interface);
 
-	ifr.ifr_addr.sa_family = AF_INET;
-	std::strncpy( ifr.ifr_name, interface.c_str(), sizeof(ifr.ifr_name));
-
-	int sock = ::socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
-	if( sock < 0)
-		throw SocketException("Couldn't create socket (getDestinationAddress)");
-
-	if( ioctl( sock, SIOCGIFDSTADDR, &ifr) < 0)
+	temp_socket sock;
+	if( ioctl( sock.nativeHandle(), SIOCGIFDSTADDR, &ifr) < 0)
 		throw SocketException("ioctl failed (getDestinationAddress)");
-
-	::close(sock);
 
 	return inet_ntoa( sockaddr_ptr( &ifr.ifr_dstaddr)->sin_addr);
 }
@@ -211,37 +183,23 @@ std::string NET::getDestinationAddress( const std::string& interface)
 void NET::setDestinationAddress( const std::string& interface, const std::string& address)
 {
 	struct ifreq ifr;
-
-	ifr.ifr_addr.sa_family = AF_INET;
-	std::strncpy( ifr.ifr_name, interface.c_str(), sizeof(ifr.ifr_name));
-
-	int sock = ::socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
-	if( sock < 0)
-		throw SocketException("Couldn't create socket (setDestinationAddress)");
+	assign_ifreq( ifr, interface);
 
 	inet_aton( address.c_str(), &(reinterpret_cast<sockaddr_in*>(&ifr.ifr_dstaddr)->sin_addr));
 
-	if( ioctl( sock, SIOCSIFDSTADDR, &ifr) < 0)
+	temp_socket sock;
+	if( ioctl( sock.nativeHandle(), SIOCSIFDSTADDR, &ifr) < 0)
 		throw SocketException("ioctl failed (setDestinationAddress)");
-
-	::close(sock);
 }
 
 int NET::getMTU( const std::string& interface)
 {
 	struct ifreq ifr;
+	assign_ifreq( ifr, interface);
 
-	ifr.ifr_addr.sa_family = AF_INET;
-	std::strncpy( ifr.ifr_name, interface.c_str(), sizeof(ifr.ifr_name));
-
-	int sock = ::socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
-	if( sock < 0)
-		throw SocketException("Couldn't create socket (getMTU)");
-
-	if( ioctl( sock, SIOCGIFMTU, &ifr) < 0)
-		throw SocketException("ioctl failed (getInterfaceAddress)");
-
-	::close(sock);
+	temp_socket sock;
+	if( ioctl( sock.nativeHandle(), SIOCGIFMTU, &ifr) < 0)
+		throw SocketException("ioctl failed (getMTU)");
 
 	return ifr.ifr_mtu;
 }
@@ -249,37 +207,23 @@ int NET::getMTU( const std::string& interface)
 void NET::setMTU( const std::string& interface, int mtu)
 {
 	struct ifreq ifr;
-
-	ifr.ifr_addr.sa_family = AF_INET;
-	std::strncpy( ifr.ifr_name, interface.c_str(), sizeof(ifr.ifr_name));
-
-	int sock = ::socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
-	if( sock < 0)
-		throw SocketException("Couldn't create socket (setMTU)");
+	assign_ifreq( ifr, interface);
 
 	ifr.ifr_mtu = mtu;
 
-	if( ioctl( sock, SIOCSIFMTU, &ifr) < 0)
+	temp_socket sock;
+	if( ioctl( sock.nativeHandle(), SIOCSIFMTU, &ifr) < 0)
 		throw SocketException("ioctl failed (setMTU)");
-
-	::close(sock);
 }
 
 std::string NET::getHardwareAddress( const std::string& interface, char separationChar)
 {
 	struct ifreq ifr;
+	assign_ifreq( ifr, interface);
 
-	ifr.ifr_addr.sa_family = AF_INET;
-	std::strncpy( ifr.ifr_name, interface.c_str(), sizeof(ifr.ifr_name));
-
-	int sock = ::socket( AF_INET, SOCK_DGRAM, IPPROTO_IP);
-	if( sock < 0)
-		throw SocketException("Couldn't create socket (getMTU)");
-
-	if( ioctl( sock, SIOCGIFHWADDR, &ifr) < 0)
-		throw SocketException("ioctl failed (getInterfaceAddress)");
-
-	::close(sock);
+	temp_socket sock;
+	if( ioctl( sock.nativeHandle(), SIOCGIFHWADDR, &ifr) < 0)
+		throw SocketException("ioctl failed (getHardwareAddress)");
 
 	switch( ifr.ifr_hwaddr.sa_family) {
 		default:
