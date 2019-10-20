@@ -7,6 +7,7 @@ class SocketUtils_TEST : public CppUnit::TestFixture
 	CPPUNIT_TEST_SUITE( SocketUtils_TEST);
 	CPPUNIT_TEST( resolveHostname );
 	CPPUNIT_TEST( resolveService );
+	CPPUNIT_TEST( getNetworkInterfaces );
 	CPPUNIT_TEST( getInterfaceAddress );
 	CPPUNIT_TEST( getBroadcastAddress );
 	CPPUNIT_TEST( getNetmask );
@@ -45,22 +46,30 @@ public:
 		CPPUNIT_ASSERT( NET::resolveService( "foo", "") == 0);
 	}
 
+	void getNetworkInterfaces() {
+		auto list = NET::getNetworkInterfaces();
+		CPPUNIT_ASSERT( list.size() >= 1 );
+		CPPUNIT_ASSERT_EQUAL(
+			std::string("lo"),
+			list[0]);
+	}
+
 	void getInterfaceAddress() {
 		CPPUNIT_ASSERT_EQUAL(
-			NET::getInterfaceAddress("lo"),
-			std::string("127.0.0.1"));
+			std::string("127.0.0.1"),
+			NET::getInterfaceAddress("lo"));
 	}
 
 	void getBroadcastAddress() {
 		CPPUNIT_ASSERT_EQUAL(
-			NET::getBroadcastAddress("lo"),
-			std::string("127.255.255.255"));
+			std::string("0.0.0.0"),
+			NET::getBroadcastAddress("lo"));
 	}
 
 	void getNetmask() {
 		CPPUNIT_ASSERT_EQUAL(
-			NET::getNetmask("lo"),
-			std::string("255.0.0.0"));
+			std::string("255.0.0.0"),
+			NET::getNetmask("lo"));
 	}
 };
 
