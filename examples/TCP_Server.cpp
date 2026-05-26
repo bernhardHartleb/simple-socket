@@ -20,7 +20,7 @@ int main()
 
 	// create a new socket to communicate with the connected client
 	// if we do nothing at this point, the connection will be discarded
-	NET::TCPSocket session_socket(handle);
+	NET::TCPSocket session_socket(std::move(handle));
 	session_socket.send( send_msg, sizeof(send_msg) );
 
 	// client disconnected before he could receive anything
