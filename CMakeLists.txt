@@ -1,6 +1,9 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 3.12)
 
 project(simple-socket)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED true)
 
 # Building of CAN is optional
 option(BUILD_CAN "Add support for the Socket CAN layer." false)
@@ -61,14 +64,12 @@ if(BUILD_SCTP)
 	set(sources
 		${sources}
 		SCTPSocket.cpp)
+
+	target_link_libraries(network sctp)
 endif(BUILD_SCTP)
 
 source_group(network_src FILES ${sources})
 add_library(network STATIC ${sources})
-
-if(BUILD_SCTP)
-	target_link_libraries(network sctp)
-endif(BUILD_SCTP)
 
 if(BUILD_TESTS)
 	enable_testing()
@@ -76,6 +77,5 @@ if(BUILD_TESTS)
 endif(BUILD_TESTS)
 
 if(BUILD_EXAMPLES)
-	enable_testing()
 	add_subdirectory( examples )
 endif(BUILD_EXAMPLES)
