@@ -11,6 +11,7 @@ class SocketUtils_TEST : public CppUnit::TestFixture
 	CPPUNIT_TEST( getInterfaceAddress );
 	CPPUNIT_TEST( getBroadcastAddress );
 	CPPUNIT_TEST( getNetmask );
+	CPPUNIT_TEST( getHardwareAddress );
 	CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -70,6 +71,13 @@ public:
 		CPPUNIT_ASSERT_EQUAL(
 			std::string("255.0.0.0"),
 			NET::getNetmask("lo"));
+	}
+
+	void getHardwareAddress() {
+		auto list = NET::getNetworkInterfaces();
+		CPPUNIT_ASSERT( list.size() >= 2 );
+		auto mac = NET::getHardwareAddress(list[1]);
+		CPPUNIT_ASSERT( mac.size() == 17);
 	}
 };
 
