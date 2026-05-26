@@ -34,7 +34,7 @@ namespace NET
 		 * \param foreignPort port number to send to
 		 * \exception SocketException thrown if unable to send datagram
 		 */
-		void sendTo( const void* buffer, size_t len, const std::string& foreignAddress, unsigned short foreignPort);
+		void sendTo( const void* buffer, size_t len, std::string_view foreignAddress, unsigned short foreignPort);
 
 		/*!
 		 * Read up to len bytes data from this socket. The given buffer

@@ -8,7 +8,7 @@
 
 using namespace NET;
 
-SocketException::SocketException( const std::string& message, bool inclSysMsg /* = true */)
+SocketException::SocketException( std::string_view message, bool inclSysMsg /* = true */)
 : m_message(message)
 , m_errorcode(0)
 {
@@ -82,7 +82,7 @@ int SimpleSocket::timedReceive( void* buffer, size_t len, int timeout)
 
 	if( poll.revents & POLLIN || poll.revents & POLLPRI)
 	{
-		ret = TEMP_FAILURE_RETRY (::recv(m_socket, static_cast<raw_type*>(buffer), len, MSG_WAITALL));
+		ret = TEMP_FAILURE_RETRY (::recv( m_socket, (raw_type*) buffer, len, 0));
 		if( ret < 0)
 			throw SocketException("timedReceive failed (recv)");
 	}

@@ -16,14 +16,14 @@ namespace NET
 		 * \param interface specifies the CAN interface to connect to
 		 * \exception SocketException thrown if unable to establish connection
 		 */
-		void connect( const std::string& interface = "");
+		void connect( std::string_view interface = "");
 
 		/*!
 		 * Set the local interface to the specified interface
 		 * \param interface specifies the CAN interface to bind to
 		 * \exception SocketException thrown if setting local path fails
 		 */
-		void bind( const std::string& interface = "");
+		void bind( std::string_view interface = "");
 
 		/*!
 		 * Get the local interface (after binding the socket)
@@ -47,7 +47,7 @@ namespace NET
 		std::string getInterfaceName( const sockaddr_can& addr) const;
 
 		//! get CAN interface index from interface name
-		int getInterfaceIndex( const std::string& interface) const;
+		int getInterfaceIndex( std::string_view interface) const;
 	};
 
 } // namespace NET

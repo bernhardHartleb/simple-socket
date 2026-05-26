@@ -12,8 +12,6 @@
 
 #include <cstring>
 #include <cstdlib>
-#include <sstream>
-#include <iomanip>
 
 using namespace NET;
 
@@ -39,11 +37,11 @@ namespace
 	};
 
 	// check and copy the name of the interface
-	void assign_ifreq( struct ifreq& ifr, const std::string& interface)
+	void assign_ifreq( struct ifreq& ifr, std::string_view interface)
 	{
 		size_t len = interface.length();
 
-		if( len >= sizeof(ifr.ifr_name))
+		if( len >= IF_NAMESIZE)
 			throw SocketException("Interface name is too long", false);
 
 		ifr.ifr_addr.sa_family = AF_INET;
@@ -61,19 +59,16 @@ std::string NET::resolveHostname( const std::string& hostname)
 		throw SocketException("Failed to resolve address (gethostbyname)", false);
 	}
 
-	std::ostringstream ss;
-	for(int i = 0; i < 4; i++) {
-		if(i != 0)
-			ss << '.';
-		ss << static_cast<int>(host->h_addr[i]);
-	}
-	return ss.str();
+	char ip[20];
+	auto addr = host->h_addr;
+	int len = sprintf(ip, "%d.%d.%d.%d", addr[0], addr[1], addr[2], addr[3]);
+	return std::string(ip, len);
 }
 
 uint16_t NET::resolveService( const std::string& service, const std::string& protocol)
 {
 	struct servent* serv;
-	if(protocol == "")
+	if( protocol.empty())
 		serv = getservbyname( service.c_str(), nullptr);
 	else
 		serv = getservbyname( service.c_str(), protocol.c_str());
@@ -121,7 +116,7 @@ std::vector<std::string> NET::getNetworkInterfaces()
 		switch(ifr->ifr_addr.sa_family)
 		{
 		case AF_INET:
-			ret.push_back( std::string(ifr->ifr_name));
+			ret.emplace_back( ifr->ifr_name);
 			//printf("%s : %s\n", ifr->ifr_name, inet_ntop(ifr->ifr_addr.sa_family, &((struct sockaddr_in*)&ifr->ifr_addr)->sin_addr, addrbuf, sizeof(addrbuf)));
 			break;
 	#if 0
@@ -137,7 +132,7 @@ std::vector<std::string> NET::getNetworkInterfaces()
 	return ret;
 }
 
-std::string NET::getInterfaceAddress( const std::string& interface)
+std::string NET::getInterfaceAddress( std::string_view interface)
 {
 	struct ifreq ifr;
 	assign_ifreq( ifr, interface);
@@ -149,19 +144,20 @@ std::string NET::getInterfaceAddress( const std::string& interface)
 	return inet_ntoa( sockaddr_ptr( &ifr.ifr_addr)->sin_addr);
 }
 
-void NET::setInterfaceAddress( const std::string& interface, const std::string& address)
+void NET::setInterfaceAddress( std::string_view interface, std::string_view address)
 {
 	struct ifreq ifr;
 	assign_ifreq( ifr, interface);
 
-	inet_aton( address.c_str(), &(reinterpret_cast<sockaddr_in*>(&ifr.ifr_addr)->sin_addr));
+	std::string address_z(address);
+	inet_aton( address_z.c_str(), &(reinterpret_cast<sockaddr_in*>(&ifr.ifr_addr)->sin_addr));
 
 	temp_socket sock;
 	if( ioctl( sock.nativeHandle(), SIOCSIFADDR, &ifr) < 0)
 		throw SocketException("ioctl failed (setInterfaceAddress)");
 }
 
-std::string NET::getBroadcastAddress( const std::string& interface)
+std::string NET::getBroadcastAddress( std::string_view interface)
 {
 	struct ifreq ifr;
 	assign_ifreq( ifr, interface);
@@ -173,19 +169,20 @@ std::string NET::getBroadcastAddress( const std::string& interface)
 	return inet_ntoa( sockaddr_ptr( &ifr.ifr_broadaddr)->sin_addr);
 }
 
-void NET::setBroadcastAddress( const std::string& interface, const std::string& address)
+void NET::setBroadcastAddress( std::string_view interface, std::string_view address)
 {
 	struct ifreq ifr;
 	assign_ifreq( ifr, interface);
 
-	inet_aton( address.c_str(), &(reinterpret_cast<sockaddr_in*>(&ifr.ifr_broadaddr)->sin_addr));
+	std::string address_z(address);
+	inet_aton( address_z.c_str(), &(reinterpret_cast<sockaddr_in*>(&ifr.ifr_broadaddr)->sin_addr));
 
 	temp_socket sock;
 	if( ioctl( sock.nativeHandle(), SIOCSIFBRDADDR, &ifr) < 0)
 		throw SocketException("ioctl failed (setBroadcastAddress)");
 }
 
-std::string NET::getNetmask( const std::string& interface)
+std::string NET::getNetmask( std::string_view interface)
 {
 	struct ifreq ifr;
 	assign_ifreq( ifr, interface);
@@ -197,19 +194,20 @@ std::string NET::getNetmask( const std::string& interface)
 	return inet_ntoa( sockaddr_ptr( &ifr.ifr_netmask)->sin_addr);
 }
 
-void NET::setNetmask( const std::string& interface, const std::string& address)
+void NET::setNetmask( std::string_view interface, std::string_view address)
 {
 	struct ifreq ifr;
 	assign_ifreq( ifr, interface);
 
-	inet_aton( address.c_str(), &(reinterpret_cast<sockaddr_in*>(&ifr.ifr_netmask)->sin_addr));
+	std::string address_z(address);
+	inet_aton( address_z.c_str(), &(reinterpret_cast<sockaddr_in*>(&ifr.ifr_netmask)->sin_addr));
 
 	temp_socket sock;
 	if( ioctl( sock.nativeHandle(), SIOCSIFNETMASK, &ifr) < 0)
 		throw SocketException("ioctl failed (setNetmask)");
 }
 
-std::string NET::getDestinationAddress( const std::string& interface)
+std::string NET::getDestinationAddress( std::string_view interface)
 {
 	struct ifreq ifr;
 	assign_ifreq( ifr, interface);
@@ -221,19 +219,20 @@ std::string NET::getDestinationAddress( const std::string& interface)
 	return inet_ntoa( sockaddr_ptr( &ifr.ifr_dstaddr)->sin_addr);
 }
 
-void NET::setDestinationAddress( const std::string& interface, const std::string& address)
+void NET::setDestinationAddress( std::string_view interface, std::string_view address)
 {
 	struct ifreq ifr;
 	assign_ifreq( ifr, interface);
 
-	inet_aton( address.c_str(), &(reinterpret_cast<sockaddr_in*>(&ifr.ifr_dstaddr)->sin_addr));
+	std::string address_z(address);
+	inet_aton( address_z.c_str(), &(reinterpret_cast<sockaddr_in*>(&ifr.ifr_dstaddr)->sin_addr));
 
 	temp_socket sock;
 	if( ioctl( sock.nativeHandle(), SIOCSIFDSTADDR, &ifr) < 0)
 		throw SocketException("ioctl failed (setDestinationAddress)");
 }
 
-int NET::getMTU( const std::string& interface)
+int NET::getMTU( std::string_view interface)
 {
 	struct ifreq ifr;
 	assign_ifreq( ifr, interface);
@@ -245,7 +244,7 @@ int NET::getMTU( const std::string& interface)
 	return ifr.ifr_mtu;
 }
 
-void NET::setMTU( const std::string& interface, int mtu)
+void NET::setMTU( std::string_view interface, int mtu)
 {
 	struct ifreq ifr;
 	assign_ifreq( ifr, interface);
@@ -257,7 +256,7 @@ void NET::setMTU( const std::string& interface, int mtu)
 		throw SocketException("ioctl failed (setMTU)");
 }
 
-std::string NET::getHardwareAddress( const std::string& interface, char separationChar)
+std::string NET::getHardwareAddress( std::string_view interface)
 {
 	struct ifreq ifr;
 	assign_ifreq( ifr, interface);
@@ -278,17 +277,8 @@ std::string NET::getHardwareAddress( const std::string& interface, char separati
 			break;
 	}
 
-	std::ostringstream str;
-	str << std::hex << std::setw(2) << std::setfill('0');
-
-	for( int i = 0; i <= 4; ++i)
-	{
-		str << std::uppercase
-		    << static_cast<int>( reinterpret_cast<unsigned char*>( ifr.ifr_addr.sa_data)[i])
-		    << separationChar;
-	}
-
-	str << std::uppercase
-	    << static_cast<int>( reinterpret_cast<unsigned char*>( ifr.ifr_addr.sa_data)[5]);
-	return str.str();
+	char mac[20];
+	auto addr = reinterpret_cast<unsigned char*>( ifr.ifr_addr.sa_data);
+	int len = sprintf(mac, "%02x:%02x:%02x:%02x:%02x:%02x", addr[0], addr[1], addr[2], addr[3], addr[4], addr[5]);
+	return std::string(mac, len);
 }

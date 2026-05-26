@@ -12,7 +12,7 @@ CANRawSocket::CANRawSocket()
 : CANSocket( RAW, CAN_RAW)
 {}
 
-void CANRawSocket::sendTo( const void* buffer, size_t len, const std::string& interface)
+void CANRawSocket::sendTo( const void* buffer, size_t len, std::string_view interface)
 {
 	sockaddr_can destAddr;
 	destAddr.can_family = AF_CAN;

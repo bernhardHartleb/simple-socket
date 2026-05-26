@@ -11,7 +11,7 @@ UnixSocket::UnixSocket( int type, int protocol)
 : SimpleSocket( UNIX, type, protocol)
 {}
 
-void UnixSocket::connect( const std::string& foreignPath)
+void UnixSocket::connect( std::string_view foreignPath)
 {
 	sockaddr_un addr;
 	fillAddress( foreignPath, addr);
@@ -20,7 +20,7 @@ void UnixSocket::connect( const std::string& foreignPath)
 		throw SocketException("Connect failed (connect)");
 }
 
-void UnixSocket::bind( const std::string& localPath)
+void UnixSocket::bind( std::string_view localPath)
 {
 	sockaddr_un addr;
 	fillAddress( localPath, addr);
@@ -52,14 +52,16 @@ std::string UnixSocket::getForeignPath() const
 	return extractPath( addr, addr_len);
 }
 
-void UnixSocket::fillAddress( const std::string& path, sockaddr_un& addr)
+void UnixSocket::fillAddress( std::string_view path, sockaddr_un& addr)
 {
+	const int len = path.length();
 	// needed space is size plus null character
-	if( path.size() >= sizeof(sockaddr_un::sun_path))
+	if( len >= sizeof(sockaddr_un::sun_path)-1)
 		throw SocketException("Path to socket file is too long", false);
 
 	addr.sun_family = AF_LOCAL;
-	std::strcpy( addr.sun_path, path.c_str());
+	std::memcpy( addr.sun_path, path.data(), len);
+	addr.sun_path[len] = 0;
 }
 
 std::string UnixSocket::extractPath( const sockaddr_un& addr, socklen_t len)

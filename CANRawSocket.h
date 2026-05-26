@@ -31,7 +31,7 @@ namespace NET
 		 * \param interface specifies the CAN interface to send used for sending
 		 * \exception SocketException thrown if unable to send frame
 		 */
-		void sendTo( const void* buffer, size_t len, const std::string& interface);
+		void sendTo( const void* buffer, size_t len, std::string_view interface);
 
 		/*!
 		 * Read one CAN frame from this socket.

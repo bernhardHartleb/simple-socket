@@ -42,7 +42,7 @@ UDPSocket::UDPSocket()
 	setBroadcast(m_socket);
 }
 
-void UDPSocket::sendTo( const void* buffer, size_t len, const std::string& foreignAddress, unsigned short foreignPort)
+void UDPSocket::sendTo( const void* buffer, size_t len, std::string_view foreignAddress, unsigned short foreignPort)
 {
 	sockaddr_in destAddr;
 	fillAddress( foreignAddress, foreignPort, destAddr);

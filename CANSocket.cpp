@@ -13,7 +13,7 @@ CANSocket::CANSocket( int type, int protocol)
 : SimpleSocket( CAN, type, protocol)
 {}
 
-void CANSocket::connect( const std::string& interface)
+void CANSocket::connect( std::string_view interface)
 {
 	sockaddr_can addr;
 	addr.can_family = AF_CAN;
@@ -23,7 +23,7 @@ void CANSocket::connect( const std::string& interface)
 		throw SocketException("Connect failed (connect)");
 }
 
-void CANSocket::bind( const std::string& interface)
+void CANSocket::bind( std::string_view interface)
 {
 	sockaddr_can addr;
 	addr.can_family = AF_CAN;
@@ -66,17 +66,19 @@ std::string CANSocket::getInterfaceName( const sockaddr_can& addr) const
 	return std::string(ifr.ifr_name);
 }
 
-int CANSocket::getInterfaceIndex( const std::string& interface) const
+int CANSocket::getInterfaceIndex( std::string_view interface) const
 {
+	const int len = interface.length();
 	// binds to all interfaces
-	if( interface.empty()) return 0;
+	if( len == 0) return 0;
 
 	// needed space is size plus null character
-	if( interface.size() >= IF_NAMESIZE)
+	if( len >= IF_NAMESIZE-1)
 		throw SocketException("Interface name is too long", false);
 
 	struct ifreq ifr;
-	std::strcpy( ifr.ifr_name, interface.c_str());
+	std::memcpy( ifr.ifr_name, interface.data(), len);
+	ifr.ifr_name[len] = 0;
 
 	if( ioctl( m_socket, SIOCGIFINDEX, &ifr) < 0)
 		throw SocketException("ioctl failed (getInterfaceIndex)");

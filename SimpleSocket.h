@@ -17,7 +17,7 @@ namespace NET
 		 * \param inclSysMsg true if system message from strerror(errno)
 		 * should be postfixed to the user provided message
 		 */
-		SocketException( const std::string& message, bool inclSysMsg = true);
+		SocketException( std::string_view message, bool inclSysMsg = true);
 
 		SocketException( const SocketException&) = default;
 

@@ -31,7 +31,7 @@ namespace NET
 		 * \param foreignPort foreign port
 		 * \exception SocketException thrown if unable to establish connection
 		 */
-		void connect( const std::string& foreignAddress, unsigned short foreignPort);
+		void connect( std::string_view foreignAddress, unsigned short foreignPort);
 
 		/*!
 		 * \overload
@@ -60,7 +60,7 @@ namespace NET
 		 * \param localPort local port
 		 * \exception SocketException thrown if setting local port fails
 		 */
-		void bind( const std::string& localAddress, unsigned short localPort = 0);
+		void bind( std::string_view localAddress, unsigned short localPort = 0);
 
 		/*!
 		 * Get the local address (after binding the socket).
@@ -107,7 +107,7 @@ namespace NET
 		 * \param addr address structure to fill
 		 * \exception SocketException thrown if unable to resolve a hostname
 		 */
-		static void fillAddress( const std::string& address, unsigned short port, sockaddr_in& addr);
+		static void fillAddress( std::string_view address, unsigned short port, sockaddr_in& addr);
 	};
 
 } // namespace NET

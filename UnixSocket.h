@@ -19,14 +19,14 @@ namespace NET
 		 * \param foreignPath the path of the remote socket
 		 * \exception SocketException thrown if unable to establish connection
 		 */
-		void connect( const std::string& foreignPath);
+		void connect( std::string_view foreignPath);
 
 		/*!
 		 * Set the local path to the specified path
 		 * \param localPath specifies where the socket should be bound
 		 * \exception SocketException thrown if setting local path fails
 		 */
-		void bind( const std::string& localPath);
+		void bind( std::string_view localPath);
 
 		/*!
 		 * Get the local path (after binding the socket)
@@ -54,7 +54,7 @@ namespace NET
 		 * \param addr address structure to fill
 		 * \exception SocketException thrown if path is not valid
 		 */
-		static void fillAddress( const std::string& path, sockaddr_un& addr);
+		static void fillAddress( std::string_view path, sockaddr_un& addr);
 
 		//! extracts a path string from the socket address structure
 		static std::string extractPath( const sockaddr_un& addr, socklen_t len);

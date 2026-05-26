@@ -11,7 +11,7 @@ UnixDatagramSocket::UnixDatagramSocket()
 : UnixSocket( DATAGRAM, 0)
 {}
 
-void UnixDatagramSocket::sendTo( const void* buffer, size_t len, const std::string& foreignPath)
+void UnixDatagramSocket::sendTo( const void* buffer, size_t len, std::string_view foreignPath)
 {
 	sockaddr_un destAddr;
 	fillAddress( foreignPath, destAddr);

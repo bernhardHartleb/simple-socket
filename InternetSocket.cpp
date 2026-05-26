@@ -2,9 +2,6 @@
 
 #include <sys/socket.h>
 #include <arpa/inet.h>
-#include <netinet/in.h>
-#include <netdb.h>
-#include <cerrno>
 #include <cstring>
 
 using namespace NET;
@@ -16,7 +13,7 @@ InternetSocket::InternetSocket( int type, int protocol)
 InternetSocket::InternetSocket( int sockfd)
 : SimpleSocket(sockfd) {}
 
-void InternetSocket::connect( const std::string& foreignAddress, unsigned short foreignPort)
+void InternetSocket::connect( std::string_view foreignAddress, unsigned short foreignPort)
 {
 	sockaddr_in addr;
 	fillAddress( foreignAddress, foreignPort, addr);
@@ -38,7 +35,7 @@ void InternetSocket::bind( unsigned short localPort /* = 0 */)
 		throw SocketException("Set of local port failed (bind)");
 }
 
-void InternetSocket::bind( const std::string& localAddress, unsigned short localPort /* = 0 */)
+void InternetSocket::bind( std::string_view localAddress, unsigned short localPort /* = 0 */)
 {
 	sockaddr_in addr;
 	fillAddress( localAddress, localPort, addr);
@@ -91,20 +88,22 @@ unsigned short InternetSocket::getForeignPort() const
 	return ntohs( addr.sin_port);
 }
 
-void InternetSocket::fillAddress( const std::string& address, unsigned short port, sockaddr_in& addr)
+void InternetSocket::fillAddress( std::string_view address, unsigned short port, sockaddr_in& addr)
 {
+	const int IP_MAXSIZE = 20;
+	const int len = address.length();
+
+	// needed space is size plus null character
+	if( len >= IP_MAXSIZE)
+		throw SocketException("IPv4 address is too long", false);
+
 	addr.sin_family = AF_INET;
 	addr.sin_port = htons(port);
 
-	// Assume we have a simple ipv4 address
-	if( inet_aton( address.c_str(), &addr.sin_addr)) return;
+	char buf[IP_MAXSIZE];
+	std::memcpy( buf, address.data(), len);
+	buf[len] = 0;
 
-	// We need to resolve the address
-	hostent* host = gethostbyname( address.c_str());
-	if( host == nullptr)
-	{
-		// strerror() will not work for gethostbyname()
-		throw SocketException("Failed to resolve address (gethostbyname)", false);
-	}
-	addr.sin_addr.s_addr = *reinterpret_cast<uint32_t*>( host->h_addr);
+	if( inet_aton( buf, &addr.sin_addr) == 0)
+		throw SocketException("Unable to parse IPv4 address");
 }

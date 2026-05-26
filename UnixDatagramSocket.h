@@ -24,7 +24,7 @@ namespace NET
 		 * \return true if send is successful
 		 * \exception SocketException thrown if unable to send datagram
 		 */
-		void sendTo( const void* buffer, size_t len, const std::string& foreignPath);
+		void sendTo( const void* buffer, size_t len, std::string_view foreignPath);
 
 		/*!
 		 * Read read up to len bytes data from this socket. The given
