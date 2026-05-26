@@ -33,6 +33,17 @@ namespace NET
 		 */
 		void connect( std::string_view foreignAddress, unsigned short foreignPort);
 
+		//! establish a connection with the given foreign address and port
+		/*!
+		 * Provides timeout for TCP socket connection establishment.
+		 *
+		 * \param foreignAddress foreign address (IP address or name)
+		 * \param foreignPort foreign port
+		 * \return 0 on timeout, 1 when connection is established
+		 * \exception SocketException thrown if unable to establish connection
+		 */
+		int timedConnect( std::string_view foreignAddress, unsigned short foreignPort, int timeout);
+
 		/*!
 		 * \overload
 		 * Instead of the richer function with more arguments, this bind()

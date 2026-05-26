@@ -1,7 +1,10 @@
 #include "InternetSocket.h"
+#include "TempFailure.h"
 
 #include <sys/socket.h>
 #include <arpa/inet.h>
+#include <poll.h>
+#include <fcntl.h>
 #include <cstring>
 
 using namespace NET;
@@ -22,6 +25,58 @@ void InternetSocket::connect( std::string_view foreignAddress, unsigned short fo
 		throw SocketException("Connect failed (connect)");
 
 	m_peerDisconnected = false;
+}
+
+int InternetSocket::timedConnect( std::string_view foreignAddress, unsigned short foreignPort, int timeout)
+{
+	sockaddr_in addr;
+	fillAddress( foreignAddress, foreignPort, addr);
+
+	// Set O_NONBLOCK
+	int flags_before = ::fcntl( m_socket, F_GETFL, 0);
+	if( flags_before < 0)
+		throw SocketException("timedConnect failed (fcntl)");
+	::fcntl( m_socket, F_SETFL, flags_before | O_NONBLOCK);
+
+	int ret = 0;
+	// Start connecting (asynchronously)
+	if( ::connect( m_socket, (sockaddr*) &addr, sizeof(addr)) == 0)
+		{ ret = 1; goto exit; }
+
+	// Did connect return an unexpected error?
+	if( (errno != EWOULDBLOCK) && (errno != EINPROGRESS))
+		{ ret = -1; goto exit; }
+
+	// Wait for the connection to complete.
+	struct pollfd poll;
+	poll.fd = m_socket;
+	poll.events = POLLOUT;
+
+	ret = TEMP_FAILURE_RETRY (::poll( &poll, 1, timeout));
+
+	if( ret < 0) goto exit;
+	if( ret == 0) // Did poll timeout?
+	{
+		errno = ETIMEDOUT;
+	}
+	if( ret > 0) // If poll succeeded, make sure there is no error
+	{
+		int error = 0; socklen_t len = sizeof(error);
+		int opt = ::getsockopt( m_socket, SOL_SOCKET, SO_ERROR, &error, &len);
+		if( opt == 0) errno = error;
+		if( error != 0) ret = -1;
+	}
+
+  exit:
+	// Restore original flags
+	::fcntl( m_socket, F_SETFL, flags_before);
+
+	if( ret < 0)
+		throw SocketException("timedConnect failed (connect)");
+	if( ret > 0)
+		m_peerDisconnected = false;
+
+	return ret;
 }
 
 void InternetSocket::bind( unsigned short localPort /* = 0 */)
