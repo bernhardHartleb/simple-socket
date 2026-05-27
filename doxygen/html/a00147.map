@@ -1,0 +1,11 @@
+<map id="InternetSocket.h" name="InternetSocket.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="94,5,211,32"/>
+<area shape="rect" id="Node000002" href="$a00137.html" title=" " alt="" coords="96,80,209,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="153,30,155,65,150,63,151,35"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,155,102,181"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="138,107,84,148,81,143,132,108"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="126,155,179,181"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="154,105,155,140,150,138,150,109"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="203,155,280,181"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="169,105,217,145,212,145,167,110"/>
+</map>

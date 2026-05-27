@@ -1,0 +1,17 @@
+<map id="CANRawSocket.h" name="CANRawSocket.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="149,5,278,32"/>
+<area shape="rect" id="Node000002" href="$a00170.html" title=" " alt="" coords="101,80,203,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="205,31,174,70,170,66,201,35"/>
+<area shape="rect" id="Node000007" href="$a00089.html" title=" " alt="" coords="227,80,325,107"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="225,30,258,68,253,68,224,35"/>
+<area shape="rect" id="Node000003" href="$a00137.html" title=" " alt="" coords="96,155,209,181"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="153,105,155,140,150,138,151,110"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="5,229,102,256"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="138,181,84,222,81,218,132,183"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="126,229,179,256"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="154,180,155,215,150,212,150,184"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="203,229,280,256"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="169,179,217,219,212,219,167,184"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="246,155,306,181"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="278,105,279,140,274,138,275,109"/>
+</map>

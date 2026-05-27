@@ -1,0 +1,19 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$a01031.html" title="A socket representing a basic communication endpoint." alt="" coords="5,107,142,133"/>
+<area shape="rect" id="Node000001" href="$a01015.html" title="CAN socket class." alt="" coords="197,31,322,57"/>
+<area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="121,98,227,56,223,60,124,103"/>
+<area shape="rect" id="Node000003" href="$a01019.html" title="Internet socket class." alt="" coords="190,107,330,133"/>
+<area shape="poly" id="edge3_Node000000_Node000003" title=" " alt="" coords="157,117,192,119,187,121,158,123"/>
+<area shape="rect" id="Node000007" href="$a01087.html" title="Unix domain socket class." alt="" coords="198,183,322,209"/>
+<area shape="poly" id="edge7_Node000000_Node000007" title=" " alt="" coords="123,137,227,181,223,184,122,142"/>
+<area shape="rect" id="Node000002" href="$a01011.html" title="Raw CAN socket class." alt="" coords="392,5,544,32"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="337,32,394,27,389,29,339,37"/>
+<area shape="rect" id="Node000004" href="$a01023.html" title="SCTP socket class." alt="" coords="402,56,534,83"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="332,100,413,82,408,84,333,105"/>
+<area shape="rect" id="Node000005" href="$a01055.html" title="TCP socket class." alt="" coords="406,107,530,133"/>
+<area shape="poly" id="edge5_Node000003_Node000005" title=" " alt="" coords="345,117,409,119,403,121,346,123"/>
+<area shape="rect" id="Node000006" href="$a01079.html" title="UDP socket class." alt="" coords="406,157,531,184"/>
+<area shape="poly" id="edge6_Node000003_Node000006" title=" " alt="" coords="333,135,413,156,408,157,332,140"/>
+<area shape="rect" id="Node000008" href="$a01083.html" title="Unix datagram socket class." alt="" coords="378,208,558,235"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="337,203,380,210,375,210,337,208"/>
+</map>
