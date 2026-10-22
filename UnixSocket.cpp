@@ -11,6 +11,12 @@ UnixSocket::UnixSocket( int type, int protocol)
 : SimpleSocket( UNIX, type, protocol)
 {}
 
+UnixSocket::~UnixSocket()
+{
+	if( !m_boundPath.empty())
+		::unlink( m_boundPath.c_str());
+}
+
 void UnixSocket::connect( std::string_view foreignPath)
 {
 	sockaddr_un addr;
@@ -24,10 +30,11 @@ void UnixSocket::bind( std::string_view localPath)
 {
 	sockaddr_un addr;
 	fillAddress( localPath, addr);
-	::unlink( addr.sun_path);
 
 	if( ::bind( m_socket, (sockaddr*) &addr, sizeof(addr)) < 0)
 		throw SocketException("Set of local path failed (bind)");
+
+	m_boundPath = localPath;
 }
 
 std::string UnixSocket::getLocalPath() const

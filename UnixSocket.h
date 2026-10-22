@@ -14,6 +14,8 @@ namespace NET
 	class UnixSocket : public SimpleSocket
 	{
 	public:
+		~UnixSocket();
+
 		/*!
 		 * Establish a socket connection with the given socket
 		 * \param foreignPath the path of the remote socket
@@ -45,6 +47,9 @@ namespace NET
 	protected:
 		//! allows a subclass to create new socket
 		UnixSocket( int type, int protocol);
+
+		// track created socket file
+		std::string m_boundPath;
 
 		/*!
 		 * Fill an address structure with the given path.
