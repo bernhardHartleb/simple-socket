@@ -64,7 +64,7 @@ void CANRawSocket::setReceiveFilter( const can_filter* filter, size_t len)
 	                SOL_CAN_RAW,
 	                CAN_RAW_FILTER,
 	                (const raw_type*)filter,
-	                sizeof(filter) * len) < 0)
+	                sizeof(can_filter) * len) < 0)
 		throw SocketException("Set receive filter failed (setsockopt)");
 }
 
@@ -74,7 +74,7 @@ void CANRawSocket::setErrorFilter( const can_filter* filter, size_t len)
 	                SOL_CAN_RAW,
 	                CAN_RAW_ERR_FILTER,
 	                (const raw_type*)filter,
-	                sizeof(filter) * len) < 0)
+	                sizeof(can_filter) * len) < 0)
 		throw SocketException("Set receive filter failed (setsockopt)");
 }
 
