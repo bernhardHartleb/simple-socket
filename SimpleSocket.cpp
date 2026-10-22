@@ -43,18 +43,19 @@ SimpleSocket::~SimpleSocket()
 
 int SimpleSocket::send( const void* buffer, size_t len)
 {
-	int sent = TEMP_FAILURE_RETRY (::send( m_socket, (const raw_type*) buffer, len, 0));
+	int flags = 0;
+#ifdef MSG_NOSIGNAL
+	flags |= MSG_NOSIGNAL;
+#endif
+	int sent = TEMP_FAILURE_RETRY (::send( m_socket, (const raw_type*) buffer, len, flags));
 	if( sent < 0)
 	{
-		switch(errno)
+		if( errno == ECONNRESET || errno == ECONNREFUSED || errno == EPIPE)
 		{
-		case ECONNRESET:
-		case ECONNREFUSED:
 			m_peerDisconnected = true;
-			break;
-		default:
-			throw SocketException("Send failed (send)");
+			return 0;
 		}
+		throw SocketException("Send failed (send)");
 	}
 	return sent;
 }

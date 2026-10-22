@@ -74,7 +74,7 @@ public:
 
 		client_socket->disconnect();
 		ret = session_socket.send( send_msg, len);
-		CPPUNIT_ASSERT_EQUAL( -1, ret );
+		CPPUNIT_ASSERT_EQUAL( 0, ret );
 		CPPUNIT_ASSERT( session_socket.peerDisconnected() );
 	}
 };
