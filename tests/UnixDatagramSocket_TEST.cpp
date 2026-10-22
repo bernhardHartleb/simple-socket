@@ -13,6 +13,7 @@ class UnixDatagramSocket_TEST : public CppUnit::TestFixture
 {
 	CPPUNIT_TEST_SUITE( UnixDatagramSocket_TEST );
 	CPPUNIT_TEST( testSendTo );
+	CPPUNIT_TEST( testPaths );
 	CPPUNIT_TEST_SUITE_END();
 
 private:
@@ -51,6 +52,18 @@ public:
 		CPPUNIT_ASSERT_EQUAL( 0, ret );
 		CPPUNIT_ASSERT_EQUAL( std::string(sock_file), source );
 		CPPUNIT_ASSERT( std::memcmp(send_msg, recv_msg, len) == 0 );
+	}
+
+	void testPaths()
+	{
+		recv_socket->bind(sock_file);
+		send_socket->connect(sock_file);
+
+		CPPUNIT_ASSERT_EQUAL( std::string(sock_file), recv_socket->getLocalPath() );
+		CPPUNIT_ASSERT_THROW( recv_socket->getForeignPath(), NET::SocketException );
+
+		CPPUNIT_ASSERT_EQUAL( std::string(),          send_socket->getLocalPath() );
+		CPPUNIT_ASSERT_EQUAL( std::string(sock_file), send_socket->getForeignPath() );
 	}
 };
 

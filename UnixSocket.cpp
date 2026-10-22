@@ -54,11 +54,12 @@ std::string UnixSocket::getForeignPath() const
 
 void UnixSocket::fillAddress( std::string_view path, sockaddr_un& addr)
 {
-	const int len = path.length();
+	const size_t len = path.length();
 	// needed space is size plus null character
-	if( len >= sizeof(sockaddr_un::sun_path)-1)
+	if( len >= sizeof(addr.sun_path))
 		throw SocketException("Path to socket file is too long", false);
 
+	addr = {};
 	addr.sun_family = AF_LOCAL;
 	std::memcpy( addr.sun_path, path.data(), len);
 	addr.sun_path[len] = 0;
@@ -66,5 +67,16 @@ void UnixSocket::fillAddress( std::string_view path, sockaddr_un& addr)
 
 std::string UnixSocket::extractPath( const sockaddr_un& addr, socklen_t len)
 {
-	return std::string( addr.sun_path, len - sizeof(sa_family_t) - 1);
+	const size_t offset = offsetof(sockaddr_un, sun_path);
+	if( len <= offset)
+		return std::string();
+
+	size_t path_len = static_cast<size_t>(len) - offset;
+	if( path_len > sizeof(addr.sun_path))
+		path_len = sizeof(addr.sun_path);
+
+	if( path_len > 0 && addr.sun_path[path_len - 1] == '\0')
+		--path_len;
+
+	return std::string( addr.sun_path, path_len);
 }

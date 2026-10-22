@@ -152,6 +152,7 @@ void InternetSocket::fillAddress( std::string_view address, unsigned short port,
 	if( len >= IP_MAXSIZE)
 		throw SocketException("IPv4 address is too long", false);
 
+	addr = {};
 	addr.sin_family = AF_INET;
 	addr.sin_port = htons(port);
 
