@@ -145,8 +145,8 @@ unsigned short InternetSocket::getForeignPort() const
 
 void InternetSocket::fillAddress( std::string_view address, unsigned short port, sockaddr_in& addr)
 {
-	const int IP_MAXSIZE = 20;
-	const int len = address.length();
+	const size_t IP_MAXSIZE = 16;
+	const size_t len = address.length();
 
 	// needed space is size plus null character
 	if( len >= IP_MAXSIZE)

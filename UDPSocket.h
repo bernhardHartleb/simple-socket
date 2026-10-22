@@ -30,7 +30,7 @@ namespace NET
 		 *
 		 * \param buffer data to be send
 		 * \param len number of bytes to write
-		 * \param foreignAddress address (IP address or name) to send to
+		 * \param foreignAddress address (IPv4 address) to send to
 		 * \param foreignPort port number to send to
 		 * \exception SocketException thrown if unable to send datagram
 		 */

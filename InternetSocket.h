@@ -27,7 +27,7 @@ namespace NET
 		 * use the send() function like on a connection oriented socket.
 		 * If not connected, you would have to use sendTo
 		 *
-		 * \param foreignAddress foreign address (IP address or name)
+		 * \param foreignAddress foreign address (IPv4 address)
 		 * \param foreignPort foreign port
 		 * \exception SocketException thrown if unable to establish connection
 		 */
@@ -37,7 +37,7 @@ namespace NET
 		/*!
 		 * Provides timeout for TCP socket connection establishment.
 		 *
-		 * \param foreignAddress foreign address (IP address or name)
+		 * \param foreignAddress foreign address (IPv4 address)
 		 * \param foreignPort foreign port
 		 * \return 0 on timeout, 1 when connection is established
 		 * \exception SocketException thrown if unable to establish connection
@@ -110,13 +110,12 @@ namespace NET
 
 		/*!
 		 * Fill an address structure with the given address and port number.
-		 * If the given address is not a valid IPv4 address, it will be resolved
-		 * by hostname or DNS lookup. addr will be unchanged if this resolve fails.
+		 * If the given address is not a valid IPv4 address, it will throw.
 		 *
-		 * \param address IPv4 domain name or address
-		 * \param port IP port number to fill in
+		 * \param address IPv4 address
+		 * \param port port number to fill in
 		 * \param addr address structure to fill
-		 * \exception SocketException thrown if unable to resolve a hostname
+		 * \exception SocketException thrown if unable to parse IP
 		 */
 		static void fillAddress( std::string_view address, unsigned short port, sockaddr_in& addr);
 	};
