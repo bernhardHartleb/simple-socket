@@ -64,12 +64,14 @@ if(BUILD_SCTP)
 	set(sources
 		${sources}
 		SCTPSocket.cpp)
-
-	target_link_libraries(network sctp)
 endif(BUILD_SCTP)
 
 source_group(network_src FILES ${sources})
 add_library(network STATIC ${sources})
+
+if(BUILD_SCTP)
+	target_link_libraries(network sctp)
+endif(BUILD_SCTP)
 
 if(BUILD_TESTS)
 	enable_testing()
