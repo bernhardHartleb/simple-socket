@@ -55,8 +55,6 @@ namespace NET
 			STOP_BOTH = SHUT_RDWR    ///< disable all send() and receive() calls on the socket
 		};
 
-		~SimpleSocket();
-
 		//! return the native handle of the open socket
 		inline int nativeHandle() { return m_socket; }
 
@@ -199,6 +197,9 @@ namespace NET
 
 		//! allows a subclass to create new socket
 		SimpleSocket( int domain, int type, int protocol);
+
+		// protected to avoid delete via base class
+		~SimpleSocket();
 
 		// socket descriptor
 		int m_socket;
