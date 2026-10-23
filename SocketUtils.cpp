@@ -9,9 +9,8 @@
 #include <netdb.h>
 #include <unistd.h>
 
-#include <cstdint>
 #include <cstring>
-#include <cstdlib>
+#include <memory>
 
 using namespace NET;
 
@@ -63,17 +62,23 @@ namespace
 
 std::string NET::resolveHostname( const std::string& hostname)
 {
-	hostent* host = gethostbyname( hostname.c_str());
-	if( host == nullptr)
-	{
-		// strerror() will not work for gethostbyname()
-		throw SocketException("Failed to resolve address (gethostbyname)", false);
-	}
+	addrinfo hints = {};
+	hints.ai_family = AF_INET;
 
-	char ip[INET_ADDRSTRLEN];
-	auto addr = host->h_addr;
-	int len = sprintf(ip, "%u.%u.%u.%u", addr[0], addr[1], addr[2], addr[3]);
-	return std::string(ip, len);
+	addrinfo* result = nullptr;
+	int status = getaddrinfo( hostname.c_str(), nullptr, &hints, &result);
+	if( status != 0 || result == nullptr)
+		throw SocketException("Failed to resolve address (getaddrinfo)", false);
+
+	std::unique_ptr<addrinfo, decltype(&::freeaddrinfo)>
+		result_guard(result, &::freeaddrinfo);
+
+	if( result->ai_addr == nullptr || result->ai_addrlen < sizeof(sockaddr_in))
+		throw SocketException("Resolver returned an invalid IPv4 address", false);
+
+	sockaddr_in addr = {};
+	std::memcpy( &addr, result->ai_addr, sizeof(addr));
+	return inet_ntoa( addr.sin_addr);
 }
 
 uint16_t NET::resolveService( const std::string& service, const std::string& protocol)
