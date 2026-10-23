@@ -5,12 +5,12 @@ message("Building tests:")
 # Collect all unit tests
 set(Test_SRC
 	TCPSocket_TEST.cpp
-	UDPSocket_TEST.cpp)
+	UDPSocket_TEST.cpp
+	SocketUtils_TEST.cpp)
 
 if(UNIX)
 	list(APPEND Test_SRC
-		UnixDatagramSocket_TEST.cpp
-		SocketUtils_TEST.cpp)
+		UnixDatagramSocket_TEST.cpp)
 endif()
 
 if(BUILD_CAN)
