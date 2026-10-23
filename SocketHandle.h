@@ -5,9 +5,6 @@
 
 namespace NET
 {
-	template<class>
-	class SocketHandle_Ref;
-
 	class TCPSocket;
 	class SCTPSocket;
 
@@ -17,16 +14,9 @@ namespace NET
 	 * not expose the socket file descriptor. It also ensures all an accepted
 	 * socket is closed in the case no new socket is created with this handle.
 	 *
-	 * SocketHandle implements move semantics, so only one SocketHandle can be
-	 * active for the same connection at any given moment. If SocketHandle is
-	 * copied/passed to a function, etc. the source/passed in SocketHandle is
-	 * made invalid. The SocketHandle also gets invalid if an socket is
-	 * constructed from the handle.
-	 *
-	 * The move implementation does not need C++11, and is implemented without
-	 * the need for r-value references. This also means that moving is not done
-	 * like in C++11 (using std::move and std::forward) it is instead done
-	 * silently and implicitly when copying the SocketHandle object.
+	 * SocketHandle is move-only. Moving transfers ownership of the socket file
+	 * descriptor and leaves the source handle invalid. Copying is not allowed.
+	 * Constructing a socket from a handle also transfers ownership.
 	 *
 	 * After a SocketHandle gets returned from an accept() call, the
 	 * SocketHandle has to be checked wheter it is valid or not.
@@ -39,7 +29,7 @@ namespace NET
 	 *   std::cout << "no one tried to connect in time" << std::endl;
 	 *   return;
 	 * }
-	 * TCPSocket acceptedSocket(handle);
+	 * TCPSocket acceptedSocket(std::move(handle));
 	 * // use the socket
 	 * \endcode
 	 */
@@ -54,38 +44,23 @@ namespace NET
 		typedef Socket socket_type;
 
 		//! constructs an invalid socket handle
-		SocketHandle() : m_sockfd(-1) {}
+		SocketHandle() noexcept : m_sockfd(-1) {}
 
-		//! copy constructor using move semantics
-		SocketHandle( SocketHandle& other)
-		: m_sockfd( other.release()) {}
+		SocketHandle( const SocketHandle&) = delete;
+		SocketHandle& operator=( const SocketHandle&) = delete;
 
-		//! \cond internal
-		SocketHandle( SocketHandle_Ref<Socket> other)
-		: m_sockfd( other.sockfd) {}
+		//! move constructor: transfers ownership from other
+		SocketHandle( SocketHandle&& other) noexcept : m_sockfd(other.release()) {}
 
-		operator SocketHandle_Ref<Socket>()
-		{ return SocketHandle_Ref<Socket>( release()); }
-		//! \endcond
-
-		//! assignment operator using move semantics
-		SocketHandle&
-		operator=( SocketHandle& other)
+		//! move assignment: closes the currently owned descriptor first
+		SocketHandle& operator=( SocketHandle&& other) noexcept
 		{
-			reset( other.release());
+			if( this != &other)
+				reset(other.release());
 			return *this;
 		}
 
-		//! \cond internal
-		SocketHandle&
-		operator=( SocketHandle_Ref<Socket> other)
-		{
-			reset( other.sockfd);
-			return *this;
-		}
-		//! \endcond
-
-		~SocketHandle() { reset(); }
+		~SocketHandle() noexcept { reset(); }
 
 		//! returns whether the socket handle is valid
 		/*!
@@ -95,17 +70,17 @@ namespace NET
 		 * a socket from an invalid handle will raise a SocketException.
 		 * \exception SocketException if trying to use an invalid SocketHandle to create socket
 		 */
-		operator bool() const { return m_sockfd >= 0; }
+		explicit operator bool() const noexcept { return m_sockfd >= 0; }
 
 	private:
 		//! constructor for sockets using this handle
-		explicit SocketHandle( int sockfd) : m_sockfd(sockfd) {}
+		explicit SocketHandle( int sockfd) noexcept : m_sockfd(sockfd) {}
 
 		/*!
 		 * Releases ownership of the socket file descriptor.
 		 * It also transfers the obligation to close the handle.
 		 */
-		int release()
+		int release() noexcept
 		{
 			int tmp = m_sockfd;
 			m_sockfd = -1;
@@ -117,29 +92,17 @@ namespace NET
 		 * If the new file descriptor differs from the old one,
 		 * the previously held socket descriptor is closed.
 		 */
-		void reset( int fd = -1)
+		void reset( int fd = -1) noexcept
 		{
 			if( fd != m_sockfd)
 			{
-				::close(m_sockfd);
+				if( m_sockfd >= 0) ::close(m_sockfd);
 				m_sockfd = fd;
 			}
 		}
 
 		int m_sockfd;
 	};
-
-	//! \cond internal
-	//! A helper class to provide SocketHandle with reference semantics.
-	template<class Socket>
-	class SocketHandle_Ref
-	{
-		int sockfd;
-
-		friend class SocketHandle<Socket>;
-		explicit SocketHandle_Ref( int sockfd) : sockfd(sockfd) {}
-	};
-	//! \endcond
 
 } // namespace NET
 

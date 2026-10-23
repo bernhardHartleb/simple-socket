@@ -16,7 +16,7 @@ SCTPSocket::SCTPSocket( uint16_t numOutStreams /* = 10 */,
 	setInitValues( numOutStreams, maxInStreams, maxAttempts, maxInitTimeout);
 }
 
-SCTPSocket::SCTPSocket( Handle handle)
+SCTPSocket::SCTPSocket( Handle&& handle)
 : InternetSocket( handle.release() )
 {}
 

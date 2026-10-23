@@ -11,7 +11,7 @@ TCPSocket::TCPSocket()
 : InternetSocket( STREAM, IPPROTO_TCP)
 {}
 
-TCPSocket::TCPSocket( Handle handle)
+TCPSocket::TCPSocket( Handle&& handle)
 : InternetSocket( handle.release() )
 {}
 

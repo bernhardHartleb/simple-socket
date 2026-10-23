@@ -41,15 +41,15 @@ public:
 		tmp_handle = server_socket->accept();
 		NET::TCPSocket::Handle handle;
 		NET::TCPSocket::Handle& ref_handle = handle;
-		handle = ref_handle;
+		handle = std::move(ref_handle);
 		CPPUNIT_ASSERT( !handle );
 		CPPUNIT_ASSERT( tmp_handle );
-		handle = tmp_handle;
+		handle = std::move(tmp_handle);
 		CPPUNIT_ASSERT( handle );
 		CPPUNIT_ASSERT( !tmp_handle );
-		NET::TCPSocket session_socket(handle);
+		NET::TCPSocket session_socket(std::move(handle));
 		CPPUNIT_ASSERT( !handle );
-		CPPUNIT_ASSERT_THROW( NET::TCPSocket bad_socket(handle), NET::SocketException );
+		CPPUNIT_ASSERT_THROW( NET::TCPSocket bad_socket(std::move(handle)), NET::SocketException );
 		client_socket->disconnect();
 	}
 
@@ -63,7 +63,7 @@ public:
 		client_socket->connect( "127.0.0.1", 47777);
 		NET::TCPSocket::Handle handle = server_socket->accept();
 		CPPUNIT_ASSERT( handle );
-		NET::TCPSocket session_socket(handle);
+		NET::TCPSocket session_socket(std::move(handle));
 		CPPUNIT_ASSERT( !handle );
 
 		session_socket.send( send_msg, len);

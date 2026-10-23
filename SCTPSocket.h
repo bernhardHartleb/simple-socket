@@ -43,7 +43,7 @@ namespace NET
 		 * Construct a Socket from a Handle returned by accept()
 		 * \exception SocketException thrown if handle is invalid
 		*/
-		SCTPSocket( Handle handle);
+		explicit SCTPSocket( Handle&& handle);
 
 		using InternetSocket::bind;
 		int bind( const std::vector<std::string>& localAddresses, unsigned short localPort = 0);

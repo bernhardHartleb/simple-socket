@@ -23,7 +23,7 @@ namespace NET
 		 * Construct a Socket from a Handle returned by accept()
 		 * \exception SocketException thrown if handle is invalid
 		 */
-		TCPSocket( Handle handle);
+		explicit TCPSocket( Handle&& handle);
 
 		//! send data through a connected socket
 		/*!
