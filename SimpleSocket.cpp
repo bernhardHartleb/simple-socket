@@ -97,9 +97,8 @@ void SimpleSocket::disconnect()
 	{
 		if( errno != ECONNRESET)
 			throw SocketException("Disconnect failed (connect)");
-
-		m_peerDisconnected = false;
 	}
+	m_peerDisconnected = false;
 }
 
 void SimpleSocket::shutdown( ShutdownDirection type)

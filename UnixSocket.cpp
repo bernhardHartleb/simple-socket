@@ -24,6 +24,8 @@ void UnixSocket::connect( std::string_view foreignPath)
 
 	if( ::connect( m_socket, (sockaddr*) &addr, sizeof(addr)) < 0)
 		throw SocketException("Connect failed (connect)");
+
+	m_peerDisconnected = false;
 }
 
 void UnixSocket::bind( std::string_view localPath)
