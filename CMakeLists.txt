@@ -20,24 +20,22 @@ add_compile_options(
 	-Wall
 	-Wextra
 	-pedantic
-	-Winit-self
-	-Wparentheses
 	-Wfloat-equal
-	-Wno-endif-labels
-	-Wpointer-arith
 	-Wdeprecated
-	-Wmissing-declarations
-	-Wredundant-decls
-	-Wswitch
 	-Wswitch-enum
-	-Wsign-promo
-	-Wcast-qual
-	-Wpacked
+	-Winit-self
+	-Wredundant-decls
+	-Wmissing-declarations
 	-Wmissing-include-dirs
-	-Wsign-conversion
+	-Wpacked
 	-Wdisabled-optimization
-	-Winline
-	-Woverloaded-virtual
+	-Wlogical-op
+	-Wcast-qual
+	-Wcast-align
+	-Wsign-conversion
+	-Wsign-promo
+	-Wstrict-null-sentinel
+	-Wzero-as-null-pointer-constant
 )
 
 # Add modern linker flags
