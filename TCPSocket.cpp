@@ -22,8 +22,9 @@ int TCPSocket::sendAll( const void* buffer, size_t len)
 	{
 		const char* buf = static_cast<const char*>(buffer) + sent;
 		int ret = send( buf, len - sent);
-		if( ret < 0) return ret;
+		if( ret < 0) return sent;
 		sent += static_cast<unsigned>(ret);
+		if( m_peerDisconnected) return sent;
 	}
 	return sent;
 }
