@@ -37,7 +37,7 @@ SimpleSocket::SimpleSocket( int sockfd)
 
 SimpleSocket::~SimpleSocket()
 {
-	TEMP_FAILURE_RETRY (::close(m_socket));
+	::close(m_socket);
 	// on Windows do cleanup here
 }
 

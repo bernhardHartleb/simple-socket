@@ -2,7 +2,6 @@
 #define NET_SocketHandle_h__
 
 #include <unistd.h>
-#include "TempFailure.h"
 
 namespace NET
 {
@@ -122,7 +121,7 @@ namespace NET
 		{
 			if( fd != m_sockfd)
 			{
-				TEMP_FAILURE_RETRY (::close(m_sockfd));
+				::close(m_sockfd);
 				m_sockfd = fd;
 			}
 		}
