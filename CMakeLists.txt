@@ -4,6 +4,7 @@ project(simple-socket)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED true)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 # Building of CAN is optional
 option(BUILD_CAN "Add support for the Socket CAN layer." false)
