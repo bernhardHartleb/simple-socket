@@ -145,21 +145,20 @@ unsigned short InternetSocket::getForeignPort() const
 
 void InternetSocket::fillAddress( std::string_view address, unsigned short port, sockaddr_in& addr)
 {
-	const size_t IP_MAXSIZE = 16;
 	const size_t len = address.length();
 
 	// needed space is size plus null character
-	if( len >= IP_MAXSIZE)
+	if( len >= INET_ADDRSTRLEN)
 		throw SocketException("IPv4 address is too long", false);
 
 	addr = {};
 	addr.sin_family = AF_INET;
 	addr.sin_port = htons(port);
 
-	char buf[IP_MAXSIZE];
+	char buf[INET_ADDRSTRLEN];
 	std::memcpy( buf, address.data(), len);
 	buf[len] = 0;
 
 	if( inet_aton( buf, &addr.sin_addr) == 0)
-		throw SocketException("Unable to parse IPv4 address");
+		throw SocketException("Invalid IPv4 address");
 }

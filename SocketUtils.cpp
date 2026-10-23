@@ -8,8 +8,8 @@
 #include <net/if_arp.h>
 #include <netdb.h>
 #include <unistd.h>
-#include <cstdint>
 
+#include <cstdint>
 #include <cstring>
 #include <cstdlib>
 
@@ -17,18 +17,6 @@ using namespace NET;
 
 namespace
 {
-	// needed because of strict aliasing rules
-	class sockaddr_ptr
-	{
-	public:
-		explicit sockaddr_ptr( const sockaddr* sa) : msa(*sa) {}
-		const sockaddr_in& operator*() const { return msi; }
-		const sockaddr_in* operator->() const { return &msi; }
-
-	private:
-		union { sockaddr msa; sockaddr_in msi; };
-	};
-
 	// use as temporary RAII socket
 	class temp_socket : public SimpleSocket
 	{
@@ -36,14 +24,37 @@ namespace
 		temp_socket() : SimpleSocket( AF_INET, SOCK_DGRAM, 0) {}
 	};
 
+	in_addr ipv4Address( const sockaddr& sa)
+	{
+		sockaddr_in addr = {};
+		std::memcpy( &addr, &sa, sizeof(addr));
+		return addr.sin_addr;
+	}
+
+	void assign_ipv4( sockaddr& sa, std::string_view address)
+	{
+		static_assert( sizeof(sockaddr_in) <= sizeof(sockaddr),
+		               "sockaddr must be large enough for an IPv4 address");
+
+		std::string address_z(address);
+		sockaddr_in addr = {};
+		addr.sin_family = AF_INET;
+
+		if( inet_aton( address_z.c_str(), &addr.sin_addr) == 0)
+			throw SocketException("Invalid IPv4 address");
+
+		std::memcpy( &sa, &addr, sizeof(addr));
+	}
+
 	// check and copy the name of the interface
 	void assign_ifreq( struct ifreq& ifr, std::string_view interface)
 	{
-		size_t len = interface.length();
+		const size_t len = interface.length();
 
 		if( len >= IF_NAMESIZE)
 			throw SocketException("Interface name is too long", false);
 
+		ifr = {};
 		ifr.ifr_addr.sa_family = AF_INET;
 		std::memcpy( ifr.ifr_name, interface.data(), len);
 		ifr.ifr_name[len] = 0;
@@ -59,9 +70,9 @@ std::string NET::resolveHostname( const std::string& hostname)
 		throw SocketException("Failed to resolve address (gethostbyname)", false);
 	}
 
-	char ip[20];
+	char ip[INET_ADDRSTRLEN];
 	auto addr = host->h_addr;
-	int len = sprintf(ip, "%d.%d.%d.%d", addr[0], addr[1], addr[2], addr[3]);
+	int len = sprintf(ip, "%u.%u.%u.%u", addr[0], addr[1], addr[2], addr[3]);
 	return std::string(ip, len);
 }
 
@@ -141,16 +152,14 @@ std::string NET::getInterfaceAddress( std::string_view interface)
 	if( ioctl( sock.nativeHandle(), SIOCGIFADDR, &ifr) < 0)
 		throw SocketException("ioctl failed (getInterfaceAddress)");
 
-	return inet_ntoa( sockaddr_ptr( &ifr.ifr_addr)->sin_addr);
+	return inet_ntoa( ipv4Address(ifr.ifr_addr));
 }
 
 void NET::setInterfaceAddress( std::string_view interface, std::string_view address)
 {
 	struct ifreq ifr;
 	assign_ifreq( ifr, interface);
-
-	std::string address_z(address);
-	inet_aton( address_z.c_str(), &(reinterpret_cast<sockaddr_in*>(&ifr.ifr_addr)->sin_addr));
+	assign_ipv4( ifr.ifr_addr, address);
 
 	temp_socket sock;
 	if( ioctl( sock.nativeHandle(), SIOCSIFADDR, &ifr) < 0)
@@ -166,16 +175,14 @@ std::string NET::getBroadcastAddress( std::string_view interface)
 	if( ioctl( sock.nativeHandle(), SIOCGIFBRDADDR, &ifr) < 0)
 		throw SocketException("ioctl failed (getBroadcastAddress)");
 
-	return inet_ntoa( sockaddr_ptr( &ifr.ifr_broadaddr)->sin_addr);
+	return inet_ntoa( ipv4Address(ifr.ifr_broadaddr));
 }
 
 void NET::setBroadcastAddress( std::string_view interface, std::string_view address)
 {
 	struct ifreq ifr;
 	assign_ifreq( ifr, interface);
-
-	std::string address_z(address);
-	inet_aton( address_z.c_str(), &(reinterpret_cast<sockaddr_in*>(&ifr.ifr_broadaddr)->sin_addr));
+	assign_ipv4( ifr.ifr_broadaddr, address);
 
 	temp_socket sock;
 	if( ioctl( sock.nativeHandle(), SIOCSIFBRDADDR, &ifr) < 0)
@@ -191,16 +198,14 @@ std::string NET::getNetmask( std::string_view interface)
 	if( ioctl( sock.nativeHandle(), SIOCGIFNETMASK, &ifr) < 0)
 		throw SocketException("ioctl failed (getNetmask)");
 
-	return inet_ntoa( sockaddr_ptr( &ifr.ifr_netmask)->sin_addr);
+	return inet_ntoa( ipv4Address(ifr.ifr_netmask));
 }
 
 void NET::setNetmask( std::string_view interface, std::string_view address)
 {
 	struct ifreq ifr;
 	assign_ifreq( ifr, interface);
-
-	std::string address_z(address);
-	inet_aton( address_z.c_str(), &(reinterpret_cast<sockaddr_in*>(&ifr.ifr_netmask)->sin_addr));
+	assign_ipv4( ifr.ifr_netmask, address);
 
 	temp_socket sock;
 	if( ioctl( sock.nativeHandle(), SIOCSIFNETMASK, &ifr) < 0)
@@ -216,16 +221,14 @@ std::string NET::getDestinationAddress( std::string_view interface)
 	if( ioctl( sock.nativeHandle(), SIOCGIFDSTADDR, &ifr) < 0)
 		throw SocketException("ioctl failed (getDestinationAddress)");
 
-	return inet_ntoa( sockaddr_ptr( &ifr.ifr_dstaddr)->sin_addr);
+	return inet_ntoa( ipv4Address(ifr.ifr_dstaddr));
 }
 
 void NET::setDestinationAddress( std::string_view interface, std::string_view address)
 {
 	struct ifreq ifr;
 	assign_ifreq( ifr, interface);
-
-	std::string address_z(address);
-	inet_aton( address_z.c_str(), &(reinterpret_cast<sockaddr_in*>(&ifr.ifr_dstaddr)->sin_addr));
+	assign_ipv4( ifr.ifr_dstaddr, address);
 
 	temp_socket sock;
 	if( ioctl( sock.nativeHandle(), SIOCSIFDSTADDR, &ifr) < 0)
