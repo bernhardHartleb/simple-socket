@@ -11,7 +11,7 @@ namespace NET
 	{
 	public:
 		//! Handle for a new socket returned by accept()
-		typedef SocketHandle<TCPSocket> Handle;
+		typedef SocketHandle<UnixStreamSocket> Handle;
 
 		/*!
 		 * Construct a Unix domain stream socket.
