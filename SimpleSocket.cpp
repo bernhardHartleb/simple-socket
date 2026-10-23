@@ -22,6 +22,7 @@ SocketException::SocketException( std::string_view message, bool inclSysMsg /* =
 
 SimpleSocket::SimpleSocket( SocketDomain domain, SocketType type, int protocol)
 : m_peerDisconnected(false)
+, m_connectionOriented(type == STREAM)
 {
 	if( (m_socket = ::socket( domain, type, protocol)) < 0)
 		throw SocketException("Socket creation failed (socket)");
@@ -30,6 +31,7 @@ SimpleSocket::SimpleSocket( SocketDomain domain, SocketType type, int protocol)
 SimpleSocket::SimpleSocket( int sockfd)
 : m_socket(sockfd)
 , m_peerDisconnected(false)
+, m_connectionOriented(true) // accepted sockets have connections
 {
 	if(sockfd < 0)
 		throw SocketException("Tried to initialize Socket with invalid Handle", false);
@@ -63,7 +65,19 @@ int SimpleSocket::send( const void* buffer, size_t len)
 int SimpleSocket::receive( void* buffer, size_t len)
 {
 	int ret = TEMP_FAILURE_RETRY (::recv( m_socket, (raw_type*) buffer, len, 0));
-	if( ret < 0) throw SocketException("Received failed (receive)");
+	if( ret < 0)
+	{
+		if( errno == ECONNRESET && m_connectionOriented)
+		{
+			m_peerDisconnected = true;
+			return 0;
+		}
+		throw SocketException("Received failed (receive)");
+	}
+
+	if( ret == 0 && len != 0 && m_connectionOriented)
+		m_peerDisconnected = true;
+
 	return ret;
 }
 

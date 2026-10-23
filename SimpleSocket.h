@@ -204,6 +204,7 @@ namespace NET
 		// socket descriptor
 		int m_socket;
 		bool m_peerDisconnected;
+		bool m_connectionOriented;
 
 	private:
 		// dont' allow
