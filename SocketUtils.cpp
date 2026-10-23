@@ -40,7 +40,7 @@ namespace
 		addr.sin_family = AF_INET;
 
 		if( inet_aton( address_z.c_str(), &addr.sin_addr) == 0)
-			throw SocketException("Invalid IPv4 address");
+			throw SocketException("Invalid IPv4 address", false);
 
 		std::memcpy( &sa, &addr, sizeof(addr));
 	}

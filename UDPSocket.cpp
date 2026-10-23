@@ -105,7 +105,8 @@ void UDPSocket::setMulticastTTL( unsigned char multicastTTL)
 void UDPSocket::setMulticastInterfaceAddr( const std::string& address)
 {
 	struct in_addr interfaceAddr;
-	inet_aton( address.c_str(), &interfaceAddr);
+	if( inet_aton( address.c_str(), &interfaceAddr) == 0)
+		throw SocketException("Invalid IPv4 address", false);
 
 	if( setsockopt( m_socket,
 	                IPPROTO_IP,

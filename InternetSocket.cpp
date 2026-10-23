@@ -161,5 +161,5 @@ void InternetSocket::fillAddress( std::string_view address, unsigned short port,
 	buf[len] = 0;
 
 	if( inet_aton( buf, &addr.sin_addr) == 0)
-		throw SocketException("Invalid IPv4 address");
+		throw SocketException("Invalid IPv4 address", false);
 }
