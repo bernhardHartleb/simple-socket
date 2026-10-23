@@ -161,21 +161,25 @@ namespace NET
 		 *
 		 * If you use shutdown() on an unconnected socket, the corresponding
 		 * calls will simply stop working.
-
+		 *
 		 * \param type the ShutdownDirection that be used
 		 * \exception SocketException in case an error occured
 		 */
 		void shutdown( ShutdownDirection type);
 
-		//! returns whether a peer disconnected
+		//! returns whether a currently associated peer disconnected
 		/*!
-		 * Will only work if you use a connection oriented, connected socket.
-		 * Returns true if the peer disconnected. Use this function after
-		 * a call to receive, returned 0 received bytes.
+		 * For stream sockets this is set when the peer closes or resets the connection.
+		 * Use this function after a call to receive, returned 0 received bytes.
+		 *
+		 * For connected datagram sockets it may also be set when
+		 * the network reports that the configured peer is unreachable.
+		 *
+		 * The flag is cleared by a successful connect().
 		 *
 		 * \return true if a peer disconnected
 		 */
-		bool peerDisconnected() const;
+		bool peerDisconnected() const noexcept;
 
 	protected:
 		enum SocketDomain

@@ -121,7 +121,7 @@ void SimpleSocket::shutdown( ShutdownDirection type)
 		throw SocketException("Shutdown failed (shutdown)");
 }
 
-bool SimpleSocket::peerDisconnected() const
+bool SimpleSocket::peerDisconnected() const noexcept
 {
 	return m_peerDisconnected;
 }
