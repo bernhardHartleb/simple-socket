@@ -55,7 +55,6 @@ endif(UNIX)
 if(BUILD_CAN)
 	set(sources
 		${sources}
-		CANFrame.cpp
 		CANSocket.cpp
 		CANRawSocket.cpp)
 endif(BUILD_CAN)

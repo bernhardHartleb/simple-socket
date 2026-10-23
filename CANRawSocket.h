@@ -2,7 +2,8 @@
 #define NET_CANRawSocket_h__
 
 #include "CANSocket.h"
-#include "CANFrame.h"
+
+#include <linux/can.h>
 
 namespace NET
 {
@@ -15,6 +16,12 @@ namespace NET
 		 * \exception SocketException thrown if unable to create the socket
 		 */
 		CANRawSocket();
+
+		//! send data through a connected socket
+		void send( const ::can_frame& frame);
+
+		//! receive data from a bound socket
+		int receive( ::can_frame& frame);
 
 		/*!
 		 * Send the given CAN frame using the specified interface.
@@ -31,7 +38,7 @@ namespace NET
 		 * \param interface specifies the CAN interface to send used for sending
 		 * \exception SocketException thrown if unable to send frame
 		 */
-		void sendTo( const void* buffer, size_t len, std::string_view interface);
+		void sendTo( const ::can_frame& frame, std::string_view interface);
 
 		/*!
 		 * Read one CAN frame from this socket.
@@ -45,7 +52,7 @@ namespace NET
 		 * \return number of bytes received
 		 * \exception SocketException thrown if unable to receive datagram
 		 */
-		int receiveFrom( void* buffer, size_t len, std::string& interface);
+		int receiveFrom( ::can_frame& frame, std::string& interface);
 
 		/*!
 		 * Read one CAN frame from this socket. If no interface has received a
@@ -62,23 +69,23 @@ namespace NET
 		 * \return number of bytes received, 0 on timeout
 		 * \exception SocketException thrown if unable to receive datagram
 		 */
-		int timedReceiveFrom( void* buffer, size_t len, std::string& interface, int timeout);
+		int timedReceiveFrom( ::can_frame& frame, std::string& interface, int timeout);
 
 		/*!
 		 * 
-		 * \param filters
+		 * \param filters Linux SocketCAN receive filters
 		 * \param len number of filters to set
 		 * \exception SocketException
 		 */
-		void setReceiveFilter( const can_filter* filters, size_t len);
+		void setReceiveFilter( const ::can_filter* filters, size_t len);
 
 		/*!
 		 * 
-		 * \param filters
+		 * \param filters Linux SocketCAN error-class mask
 		 * \param len number of filters to set
 		 * \exception SocketException
 		 */
-		void setErrorFilter( const can_filter* filters, size_t len);
+		void setErrorFilter( ::can_err_mask_t filter);
 
 		/*!
 		 * 

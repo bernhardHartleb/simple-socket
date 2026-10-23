@@ -12,25 +12,35 @@ CANRawSocket::CANRawSocket()
 : CANSocket( RAW, CAN_RAW)
 {}
 
-void CANRawSocket::sendTo( const void* buffer, size_t len, std::string_view interface)
+void CANRawSocket::send( const ::can_frame& frame)
+{
+	SimpleSocket::send( &frame, sizeof(frame));
+}
+
+int CANRawSocket::receive( ::can_frame& frame)
+{
+	return SimpleSocket::receive( &frame, sizeof(frame));
+}
+
+void CANRawSocket::sendTo( const ::can_frame& frame, std::string_view interface)
 {
 	sockaddr_can destAddr;
 	destAddr.can_family = AF_CAN;
 	destAddr.can_ifindex = getInterfaceIndex(interface);
 
-	int sent = TEMP_FAILURE_RETRY (::sendto( m_socket, (const raw_type*)buffer, len, 0, (sockaddr*)&destAddr, sizeof(destAddr)));
+	int sent = TEMP_FAILURE_RETRY (::sendto( m_socket, (const raw_type*)&frame, sizeof(frame), 0, (sockaddr*)&destAddr, sizeof(destAddr)));
 
 	// Write out the whole buffer as a single message
-	if( sent != (int)len)
+	if( sent != sizeof(frame))
 		throw SocketException("Send failed (sendto)");
 }
 
-int CANRawSocket::receiveFrom( void* buffer, size_t len, std::string& interface)
+int CANRawSocket::receiveFrom( ::can_frame& frame, std::string& interface)
 {
 	sockaddr_can clientAddr;
 	socklen_t addrLen = sizeof(clientAddr);
 
-	int ret = TEMP_FAILURE_RETRY (::recvfrom( m_socket, (raw_type*)buffer, len, 0, (sockaddr*)&clientAddr, &addrLen));
+	int ret = TEMP_FAILURE_RETRY (::recvfrom( m_socket, (raw_type*)&frame, sizeof(frame), 0, (sockaddr*)&clientAddr, &addrLen));
 	if( ret < 0)
 		throw SocketException("Receive failed (recvfrom)");
 
@@ -38,7 +48,7 @@ int CANRawSocket::receiveFrom( void* buffer, size_t len, std::string& interface)
 	return ret;
 }
 
-int CANRawSocket::timedReceiveFrom( void* buffer, size_t len, std::string& interface, int timeout)
+int CANRawSocket::timedReceiveFrom( ::can_frame& frame, std::string& interface, int timeout)
 {
 	struct pollfd poll;
 	poll.fd = m_socket;
@@ -53,29 +63,29 @@ int CANRawSocket::timedReceiveFrom( void* buffer, size_t len, std::string& inter
 		m_peerDisconnected = true;
 
 	if( poll.revents & POLLIN || poll.revents & POLLPRI)
-		return receiveFrom( buffer, len, interface);
+		return receiveFrom( frame, interface);
 
 	return 0;
 }
 
-void CANRawSocket::setReceiveFilter( const can_filter* filter, size_t len)
+void CANRawSocket::setReceiveFilter( const ::can_filter* filter, size_t len)
 {
 	if( setsockopt( m_socket,
 	                SOL_CAN_RAW,
 	                CAN_RAW_FILTER,
 	                (const raw_type*)filter,
-	                sizeof(can_filter) * len) < 0)
+	                sizeof(::can_filter) * len) < 0)
 		throw SocketException("Set receive filter failed (setsockopt)");
 }
 
-void CANRawSocket::setErrorFilter( const can_filter* filter, size_t len)
+void CANRawSocket::setErrorFilter( ::can_err_mask_t filter)
 {
 	if( setsockopt( m_socket,
 	                SOL_CAN_RAW,
 	                CAN_RAW_ERR_FILTER,
-	                (const raw_type*)filter,
-	                sizeof(can_filter) * len) < 0)
-		throw SocketException("Set receive filter failed (setsockopt)");
+	                (const raw_type*)&filter,
+	                sizeof(::can_err_mask_t)) < 0)
+		throw SocketException("Set error filter failed (setsockopt)");
 }
 
 void CANRawSocket::setLocalLoopback( bool enable)
