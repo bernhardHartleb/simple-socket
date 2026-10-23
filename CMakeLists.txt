@@ -50,7 +50,8 @@ if(UNIX)
 	set(sources
 		${sources}
 		UnixSocket.cpp
-		UnixDatagramSocket.cpp)
+		UnixDatagramSocket.cpp
+		UnixStreamSocket.cpp)
 endif(UNIX)
 
 if(BUILD_CAN)

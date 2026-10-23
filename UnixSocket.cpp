@@ -11,6 +11,10 @@ UnixSocket::UnixSocket( SocketType type, int protocol)
 : SimpleSocket( UNIX, type, protocol)
 {}
 
+UnixSocket::UnixSocket( int sockfd)
+: SimpleSocket(sockfd)
+{}
+
 UnixSocket::~UnixSocket()
 {
 	if( !m_boundPath.empty())

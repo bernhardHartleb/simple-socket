@@ -48,6 +48,9 @@ namespace NET
 		//! allows a subclass to create new socket
 		UnixSocket( SocketType type, int protocol);
 
+		//! allows a subclass to take ownership of an accepted socket
+		explicit UnixSocket( int sockfd);
+
 		// track created socket file
 		std::string m_boundPath;
 

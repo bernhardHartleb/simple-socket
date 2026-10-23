@@ -7,6 +7,7 @@ namespace NET
 {
 	class TCPSocket;
 	class SCTPSocket;
+	class UnixStreamSocket;
 
 	//! A simple class to provide strict ownership of socket handles.
 	/*!
@@ -39,6 +40,7 @@ namespace NET
 	public:
 		friend class TCPSocket;
 		friend class SCTPSocket;
+		friend class UnixStreamSocket;
 
 		//! socket type that was provided as template argument
 		typedef Socket socket_type;
