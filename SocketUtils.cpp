@@ -288,5 +288,5 @@ std::string NET::getHardwareAddress( std::string_view interface)
 	char mac[20];
 	auto addr = reinterpret_cast<unsigned char*>( ifr.ifr_addr.sa_data);
 	int len = sprintf(mac, "%02x:%02x:%02x:%02x:%02x:%02x", addr[0], addr[1], addr[2], addr[3], addr[4], addr[5]);
-	return std::string(mac, len);
+	return std::string(mac, static_cast<size_t>(len));
 }
