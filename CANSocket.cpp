@@ -68,12 +68,12 @@ std::string CANSocket::getInterfaceName( const sockaddr_can& addr) const
 
 int CANSocket::getInterfaceIndex( std::string_view interface) const
 {
-	const int len = interface.length();
+	const size_t len = interface.length();
 	// binds to all interfaces
 	if( len == 0) return 0;
 
 	// needed space is size plus null character
-	if( len >= IF_NAMESIZE-1)
+	if( len >= IF_NAMESIZE)
 		throw SocketException("Interface name is too long", false);
 
 	struct ifreq ifr;
