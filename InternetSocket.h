@@ -106,7 +106,7 @@ namespace NET
 		explicit InternetSocket( int sockfd);
 
 		//! allows a subclass to create new socket
-		InternetSocket( int type, int protocol);
+		InternetSocket( SocketType type, int protocol);
 
 		/*!
 		 * Fill an address structure with the given address and port number.

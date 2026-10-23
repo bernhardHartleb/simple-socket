@@ -41,7 +41,7 @@ namespace NET
 
 	protected:
 		//! allows a subclass to create new socket
-		CANSocket( int type, int protocol);
+		CANSocket( SocketType type, int protocol);
 
 		//! get CAN interface name from socket address structure
 		std::string getInterfaceName( const sockaddr_can& addr) const;

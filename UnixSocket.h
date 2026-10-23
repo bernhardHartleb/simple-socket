@@ -46,7 +46,7 @@ namespace NET
 
 	protected:
 		//! allows a subclass to create new socket
-		UnixSocket( int type, int protocol);
+		UnixSocket( SocketType type, int protocol);
 
 		// track created socket file
 		std::string m_boundPath;

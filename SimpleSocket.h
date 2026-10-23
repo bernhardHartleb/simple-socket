@@ -180,9 +180,9 @@ namespace NET
 	protected:
 		enum SocketDomain
 		{
-			INTERNET = PF_INET,
-			UNIX = PF_LOCAL,
-			CAN = PF_CAN
+			INTERNET = AF_INET,
+			UNIX = AF_UNIX,
+			CAN = AF_CAN
 		};
 
 		enum SocketType
@@ -196,7 +196,7 @@ namespace NET
 		explicit SimpleSocket( int sockfd);
 
 		//! allows a subclass to create new socket
-		SimpleSocket( int domain, int type, int protocol);
+		SimpleSocket( SocketDomain domain, SocketType type, int protocol);
 
 		// protected to avoid delete via base class
 		~SimpleSocket();

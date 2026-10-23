@@ -9,7 +9,7 @@
 
 using namespace NET;
 
-InternetSocket::InternetSocket( int type, int protocol)
+InternetSocket::InternetSocket( SocketType type, int protocol)
 : SimpleSocket( INTERNET, type, protocol)
 {}
 

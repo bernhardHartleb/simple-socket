@@ -20,7 +20,7 @@ SocketException::SocketException( std::string_view message, bool inclSysMsg /* =
 	}
 }
 
-SimpleSocket::SimpleSocket( int domain, int type, int protocol)
+SimpleSocket::SimpleSocket( SocketDomain domain, SocketType type, int protocol)
 : m_peerDisconnected(false)
 {
 	if( (m_socket = ::socket( domain, type, protocol)) < 0)

@@ -9,7 +9,7 @@
 
 using namespace NET;
 
-CANSocket::CANSocket( int type, int protocol)
+CANSocket::CANSocket( SocketType type, int protocol)
 : SimpleSocket( CAN, type, protocol)
 {}
 

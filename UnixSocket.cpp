@@ -7,7 +7,7 @@
 
 using namespace NET;
 
-UnixSocket::UnixSocket( int type, int protocol)
+UnixSocket::UnixSocket( SocketType type, int protocol)
 : SimpleSocket( UNIX, type, protocol)
 {}
 
@@ -67,7 +67,7 @@ void UnixSocket::fillAddress( std::string_view path, sockaddr_un& addr)
 		throw SocketException("Path to socket file is too long", false);
 
 	addr = {};
-	addr.sun_family = AF_LOCAL;
+	addr.sun_family = AF_UNIX;
 	std::memcpy( addr.sun_path, path.data(), len);
 	addr.sun_path[len] = 0;
 }
