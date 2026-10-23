@@ -21,10 +21,9 @@ int TCPSocket::sendAll( const void* buffer, size_t len)
 	while( sent != len)
 	{
 		const char* buf = static_cast<const char*>(buffer) + sent;
-		int ret = send( buf, len - sent);
-		if( ret < 0) return sent;
-		sent += static_cast<unsigned>(ret);
-		if( m_peerDisconnected) return sent;
+		auto ret = send( buf, len - sent);
+		sent += static_cast<size_t>(ret);
+		if( m_peerDisconnected) break;
 	}
 	return sent;
 }
