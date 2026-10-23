@@ -55,9 +55,8 @@ TCPSocket::Handle TCPSocket::timedAccept( int timeout) const
 	if( ret == 0) return Handle();
 	if( ret < 0) throw SocketException("TCPSocket::timedAccept failed (poll)");
 
-	ret = ::accept( m_socket, nullptr, nullptr);
-	if( ret < 0)
+	if( poll.revents & (POLLERR | POLLNVAL))
 		throw SocketException("TCPSocket::timedAccept failed (poll)");
 
-	return Handle(ret);
+	return accept();
 }
