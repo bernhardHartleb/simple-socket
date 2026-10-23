@@ -17,11 +17,14 @@ namespace NET
 		 */
 		CANRawSocket();
 
-		//! send data through a connected socket
+		//! (overload) send can_frame through a connected socket
 		void send( const ::can_frame& frame);
 
-		//! receive data from a bound socket
+		//! (overload) receive can frame from a bound socket
 		int receive( ::can_frame& frame);
+
+		//! (overload) receive can frame from a bound socket with timeout
+		int timedReceive( ::can_frame& frame, int timeout);
 
 		/*!
 		 * Send the given CAN frame using the specified interface.
@@ -33,8 +36,7 @@ namespace NET
 		 *
 		 * Like send(), sendTo() blocks until the message was sent.
 		 *
-		 * \param buffer pointer to CAN frame structure to be send
-		 * \param len size of the can frame structure
+		 * \param fraem CAN frame structure to be send
 		 * \param interface specifies the CAN interface to send used for sending
 		 * \exception SocketException thrown if unable to send frame
 		 */
@@ -46,8 +48,7 @@ namespace NET
 		 * In order to receive data, the socket has to be bound at least to a specific interface.
 		 * This is done by explicitly binding the socket, or sending data through the socket.
 		 *
-		 * \param buffer pointer to CAN frame structure
-		 * \param len size of the can frame structure
+		 * \param fraem CAN frame structure to be send
 		 * \param interface specifies the CAN interface used for reception
 		 * \return number of bytes received
 		 * \exception SocketException thrown if unable to receive datagram
@@ -62,8 +63,7 @@ namespace NET
 		 * In order to receive data, the socket has to be bound at least to a specific interface.
 		 * This is done by explicitly binding the socket, or sending data through the socket.
 		 *
-		 * \param buffer pointer to CAN frame structure
-		 * \param len size of the can frame structure
+		 * \param fraem CAN frame structure to be send
 		 * \param interface specifies the CAN interface used for reception
 		 * \param timeout timeout in milliseconds
 		 * \return number of bytes received, 0 on timeout
@@ -73,7 +73,7 @@ namespace NET
 
 		/*!
 		 * 
-		 * \param filters Linux SocketCAN receive filters
+		 * \param filters Linux SocketCAN receive filters array
 		 * \param len number of filters to set
 		 * \exception SocketException
 		 */
@@ -82,7 +82,6 @@ namespace NET
 		/*!
 		 * 
 		 * \param filters Linux SocketCAN error-class mask
-		 * \param len number of filters to set
 		 * \exception SocketException
 		 */
 		void setErrorFilter( ::can_err_mask_t filter);

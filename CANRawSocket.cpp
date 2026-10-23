@@ -22,6 +22,11 @@ int CANRawSocket::receive( ::can_frame& frame)
 	return SimpleSocket::receive( &frame, sizeof(frame));
 }
 
+int CANRawSocket::timedReceive( ::can_frame& frame, int timeout)
+{
+	return SimpleSocket::timedReceive( &frame, sizeof(frame), timeout);
+}
+
 void CANRawSocket::sendTo( const ::can_frame& frame, std::string_view interface)
 {
 	sockaddr_can destAddr;
