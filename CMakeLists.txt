@@ -1,6 +1,6 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.16)
 
-project(simple-socket)
+project(simple-socket LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED true)
@@ -18,11 +18,38 @@ option(BUILD_TESTS "Switch to enable/disable building of tests." false)
 # Building of examples is optional
 option(BUILD_EXAMPLES "Switch to enable/disable building of examples." true)
 
-if(CMAKE_SOURCE_DIR STREQUAL simple-socket_SOURCE_DIR)
-  include("flags.cmake")
-endif()
+# Add usefull compiler warnings
+add_compile_options(
+	-fvisibility=hidden
+	-Wall
+	-Wextra
+	-pedantic
+	-Winit-self
+	-Wparentheses
+	-Wfloat-equal
+	-Wno-endif-labels
+	-Wpointer-arith
+	-Wdeprecated
+	-Wmissing-declarations
+	-Wredundant-decls
+	-Wswitch
+	-Wswitch-enum
+	-Wsign-promo
+	-Wcast-qual
+	-Wpacked
+	-Wmissing-include-dirs
+	-Wsign-conversion
+	-Wdisabled-optimization
+	-Winline
+	-Woverloaded-virtual
+)
 
-# if doxygen is available, add 'doc' target building documentation to 'all'
+# Add modern linker flags
+add_link_options(
+	-Wl,-O1,--hash-style=gnu,--as-needed,--enable-new-dtags
+)
+
+# if doxygen is available, add 'doc' target building documentation
 find_package(Doxygen)
 if(DOXYGEN_FOUND)
 	configure_file(
@@ -32,11 +59,11 @@ if(DOXYGEN_FOUND)
 	add_custom_target(
 		doc
 		${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile
-		WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_BINARY_DIR}
+		WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
 		COMMENT "Generating API documentation using Doxygen" VERBATIM
 	)
 else()
-	message("!! no doxygen found, no 'doc' target available")
+	message("no doxygen found, no 'doc' target available")
 endif()
 
 set(sources
@@ -52,33 +79,33 @@ if(UNIX)
 		UnixSocket.cpp
 		UnixDatagramSocket.cpp
 		UnixStreamSocket.cpp)
-endif(UNIX)
+endif()
 
 if(BUILD_CAN)
 	set(sources
 		${sources}
 		CANSocket.cpp
 		CANRawSocket.cpp)
-endif(BUILD_CAN)
+endif()
 
 if(BUILD_SCTP)
 	set(sources
 		${sources}
 		SCTPSocket.cpp)
-endif(BUILD_SCTP)
+endif()
 
 source_group(network_src FILES ${sources})
 add_library(network STATIC ${sources})
 
 if(BUILD_SCTP)
 	target_link_libraries(network sctp)
-endif(BUILD_SCTP)
+endif()
 
 if(BUILD_TESTS)
 	enable_testing()
 	add_subdirectory( tests )
-endif(BUILD_TESTS)
+endif()
 
 if(BUILD_EXAMPLES)
 	add_subdirectory( examples )
-endif(BUILD_EXAMPLES)
+endif()
