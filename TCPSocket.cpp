@@ -28,11 +28,11 @@ int TCPSocket::sendAll( const void* buffer, size_t len)
 	return sent;
 }
 
-void TCPSocket::listen( int backlog /* = 5 */)
+void TCPSocket::listen( int backlog)
 {
 	int ret = ::listen( m_socket, backlog);
 	if( ret < 0)
-		throw SocketException("listen failed, most likely another socket is already listening on the same port");
+		throw SocketException("TCPSocket::listen failed");
 }
 
 TCPSocket::Handle TCPSocket::accept() const
@@ -53,11 +53,11 @@ TCPSocket::Handle TCPSocket::timedAccept( int timeout) const
 	int ret = TEMP_FAILURE_RETRY (::poll( &poll, 1, timeout));
 
 	if( ret == 0) return Handle();
-	if( ret < 0) throw SocketException("timedAccept failed (poll)");
+	if( ret < 0) throw SocketException("TCPSocket::timedAccept failed (poll)");
 
 	ret = ::accept( m_socket, nullptr, nullptr);
 	if( ret < 0)
-		throw SocketException("TCPSocket::timedAccept failed");
+		throw SocketException("TCPSocket::timedAccept failed (poll)");
 
 	return Handle(ret);
 }

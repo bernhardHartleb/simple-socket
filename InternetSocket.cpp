@@ -14,7 +14,8 @@ InternetSocket::InternetSocket( SocketType type, int protocol)
 {}
 
 InternetSocket::InternetSocket( int sockfd)
-: SimpleSocket(sockfd) {}
+: SimpleSocket(sockfd)
+{}
 
 void InternetSocket::connect( std::string_view foreignAddress, unsigned short foreignPort)
 {

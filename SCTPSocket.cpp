@@ -200,11 +200,11 @@ int SCTPSocket::timedReceive( void* data, size_t maxLen, uint16_t& stream, recei
 	return 0;
 }
 
-void SCTPSocket::listen( int backlog /* = 5 */)
+void SCTPSocket::listen( int backlog)
 {
 	int ret = ::listen( m_socket, backlog);
 	if( ret < 0)
-		throw SocketException("listen failed, most likely another socket is already listening on the same port");
+		throw SocketException("SCTPSocket::listen failed");
 }
 
 SCTPSocket::Handle SCTPSocket::accept() const
