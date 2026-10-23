@@ -78,13 +78,16 @@ int UDPSocket::timedReceiveFrom( void* buffer, size_t len, std::string& sourceAd
 	int ret = TEMP_FAILURE_RETRY (::poll( &poll, 1, timeout));
 
 	if( ret == 0) return 0;
-	if( ret < 0)  throw SocketException("Receive failed (poll)");
+	if( ret < 0)  throw SocketException("timedReceive failed (poll)");
 
-	if( poll.revents & POLLRDHUP)
+	if( poll.revents & POLLRDHUP || poll.revents & POLLHUP)
 		m_peerDisconnected = true;
 
 	if( poll.revents & POLLIN || poll.revents & POLLPRI)
 		return receiveFrom( buffer, len, sourceAddress, sourcePort);
+
+	if( poll.revents & POLLERR)
+		throw SocketException("timedReceive failed (poll)");
 
 	return 0;
 }

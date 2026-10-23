@@ -165,11 +165,14 @@ int SCTPSocket::timedReceive( void* data, size_t maxLen, uint16_t& stream, int t
 	if( ret == 0) return 0;
 	if( ret < 0) throw SocketException("SCTPSocket::timedReceive failed (poll)");
 
-	if( poll.revents & POLLRDHUP)
+	if( poll.revents & POLLRDHUP || poll.revents & POLLHUP)
 		m_peerDisconnected = true;
 
 	if( poll.revents & POLLIN || poll.revents & POLLPRI)
 		return receive( data, maxLen, stream);
+
+	if( poll.revents & POLLERR)
+		throw SocketException("SCTPSocket::timedReceive failed (poll)");
 
 	return 0;
 }
@@ -185,11 +188,14 @@ int SCTPSocket::timedReceive( void* data, size_t maxLen, uint16_t& stream, recei
 	if( ret == 0) return 0;
 	if( ret < 0) throw SocketException("SCTPSocket::timedReceive failed (poll)");
 
-	if( poll.revents & POLLRDHUP)
+	if( poll.revents & POLLRDHUP || poll.revents & POLLHUP)
 		m_peerDisconnected = true;
 
 	if( poll.revents & POLLIN || poll.revents & POLLPRI)
 		return receive( data, maxLen, stream, flag);
+
+	if( poll.revents & POLLERR)
+		throw SocketException("SCTPSocket::timedReceive failed (poll)");
 
 	return 0;
 }

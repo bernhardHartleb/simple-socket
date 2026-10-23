@@ -98,6 +98,9 @@ int SimpleSocket::timedReceive( void* buffer, size_t len, int timeout)
 	if( poll.revents & POLLIN || poll.revents & POLLPRI)
 		return receive( buffer, len);
 
+	if( poll.revents & POLLERR)
+		throw SocketException("timedReceive failed (poll)");
+
 	return 0;
 }
 

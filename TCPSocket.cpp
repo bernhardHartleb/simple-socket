@@ -40,6 +40,7 @@ TCPSocket::Handle TCPSocket::accept() const
 	int ret = ::accept( m_socket, nullptr, nullptr);
 	if( ret < 0)
 		throw SocketException("TCPSocket::accept failed");
+
 	return Handle(ret);
 }
 
@@ -57,5 +58,6 @@ TCPSocket::Handle TCPSocket::timedAccept( int timeout) const
 	ret = ::accept( m_socket, nullptr, nullptr);
 	if( ret < 0)
 		throw SocketException("TCPSocket::timedAccept failed");
+
 	return Handle(ret);
 }
