@@ -1,7 +1,6 @@
 #include <cppunit/extensions/HelperMacros.h>
 #include "../CANRawSocket.h"
 
-#include <stdexcept>
 #include <cstring>
 
 static ::can_frame send_msg;
@@ -22,12 +21,6 @@ private:
 public:
 	void setUp()
 	{
-		::can_frame frame1;
-		frame1.can_id = (0x10000000 & CAN_EFF_MASK) | CAN_EFF_FLAG;
-		frame1.len = 2;
-		frame1.data[0] = 0x00;
-		frame1.data[1] = 0x01;
-
 		send_socket = new NET::CANRawSocket();
 		recv_socket = new NET::CANRawSocket();
 	}
@@ -43,25 +36,34 @@ public:
 		::can_filter filter[2];
 		filter[0].can_id = 0x1ff;
 		filter[0].can_mask = CAN_SFF_MASK;
+		filter[1].can_id = 0x1ffff;
+		filter[1].can_mask = CAN_EFF_MASK;
 
 		recv_socket->setReceiveFilter( filter, 2);
 	}
 
 	void testSendTo()
 	{
-		int ret;
+		const std::string iface("vcan0");
 		std::string source;
-		send_socket->bind("vcan0");
-		recv_socket->bind("vcan0");
-		send_socket->sendTo( send_msg, "vcan0");
+		int ret;
+
+		send_msg.can_id = (0x10000000 & CAN_EFF_MASK) | CAN_EFF_FLAG;
+		send_msg.len = 2;
+		send_msg.data[0] = 0x00;
+		send_msg.data[1] = 0x01;
+
+		send_socket->bind(iface);
+		recv_socket->bind(iface);
+		send_socket->sendTo( send_msg, iface);
 
 		ret = recv_socket->receiveFrom( recv_msg, source);
 		CPPUNIT_ASSERT_EQUAL( ret, len );
-		CPPUNIT_ASSERT_EQUAL( std::string("vcan0"), source );
+		CPPUNIT_ASSERT_EQUAL( iface, source );
 
 		ret = recv_socket->timedReceiveFrom( recv_msg, source, 10);
 		CPPUNIT_ASSERT_EQUAL( 0, ret );
-		CPPUNIT_ASSERT_EQUAL( std::string("vcan0"), source );
+		CPPUNIT_ASSERT_EQUAL( iface, source );
 		CPPUNIT_ASSERT( std::memcmp(&send_msg, &recv_msg, len) == 0 );
 	}
 };

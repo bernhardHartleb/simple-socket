@@ -1,7 +1,6 @@
 #include <cppunit/extensions/HelperMacros.h>
 #include "../UnixDatagramSocket.h"
 
-#include <unistd.h>
 #include <cstring>
 
 static const char sock_file[] = "/tmp/simple-socket_test.sock";
