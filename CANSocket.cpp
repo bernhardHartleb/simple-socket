@@ -15,7 +15,7 @@ CANSocket::CANSocket( SocketType type, int protocol)
 
 void CANSocket::connect( std::string_view interface)
 {
-	sockaddr_can addr;
+	sockaddr_can addr = {};
 	addr.can_family = AF_CAN;
 	addr.can_ifindex = getInterfaceIndex(interface);
 
@@ -25,7 +25,7 @@ void CANSocket::connect( std::string_view interface)
 
 void CANSocket::bind( std::string_view interface)
 {
-	sockaddr_can addr;
+	sockaddr_can addr = {};
 	addr.can_family = AF_CAN;
 	addr.can_ifindex = getInterfaceIndex(interface);
 
@@ -50,7 +50,7 @@ std::string CANSocket::getForeignInterface() const
 	socklen_t addr_len = sizeof(addr);
 
 	if( getpeername( m_socket, (sockaddr*) &addr, &addr_len) < 0)
-		throw SocketException("Fetch of interface failed (getsockname)");
+		throw SocketException("Fetch of interface failed (getpeername)");
 
 	return getInterfaceName(addr);
 }
