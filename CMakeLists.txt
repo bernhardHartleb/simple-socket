@@ -84,7 +84,15 @@ set_target_properties(network PROPERTIES
 )
 
 if(BUILD_SCTP)
-	target_link_libraries(network PRIVATE sctp)
+	find_path(SCTP_INCLUDE_DIR NAMES netinet/sctp.h)
+	find_library(SCTP_LIBRARY NAMES sctp)
+
+	if(SCTP_INCLUDE_DIR AND SCTP_LIBRARY)
+		target_include_directories(network PRIVATE ${SCTP_INCLUDE_DIR})
+		target_link_libraries(network PRIVATE ${SCTP_LIBRARY})
+	else()
+		message(FATAL_ERROR "SCTP support requested but libsctp was not found")
+	endif()
 endif()
 
 if(BUILD_TESTING)
