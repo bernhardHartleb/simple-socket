@@ -3,8 +3,6 @@
 
 #include "CANSocket.h"
 
-#include <linux/can.h>
-
 namespace NET
 {
 	//! Raw CAN socket class

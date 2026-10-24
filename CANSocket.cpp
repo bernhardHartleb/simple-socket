@@ -6,6 +6,8 @@
 #include <net/if.h>
 
 #include <cstring>
+#include <iomanip>
+#include <sstream>
 
 using namespace NET;
 
@@ -84,4 +86,37 @@ int CANSocket::getInterfaceIndex( std::string_view interface) const
 		throw SocketException("ioctl failed (getInterfaceIndex)");
 
 	return ifr.ifr_ifindex;
+}
+
+std::string CANSocket::formatCANID( canid_t can_id)
+{
+	std::ostringstream oss;
+	if( can_id & CAN_ERR_FLAG)
+	{
+		const canid_t error_mask = can_id & CAN_ERR_MASK;
+		oss << "ERR:0x"
+		    << std::hex
+		    << std::uppercase
+		    << std::setw(8)
+		    << std::setfill('0')
+		    << error_mask;
+
+		return oss.str();
+	}
+
+	const bool extended = (can_id & CAN_EFF_FLAG) != 0;
+	const bool rtr      = (can_id & CAN_RTR_FLAG) != 0;
+	const canid_t id =
+		can_id & (extended ? CAN_EFF_MASK : CAN_SFF_MASK);
+
+	oss << (extended ? "EFF:0x" : "SFF:0x")
+	    << std::hex
+	    << std::uppercase
+	    << std::setw(extended ? 8 : 3)
+	    << std::setfill('0')
+	    << id;
+
+	if (rtr) oss << " RTR";
+
+	return oss.str();
 }

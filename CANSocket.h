@@ -2,8 +2,7 @@
 #define NET_CANSocket_h__
 
 #include "SimpleSocket.h"
-
-struct sockaddr_can;
+#include <linux/can.h>
 
 namespace NET
 {
@@ -38,6 +37,9 @@ namespace NET
 		 * \exception SocketException thrown if fetch fails
 		 */
 		std::string getForeignInterface() const;
+
+		//! format canid_t into string for logs
+		static std::string formatCANID( ::canid_t can_id);
 
 	protected:
 		//! allows a subclass to create new socket
