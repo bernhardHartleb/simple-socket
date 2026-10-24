@@ -1,4 +1,4 @@
 var a00173 =
 [
-    [ "NET::UnixDatagramSocket", "a01083.html", "a01083" ]
+    [ "NET::CANSocket", "a01006.html", "a01006" ]
 ];

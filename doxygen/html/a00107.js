@@ -1,4 +1,4 @@
 var a00107 =
 [
-    [ "main", "a00107.html#a0ddf1224851353fc92bfbff6f499fa97", null ]
+    [ "CPPUNIT_TEST_SUITE_REGISTRATION", "a00107.html#ad06691eac3060bc8150390c1530e951a", null ]
 ];
