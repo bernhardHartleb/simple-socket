@@ -15,7 +15,7 @@ option(BUILD_SCTP "Add support for the SCTP protocol." false)
 # Building of examples is optional
 option(BUILD_EXAMPLES "Switch to enable/disable building of examples." true)
 
-# Add usefull compiler warnings
+# Add useful compiler warnings
 add_compile_options(
 	-Wall
 	-Wextra

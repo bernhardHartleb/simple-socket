@@ -15,7 +15,6 @@ endif()
 
 if(BUILD_CAN)
 	list(APPEND Test_SRC
-		${Test_SRC}
 		CANSocket_TEST.cpp)
 endif()
 
