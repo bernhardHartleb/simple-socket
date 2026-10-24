@@ -1,3 +1,16 @@
+1.3.0
+~~~~~
+- Add support for UnixStreamSocket
+- Unix socket file ownership and cleanup
+- Use Linux API directly for CAN frames
+- Fix handling of SIGPIPE when sending
+- Fix peerDisconnected flag not set on recieve
+- Fix missing EINTR handling on some calls
+- Improved error handling for poll
+- Move-only semantics for SocketHandle
+- Modern DNS resolution
+- Modern CMake build
+
 1.2.0
 ~~~~~
 - Add support for CAN frames and sockets
