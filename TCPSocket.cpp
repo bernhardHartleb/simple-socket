@@ -37,7 +37,7 @@ void TCPSocket::listen( int backlog)
 
 TCPSocket::Handle TCPSocket::accept() const
 {
-	int ret = ::accept( m_socket, nullptr, nullptr);
+	int ret = TEMP_FAILURE_RETRY (::accept( m_socket, nullptr, nullptr));
 	if( ret < 0)
 		throw SocketException("TCPSocket::accept failed");
 

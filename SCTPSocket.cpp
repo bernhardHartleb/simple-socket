@@ -209,9 +209,10 @@ void SCTPSocket::listen( int backlog)
 
 SCTPSocket::Handle SCTPSocket::accept() const
 {
-	int ret = ::accept( m_socket, 0, 0);
+	int ret = TEMP_FAILURE_RETRY (::accept( m_socket, nullptr, nullptr));
 	if( ret < 0)
 		throw SocketException("SCTPSocket::accept failed (accept)");
+
 	return Handle(ret);
 }
 
@@ -226,10 +227,10 @@ SCTPSocket::Handle SCTPSocket::timedAccept( int timeout) const
 	if( ret == 0) return Handle();
 	if( ret < 0) throw SocketException("SCTPSocket::timedAccept failed (poll)");
 
-	ret = ::accept( m_socket, 0, 0);
-	if( ret < 0)
-		throw SocketException("SCTPSocket::timedAccept failed (accept)");
-	return Handle(ret);
+	if( poll.revents & (POLLERR | POLLNVAL))
+		throw SocketException("SCTPSocket::timedAccept failed (poll)");
+
+	return accept();
 }
 
 void SCTPSocket::setInitValues( uint16_t numOutStreams, uint16_t maxInStreams, uint16_t maxAttempts, uint16_t maxInitTimeout)
