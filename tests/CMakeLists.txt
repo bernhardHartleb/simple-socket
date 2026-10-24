@@ -10,7 +10,8 @@ set(Test_SRC
 
 if(UNIX)
 	list(APPEND Test_SRC
-		UnixDatagramSocket_TEST.cpp)
+		UnixDatagramSocket_TEST.cpp
+		UnixStreamSocket_TEST.cpp)
 endif()
 
 if(BUILD_CAN)
