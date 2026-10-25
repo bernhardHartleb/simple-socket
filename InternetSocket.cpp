@@ -9,6 +9,37 @@
 
 using namespace NET;
 
+namespace {
+
+class NonBlockingGuard
+{
+public:
+	explicit NonBlockingGuard(int fd) : m_fd(fd)
+	{
+		m_flags = ::fcntl( m_fd, F_GETFL, 0);
+		if( m_flags < 0)
+			throw SocketException("Unable to get file status (fcntl)");
+		if( ::fcntl( m_fd, F_SETFL, m_flags | O_NONBLOCK) < 0)
+			throw SocketException("Unable to set non-blocking mode (fcntl)");
+	}
+
+	~NonBlockingGuard()
+	{
+		const int savedErrno = errno;
+		::fcntl( m_fd, F_SETFL, m_flags);
+		errno = savedErrno;
+	}
+
+	NonBlockingGuard(const NonBlockingGuard&) = delete;
+	NonBlockingGuard& operator=(const NonBlockingGuard&) = delete;
+
+private:
+	int m_fd;
+	int m_flags;
+};
+
+}; // namespace
+
 InternetSocket::InternetSocket( SocketType type, int protocol)
 : SimpleSocket( INTERNET, type, protocol)
 {}
@@ -40,51 +71,48 @@ int InternetSocket::timedConnect( std::string_view foreignAddress, unsigned shor
 	sockaddr_in addr;
 	fillAddress( foreignAddress, foreignPort, addr);
 
-	// Set O_NONBLOCK
-	int flags_before = ::fcntl( m_socket, F_GETFL, 0);
-	if( flags_before < 0)
-		throw SocketException("timedConnect failed (fcntl)");
-	::fcntl( m_socket, F_SETFL, flags_before | O_NONBLOCK);
+	// Set O_NONBLOCK and restore blocking state on destruction
+	NonBlockingGuard nonBlocking( m_socket);
 
-	int ret = 0;
-	// Start connecting (asynchronously)
-	if( ::connect( m_socket, (sockaddr*) &addr, sizeof(addr)) == 0)
-		{ ret = 1; goto exit; }
+	const auto throwError = []() {
+		throw SocketException("timedConnect failed (connect)");
+	};
+
+	// Asynchronous connection attempt
+	int ret = ::connect( m_socket, (sockaddr*) &addr, sizeof(addr));
+	if( ret == 0) { // Already connected
+		m_peerDisconnected = false;
+		return 1;
+	}
 
 	// Did connect return an unexpected error?
-	if( (errno != EWOULDBLOCK) && (errno != EINPROGRESS))
-		{ ret = -1; goto exit; }
+	if( errno != EINPROGRESS && errno != EWOULDBLOCK && errno != EINTR)
+		throwError();
 
-	// Wait for the connection to complete.
+	// Wait for the connection to complete
 	struct pollfd poll;
 	poll.fd = m_socket;
 	poll.events = POLLOUT;
 
 	ret = TEMP_FAILURE_RETRY (::poll( &poll, 1, timeout));
-
-	if( ret < 0) goto exit;
-	if( ret == 0) // Did poll timeout?
-	{
+	if( ret < 0) throwError();
+	if( ret == 0) { // Timeout
 		errno = ETIMEDOUT;
-	}
-	if( ret > 0) // If poll succeeded, make sure there is no error
-	{
-		int error = 0; socklen_t len = sizeof(error);
-		int opt = ::getsockopt( m_socket, SOL_SOCKET, SO_ERROR, &error, &len);
-		if( opt == 0) errno = error;
-		if( error != 0) ret = -1;
+		return 0;
 	}
 
-  exit:
-	// Restore original flags
-	::fcntl( m_socket, F_SETFL, flags_before);
+	// Check for socket errors after poll success
+	int sockError = 0;
+	socklen_t errLen = sizeof(sockError);
+	ret = ::getsockopt( m_socket, SOL_SOCKET, SO_ERROR, &sockError, &errLen);
+	if( ret < 0) throwError();
+	if( sockError != 0) { // Socket error
+		errno = sockError;
+		throwError();
+	}
 
-	if( ret < 0)
-		throw SocketException("timedConnect failed (connect)");
-	if( ret > 0)
-		m_peerDisconnected = false;
-
-	return ret;
+	m_peerDisconnected = false;
+	return 1;
 }
 
 void InternetSocket::bind( unsigned short localPort /* = 0 */)
