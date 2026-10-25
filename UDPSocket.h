@@ -88,7 +88,7 @@ namespace NET
 		/*!
 		 * Join the specified multicast group
 		 *
-		 * The multicast group has to be a valid multicast IP Address (224.0.0.0/24)
+		 * The multicast group has to be a valid multicast IP Address (224.0.0.0/4)
 		 *
 		 * \param multicastGroup multicast group address to join
 		 * \exception SocketException thrown if unable to join group
@@ -98,7 +98,7 @@ namespace NET
 		/*!
 		 * Leave the specified multicast group
 		 *
-		 * The multicast group has to be a valid multicast IP Address (224.0.0.0/24)
+		 * The multicast group has to be a valid multicast IP Address (224.0.0.0/4)
 		 *
 		 * \param multicastGroup multicast group address to leave
 		 * \exception SocketException thrown if unable to leave group
