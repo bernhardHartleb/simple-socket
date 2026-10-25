@@ -1,17 +1,7 @@
-<map id="SocketHandle.h" name="SocketHandle.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="200,5,315,32"/>
-<area shape="rect" id="Node000002" href="$a00170.html" title=" " alt="" coords="67,80,176,107"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="218,41,147,82,144,77,223,38"/>
-<area shape="rect" id="Node000004" href="$a00086.html" title=" " alt="" coords="208,80,308,107"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="259,46,260,81,255,78,256,50"/>
-<area shape="rect" id="Node000007" href="$a00155.html" title=" " alt="" coords="428,80,570,107"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="315,34,459,79,454,80,314,40"/>
-<area shape="rect" id="Node000003" href="$a00158.html" title=" " alt="" coords="5,155,129,181"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="105,118,78,156,75,152,100,120"/>
-<area shape="rect" id="Node000005" href="$a00164.html" title=" " alt="" coords="152,155,267,181"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="243,119,220,156,216,152,239,121"/>
-<area shape="rect" id="Node000006" href="$a00113.html" title=" " alt="" coords="291,155,446,181"/>
-<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="290,113,352,154,346,154,289,118"/>
-<area shape="rect" id="Node000008" href="$a00092.html" title=" " alt="" coords="470,155,626,181"/>
-<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="517,117,542,155,537,153,515,122"/>
+<map id="UDPSocket.h" name="UDPSocket.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="92,5,195,32"/>
+<area shape="rect" id="Node000002" href="$a00146.html" title=" " alt="" coords="5,80,122,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="121,42,79,82,76,77,116,43"/>
+<area shape="rect" id="Node000003" href="$a00131.html" title=" " alt="" coords="145,80,302,107"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="170,40,212,80,207,80,167,45"/>
 </map>

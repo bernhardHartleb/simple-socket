@@ -1,4 +1,4 @@
 var a00098 =
 [
-    [ "NET::CANRawSocket", "a01002.html", "a01002" ]
+    [ "NET::TCPSocket", "a01058.html", "a01058" ]
 ];

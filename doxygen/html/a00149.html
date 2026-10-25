@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>simple-socket library: InternetSocket.h File Reference</title>
+<title>simple-socket library: SimpleSocket.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,7 +23,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.3.0</span>
+   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.4.0</span>
    </div>
   </td>
  </tr>
@@ -60,64 +60,46 @@ $(function(){initNavTree('a00149.html','',''); });
 <div id="container">
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">InternetSocket.h File Reference</div></div>
+  <div class="headertitle"><div class="title">SimpleSocket.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="a00140_source.html">SimpleSocket.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="a00155_source.html">SimpleSocket.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00140_source.html">TempFailure.h</a>&quot;</code><br />
+<code>#include &lt;poll.h&gt;</code><br />
+<code>#include &lt;unistd.h&gt;</code><br />
+<code>#include &lt;cstring&gt;</code><br />
+<code>#include &lt;cerrno&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
-Include dependency graph for InternetSocket.h:</div>
+Include dependency graph for SimpleSocket.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="a00150.png" border="0" usemap="#a_internet_socket_8h" loading="lazy" alt=""/></div>
-<map name="a_internet_socket_8h" id="a_internet_socket_8h">
-<area shape="rect" title=" " alt="" coords="94,5,211,32"/>
-<area shape="rect" href="a00140.html" title=" " alt="" coords="96,80,209,107"/>
-<area shape="poly" title=" " alt="" coords="153,30,155,65,150,63,151,35"/>
+<div class="center"><img src="a00150.png" border="0" usemap="#a_simple_socket_8cpp" loading="lazy" alt=""/></div>
+<map name="a_simple_socket_8cpp" id="a_simple_socket_8cpp">
+<area shape="rect" title=" " alt="" coords="368,5,496,32"/>
+<area shape="rect" href="a00155.html" title=" " alt="" coords="141,80,254,107"/>
+<area shape="poly" title=" " alt="" coords="389,34,254,77,252,72,394,31"/>
+<area shape="rect" href="a00140.html" title=" " alt="" coords="330,80,433,107"/>
+<area shape="poly" title=" " alt="" coords="426,31,400,70,397,65,421,34"/>
+<area shape="rect" title=" " alt="" coords="304,155,371,181"/>
+<area shape="poly" title=" " alt="" coords="386,32,348,53,332,66,320,81,315,95,315,111,325,143,320,140,310,111,310,95,315,79,328,62,345,49,381,34"/>
+<area shape="rect" title=" " alt="" coords="457,80,509,107"/>
+<area shape="poly" title=" " alt="" coords="442,30,468,68,463,67,440,35"/>
+<area shape="rect" title=" " alt="" coords="533,80,593,107"/>
+<area shape="poly" title=" " alt="" coords="455,30,529,72,524,72,454,35"/>
+<area shape="rect" title=" " alt="" coords="617,80,674,107"/>
+<area shape="poly" title=" " alt="" coords="470,30,604,77,599,78,469,35"/>
 <area shape="rect" title=" " alt="" coords="5,155,102,181"/>
-<area shape="poly" title=" " alt="" coords="138,107,84,148,81,143,132,108"/>
+<area shape="poly" title=" " alt="" coords="175,108,94,150,91,145,170,107"/>
 <area shape="rect" title=" " alt="" coords="126,155,179,181"/>
-<area shape="poly" title=" " alt="" coords="154,105,155,140,150,138,150,109"/>
+<area shape="poly" title=" " alt="" coords="192,106,170,143,166,139,187,109"/>
 <area shape="rect" title=" " alt="" coords="203,155,280,181"/>
-<area shape="poly" title=" " alt="" coords="169,105,217,145,212,145,167,110"/>
-</map>
-</div>
-</div><div class="textblock"><div class="dynheader">
-This graph shows which files directly or indirectly include this file:</div>
-<div class="dyncontent">
-<div class="center"><img src="a00151.png" border="0" usemap="#a_internet_socket_8hdep" loading="lazy" alt=""/></div>
-<map name="a_internet_socket_8hdep" id="a_internet_socket_8hdep">
-<area shape="rect" title=" " alt="" coords="220,5,338,32"/>
-<area shape="rect" href="a00143.html" title=" " alt="" coords="5,80,137,107"/>
-<area shape="poly" title=" " alt="" coords="227,40,109,82,106,77,230,35"/>
-<area shape="rect" href="a00170.html" title=" " alt="" coords="160,80,270,107"/>
-<area shape="poly" title=" " alt="" coords="260,43,228,82,224,78,255,45"/>
-<area shape="rect" href="a00086.html" title=" " alt="" coords="294,80,394,107"/>
-<area shape="poly" title=" " alt="" coords="301,41,336,80,330,79,300,46"/>
-<area shape="rect" href="a00146.html" title=" " alt="" coords="532,80,634,107"/>
-<area shape="poly" title=" " alt="" coords="347,33,534,79,529,81,347,39"/>
-<area shape="rect" href="a00158.html" title=" " alt="" coords="60,155,183,181"/>
-<area shape="poly" title=" " alt="" coords="189,116,139,157,136,152,184,117"/>
-<area shape="rect" href="a00164.html" title=" " alt="" coords="207,155,322,181"/>
-<area shape="poly" title=" " alt="" coords="322,116,279,157,277,152,317,118"/>
-<area shape="rect" href="a00113.html" title=" " alt="" coords="346,155,500,181"/>
-<area shape="poly" title=" " alt="" coords="370,115,412,155,407,154,368,120"/>
-<area shape="rect" href="a00131.html" title=" " alt="" coords="525,155,641,181"/>
-<area shape="poly" title=" " alt="" coords="585,121,585,156,581,153,581,124"/>
-<area shape="rect" href="a00116.html" title=" " alt="" coords="665,155,821,181"/>
-<area shape="poly" title=" " alt="" coords="625,111,718,154,712,154,624,116"/>
+<area shape="poly" title=" " alt="" coords="206,105,229,142,223,141,204,110"/>
+<area shape="poly" title=" " alt="" coords="376,106,355,143,351,139,372,109"/>
+<area shape="rect" title=" " alt="" coords="395,155,456,181"/>
+<area shape="poly" title=" " alt="" coords="390,105,413,142,408,140,388,110"/>
 </map>
 </div>
 </div>
 <p><a href="a00149_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:NET_3A_3AInternetSocket" id="r_NET_3A_3AInternetSocket"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a01010.html">NET::InternetSocket</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internet socket class.  <a href="a01010.html#details">More...</a><br /></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:NET" id="r_NET"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="a00180.html">NET</a></td></tr>
-</table>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
@@ -131,7 +113,7 @@ Namespaces</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_43e0a1f539e00dcfa1a6bc4d4fee4fc2.html">home</a></li><li class="navelem"><a href="dir_973469fe03307bc0e5780de41ae07045.html">seek</a></li><li class="navelem"><a href="dir_81a8672a3de2fdc40453108918520b77.html">Data</a></li><li class="navelem"><a href="dir_c5c04bceea4264d11ac3486c90412d29.html">Repositories</a></li><li class="navelem"><a href="dir_ffd1759873cc7e6debbb5be08b79e165.html">simple-socket</a></li><li class="navelem"><a href="a00149.html">InternetSocket.h</a></li>
+    <li class="navelem"><a href="dir_43e0a1f539e00dcfa1a6bc4d4fee4fc2.html">home</a></li><li class="navelem"><a href="dir_973469fe03307bc0e5780de41ae07045.html">seek</a></li><li class="navelem"><a href="dir_81a8672a3de2fdc40453108918520b77.html">Data</a></li><li class="navelem"><a href="dir_c5c04bceea4264d11ac3486c90412d29.html">Repositories</a></li><li class="navelem"><a href="dir_ffd1759873cc7e6debbb5be08b79e165.html">simple-socket</a></li><li class="navelem"><a href="a00149.html">SimpleSocket.cpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

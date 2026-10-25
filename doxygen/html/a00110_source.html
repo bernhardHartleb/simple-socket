@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>simple-socket library: test_runner.cpp Source File</title>
+<title>simple-socket library: CANRawSocket.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,7 +23,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.3.0</span>
+   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.4.0</span>
    </div>
   </td>
  </tr>
@@ -60,34 +60,70 @@ $(function(){initNavTree('a00110_source.html','',''); });
 <div id="container">
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">test_runner.cpp</div></div>
+  <div class="headertitle"><div class="title">CANRawSocket.h</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00110.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;cppunit/extensions/TestFactoryRegistry.h&gt;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;cppunit/ui/text/TestRunner.h&gt;</span></div>
+<a href="a00110.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef NET_CANRawSocket_h__</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define NET_CANRawSocket_h__</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="foldopen" id="foldopen00004" data-start="{" data-end="}">
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno"><a class="line" href="a00110.html#a0ddf1224851353fc92bfbff6f499fa97">    4</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="a00110.html#a0ddf1224851353fc92bfbff6f499fa97">main</a>( <span class="keywordtype">int</span> argc, <span class="keywordtype">char</span>* argv[])</div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>{</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>    CppUnit::TestFactoryRegistry&amp; registry = CppUnit::TestFactoryRegistry::getRegistry();</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    CppUnit::Test* test_to_run = registry.makeTest();</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    CppUnit::TextUi::TestRunner runner;</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="keywordflow">if</span>(argc &gt; 1)</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>        test_to_run = test_to_run-&gt;findTest( argv[1] );</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    runner.addTest( test_to_run );</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keywordflow">return</span> !runner.run();</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>}</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="a00191.html">CANSocket.h</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="foldopen" id="foldopen00006" data-start="{" data-end="}">
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno"><a class="line" href="a00198.html">    6</a></span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00198.html">NET</a></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
+<div class="foldopen" id="foldopen00009" data-start="{" data-end="};">
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="a01022.html">    9</a></span>    <span class="keyword">class </span><a class="code hl_function" href="a01022.html#ad868a485163c6b64f1c1716e693caf3a">CANRawSocket</a> : <span class="keyword">public</span> <a class="code hl_function" href="a01026.html#aeb831e5fee7df761397355617d5361ff">CANSocket</a></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    {</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        <a class="code hl_function" href="a01022.html#ad868a485163c6b64f1c1716e693caf3a">CANRawSocket</a>();</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="a01022.html#aa29a109096719eace958d0b70f496854">send</a>( const ::can_frame&amp; frame);</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keywordtype">int</span> <a class="code hl_function" href="a01022.html#a918f54af6a350bd7badba888f74b86a1">receive</a>( ::can_frame&amp; frame);</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="keywordtype">int</span> <a class="code hl_function" href="a01022.html#ab657e66c35605b58e9cef94960288257">timedReceive</a>( ::can_frame&amp; frame, <span class="keywordtype">int</span> timeout);</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="a01022.html#a1269297635ab58a27730be9bb75dd7d3">sendTo</a>( const ::can_frame&amp; frame, std::string_view interface);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keywordtype">int</span> <a class="code hl_function" href="a01022.html#a2df653d995fb10715b83efe3f2933a28">receiveFrom</a>( ::can_frame&amp; frame, std::string&amp; interface);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <span class="keywordtype">int</span> <a class="code hl_function" href="a01022.html#aa21a9271a0f94472b8d3b7554c0f7160">timedReceiveFrom</a>( ::can_frame&amp; frame, std::string&amp; interface, <span class="keywordtype">int</span> timeout);</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="a01022.html#a306128341362a32ffa73d0b375f1f2ae">setReceiveFilter</a>( const ::can_filter* filters, <span class="keywordtype">size_t</span> len);</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="a01022.html#ae7b62158c4a51fcaa9198ac8e1c39f17">setErrorFilter</a>( ::can_err_mask_t filter);</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="a01022.html#a544d3f21eb096619a05dabd7abf66918">setLocalLoopback</a>( <span class="keywordtype">bool</span> enable);</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="a01022.html#af7f31ff91af08074167052c7b7905626">setReceiveOwnMessages</a>( <span class="keywordtype">bool</span> enable);</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    };</div>
 </div>
-<div class="ttc" id="aa00110_html_a0ddf1224851353fc92bfbff6f499fa97"><div class="ttname"><a href="a00110.html#a0ddf1224851353fc92bfbff6f499fa97">main</a></div><div class="ttdeci">int main(int argc, char *argv[])</div><div class="ttdef"><b>Definition</b> <a href="#l00004">test_runner.cpp:4</a></div></div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>} <span class="comment">// namespace NET</span></div>
+</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="preprocessor">#endif </span><span class="comment">// NET_CANRawSocket_h__</span></div>
+<div class="ttc" id="aa00191_html"><div class="ttname"><a href="a00191.html">CANSocket.h</a></div></div>
+<div class="ttc" id="aa00198_html"><div class="ttname"><a href="a00198.html">NET</a></div><div class="ttdef"><b>Definition</b> <a href="#l00006">CANRawSocket.h:7</a></div></div>
+<div class="ttc" id="aa01022_html_a1269297635ab58a27730be9bb75dd7d3"><div class="ttname"><a href="a01022.html#a1269297635ab58a27730be9bb75dd7d3">NET::CANRawSocket::sendTo</a></div><div class="ttdeci">void sendTo(const ::can_frame &amp;frame, std::string_view interface)</div><div class="ttdef"><b>Definition</b> <a href="a00167_source.html#l00030">CANRawSocket.cpp:30</a></div></div>
+<div class="ttc" id="aa01022_html_a2df653d995fb10715b83efe3f2933a28"><div class="ttname"><a href="a01022.html#a2df653d995fb10715b83efe3f2933a28">NET::CANRawSocket::receiveFrom</a></div><div class="ttdeci">int receiveFrom(::can_frame &amp;frame, std::string &amp;interface)</div><div class="ttdef"><b>Definition</b> <a href="a00167_source.html#l00043">CANRawSocket.cpp:43</a></div></div>
+<div class="ttc" id="aa01022_html_a306128341362a32ffa73d0b375f1f2ae"><div class="ttname"><a href="a01022.html#a306128341362a32ffa73d0b375f1f2ae">NET::CANRawSocket::setReceiveFilter</a></div><div class="ttdeci">void setReceiveFilter(const ::can_filter *filters, size_t len)</div><div class="ttdef"><b>Definition</b> <a href="a00167_source.html#l00079">CANRawSocket.cpp:79</a></div></div>
+<div class="ttc" id="aa01022_html_a544d3f21eb096619a05dabd7abf66918"><div class="ttname"><a href="a01022.html#a544d3f21eb096619a05dabd7abf66918">NET::CANRawSocket::setLocalLoopback</a></div><div class="ttdeci">void setLocalLoopback(bool enable)</div><div class="ttdef"><b>Definition</b> <a href="a00167_source.html#l00091">CANRawSocket.cpp:91</a></div></div>
+<div class="ttc" id="aa01022_html_a918f54af6a350bd7badba888f74b86a1"><div class="ttname"><a href="a01022.html#a918f54af6a350bd7badba888f74b86a1">NET::CANRawSocket::receive</a></div><div class="ttdeci">int receive(::can_frame &amp;frame)</div><div class="ttdoc">(overload) receive can frame from a bound socket</div><div class="ttdef"><b>Definition</b> <a href="a00167_source.html#l00020">CANRawSocket.cpp:20</a></div></div>
+<div class="ttc" id="aa01022_html_aa21a9271a0f94472b8d3b7554c0f7160"><div class="ttname"><a href="a01022.html#aa21a9271a0f94472b8d3b7554c0f7160">NET::CANRawSocket::timedReceiveFrom</a></div><div class="ttdeci">int timedReceiveFrom(::can_frame &amp;frame, std::string &amp;interface, int timeout)</div><div class="ttdef"><b>Definition</b> <a href="a00167_source.html#l00056">CANRawSocket.cpp:56</a></div></div>
+<div class="ttc" id="aa01022_html_aa29a109096719eace958d0b70f496854"><div class="ttname"><a href="a01022.html#aa29a109096719eace958d0b70f496854">NET::CANRawSocket::send</a></div><div class="ttdeci">void send(const ::can_frame &amp;frame)</div><div class="ttdoc">(overload) send can_frame through a connected socket</div><div class="ttdef"><b>Definition</b> <a href="a00167_source.html#l00015">CANRawSocket.cpp:15</a></div></div>
+<div class="ttc" id="aa01022_html_ab657e66c35605b58e9cef94960288257"><div class="ttname"><a href="a01022.html#ab657e66c35605b58e9cef94960288257">NET::CANRawSocket::timedReceive</a></div><div class="ttdeci">int timedReceive(::can_frame &amp;frame, int timeout)</div><div class="ttdoc">(overload) receive can frame from a bound socket with timeout</div><div class="ttdef"><b>Definition</b> <a href="a00167_source.html#l00025">CANRawSocket.cpp:25</a></div></div>
+<div class="ttc" id="aa01022_html_ad868a485163c6b64f1c1716e693caf3a"><div class="ttname"><a href="a01022.html#ad868a485163c6b64f1c1716e693caf3a">NET::CANRawSocket::CANRawSocket</a></div><div class="ttdeci">CANRawSocket()</div><div class="ttdef"><b>Definition</b> <a href="a00167_source.html#l00011">CANRawSocket.cpp:11</a></div></div>
+<div class="ttc" id="aa01022_html_ae7b62158c4a51fcaa9198ac8e1c39f17"><div class="ttname"><a href="a01022.html#ae7b62158c4a51fcaa9198ac8e1c39f17">NET::CANRawSocket::setErrorFilter</a></div><div class="ttdeci">void setErrorFilter(::can_err_mask_t filter)</div><div class="ttdef"><b>Definition</b> <a href="a00167_source.html#l00085">CANRawSocket.cpp:85</a></div></div>
+<div class="ttc" id="aa01022_html_af7f31ff91af08074167052c7b7905626"><div class="ttname"><a href="a01022.html#af7f31ff91af08074167052c7b7905626">NET::CANRawSocket::setReceiveOwnMessages</a></div><div class="ttdeci">void setReceiveOwnMessages(bool enable)</div><div class="ttdef"><b>Definition</b> <a href="a00167_source.html#l00098">CANRawSocket.cpp:98</a></div></div>
+<div class="ttc" id="aa01026_html_aeb831e5fee7df761397355617d5361ff"><div class="ttname"><a href="a01026.html#aeb831e5fee7df761397355617d5361ff">NET::CANSocket::CANSocket</a></div><div class="ttdeci">CANSocket(SocketType type, int protocol)</div><div class="ttdoc">allows a subclass to create new socket</div><div class="ttdef"><b>Definition</b> <a href="a00101_source.html#l00014">CANSocket.cpp:14</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_43e0a1f539e00dcfa1a6bc4d4fee4fc2.html">home</a></li><li class="navelem"><a href="dir_973469fe03307bc0e5780de41ae07045.html">seek</a></li><li class="navelem"><a href="dir_81a8672a3de2fdc40453108918520b77.html">Data</a></li><li class="navelem"><a href="dir_c5c04bceea4264d11ac3486c90412d29.html">Repositories</a></li><li class="navelem"><a href="dir_ffd1759873cc7e6debbb5be08b79e165.html">simple-socket</a></li><li class="navelem"><a href="dir_8c845b097cea0c7c4fede62210bd4c65.html">tests</a></li><li class="navelem"><a href="a00110.html">test_runner.cpp</a></li>
+    <li class="navelem"><a href="dir_43e0a1f539e00dcfa1a6bc4d4fee4fc2.html">home</a></li><li class="navelem"><a href="dir_973469fe03307bc0e5780de41ae07045.html">seek</a></li><li class="navelem"><a href="dir_81a8672a3de2fdc40453108918520b77.html">Data</a></li><li class="navelem"><a href="dir_c5c04bceea4264d11ac3486c90412d29.html">Repositories</a></li><li class="navelem"><a href="dir_ffd1759873cc7e6debbb5be08b79e165.html">simple-socket</a></li><li class="navelem"><a href="a00110.html">CANRawSocket.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

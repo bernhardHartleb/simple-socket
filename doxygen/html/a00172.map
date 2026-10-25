@@ -1,5 +1,7 @@
-<map id="SCTPSocket.h" name="SCTPSocket.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="12,5,122,32"/>
-<area shape="rect" id="Node000002" href="$a00158.html" title=" " alt="" coords="5,80,129,107"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="69,46,70,80,64,79,65,50"/>
+<map id="UnixStreamSocket.h" name="UnixStreamSocket.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="112,5,255,32"/>
+<area shape="rect" id="Node000002" href="$a00104.html" title=" " alt="" coords="5,80,162,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="156,41,102,82,100,77,151,42"/>
+<area shape="rect" id="Node000003" href="$a00122.html" title=" " alt="" coords="185,80,382,107"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="214,39,269,79,263,79,212,44"/>
 </map>

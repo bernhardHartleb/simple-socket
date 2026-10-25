@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>simple-socket library: UnixDatagramSocket_TEST.cpp File Reference</title>
+<title>simple-socket library: UnixStreamSocket_TEST.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -23,7 +23,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.3.0</span>
+   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.4.0</span>
    </div>
   </td>
  </tr>
@@ -60,34 +60,48 @@ $(function(){initNavTree('a00122.html','',''); });
 <div id="container">
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">UnixDatagramSocket_TEST.cpp File Reference</div></div>
+  <div class="headertitle"><div class="title">UnixStreamSocket_TEST.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &lt;cppunit/extensions/HelperMacros.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="a00176_source.html">../UnixDatagramSocket.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00170_source.html">../UnixStreamSocket.h</a>&quot;</code><br />
+<code>#include &lt;unistd.h&gt;</code><br />
 <code>#include &lt;cstring&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
+<code>#include &lt;utility&gt;</code><br />
+<code>#include &lt;vector&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
-Include dependency graph for UnixDatagramSocket_TEST.cpp:</div>
+Include dependency graph for UnixStreamSocket_TEST.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="a00123.png" border="0" usemap="#a_unix_datagram_socket___t_e_s_t_8cpp" loading="lazy" alt=""/></div>
-<map name="a_unix_datagram_socket___t_e_s_t_8cpp" id="a_unix_datagram_socket___t_e_s_t_8cpp">
-<area shape="rect" title=" " alt="" coords="171,5,317,48"/>
-<area shape="rect" title=" " alt="" coords="5,96,136,139"/>
-<area shape="poly" title=" " alt="" coords="202,51,126,91,123,87,205,46"/>
-<area shape="rect" href="a00176.html" title=" " alt="" coords="159,104,328,131"/>
-<area shape="poly" title=" " alt="" coords="245,46,246,89,241,88,243,51"/>
-<area shape="rect" title=" " alt="" coords="352,104,413,131"/>
-<area shape="poly" title=" " alt="" coords="276,46,352,95,347,96,276,51"/>
-<area shape="rect" href="a00137.html" title=" " alt="" coords="194,187,294,213"/>
-<area shape="poly" title=" " alt="" coords="245,129,246,172,241,171,243,134"/>
-<area shape="rect" href="a00140.html" title=" " alt="" coords="187,261,300,288"/>
-<area shape="poly" title=" " alt="" coords="245,212,246,247,241,245,242,216"/>
-<area shape="rect" title=" " alt="" coords="97,336,193,363"/>
-<area shape="poly" title=" " alt="" coords="229,288,176,329,173,324,224,289"/>
-<area shape="rect" title=" " alt="" coords="217,336,270,363"/>
-<area shape="poly" title=" " alt="" coords="246,287,246,322,242,319,242,290"/>
-<area shape="rect" title=" " alt="" coords="294,336,372,363"/>
-<area shape="poly" title=" " alt="" coords="260,286,309,326,303,326,259,291"/>
+<div class="center"><img src="a00123.png" border="0" usemap="#a_unix_stream_socket___t_e_s_t_8cpp" loading="lazy" alt=""/></div>
+<map name="a_unix_stream_socket___t_e_s_t_8cpp" id="a_unix_stream_socket___t_e_s_t_8cpp">
+<area shape="rect" title=" " alt="" coords="304,5,501,32"/>
+<area shape="rect" title=" " alt="" coords="5,80,136,123"/>
+<area shape="poly" title=" " alt="" coords="346,35,152,82,150,77,349,30"/>
+<area shape="rect" href="a00170.html" title=" " alt="" coords="160,88,314,115"/>
+<area shape="poly" title=" " alt="" coords="375,34,278,83,275,79,379,31"/>
+<area shape="rect" title=" " alt="" coords="261,245,328,272"/>
+<area shape="poly" title=" " alt="" coords="399,31,371,104,329,198,311,234,307,230,324,196,366,102,396,35"/>
+<area shape="rect" title=" " alt="" coords="338,320,392,347"/>
+<area shape="poly" title=" " alt="" coords="403,32,371,306,366,304,399,34"/>
+<area shape="rect" title=" " alt="" coords="440,88,501,115"/>
+<area shape="poly" title=" " alt="" coords="414,30,453,76,448,76,413,35"/>
+<area shape="rect" title=" " alt="" coords="524,88,577,115"/>
+<area shape="poly" title=" " alt="" coords="426,30,517,80,511,81,425,35"/>
+<area shape="rect" title=" " alt="" coords="600,88,658,115"/>
+<area shape="poly" title=" " alt="" coords="448,30,516,51,590,78,594,81,589,81,588,82,515,56,449,35"/>
+<area shape="rect" href="a00176.html" title=" " alt="" coords="200,171,314,197"/>
+<area shape="poly" title=" " alt="" coords="241,113,253,156,248,155,239,118"/>
+<area shape="rect" href="a00152.html" title=" " alt="" coords="75,171,175,197"/>
+<area shape="poly" title=" " alt="" coords="218,117,156,164,153,160,221,113"/>
+<area shape="poly" title=" " alt="" coords="265,195,284,232,279,231,263,200"/>
+<area shape="rect" href="a00155.html" title=" " alt="" coords="115,245,228,272"/>
+<area shape="poly" title=" " alt="" coords="134,195,158,232,153,232,133,200"/>
+<area shape="rect" title=" " alt="" coords="180,320,276,347"/>
+<area shape="poly" title=" " alt="" coords="183,270,212,308,206,307,180,275"/>
+<area shape="poly" title=" " alt="" coords="206,270,327,316,321,317,205,275"/>
+<area shape="rect" title=" " alt="" coords="78,320,156,347"/>
+<area shape="poly" title=" " alt="" coords="165,271,138,309,134,305,160,274"/>
 </map>
 </div>
 </div>
@@ -95,18 +109,11 @@ Include dependency graph for UnixDatagramSocket_TEST.cpp:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ac3c9af7a216856401a390729a923e0d2" id="r_ac3c9af7a216856401a390729a923e0d2"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac3c9af7a216856401a390729a923e0d2">CPPUNIT_TEST_SUITE_REGISTRATION</a> (UnixDatagramSocket_TEST)</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
-Variables</h2></td></tr>
-<tr class="memitem:a7c713e7a33273338003a7b605eec0538" id="r_a7c713e7a33273338003a7b605eec0538"><td class="memItemLeft">static const int&#160;</td><td class="memItemRight"><a class="el" href="#a7c713e7a33273338003a7b605eec0538">len</a> = sizeof(<a class="el" href="#a91f12e91f0647734f40a2577ffbce84a">send_msg</a>)</td></tr>
-<tr class="memitem:a897ddd482f24de2c49f7b8a7f725c9e5" id="r_a897ddd482f24de2c49f7b8a7f725c9e5"><td class="memItemLeft">static char&#160;</td><td class="memItemRight"><a class="el" href="#a897ddd482f24de2c49f7b8a7f725c9e5">recv_msg</a> [sizeof(<a class="el" href="#a91f12e91f0647734f40a2577ffbce84a">send_msg</a>)]</td></tr>
-<tr class="memitem:a91f12e91f0647734f40a2577ffbce84a" id="r_a91f12e91f0647734f40a2577ffbce84a"><td class="memItemLeft">static const char&#160;</td><td class="memItemRight"><a class="el" href="#a91f12e91f0647734f40a2577ffbce84a">send_msg</a> [] = &quot;The quick brown fox jumps over the lazy dog&quot;</td></tr>
-<tr class="memitem:a6aca435b5d1f08c4f266ea0e0fcef8d5" id="r_a6aca435b5d1f08c4f266ea0e0fcef8d5"><td class="memItemLeft">static const char&#160;</td><td class="memItemRight"><a class="el" href="#a6aca435b5d1f08c4f266ea0e0fcef8d5">sock_file</a> [] = &quot;/tmp/simple-socket_test.sock&quot;</td></tr>
+<tr class="memitem:a7295e146f132710f6fa98ed2bde789df" id="r_a7295e146f132710f6fa98ed2bde789df"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7295e146f132710f6fa98ed2bde789df">CPPUNIT_TEST_SUITE_REGISTRATION</a> (UnixStreamSocket_TEST)</td></tr>
 </table>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="ac3c9af7a216856401a390729a923e0d2" name="ac3c9af7a216856401a390729a923e0d2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac3c9af7a216856401a390729a923e0d2">&#9670;&#160;</a></span>CPPUNIT_TEST_SUITE_REGISTRATION()</h2>
+<a id="a7295e146f132710f6fa98ed2bde789df" name="a7295e146f132710f6fa98ed2bde789df"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7295e146f132710f6fa98ed2bde789df">&#9670;&#160;</a></span>CPPUNIT_TEST_SUITE_REGISTRATION()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -114,108 +121,11 @@ Variables</h2></td></tr>
         <tr>
           <td class="memname">CPPUNIT_TEST_SUITE_REGISTRATION </td>
           <td>(</td>
-          <td class="paramtype">UnixDatagramSocket_TEST</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype">UnixStreamSocket_TEST</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-
-</div>
-</div>
-<a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
-<a id="a6aca435b5d1f08c4f266ea0e0fcef8d5" name="a6aca435b5d1f08c4f266ea0e0fcef8d5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6aca435b5d1f08c4f266ea0e0fcef8d5">&#9670;&#160;</a></span>sock_file</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const char sock_file[] = &quot;/tmp/simple-socket_test.sock&quot;</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00122_source.html#l00006">6</a> of file <a class="el" href="a00122_source.html">UnixDatagramSocket_TEST.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a91f12e91f0647734f40a2577ffbce84a" name="a91f12e91f0647734f40a2577ffbce84a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a91f12e91f0647734f40a2577ffbce84a">&#9670;&#160;</a></span>send_msg</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const char send_msg[] = &quot;The quick brown fox jumps over the lazy dog&quot;</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00122_source.html#l00007">7</a> of file <a class="el" href="a00122_source.html">UnixDatagramSocket_TEST.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a897ddd482f24de2c49f7b8a7f725c9e5" name="a897ddd482f24de2c49f7b8a7f725c9e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a897ddd482f24de2c49f7b8a7f725c9e5">&#9670;&#160;</a></span>recv_msg</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">char recv_msg[sizeof(<a class="el" href="#a91f12e91f0647734f40a2577ffbce84a">send_msg</a>)]</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00122_source.html#l00008">8</a> of file <a class="el" href="a00122_source.html">UnixDatagramSocket_TEST.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a7c713e7a33273338003a7b605eec0538" name="a7c713e7a33273338003a7b605eec0538"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7c713e7a33273338003a7b605eec0538">&#9670;&#160;</a></span>len</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">const int len = sizeof(<a class="el" href="#a91f12e91f0647734f40a2577ffbce84a">send_msg</a>)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="a00122_source.html#l00009">9</a> of file <a class="el" href="a00122_source.html">UnixDatagramSocket_TEST.cpp</a>.</p>
 
 </div>
 </div>
@@ -232,7 +142,7 @@ Variables</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_43e0a1f539e00dcfa1a6bc4d4fee4fc2.html">home</a></li><li class="navelem"><a href="dir_973469fe03307bc0e5780de41ae07045.html">seek</a></li><li class="navelem"><a href="dir_81a8672a3de2fdc40453108918520b77.html">Data</a></li><li class="navelem"><a href="dir_c5c04bceea4264d11ac3486c90412d29.html">Repositories</a></li><li class="navelem"><a href="dir_ffd1759873cc7e6debbb5be08b79e165.html">simple-socket</a></li><li class="navelem"><a href="dir_8c845b097cea0c7c4fede62210bd4c65.html">tests</a></li><li class="navelem"><a href="a00122.html">UnixDatagramSocket_TEST.cpp</a></li>
+    <li class="navelem"><a href="dir_43e0a1f539e00dcfa1a6bc4d4fee4fc2.html">home</a></li><li class="navelem"><a href="dir_973469fe03307bc0e5780de41ae07045.html">seek</a></li><li class="navelem"><a href="dir_81a8672a3de2fdc40453108918520b77.html">Data</a></li><li class="navelem"><a href="dir_c5c04bceea4264d11ac3486c90412d29.html">Repositories</a></li><li class="navelem"><a href="dir_ffd1759873cc7e6debbb5be08b79e165.html">simple-socket</a></li><li class="navelem"><a href="dir_8c845b097cea0c7c4fede62210bd4c65.html">tests</a></li><li class="navelem"><a href="a00122.html">UnixStreamSocket_TEST.cpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

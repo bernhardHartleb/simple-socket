@@ -1,0 +1,4 @@
+var a00128 =
+[
+    [ "CPPUNIT_TEST_SUITE_REGISTRATION", "a00128.html#abb2c53fc606839b2057e93b344cf2d72", null ]
+];

@@ -1,5 +1,6 @@
 var a01058 =
 [
+    [ "Handle", "a01058.html#a6c8ff2b6fa5bbc47f51ebd0ec3158872", null ],
     [ "ShutdownDirection", "a01058.html#ab2d98f9c05fb0c016782269d6c053db9", [
       [ "STOP_SEND", "a01058.html#ab2d98f9c05fb0c016782269d6c053db9a8efb8dcfe05bb52129f436538b77bc1c", null ],
       [ "STOP_RECEIVE", "a01058.html#ab2d98f9c05fb0c016782269d6c053db9a8cc7b3f7c09884085e7bd7f14a996f07", null ],
@@ -15,14 +16,15 @@ var a01058 =
       [ "STREAM", "a01058.html#a1df69f02e0fb8d41b7245eab8f388766a2c01e1364295bb84e3e322f543242e00", null ],
       [ "DATAGRAM", "a01058.html#a1df69f02e0fb8d41b7245eab8f388766aa5ab4632f7b9c25e45f196e38858b280", null ]
     ] ],
-    [ "UDPSocket", "a01058.html#a4f86f3023f5a08f6355802599a10e100", null ],
-    [ "sendTo", "a01058.html#ad523f1e8b0e299262f06043ac7be1e50", null ],
-    [ "receiveFrom", "a01058.html#a358b18cc6bdc794eb33dd0df9ccb495b", null ],
-    [ "timedReceiveFrom", "a01058.html#a1be4253434f78c9e227719c80c8074ef", null ],
-    [ "setMulticastTTL", "a01058.html#a4dcfff33b45d1b84b5a602fc6f4a27f8", null ],
-    [ "setMulticastInterfaceAddr", "a01058.html#a9d00dfd5fa5be755f7c834b68957d1f0", null ],
-    [ "joinGroup", "a01058.html#ac6cdb609f7f9579384129042f90cd220", null ],
-    [ "leaveGroup", "a01058.html#ad5f835c48b840e30b471e19d7c3cc2aa", null ],
+    [ "TCPSocket", "a01058.html#a7a50427a401d1a6f3209d51818bad901", null ],
+    [ "TCPSocket", "a01058.html#ae227bea6646fccdb4c92872c27a6a58e", null ],
+    [ "setNoDelay", "a01058.html#a95859a939179e7d08239f64b880727ee", null ],
+    [ "listen", "a01058.html#ab73d41b8b389a74ffe0cc6682bf93bde", null ],
+    [ "accept", "a01058.html#abf7e125c75121962fc90804a1586a855", null ],
+    [ "timedAccept", "a01058.html#abeed4b82de8b5347150fab3c55e68e85", null ],
+    [ "sendAll", "a01058.html#a690773b3fefeeb026006713e54e6d08a", null ],
+    [ "receiveAll", "a01058.html#a263f823dd259f3f7af8cc218fba9b5cf", null ],
+    [ "setReuseAddress", "a01058.html#a927d978f6f79933d109433f607c8241a", null ],
     [ "connect", "a01058.html#ab5151cf3fcd5768c6d40e585774b417b", null ],
     [ "timedConnect", "a01058.html#a81df71c2db5574be7645674d4fba58f6", null ],
     [ "bind", "a01058.html#a02046392ba4e5810f7dc900686ac9a93", null ],
