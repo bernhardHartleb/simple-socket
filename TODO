@@ -1,16 +1,11 @@
-Documentation:
-- document requirements (cmake, sctp)
-- add example for SCTP communication
-
-Testing:
-- check the TCPSocket::sendAll function
-- tests for Unix stream socket
-- tests for SCTP socket
-- test library with other OS (BSD, Mac, Windows?)
+General:
+- guard Linux specific options
+- test library with other OS (BSD, Mac)
 
 SCTPSocket:
 - add proper receiveFlags
 - implement all SCTP functions (primaryAddress)
+- example and test for SCTP communication
 
 SocketUtils:
 - time of last received packet (SIOCGSTAMP / SIOCGSTAMPNS)
