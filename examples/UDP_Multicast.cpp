@@ -1,57 +1,54 @@
 #include "../UDPSocket.h"
 
+#include <array>
 #include <iostream>
 
+static const char multicast_group[] = "239.255.0.1";
+static const unsigned short multicast_port = 47777;
 static const char send_msg[] = "Welcome to our multicast group!";
-static char recv_msg[sizeof(send_msg)];
-static size_t len = sizeof(send_msg);
+static const int send_len = sizeof(send_msg) - 1;
 
 int main()
 {
 	try {
 
 	NET::UDPSocket recv_socket;
-	// listen on the given port and any address
-	recv_socket.bind(47777);
-	// receive data from our multicast group
-	recv_socket.joinGroup("224.40.0.1");
+	// Allow multiple multicast receivers on this port (all get a copy)
+	recv_socket.setReuseAddress(true);
+	// Listen on the multicast port on any IPv4 address
+	recv_socket.bind(multicast_port);
+	// Join the multicast group so packets addressed to the group can be delivered to this socket
+	recv_socket.joinGroup(multicast_group);
 
 	NET::UDPSocket send_socket;
-	// don't route our packets
+	// TTL 0 keeps packets self-contained on the local host
 	send_socket.setMulticastTTL(0);
-	// optional, the OS would select a sender port
-	send_socket.bind(47776);
+	// Send to group
+	send_socket.sendTo(send_msg, send_len, multicast_group, multicast_port);
 
-
-	int bytes;
+	std::array<char, 256> buffer{};
 	std::string source;
-	unsigned short port = 0;
+	unsigned short source_port = 0;
 
-	// send data to a specific destination
-	send_socket.sendTo( send_msg, len, "224.40.0.1", 47777);
+	// UDP preserves datagram boundaries
+	// one receiveFrom() corresponds to one datagram
+	int received = recv_socket.timedReceiveFrom(buffer.data(), buffer.size(), source, source_port, 1000);
+	if (received == 0)
+	{
+		std::cerr << "Timed out waiting for multicast datagram." << std::endl;
+		return 1;
+	}
 
-	// receive data from with sender information
-	bytes = recv_socket.receiveFrom( recv_msg, len, source, port);
+	std::cout << "Received from " << source << ":" << source_port << ": ";
+	std::cout.write(buffer.data(), received);
+	std::cout << std::endl;
 
-	if(bytes > 0)
-		std::cout << source << ":" << port << " " << recv_msg << std::endl;
+	// Not required before destruction, but shown because leaving
+	// multicast groups explicitly can be useful
+	recv_socket.leaveGroup(multicast_group);
 
-
-	// set default address for sending
-	send_socket.connect( "224.40.0.1", 47777);
-
-	send_socket.send( send_msg, len);
-	bytes = recv_socket.receive( recv_msg, len);
-
-	if(bytes > 0)
-		std::cout << "We got another message." << std::endl;
-
-	// this is optional and just for demonstration
-	recv_socket.leaveGroup("224.40.0.1");
-
-
-	// if something fails, we get here
-	} catch( const NET::SocketException& e)
+	}
+	catch (const NET::SocketException& e)
 	{
 		std::cerr << e.what() << std::endl;
 		return 1;
