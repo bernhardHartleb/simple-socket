@@ -18,6 +18,17 @@ namespace NET
 	class InternetSocket : public SimpleSocket
 	{
 	public:
+		//! Enable or disable local address reuse
+		/*!
+		* SO_REUSEADDR allows binding a local address that may still be
+		* associated with previous connections, e.g. TCP connections in
+		* TIME_WAIT. This option should be set before bind().
+		*
+		* \param enable true to enable address reuse
+		* \exception SocketException if changing the option fails
+		*/
+		void setReuseAddress( bool enable);
+
 		//! establish a connection with the given foreign address and port
 		/*!
 		 * If you are using a connection oriented socket (like TCPSocket),

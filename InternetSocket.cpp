@@ -17,6 +17,13 @@ InternetSocket::InternetSocket( int sockfd)
 : SimpleSocket(sockfd)
 {}
 
+void InternetSocket::setReuseAddress( bool enable)
+{
+	const int value = enable;
+	if( ::setsockopt( m_socket, SOL_SOCKET, SO_REUSEADDR, &value, sizeof(value)) < 0)
+		throw SocketException("Failed to set address reuse (setsockopt)");
+}
+
 void InternetSocket::connect( std::string_view foreignAddress, unsigned short foreignPort)
 {
 	sockaddr_in addr;
@@ -105,7 +112,7 @@ std::string InternetSocket::getLocalAddress() const
 	sockaddr_in addr;
 	socklen_t addr_len = sizeof(addr);
 
-	if( getsockname( m_socket, (sockaddr*) &addr, &addr_len) < 0)
+	if( ::getsockname( m_socket, (sockaddr*) &addr, &addr_len) < 0)
 		throw SocketException("Fetch of local address failed (getsockname)");
 
 	return inet_ntoa( addr.sin_addr);
@@ -116,7 +123,7 @@ unsigned short InternetSocket::getLocalPort() const
 	sockaddr_in addr;
 	socklen_t addr_len = sizeof(addr);
 
-	if( getsockname( m_socket, (sockaddr*) &addr, &addr_len) < 0)
+	if( ::getsockname( m_socket, (sockaddr*) &addr, &addr_len) < 0)
 		throw SocketException("Fetch of local port failed (getsockname)");
 
 	return ntohs( addr.sin_port);
@@ -127,7 +134,7 @@ std::string InternetSocket::getForeignAddress() const
 	sockaddr_in addr;
 	socklen_t addr_len = sizeof(addr);
 
-	if( getpeername( m_socket, (sockaddr*) &addr, &addr_len) < 0)
+	if( ::getpeername( m_socket, (sockaddr*) &addr, &addr_len) < 0)
 		throw SocketException("Fetch of foreign address failed (getpeername)");
 
 	return inet_ntoa( addr.sin_addr);
@@ -138,7 +145,7 @@ unsigned short InternetSocket::getForeignPort() const
 	sockaddr_in addr;
 	socklen_t addr_len = sizeof(addr);
 
-	if( getpeername( m_socket, (sockaddr*) &addr, &addr_len) < 0)
+	if( ::getpeername( m_socket, (sockaddr*) &addr, &addr_len) < 0)
 		throw SocketException("Fetch of foreign port failed (getpeername)");
 
 	return ntohs( addr.sin_port);
