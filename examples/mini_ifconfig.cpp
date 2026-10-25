@@ -2,7 +2,6 @@
 #include "../SocketUtils.h"
 
 #include <iostream>
-#include <string>
 #include <sstream>
 
 const char usageString[] = " [ <interface> <setting> <value> ]\n"
@@ -10,7 +9,7 @@ const char usageString[] = " [ <interface> <setting> <value> ]\n"
 "   If called without parameters, lists interfaces and their current settings.\n"
 "   Changes said settings if called with parameters.\n"
 "   \n"
-"   Paramters:\n"
+"   Parameters:\n"
 "       interface   name of the interface to configure\n"
 "       setting     name of the setting to change\n"
 "       value       new value for said setting\n"
@@ -32,7 +31,7 @@ char* progName;
 * \brief small program with ifconfig like behaviour
 *
 * Shows the usage of SocketUtils, also used to test these
-* since we should not e.g. atomatically reconfigure a network
+* since we should not automatically reconfigure a network
 * interface each time we run tests
 *
 * Have a look at print() for how to get data, or at configure() for
@@ -96,7 +95,7 @@ int configure(const std::string& interface, const std::string& setting, const st
 	// and set the value appropriately
 	try {
 		if(setting == "mtu") {
-			NET::setMTU(interface, stoi(val));
+			NET::setMTU(interface, std::stoi(val));
 		} else if(setting == "address") {
 			NET::setInterfaceAddress(interface, val);
 		} else if(setting == "broadcast") {
