@@ -11,6 +11,7 @@ class TCPSocket_TEST : public CppUnit::TestFixture
 	CPPUNIT_TEST(testSendAll);
 	CPPUNIT_TEST(testTimedAccept);
 	CPPUNIT_TEST(testTimedReceive);
+	CPPUNIT_TEST(testTimedConnect);
 	CPPUNIT_TEST(testGracefulShutdown);
 	CPPUNIT_TEST_SUITE_END();
 
@@ -41,8 +42,12 @@ public:
 
 		NET::TCPSocket session(std::move(handle));
 		CPPUNIT_ASSERT(!handle);
+		CPPUNIT_ASSERT(!client.peerDisconnected());
+		CPPUNIT_ASSERT(!session.peerDisconnected());
+
 		CPPUNIT_ASSERT_THROW(NET::TCPSocket(std::move(handle)), NET::SocketException);
 		CPPUNIT_ASSERT_EQUAL(std::string(LOOPBACK), client.getForeignAddress());
+		CPPUNIT_ASSERT_EQUAL(std::string(LOOPBACK), session.getLocalAddress());
 		CPPUNIT_ASSERT_EQUAL(port, client.getForeignPort());
 		CPPUNIT_ASSERT_EQUAL(port, session.getLocalPort());
 
@@ -53,7 +58,7 @@ public:
 		CPPUNIT_ASSERT(sent <= static_cast<int>(sizeof(message)));
 
 		char buffer[sizeof(message)] = {};
-		const int received = session.receive(buffer, sent);
+		const int received = session.receive(buffer, static_cast<size_t>(sent));
 
 		CPPUNIT_ASSERT_EQUAL(sent, received);
 		CPPUNIT_ASSERT(std::memcmp(message, buffer, static_cast<size_t>(sent)) == 0);
@@ -140,6 +145,38 @@ public:
 		CPPUNIT_ASSERT(ret > 0);
 		CPPUNIT_ASSERT(ret <= static_cast<int>(sizeof(message)));
 		CPPUNIT_ASSERT(std::memcmp(message, buffer, static_cast<size_t>(ret)) == 0);
+		CPPUNIT_ASSERT(!session.peerDisconnected());
+	}
+
+	void testTimedConnect()
+	{
+		NET::TCPSocket server;
+		NET::TCPSocket client;
+
+		// Reserve a local TCP port, but deliberately do not listen on it
+		// This gives us a deterministic connection-refused endpoint
+		NET::TCPSocket notListening;
+		notListening.bind(LOOPBACK, 0);
+		const unsigned short refusedPort = notListening.getLocalPort();
+		CPPUNIT_ASSERT(refusedPort != 0);
+
+		CPPUNIT_ASSERT_THROW(client.timedConnect(LOOPBACK, refusedPort, 1000), NET::SocketException);
+		// reset connection attempt
+		client.disconnect();
+		CPPUNIT_ASSERT(!client.peerDisconnected());
+
+		const unsigned short port = prepareServer(server);
+		const int ret = client.timedConnect(LOOPBACK, port, 1000);
+
+		CPPUNIT_ASSERT_EQUAL(1, ret);
+		CPPUNIT_ASSERT_EQUAL(std::string(LOOPBACK), client.getForeignAddress());
+		CPPUNIT_ASSERT_EQUAL(port, client.getForeignPort());
+
+		NET::TCPSocket::Handle handle = server.accept();
+		CPPUNIT_ASSERT(handle);
+
+		NET::TCPSocket session(std::move(handle));
+		CPPUNIT_ASSERT(!client.peerDisconnected());
 		CPPUNIT_ASSERT(!session.peerDisconnected());
 	}
 
