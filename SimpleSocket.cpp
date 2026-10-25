@@ -39,8 +39,7 @@ SimpleSocket::SimpleSocket( int sockfd)
 
 SimpleSocket::~SimpleSocket()
 {
-	::close(m_socket);
-	// on Windows do cleanup here
+	if( m_socket >= 0) ::close(m_socket);
 }
 
 int SimpleSocket::send( const void* buffer, size_t len)

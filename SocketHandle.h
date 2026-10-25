@@ -78,10 +78,7 @@ namespace NET
 		//! constructor for sockets using this handle
 		explicit SocketHandle( int sockfd) noexcept : m_sockfd(sockfd) {}
 
-		/*!
-		 * Releases ownership of the socket file descriptor.
-		 * It also transfers the obligation to close the handle.
-		 */
+		//! releases ownership of the socket file descriptor
 		int release() noexcept
 		{
 			int tmp = m_sockfd;
@@ -90,10 +87,6 @@ namespace NET
 		}
 
 		//! resets the handle to an other socket file descriptor
-		/*!
-		 * If the new file descriptor differs from the old one,
-		 * the previously held socket descriptor is closed.
-		 */
 		void reset( int fd = -1) noexcept
 		{
 			if( fd != m_sockfd)

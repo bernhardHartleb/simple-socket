@@ -55,6 +55,9 @@ namespace NET
 			STOP_BOTH = SHUT_RDWR    ///< disable all send() and receive() calls on the socket
 		};
 
+		SimpleSocket( const SimpleSocket&) = delete;
+		SimpleSocket& operator=( const SimpleSocket&) = delete;
+
 		//! return the native handle of the open socket
 		inline int nativeHandle() { return m_socket; }
 
@@ -246,11 +249,6 @@ namespace NET
 		int m_socket;
 		bool m_peerDisconnected;
 		bool m_connectionOriented;
-
-	private:
-		// dont' allow
-		SimpleSocket( const SimpleSocket&);
-		const SimpleSocket& operator=( const SimpleSocket&);
 	};
 
 } // namespace NET
