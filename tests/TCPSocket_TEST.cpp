@@ -118,6 +118,8 @@ public:
 
 		const unsigned short port = prepareServer(server);
 		client.connect(LOOPBACK, port);
+		// Does not influce results below
+		client.setNoDelay(true);
 
 		NET::TCPSocket session(server.accept());
 

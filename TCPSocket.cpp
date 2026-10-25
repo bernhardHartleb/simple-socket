@@ -3,6 +3,7 @@
 
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <netinet/tcp.h>
 #include <poll.h>
 
 using namespace NET;
@@ -14,6 +15,13 @@ TCPSocket::TCPSocket()
 TCPSocket::TCPSocket( Handle&& handle)
 : InternetSocket( handle.release() )
 {}
+
+void TCPSocket::setNoDelay( bool enable)
+{
+	const int value = enable;
+	if( ::setsockopt( m_socket, IPPROTO_TCP, TCP_NODELAY, &value, sizeof(value)) < 0)
+		throw SocketException("Failed to set TCP_NODELAY (setsockopt)");
+}
 
 void TCPSocket::listen( int backlog)
 {

@@ -31,6 +31,18 @@ namespace NET
 		//! Receive the complete requested buffer
 		using SimpleSocket::receiveAll;
 
+		//! Enable or disable TCP_NODELAY
+		/*!
+		* TCP_NODELAY disables Nagle's algorithm packet buffering. It
+		* combines small writes into larger packets before transmission.
+		* For small packets this can worsen latency and NODELAY is preferred.
+		* This option can be used on connected sockets.
+		*
+		* \param enable true to enable nodelay
+		* \exception SocketException if changing the option fails
+		*/
+		void setNoDelay( bool enable);
+
 		//! listen for incoming connections
 		/*!
 		 * listen() can be called on a bound socket.
