@@ -1,5 +1,3 @@
-include_directories( ${CMAKE_SOURCE_DIR} )
-
 message("Building tests:")
 
 # Collect all unit tests
@@ -19,8 +17,10 @@ if(BUILD_CAN)
 		CANSocket_TEST.cpp)
 endif()
 
+find_library(CPPUNIT_LIBRARY NAMES cppunit)
+
 add_executable(UnitTester test_runner.cpp ${Test_SRC})
-target_link_libraries(UnitTester network cppunit)
+target_link_libraries(UnitTester PRIVATE network ${CPPUNIT_LIBRARY})
 
 foreach(TB ${Test_SRC})
 	get_filename_component(TestName ${TB} NAME_WE)

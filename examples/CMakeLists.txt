@@ -1,5 +1,3 @@
-include_directories( ${CMAKE_SOURCE_DIR} )
-
 message("Building examples:")
 
 set(examples
@@ -12,5 +10,5 @@ set(examples
 foreach(EX ${examples})
 	message("* ${EX}")
 	add_executable(${EX} ${EX}.cpp)
-	target_link_libraries(${EX} network)
+	target_link_libraries(${EX} PRIVATE network)
 endforeach()

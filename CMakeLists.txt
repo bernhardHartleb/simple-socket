@@ -38,11 +38,6 @@ add_compile_options(
 	-Wzero-as-null-pointer-constant
 )
 
-# Add modern linker flags
-add_link_options(
-	-Wl,-O1,--hash-style=gnu,--as-needed,--enable-new-dtags
-)
-
 include(CTest)
 
 set(sources
@@ -75,6 +70,10 @@ source_group(network_src FILES ${sources})
 add_library(network STATIC ${sources})
 add_library(simple-socket::network ALIAS network)
 
+# Public headers live directly in the source directory
+# Propagate that path to build-tree consumers
+target_include_directories(network PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>)
+
 target_compile_features(network PUBLIC cxx_std_17)
 
 set_target_properties(network PROPERTIES
@@ -96,11 +95,11 @@ if(BUILD_SCTP)
 endif()
 
 if(BUILD_TESTING)
-	add_subdirectory( tests )
+	add_subdirectory(tests)
 endif()
 
 if(BUILD_EXAMPLES)
-	add_subdirectory( examples )
+	add_subdirectory(examples)
 endif()
 
 find_package(Doxygen)
