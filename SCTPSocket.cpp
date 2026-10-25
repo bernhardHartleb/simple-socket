@@ -7,6 +7,19 @@
 
 using namespace NET;
 
+namespace {
+
+struct sctp_status getStatus( int socket)
+{
+	struct sctp_status status;
+	socklen_t size = sizeof(status);
+	if( ::getsockopt( socket, IPPROTO_SCTP, SCTP_STATUS, &status, &size) < 0)
+		throw SocketException("SCTPSocket::getsockopt failed");
+	return status;
+}
+
+} // namespace
+
 SCTPSocket::SCTPSocket( uint16_t numOutStreams /* = 10 */,
                         uint16_t maxInStreams /* = 65535 */,
                         uint16_t maxAttempts /* = 4 */,
@@ -53,56 +66,32 @@ int SCTPSocket::connect( const std::vector<std::string>& foreignAddresses, unsig
 
 int SCTPSocket::state() const
 {
-	struct sctp_status status;
-	socklen_t size = sizeof(status);
-	if( getsockopt( m_socket, IPPROTO_SCTP, SCTP_STATUS, &status, &size) < 0)
-		throw SocketException("SCTPSocket::state failed (getsockopt)");
-	return status.sstat_state;
+	return getStatus(m_socket).sstat_state;
 }
 
 int SCTPSocket::notAckedData() const
 {
-	struct sctp_status status;
-	socklen_t size = sizeof(status);
-	if( getsockopt( m_socket, IPPROTO_SCTP, SCTP_STATUS, &status, &size) < 0)
-		throw SocketException("SCTPSocket::notAckedData failed (getsockopt)");
-	return status.sstat_unackdata;
+	return getStatus(m_socket).sstat_unackdata;
 }
 
 int SCTPSocket::pendingData() const
 {
-	struct sctp_status status;
-	socklen_t size = sizeof(status);
-	if( getsockopt( m_socket, IPPROTO_SCTP, SCTP_STATUS, &status, &size) < 0)
-		throw SocketException("SCTPSocket::pendingData failed (getsockopt)");
-	return status.sstat_penddata;
+	return getStatus(m_socket).sstat_penddata;
 }
 
 unsigned SCTPSocket::inStreams() const
 {
-	struct sctp_status status;
-	socklen_t size = sizeof(status);
-	if( getsockopt( m_socket, IPPROTO_SCTP, SCTP_STATUS, &status, &size) < 0)
-		throw SocketException("SCTPSocket::inStreams failed (getsockopt)");
-	return status.sstat_instrms;
+	return getStatus(m_socket).sstat_instrms;
 }
 
 unsigned SCTPSocket::outStreams() const
 {
-	struct sctp_status status;
-	socklen_t size = sizeof(status);
-	if( getsockopt( m_socket, IPPROTO_SCTP, SCTP_STATUS, &status, &size) < 0)
-		throw SocketException("SCTPSocket::outStreams failed (getsockopt)");
-	return status.sstat_outstrms;
+	return getStatus(m_socket).sstat_outstrms;
 }
 
 unsigned SCTPSocket::fragmentationPoint() const
 {
-	struct sctp_status status;
-	socklen_t size = sizeof(status);
-	if( getsockopt( m_socket, IPPROTO_SCTP, SCTP_STATUS, &status, &size) < 0)
-		throw SocketException("SCTPSocket::fragmentationPoint failed (getsockopt)");
-	return status.sstat_fragmentation_point;
+	return getStatus(m_socket).sstat_fragmentation_point;
 }
 
 std::string SCTPSocket::primaryAddress() const
@@ -241,7 +230,6 @@ void SCTPSocket::setInitValues( uint16_t numOutStreams, uint16_t maxInStreams, u
 	init.sinit_max_attempts = maxAttempts;
 	init.sinit_max_init_timeo = maxInitTimeout;
 
-	int ret = setsockopt( m_socket, IPPROTO_SCTP, SCTP_INITMSG, &init, sizeof(init));
-	if( ret < 0)
+	if( ::setsockopt( m_socket, IPPROTO_SCTP, SCTP_INITMSG, &init, sizeof(init)) < 0)
 		throw SocketException("SCTPSocket construction failed (setsockopt)");
 }
