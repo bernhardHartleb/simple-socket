@@ -40,7 +40,7 @@ std::string CANSocket::getLocalInterface() const
 	sockaddr_can addr;
 	socklen_t addr_len = sizeof(addr);
 
-	if( getsockname( m_socket, (sockaddr*) &addr, &addr_len) < 0)
+	if( ::getsockname( m_socket, (sockaddr*) &addr, &addr_len) < 0)
 		throw SocketException("Fetch of interface failed (getsockname)");
 
 	return getInterfaceName(addr);
@@ -51,7 +51,7 @@ std::string CANSocket::getForeignInterface() const
 	sockaddr_can addr;
 	socklen_t addr_len = sizeof(addr);
 
-	if( getpeername( m_socket, (sockaddr*) &addr, &addr_len) < 0)
+	if( ::getpeername( m_socket, (sockaddr*) &addr, &addr_len) < 0)
 		throw SocketException("Fetch of interface failed (getpeername)");
 
 	return getInterfaceName(addr);

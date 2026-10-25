@@ -78,42 +78,26 @@ int CANRawSocket::timedReceiveFrom( ::can_frame& frame, std::string& interface, 
 
 void CANRawSocket::setReceiveFilter( const ::can_filter* filter, size_t len)
 {
-	if( setsockopt( m_socket,
-	                SOL_CAN_RAW,
-	                CAN_RAW_FILTER,
-	                (const raw_type*)filter,
-	                sizeof(::can_filter) * len) < 0)
+	if( ::setsockopt( m_socket, SOL_CAN_RAW, CAN_RAW_FILTER, filter, sizeof(::can_filter) * len) < 0)
 		throw SocketException("Set receive filter failed (setsockopt)");
 }
 
 void CANRawSocket::setErrorFilter( ::can_err_mask_t filter)
 {
-	if( setsockopt( m_socket,
-	                SOL_CAN_RAW,
-	                CAN_RAW_ERR_FILTER,
-	                (const raw_type*)&filter,
-	                sizeof(::can_err_mask_t)) < 0)
+	if( ::setsockopt( m_socket, SOL_CAN_RAW, CAN_RAW_ERR_FILTER, &filter, sizeof(::can_err_mask_t)) < 0)
 		throw SocketException("Set error filter failed (setsockopt)");
 }
 
 void CANRawSocket::setLocalLoopback( bool enable)
 {
-	int loopback = enable;
-	if( setsockopt( m_socket,
-	                SOL_CAN_RAW,
-	                CAN_RAW_LOOPBACK,
-	                (raw_type*)&loopback,
-	                sizeof(loopback)) < 0)
+	const int value = enable;
+	if( ::setsockopt( m_socket, SOL_CAN_RAW, CAN_RAW_LOOPBACK, &value, sizeof(value)) < 0)
 		throw SocketException("Set local loopback failed (setsockopt)");
 }
 
 void CANRawSocket::setReceiveOwnMessages( bool enable)
 {
-	int recv_own_msgs = enable;
-	if( setsockopt( m_socket,
-	                SOL_CAN_RAW,
-	                CAN_RAW_RECV_OWN_MSGS,
-	                (raw_type*)&recv_own_msgs,
-	                sizeof(recv_own_msgs)) < 0)
+	const int value = enable;
+	if( ::setsockopt( m_socket, SOL_CAN_RAW, CAN_RAW_RECV_OWN_MSGS, &value, sizeof(value)) < 0)
 		throw SocketException("Set receive own messages failed (setsockopt)");
 }

@@ -13,25 +13,17 @@ void setBroadcast( int socket)
 {
 	// If this fails, we'll hear about it when we try to send. This will allow
 	// systems that cannot broadcast to continue if they don't plan to broadcast
-	int broadcastPermission = 1;
-	setsockopt( socket,
-		    SOL_SOCKET,
-		    SO_BROADCAST,
-		    (raw_type*)&broadcastPermission,
-		    sizeof(broadcastPermission));
+	const int value = 1;
+	::setsockopt( socket, SOL_SOCKET, SO_BROADCAST, &value, sizeof(value));
 }
 
 int groupAction( int socket, const std::string& multicastGroup, int action)
 {
-	struct ip_mreq multicastRequest;
-	multicastRequest.imr_multiaddr.s_addr = inet_addr( multicastGroup.c_str());
-	multicastRequest.imr_interface.s_addr = htonl(INADDR_ANY);
+	struct ip_mreq request;
+	request.imr_multiaddr.s_addr = inet_addr( multicastGroup.c_str());
+	request.imr_interface.s_addr = htonl(INADDR_ANY);
 
-	return( setsockopt( socket,
-			    IPPROTO_IP,
-			    action,
-			    (raw_type*)&multicastRequest,
-			    sizeof(multicastRequest)));
+	return ::setsockopt( socket, IPPROTO_IP, action, &request, sizeof(request));
 }
 
 } // namespace
@@ -94,25 +86,18 @@ int UDPSocket::timedReceiveFrom( void* buffer, size_t len, std::string& sourceAd
 
 void UDPSocket::setMulticastTTL( unsigned char multicastTTL)
 {
-	if( setsockopt( m_socket,
-	                IPPROTO_IP,
-	                IP_MULTICAST_TTL,
-	                (raw_type*)&multicastTTL,
-	                sizeof(multicastTTL)) < 0)
+	const int value = multicastTTL;
+	if( ::setsockopt( m_socket, IPPROTO_IP, IP_MULTICAST_TTL, &value, sizeof(value)) < 0)
 		throw SocketException("Multicast set TTL failed (setsockopt)");
 }
 
 void UDPSocket::setMulticastInterfaceAddr( const std::string& address)
 {
-	struct in_addr interfaceAddr;
-	if( inet_aton( address.c_str(), &interfaceAddr) == 0)
+	struct in_addr iface;
+	if( inet_aton( address.c_str(), &iface) == 0)
 		throw SocketException("Invalid IPv4 address", false);
 
-	if( setsockopt( m_socket,
-	                IPPROTO_IP,
-	                IP_MULTICAST_IF,
-	                (raw_type*)&interfaceAddr,
-	                sizeof(interfaceAddr)) < 0)
+	if( ::setsockopt( m_socket, IPPROTO_IP, IP_MULTICAST_IF, &iface, sizeof(iface)) < 0)
 		throw SocketException("Multicast set Interface Address failed (setsockopt)");
 }
 
