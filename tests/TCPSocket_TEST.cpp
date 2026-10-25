@@ -76,26 +76,17 @@ public:
 
 		// Large enough to exercise more than just a trivial message
 		std::vector<char> sendBuffer(32 * 1024);
+		const int len = static_cast<int>(sendBuffer.size());
+
 		for (size_t i = 0; i < sendBuffer.size(); ++i)
 			sendBuffer[i] = static_cast<char>(i % 251);
 
 		const int sent = client.sendAll(sendBuffer.data(), sendBuffer.size());
-		CPPUNIT_ASSERT_EQUAL(static_cast<int>(sendBuffer.size()), sent);
+		CPPUNIT_ASSERT_EQUAL(len, sent);
 
 		std::vector<char> receiveBuffer(sendBuffer.size());
-		size_t received = 0;
-
-		while (received < receiveBuffer.size())
-		{
-			const int ret = session.receive(
-				receiveBuffer.data() + received,
-				receiveBuffer.size() - received);
-
-			CPPUNIT_ASSERT(ret > 0);
-			received += static_cast<size_t>(ret);
-		}
-
-		CPPUNIT_ASSERT_EQUAL(sendBuffer.size(), received);
+		const int received = session.receiveAll(receiveBuffer.data(), receiveBuffer.size());
+		CPPUNIT_ASSERT_EQUAL(len, received);
 		CPPUNIT_ASSERT(sendBuffer == receiveBuffer);
 	}
 

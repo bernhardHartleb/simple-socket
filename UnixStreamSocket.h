@@ -28,14 +28,11 @@ namespace NET
 		 */
 		explicit UnixStreamSocket( Handle&& handle);
 
-		/*!
-		 * Send the complete buffer unless the associated peer becomes
-		 * unavailable.
-		 *
-		 * \return number of bytes sent
-		 * \exception SocketException on errors other than peer loss
-		 */
-		int sendAll( const void* buffer, size_t len);
+		//! Send the complete buffer
+		using SimpleSocket::sendAll;
+
+		//! Receive the complete requested buffer
+		using SimpleSocket::receiveAll;
 
 		/*!
 		 * Put a bound socket into listening state.

@@ -72,19 +72,9 @@ public:
 		CPPUNIT_ASSERT_EQUAL(static_cast<int>(sizeof(message)), sent);
 
 		char buffer[sizeof(message)] = {};
-		size_t received = 0;
+		const int received = session.receive(buffer, sizeof(message));
 
-		while (received < sizeof(message))
-		{
-			const int ret = session.receive(
-				buffer + received,
-				sizeof(buffer) - received);
-
-			CPPUNIT_ASSERT(ret > 0);
-			received += static_cast<size_t>(ret);
-		}
-
-		CPPUNIT_ASSERT_EQUAL(sizeof(message), received);
+		CPPUNIT_ASSERT_EQUAL(sent, received);
 		CPPUNIT_ASSERT(std::memcmp(message, buffer, sizeof(message)) == 0);
 	}
 
@@ -103,26 +93,17 @@ public:
 		NET::UnixStreamSocket session(server.accept());
 
 		std::vector<char> sendBuffer(32 * 1024);
+		const int len = static_cast<int>(sendBuffer.size());
+
 		for (size_t i = 0; i < sendBuffer.size(); ++i)
 			sendBuffer[i] = static_cast<char>(i % 251);
 
 		const int sent = client.sendAll(sendBuffer.data(), sendBuffer.size());
-		CPPUNIT_ASSERT_EQUAL(static_cast<int>(sendBuffer.size()), sent);
+		CPPUNIT_ASSERT_EQUAL(len, sent);
 
 		std::vector<char> receiveBuffer(sendBuffer.size());
-		size_t received = 0;
-
-		while (received < receiveBuffer.size())
-		{
-			const int ret = session.receive(
-				receiveBuffer.data() + received,
-				receiveBuffer.size() - received);
-
-			CPPUNIT_ASSERT(ret > 0);
-			received += static_cast<size_t>(ret);
-		}
-
-		CPPUNIT_ASSERT_EQUAL(sendBuffer.size(), received);
+		const int received = session.receiveAll(receiveBuffer.data(), receiveBuffer.size());
+		CPPUNIT_ASSERT_EQUAL(len, received);
 		CPPUNIT_ASSERT(sendBuffer == receiveBuffer);
 	}
 

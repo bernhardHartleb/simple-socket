@@ -128,3 +128,29 @@ bool SimpleSocket::peerDisconnected() const noexcept
 {
 	return m_peerDisconnected;
 }
+
+int SimpleSocket::sendAll( const void* buffer, size_t len)
+{
+	size_t sent = 0;
+	while( sent != len)
+	{
+		const char* buf = static_cast<const char*>(buffer) + sent;
+		auto ret = send( buf, len - sent);
+		sent += static_cast<size_t>(ret);
+		if( m_peerDisconnected) break;
+	}
+	return sent;
+}
+
+int SimpleSocket::receiveAll( void* buffer, size_t len)
+{
+	size_t received = 0;
+	while( received != len)
+	{
+		char* buf = static_cast<char*>(buffer) + received;
+		auto ret = receive( buf, len - received);
+		if( ret == 0) break;
+		received += static_cast<size_t>(ret);
+	}
+	return received;
+}

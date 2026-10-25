@@ -25,25 +25,11 @@ namespace NET
 		 */
 		explicit TCPSocket( Handle&& handle);
 
-		//! send data through a connected socket
-		/*!
-		 * sendAll() can only be used on a socket that called connect()
-		 * before. If you try to use sendAll() on a unconnected socket,
-		 * a SocketException will be thrown.
-		 *
-		 * When using a stream oriented socket, the operating system is allowed
-		 * to send only a bit of the data you requested it to send.
-		 * Because of this, you would have to check the number of sent bytes
-		 * when using send(), and resend unsent data manually. sendAll() takes
-		 * that responsibility from you and resends as long as it needs, to
-		 * completely send the data given to it.
-		 *
-		 * \param buffer data to be send
-		 * \param len length of the data to be sent
-		 * \return number of bytes sent
-		 * \exception SocketException
-		 */
-		int sendAll( const void* buffer, size_t len);
+		//! Send the complete buffer
+		using SimpleSocket::sendAll;
+
+		//! Receive the complete requested buffer
+		using SimpleSocket::receiveAll;
 
 		//! listen for incoming connections
 		/*!

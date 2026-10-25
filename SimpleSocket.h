@@ -182,6 +182,43 @@ namespace NET
 		bool peerDisconnected() const noexcept;
 
 	protected:
+		//! send data through a connected socket
+		/*!
+		 * sendAll() can only be used on a socket that called connect()
+		 * before. If you try to use sendAll() on a unconnected socket,
+		 * a SocketException will be thrown.
+		 *
+		 * When using a stream oriented socket, the operating system is allowed
+		 * to send only a bit of the data you requested it to send.
+		 * Because of this, you would have to check the number of sent bytes
+		 * when using send(), and resend unsent data manually. sendAll() takes
+		 * that responsibility from you and resends as long as it needs, to
+		 * completely send the data given to it.
+		 *
+		 * \param buffer data to be send
+		 * \param len length of the data to be sent
+		 * \return number of bytes sent
+		 * \exception SocketException
+		 */
+		int sendAll( const void* buffer, size_t len);
+
+		//! receive exactly the requested amount unless the peer disconnects
+		/*!
+		 * receiveAll() repeatedly calls receive() until len bytes have been
+		 * received. This is useful for fixed-size data on TCP, where one receive()
+		 * call is not guaranteed to return all bytes sent by the peer.
+		 *
+		 * If the peer closes or resets the connection before len bytes arrive, the
+		 * function returns the number of bytes received so far. In that case
+		 * peerDisconnected() is set by the underlying receive() call.
+		 *
+		 * \param buffer buffer the received data will be written to
+		 * \param len number of bytes to receive
+		 * \return number of bytes received
+		 * \exception SocketException on receive errors other than peer loss
+		 */
+		int receiveAll( void* buffer, size_t len);
+
 		enum SocketDomain
 		{
 			INTERNET = AF_INET,
