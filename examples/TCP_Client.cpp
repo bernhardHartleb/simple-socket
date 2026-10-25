@@ -1,28 +1,49 @@
 #include "../TCPSocket.h"
 
+#include <array>
 #include <iostream>
-
-static char recv_msg[50];
 
 int main()
 {
 	try {
 
 	NET::TCPSocket client_socket;
-	client_socket.connect( "127.0.0.1", 47777);
+	// Connect to local TCP Server example
+	client_socket.connect("127.0.0.1", 47777);
 
-	// wait for data within the next 5s
-	int bytes_recv = client_socket.timedReceive( recv_msg, 50, 5000);
+	std::array<char, 256> buffer{};
+	std::cout << "Received data from server: ";
 
-	// we got a message!
-	if(bytes_recv > 0)
-		std::cout << "Received data from server: " << recv_msg << std::endl;
+	while(true)
+	{
+		// TCP is a byte stream: one receive call is not guaranteed
+		// to return everything the peer sent
+		int received = client_socket.timedReceive(buffer.data(), buffer.size(), 5000);
+		if (received > 0)
+		{
+			// Use the returned byte count
+			// Received network data is not necessarily null terminated
+			std::cout.write(buffer.data(), received);
+			continue;
+		}
 
-	// this is optional, we could simply do nothing here
-	client_socket.disconnect();
+		if (client_socket.peerDisconnected())
+		{
+			// Graceful EOF from the server
+			break;
+		}
 
-	// if something fails, we get here
-	} catch( const NET::SocketException& e)
+		// timedReceive() also returns 0 when its timeout expires
+		std::cerr << "\nTimed out waiting for server data." << std::endl;
+
+		return 1;
+	}
+
+	std::cout << std::endl;
+	// No explicit close is necessary
+
+	}
+	catch (const NET::SocketException& e)
 	{
 		std::cerr << e.what() << std::endl;
 		return 1;

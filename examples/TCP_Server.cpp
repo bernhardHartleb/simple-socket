@@ -3,36 +3,53 @@
 #include <iostream>
 
 static const char send_msg[] = "The quick brown fox jumps over the lazy dog";
+static const size_t send_len = sizeof(send_msg) - 1;
 
 int main()
 {
 	try {
 
 	NET::TCPSocket server_socket;
-
-	// listen locally on the given port
-	server_socket.bind( "127.0.0.1", 47777);
+	// Allow server to bind again while stale connections are waiting
+	server_socket.setReuseAddress(true);
+	// Listen locally on the given port
+	server_socket.bind("127.0.0.1", 47777);
 	server_socket.listen();
 
+	std::cout << "Waiting for a client..." << std::endl;
+
+	// Wait up to 5 seconds for an incoming connection
 	NET::TCPSocket::Handle handle = server_socket.timedAccept(5000);
-	// nobody connected within 5s
-	if(!handle) return 1;
+	if (!handle)
+	{
+		std::cerr << "Timed out waiting for a client." << std::endl;
+		return 1;
+	}
 
-	// create a new socket to communicate with the connected client
-	// if we do nothing at this point, the connection will be discarded
+	// The accepted handle owns the new connection until it is moved into a TCPSocket
 	NET::TCPSocket session_socket(std::move(handle));
-	session_socket.send( send_msg, sizeof(send_msg) );
 
-	// client disconnected before he could receive anything
-	if( session_socket.peerDisconnected()) return 1;
+	std::cout << "Client connected from " << session_socket.getForeignAddress()
+	          << ":" << session_socket.getForeignPort() << std::endl;
 
-	std::cout << "TCP server sucessfully sent data to the client." << std::endl;
+	// TCP is a byte stream. send() may send only part of a buffer
+	// sendAll() keeps sending until the complete buffer was handled
+	int sent = session_socket.sendAll(send_msg, send_len);
+	if (sent != static_cast<int>(send_len))
+	{
+		std::cerr << "Client disconnected while sending." << std::endl;
+		return 1;
+	}
 
-	// this is optional, we could simply do nothing here
-	session_socket.disconnect();
+	// Gracefully signal that no more data will be sent
+	// The socket could still receive data after this call
+	session_socket.shutdown(NET::SimpleSocket::STOP_SEND);
 
-	// if something fails, we get here
-	} catch( const NET::SocketException& e)
+	std::cout << "Successfully sent " << sent << " bytes." << std::endl;
+	// No explicit close is necessary
+
+	}
+	catch (const NET::SocketException& e)
 	{
 		std::cerr << e.what() << std::endl;
 		return 1;
