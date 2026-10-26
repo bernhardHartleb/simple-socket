@@ -22,7 +22,7 @@ public:
 
 	void resolveService()
 	{
-		// HTTP over TCP is known, also over UDP, but not via DDP
+		// HTTP over TCP is known, but not via DDP
 		CPPUNIT_ASSERT( NET::resolveService( "http") == 80);
 		CPPUNIT_ASSERT( NET::resolveService( "http", "") == 80);
 		CPPUNIT_ASSERT( NET::resolveService( "http", "ddp") == 0);
