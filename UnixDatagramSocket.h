@@ -21,7 +21,6 @@ namespace NET
 		 * \param buffer data to be send
 		 * \param len number of bytes to write
 		 * \param foreignPath filename of the datagram socket the data should be sent to
-		 * \return true if send is successful
 		 * \exception SocketException thrown if unable to send datagram
 		 */
 		void sendTo( const void* buffer, size_t len, std::string_view foreignPath);

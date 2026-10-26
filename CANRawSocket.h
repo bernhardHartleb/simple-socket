@@ -34,7 +34,7 @@ namespace NET
 		 *
 		 * Like send(), sendTo() blocks until the message was sent.
 		 *
-		 * \param fraem CAN frame structure to be send
+		 * \param frame CAN frame structure to be send
 		 * \param interface specifies the CAN interface to send used for sending
 		 * \exception SocketException thrown if unable to send frame
 		 */
@@ -46,7 +46,7 @@ namespace NET
 		 * In order to receive data, the socket has to be bound at least to a specific interface.
 		 * This is done by explicitly binding the socket, or sending data through the socket.
 		 *
-		 * \param fraem CAN frame structure to be send
+		 * \param frame CAN frame structure to be send
 		 * \param interface specifies the CAN interface used for reception
 		 * \return number of bytes received
 		 * \exception SocketException thrown if unable to receive datagram
@@ -61,7 +61,7 @@ namespace NET
 		 * In order to receive data, the socket has to be bound at least to a specific interface.
 		 * This is done by explicitly binding the socket, or sending data through the socket.
 		 *
-		 * \param fraem CAN frame structure to be send
+		 * \param frame CAN frame structure to be send
 		 * \param interface specifies the CAN interface used for reception
 		 * \param timeout timeout in milliseconds
 		 * \return number of bytes received, 0 on timeout
@@ -79,7 +79,7 @@ namespace NET
 
 		/*!
 		 * 
-		 * \param filters Linux SocketCAN error-class mask
+		 * \param filter Linux SocketCAN error-class mask
 		 * \exception SocketException
 		 */
 		void setErrorFilter( ::can_err_mask_t filter);

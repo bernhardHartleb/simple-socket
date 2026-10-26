@@ -45,9 +45,12 @@ namespace NET
 		//! establish a connection with the given foreign address and port
 		/*!
 		 * Provides timeout for TCP socket connection establishment.
+		 * When a timeout occurs, the OS may still continue the connection attempt
+		 * in the background. Use disconnect() or destroy the socket to avoid this.
 		 *
 		 * \param foreignAddress foreign address
 		 * \param foreignPort foreign port
+		 * \param timeout the timeout in ms after which connect will give up and return
 		 * \return 0 on timeout, 1 when connection is established
 		 * \exception SocketException thrown if unable to establish connection
 		 */
