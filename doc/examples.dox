@@ -30,3 +30,8 @@ Your.local.ip.addr:47776 Welcome to our multicast group!
 We got another message.
 \endverbatim
 */
+
+/*!
+\example UDP_Commands.cpp
+UDP server and client demo, sending commands from console.
+*/
