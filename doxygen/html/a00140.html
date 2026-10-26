@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>simple-socket library: TempFailure.h File Reference</title>
+<title>simple-socket library: UDPSocket.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -60,75 +60,57 @@ $(function(){initNavTree('a00140.html','',''); });
 <div id="container">
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">TempFailure.h File Reference</div></div>
+  <div class="headertitle"><div class="title">UDPSocket.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;unistd.h&gt;</code><br />
-<code>#include &lt;errno.h&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="a00155_source.html">UDPSocket.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00179_source.html">SockAddress.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00134_source.html">TempFailure.h</a>&quot;</code><br />
+<code>#include &lt;sys/socket.h&gt;</code><br />
+<code>#include &lt;arpa/inet.h&gt;</code><br />
+<code>#include &lt;poll.h&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
-Include dependency graph for TempFailure.h:</div>
+Include dependency graph for UDPSocket.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="a00141.png" border="0" usemap="#a_temp_failure_8h" loading="lazy" alt=""/></div>
-<map name="a_temp_failure_8h" id="a_temp_failure_8h">
-<area shape="rect" title=" " alt="" coords="31,5,135,32"/>
-<area shape="rect" title=" " alt="" coords="5,80,73,107"/>
-<area shape="poly" title=" " alt="" coords="78,31,57,68,52,65,73,34"/>
-<area shape="rect" title=" " alt="" coords="96,80,158,107"/>
-<area shape="poly" title=" " alt="" coords="92,30,114,67,109,67,89,35"/>
-</map>
-</div>
-</div><div class="textblock"><div class="dynheader">
-This graph shows which files directly or indirectly include this file:</div>
-<div class="dyncontent">
-<div class="center"><img src="a00142.png" border="0" usemap="#a_temp_failure_8hdep" loading="lazy" alt=""/></div>
-<map name="a_temp_failure_8hdep" id="a_temp_failure_8hdep">
-<area shape="rect" title=" " alt="" coords="560,5,663,32"/>
-<area shape="rect" href="a00167.html" title=" " alt="" coords="5,80,149,107"/>
-<area shape="poly" title=" " alt="" coords="545,31,161,83,149,84,149,79,161,77,544,26"/>
-<area shape="rect" href="a00158.html" title=" " alt="" coords="173,80,304,107"/>
-<area shape="poly" title=" " alt="" coords="547,33,304,82,303,77,542,33"/>
-<area shape="rect" href="a00173.html" title=" " alt="" coords="329,80,452,107"/>
-<area shape="poly" title=" " alt="" coords="561,37,430,82,429,77,556,38"/>
-<area shape="rect" href="a00149.html" title=" " alt="" coords="476,80,603,107"/>
-<area shape="poly" title=" " alt="" coords="591,42,553,82,551,77,586,44"/>
-<area shape="rect" href="a00179.html" title=" " alt="" coords="628,80,742,107"/>
-<area shape="poly" title=" " alt="" coords="636,41,675,80,670,79,634,46"/>
-<area shape="rect" href="a00146.html" title=" " alt="" coords="767,80,883,107"/>
-<area shape="poly" title=" " alt="" coords="664,35,790,80,785,79,663,40"/>
-<area shape="rect" href="a00182.html" title=" " alt="" coords="907,80,1079,107"/>
-<area shape="poly" title=" " alt="" coords="679,30,929,79,923,79,678,35"/>
-<area shape="rect" href="a00104.html" title=" " alt="" coords="1103,80,1259,107"/>
-<area shape="poly" title=" " alt="" coords="679,26,1091,77,1105,82,1100,81,1090,83,678,31"/>
+<div class="center"><img src="a00141.png" border="0" usemap="#a_u_d_p_socket_8cpp" loading="lazy" alt=""/></div>
+<map name="a_u_d_p_socket_8cpp" id="a_u_d_p_socket_8cpp">
+<area shape="rect" title=" " alt="" coords="338,5,454,32"/>
+<area shape="rect" href="a00155.html" title=" " alt="" coords="282,80,385,107"/>
+<area shape="poly" title=" " alt="" coords="387,31,356,70,352,66,383,34"/>
+<area shape="rect" title=" " alt="" coords="5,304,102,331"/>
+<area shape="poly" title=" " alt="" coords="345,34,277,59,195,99,155,125,118,155,86,190,61,230,53,259,53,289,47,288,48,259,56,228,82,187,115,151,152,120,193,94,275,54,349,31"/>
+<area shape="rect" href="a00179.html" title=" " alt="" coords="154,155,265,181"/>
+<area shape="poly" title=" " alt="" coords="355,34,315,54,273,82,245,112,225,143,221,140,241,109,269,78,313,50,360,31"/>
+<area shape="rect" href="a00134.html" title=" " alt="" coords="408,80,512,107"/>
+<area shape="poly" title=" " alt="" coords="408,30,442,68,436,68,407,35"/>
+<area shape="rect" title=" " alt="" coords="536,80,619,107"/>
+<area shape="poly" title=" " alt="" coords="428,30,534,73,529,74,428,35"/>
+<area shape="rect" title=" " alt="" coords="643,80,696,107"/>
+<area shape="poly" title=" " alt="" coords="449,30,631,79,626,80,449,35"/>
+<area shape="rect" href="a00158.html" title=" " alt="" coords="288,155,406,181"/>
+<area shape="poly" title=" " alt="" coords="337,105,344,140,339,138,335,110"/>
+<area shape="rect" href="a00149.html" title=" " alt="" coords="316,229,429,256"/>
+<area shape="poly" title=" " alt="" coords="353,180,365,215,360,214,350,184"/>
+<area shape="poly" title=" " alt="" coords="317,259,118,304,116,299,316,254"/>
+<area shape="rect" title=" " alt="" coords="254,304,307,331"/>
+<area shape="poly" title=" " alt="" coords="359,256,309,297,307,292,354,257"/>
+<area shape="rect" title=" " alt="" coords="334,304,411,331"/>
+<area shape="poly" title=" " alt="" coords="374,255,374,290,370,287,370,258"/>
+<area shape="poly" title=" " alt="" coords="238,179,332,222,327,223,237,185"/>
+<area shape="poly" title=" " alt="" coords="156,184,117,202,98,215,81,231,65,259,58,290,53,288,60,257,77,228,94,211,115,198,160,180"/>
+<area shape="poly" title=" " alt="" coords="221,179,255,228,276,290,271,288,250,231,219,184"/>
+<area shape="rect" title=" " alt="" coords="91,229,155,256"/>
+<area shape="poly" title=" " alt="" coords="196,180,151,221,148,217,192,184"/>
+<area shape="rect" title=" " alt="" coords="179,229,240,256"/>
+<area shape="poly" title=" " alt="" coords="211,180,212,215,207,213,208,184"/>
+<area shape="rect" title=" " alt="" coords="514,155,582,181"/>
+<area shape="poly" title=" " alt="" coords="476,105,524,145,519,145,475,110"/>
+<area shape="rect" title=" " alt="" coords="430,155,491,181"/>
+<area shape="poly" title=" " alt="" coords="462,105,462,140,458,138,459,109"/>
 </map>
 </div>
 </div>
 <p><a href="a00140_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:ae3924d534a2de097f5cccb535330e8c2" id="r_ae3924d534a2de097f5cccb535330e8c2"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ae3924d534a2de097f5cccb535330e8c2">TEMP_FAILURE_RETRY</a>(expression)</td></tr>
-</table>
-<a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
-<a id="ae3924d534a2de097f5cccb535330e8c2" name="ae3924d534a2de097f5cccb535330e8c2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae3924d534a2de097f5cccb535330e8c2">&#9670;&#160;</a></span>TEMP_FAILURE_RETRY</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define TEMP_FAILURE_RETRY</td>
-          <td>(</td>
-          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>expression</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">(expression)</div>
-</div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="a00140_source.html#l00008">8</a> of file <a class="el" href="a00140_source.html">TempFailure.h</a>.</p>
-
-</div>
-</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
@@ -142,7 +124,7 @@ Macros</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_43e0a1f539e00dcfa1a6bc4d4fee4fc2.html">home</a></li><li class="navelem"><a href="dir_973469fe03307bc0e5780de41ae07045.html">seek</a></li><li class="navelem"><a href="dir_81a8672a3de2fdc40453108918520b77.html">Data</a></li><li class="navelem"><a href="dir_c5c04bceea4264d11ac3486c90412d29.html">Repositories</a></li><li class="navelem"><a href="dir_ffd1759873cc7e6debbb5be08b79e165.html">simple-socket</a></li><li class="navelem"><a href="a00140.html">TempFailure.h</a></li>
+    <li class="navelem"><a href="dir_43e0a1f539e00dcfa1a6bc4d4fee4fc2.html">home</a></li><li class="navelem"><a href="dir_973469fe03307bc0e5780de41ae07045.html">seek</a></li><li class="navelem"><a href="dir_81a8672a3de2fdc40453108918520b77.html">Data</a></li><li class="navelem"><a href="dir_c5c04bceea4264d11ac3486c90412d29.html">Repositories</a></li><li class="navelem"><a href="dir_ffd1759873cc7e6debbb5be08b79e165.html">simple-socket</a></li><li class="navelem"><a href="a00140.html">UDPSocket.cpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

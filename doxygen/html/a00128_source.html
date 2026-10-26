@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>simple-socket library: TCPSocket_TEST.cpp Source File</title>
+<title>simple-socket library: CANRawSocket.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -60,232 +60,70 @@ $(function(){initNavTree('a00128_source.html','',''); });
 <div id="container">
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">TCPSocket_TEST.cpp</div></div>
+  <div class="headertitle"><div class="title">CANRawSocket.h</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00128.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;cppunit/extensions/HelperMacros.h&gt;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;<a class="code" href="a00098.html">../TCPSocket.h</a>&quot;</span></div>
+<a href="a00128.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef NET_CANRawSocket_h__</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define NET_CANRawSocket_h__</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;cstring&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">class </span>TCPSocket_TEST : <span class="keyword">public</span> CppUnit::TestFixture</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    CPPUNIT_TEST_SUITE(TCPSocket_TEST);</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    CPPUNIT_TEST(testConnectAcceptAndTransfer);</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    CPPUNIT_TEST(testSendAll);</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    CPPUNIT_TEST(testTimedAccept);</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    CPPUNIT_TEST(testTimedReceive);</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    CPPUNIT_TEST(testTimedConnect);</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    CPPUNIT_TEST(testGracefulShutdown);</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    CPPUNIT_TEST_SUITE_END();</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keyword">static</span> <span class="keyword">constexpr</span> <span class="keyword">const</span> <span class="keywordtype">char</span>* LOOPBACK = <span class="stringliteral">&quot;127.0.0.1&quot;</span>;</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keyword">static</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> prepareServer(NET::TCPSocket&amp; server)</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    {</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="comment">// Let the OS choose a free port</span></div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        server.<a class="code hl_function" href="a01034.html#a02046392ba4e5810f7dc900686ac9a93">bind</a>(LOOPBACK, 0);</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        server.<a class="code hl_function" href="a01058.html#ab73d41b8b389a74ffe0cc6682bf93bde">listen</a>();</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keywordflow">return</span> server.<a class="code hl_function" href="a01034.html#a107aca419c74eb2785641b2ad4670433">getLocalPort</a>();</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    }</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keywordtype">void</span> testConnectAcceptAndTransfer()</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    {</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        NET::TCPSocket server;</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        NET::TCPSocket client;</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> port = prepareServer(server);</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        CPPUNIT_ASSERT(port != 0);</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        client.<a class="code hl_function" href="a01034.html#ab5151cf3fcd5768c6d40e585774b417b">connect</a>(LOOPBACK, port);</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <a class="code hl_typedef" href="a01058.html#a6c8ff2b6fa5bbc47f51ebd0ec3158872">NET::TCPSocket::Handle</a> handle = server.<a class="code hl_function" href="a01058.html#abf7e125c75121962fc90804a1586a855">accept</a>();</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        CPPUNIT_ASSERT(handle);</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        NET::TCPSocket session(std::move(handle));</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        CPPUNIT_ASSERT(!handle);</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        CPPUNIT_ASSERT(!client.<a class="code hl_function" href="a01046.html#adc7b2b80c852e7163a7bab9ce4b7c060">peerDisconnected</a>());</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        CPPUNIT_ASSERT(!session.peerDisconnected());</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        CPPUNIT_ASSERT_THROW(NET::TCPSocket(std::move(handle)), NET::SocketException);</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        CPPUNIT_ASSERT_EQUAL(std::string(LOOPBACK), client.<a class="code hl_function" href="a01034.html#ad473c333c130d87fcfdfe44b1309e128">getForeignAddress</a>());</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        CPPUNIT_ASSERT_EQUAL(std::string(LOOPBACK), session.getLocalAddress());</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        CPPUNIT_ASSERT_EQUAL(port, client.<a class="code hl_function" href="a01034.html#a3bed9eaad1c7dfc3d3ad2515260cf388">getForeignPort</a>());</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        CPPUNIT_ASSERT_EQUAL(port, session.getLocalPort());</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keyword">const</span> <span class="keywordtype">char</span> message[] = <span class="stringliteral">&quot;Hello TCP&quot;</span>;</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <span class="keyword">const</span> <span class="keywordtype">int</span> sent = client.<a class="code hl_function" href="a01046.html#a6e3ec021c1ae9ea1e1d0aaa0129e7c50">send</a>(message, <span class="keyword">sizeof</span>(message));</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        CPPUNIT_ASSERT(sent &gt; 0);</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        CPPUNIT_ASSERT(sent &lt;= <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(<span class="keyword">sizeof</span>(message)));</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span> </div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>        <span class="keywordtype">char</span> buffer[<span class="keyword">sizeof</span>(message)] = {};</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <span class="keyword">const</span> <span class="keywordtype">int</span> received = session.receive(buffer, <span class="keyword">static_cast&lt;</span><span class="keywordtype">size_t</span><span class="keyword">&gt;</span>(sent));</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        CPPUNIT_ASSERT_EQUAL(sent, received);</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>        CPPUNIT_ASSERT(std::memcmp(message, buffer, <span class="keyword">static_cast&lt;</span><span class="keywordtype">size_t</span><span class="keyword">&gt;</span>(sent)) == 0);</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    }</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keywordtype">void</span> testSendAll()</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    {</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        NET::TCPSocket server;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        NET::TCPSocket client;</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> port = prepareServer(server);</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>        client.<a class="code hl_function" href="a01034.html#ab5151cf3fcd5768c6d40e585774b417b">connect</a>(LOOPBACK, port);</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        NET::TCPSocket session(server.<a class="code hl_function" href="a01058.html#abf7e125c75121962fc90804a1586a855">accept</a>());</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>        <span class="comment">// Large enough to exercise more than just a trivial message</span></div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        std::vector&lt;char&gt; sendBuffer(32 * 1024);</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <span class="keyword">const</span> <span class="keywordtype">int</span> len = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(sendBuffer.size());</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span> </div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 0; i &lt; sendBuffer.size(); ++i)</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>            sendBuffer[i] = <span class="keyword">static_cast&lt;</span><span class="keywordtype">char</span><span class="keyword">&gt;</span>(i % 251);</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> </div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>        <span class="keyword">const</span> <span class="keywordtype">int</span> sent = client.<a class="code hl_function" href="a01058.html#a690773b3fefeeb026006713e54e6d08a">sendAll</a>(sendBuffer.data(), sendBuffer.size());</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        CPPUNIT_ASSERT_EQUAL(len, sent);</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        std::vector&lt;char&gt; receiveBuffer(sendBuffer.size());</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        <span class="keyword">const</span> <span class="keywordtype">int</span> received = session.receiveAll(receiveBuffer.data(), receiveBuffer.size());</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>        CPPUNIT_ASSERT_EQUAL(len, received);</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        CPPUNIT_ASSERT(sendBuffer == receiveBuffer);</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    }</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span> </div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>    <span class="keywordtype">void</span> testTimedAccept()</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    {</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>        NET::TCPSocket server;</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>        NET::TCPSocket client;</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span> </div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>        <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> port = prepareServer(server);</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>        <span class="comment">// No client yet, this should simply time out</span></div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>        <a class="code hl_typedef" href="a01058.html#a6c8ff2b6fa5bbc47f51ebd0ec3158872">NET::TCPSocket::Handle</a> handle = server.<a class="code hl_function" href="a01058.html#abeed4b82de8b5347150fab3c55e68e85">timedAccept</a>(50);</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        CPPUNIT_ASSERT(!handle);</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="a00212.html">CANSocket.h</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="foldopen" id="foldopen00006" data-start="{" data-end="}">
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno"><a class="line" href="a00219.html">    6</a></span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00219.html">NET</a></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
+<div class="foldopen" id="foldopen00009" data-start="{" data-end="};">
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="a01044.html">    9</a></span>    <span class="keyword">class </span><a class="code hl_function" href="a01044.html#ad868a485163c6b64f1c1716e693caf3a">CANRawSocket</a> : <span class="keyword">public</span> <a class="code hl_function" href="a01048.html#a5ff94fcc793ccef1c0c51e551d588d50">CANSocket</a></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    {</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        <a class="code hl_function" href="a01044.html#ad868a485163c6b64f1c1716e693caf3a">CANRawSocket</a>();</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="a01044.html#aa29a109096719eace958d0b70f496854">send</a>( const ::can_frame&amp; frame);</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span></div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keywordtype">int</span> <a class="code hl_function" href="a01044.html#a918f54af6a350bd7badba888f74b86a1">receive</a>( ::can_frame&amp; frame);</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="keywordtype">int</span> <a class="code hl_function" href="a01044.html#ab657e66c35605b58e9cef94960288257">timedReceive</a>( ::can_frame&amp; frame, <span class="keywordtype">int</span> timeout);</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span></div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="a01044.html#a1269297635ab58a27730be9bb75dd7d3">sendTo</a>( const ::can_frame&amp; frame, std::string_view interface);</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keywordtype">int</span> <a class="code hl_function" href="a01044.html#a2df653d995fb10715b83efe3f2933a28">receiveFrom</a>( ::can_frame&amp; frame, std::string&amp; interface);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span></div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <span class="keywordtype">int</span> <a class="code hl_function" href="a01044.html#aa21a9271a0f94472b8d3b7554c0f7160">timedReceiveFrom</a>( ::can_frame&amp; frame, std::string&amp; interface, <span class="keywordtype">int</span> timeout);</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="a01044.html#a306128341362a32ffa73d0b375f1f2ae">setReceiveFilter</a>( const ::can_filter* filters, <span class="keywordtype">size_t</span> len);</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span></div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="a01044.html#ae7b62158c4a51fcaa9198ac8e1c39f17">setErrorFilter</a>( ::can_err_mask_t filter);</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span></div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="a01044.html#a544d3f21eb096619a05dabd7abf66918">setLocalLoopback</a>( <span class="keywordtype">bool</span> enable);</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="a01044.html#af7f31ff91af08074167052c7b7905626">setReceiveOwnMessages</a>( <span class="keywordtype">bool</span> enable);</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    };</div>
+</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>} <span class="comment">// namespace NET</span></div>
+</div>
 <div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>        client.<a class="code hl_function" href="a01034.html#ab5151cf3fcd5768c6d40e585774b417b">connect</a>(LOOPBACK, port);</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span> </div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        handle = server.<a class="code hl_function" href="a01058.html#abeed4b82de8b5347150fab3c55e68e85">timedAccept</a>(1000);</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        CPPUNIT_ASSERT(handle);</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>        NET::TCPSocket session(std::move(handle));</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>        CPPUNIT_ASSERT(!handle);</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        CPPUNIT_ASSERT(!session.peerDisconnected());</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>    }</div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span> </div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="keywordtype">void</span> testTimedReceive()</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    {</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        NET::TCPSocket server;</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        NET::TCPSocket client;</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>        <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> port = prepareServer(server);</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        client.<a class="code hl_function" href="a01034.html#ab5151cf3fcd5768c6d40e585774b417b">connect</a>(LOOPBACK, port);</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        <span class="comment">// Does not influce results below</span></div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>        client.<a class="code hl_function" href="a01058.html#a95859a939179e7d08239f64b880727ee">setNoDelay</a>(<span class="keyword">true</span>);</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        NET::TCPSocket session(server.<a class="code hl_function" href="a01058.html#abf7e125c75121962fc90804a1586a855">accept</a>());</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        <span class="keywordtype">char</span> buffer[64] = {};</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        <span class="comment">// Connected socket, but no data waiting</span></div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        <span class="keywordtype">int</span> ret = session.timedReceive(buffer, <span class="keyword">sizeof</span>(buffer), 50);</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        CPPUNIT_ASSERT_EQUAL(0, ret);</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        <span class="comment">// Timeout must not be mistaken for peer disconnect</span></div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        CPPUNIT_ASSERT(!session.peerDisconnected());</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        <span class="keyword">const</span> <span class="keywordtype">char</span> message[] = <span class="stringliteral">&quot;Timed receive&quot;</span>;</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        <span class="keyword">const</span> <span class="keywordtype">int</span> sent = client.<a class="code hl_function" href="a01058.html#a690773b3fefeeb026006713e54e6d08a">sendAll</a>(message, <span class="keyword">sizeof</span>(message));</div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>        CPPUNIT_ASSERT_EQUAL(<span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(<span class="keyword">sizeof</span>(message)), sent);</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>        ret = session.timedReceive(buffer, <span class="keyword">sizeof</span>(buffer), 1000);</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>        CPPUNIT_ASSERT(ret &gt; 0);</div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>        CPPUNIT_ASSERT(ret &lt;= <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(<span class="keyword">sizeof</span>(message)));</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>        CPPUNIT_ASSERT(std::memcmp(message, buffer, <span class="keyword">static_cast&lt;</span><span class="keywordtype">size_t</span><span class="keyword">&gt;</span>(ret)) == 0);</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>        CPPUNIT_ASSERT(!session.peerDisconnected());</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    }</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span> </div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    <span class="keywordtype">void</span> testTimedConnect()</div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    {</div>
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>        NET::TCPSocket server;</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        NET::TCPSocket client;</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span> </div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>        <span class="comment">// Reserve a local TCP port, but deliberately do not listen on it</span></div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>        <span class="comment">// This gives us a deterministic connection-refused endpoint</span></div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>        NET::TCPSocket notListening;</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>        notListening.<a class="code hl_function" href="a01034.html#a02046392ba4e5810f7dc900686ac9a93">bind</a>(LOOPBACK, 0);</div>
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span>        <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> refusedPort = notListening.<a class="code hl_function" href="a01034.html#a107aca419c74eb2785641b2ad4670433">getLocalPort</a>();</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>        CPPUNIT_ASSERT(refusedPort != 0);</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span> </div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>        CPPUNIT_ASSERT_THROW(client.<a class="code hl_function" href="a01034.html#a81df71c2db5574be7645674d4fba58f6">timedConnect</a>(LOOPBACK, refusedPort, 1000), NET::SocketException);</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        <span class="comment">// reset connection attempt</span></div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>        client.<a class="code hl_function" href="a01046.html#a107f5074fd3f153ce0c1d2329c755d8f">disconnect</a>();</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>        CPPUNIT_ASSERT(!client.<a class="code hl_function" href="a01046.html#adc7b2b80c852e7163a7bab9ce4b7c060">peerDisconnected</a>());</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span> </div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>        <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> port = prepareServer(server);</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>        <span class="keyword">const</span> <span class="keywordtype">int</span> ret = client.<a class="code hl_function" href="a01034.html#a81df71c2db5574be7645674d4fba58f6">timedConnect</a>(LOOPBACK, port, 1000);</div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span> </div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>        CPPUNIT_ASSERT_EQUAL(1, ret);</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>        CPPUNIT_ASSERT_EQUAL(std::string(LOOPBACK), client.<a class="code hl_function" href="a01034.html#ad473c333c130d87fcfdfe44b1309e128">getForeignAddress</a>());</div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>        CPPUNIT_ASSERT_EQUAL(port, client.<a class="code hl_function" href="a01034.html#a3bed9eaad1c7dfc3d3ad2515260cf388">getForeignPort</a>());</div>
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span> </div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>        <a class="code hl_typedef" href="a01058.html#a6c8ff2b6fa5bbc47f51ebd0ec3158872">NET::TCPSocket::Handle</a> handle = server.<a class="code hl_function" href="a01058.html#abf7e125c75121962fc90804a1586a855">accept</a>();</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>        CPPUNIT_ASSERT(handle);</div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span> </div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>        NET::TCPSocket session(std::move(handle));</div>
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>        CPPUNIT_ASSERT(!client.<a class="code hl_function" href="a01046.html#adc7b2b80c852e7163a7bab9ce4b7c060">peerDisconnected</a>());</div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>        CPPUNIT_ASSERT(!session.peerDisconnected());</div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    }</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span> </div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>    <span class="keywordtype">void</span> testGracefulShutdown()</div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>    {</div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span>        NET::TCPSocket server;</div>
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span>        NET::TCPSocket client;</div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span> </div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span>        <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> port = prepareServer(server);</div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>        client.<a class="code hl_function" href="a01034.html#ab5151cf3fcd5768c6d40e585774b417b">connect</a>(LOOPBACK, port);</div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span> </div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>        NET::TCPSocket session(server.<a class="code hl_function" href="a01058.html#abf7e125c75121962fc90804a1586a855">accept</a>());</div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>        CPPUNIT_ASSERT(!session.peerDisconnected());</div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span> </div>
-<div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>        <span class="comment">// Send a FIN while retaining the client socket itself</span></div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>        client.<a class="code hl_function" href="a01046.html#a5b5500498eeb1292eea3c5dc4e531d19">shutdown</a>(<a class="code hl_enumvalue" href="a01046.html#ab2d98f9c05fb0c016782269d6c053db9a8efb8dcfe05bb52129f436538b77bc1c">NET::SimpleSocket::STOP_SEND</a>);</div>
-<div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span> </div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>        <span class="keywordtype">char</span> buffer[16];</div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>        <span class="keyword">const</span> <span class="keywordtype">int</span> ret = session.timedReceive(buffer, <span class="keyword">sizeof</span>(buffer), 1000);</div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>        CPPUNIT_ASSERT_EQUAL(0, ret);</div>
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>        CPPUNIT_ASSERT(session.peerDisconnected());</div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span>    }</div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>};</div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span> </div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno"><a class="line" href="a00128.html#abb2c53fc606839b2057e93b344cf2d72">  197</a></span><a class="code hl_function" href="a00128.html#abb2c53fc606839b2057e93b344cf2d72">CPPUNIT_TEST_SUITE_REGISTRATION</a>(TCPSocket_TEST);</div>
-<div class="ttc" id="aa00098_html"><div class="ttname"><a href="a00098.html">TCPSocket.h</a></div></div>
-<div class="ttc" id="aa00128_html_abb2c53fc606839b2057e93b344cf2d72"><div class="ttname"><a href="a00128.html#abb2c53fc606839b2057e93b344cf2d72">CPPUNIT_TEST_SUITE_REGISTRATION</a></div><div class="ttdeci">CPPUNIT_TEST_SUITE_REGISTRATION(TCPSocket_TEST)</div></div>
-<div class="ttc" id="aa01034_html_a02046392ba4e5810f7dc900686ac9a93"><div class="ttname"><a href="a01034.html#a02046392ba4e5810f7dc900686ac9a93">NET::InternetSocket::bind</a></div><div class="ttdeci">void bind(unsigned short localPort=0)</div><div class="ttdef"><b>Definition</b> <a href="a00158_source.html#l00118">InternetSocket.cpp:118</a></div></div>
-<div class="ttc" id="aa01034_html_a107aca419c74eb2785641b2ad4670433"><div class="ttname"><a href="a01034.html#a107aca419c74eb2785641b2ad4670433">NET::InternetSocket::getLocalPort</a></div><div class="ttdeci">unsigned short getLocalPort() const</div><div class="ttdef"><b>Definition</b> <a href="a00158_source.html#l00149">InternetSocket.cpp:149</a></div></div>
-<div class="ttc" id="aa01034_html_a3bed9eaad1c7dfc3d3ad2515260cf388"><div class="ttname"><a href="a01034.html#a3bed9eaad1c7dfc3d3ad2515260cf388">NET::InternetSocket::getForeignPort</a></div><div class="ttdeci">unsigned short getForeignPort() const</div><div class="ttdef"><b>Definition</b> <a href="a00158_source.html#l00171">InternetSocket.cpp:171</a></div></div>
-<div class="ttc" id="aa01034_html_a81df71c2db5574be7645674d4fba58f6"><div class="ttname"><a href="a01034.html#a81df71c2db5574be7645674d4fba58f6">NET::InternetSocket::timedConnect</a></div><div class="ttdeci">int timedConnect(std::string_view foreignAddress, unsigned short foreignPort, int timeout)</div><div class="ttdoc">establish a connection with the given foreign address and port</div><div class="ttdef"><b>Definition</b> <a href="a00158_source.html#l00069">InternetSocket.cpp:69</a></div></div>
-<div class="ttc" id="aa01034_html_ab5151cf3fcd5768c6d40e585774b417b"><div class="ttname"><a href="a01034.html#ab5151cf3fcd5768c6d40e585774b417b">NET::InternetSocket::connect</a></div><div class="ttdeci">void connect(std::string_view foreignAddress, unsigned short foreignPort)</div><div class="ttdoc">establish a connection with the given foreign address and port</div><div class="ttdef"><b>Definition</b> <a href="a00158_source.html#l00058">InternetSocket.cpp:58</a></div></div>
-<div class="ttc" id="aa01034_html_ad473c333c130d87fcfdfe44b1309e128"><div class="ttname"><a href="a01034.html#ad473c333c130d87fcfdfe44b1309e128">NET::InternetSocket::getForeignAddress</a></div><div class="ttdeci">std::string getForeignAddress() const</div><div class="ttdef"><b>Definition</b> <a href="a00158_source.html#l00160">InternetSocket.cpp:160</a></div></div>
-<div class="ttc" id="aa01046_html_a107f5074fd3f153ce0c1d2329c755d8f"><div class="ttname"><a href="a01046.html#a107f5074fd3f153ce0c1d2329c755d8f">NET::SimpleSocket::disconnect</a></div><div class="ttdeci">void disconnect()</div><div class="ttdoc">Disconnect and unset any foreign addresses.</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00106">SimpleSocket.cpp:106</a></div></div>
-<div class="ttc" id="aa01046_html_a5b5500498eeb1292eea3c5dc4e531d19"><div class="ttname"><a href="a01046.html#a5b5500498eeb1292eea3c5dc4e531d19">NET::SimpleSocket::shutdown</a></div><div class="ttdeci">void shutdown(ShutdownDirection type)</div><div class="ttdoc">shutdown the connection in the specified direction</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00120">SimpleSocket.cpp:120</a></div></div>
-<div class="ttc" id="aa01046_html_a6e3ec021c1ae9ea1e1d0aaa0129e7c50"><div class="ttname"><a href="a01046.html#a6e3ec021c1ae9ea1e1d0aaa0129e7c50">NET::SimpleSocket::send</a></div><div class="ttdeci">int send(const void *buffer, size_t len)</div><div class="ttdoc">send data through a connected socket</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00045">SimpleSocket.cpp:45</a></div></div>
-<div class="ttc" id="aa01046_html_ab2d98f9c05fb0c016782269d6c053db9a8efb8dcfe05bb52129f436538b77bc1c"><div class="ttname"><a href="a01046.html#ab2d98f9c05fb0c016782269d6c053db9a8efb8dcfe05bb52129f436538b77bc1c">NET::SimpleSocket::STOP_SEND</a></div><div class="ttdeci">@ STOP_SEND</div><div class="ttdoc">disable all variants of send() on the socket, receive calls still work</div><div class="ttdef"><b>Definition</b> <a href="a00155_source.html#l00053">SimpleSocket.h:53</a></div></div>
-<div class="ttc" id="aa01046_html_adc7b2b80c852e7163a7bab9ce4b7c060"><div class="ttname"><a href="a01046.html#adc7b2b80c852e7163a7bab9ce4b7c060">NET::SimpleSocket::peerDisconnected</a></div><div class="ttdeci">bool peerDisconnected() const noexcept</div><div class="ttdoc">returns whether a currently associated peer disconnected</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00126">SimpleSocket.cpp:126</a></div></div>
-<div class="ttc" id="aa01058_html_a690773b3fefeeb026006713e54e6d08a"><div class="ttname"><a href="a01058.html#a690773b3fefeeb026006713e54e6d08a">NET::TCPSocket::sendAll</a></div><div class="ttdeci">int sendAll(const void *buffer, size_t len)</div><div class="ttdoc">Send the complete buffer.</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00206">SimpleSocket.cpp:131</a></div></div>
-<div class="ttc" id="aa01058_html_a6c8ff2b6fa5bbc47f51ebd0ec3158872"><div class="ttname"><a href="a01058.html#a6c8ff2b6fa5bbc47f51ebd0ec3158872">NET::TCPSocket::Handle</a></div><div class="ttdeci">SocketHandle&lt; TCPSocket &gt; Handle</div><div class="ttdoc">Handle for a new socket returned by accept().</div><div class="ttdef"><b>Definition</b> <a href="a00098_source.html#l00014">TCPSocket.h:14</a></div></div>
-<div class="ttc" id="aa01058_html_a95859a939179e7d08239f64b880727ee"><div class="ttname"><a href="a01058.html#a95859a939179e7d08239f64b880727ee">NET::TCPSocket::setNoDelay</a></div><div class="ttdeci">void setNoDelay(bool enable)</div><div class="ttdoc">Enable or disable TCP_NODELAY.</div><div class="ttdef"><b>Definition</b> <a href="a00179_source.html#l00019">TCPSocket.cpp:19</a></div></div>
-<div class="ttc" id="aa01058_html_ab73d41b8b389a74ffe0cc6682bf93bde"><div class="ttname"><a href="a01058.html#ab73d41b8b389a74ffe0cc6682bf93bde">NET::TCPSocket::listen</a></div><div class="ttdeci">void listen(int backlog=5)</div><div class="ttdoc">listen for incoming connections</div><div class="ttdef"><b>Definition</b> <a href="a00179_source.html#l00026">TCPSocket.cpp:26</a></div></div>
-<div class="ttc" id="aa01058_html_abeed4b82de8b5347150fab3c55e68e85"><div class="ttname"><a href="a01058.html#abeed4b82de8b5347150fab3c55e68e85">NET::TCPSocket::timedAccept</a></div><div class="ttdeci">Handle timedAccept(int timeout) const</div><div class="ttdoc">wait for another socket to connect</div><div class="ttdef"><b>Definition</b> <a href="a00179_source.html#l00042">TCPSocket.cpp:42</a></div></div>
-<div class="ttc" id="aa01058_html_abf7e125c75121962fc90804a1586a855"><div class="ttname"><a href="a01058.html#abf7e125c75121962fc90804a1586a855">NET::TCPSocket::accept</a></div><div class="ttdeci">Handle accept() const</div><div class="ttdoc">wait for another socket to connect</div><div class="ttdef"><b>Definition</b> <a href="a00179_source.html#l00033">TCPSocket.cpp:33</a></div></div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="preprocessor">#endif </span><span class="comment">// NET_CANRawSocket_h__</span></div>
+<div class="ttc" id="aa00212_html"><div class="ttname"><a href="a00212.html">CANSocket.h</a></div></div>
+<div class="ttc" id="aa00219_html"><div class="ttname"><a href="a00219.html">NET</a></div><div class="ttdef"><b>Definition</b> <a href="#l00006">CANRawSocket.h:7</a></div></div>
+<div class="ttc" id="aa01044_html_a1269297635ab58a27730be9bb75dd7d3"><div class="ttname"><a href="a01044.html#a1269297635ab58a27730be9bb75dd7d3">NET::CANRawSocket::sendTo</a></div><div class="ttdeci">void sendTo(const ::can_frame &amp;frame, std::string_view interface)</div><div class="ttdef"><b>Definition</b> <a href="a00185_source.html#l00030">CANRawSocket.cpp:30</a></div></div>
+<div class="ttc" id="aa01044_html_a2df653d995fb10715b83efe3f2933a28"><div class="ttname"><a href="a01044.html#a2df653d995fb10715b83efe3f2933a28">NET::CANRawSocket::receiveFrom</a></div><div class="ttdeci">int receiveFrom(::can_frame &amp;frame, std::string &amp;interface)</div><div class="ttdef"><b>Definition</b> <a href="a00185_source.html#l00043">CANRawSocket.cpp:43</a></div></div>
+<div class="ttc" id="aa01044_html_a306128341362a32ffa73d0b375f1f2ae"><div class="ttname"><a href="a01044.html#a306128341362a32ffa73d0b375f1f2ae">NET::CANRawSocket::setReceiveFilter</a></div><div class="ttdeci">void setReceiveFilter(const ::can_filter *filters, size_t len)</div><div class="ttdef"><b>Definition</b> <a href="a00185_source.html#l00079">CANRawSocket.cpp:79</a></div></div>
+<div class="ttc" id="aa01044_html_a544d3f21eb096619a05dabd7abf66918"><div class="ttname"><a href="a01044.html#a544d3f21eb096619a05dabd7abf66918">NET::CANRawSocket::setLocalLoopback</a></div><div class="ttdeci">void setLocalLoopback(bool enable)</div><div class="ttdef"><b>Definition</b> <a href="a00185_source.html#l00091">CANRawSocket.cpp:91</a></div></div>
+<div class="ttc" id="aa01044_html_a918f54af6a350bd7badba888f74b86a1"><div class="ttname"><a href="a01044.html#a918f54af6a350bd7badba888f74b86a1">NET::CANRawSocket::receive</a></div><div class="ttdeci">int receive(::can_frame &amp;frame)</div><div class="ttdoc">(overload) receive can frame from a bound socket</div><div class="ttdef"><b>Definition</b> <a href="a00185_source.html#l00020">CANRawSocket.cpp:20</a></div></div>
+<div class="ttc" id="aa01044_html_aa21a9271a0f94472b8d3b7554c0f7160"><div class="ttname"><a href="a01044.html#aa21a9271a0f94472b8d3b7554c0f7160">NET::CANRawSocket::timedReceiveFrom</a></div><div class="ttdeci">int timedReceiveFrom(::can_frame &amp;frame, std::string &amp;interface, int timeout)</div><div class="ttdef"><b>Definition</b> <a href="a00185_source.html#l00056">CANRawSocket.cpp:56</a></div></div>
+<div class="ttc" id="aa01044_html_aa29a109096719eace958d0b70f496854"><div class="ttname"><a href="a01044.html#aa29a109096719eace958d0b70f496854">NET::CANRawSocket::send</a></div><div class="ttdeci">void send(const ::can_frame &amp;frame)</div><div class="ttdoc">(overload) send can_frame through a connected socket</div><div class="ttdef"><b>Definition</b> <a href="a00185_source.html#l00015">CANRawSocket.cpp:15</a></div></div>
+<div class="ttc" id="aa01044_html_ab657e66c35605b58e9cef94960288257"><div class="ttname"><a href="a01044.html#ab657e66c35605b58e9cef94960288257">NET::CANRawSocket::timedReceive</a></div><div class="ttdeci">int timedReceive(::can_frame &amp;frame, int timeout)</div><div class="ttdoc">(overload) receive can frame from a bound socket with timeout</div><div class="ttdef"><b>Definition</b> <a href="a00185_source.html#l00025">CANRawSocket.cpp:25</a></div></div>
+<div class="ttc" id="aa01044_html_ad868a485163c6b64f1c1716e693caf3a"><div class="ttname"><a href="a01044.html#ad868a485163c6b64f1c1716e693caf3a">NET::CANRawSocket::CANRawSocket</a></div><div class="ttdeci">CANRawSocket()</div><div class="ttdef"><b>Definition</b> <a href="a00185_source.html#l00011">CANRawSocket.cpp:11</a></div></div>
+<div class="ttc" id="aa01044_html_ae7b62158c4a51fcaa9198ac8e1c39f17"><div class="ttname"><a href="a01044.html#ae7b62158c4a51fcaa9198ac8e1c39f17">NET::CANRawSocket::setErrorFilter</a></div><div class="ttdeci">void setErrorFilter(::can_err_mask_t filter)</div><div class="ttdef"><b>Definition</b> <a href="a00185_source.html#l00085">CANRawSocket.cpp:85</a></div></div>
+<div class="ttc" id="aa01044_html_af7f31ff91af08074167052c7b7905626"><div class="ttname"><a href="a01044.html#af7f31ff91af08074167052c7b7905626">NET::CANRawSocket::setReceiveOwnMessages</a></div><div class="ttdeci">void setReceiveOwnMessages(bool enable)</div><div class="ttdef"><b>Definition</b> <a href="a00185_source.html#l00098">CANRawSocket.cpp:98</a></div></div>
+<div class="ttc" id="aa01048_html_a5ff94fcc793ccef1c0c51e551d588d50"><div class="ttname"><a href="a01048.html#a5ff94fcc793ccef1c0c51e551d588d50">NET::CANSocket::CANSocket</a></div><div class="ttdeci">CANSocket(int type, int protocol)</div><div class="ttdoc">allows a subclass to create new socket</div><div class="ttdef"><b>Definition</b> <a href="a00104_source.html#l00014">CANSocket.cpp:14</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_43e0a1f539e00dcfa1a6bc4d4fee4fc2.html">home</a></li><li class="navelem"><a href="dir_973469fe03307bc0e5780de41ae07045.html">seek</a></li><li class="navelem"><a href="dir_81a8672a3de2fdc40453108918520b77.html">Data</a></li><li class="navelem"><a href="dir_c5c04bceea4264d11ac3486c90412d29.html">Repositories</a></li><li class="navelem"><a href="dir_ffd1759873cc7e6debbb5be08b79e165.html">simple-socket</a></li><li class="navelem"><a href="dir_8c845b097cea0c7c4fede62210bd4c65.html">tests</a></li><li class="navelem"><a href="a00128.html">TCPSocket_TEST.cpp</a></li>
+    <li class="navelem"><a href="dir_43e0a1f539e00dcfa1a6bc4d4fee4fc2.html">home</a></li><li class="navelem"><a href="dir_973469fe03307bc0e5780de41ae07045.html">seek</a></li><li class="navelem"><a href="dir_81a8672a3de2fdc40453108918520b77.html">Data</a></li><li class="navelem"><a href="dir_c5c04bceea4264d11ac3486c90412d29.html">Repositories</a></li><li class="navelem"><a href="dir_ffd1759873cc7e6debbb5be08b79e165.html">simple-socket</a></li><li class="navelem"><a href="a00128.html">CANRawSocket.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

@@ -1,21 +1,22 @@
 var hierarchy =
 [
-    [ "NET::SimpleSocket", "a01046.html", [
-      [ "NET::CANSocket", "a01026.html", [
-        [ "NET::CANRawSocket", "a01022.html", null ]
+    [ "NET::SimpleSocket", "a00957.html", [
+      [ "NET::CANSocket", "a00937.html", [
+        [ "NET::CANRawSocket", "a00933.html", null ]
       ] ],
-      [ "NET::InternetSocket", "a01034.html", [
-        [ "NET::SCTPSocket", "a01038.html", null ],
-        [ "NET::TCPSocket", "a01058.html", null ],
-        [ "NET::UDPSocket", "a01086.html", null ]
+      [ "NET::InternetSocket", "a00945.html", [
+        [ "NET::SCTPSocket", "a00949.html", null ],
+        [ "NET::TCPSocket", "a00973.html", null ],
+        [ "NET::UDPSocket", "a00977.html", null ]
       ] ],
-      [ "NET::UnixSocket", "a01094.html", [
-        [ "NET::UnixDatagramSocket", "a01090.html", null ],
-        [ "NET::UnixStreamSocket", "a01098.html", null ]
+      [ "NET::UnixSocket", "a00985.html", [
+        [ "NET::UnixDatagramSocket", "a00981.html", null ],
+        [ "NET::UnixStreamSocket", "a00989.html", null ]
       ] ]
     ] ],
-    [ "NET::SocketHandle&lt; Socket &gt;", "a01050.html", null ],
+    [ "NET::SockAddress", "a00961.html", null ],
+    [ "NET::SocketHandle&lt; Socket &gt;", "a00965.html", null ],
     [ "std::exception", null, [
-      [ "NET::SocketException", "a01042.html", null ]
+      [ "NET::SocketException", "a00953.html", null ]
     ] ]
 ];

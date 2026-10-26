@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>simple-socket library: SocketUtils.h Source File</title>
+<title>simple-socket library: UnixDatagramSocket.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -60,80 +60,97 @@ $(function(){initNavTree('a00095_source.html','',''); });
 <div id="container">
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">SocketUtils.h</div></div>
+  <div class="headertitle"><div class="title">UnixDatagramSocket.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00095.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef NET_SocketUtils_h__</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define NET_SocketUtils_h__</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;cstdint&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<a href="a00095.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="a00104.html">UnixDatagramSocket.h</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;<a class="code" href="a00092.html">SockAddress.h</a>&quot;</span></div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="a00047.html">TempFailure.h</a>&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;sys/socket.h&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;poll.h&gt;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00198.html">NET</a></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    std::string <a class="code hl_function" href="a00198.html#ac207188d9fe7362a8fb80b8d46677a3c">resolveHostname</a>( <span class="keyword">const</span> std::string&amp; hostname);</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span></div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    uint16_t <a class="code hl_function" href="a00198.html#a44570e867542281459dc6403d38f0ace">resolveService</a>( <span class="keyword">const</span> std::string&amp; service, <span class="keyword">const</span> std::string&amp; protocol = <span class="stringliteral">&quot;tcp&quot;</span>);</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    std::vector&lt;std::string&gt; <a class="code hl_function" href="a00198.html#a562d8bbf23502459495eb4d720fb6950">getNetworkInterfaces</a>();</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span></div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    std::string <a class="code hl_function" href="a00198.html#a33c9744216c4227b3a8566e9334dbea2">getInterfaceAddress</a>( std::string_view interface);</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a00198.html#a41ee3779a971275f052a08183e50d10a">setInterfaceAddress</a>( std::string_view interface, std::string_view address);</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    std::string <a class="code hl_function" href="a00198.html#a732a7b56cd9bee3b9e78d65191540819">getBroadcastAddress</a>( std::string_view interface);</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span></div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span></div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a00198.html#ae8613988c0a1ae36e39a87776d4fd85a">setBroadcastAddress</a>( std::string_view interface, std::string_view address);</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span></div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span></div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    std::string <a class="code hl_function" href="a00198.html#aafe9e12c05e11b170a82df1df631e5c9">getNetmask</a>( std::string_view interface);</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span></div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span></div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a00198.html#aea403c784d7ddf84ee6ae5d09fc13d9c">setNetmask</a>( std::string_view interface, std::string_view address);</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span></div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span></div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    std::string <a class="code hl_function" href="a00198.html#a0e78af39d9ae2194d2b2c75ef6d98674">getDestinationAddress</a>( std::string_view interface);</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span></div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span></div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a00198.html#a0247b84b18fc0d9c15af42b6fe8b7a8a">setDestinationAddress</a>( std::string_view interface, std::string_view address);</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span></div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span></div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <span class="keywordtype">int</span> <a class="code hl_function" href="a00198.html#a378715509fc6b9fe9fc28e88a10c50df">getMTU</a>( std::string_view interface);</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span></div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span></div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="a00198.html#a787b06a992cd653d0db842e04c97fefc">setMTU</a>( std::string_view interface, <span class="keywordtype">int</span> mtu);</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span></div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span></div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    std::string <a class="code hl_function" href="a00198.html#a12e5692c6e2e3822b2dadfcc6eff0dba">getHardwareAddress</a>( std::string_view interface);</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>}</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span><span class="preprocessor">#endif </span><span class="comment">// NET_SocketUtils_h__</span></div>
-<div class="ttc" id="aa00198_html"><div class="ttname"><a href="a00198.html">NET</a></div><div class="ttdef"><b>Definition</b> <a href="a00110_source.html#l00006">CANRawSocket.h:7</a></div></div>
-<div class="ttc" id="aa00198_html_a0247b84b18fc0d9c15af42b6fe8b7a8a"><div class="ttname"><a href="a00198.html#a0247b84b18fc0d9c15af42b6fe8b7a8a">NET::setDestinationAddress</a></div><div class="ttdeci">void setDestinationAddress(std::string_view interface, std::string_view address)</div><div class="ttdoc">Set the IPv4 destination address of the given network interface.</div><div class="ttdef"><b>Definition</b> <a href="a00107_source.html#l00232">SocketUtils.cpp:232</a></div></div>
-<div class="ttc" id="aa00198_html_a0e78af39d9ae2194d2b2c75ef6d98674"><div class="ttname"><a href="a00198.html#a0e78af39d9ae2194d2b2c75ef6d98674">NET::getDestinationAddress</a></div><div class="ttdeci">std::string getDestinationAddress(std::string_view interface)</div><div class="ttdoc">Return the IPv4 destination address of the given network interface.</div><div class="ttdef"><b>Definition</b> <a href="a00107_source.html#l00220">SocketUtils.cpp:220</a></div></div>
-<div class="ttc" id="aa00198_html_a12e5692c6e2e3822b2dadfcc6eff0dba"><div class="ttname"><a href="a00198.html#a12e5692c6e2e3822b2dadfcc6eff0dba">NET::getHardwareAddress</a></div><div class="ttdeci">std::string getHardwareAddress(std::string_view interface)</div><div class="ttdoc">Return the MAC address of the given network interfaces.</div><div class="ttdef"><b>Definition</b> <a href="a00107_source.html#l00267">SocketUtils.cpp:267</a></div></div>
-<div class="ttc" id="aa00198_html_a33c9744216c4227b3a8566e9334dbea2"><div class="ttname"><a href="a00198.html#a33c9744216c4227b3a8566e9334dbea2">NET::getInterfaceAddress</a></div><div class="ttdeci">std::string getInterfaceAddress(std::string_view interface)</div><div class="ttdoc">Return the IPv4 address of the given network interface.</div><div class="ttdef"><b>Definition</b> <a href="a00107_source.html#l00151">SocketUtils.cpp:151</a></div></div>
-<div class="ttc" id="aa00198_html_a378715509fc6b9fe9fc28e88a10c50df"><div class="ttname"><a href="a00198.html#a378715509fc6b9fe9fc28e88a10c50df">NET::getMTU</a></div><div class="ttdeci">int getMTU(std::string_view interface)</div><div class="ttdoc">Return the MTU (Maximum Transmission Unit) of the given network interface in bytes.</div><div class="ttdef"><b>Definition</b> <a href="a00107_source.html#l00243">SocketUtils.cpp:243</a></div></div>
-<div class="ttc" id="aa00198_html_a41ee3779a971275f052a08183e50d10a"><div class="ttname"><a href="a00198.html#a41ee3779a971275f052a08183e50d10a">NET::setInterfaceAddress</a></div><div class="ttdeci">void setInterfaceAddress(std::string_view interface, std::string_view address)</div><div class="ttdoc">Set the IPv4 address of the given network interface.</div><div class="ttdef"><b>Definition</b> <a href="a00107_source.html#l00163">SocketUtils.cpp:163</a></div></div>
-<div class="ttc" id="aa00198_html_a44570e867542281459dc6403d38f0ace"><div class="ttname"><a href="a00198.html#a44570e867542281459dc6403d38f0ace">NET::resolveService</a></div><div class="ttdeci">uint16_t resolveService(const std::string &amp;service, const std::string &amp;protocol=&quot;tcp&quot;)</div><div class="ttdef"><b>Definition</b> <a href="a00107_source.html#l00084">SocketUtils.cpp:84</a></div></div>
-<div class="ttc" id="aa00198_html_a562d8bbf23502459495eb4d720fb6950"><div class="ttname"><a href="a00198.html#a562d8bbf23502459495eb4d720fb6950">NET::getNetworkInterfaces</a></div><div class="ttdeci">std::vector&lt; std::string &gt; getNetworkInterfaces()</div><div class="ttdoc">Return a list of available network interfaces.</div><div class="ttdef"><b>Definition</b> <a href="a00107_source.html#l00114">SocketUtils.cpp:114</a></div></div>
-<div class="ttc" id="aa00198_html_a732a7b56cd9bee3b9e78d65191540819"><div class="ttname"><a href="a00198.html#a732a7b56cd9bee3b9e78d65191540819">NET::getBroadcastAddress</a></div><div class="ttdeci">std::string getBroadcastAddress(std::string_view interface)</div><div class="ttdoc">Return the IPv4 broadcast address of the given network interface.</div><div class="ttdef"><b>Definition</b> <a href="a00107_source.html#l00174">SocketUtils.cpp:174</a></div></div>
-<div class="ttc" id="aa00198_html_a787b06a992cd653d0db842e04c97fefc"><div class="ttname"><a href="a00198.html#a787b06a992cd653d0db842e04c97fefc">NET::setMTU</a></div><div class="ttdeci">void setMTU(std::string_view interface, int mtu)</div><div class="ttdoc">Set the MTU (Maximum Transmission Unit) of the given network interface in bytes.</div><div class="ttdef"><b>Definition</b> <a href="a00107_source.html#l00255">SocketUtils.cpp:255</a></div></div>
-<div class="ttc" id="aa00198_html_aafe9e12c05e11b170a82df1df631e5c9"><div class="ttname"><a href="a00198.html#aafe9e12c05e11b170a82df1df631e5c9">NET::getNetmask</a></div><div class="ttdeci">std::string getNetmask(std::string_view interface)</div><div class="ttdoc">Return the IPv4 netmask of the given network interface.</div><div class="ttdef"><b>Definition</b> <a href="a00107_source.html#l00197">SocketUtils.cpp:197</a></div></div>
-<div class="ttc" id="aa00198_html_ac207188d9fe7362a8fb80b8d46677a3c"><div class="ttname"><a href="a00198.html#ac207188d9fe7362a8fb80b8d46677a3c">NET::resolveHostname</a></div><div class="ttdeci">std::string resolveHostname(const std::string &amp;hostname)</div><div class="ttdef"><b>Definition</b> <a href="a00107_source.html#l00063">SocketUtils.cpp:63</a></div></div>
-<div class="ttc" id="aa00198_html_ae8613988c0a1ae36e39a87776d4fd85a"><div class="ttname"><a href="a00198.html#ae8613988c0a1ae36e39a87776d4fd85a">NET::setBroadcastAddress</a></div><div class="ttdeci">void setBroadcastAddress(std::string_view interface, std::string_view address)</div><div class="ttdoc">Set the IPv4 broadcast address of the given network interface.</div><div class="ttdef"><b>Definition</b> <a href="a00107_source.html#l00186">SocketUtils.cpp:186</a></div></div>
-<div class="ttc" id="aa00198_html_aea403c784d7ddf84ee6ae5d09fc13d9c"><div class="ttname"><a href="a00198.html#aea403c784d7ddf84ee6ae5d09fc13d9c">NET::setNetmask</a></div><div class="ttdeci">void setNetmask(std::string_view interface, std::string_view address)</div><div class="ttdoc">Set the IPv4 netmask of the given network interface.</div><div class="ttdef"><b>Definition</b> <a href="a00107_source.html#l00209">SocketUtils.cpp:209</a></div></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="a00108.html">NET</a>;</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="foldopen" id="foldopen00010" data-start="{" data-end="}">
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="a00981.html#ab7f8812e08206cd15bf72aaca11a6b2f">   10</a></span><a class="code hl_function" href="a00981.html#ab7f8812e08206cd15bf72aaca11a6b2f">UnixDatagramSocket::UnixDatagramSocket</a>()</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>: <a class="code hl_function" href="a00985.html#ad695ef23f071b90e2388b3c6d8c98923">UnixSocket</a>( SOCK_DGRAM, 0)</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{}</div>
+</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="foldopen" id="foldopen00014" data-start="{" data-end="}">
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="a00981.html#a1f9e19532782ff436127fe396a245f9f">   14</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a00981.html#a1f9e19532782ff436127fe396a245f9f">UnixDatagramSocket::sendTo</a>( <span class="keyword">const</span> <span class="keywordtype">void</span>* buffer, <span class="keywordtype">size_t</span> len, std::string_view foreignPath)</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>{</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <a class="code hl_class" href="a00961.html">SockAddress</a> addr( foreignPath);</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keywordtype">int</span> sent = <a class="code hl_define" href="a00086.html#ae3924d534a2de097f5cccb535330e8c2">TEMP_FAILURE_RETRY</a> (::sendto( <a class="code hl_variable" href="a00957.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a>, (<span class="keyword">const</span> raw_type*)buffer, len, 0, addr.<a class="code hl_function" href="a00961.html#a993f541b3750df516bfdde8b46bd69dc">data</a>(), addr.<a class="code hl_function" href="a00961.html#a74f7e09dfd04ece1bfd36247ba3341e3">length</a>()));</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="comment">// Write out the whole buffer as a single message</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keywordflow">if</span>( sent != (<span class="keywordtype">int</span>)len)</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keywordflow">throw</span> <a class="code hl_class" href="a00953.html">SocketException</a>(<span class="stringliteral">&quot;Send failed (sendto)&quot;</span>);</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>}</div>
+</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
+<div class="foldopen" id="foldopen00025" data-start="{" data-end="}">
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno"><a class="line" href="a00981.html#ae8d0db6e1d5bc3c84c66ed3bd6189751">   25</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="a00981.html#ae8d0db6e1d5bc3c84c66ed3bd6189751">UnixDatagramSocket::receiveFrom</a>( <span class="keywordtype">void</span>* buffer, <span class="keywordtype">size_t</span> len, std::string&amp; sourcePath)</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>{</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <a class="code hl_class" href="a00961.html">SockAddress</a> addr;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordtype">int</span> ret = <a class="code hl_define" href="a00086.html#ae3924d534a2de097f5cccb535330e8c2">TEMP_FAILURE_RETRY</a> (::recvfrom( <a class="code hl_variable" href="a00957.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a>, (raw_type*)buffer, len, 0, addr.<a class="code hl_function" href="a00961.html#a993f541b3750df516bfdde8b46bd69dc">data</a>(), addr.<a class="code hl_function" href="a00961.html#aeea47e7927d59125b5994d18b327b9df">lengthPtr</a>()));</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keywordflow">if</span>( ret &lt; 0)</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        <span class="keywordflow">throw</span> <a class="code hl_class" href="a00953.html">SocketException</a>(<span class="stringliteral">&quot;Receive failed (recvfrom)&quot;</span>);</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    sourcePath = addr.<a class="code hl_function" href="a00961.html#a20a7990ddf520d0324be42cf9f049432">address</a>();</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>}</div>
+</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="foldopen" id="foldopen00037" data-start="{" data-end="}">
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="a00981.html#aaf252bc735198a705cffbc0dc5b58827">   37</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="a00981.html#aaf252bc735198a705cffbc0dc5b58827">UnixDatagramSocket::timedReceiveFrom</a>( <span class="keywordtype">void</span>* buffer, <span class="keywordtype">size_t</span> len, std::string&amp; sourcePath, <span class="keywordtype">int</span> timeout)</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>{</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keyword">struct </span>pollfd poll;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    poll.fd = <a class="code hl_variable" href="a00957.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a>;</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    poll.events = POLLIN | POLLPRI | POLLRDHUP;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="keywordtype">int</span> ret = <a class="code hl_define" href="a00086.html#ae3924d534a2de097f5cccb535330e8c2">TEMP_FAILURE_RETRY</a> (::poll( &amp;poll, 1, timeout));</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordflow">if</span>( ret == 0) <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordflow">if</span>( ret &lt; 0)  <span class="keywordflow">throw</span> <a class="code hl_class" href="a00953.html">SocketException</a>(<span class="stringliteral">&quot;Receive failed (poll)&quot;</span>);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordflow">if</span>( poll.revents &amp; POLLRDHUP)</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <a class="code hl_variable" href="a00957.html#a9c07dffe5a98a2700dc4cb1d6e7a30fa">m_peerDisconnected</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keywordflow">if</span>( poll.revents &amp; POLLIN || poll.revents &amp; POLLPRI)</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="a00981.html#ae8d0db6e1d5bc3c84c66ed3bd6189751">receiveFrom</a>( buffer, len, sourcePath);</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>}</div>
+</div>
+<div class="ttc" id="aa00047_html"><div class="ttname"><a href="a00047.html">TempFailure.h</a></div></div>
+<div class="ttc" id="aa00086_html_ae3924d534a2de097f5cccb535330e8c2"><div class="ttname"><a href="a00086.html#ae3924d534a2de097f5cccb535330e8c2">TEMP_FAILURE_RETRY</a></div><div class="ttdeci">#define TEMP_FAILURE_RETRY(expression)</div><div class="ttdef"><b>Definition</b> <a href="a00086_source.html#l00008">TempFailure-timeout.hh:8</a></div></div>
+<div class="ttc" id="aa00092_html"><div class="ttname"><a href="a00092.html">SockAddress.h</a></div></div>
+<div class="ttc" id="aa00104_html"><div class="ttname"><a href="a00104.html">UnixDatagramSocket.h</a></div></div>
+<div class="ttc" id="aa00108_html"><div class="ttname"><a href="a00108.html">NET</a></div><div class="ttdef"><b>Definition</b> <a href="a00038_source.html#l00006">CANRawSocket.h:7</a></div></div>
+<div class="ttc" id="aa00953_html"><div class="ttname"><a href="a00953.html">NET::SocketException</a></div><div class="ttdoc">Signals a problem with the execution of a socket call.</div><div class="ttdef"><b>Definition</b> <a href="a00062_source.html#l00011">SimpleSocket.h:12</a></div></div>
+<div class="ttc" id="aa00957_html_a721049909aca828a6dd9ee7868897d7c"><div class="ttname"><a href="a00957.html#a721049909aca828a6dd9ee7868897d7c">NET::SimpleSocket::m_socket</a></div><div class="ttdeci">int m_socket</div><div class="ttdef"><b>Definition</b> <a href="a00062_source.html#l00241">SimpleSocket.h:241</a></div></div>
+<div class="ttc" id="aa00957_html_a9c07dffe5a98a2700dc4cb1d6e7a30fa"><div class="ttname"><a href="a00957.html#a9c07dffe5a98a2700dc4cb1d6e7a30fa">NET::SimpleSocket::m_peerDisconnected</a></div><div class="ttdeci">bool m_peerDisconnected</div><div class="ttdef"><b>Definition</b> <a href="a00062_source.html#l00242">SimpleSocket.h:242</a></div></div>
+<div class="ttc" id="aa00961_html"><div class="ttname"><a href="a00961.html">NET::SockAddress</a></div><div class="ttdef"><b>Definition</b> <a href="a00092_source.html#l00014">SockAddress.h:15</a></div></div>
+<div class="ttc" id="aa00961_html_a20a7990ddf520d0324be42cf9f049432"><div class="ttname"><a href="a00961.html#a20a7990ddf520d0324be42cf9f049432">NET::SockAddress::address</a></div><div class="ttdeci">std::string address() const</div><div class="ttdef"><b>Definition</b> <a href="a00026_source.html#l00173">SockAddress.cpp:173</a></div></div>
+<div class="ttc" id="aa00961_html_a74f7e09dfd04ece1bfd36247ba3341e3"><div class="ttname"><a href="a00961.html#a74f7e09dfd04ece1bfd36247ba3341e3">NET::SockAddress::length</a></div><div class="ttdeci">socklen_t length() const noexcept</div><div class="ttdef"><b>Definition</b> <a href="a00026_source.html#l00130">SockAddress.cpp:130</a></div></div>
+<div class="ttc" id="aa00961_html_a993f541b3750df516bfdde8b46bd69dc"><div class="ttname"><a href="a00961.html#a993f541b3750df516bfdde8b46bd69dc">NET::SockAddress::data</a></div><div class="ttdeci">sockaddr * data() noexcept</div><div class="ttdef"><b>Definition</b> <a href="a00026_source.html#l00120">SockAddress.cpp:120</a></div></div>
+<div class="ttc" id="aa00961_html_aeea47e7927d59125b5994d18b327b9df"><div class="ttname"><a href="a00961.html#aeea47e7927d59125b5994d18b327b9df">NET::SockAddress::lengthPtr</a></div><div class="ttdeci">socklen_t * lengthPtr() noexcept</div><div class="ttdef"><b>Definition</b> <a href="a00026_source.html#l00145">SockAddress.cpp:145</a></div></div>
+<div class="ttc" id="aa00981_html_a1f9e19532782ff436127fe396a245f9f"><div class="ttname"><a href="a00981.html#a1f9e19532782ff436127fe396a245f9f">NET::UnixDatagramSocket::sendTo</a></div><div class="ttdeci">void sendTo(const void *buffer, size_t len, std::string_view foreignPath)</div><div class="ttdef"><b>Definition</b> <a href="#l00014">UnixDatagramSocket.cpp:14</a></div></div>
+<div class="ttc" id="aa00981_html_aaf252bc735198a705cffbc0dc5b58827"><div class="ttname"><a href="a00981.html#aaf252bc735198a705cffbc0dc5b58827">NET::UnixDatagramSocket::timedReceiveFrom</a></div><div class="ttdeci">int timedReceiveFrom(void *buffer, size_t len, std::string &amp;sourcePath, int timeout)</div><div class="ttdef"><b>Definition</b> <a href="#l00037">UnixDatagramSocket.cpp:37</a></div></div>
+<div class="ttc" id="aa00981_html_ab7f8812e08206cd15bf72aaca11a6b2f"><div class="ttname"><a href="a00981.html#ab7f8812e08206cd15bf72aaca11a6b2f">NET::UnixDatagramSocket::UnixDatagramSocket</a></div><div class="ttdeci">UnixDatagramSocket()</div><div class="ttdef"><b>Definition</b> <a href="#l00010">UnixDatagramSocket.cpp:10</a></div></div>
+<div class="ttc" id="aa00981_html_ae8d0db6e1d5bc3c84c66ed3bd6189751"><div class="ttname"><a href="a00981.html#ae8d0db6e1d5bc3c84c66ed3bd6189751">NET::UnixDatagramSocket::receiveFrom</a></div><div class="ttdeci">int receiveFrom(void *buffer, size_t len, std::string &amp;sourcePath)</div><div class="ttdef"><b>Definition</b> <a href="#l00025">UnixDatagramSocket.cpp:25</a></div></div>
+<div class="ttc" id="aa00985_html_ad695ef23f071b90e2388b3c6d8c98923"><div class="ttname"><a href="a00985.html#ad695ef23f071b90e2388b3c6d8c98923">NET::UnixSocket::UnixSocket</a></div><div class="ttdeci">UnixSocket(int type, int protocol)</div><div class="ttdoc">allows a subclass to create new socket</div><div class="ttdef"><b>Definition</b> <a href="a00050_source.html#l00009">UnixSocket.cpp:9</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_43e0a1f539e00dcfa1a6bc4d4fee4fc2.html">home</a></li><li class="navelem"><a href="dir_973469fe03307bc0e5780de41ae07045.html">seek</a></li><li class="navelem"><a href="dir_81a8672a3de2fdc40453108918520b77.html">Data</a></li><li class="navelem"><a href="dir_c5c04bceea4264d11ac3486c90412d29.html">Repositories</a></li><li class="navelem"><a href="dir_ffd1759873cc7e6debbb5be08b79e165.html">simple-socket</a></li><li class="navelem"><a href="a00095.html">SocketUtils.h</a></li>
+    <li class="navelem"><a href="dir_43e0a1f539e00dcfa1a6bc4d4fee4fc2.html">home</a></li><li class="navelem"><a href="dir_973469fe03307bc0e5780de41ae07045.html">seek</a></li><li class="navelem"><a href="dir_81a8672a3de2fdc40453108918520b77.html">Data</a></li><li class="navelem"><a href="dir_c5c04bceea4264d11ac3486c90412d29.html">Repositories</a></li><li class="navelem"><a href="dir_ffd1759873cc7e6debbb5be08b79e165.html">simple-socket</a></li><li class="navelem"><a href="a00095.html">UnixDatagramSocket.cpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

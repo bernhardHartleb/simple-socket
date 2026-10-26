@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>simple-socket library: InternetSocket.h Source File</title>
+<title>simple-socket library: UnixStreamSocket.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -60,78 +60,61 @@ $(function(){initNavTree('a00164_source.html','',''); });
 <div id="container">
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">InternetSocket.h</div></div>
+  <div class="headertitle"><div class="title">UnixStreamSocket.h</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00164.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef NET_InternetSocket_h__</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define NET_InternetSocket_h__</span></div>
+<a href="a00164.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef NET_UnixStreamSocket_h__</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define NET_UnixStreamSocket_h__</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="a00155.html">SimpleSocket.h</a>&quot;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">struct </span>sockaddr_in;</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00198.html">NET</a></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>{</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span></div>
-<div class="foldopen" id="foldopen00018" data-start="{" data-end="};">
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="a01034.html">   18</a></span>    <span class="keyword">class </span><a class="code hl_function" href="a01034.html#a720690007444358deac8d21a7f1a82bd">InternetSocket</a> : <span class="keyword">public</span> <a class="code hl_function" href="a01046.html#a53ccfa544aa458e821fcbb1c6979fd62">SimpleSocket</a></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    {</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="a01034.html#a927d978f6f79933d109433f607c8241a">setReuseAddress</a>( <span class="keywordtype">bool</span> enable);</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="a00170.html">SocketHandle.h</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="a00146.html">UnixSocket.h</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00195.html">NET</a></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
+<div class="foldopen" id="foldopen00010" data-start="{" data-end="};">
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="a01076.html">   10</a></span>    <span class="keyword">class </span><a class="code hl_function" href="a01076.html#acbce576df8b43297612c2ff7e3c42210">UnixStreamSocket</a> : <span class="keyword">public</span> <a class="code hl_function" href="a01072.html#ad695ef23f071b90e2388b3c6d8c98923">UnixSocket</a></div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    {</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="a01076.html#a7c8b8b62c664ebabec8f5c0918620aa4">   14</a></span>        <span class="keyword">typedef</span> <a class="code hl_class" href="a01052.html">SocketHandle&lt;UnixStreamSocket&gt;</a> <a class="code hl_typedef" href="a01076.html#a7c8b8b62c664ebabec8f5c0918620aa4">Handle</a>;</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <a class="code hl_function" href="a01076.html#acbce576df8b43297612c2ff7e3c42210">UnixStreamSocket</a>();</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span></div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keyword">explicit</span> <a class="code hl_function" href="a01076.html#acbce576df8b43297612c2ff7e3c42210">UnixStreamSocket</a>( <a class="code hl_typedef" href="a01076.html#a7c8b8b62c664ebabec8f5c0918620aa4">Handle</a>&amp;&amp; handle);</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span></div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <span class="keyword">using </span><a class="code hl_function" href="a01044.html#a690773b3fefeeb026006713e54e6d08a">SimpleSocket::sendAll</a>;</div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span></div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="a01034.html#ab5151cf3fcd5768c6d40e585774b417b">connect</a>( std::string_view foreignAddress, <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> foreignPort);</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span></div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        <span class="keywordtype">int</span> <a class="code hl_function" href="a01034.html#a81df71c2db5574be7645674d4fba58f6">timedConnect</a>( std::string_view foreignAddress, <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> foreignPort, <span class="keywordtype">int</span> timeout);</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span></div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="a01034.html#a02046392ba4e5810f7dc900686ac9a93">bind</a>( <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> localPort = 0);</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span></div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span></div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="a01034.html#a02046392ba4e5810f7dc900686ac9a93">bind</a>( std::string_view localAddress, <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> localPort = 0);</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span></div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        std::string <a class="code hl_function" href="a01034.html#acaf6862f1a15b8a69a259537cfb054e5">getLocalAddress</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span></div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> <a class="code hl_function" href="a01034.html#a107aca419c74eb2785641b2ad4670433">getLocalPort</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span></div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        std::string <a class="code hl_function" href="a01034.html#ad473c333c130d87fcfdfe44b1309e128">getForeignAddress</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span></div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> <a class="code hl_function" href="a01034.html#a3bed9eaad1c7dfc3d3ad2515260cf388">getForeignPort</a>() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>    <span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>        <span class="keyword">explicit</span> <a class="code hl_function" href="a01034.html#a720690007444358deac8d21a7f1a82bd">InternetSocket</a>( <span class="keywordtype">int</span> sockfd);</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span></div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>        <a class="code hl_function" href="a01034.html#a720690007444358deac8d21a7f1a82bd">InternetSocket</a>( <a class="code hl_enumeration" href="a01046.html#a1df69f02e0fb8d41b7245eab8f388766">SocketType</a> type, <span class="keywordtype">int</span> protocol);</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span></div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="a01034.html#ad646762e373e3453b8a40f177fc4bd93">fillAddress</a>( std::string_view address, <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> port, sockaddr_in&amp; addr);</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    };</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="keyword">using </span><a class="code hl_function" href="a01044.html#a263f823dd259f3f7af8cc218fba9b5cf">SimpleSocket::receiveAll</a>;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="a01076.html#a2509881037ba4ae32f02c7825c99e640">listen</a>( <span class="keywordtype">int</span> backlog = 5);</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <a class="code hl_typedef" href="a01076.html#a7c8b8b62c664ebabec8f5c0918620aa4">Handle</a> <a class="code hl_function" href="a01076.html#aa3ddb02b1cd51d7177a37632c7215fc8">accept</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span></div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <a class="code hl_typedef" href="a01076.html#a7c8b8b62c664ebabec8f5c0918620aa4">Handle</a> <a class="code hl_function" href="a01076.html#a7ca1f07fab1821a5449f5d492cfc4538">timedAccept</a>( <span class="keywordtype">int</span> timeout) <span class="keyword">const</span>;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    };</div>
 </div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>} <span class="comment">// namespace NET</span></div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span> </div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span><span class="preprocessor">#endif </span><span class="comment">// NET_InternetSocket_h__</span></div>
-<div class="ttc" id="aa00155_html"><div class="ttname"><a href="a00155.html">SimpleSocket.h</a></div></div>
-<div class="ttc" id="aa00198_html"><div class="ttname"><a href="a00198.html">NET</a></div><div class="ttdef"><b>Definition</b> <a href="a00110_source.html#l00006">CANRawSocket.h:7</a></div></div>
-<div class="ttc" id="aa01034_html_a02046392ba4e5810f7dc900686ac9a93"><div class="ttname"><a href="a01034.html#a02046392ba4e5810f7dc900686ac9a93">NET::InternetSocket::bind</a></div><div class="ttdeci">void bind(unsigned short localPort=0)</div><div class="ttdef"><b>Definition</b> <a href="a00158_source.html#l00118">InternetSocket.cpp:118</a></div></div>
-<div class="ttc" id="aa01034_html_a107aca419c74eb2785641b2ad4670433"><div class="ttname"><a href="a01034.html#a107aca419c74eb2785641b2ad4670433">NET::InternetSocket::getLocalPort</a></div><div class="ttdeci">unsigned short getLocalPort() const</div><div class="ttdef"><b>Definition</b> <a href="a00158_source.html#l00149">InternetSocket.cpp:149</a></div></div>
-<div class="ttc" id="aa01034_html_a3bed9eaad1c7dfc3d3ad2515260cf388"><div class="ttname"><a href="a01034.html#a3bed9eaad1c7dfc3d3ad2515260cf388">NET::InternetSocket::getForeignPort</a></div><div class="ttdeci">unsigned short getForeignPort() const</div><div class="ttdef"><b>Definition</b> <a href="a00158_source.html#l00171">InternetSocket.cpp:171</a></div></div>
-<div class="ttc" id="aa01034_html_a720690007444358deac8d21a7f1a82bd"><div class="ttname"><a href="a01034.html#a720690007444358deac8d21a7f1a82bd">NET::InternetSocket::InternetSocket</a></div><div class="ttdeci">InternetSocket(int sockfd)</div><div class="ttdoc">create socket from a SocketHandle returned by an accept() call</div><div class="ttdef"><b>Definition</b> <a href="a00158_source.html#l00047">InternetSocket.cpp:47</a></div></div>
-<div class="ttc" id="aa01034_html_a81df71c2db5574be7645674d4fba58f6"><div class="ttname"><a href="a01034.html#a81df71c2db5574be7645674d4fba58f6">NET::InternetSocket::timedConnect</a></div><div class="ttdeci">int timedConnect(std::string_view foreignAddress, unsigned short foreignPort, int timeout)</div><div class="ttdoc">establish a connection with the given foreign address and port</div><div class="ttdef"><b>Definition</b> <a href="a00158_source.html#l00069">InternetSocket.cpp:69</a></div></div>
-<div class="ttc" id="aa01034_html_a927d978f6f79933d109433f607c8241a"><div class="ttname"><a href="a01034.html#a927d978f6f79933d109433f607c8241a">NET::InternetSocket::setReuseAddress</a></div><div class="ttdeci">void setReuseAddress(bool enable)</div><div class="ttdoc">Enable or disable local address reuse.</div><div class="ttdef"><b>Definition</b> <a href="a00158_source.html#l00051">InternetSocket.cpp:51</a></div></div>
-<div class="ttc" id="aa01034_html_ab5151cf3fcd5768c6d40e585774b417b"><div class="ttname"><a href="a01034.html#ab5151cf3fcd5768c6d40e585774b417b">NET::InternetSocket::connect</a></div><div class="ttdeci">void connect(std::string_view foreignAddress, unsigned short foreignPort)</div><div class="ttdoc">establish a connection with the given foreign address and port</div><div class="ttdef"><b>Definition</b> <a href="a00158_source.html#l00058">InternetSocket.cpp:58</a></div></div>
-<div class="ttc" id="aa01034_html_acaf6862f1a15b8a69a259537cfb054e5"><div class="ttname"><a href="a01034.html#acaf6862f1a15b8a69a259537cfb054e5">NET::InternetSocket::getLocalAddress</a></div><div class="ttdeci">std::string getLocalAddress() const</div><div class="ttdef"><b>Definition</b> <a href="a00158_source.html#l00138">InternetSocket.cpp:138</a></div></div>
-<div class="ttc" id="aa01034_html_ad473c333c130d87fcfdfe44b1309e128"><div class="ttname"><a href="a01034.html#ad473c333c130d87fcfdfe44b1309e128">NET::InternetSocket::getForeignAddress</a></div><div class="ttdeci">std::string getForeignAddress() const</div><div class="ttdef"><b>Definition</b> <a href="a00158_source.html#l00160">InternetSocket.cpp:160</a></div></div>
-<div class="ttc" id="aa01034_html_ad646762e373e3453b8a40f177fc4bd93"><div class="ttname"><a href="a01034.html#ad646762e373e3453b8a40f177fc4bd93">NET::InternetSocket::fillAddress</a></div><div class="ttdeci">static void fillAddress(std::string_view address, unsigned short port, sockaddr_in &amp;addr)</div><div class="ttdef"><b>Definition</b> <a href="a00158_source.html#l00182">InternetSocket.cpp:182</a></div></div>
-<div class="ttc" id="aa01046_html_a1df69f02e0fb8d41b7245eab8f388766"><div class="ttname"><a href="a01046.html#a1df69f02e0fb8d41b7245eab8f388766">NET::SimpleSocket::SocketType</a></div><div class="ttdeci">SocketType</div><div class="ttdef"><b>Definition</b> <a href="a00155_source.html#l00232">SimpleSocket.h:233</a></div></div>
-<div class="ttc" id="aa01046_html_a53ccfa544aa458e821fcbb1c6979fd62"><div class="ttname"><a href="a01046.html#a53ccfa544aa458e821fcbb1c6979fd62">NET::SimpleSocket::SimpleSocket</a></div><div class="ttdeci">SimpleSocket(const SimpleSocket &amp;)=delete</div></div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>} <span class="comment">// namespace NET</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="preprocessor">#endif </span><span class="comment">// NET_UnixStreamSocket_h__</span></div>
+<div class="ttc" id="aa00146_html"><div class="ttname"><a href="a00146.html">UnixSocket.h</a></div></div>
+<div class="ttc" id="aa00170_html"><div class="ttname"><a href="a00170.html">SocketHandle.h</a></div></div>
+<div class="ttc" id="aa00195_html"><div class="ttname"><a href="a00195.html">NET</a></div><div class="ttdef"><b>Definition</b> <a href="a00125_source.html#l00006">CANRawSocket.h:7</a></div></div>
+<div class="ttc" id="aa01044_html_a263f823dd259f3f7af8cc218fba9b5cf"><div class="ttname"><a href="a01044.html#a263f823dd259f3f7af8cc218fba9b5cf">NET::SimpleSocket::receiveAll</a></div><div class="ttdeci">int receiveAll(void *buffer, size_t len)</div><div class="ttdoc">receive exactly the requested amount unless the peer disconnects</div><div class="ttdef"><b>Definition</b> <a href="a00143_source.html#l00145">SimpleSocket.cpp:145</a></div></div>
+<div class="ttc" id="aa01044_html_a690773b3fefeeb026006713e54e6d08a"><div class="ttname"><a href="a01044.html#a690773b3fefeeb026006713e54e6d08a">NET::SimpleSocket::sendAll</a></div><div class="ttdeci">int sendAll(const void *buffer, size_t len)</div><div class="ttdoc">send data through a connected socket</div><div class="ttdef"><b>Definition</b> <a href="a00143_source.html#l00132">SimpleSocket.cpp:132</a></div></div>
+<div class="ttc" id="aa01052_html"><div class="ttname"><a href="a01052.html">NET::SocketHandle</a></div><div class="ttdoc">A simple class to provide strict ownership of socket handles.</div><div class="ttdef"><b>Definition</b> <a href="a00170_source.html#l00038">SocketHandle.h:39</a></div></div>
+<div class="ttc" id="aa01072_html_ad695ef23f071b90e2388b3c6d8c98923"><div class="ttname"><a href="a01072.html#ad695ef23f071b90e2388b3c6d8c98923">NET::UnixSocket::UnixSocket</a></div><div class="ttdeci">UnixSocket(int type, int protocol)</div><div class="ttdoc">allows a subclass to create new socket</div><div class="ttdef"><b>Definition</b> <a href="a00137_source.html#l00009">UnixSocket.cpp:9</a></div></div>
+<div class="ttc" id="aa01076_html_a2509881037ba4ae32f02c7825c99e640"><div class="ttname"><a href="a01076.html#a2509881037ba4ae32f02c7825c99e640">NET::UnixStreamSocket::listen</a></div><div class="ttdeci">void listen(int backlog=5)</div><div class="ttdef"><b>Definition</b> <a href="a00104_source.html#l00017">UnixStreamSocket.cpp:17</a></div></div>
+<div class="ttc" id="aa01076_html_a7c8b8b62c664ebabec8f5c0918620aa4"><div class="ttname"><a href="a01076.html#a7c8b8b62c664ebabec8f5c0918620aa4">NET::UnixStreamSocket::Handle</a></div><div class="ttdeci">SocketHandle&lt; UnixStreamSocket &gt; Handle</div><div class="ttdoc">Handle for a new socket returned by accept().</div><div class="ttdef"><b>Definition</b> <a href="#l00014">UnixStreamSocket.h:14</a></div></div>
+<div class="ttc" id="aa01076_html_a7ca1f07fab1821a5449f5d492cfc4538"><div class="ttname"><a href="a01076.html#a7ca1f07fab1821a5449f5d492cfc4538">NET::UnixStreamSocket::timedAccept</a></div><div class="ttdeci">Handle timedAccept(int timeout) const</div><div class="ttdef"><b>Definition</b> <a href="a00104_source.html#l00033">UnixStreamSocket.cpp:33</a></div></div>
+<div class="ttc" id="aa01076_html_aa3ddb02b1cd51d7177a37632c7215fc8"><div class="ttname"><a href="a01076.html#aa3ddb02b1cd51d7177a37632c7215fc8">NET::UnixStreamSocket::accept</a></div><div class="ttdeci">Handle accept() const</div><div class="ttdef"><b>Definition</b> <a href="a00104_source.html#l00024">UnixStreamSocket.cpp:24</a></div></div>
+<div class="ttc" id="aa01076_html_acbce576df8b43297612c2ff7e3c42210"><div class="ttname"><a href="a01076.html#acbce576df8b43297612c2ff7e3c42210">NET::UnixStreamSocket::UnixStreamSocket</a></div><div class="ttdeci">UnixStreamSocket()</div><div class="ttdef"><b>Definition</b> <a href="a00104_source.html#l00009">UnixStreamSocket.cpp:9</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_43e0a1f539e00dcfa1a6bc4d4fee4fc2.html">home</a></li><li class="navelem"><a href="dir_973469fe03307bc0e5780de41ae07045.html">seek</a></li><li class="navelem"><a href="dir_81a8672a3de2fdc40453108918520b77.html">Data</a></li><li class="navelem"><a href="dir_c5c04bceea4264d11ac3486c90412d29.html">Repositories</a></li><li class="navelem"><a href="dir_ffd1759873cc7e6debbb5be08b79e165.html">simple-socket</a></li><li class="navelem"><a href="a00164.html">InternetSocket.h</a></li>
+    <li class="navelem"><a href="dir_43e0a1f539e00dcfa1a6bc4d4fee4fc2.html">home</a></li><li class="navelem"><a href="dir_973469fe03307bc0e5780de41ae07045.html">seek</a></li><li class="navelem"><a href="dir_81a8672a3de2fdc40453108918520b77.html">Data</a></li><li class="navelem"><a href="dir_c5c04bceea4264d11ac3486c90412d29.html">Repositories</a></li><li class="navelem"><a href="dir_ffd1759873cc7e6debbb5be08b79e165.html">simple-socket</a></li><li class="navelem"><a href="a00164.html">UnixStreamSocket.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

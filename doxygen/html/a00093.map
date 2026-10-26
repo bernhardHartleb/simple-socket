@@ -1,0 +1,17 @@
+<map id="SockAddress.h" name="SockAddress.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="198,5,309,32"/>
+<area shape="rect" id="Node000002" href="$a00062.html" title=" " alt="" coords="102,80,216,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="239,31,189,73,186,68,235,34"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,155,102,181"/>
+<area shape="poly" id="edge8_Node000001_Node000003" title=" " alt="" coords="196,31,143,50,116,64,93,82,73,110,62,141,57,138,68,107,89,78,114,59,141,45,200,27"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="227,155,280,181"/>
+<area shape="poly" id="edge7_Node000001_Node000004" title=" " alt="" coords="256,31,256,140,251,138,251,34"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="291,80,355,107"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="266,30,303,69,298,68,265,35"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="379,80,440,107"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="281,30,371,73,366,74,280,35"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="143,107,86,148,83,143,138,108"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="176,105,228,145,222,145,174,110"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="126,155,203,181"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="162,105,165,140,160,138,158,109"/>
+</map>

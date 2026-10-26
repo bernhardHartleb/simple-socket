@@ -1,4 +1,4 @@
 var a00140 =
 [
-    [ "TEMP_FAILURE_RETRY", "a00140.html#ae3924d534a2de097f5cccb535330e8c2", null ]
+    [ "CPPUNIT_TEST_SUITE_REGISTRATION", "a00140.html#a7295e146f132710f6fa98ed2bde789df", null ]
 ];

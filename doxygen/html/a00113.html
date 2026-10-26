@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>simple-socket library: examples.dox File Reference</title>
+<title>simple-socket library: mini_ifconfig.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -60,9 +60,231 @@ $(function(){initNavTree('a00113.html','',''); });
 <div id="container">
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">examples.dox File Reference</div></div>
+  <div class="headertitle"><div class="title">mini_ifconfig.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
+<div class="textblock"><code>#include &quot;<a class="el" href="a00149_source.html">../SimpleSocket.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00092_source.html">../SocketUtils.h</a>&quot;</code><br />
+<code>#include &lt;iostream&gt;</code><br />
+<code>#include &lt;sstream&gt;</code><br />
+</div><div class="textblock"><div class="dynheader">
+Include dependency graph for mini_ifconfig.cpp:</div>
+<div class="dyncontent">
+<div class="center"><img src="a00114.png" border="0" usemap="#amini__ifconfig_8cpp" loading="lazy" alt=""/></div>
+<map name="amini__ifconfig_8cpp" id="amini__ifconfig_8cpp">
+<area shape="rect" title=" " alt="" coords="324,5,444,32"/>
+<area shape="rect" href="a00149.html" title=" " alt="" coords="115,80,240,107"/>
+<area shape="poly" title=" " alt="" coords="346,34,229,77,227,72,351,31"/>
+<area shape="rect" href="a00092.html" title=" " alt="" coords="271,80,383,107"/>
+<area shape="poly" title=" " alt="" coords="376,31,348,70,344,66,372,34"/>
+<area shape="rect" title=" " alt="" coords="407,80,478,107"/>
+<area shape="poly" title=" " alt="" coords="395,30,426,68,421,67,393,35"/>
+<area shape="rect" title=" " alt="" coords="502,80,570,107"/>
+<area shape="poly" title=" " alt="" coords="411,30,498,73,493,73,410,35"/>
+<area shape="rect" title=" " alt="" coords="5,155,102,181"/>
+<area shape="poly" title=" " alt="" coords="159,107,89,149,87,144,153,107"/>
+<area shape="rect" title=" " alt="" coords="227,155,280,181"/>
+<area shape="poly" title=" " alt="" coords="192,105,232,144,227,144,190,110"/>
+<area shape="rect" title=" " alt="" coords="126,155,203,181"/>
+<area shape="poly" title=" " alt="" coords="177,105,171,141,167,138,173,109"/>
+<area shape="poly" title=" " alt="" coords="317,106,278,146,276,141,312,108"/>
+<area shape="rect" title=" " alt="" coords="305,155,365,181"/>
+<area shape="poly" title=" " alt="" coords="330,105,334,140,330,138,326,109"/>
+<area shape="rect" title=" " alt="" coords="389,155,446,181"/>
+<area shape="poly" title=" " alt="" coords="344,105,393,145,388,145,342,110"/>
+</map>
+</div>
+</div>
+<p><a href="a00113_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a98b2247c43c35aeaffdd86e47ae7a9d8" id="r_a98b2247c43c35aeaffdd86e47ae7a9d8"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a98b2247c43c35aeaffdd86e47ae7a9d8">configure</a> (const std::string &amp;interface, const std::string &amp;setting, const std::string &amp;val)</td></tr>
+<tr class="memdesc:a98b2247c43c35aeaffdd86e47ae7a9d8"><td class="mdescLeft">&#160;</td><td class="mdescRight">configure one setting of the interface  <br /></td></tr>
+<tr class="memitem:a0ddf1224851353fc92bfbff6f499fa97" id="r_a0ddf1224851353fc92bfbff6f499fa97"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#a0ddf1224851353fc92bfbff6f499fa97">main</a> (int argc, char *argv[])</td></tr>
+<tr class="memdesc:a0ddf1224851353fc92bfbff6f499fa97"><td class="mdescLeft">&#160;</td><td class="mdescRight">small program with ifconfig like behaviour  <br /></td></tr>
+<tr class="memitem:aaf10537341632583e9f682d8106e3581" id="r_aaf10537341632583e9f682d8106e3581"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#aaf10537341632583e9f682d8106e3581">print</a> ()</td></tr>
+<tr class="memdesc:aaf10537341632583e9f682d8106e3581"><td class="mdescLeft">&#160;</td><td class="mdescRight">output information for all accessible interfaces  <br /></td></tr>
+<tr class="memitem:a2ef30c42cbc289d899a8be5d2d8f77d0" id="r_a2ef30c42cbc289d899a8be5d2d8f77d0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a2ef30c42cbc289d899a8be5d2d8f77d0">usage</a> ()</td></tr>
+<tr class="memdesc:a2ef30c42cbc289d899a8be5d2d8f77d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">just print program usage  <br /></td></tr>
+<tr class="memitem:aef29a49843438b9b913a8adc4c403629" id="r_aef29a49843438b9b913a8adc4c403629"><td class="memTemplParams" colspan="2">template&lt;typename Callable&gt; </td></tr>
+<tr class="memitem:aef29a49843438b9b913a8adc4c403629 template"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#aef29a49843438b9b913a8adc4c403629">wrapEx</a> (Callable c)</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:aefc6fd114f51bdd24b884a0ec904c2f7" id="r_aefc6fd114f51bdd24b884a0ec904c2f7"><td class="memItemLeft">char *&#160;</td><td class="memItemRight"><a class="el" href="#aefc6fd114f51bdd24b884a0ec904c2f7">progName</a></td></tr>
+<tr class="memitem:afa2bd8d5fd94a5bb1861c69d30ab26ad" id="r_afa2bd8d5fd94a5bb1861c69d30ab26ad"><td class="memItemLeft">const char&#160;</td><td class="memItemRight"><a class="el" href="#afa2bd8d5fd94a5bb1861c69d30ab26ad">usageString</a> []</td></tr>
+</table>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a2ef30c42cbc289d899a8be5d2d8f77d0" name="a2ef30c42cbc289d899a8be5d2d8f77d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ef30c42cbc289d899a8be5d2d8f77d0">&#9670;&#160;</a></span>usage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void usage </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>just print program usage </p>
+
+<p class="definition">Definition at line <a class="el" href="a00113_source.html#l00052">52</a> of file <a class="el" href="a00113_source.html">mini_ifconfig.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aaf10537341632583e9f682d8106e3581" name="aaf10537341632583e9f682d8106e3581"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf10537341632583e9f682d8106e3581">&#9670;&#160;</a></span>print()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int print </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>output information for all accessible interfaces </p>
+
+<p class="definition">Definition at line <a class="el" href="a00113_source.html#l00073">73</a> of file <a class="el" href="a00113_source.html">mini_ifconfig.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a98b2247c43c35aeaffdd86e47ae7a9d8" name="a98b2247c43c35aeaffdd86e47ae7a9d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a98b2247c43c35aeaffdd86e47ae7a9d8">&#9670;&#160;</a></span>configure()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int configure </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>interface</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>setting</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>val</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>configure one setting of the interface </p>
+
+<p class="definition">Definition at line <a class="el" href="a00113_source.html#l00092">92</a> of file <a class="el" href="a00113_source.html">mini_ifconfig.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a0ddf1224851353fc92bfbff6f499fa97" name="a0ddf1224851353fc92bfbff6f499fa97"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ddf1224851353fc92bfbff6f499fa97">&#9670;&#160;</a></span>main()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int main </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>argc</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *</td>          <td class="paramname"><span class="paramname"><em>argv</em></span>[]&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>small program with ifconfig like behaviour </p>
+<p>Shows the usage of SocketUtils, also used to test these since we should not automatically reconfigure a network interface each time we run tests</p>
+<p>Have a look at <a class="el" href="#aaf10537341632583e9f682d8106e3581" title="output information for all accessible interfaces">print()</a> for how to get data, or at <a class="el" href="#a98b2247c43c35aeaffdd86e47ae7a9d8" title="configure one setting of the interface">configure()</a> for how to set data. </p>
+
+<p class="definition">Definition at line <a class="el" href="a00113_source.html#l00040">40</a> of file <a class="el" href="a00113_source.html">mini_ifconfig.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aef29a49843438b9b913a8adc4c403629" name="aef29a49843438b9b913a8adc4c403629"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef29a49843438b9b913a8adc4c403629">&#9670;&#160;</a></span>wrapEx()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Callable&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string wrapEx </td>
+          <td>(</td>
+          <td class="paramtype">Callable</td>          <td class="paramname"><span class="paramname"><em>c</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00113_source.html#l00059">59</a> of file <a class="el" href="a00113_source.html">mini_ifconfig.cpp</a>.</p>
+
+</div>
+</div>
+<a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
+<a id="afa2bd8d5fd94a5bb1861c69d30ab26ad" name="afa2bd8d5fd94a5bb1861c69d30ab26ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa2bd8d5fd94a5bb1861c69d30ab26ad">&#9670;&#160;</a></span>usageString</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char usageString[]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Initial value:</b><div class="fragment"><div class="line">                       = <span class="stringliteral">&quot; [ &lt;interface&gt; &lt;setting&gt; &lt;value&gt; ]\n&quot;</span></div>
+<div class="line"><span class="stringliteral">&quot;   \n&quot;</span></div>
+<div class="line"><span class="stringliteral">&quot;   If called without parameters, lists interfaces and their current settings.\n&quot;</span></div>
+<div class="line"><span class="stringliteral">&quot;   Changes said settings if called with parameters.\n&quot;</span></div>
+<div class="line"><span class="stringliteral">&quot;   \n&quot;</span></div>
+<div class="line"><span class="stringliteral">&quot;   Parameters:\n&quot;</span></div>
+<div class="line"><span class="stringliteral">&quot;       interface   name of the interface to configure\n&quot;</span></div>
+<div class="line"><span class="stringliteral">&quot;       setting     name of the setting to change\n&quot;</span></div>
+<div class="line"><span class="stringliteral">&quot;       value       new value for said setting\n&quot;</span></div>
+<div class="line"><span class="stringliteral">&quot;   \n&quot;</span></div>
+<div class="line"><span class="stringliteral">&quot;   Settings:\n&quot;</span></div>
+<div class="line"><span class="stringliteral">&quot;       mtu         maximum transmission unit\n&quot;</span></div>
+<div class="line"><span class="stringliteral">&quot;       address     IPv4 interface address\n&quot;</span></div>
+<div class="line"><span class="stringliteral">&quot;       broadcast   IPv4 broadcast address\n&quot;</span></div>
+<div class="line"><span class="stringliteral">&quot;       netmask     IPV4 netmask\n&quot;</span></div>
+<div class="line"><span class="stringliteral">&quot;       destination IPv4 destination address\n&quot;</span></div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="a00113_source.html#l00007">7</a> of file <a class="el" href="a00113_source.html">mini_ifconfig.cpp</a>.</p>
+
+</div>
+</div>
+<a id="aefc6fd114f51bdd24b884a0ec904c2f7" name="aefc6fd114f51bdd24b884a0ec904c2f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefc6fd114f51bdd24b884a0ec904c2f7">&#9670;&#160;</a></span>progName</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char* progName</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00113_source.html#l00028">28</a> of file <a class="el" href="a00113_source.html">mini_ifconfig.cpp</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
@@ -76,7 +298,7 @@ $(function(){initNavTree('a00113.html','',''); });
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="a00113.html">examples.dox</a></li>
+    <li class="navelem"><a href="dir_43e0a1f539e00dcfa1a6bc4d4fee4fc2.html">home</a></li><li class="navelem"><a href="dir_973469fe03307bc0e5780de41ae07045.html">seek</a></li><li class="navelem"><a href="dir_81a8672a3de2fdc40453108918520b77.html">Data</a></li><li class="navelem"><a href="dir_c5c04bceea4264d11ac3486c90412d29.html">Repositories</a></li><li class="navelem"><a href="dir_ffd1759873cc7e6debbb5be08b79e165.html">simple-socket</a></li><li class="navelem"><a href="dir_eb4225bc3a5edebf6510ab9ef791a4bc.html">examples</a></li><li class="navelem"><a href="a00113.html">mini_ifconfig.cpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

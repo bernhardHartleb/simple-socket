@@ -1,0 +1,19 @@
+<map id="SocketHandle.h" name="SocketHandle.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="291,5,406,32"/>
+<area shape="rect" id="Node000002" href="$a00098.html" title=" " alt="" coords="88,80,198,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="296,39,180,82,178,77,300,36"/>
+<area shape="rect" id="Node000004" href="$a00023.html" title=" " alt="" coords="298,80,398,107"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="350,46,351,81,346,78,347,50"/>
+<area shape="rect" id="Node000008" href="$a00077.html" title=" " alt="" coords="500,80,642,107"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="402,34,535,79,529,80,401,40"/>
+<area shape="rect" id="Node000003" href="$a00080.html" title=" " alt="" coords="5,155,129,181"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="121,117,82,156,78,152,116,118"/>
+<area shape="rect" id="Node000005" href="$a00089.html" title=" " alt="" coords="152,155,267,181"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="313,114,235,157,233,152,308,115"/>
+<area shape="rect" id="Node000006" href="$a00005.html" title=" " alt="" coords="291,155,406,181"/>
+<area shape="poly" id="edge5_Node000004_Node000006" title=" " alt="" coords="350,121,350,156,346,153,346,124"/>
+<area shape="rect" id="Node000007" href="$a00002.html" title=" " alt="" coords="429,155,548,181"/>
+<area shape="poly" id="edge6_Node000004_Node000007" title=" " alt="" coords="387,112,466,154,461,154,386,117"/>
+<area shape="rect" id="Node000009" href="$a00032.html" title=" " alt="" coords="572,155,728,181"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="597,115,639,155,634,154,595,120"/>
+</map>

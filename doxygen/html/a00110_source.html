@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>simple-socket library: CANRawSocket.h Source File</title>
+<title>simple-socket library: TCP_Client.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -60,70 +60,79 @@ $(function(){initNavTree('a00110_source.html','',''); });
 <div id="container">
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">CANRawSocket.h</div></div>
+  <div class="headertitle"><div class="title">TCP_Client.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00110.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef NET_CANRawSocket_h__</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define NET_CANRawSocket_h__</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="a00191.html">CANSocket.h</a>&quot;</span></div>
+<a href="a00110.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="a00095.html">../TCPSocket.h</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;array&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
 <div class="foldopen" id="foldopen00006" data-start="{" data-end="}">
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno"><a class="line" href="a00198.html">    6</a></span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00198.html">NET</a></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno"><a class="line" href="a00110.html#ae66f6b31b5ad750f1fe042a706a4e3d4">    6</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="a00110.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a>()</div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
-<div class="foldopen" id="foldopen00009" data-start="{" data-end="};">
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="a01022.html">    9</a></span>    <span class="keyword">class </span><a class="code hl_function" href="a01022.html#ad868a485163c6b64f1c1716e693caf3a">CANRawSocket</a> : <span class="keyword">public</span> <a class="code hl_function" href="a01026.html#aeb831e5fee7df761397355617d5361ff">CANSocket</a></div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    {</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        <a class="code hl_function" href="a01022.html#ad868a485163c6b64f1c1716e693caf3a">CANRawSocket</a>();</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span></div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="a01022.html#aa29a109096719eace958d0b70f496854">send</a>( const ::can_frame&amp; frame);</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span></div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keywordtype">int</span> <a class="code hl_function" href="a01022.html#a918f54af6a350bd7badba888f74b86a1">receive</a>( ::can_frame&amp; frame);</div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span></div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="keywordtype">int</span> <a class="code hl_function" href="a01022.html#ab657e66c35605b58e9cef94960288257">timedReceive</a>( ::can_frame&amp; frame, <span class="keywordtype">int</span> timeout);</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span></div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="a01022.html#a1269297635ab58a27730be9bb75dd7d3">sendTo</a>( const ::can_frame&amp; frame, std::string_view interface);</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keywordtype">int</span> <a class="code hl_function" href="a01022.html#a2df653d995fb10715b83efe3f2933a28">receiveFrom</a>( ::can_frame&amp; frame, std::string&amp; interface);</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span></div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        <span class="keywordtype">int</span> <a class="code hl_function" href="a01022.html#aa21a9271a0f94472b8d3b7554c0f7160">timedReceiveFrom</a>( ::can_frame&amp; frame, std::string&amp; interface, <span class="keywordtype">int</span> timeout);</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span></div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="a01022.html#a306128341362a32ffa73d0b375f1f2ae">setReceiveFilter</a>( const ::can_filter* filters, <span class="keywordtype">size_t</span> len);</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span></div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="a01022.html#ae7b62158c4a51fcaa9198ac8e1c39f17">setErrorFilter</a>( ::can_err_mask_t filter);</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span></div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="a01022.html#a544d3f21eb096619a05dabd7abf66918">setLocalLoopback</a>( <span class="keywordtype">bool</span> enable);</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span></div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="a01022.html#af7f31ff91af08074167052c7b7905626">setReceiveOwnMessages</a>( <span class="keywordtype">bool</span> enable);</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    };</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    <span class="keywordflow">try</span> {</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <a class="code hl_class" href="a01060.html">NET::TCPSocket</a> client_socket;</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="comment">// Connect to local TCP Server example</span></div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    client_socket.<a class="code hl_function" href="a01032.html#ab5151cf3fcd5768c6d40e585774b417b">connect</a>(<span class="stringliteral">&quot;127.0.0.1&quot;</span>, 47777);</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    std::array&lt;char, 256&gt; buffer{};</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    std::cout &lt;&lt; <span class="stringliteral">&quot;Received data from server: &quot;</span>;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keywordflow">while</span>(<span class="keyword">true</span>)</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    {</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        <span class="comment">// TCP is a byte stream: one receive call is not guaranteed</span></div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        <span class="comment">// to return everything the peer sent</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        <span class="keywordtype">int</span> received = client_socket.<a class="code hl_function" href="a01044.html#a0c14e0e6413cf606d52ab7d606a175f8">timedReceive</a>(buffer.data(), buffer.size(), 5000);</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keywordflow">if</span> (received &gt; 0)</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        {</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>            <span class="comment">// Use the returned byte count</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>            <span class="comment">// Received network data is not necessarily null terminated</span></div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>            std::cout.write(buffer.data(), received);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>            <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        }</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keywordflow">if</span> (client_socket.<a class="code hl_function" href="a01044.html#adc7b2b80c852e7163a7bab9ce4b7c060">peerDisconnected</a>())</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>            <span class="comment">// Graceful EOF from the server</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>            <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        }</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="comment">// timedReceive() also returns 0 when its timeout expires</span></div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        std::cerr &lt;&lt; <span class="stringliteral">&quot;\nTimed out waiting for server data.&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <span class="keywordflow">return</span> 1;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    }</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    std::cout &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    <span class="comment">// No explicit close is necessary</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    }</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keywordflow">catch</span> (<span class="keyword">const</span> <a class="code hl_class" href="a01040.html">NET::SocketException</a>&amp; e)</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    {</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        std::cerr &lt;&lt; e.<a class="code hl_function" href="a01040.html#a4175605c41f8230e18aa3323a2ef80c5">what</a>() &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        <span class="keywordflow">return</span> 1;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    }</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>}</div>
 </div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>} <span class="comment">// namespace NET</span></div>
-</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="preprocessor">#endif </span><span class="comment">// NET_CANRawSocket_h__</span></div>
-<div class="ttc" id="aa00191_html"><div class="ttname"><a href="a00191.html">CANSocket.h</a></div></div>
-<div class="ttc" id="aa00198_html"><div class="ttname"><a href="a00198.html">NET</a></div><div class="ttdef"><b>Definition</b> <a href="#l00006">CANRawSocket.h:7</a></div></div>
-<div class="ttc" id="aa01022_html_a1269297635ab58a27730be9bb75dd7d3"><div class="ttname"><a href="a01022.html#a1269297635ab58a27730be9bb75dd7d3">NET::CANRawSocket::sendTo</a></div><div class="ttdeci">void sendTo(const ::can_frame &amp;frame, std::string_view interface)</div><div class="ttdef"><b>Definition</b> <a href="a00167_source.html#l00030">CANRawSocket.cpp:30</a></div></div>
-<div class="ttc" id="aa01022_html_a2df653d995fb10715b83efe3f2933a28"><div class="ttname"><a href="a01022.html#a2df653d995fb10715b83efe3f2933a28">NET::CANRawSocket::receiveFrom</a></div><div class="ttdeci">int receiveFrom(::can_frame &amp;frame, std::string &amp;interface)</div><div class="ttdef"><b>Definition</b> <a href="a00167_source.html#l00043">CANRawSocket.cpp:43</a></div></div>
-<div class="ttc" id="aa01022_html_a306128341362a32ffa73d0b375f1f2ae"><div class="ttname"><a href="a01022.html#a306128341362a32ffa73d0b375f1f2ae">NET::CANRawSocket::setReceiveFilter</a></div><div class="ttdeci">void setReceiveFilter(const ::can_filter *filters, size_t len)</div><div class="ttdef"><b>Definition</b> <a href="a00167_source.html#l00079">CANRawSocket.cpp:79</a></div></div>
-<div class="ttc" id="aa01022_html_a544d3f21eb096619a05dabd7abf66918"><div class="ttname"><a href="a01022.html#a544d3f21eb096619a05dabd7abf66918">NET::CANRawSocket::setLocalLoopback</a></div><div class="ttdeci">void setLocalLoopback(bool enable)</div><div class="ttdef"><b>Definition</b> <a href="a00167_source.html#l00091">CANRawSocket.cpp:91</a></div></div>
-<div class="ttc" id="aa01022_html_a918f54af6a350bd7badba888f74b86a1"><div class="ttname"><a href="a01022.html#a918f54af6a350bd7badba888f74b86a1">NET::CANRawSocket::receive</a></div><div class="ttdeci">int receive(::can_frame &amp;frame)</div><div class="ttdoc">(overload) receive can frame from a bound socket</div><div class="ttdef"><b>Definition</b> <a href="a00167_source.html#l00020">CANRawSocket.cpp:20</a></div></div>
-<div class="ttc" id="aa01022_html_aa21a9271a0f94472b8d3b7554c0f7160"><div class="ttname"><a href="a01022.html#aa21a9271a0f94472b8d3b7554c0f7160">NET::CANRawSocket::timedReceiveFrom</a></div><div class="ttdeci">int timedReceiveFrom(::can_frame &amp;frame, std::string &amp;interface, int timeout)</div><div class="ttdef"><b>Definition</b> <a href="a00167_source.html#l00056">CANRawSocket.cpp:56</a></div></div>
-<div class="ttc" id="aa01022_html_aa29a109096719eace958d0b70f496854"><div class="ttname"><a href="a01022.html#aa29a109096719eace958d0b70f496854">NET::CANRawSocket::send</a></div><div class="ttdeci">void send(const ::can_frame &amp;frame)</div><div class="ttdoc">(overload) send can_frame through a connected socket</div><div class="ttdef"><b>Definition</b> <a href="a00167_source.html#l00015">CANRawSocket.cpp:15</a></div></div>
-<div class="ttc" id="aa01022_html_ab657e66c35605b58e9cef94960288257"><div class="ttname"><a href="a01022.html#ab657e66c35605b58e9cef94960288257">NET::CANRawSocket::timedReceive</a></div><div class="ttdeci">int timedReceive(::can_frame &amp;frame, int timeout)</div><div class="ttdoc">(overload) receive can frame from a bound socket with timeout</div><div class="ttdef"><b>Definition</b> <a href="a00167_source.html#l00025">CANRawSocket.cpp:25</a></div></div>
-<div class="ttc" id="aa01022_html_ad868a485163c6b64f1c1716e693caf3a"><div class="ttname"><a href="a01022.html#ad868a485163c6b64f1c1716e693caf3a">NET::CANRawSocket::CANRawSocket</a></div><div class="ttdeci">CANRawSocket()</div><div class="ttdef"><b>Definition</b> <a href="a00167_source.html#l00011">CANRawSocket.cpp:11</a></div></div>
-<div class="ttc" id="aa01022_html_ae7b62158c4a51fcaa9198ac8e1c39f17"><div class="ttname"><a href="a01022.html#ae7b62158c4a51fcaa9198ac8e1c39f17">NET::CANRawSocket::setErrorFilter</a></div><div class="ttdeci">void setErrorFilter(::can_err_mask_t filter)</div><div class="ttdef"><b>Definition</b> <a href="a00167_source.html#l00085">CANRawSocket.cpp:85</a></div></div>
-<div class="ttc" id="aa01022_html_af7f31ff91af08074167052c7b7905626"><div class="ttname"><a href="a01022.html#af7f31ff91af08074167052c7b7905626">NET::CANRawSocket::setReceiveOwnMessages</a></div><div class="ttdeci">void setReceiveOwnMessages(bool enable)</div><div class="ttdef"><b>Definition</b> <a href="a00167_source.html#l00098">CANRawSocket.cpp:98</a></div></div>
-<div class="ttc" id="aa01026_html_aeb831e5fee7df761397355617d5361ff"><div class="ttname"><a href="a01026.html#aeb831e5fee7df761397355617d5361ff">NET::CANSocket::CANSocket</a></div><div class="ttdeci">CANSocket(SocketType type, int protocol)</div><div class="ttdoc">allows a subclass to create new socket</div><div class="ttdef"><b>Definition</b> <a href="a00101_source.html#l00014">CANSocket.cpp:14</a></div></div>
+<div class="ttc" id="aa00095_html"><div class="ttname"><a href="a00095.html">TCPSocket.h</a></div></div>
+<div class="ttc" id="aa00110_html_ae66f6b31b5ad750f1fe042a706a4e3d4"><div class="ttname"><a href="a00110.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a></div><div class="ttdeci">int main()</div><div class="ttdef"><b>Definition</b> <a href="#l00006">TCP_Client.cpp:6</a></div></div>
+<div class="ttc" id="aa01032_html_ab5151cf3fcd5768c6d40e585774b417b"><div class="ttname"><a href="a01032.html#ab5151cf3fcd5768c6d40e585774b417b">NET::InternetSocket::connect</a></div><div class="ttdeci">void connect(std::string_view foreignAddress, unsigned short foreignPort)</div><div class="ttdoc">establish a connection with the given foreign address and port</div><div class="ttdef"><b>Definition</b> <a href="a00152_source.html#l00074">InternetSocket.cpp:74</a></div></div>
+<div class="ttc" id="aa01040_html"><div class="ttname"><a href="a01040.html">NET::SocketException</a></div><div class="ttdoc">Signals a problem with the execution of a socket call.</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00011">SimpleSocket.h:12</a></div></div>
+<div class="ttc" id="aa01040_html_a4175605c41f8230e18aa3323a2ef80c5"><div class="ttname"><a href="a01040.html#a4175605c41f8230e18aa3323a2ef80c5">NET::SocketException::what</a></div><div class="ttdeci">const char * what() const noexcept</div><div class="ttdoc">Returns a C-string describing the cause of the current error.</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00028">SimpleSocket.h:28</a></div></div>
+<div class="ttc" id="aa01044_html_a0c14e0e6413cf606d52ab7d606a175f8"><div class="ttname"><a href="a01044.html#a0c14e0e6413cf606d52ab7d606a175f8">NET::SimpleSocket::timedReceive</a></div><div class="ttdeci">int timedReceive(void *buffer, size_t len, int timeout)</div><div class="ttdoc">receive data from a bound socket, return after the given timespan</div><div class="ttdef"><b>Definition</b> <a href="a00143_source.html#l00084">SimpleSocket.cpp:84</a></div></div>
+<div class="ttc" id="aa01044_html_adc7b2b80c852e7163a7bab9ce4b7c060"><div class="ttname"><a href="a01044.html#adc7b2b80c852e7163a7bab9ce4b7c060">NET::SimpleSocket::peerDisconnected</a></div><div class="ttdeci">bool peerDisconnected() const noexcept</div><div class="ttdoc">returns whether a currently associated peer disconnected</div><div class="ttdef"><b>Definition</b> <a href="a00143_source.html#l00127">SimpleSocket.cpp:127</a></div></div>
+<div class="ttc" id="aa01060_html"><div class="ttname"><a href="a01060.html">NET::TCPSocket</a></div><div class="ttdoc">TCP socket class.</div><div class="ttdef"><b>Definition</b> <a href="a00095_source.html#l00010">TCPSocket.h:11</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_43e0a1f539e00dcfa1a6bc4d4fee4fc2.html">home</a></li><li class="navelem"><a href="dir_973469fe03307bc0e5780de41ae07045.html">seek</a></li><li class="navelem"><a href="dir_81a8672a3de2fdc40453108918520b77.html">Data</a></li><li class="navelem"><a href="dir_c5c04bceea4264d11ac3486c90412d29.html">Repositories</a></li><li class="navelem"><a href="dir_ffd1759873cc7e6debbb5be08b79e165.html">simple-socket</a></li><li class="navelem"><a href="a00110.html">CANRawSocket.h</a></li>
+    <li class="navelem"><a href="dir_43e0a1f539e00dcfa1a6bc4d4fee4fc2.html">home</a></li><li class="navelem"><a href="dir_973469fe03307bc0e5780de41ae07045.html">seek</a></li><li class="navelem"><a href="dir_81a8672a3de2fdc40453108918520b77.html">Data</a></li><li class="navelem"><a href="dir_c5c04bceea4264d11ac3486c90412d29.html">Repositories</a></li><li class="navelem"><a href="dir_ffd1759873cc7e6debbb5be08b79e165.html">simple-socket</a></li><li class="navelem"><a href="dir_eb4225bc3a5edebf6510ab9ef791a4bc.html">examples</a></li><li class="navelem"><a href="a00110.html">TCP_Client.cpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

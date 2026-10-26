@@ -1,7 +1,13 @@
-<map id="TempFailure&#45;timeout.h" name="TempFailure&#45;timeout.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="8,5,158,32"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,80,73,107"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="78,31,57,68,52,65,73,34"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="96,80,158,107"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="92,30,114,67,109,67,89,35"/>
+<map id="CANSocket.h" name="CANSocket.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="162,5,265,32"/>
+<area shape="rect" id="Node000002" href="$a00149.html" title=" " alt="" coords="96,80,209,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="205,31,174,70,171,66,201,34"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="233,80,317,107"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="225,30,257,68,252,68,223,35"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,155,102,181"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="138,107,84,148,81,143,132,108"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="126,155,179,181"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="154,105,155,140,150,138,150,109"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="203,155,280,181"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="169,105,217,145,212,145,167,110"/>
 </map>

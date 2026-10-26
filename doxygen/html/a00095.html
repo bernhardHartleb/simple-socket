@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>simple-socket library: SocketUtils.h File Reference</title>
+<title>simple-socket library: UnixDatagramSocket.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -60,74 +60,54 @@ $(function(){initNavTree('a00095.html','',''); });
 <div id="container">
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">SocketUtils.h File Reference</div></div>
+  <div class="headertitle"><div class="title">UnixDatagramSocket.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
-<code>#include &lt;vector&gt;</code><br />
-<code>#include &lt;string&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="a00104_source.html">UnixDatagramSocket.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00092_source.html">SockAddress.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="a00047_source.html">TempFailure.h</a>&quot;</code><br />
+<code>#include &lt;sys/socket.h&gt;</code><br />
+<code>#include &lt;poll.h&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
-Include dependency graph for SocketUtils.h:</div>
+Include dependency graph for UnixDatagramSocket.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="a00096.png" border="0" usemap="#a_socket_utils_8h" loading="lazy" alt=""/></div>
-<map name="a_socket_utils_8h" id="a_socket_utils_8h">
-<area shape="rect" title=" " alt="" coords="68,5,168,32"/>
-<area shape="rect" title=" " alt="" coords="5,80,66,107"/>
-<area shape="poly" title=" " alt="" coords="106,32,63,72,59,68,101,33"/>
-<area shape="rect" title=" " alt="" coords="90,80,147,107"/>
-<area shape="poly" title=" " alt="" coords="120,31,121,65,116,63,116,35"/>
-<area shape="rect" title=" " alt="" coords="172,80,225,107"/>
-<area shape="poly" title=" " alt="" coords="133,30,176,69,171,70,131,35"/>
-</map>
-</div>
-</div><div class="textblock"><div class="dynheader">
-This graph shows which files directly or indirectly include this file:</div>
-<div class="dyncontent">
-<div class="center"><img src="a00097.png" border="0" usemap="#a_socket_utils_8hdep" loading="lazy" alt=""/></div>
-<map name="a_socket_utils_8hdep" id="a_socket_utils_8hdep">
-<area shape="rect" title=" " alt="" coords="91,5,191,32"/>
-<area shape="rect" href="a00107.html" title=" " alt="" coords="5,80,120,107"/>
-<area shape="poly" title=" " alt="" coords="119,42,78,82,74,78,114,43"/>
-<area shape="rect" href="a00119.html" title=" " alt="" coords="144,80,298,107"/>
-<area shape="poly" title=" " alt="" coords="167,40,210,80,205,80,165,45"/>
+<div class="center"><img src="a00096.png" border="0" usemap="#a_unix_datagram_socket_8cpp" loading="lazy" alt=""/></div>
+<map name="a_unix_datagram_socket_8cpp" id="a_unix_datagram_socket_8cpp">
+<area shape="rect" title=" " alt="" coords="240,5,411,32"/>
+<area shape="rect" href="a00104.html" title=" " alt="" coords="247,80,404,107"/>
+<area shape="poly" title=" " alt="" coords="327,30,328,65,323,63,324,35"/>
+<area shape="rect" title=" " alt="" coords="5,304,102,331"/>
+<area shape="poly" title=" " alt="" coords="293,34,241,62,174,104,141,130,110,160,83,194,61,230,54,260,53,289,48,288,48,259,56,228,78,191,106,157,138,126,171,100,239,57,297,31"/>
+<area shape="rect" href="a00092.html" title=" " alt="" coords="154,155,265,181"/>
+<area shape="poly" title=" " alt="" coords="295,34,266,54,237,82,223,110,215,141,210,138,218,108,233,78,262,50,299,31"/>
+<area shape="rect" href="a00047.html" title=" " alt="" coords="428,80,532,107"/>
+<area shape="poly" title=" " alt="" coords="352,30,442,72,437,74,352,35"/>
+<area shape="rect" title=" " alt="" coords="555,80,608,107"/>
+<area shape="poly" title=" " alt="" coords="374,30,543,78,538,80,374,35"/>
+<area shape="rect" href="a00059.html" title=" " alt="" coords="306,155,406,181"/>
+<area shape="poly" title=" " alt="" coords="332,105,347,141,342,140,330,110"/>
+<area shape="rect" href="a00062.html" title=" " alt="" coords="316,229,429,256"/>
+<area shape="poly" title=" " alt="" coords="360,180,369,215,364,213,358,184"/>
+<area shape="poly" title=" " alt="" coords="317,259,118,304,116,299,316,254"/>
+<area shape="rect" title=" " alt="" coords="254,304,307,331"/>
+<area shape="poly" title=" " alt="" coords="359,256,309,297,307,292,354,257"/>
+<area shape="rect" title=" " alt="" coords="334,304,411,331"/>
+<area shape="poly" title=" " alt="" coords="374,255,374,290,370,287,370,258"/>
+<area shape="poly" title=" " alt="" coords="238,179,332,222,327,223,237,185"/>
+<area shape="poly" title=" " alt="" coords="156,184,117,202,98,215,81,231,65,259,58,290,53,288,60,257,77,228,94,211,115,198,160,180"/>
+<area shape="poly" title=" " alt="" coords="221,179,255,228,276,290,271,288,250,231,219,184"/>
+<area shape="rect" title=" " alt="" coords="91,229,155,256"/>
+<area shape="poly" title=" " alt="" coords="196,180,151,221,148,217,192,184"/>
+<area shape="rect" title=" " alt="" coords="179,229,240,256"/>
+<area shape="poly" title=" " alt="" coords="211,180,212,215,207,213,208,184"/>
+<area shape="rect" title=" " alt="" coords="533,155,600,181"/>
+<area shape="poly" title=" " alt="" coords="496,105,543,145,538,144,495,110"/>
+<area shape="rect" title=" " alt="" coords="448,155,510,181"/>
+<area shape="poly" title=" " alt="" coords="482,105,482,140,477,138,478,109"/>
 </map>
 </div>
 </div>
 <p><a href="a00095_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:NET" id="r_NET"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="a00198.html">NET</a></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a732a7b56cd9bee3b9e78d65191540819" id="r_a732a7b56cd9bee3b9e78d65191540819"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="a00198.html#a732a7b56cd9bee3b9e78d65191540819">NET::getBroadcastAddress</a> (std::string_view interface)</td></tr>
-<tr class="memdesc:a732a7b56cd9bee3b9e78d65191540819"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the IPv4 broadcast address of the given network interface.  <br /></td></tr>
-<tr class="memitem:a0e78af39d9ae2194d2b2c75ef6d98674" id="r_a0e78af39d9ae2194d2b2c75ef6d98674"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="a00198.html#a0e78af39d9ae2194d2b2c75ef6d98674">NET::getDestinationAddress</a> (std::string_view interface)</td></tr>
-<tr class="memdesc:a0e78af39d9ae2194d2b2c75ef6d98674"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the IPv4 destination address of the given network interface.  <br /></td></tr>
-<tr class="memitem:a12e5692c6e2e3822b2dadfcc6eff0dba" id="r_a12e5692c6e2e3822b2dadfcc6eff0dba"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="a00198.html#a12e5692c6e2e3822b2dadfcc6eff0dba">NET::getHardwareAddress</a> (std::string_view interface)</td></tr>
-<tr class="memdesc:a12e5692c6e2e3822b2dadfcc6eff0dba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the MAC address of the given network interfaces.  <br /></td></tr>
-<tr class="memitem:a33c9744216c4227b3a8566e9334dbea2" id="r_a33c9744216c4227b3a8566e9334dbea2"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="a00198.html#a33c9744216c4227b3a8566e9334dbea2">NET::getInterfaceAddress</a> (std::string_view interface)</td></tr>
-<tr class="memdesc:a33c9744216c4227b3a8566e9334dbea2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the IPv4 address of the given network interface.  <br /></td></tr>
-<tr class="memitem:a378715509fc6b9fe9fc28e88a10c50df" id="r_a378715509fc6b9fe9fc28e88a10c50df"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="a00198.html#a378715509fc6b9fe9fc28e88a10c50df">NET::getMTU</a> (std::string_view interface)</td></tr>
-<tr class="memdesc:a378715509fc6b9fe9fc28e88a10c50df"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the MTU (Maximum Transmission Unit) of the given network interface in bytes.  <br /></td></tr>
-<tr class="memitem:aafe9e12c05e11b170a82df1df631e5c9" id="r_aafe9e12c05e11b170a82df1df631e5c9"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="a00198.html#aafe9e12c05e11b170a82df1df631e5c9">NET::getNetmask</a> (std::string_view interface)</td></tr>
-<tr class="memdesc:aafe9e12c05e11b170a82df1df631e5c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the IPv4 netmask of the given network interface.  <br /></td></tr>
-<tr class="memitem:a562d8bbf23502459495eb4d720fb6950" id="r_a562d8bbf23502459495eb4d720fb6950"><td class="memItemLeft">std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight"><a class="el" href="a00198.html#a562d8bbf23502459495eb4d720fb6950">NET::getNetworkInterfaces</a> ()</td></tr>
-<tr class="memdesc:a562d8bbf23502459495eb4d720fb6950"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return a list of available network interfaces.  <br /></td></tr>
-<tr class="memitem:ac207188d9fe7362a8fb80b8d46677a3c" id="r_ac207188d9fe7362a8fb80b8d46677a3c"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="a00198.html#ac207188d9fe7362a8fb80b8d46677a3c">NET::resolveHostname</a> (const std::string &amp;hostname)</td></tr>
-<tr class="memitem:a44570e867542281459dc6403d38f0ace" id="r_a44570e867542281459dc6403d38f0ace"><td class="memItemLeft">uint16_t&#160;</td><td class="memItemRight"><a class="el" href="a00198.html#a44570e867542281459dc6403d38f0ace">NET::resolveService</a> (const std::string &amp;service, const std::string &amp;protocol=&quot;tcp&quot;)</td></tr>
-<tr class="memitem:ae8613988c0a1ae36e39a87776d4fd85a" id="r_ae8613988c0a1ae36e39a87776d4fd85a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="a00198.html#ae8613988c0a1ae36e39a87776d4fd85a">NET::setBroadcastAddress</a> (std::string_view interface, std::string_view address)</td></tr>
-<tr class="memdesc:ae8613988c0a1ae36e39a87776d4fd85a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the IPv4 broadcast address of the given network interface.  <br /></td></tr>
-<tr class="memitem:a0247b84b18fc0d9c15af42b6fe8b7a8a" id="r_a0247b84b18fc0d9c15af42b6fe8b7a8a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="a00198.html#a0247b84b18fc0d9c15af42b6fe8b7a8a">NET::setDestinationAddress</a> (std::string_view interface, std::string_view address)</td></tr>
-<tr class="memdesc:a0247b84b18fc0d9c15af42b6fe8b7a8a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the IPv4 destination address of the given network interface.  <br /></td></tr>
-<tr class="memitem:a41ee3779a971275f052a08183e50d10a" id="r_a41ee3779a971275f052a08183e50d10a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="a00198.html#a41ee3779a971275f052a08183e50d10a">NET::setInterfaceAddress</a> (std::string_view interface, std::string_view address)</td></tr>
-<tr class="memdesc:a41ee3779a971275f052a08183e50d10a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the IPv4 address of the given network interface.  <br /></td></tr>
-<tr class="memitem:a787b06a992cd653d0db842e04c97fefc" id="r_a787b06a992cd653d0db842e04c97fefc"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="a00198.html#a787b06a992cd653d0db842e04c97fefc">NET::setMTU</a> (std::string_view interface, int mtu)</td></tr>
-<tr class="memdesc:a787b06a992cd653d0db842e04c97fefc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the MTU (Maximum Transmission Unit) of the given network interface in bytes.  <br /></td></tr>
-<tr class="memitem:aea403c784d7ddf84ee6ae5d09fc13d9c" id="r_aea403c784d7ddf84ee6ae5d09fc13d9c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="a00198.html#aea403c784d7ddf84ee6ae5d09fc13d9c">NET::setNetmask</a> (std::string_view interface, std::string_view address)</td></tr>
-<tr class="memdesc:aea403c784d7ddf84ee6ae5d09fc13d9c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the IPv4 netmask of the given network interface.  <br /></td></tr>
-</table>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
@@ -141,7 +121,7 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_43e0a1f539e00dcfa1a6bc4d4fee4fc2.html">home</a></li><li class="navelem"><a href="dir_973469fe03307bc0e5780de41ae07045.html">seek</a></li><li class="navelem"><a href="dir_81a8672a3de2fdc40453108918520b77.html">Data</a></li><li class="navelem"><a href="dir_c5c04bceea4264d11ac3486c90412d29.html">Repositories</a></li><li class="navelem"><a href="dir_ffd1759873cc7e6debbb5be08b79e165.html">simple-socket</a></li><li class="navelem"><a href="a00095.html">SocketUtils.h</a></li>
+    <li class="navelem"><a href="dir_43e0a1f539e00dcfa1a6bc4d4fee4fc2.html">home</a></li><li class="navelem"><a href="dir_973469fe03307bc0e5780de41ae07045.html">seek</a></li><li class="navelem"><a href="dir_81a8672a3de2fdc40453108918520b77.html">Data</a></li><li class="navelem"><a href="dir_c5c04bceea4264d11ac3486c90412d29.html">Repositories</a></li><li class="navelem"><a href="dir_ffd1759873cc7e6debbb5be08b79e165.html">simple-socket</a></li><li class="navelem"><a href="a00095.html">UnixDatagramSocket.cpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

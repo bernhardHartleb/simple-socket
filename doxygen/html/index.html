@@ -63,19 +63,25 @@ $(function(){initNavTree('index.html','',''); });
   <div class="headertitle"><div class="title">simple-socket library </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>An easy to use C++ socket and network library, mainly for UNIX systems.</p>
+<div class="textblock"><p>An easy to use C++ socket and network library, for Unix based systems.</p>
 <h1 class="doxsection"><a class="anchor" id="Overview"></a>
 Overview</h1>
 <p>The following features are currently available:</p>
 <ul>
-<li>Streams (TCP) and Datagrams (UDP)</li>
-<li>IPv4 and Unix Domain Sockets</li>
-<li>UDP Multicasting</li>
-<li>Experimental SCTP protocol support</li>
+<li>IPv4/IPv6 TCP and UDP sockets</li>
+<li>UDP multicast support (IPv4 only)</li>
+<li>Unix domain stream and datagram sockets</li>
+<li>Blocking I/O plus timeout variants for connect, accept and receive</li>
+<li>Peer-disconnect tracking for connected sockets</li>
+<li>Stream based sendAll and receiveAll helpers</li>
+<li>Hostname, service and network-interface utilities</li>
+<li>Optional SocketCAN support</li>
+<li>Optional SCTP support</li>
+<li>CMake build, unit tests and example programs</li>
 </ul>
 <h1 class="doxsection"><a class="anchor" id="License"></a>
 License</h1>
-<p>This library is released under the <a href="http://en.wikipedia.org/wiki/MIT_License" target="_blank">MIT License</a>. </p>
+<p>This library is released under the <a href="https://en.wikipedia.org/wiki/MIT_License" target="_blank">MIT License</a>. </p>
 </div></div><!-- PageDoc -->
 <a href="doxygen_crawl.html"></a>
 </div><!-- contents -->

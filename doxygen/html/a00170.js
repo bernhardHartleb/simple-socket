@@ -1,4 +1,4 @@
 var a00170 =
 [
-    [ "NET::UnixStreamSocket", "a01098.html", "a01098" ]
+    [ "NET::SocketHandle&lt; Socket &gt;", "a01052.html", "a01052" ]
 ];

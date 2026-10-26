@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>simple-socket library: SocketHandle.h Source File</title>
+<title>simple-socket library: TCPSocket.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -60,100 +60,99 @@ $(function(){initNavTree('a00176_source.html','',''); });
 <div id="container">
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">SocketHandle.h</div></div>
+  <div class="headertitle"><div class="title">TCPSocket.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00176.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef NET_SocketHandle_h__</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define NET_SocketHandle_h__</span></div>
+<a href="a00176.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="a00095.html">TCPSocket.h</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;<a class="code" href="a00134.html">TempFailure.h</a>&quot;</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;unistd.h&gt;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="a00198.html">NET</a></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    <span class="keyword">class </span><a class="code hl_class" href="a01058.html">TCPSocket</a>;</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <span class="keyword">class </span><a class="code hl_class" href="a01038.html">SCTPSocket</a>;</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    <span class="keyword">class </span><a class="code hl_class" href="a01098.html">UnixStreamSocket</a>;</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span></div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keyword">template</span>&lt;<span class="keyword">class</span> Socket&gt;</div>
-<div class="foldopen" id="foldopen00038" data-start="{" data-end="};">
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="a01050.html">   38</a></span>    <span class="keyword">class </span><a class="code hl_function" href="a01050.html#af810dc908fcdd5e7e189a71beb3503d1">SocketHandle</a></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    {</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno"><a class="line" href="a01050.html#ae392721345f444f04761959f689c8ecb">   41</a></span>        <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_friend" href="a01050.html#ae392721345f444f04761959f689c8ecb">TCPSocket</a>;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="a01050.html#a91de491f7eb2704550d11edb1c449793">   42</a></span>        <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_friend" href="a01050.html#a91de491f7eb2704550d11edb1c449793">SCTPSocket</a>;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="a01050.html#a39a16b2c8ca22b61779a13a7198ca6f6">   43</a></span>        <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_friend" href="a01050.html#a39a16b2c8ca22b61779a13a7198ca6f6">UnixStreamSocket</a>;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span></div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="a01050.html#a4a02af70ce82c2a6752347af0c869028">   46</a></span>        <span class="keyword">typedef</span> Socket <a class="code hl_typedef" href="a01050.html#a4a02af70ce82c2a6752347af0c869028">socket_type</a>;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="a01050.html#af810dc908fcdd5e7e189a71beb3503d1">   49</a></span>        <a class="code hl_function" href="a01050.html#af810dc908fcdd5e7e189a71beb3503d1">SocketHandle</a>() noexcept : m_sockfd(-1) {}</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="a01050.html#aedddb0f1c71366ae06c7618eb58112d8">   51</a></span>        <a class="code hl_function" href="a01050.html#aedddb0f1c71366ae06c7618eb58112d8">SocketHandle</a>( <span class="keyword">const</span> <a class="code hl_function" href="a01050.html#af810dc908fcdd5e7e189a71beb3503d1">SocketHandle</a>&amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="a01050.html#a4807e707ed35c79c3de954840dc8b73a">   52</a></span>        <a class="code hl_function" href="a01050.html#af810dc908fcdd5e7e189a71beb3503d1">SocketHandle</a>&amp; <a class="code hl_function" href="a01050.html#a4807e707ed35c79c3de954840dc8b73a">operator=</a>( <span class="keyword">const</span> <a class="code hl_function" href="a01050.html#af810dc908fcdd5e7e189a71beb3503d1">SocketHandle</a>&amp;) = <span class="keyword">delete</span>;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span></div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="a01050.html#a1dd5597021af545d876f4eadc52888d4">   55</a></span>        <a class="code hl_function" href="a01050.html#a1dd5597021af545d876f4eadc52888d4">SocketHandle</a>( <a class="code hl_function" href="a01050.html#af810dc908fcdd5e7e189a71beb3503d1">SocketHandle</a>&amp;&amp; other) noexcept : m_sockfd(other.release()) {}</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span></div>
-<div class="foldopen" id="foldopen00058" data-start="{" data-end="}">
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="a01050.html#a223b14b00b0c1c64f492fb9294afa5aa">   58</a></span>        <a class="code hl_function" href="a01050.html#af810dc908fcdd5e7e189a71beb3503d1">SocketHandle</a>&amp; <a class="code hl_function" href="a01050.html#a223b14b00b0c1c64f492fb9294afa5aa">operator=</a>( <a class="code hl_function" href="a01050.html#af810dc908fcdd5e7e189a71beb3503d1">SocketHandle</a>&amp;&amp; other) <span class="keyword">noexcept</span></div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        {</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>            <span class="keywordflow">if</span>( <span class="keyword">this</span> != &amp;other)</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>                reset(other.release());</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>            <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        }</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;sys/socket.h&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;netinet/in.h&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;netinet/tcp.h&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;poll.h&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="a00195.html">NET</a>;</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="foldopen" id="foldopen00011" data-start="{" data-end="}">
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="a01060.html#a027ee58476587de7dd5adb0c56ee95d5">   11</a></span><a class="code hl_function" href="a01060.html#a027ee58476587de7dd5adb0c56ee95d5">TCPSocket::TCPSocket</a>( <a class="code hl_enumeration" href="a00195.html#a657e1fa5f020df28069800f3fb19eab6">AddressFamily</a> family)</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>: <a class="code hl_function" href="a01032.html#a720690007444358deac8d21a7f1a82bd">InternetSocket</a>( family, SOCK_STREAM, IPPROTO_TCP)</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{}</div>
 </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="a01050.html#a9f1ac1de1ede338619b2177e075689bb">   65</a></span>        <a class="code hl_function" href="a01050.html#a9f1ac1de1ede338619b2177e075689bb">~SocketHandle</a>() noexcept { reset(); }</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span></div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span></div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno"><a class="line" href="a01050.html#aed9eab408f6a72c47687a4e2f3a7f50b">   75</a></span>        <span class="keyword">explicit</span> <span class="keyword">operator</span> bool() const noexcept { <span class="keywordflow">return</span> m_sockfd &gt;= 0; }</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>        <span class="keyword">explicit</span> <a class="code hl_function" href="a01050.html#af810dc908fcdd5e7e189a71beb3503d1">SocketHandle</a>( <span class="keywordtype">int</span> sockfd) noexcept : m_sockfd(sockfd) {}</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span></div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="keywordtype">int</span> release() noexcept</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>        {</div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>            <span class="keywordtype">int</span> tmp = m_sockfd;</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>            m_sockfd = -1;</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>            <span class="keywordflow">return</span> tmp;</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        }</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span></div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <span class="keywordtype">void</span> reset( <span class="keywordtype">int</span> fd = -1) noexcept</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        {</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>            <span class="keywordflow">if</span>( fd != m_sockfd)</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>            {</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>                <span class="keywordflow">if</span>( m_sockfd &gt;= 0) ::close(m_sockfd);</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>                m_sockfd = fd;</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>            }</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>        }</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span> </div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>        <span class="keywordtype">int</span> m_sockfd;</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    };</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="foldopen" id="foldopen00015" data-start="{" data-end="}">
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno"><a class="line" href="a01060.html#ae227bea6646fccdb4c92872c27a6a58e">   15</a></span><a class="code hl_function" href="a01060.html#a027ee58476587de7dd5adb0c56ee95d5">TCPSocket::TCPSocket</a>( <a class="code hl_typedef" href="a01060.html#a6c8ff2b6fa5bbc47f51ebd0ec3158872">Handle</a>&amp;&amp; handle)</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>: <a class="code hl_function" href="a01032.html#a720690007444358deac8d21a7f1a82bd">InternetSocket</a>( handle.release() )</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>{}</div>
 </div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>} <span class="comment">// namespace NET</span></div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span> </div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span><span class="preprocessor">#endif </span><span class="comment">// NET_SocketHandle_h__</span></div>
-<div class="ttc" id="aa00198_html"><div class="ttname"><a href="a00198.html">NET</a></div><div class="ttdef"><b>Definition</b> <a href="a00110_source.html#l00006">CANRawSocket.h:7</a></div></div>
-<div class="ttc" id="aa01038_html"><div class="ttname"><a href="a01038.html">NET::SCTPSocket</a></div><div class="ttdoc">SCTP socket class.</div><div class="ttdef"><b>Definition</b> <a href="a00185_source.html#l00016">SCTPSocket.h:17</a></div></div>
-<div class="ttc" id="aa01050_html_a1dd5597021af545d876f4eadc52888d4"><div class="ttname"><a href="a01050.html#a1dd5597021af545d876f4eadc52888d4">NET::SocketHandle::SocketHandle</a></div><div class="ttdeci">SocketHandle(SocketHandle &amp;&amp;other) noexcept</div><div class="ttdoc">move constructor: transfers ownership from other</div><div class="ttdef"><b>Definition</b> <a href="#l00055">SocketHandle.h:55</a></div></div>
-<div class="ttc" id="aa01050_html_a223b14b00b0c1c64f492fb9294afa5aa"><div class="ttname"><a href="a01050.html#a223b14b00b0c1c64f492fb9294afa5aa">NET::SocketHandle::operator=</a></div><div class="ttdeci">SocketHandle &amp; operator=(SocketHandle &amp;&amp;other) noexcept</div><div class="ttdoc">move assignment: closes the currently owned descriptor first</div><div class="ttdef"><b>Definition</b> <a href="#l00058">SocketHandle.h:58</a></div></div>
-<div class="ttc" id="aa01050_html_a39a16b2c8ca22b61779a13a7198ca6f6"><div class="ttname"><a href="a01050.html#a39a16b2c8ca22b61779a13a7198ca6f6">NET::SocketHandle&lt; SCTPSocket &gt;::UnixStreamSocket</a></div><div class="ttdeci">friend class UnixStreamSocket</div><div class="ttdef"><b>Definition</b> <a href="#l00043">SocketHandle.h:43</a></div></div>
-<div class="ttc" id="aa01050_html_a4807e707ed35c79c3de954840dc8b73a"><div class="ttname"><a href="a01050.html#a4807e707ed35c79c3de954840dc8b73a">NET::SocketHandle::operator=</a></div><div class="ttdeci">SocketHandle &amp; operator=(const SocketHandle &amp;)=delete</div></div>
-<div class="ttc" id="aa01050_html_a4a02af70ce82c2a6752347af0c869028"><div class="ttname"><a href="a01050.html#a4a02af70ce82c2a6752347af0c869028">NET::SocketHandle&lt; SCTPSocket &gt;::socket_type</a></div><div class="ttdeci">SCTPSocket socket_type</div><div class="ttdef"><b>Definition</b> <a href="#l00046">SocketHandle.h:46</a></div></div>
-<div class="ttc" id="aa01050_html_a91de491f7eb2704550d11edb1c449793"><div class="ttname"><a href="a01050.html#a91de491f7eb2704550d11edb1c449793">NET::SocketHandle&lt; SCTPSocket &gt;::SCTPSocket</a></div><div class="ttdeci">friend class SCTPSocket</div><div class="ttdef"><b>Definition</b> <a href="#l00042">SocketHandle.h:42</a></div></div>
-<div class="ttc" id="aa01050_html_a9f1ac1de1ede338619b2177e075689bb"><div class="ttname"><a href="a01050.html#a9f1ac1de1ede338619b2177e075689bb">NET::SocketHandle::~SocketHandle</a></div><div class="ttdeci">~SocketHandle() noexcept</div><div class="ttdef"><b>Definition</b> <a href="#l00065">SocketHandle.h:65</a></div></div>
-<div class="ttc" id="aa01050_html_ae392721345f444f04761959f689c8ecb"><div class="ttname"><a href="a01050.html#ae392721345f444f04761959f689c8ecb">NET::SocketHandle&lt; SCTPSocket &gt;::TCPSocket</a></div><div class="ttdeci">friend class TCPSocket</div><div class="ttdef"><b>Definition</b> <a href="#l00041">SocketHandle.h:41</a></div></div>
-<div class="ttc" id="aa01050_html_aedddb0f1c71366ae06c7618eb58112d8"><div class="ttname"><a href="a01050.html#aedddb0f1c71366ae06c7618eb58112d8">NET::SocketHandle::SocketHandle</a></div><div class="ttdeci">SocketHandle(const SocketHandle &amp;)=delete</div></div>
-<div class="ttc" id="aa01050_html_af810dc908fcdd5e7e189a71beb3503d1"><div class="ttname"><a href="a01050.html#af810dc908fcdd5e7e189a71beb3503d1">NET::SocketHandle::SocketHandle</a></div><div class="ttdeci">SocketHandle() noexcept</div><div class="ttdoc">constructs an invalid socket handle</div><div class="ttdef"><b>Definition</b> <a href="#l00049">SocketHandle.h:49</a></div></div>
-<div class="ttc" id="aa01058_html"><div class="ttname"><a href="a01058.html">NET::TCPSocket</a></div><div class="ttdoc">TCP socket class.</div><div class="ttdef"><b>Definition</b> <a href="a00098_source.html#l00010">TCPSocket.h:11</a></div></div>
-<div class="ttc" id="aa01098_html"><div class="ttname"><a href="a01098.html">NET::UnixStreamSocket</a></div><div class="ttdoc">Unix domain stream socket class.</div><div class="ttdef"><b>Definition</b> <a href="a00170_source.html#l00010">UnixStreamSocket.h:11</a></div></div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="foldopen" id="foldopen00019" data-start="{" data-end="}">
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="a01060.html#a95859a939179e7d08239f64b880727ee">   19</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a01060.html#a95859a939179e7d08239f64b880727ee">TCPSocket::setNoDelay</a>( <span class="keywordtype">bool</span> enable)</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>{</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> value = enable;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    <span class="keywordflow">if</span>( ::setsockopt( <a class="code hl_variable" href="a01044.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a>, IPPROTO_TCP, TCP_NODELAY, &amp;value, <span class="keyword">sizeof</span>(value)) &lt; 0)</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="keywordflow">throw</span> <a class="code hl_class" href="a01040.html">SocketException</a>(<span class="stringliteral">&quot;Failed to set TCP_NODELAY (setsockopt)&quot;</span>);</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>}</div>
+</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="foldopen" id="foldopen00026" data-start="{" data-end="}">
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="a01060.html#ab73d41b8b389a74ffe0cc6682bf93bde">   26</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="a01060.html#ab73d41b8b389a74ffe0cc6682bf93bde">TCPSocket::listen</a>( <span class="keywordtype">int</span> backlog)</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>{</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    <span class="keywordtype">int</span> ret = <a class="code hl_function" href="a01060.html#ab73d41b8b389a74ffe0cc6682bf93bde">::listen</a>( <a class="code hl_variable" href="a01044.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a>, backlog);</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keywordflow">if</span>( ret &lt; 0)</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="keywordflow">throw</span> <a class="code hl_class" href="a01040.html">SocketException</a>(<span class="stringliteral">&quot;TCPSocket::listen failed&quot;</span>);</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>}</div>
+</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="foldopen" id="foldopen00033" data-start="{" data-end="}">
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="a01060.html#abf7e125c75121962fc90804a1586a855">   33</a></span><a class="code hl_typedef" href="a01060.html#a6c8ff2b6fa5bbc47f51ebd0ec3158872">TCPSocket::Handle</a> <a class="code hl_function" href="a01060.html#abf7e125c75121962fc90804a1586a855">TCPSocket::accept</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordtype">int</span> ret = <a class="code hl_define" href="a00173.html#ae3924d534a2de097f5cccb535330e8c2">TEMP_FAILURE_RETRY</a> (<a class="code hl_function" href="a01060.html#abf7e125c75121962fc90804a1586a855">::accept</a>( <a class="code hl_variable" href="a01044.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a>, <span class="keyword">nullptr</span>, <span class="keyword">nullptr</span>));</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordflow">if</span>( ret &lt; 0)</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="keywordflow">throw</span> <a class="code hl_class" href="a01040.html">SocketException</a>(<span class="stringliteral">&quot;TCPSocket::accept failed&quot;</span>);</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keywordflow">return</span> <a class="code hl_typedef" href="a01060.html#a6c8ff2b6fa5bbc47f51ebd0ec3158872">Handle</a>(ret);</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>}</div>
+</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
+<div class="foldopen" id="foldopen00042" data-start="{" data-end="}">
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno"><a class="line" href="a01060.html#abeed4b82de8b5347150fab3c55e68e85">   42</a></span><a class="code hl_typedef" href="a01060.html#a6c8ff2b6fa5bbc47f51ebd0ec3158872">TCPSocket::Handle</a> <a class="code hl_function" href="a01060.html#abeed4b82de8b5347150fab3c55e68e85">TCPSocket::timedAccept</a>( <span class="keywordtype">int</span> timeout)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    <span class="keyword">struct </span>pollfd poll;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    poll.fd = <a class="code hl_variable" href="a01044.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a>;</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    poll.events = POLLIN;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span> </div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    <span class="keywordtype">int</span> ret = <a class="code hl_define" href="a00173.html#ae3924d534a2de097f5cccb535330e8c2">TEMP_FAILURE_RETRY</a> (::poll( &amp;poll, 1, timeout));</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordflow">if</span>( ret == 0) <span class="keywordflow">return</span> <a class="code hl_typedef" href="a01060.html#a6c8ff2b6fa5bbc47f51ebd0ec3158872">Handle</a>();</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    <span class="keywordflow">if</span>( ret &lt; 0)</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <span class="keywordflow">throw</span> <a class="code hl_class" href="a01040.html">SocketException</a>(<span class="stringliteral">&quot;TCPSocket::timedAccept failed (poll)&quot;</span>);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordflow">if</span>( poll.revents &amp; (POLLERR | POLLNVAL))</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keywordflow">throw</span> <a class="code hl_class" href="a01040.html">SocketException</a>(<span class="stringliteral">&quot;TCPSocket::timedAccept failed (poll)&quot;</span>);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="a01060.html#abf7e125c75121962fc90804a1586a855">accept</a>();</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>}</div>
+</div>
+<div class="ttc" id="aa00095_html"><div class="ttname"><a href="a00095.html">TCPSocket.h</a></div></div>
+<div class="ttc" id="aa00134_html"><div class="ttname"><a href="a00134.html">TempFailure.h</a></div></div>
+<div class="ttc" id="aa00173_html_ae3924d534a2de097f5cccb535330e8c2"><div class="ttname"><a href="a00173.html#ae3924d534a2de097f5cccb535330e8c2">TEMP_FAILURE_RETRY</a></div><div class="ttdeci">#define TEMP_FAILURE_RETRY(expression)</div><div class="ttdef"><b>Definition</b> <a href="a00173_source.html#l00008">TempFailure-timeout.hh:8</a></div></div>
+<div class="ttc" id="aa00195_html"><div class="ttname"><a href="a00195.html">NET</a></div><div class="ttdef"><b>Definition</b> <a href="a00125_source.html#l00006">CANRawSocket.h:7</a></div></div>
+<div class="ttc" id="aa00195_html_a657e1fa5f020df28069800f3fb19eab6"><div class="ttname"><a href="a00195.html#a657e1fa5f020df28069800f3fb19eab6">NET::AddressFamily</a></div><div class="ttdeci">AddressFamily</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00038">SimpleSocket.h:39</a></div></div>
+<div class="ttc" id="aa01032_html_a720690007444358deac8d21a7f1a82bd"><div class="ttname"><a href="a01032.html#a720690007444358deac8d21a7f1a82bd">NET::InternetSocket::InternetSocket</a></div><div class="ttdeci">InternetSocket(int sockfd)</div><div class="ttdoc">create socket from a SocketHandle returned by an accept() call</div><div class="ttdef"><b>Definition</b> <a href="a00152_source.html#l00062">InternetSocket.cpp:62</a></div></div>
+<div class="ttc" id="aa01040_html"><div class="ttname"><a href="a01040.html">NET::SocketException</a></div><div class="ttdoc">Signals a problem with the execution of a socket call.</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00011">SimpleSocket.h:12</a></div></div>
+<div class="ttc" id="aa01044_html_a721049909aca828a6dd9ee7868897d7c"><div class="ttname"><a href="a01044.html#a721049909aca828a6dd9ee7868897d7c">NET::SimpleSocket::m_socket</a></div><div class="ttdeci">int m_socket</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00241">SimpleSocket.h:241</a></div></div>
+<div class="ttc" id="aa01060_html_a027ee58476587de7dd5adb0c56ee95d5"><div class="ttname"><a href="a01060.html#a027ee58476587de7dd5adb0c56ee95d5">NET::TCPSocket::TCPSocket</a></div><div class="ttdeci">TCPSocket(AddressFamily family=IPv4)</div><div class="ttdef"><b>Definition</b> <a href="#l00011">TCPSocket.cpp:11</a></div></div>
+<div class="ttc" id="aa01060_html_a6c8ff2b6fa5bbc47f51ebd0ec3158872"><div class="ttname"><a href="a01060.html#a6c8ff2b6fa5bbc47f51ebd0ec3158872">NET::TCPSocket::Handle</a></div><div class="ttdeci">SocketHandle&lt; TCPSocket &gt; Handle</div><div class="ttdoc">Handle for a new socket returned by accept().</div><div class="ttdef"><b>Definition</b> <a href="a00095_source.html#l00014">TCPSocket.h:14</a></div></div>
+<div class="ttc" id="aa01060_html_a95859a939179e7d08239f64b880727ee"><div class="ttname"><a href="a01060.html#a95859a939179e7d08239f64b880727ee">NET::TCPSocket::setNoDelay</a></div><div class="ttdeci">void setNoDelay(bool enable)</div><div class="ttdoc">Enable or disable TCP_NODELAY.</div><div class="ttdef"><b>Definition</b> <a href="#l00019">TCPSocket.cpp:19</a></div></div>
+<div class="ttc" id="aa01060_html_ab73d41b8b389a74ffe0cc6682bf93bde"><div class="ttname"><a href="a01060.html#ab73d41b8b389a74ffe0cc6682bf93bde">NET::TCPSocket::listen</a></div><div class="ttdeci">void listen(int backlog=5)</div><div class="ttdoc">listen for incoming connections</div><div class="ttdef"><b>Definition</b> <a href="#l00026">TCPSocket.cpp:26</a></div></div>
+<div class="ttc" id="aa01060_html_abeed4b82de8b5347150fab3c55e68e85"><div class="ttname"><a href="a01060.html#abeed4b82de8b5347150fab3c55e68e85">NET::TCPSocket::timedAccept</a></div><div class="ttdeci">Handle timedAccept(int timeout) const</div><div class="ttdoc">wait for another socket to connect</div><div class="ttdef"><b>Definition</b> <a href="#l00042">TCPSocket.cpp:42</a></div></div>
+<div class="ttc" id="aa01060_html_abf7e125c75121962fc90804a1586a855"><div class="ttname"><a href="a01060.html#abf7e125c75121962fc90804a1586a855">NET::TCPSocket::accept</a></div><div class="ttdeci">Handle accept() const</div><div class="ttdoc">wait for another socket to connect</div><div class="ttdef"><b>Definition</b> <a href="#l00033">TCPSocket.cpp:33</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_43e0a1f539e00dcfa1a6bc4d4fee4fc2.html">home</a></li><li class="navelem"><a href="dir_973469fe03307bc0e5780de41ae07045.html">seek</a></li><li class="navelem"><a href="dir_81a8672a3de2fdc40453108918520b77.html">Data</a></li><li class="navelem"><a href="dir_c5c04bceea4264d11ac3486c90412d29.html">Repositories</a></li><li class="navelem"><a href="dir_ffd1759873cc7e6debbb5be08b79e165.html">simple-socket</a></li><li class="navelem"><a href="a00176.html">SocketHandle.h</a></li>
+    <li class="navelem"><a href="dir_43e0a1f539e00dcfa1a6bc4d4fee4fc2.html">home</a></li><li class="navelem"><a href="dir_973469fe03307bc0e5780de41ae07045.html">seek</a></li><li class="navelem"><a href="dir_81a8672a3de2fdc40453108918520b77.html">Data</a></li><li class="navelem"><a href="dir_c5c04bceea4264d11ac3486c90412d29.html">Repositories</a></li><li class="navelem"><a href="dir_ffd1759873cc7e6debbb5be08b79e165.html">simple-socket</a></li><li class="navelem"><a href="a00176.html">TCPSocket.cpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>simple-socket library: SocketUtils_TEST.cpp Source File</title>
+<title>simple-socket library: UDP_Multicast.cpp Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -60,99 +60,92 @@ $(function(){initNavTree('a00119_source.html','',''); });
 <div id="container">
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">SocketUtils_TEST.cpp</div></div>
+  <div class="headertitle"><div class="title">UDP_Multicast.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="a00119.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;cppunit/extensions/HelperMacros.h&gt;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;<a class="code" href="a00095.html">../SocketUtils.h</a>&quot;</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="keyword">class </span>SocketUtils_TEST : <span class="keyword">public</span> CppUnit::TestFixture</div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span>{</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>    CPPUNIT_TEST_SUITE(SocketUtils_TEST);</div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>    CPPUNIT_TEST(resolveHostname);</div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>    CPPUNIT_TEST(resolveService);</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    CPPUNIT_TEST(getNetworkInterfaces);</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    CPPUNIT_TEST(getInterfaceAddress);</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    CPPUNIT_TEST(getBroadcastAddress);</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    CPPUNIT_TEST(getNetmask);</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    CPPUNIT_TEST(getHardwareAddress);</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    CPPUNIT_TEST_SUITE_END();</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keywordtype">void</span> resolveHostname()</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    {</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        <span class="comment">// should work as long as one has a resonable setup</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        CPPUNIT_ASSERT_EQUAL(std::string(<span class="stringliteral">&quot;127.0.0.1&quot;</span>), <a class="code hl_function" href="a00198.html#ac207188d9fe7362a8fb80b8d46677a3c">NET::resolveHostname</a>(<span class="stringliteral">&quot;localhost&quot;</span>));</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    }</div>
+<a href="a00119.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="a00155.html">../UDPSocket.h</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
+<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;array&gt;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;iostream&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno"><a class="line" href="a00119.html#a918af6d26af58e0ac23c45418dfceee4">    6</a></span><span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span> <a class="code hl_variable" href="a00119.html#a918af6d26af58e0ac23c45418dfceee4">multicast_group</a>[] = <span class="stringliteral">&quot;239.255.0.1&quot;</span>;</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="a00119.html#a9ee23a4098a0019e554c59fc5f79b8f7">    7</a></span><span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> <a class="code hl_variable" href="a00119.html#a9ee23a4098a0019e554c59fc5f79b8f7">multicast_port</a> = 47777;</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="a00119.html#a91f12e91f0647734f40a2577ffbce84a">    8</a></span><span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span> <a class="code hl_variable" href="a00107.html#a91f12e91f0647734f40a2577ffbce84a">send_msg</a>[] = <span class="stringliteral">&quot;Welcome to our multicast group!&quot;</span>;</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="a00119.html#a8747901d6abb4519ce0d7d82c0476ca3">    9</a></span><span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code hl_variable" href="a00107.html#a082ab9f8464f9d636e4b83d7498bfebb">send_len</a> = <span class="keyword">sizeof</span>(<a class="code hl_variable" href="a00107.html#a91f12e91f0647734f40a2577ffbce84a">send_msg</a>) - 1;</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="foldopen" id="foldopen00011" data-start="{" data-end="}">
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="a00119.html#ae66f6b31b5ad750f1fe042a706a4e3d4">   11</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="a00119.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a>()</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>{</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keywordflow">try</span> {</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <a class="code hl_class" href="a01064.html">NET::UDPSocket</a> recv_socket;</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="comment">// Allow multiple multicast receivers on this port (all get a copy)</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    recv_socket.<a class="code hl_function" href="a01032.html#a927d978f6f79933d109433f607c8241a">setReuseAddress</a>(<span class="keyword">true</span>);</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="comment">// Listen on the multicast port on any IPv4 address</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    recv_socket.<a class="code hl_function" href="a01032.html#a02046392ba4e5810f7dc900686ac9a93">bind</a>(<a class="code hl_variable" href="a00119.html#a9ee23a4098a0019e554c59fc5f79b8f7">multicast_port</a>);</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="comment">// Join the multicast group so packets addressed to the group can be delivered to this socket</span></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    recv_socket.<a class="code hl_function" href="a01064.html#ac6cdb609f7f9579384129042f90cd220">joinGroup</a>(<a class="code hl_variable" href="a00119.html#a918af6d26af58e0ac23c45418dfceee4">multicast_group</a>);</div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keywordtype">void</span> resolveService()</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    {</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="comment">// HTTP over TCP is known, also over UDP, but not via DDP</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        CPPUNIT_ASSERT( <a class="code hl_function" href="a00198.html#a44570e867542281459dc6403d38f0ace">NET::resolveService</a>( <span class="stringliteral">&quot;http&quot;</span>) == 80);</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        CPPUNIT_ASSERT( <a class="code hl_function" href="a00198.html#a44570e867542281459dc6403d38f0ace">NET::resolveService</a>( <span class="stringliteral">&quot;http&quot;</span>, <span class="stringliteral">&quot;&quot;</span>) == 80);</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        CPPUNIT_ASSERT( <a class="code hl_function" href="a00198.html#a44570e867542281459dc6403d38f0ace">NET::resolveService</a>( <span class="stringliteral">&quot;http&quot;</span>, <span class="stringliteral">&quot;udp&quot;</span>) == 80);</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        CPPUNIT_ASSERT( <a class="code hl_function" href="a00198.html#a44570e867542281459dc6403d38f0ace">NET::resolveService</a>( <span class="stringliteral">&quot;http&quot;</span>, <span class="stringliteral">&quot;ddp&quot;</span>) == 0);</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        <span class="comment">// but there is no rtmp over TCP or UDP</span></div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        CPPUNIT_ASSERT( <a class="code hl_function" href="a00198.html#a44570e867542281459dc6403d38f0ace">NET::resolveService</a>( <span class="stringliteral">&quot;rtmp&quot;</span>) == 0);</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        CPPUNIT_ASSERT( <a class="code hl_function" href="a00198.html#a44570e867542281459dc6403d38f0ace">NET::resolveService</a>( <span class="stringliteral">&quot;rtmp&quot;</span>, <span class="stringliteral">&quot;udp&quot;</span>) == 0);</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="comment">// but there is over DDP</span></div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>        CPPUNIT_ASSERT( <a class="code hl_function" href="a00198.html#a44570e867542281459dc6403d38f0ace">NET::resolveService</a>( <span class="stringliteral">&quot;rtmp&quot;</span>, <span class="stringliteral">&quot;ddp&quot;</span>) == 1);</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        CPPUNIT_ASSERT( <a class="code hl_function" href="a00198.html#a44570e867542281459dc6403d38f0ace">NET::resolveService</a>( <span class="stringliteral">&quot;rtmp&quot;</span>, <span class="stringliteral">&quot;&quot;</span>) == 1);</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="comment">// there is no IANA protocol named &#39;foo&#39;</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        CPPUNIT_ASSERT( <a class="code hl_function" href="a00198.html#a44570e867542281459dc6403d38f0ace">NET::resolveService</a>( <span class="stringliteral">&quot;foo&quot;</span>) == 0);</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        <span class="comment">// also not on other transport layers</span></div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        CPPUNIT_ASSERT( <a class="code hl_function" href="a00198.html#a44570e867542281459dc6403d38f0ace">NET::resolveService</a>( <span class="stringliteral">&quot;foo&quot;</span>, <span class="stringliteral">&quot;&quot;</span>) == 0);</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <a class="code hl_class" href="a01064.html">NET::UDPSocket</a> send_socket;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="comment">// TTL 0 keeps packets self-contained on the local host</span></div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    send_socket.<a class="code hl_function" href="a01064.html#a4dcfff33b45d1b84b5a602fc6f4a27f8">setMulticastTTL</a>(0);</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="comment">// Send to group</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    send_socket.<a class="code hl_function" href="a01064.html#ad523f1e8b0e299262f06043ac7be1e50">sendTo</a>(<a class="code hl_variable" href="a00107.html#a91f12e91f0647734f40a2577ffbce84a">send_msg</a>, <a class="code hl_variable" href="a00107.html#a082ab9f8464f9d636e4b83d7498bfebb">send_len</a>, <a class="code hl_variable" href="a00119.html#a918af6d26af58e0ac23c45418dfceee4">multicast_group</a>, <a class="code hl_variable" href="a00119.html#a9ee23a4098a0019e554c59fc5f79b8f7">multicast_port</a>);</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    std::array&lt;char, 256&gt; buffer{};</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    std::string source;</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> source_port = 0;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span> </div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>    <span class="comment">// UDP preserves datagram boundaries</span></div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    <span class="comment">// one receiveFrom() corresponds to one datagram</span></div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    <span class="keywordtype">int</span> received = recv_socket.<a class="code hl_function" href="a01064.html#a1be4253434f78c9e227719c80c8074ef">timedReceiveFrom</a>(buffer.data(), buffer.size(), source, source_port, 1000);</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    <span class="keywordflow">if</span> (received == 0)</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    {</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>        std::cerr &lt;&lt; <span class="stringliteral">&quot;Timed out waiting for multicast datagram.&quot;</span> &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <span class="keywordflow">return</span> 1;</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    }</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="keywordtype">void</span> getNetworkInterfaces()</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    {</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keyword">auto</span> list = <a class="code hl_function" href="a00198.html#a562d8bbf23502459495eb4d720fb6950">NET::getNetworkInterfaces</a>();</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>        CPPUNIT_ASSERT(list.size() &gt;= 1);</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        CPPUNIT_ASSERT_EQUAL(std::string(<span class="stringliteral">&quot;lo&quot;</span>), list[0]);</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    }</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>    <span class="keywordtype">void</span> getInterfaceAddress()</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    {</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        CPPUNIT_ASSERT_EQUAL(std::string(<span class="stringliteral">&quot;127.0.0.1&quot;</span>), <a class="code hl_function" href="a00198.html#a33c9744216c4227b3a8566e9334dbea2">NET::getInterfaceAddress</a>(<span class="stringliteral">&quot;lo&quot;</span>));</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    }</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keywordtype">void</span> getBroadcastAddress()</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    {</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        CPPUNIT_ASSERT_EQUAL(std::string(<span class="stringliteral">&quot;0.0.0.0&quot;</span>), <a class="code hl_function" href="a00198.html#a732a7b56cd9bee3b9e78d65191540819">NET::getBroadcastAddress</a>(<span class="stringliteral">&quot;lo&quot;</span>));</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    }</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    <span class="keywordtype">void</span> getNetmask()</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    {</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        CPPUNIT_ASSERT_EQUAL(std::string(<span class="stringliteral">&quot;255.0.0.0&quot;</span>), <a class="code hl_function" href="a00198.html#aafe9e12c05e11b170a82df1df631e5c9">NET::getNetmask</a>(<span class="stringliteral">&quot;lo&quot;</span>));</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    }</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>    <span class="keywordtype">void</span> getHardwareAddress()</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>    {</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <span class="comment">// assumes there is at least one nonlocal interface</span></div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        <span class="keyword">auto</span> list = <a class="code hl_function" href="a00198.html#a562d8bbf23502459495eb4d720fb6950">NET::getNetworkInterfaces</a>();</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        CPPUNIT_ASSERT(list.size() &gt;= 2);</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keyword">auto</span> mac = <a class="code hl_function" href="a00198.html#a12e5692c6e2e3822b2dadfcc6eff0dba">NET::getHardwareAddress</a>(list[1]);</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>        CPPUNIT_ASSERT(mac.size() == 17);</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    }</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>};</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno"><a class="line" href="a00119.html#ad06691eac3060bc8150390c1530e951a">   74</a></span><a class="code hl_function" href="a00119.html#ad06691eac3060bc8150390c1530e951a">CPPUNIT_TEST_SUITE_REGISTRATION</a>(SocketUtils_TEST);</div>
-<div class="ttc" id="aa00095_html"><div class="ttname"><a href="a00095.html">SocketUtils.h</a></div></div>
-<div class="ttc" id="aa00119_html_ad06691eac3060bc8150390c1530e951a"><div class="ttname"><a href="a00119.html#ad06691eac3060bc8150390c1530e951a">CPPUNIT_TEST_SUITE_REGISTRATION</a></div><div class="ttdeci">CPPUNIT_TEST_SUITE_REGISTRATION(SocketUtils_TEST)</div></div>
-<div class="ttc" id="aa00198_html_a12e5692c6e2e3822b2dadfcc6eff0dba"><div class="ttname"><a href="a00198.html#a12e5692c6e2e3822b2dadfcc6eff0dba">NET::getHardwareAddress</a></div><div class="ttdeci">std::string getHardwareAddress(std::string_view interface)</div><div class="ttdoc">Return the MAC address of the given network interfaces.</div><div class="ttdef"><b>Definition</b> <a href="a00107_source.html#l00267">SocketUtils.cpp:267</a></div></div>
-<div class="ttc" id="aa00198_html_a33c9744216c4227b3a8566e9334dbea2"><div class="ttname"><a href="a00198.html#a33c9744216c4227b3a8566e9334dbea2">NET::getInterfaceAddress</a></div><div class="ttdeci">std::string getInterfaceAddress(std::string_view interface)</div><div class="ttdoc">Return the IPv4 address of the given network interface.</div><div class="ttdef"><b>Definition</b> <a href="a00107_source.html#l00151">SocketUtils.cpp:151</a></div></div>
-<div class="ttc" id="aa00198_html_a44570e867542281459dc6403d38f0ace"><div class="ttname"><a href="a00198.html#a44570e867542281459dc6403d38f0ace">NET::resolveService</a></div><div class="ttdeci">uint16_t resolveService(const std::string &amp;service, const std::string &amp;protocol=&quot;tcp&quot;)</div><div class="ttdef"><b>Definition</b> <a href="a00107_source.html#l00084">SocketUtils.cpp:84</a></div></div>
-<div class="ttc" id="aa00198_html_a562d8bbf23502459495eb4d720fb6950"><div class="ttname"><a href="a00198.html#a562d8bbf23502459495eb4d720fb6950">NET::getNetworkInterfaces</a></div><div class="ttdeci">std::vector&lt; std::string &gt; getNetworkInterfaces()</div><div class="ttdoc">Return a list of available network interfaces.</div><div class="ttdef"><b>Definition</b> <a href="a00107_source.html#l00114">SocketUtils.cpp:114</a></div></div>
-<div class="ttc" id="aa00198_html_a732a7b56cd9bee3b9e78d65191540819"><div class="ttname"><a href="a00198.html#a732a7b56cd9bee3b9e78d65191540819">NET::getBroadcastAddress</a></div><div class="ttdeci">std::string getBroadcastAddress(std::string_view interface)</div><div class="ttdoc">Return the IPv4 broadcast address of the given network interface.</div><div class="ttdef"><b>Definition</b> <a href="a00107_source.html#l00174">SocketUtils.cpp:174</a></div></div>
-<div class="ttc" id="aa00198_html_aafe9e12c05e11b170a82df1df631e5c9"><div class="ttname"><a href="a00198.html#aafe9e12c05e11b170a82df1df631e5c9">NET::getNetmask</a></div><div class="ttdeci">std::string getNetmask(std::string_view interface)</div><div class="ttdoc">Return the IPv4 netmask of the given network interface.</div><div class="ttdef"><b>Definition</b> <a href="a00107_source.html#l00197">SocketUtils.cpp:197</a></div></div>
-<div class="ttc" id="aa00198_html_ac207188d9fe7362a8fb80b8d46677a3c"><div class="ttname"><a href="a00198.html#ac207188d9fe7362a8fb80b8d46677a3c">NET::resolveHostname</a></div><div class="ttdeci">std::string resolveHostname(const std::string &amp;hostname)</div><div class="ttdef"><b>Definition</b> <a href="a00107_source.html#l00063">SocketUtils.cpp:63</a></div></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    std::cout &lt;&lt; <span class="stringliteral">&quot;Received from &quot;</span> &lt;&lt; source &lt;&lt; <span class="stringliteral">&quot;:&quot;</span> &lt;&lt; source_port &lt;&lt; <span class="stringliteral">&quot;: &quot;</span>;</div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    std::cout.write(buffer.data(), received);</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>    std::cout &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="comment">// Not required before destruction, but shown because leaving</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>    <span class="comment">// multicast groups explicitly can be useful</span></div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>    recv_socket.<a class="code hl_function" href="a01064.html#ad5f835c48b840e30b471e19d7c3cc2aa">leaveGroup</a>(<a class="code hl_variable" href="a00119.html#a918af6d26af58e0ac23c45418dfceee4">multicast_group</a>);</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span> </div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    }</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    <span class="keywordflow">catch</span> (<span class="keyword">const</span> <a class="code hl_class" href="a01040.html">NET::SocketException</a>&amp; e)</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    {</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        std::cerr &lt;&lt; e.<a class="code hl_function" href="a01040.html#a4175605c41f8230e18aa3323a2ef80c5">what</a>() &lt;&lt; std::endl;</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keywordflow">return</span> 1;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    }</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>}</div>
+</div>
+<div class="ttc" id="aa00107_html_a082ab9f8464f9d636e4b83d7498bfebb"><div class="ttname"><a href="a00107.html#a082ab9f8464f9d636e4b83d7498bfebb">send_len</a></div><div class="ttdeci">static const size_t send_len</div><div class="ttdef"><b>Definition</b> <a href="a00107_source.html#l00006">TCP_Server.cpp:6</a></div></div>
+<div class="ttc" id="aa00107_html_a91f12e91f0647734f40a2577ffbce84a"><div class="ttname"><a href="a00107.html#a91f12e91f0647734f40a2577ffbce84a">send_msg</a></div><div class="ttdeci">static const char send_msg[]</div><div class="ttdef"><b>Definition</b> <a href="a00107_source.html#l00005">TCP_Server.cpp:5</a></div></div>
+<div class="ttc" id="aa00119_html_a918af6d26af58e0ac23c45418dfceee4"><div class="ttname"><a href="a00119.html#a918af6d26af58e0ac23c45418dfceee4">multicast_group</a></div><div class="ttdeci">static const char multicast_group[]</div><div class="ttdef"><b>Definition</b> <a href="#l00006">UDP_Multicast.cpp:6</a></div></div>
+<div class="ttc" id="aa00119_html_a9ee23a4098a0019e554c59fc5f79b8f7"><div class="ttname"><a href="a00119.html#a9ee23a4098a0019e554c59fc5f79b8f7">multicast_port</a></div><div class="ttdeci">static const unsigned short multicast_port</div><div class="ttdef"><b>Definition</b> <a href="#l00007">UDP_Multicast.cpp:7</a></div></div>
+<div class="ttc" id="aa00119_html_ae66f6b31b5ad750f1fe042a706a4e3d4"><div class="ttname"><a href="a00119.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a></div><div class="ttdeci">int main()</div><div class="ttdef"><b>Definition</b> <a href="#l00011">UDP_Multicast.cpp:11</a></div></div>
+<div class="ttc" id="aa00155_html"><div class="ttname"><a href="a00155.html">UDPSocket.h</a></div></div>
+<div class="ttc" id="aa01032_html_a02046392ba4e5810f7dc900686ac9a93"><div class="ttname"><a href="a01032.html#a02046392ba4e5810f7dc900686ac9a93">NET::InternetSocket::bind</a></div><div class="ttdeci">void bind(unsigned short localPort=0)</div><div class="ttdef"><b>Definition</b> <a href="a00152_source.html#l00132">InternetSocket.cpp:132</a></div></div>
+<div class="ttc" id="aa01032_html_a927d978f6f79933d109433f607c8241a"><div class="ttname"><a href="a01032.html#a927d978f6f79933d109433f607c8241a">NET::InternetSocket::setReuseAddress</a></div><div class="ttdeci">void setReuseAddress(bool enable)</div><div class="ttdoc">Enable or disable local address reuse.</div><div class="ttdef"><b>Definition</b> <a href="a00152_source.html#l00067">InternetSocket.cpp:67</a></div></div>
+<div class="ttc" id="aa01040_html"><div class="ttname"><a href="a01040.html">NET::SocketException</a></div><div class="ttdoc">Signals a problem with the execution of a socket call.</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00011">SimpleSocket.h:12</a></div></div>
+<div class="ttc" id="aa01040_html_a4175605c41f8230e18aa3323a2ef80c5"><div class="ttname"><a href="a01040.html#a4175605c41f8230e18aa3323a2ef80c5">NET::SocketException::what</a></div><div class="ttdeci">const char * what() const noexcept</div><div class="ttdoc">Returns a C-string describing the cause of the current error.</div><div class="ttdef"><b>Definition</b> <a href="a00149_source.html#l00028">SimpleSocket.h:28</a></div></div>
+<div class="ttc" id="aa01064_html"><div class="ttname"><a href="a01064.html">NET::UDPSocket</a></div><div class="ttdoc">UDP socket class.</div><div class="ttdef"><b>Definition</b> <a href="a00155_source.html#l00009">UDPSocket.h:10</a></div></div>
+<div class="ttc" id="aa01064_html_a1be4253434f78c9e227719c80c8074ef"><div class="ttname"><a href="a01064.html#a1be4253434f78c9e227719c80c8074ef">NET::UDPSocket::timedReceiveFrom</a></div><div class="ttdeci">int timedReceiveFrom(void *buffer, size_t len, std::string &amp;sourceAddress, unsigned short &amp;sourcePort, int timeout)</div><div class="ttdef"><b>Definition</b> <a href="a00140_source.html#l00063">UDPSocket.cpp:63</a></div></div>
+<div class="ttc" id="aa01064_html_a4dcfff33b45d1b84b5a602fc6f4a27f8"><div class="ttname"><a href="a01064.html#a4dcfff33b45d1b84b5a602fc6f4a27f8">NET::UDPSocket::setMulticastTTL</a></div><div class="ttdeci">void setMulticastTTL(unsigned char multicastTTL)</div><div class="ttdef"><b>Definition</b> <a href="a00140_source.html#l00086">UDPSocket.cpp:86</a></div></div>
+<div class="ttc" id="aa01064_html_ac6cdb609f7f9579384129042f90cd220"><div class="ttname"><a href="a01064.html#ac6cdb609f7f9579384129042f90cd220">NET::UDPSocket::joinGroup</a></div><div class="ttdeci">void joinGroup(const std::string &amp;multicastGroup)</div><div class="ttdef"><b>Definition</b> <a href="a00140_source.html#l00103">UDPSocket.cpp:103</a></div></div>
+<div class="ttc" id="aa01064_html_ad523f1e8b0e299262f06043ac7be1e50"><div class="ttname"><a href="a01064.html#ad523f1e8b0e299262f06043ac7be1e50">NET::UDPSocket::sendTo</a></div><div class="ttdeci">void sendTo(const void *buffer, size_t len, std::string_view foreignAddress, unsigned short foreignPort)</div><div class="ttdef"><b>Definition</b> <a href="a00140_source.html#l00038">UDPSocket.cpp:38</a></div></div>
+<div class="ttc" id="aa01064_html_ad5f835c48b840e30b471e19d7c3cc2aa"><div class="ttname"><a href="a01064.html#ad5f835c48b840e30b471e19d7c3cc2aa">NET::UDPSocket::leaveGroup</a></div><div class="ttdeci">void leaveGroup(const std::string &amp;multicastGroup)</div><div class="ttdef"><b>Definition</b> <a href="a00140_source.html#l00109">UDPSocket.cpp:109</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_43e0a1f539e00dcfa1a6bc4d4fee4fc2.html">home</a></li><li class="navelem"><a href="dir_973469fe03307bc0e5780de41ae07045.html">seek</a></li><li class="navelem"><a href="dir_81a8672a3de2fdc40453108918520b77.html">Data</a></li><li class="navelem"><a href="dir_c5c04bceea4264d11ac3486c90412d29.html">Repositories</a></li><li class="navelem"><a href="dir_ffd1759873cc7e6debbb5be08b79e165.html">simple-socket</a></li><li class="navelem"><a href="dir_8c845b097cea0c7c4fede62210bd4c65.html">tests</a></li><li class="navelem"><a href="a00119.html">SocketUtils_TEST.cpp</a></li>
+    <li class="navelem"><a href="dir_43e0a1f539e00dcfa1a6bc4d4fee4fc2.html">home</a></li><li class="navelem"><a href="dir_973469fe03307bc0e5780de41ae07045.html">seek</a></li><li class="navelem"><a href="dir_81a8672a3de2fdc40453108918520b77.html">Data</a></li><li class="navelem"><a href="dir_c5c04bceea4264d11ac3486c90412d29.html">Repositories</a></li><li class="navelem"><a href="dir_ffd1759873cc7e6debbb5be08b79e165.html">simple-socket</a></li><li class="navelem"><a href="dir_eb4225bc3a5edebf6510ab9ef791a4bc.html">examples</a></li><li class="navelem"><a href="a00119.html">UDP_Multicast.cpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

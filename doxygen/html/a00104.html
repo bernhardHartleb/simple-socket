@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>simple-socket library: UnixStreamSocket.cpp File Reference</title>
+<title>simple-socket library: UnixDatagramSocket.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -60,47 +60,50 @@ $(function(){initNavTree('a00104.html','',''); });
 <div id="container">
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">UnixStreamSocket.cpp File Reference</div></div>
+  <div class="headertitle"><div class="title">UnixDatagramSocket.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="a00170_source.html">UnixStreamSocket.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="a00140_source.html">TempFailure.h</a>&quot;</code><br />
-<code>#include &lt;poll.h&gt;</code><br />
-<code>#include &lt;sys/socket.h&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="a00059_source.html">UnixSocket.h</a>&quot;</code><br />
 </div><div class="textblock"><div class="dynheader">
-Include dependency graph for UnixStreamSocket.cpp:</div>
+Include dependency graph for UnixDatagramSocket.h:</div>
 <div class="dyncontent">
-<div class="center"><img src="a00105.png" border="0" usemap="#a_unix_stream_socket_8cpp" loading="lazy" alt=""/></div>
-<map name="a_unix_stream_socket_8cpp" id="a_unix_stream_socket_8cpp">
-<area shape="rect" title=" " alt="" coords="222,5,378,32"/>
-<area shape="rect" href="a00170.html" title=" " alt="" coords="156,80,298,107"/>
-<area shape="poly" title=" " alt="" coords="286,34,252,71,248,67,289,31"/>
-<area shape="rect" title=" " alt="" coords="5,304,102,331"/>
-<area shape="poly" title=" " alt="" coords="246,34,197,54,146,82,110,114,87,156,74,190,65,226,57,289,52,288,60,225,69,189,82,154,106,111,143,78,195,49,250,31"/>
-<area shape="rect" href="a00140.html" title=" " alt="" coords="322,80,425,107"/>
-<area shape="poly" title=" " alt="" coords="313,30,353,69,347,69,313,35"/>
-<area shape="rect" title=" " alt="" coords="449,80,501,107"/>
-<area shape="poly" title=" " alt="" coords="331,30,437,74,432,76,331,35"/>
-<area shape="rect" href="a00176.html" title=" " alt="" coords="222,155,336,181"/>
-<area shape="poly" title=" " alt="" coords="236,105,264,142,258,142,235,110"/>
-<area shape="rect" href="a00152.html" title=" " alt="" coords="97,155,197,181"/>
-<area shape="poly" title=" " alt="" coords="211,109,173,146,170,142,215,105"/>
-<area shape="rect" title=" " alt="" coords="292,229,359,256"/>
-<area shape="poly" title=" " alt="" coords="288,179,312,217,307,216,286,184"/>
-<area shape="rect" href="a00155.html" title=" " alt="" coords="94,229,208,256"/>
-<area shape="poly" title=" " alt="" coords="149,180,152,214,147,213,146,184"/>
-<area shape="poly" title=" " alt="" coords="136,256,84,297,81,293,131,257"/>
-<area shape="rect" title=" " alt="" coords="126,304,179,331"/>
-<area shape="poly" title=" " alt="" coords="153,255,154,290,149,287,149,259"/>
-<area shape="rect" title=" " alt="" coords="203,304,280,331"/>
-<area shape="poly" title=" " alt="" coords="168,254,217,294,212,295,166,259"/>
-<area shape="poly" title=" " alt="" coords="372,105,351,182,338,217,334,213,346,180,368,109"/>
-<area shape="rect" title=" " alt="" coords="411,155,472,181"/>
-<area shape="poly" title=" " alt="" coords="386,105,422,143,417,143,385,110"/>
+<div class="center"><img src="a00105.png" border="0" usemap="#a_unix_datagram_socket_8h" loading="lazy" alt=""/></div>
+<map name="a_unix_datagram_socket_8h" id="a_unix_datagram_socket_8h">
+<area shape="rect" title=" " alt="" coords="74,5,231,32"/>
+<area shape="rect" href="a00059.html" title=" " alt="" coords="102,80,202,107"/>
+<area shape="poly" title=" " alt="" coords="153,30,155,65,150,64,151,35"/>
+<area shape="rect" href="a00062.html" title=" " alt="" coords="96,155,209,181"/>
+<area shape="poly" title=" " alt="" coords="153,105,155,140,150,138,151,110"/>
+<area shape="rect" title=" " alt="" coords="5,229,102,256"/>
+<area shape="poly" title=" " alt="" coords="138,181,84,222,81,218,132,183"/>
+<area shape="rect" title=" " alt="" coords="126,229,179,256"/>
+<area shape="poly" title=" " alt="" coords="154,180,155,215,150,212,150,184"/>
+<area shape="rect" title=" " alt="" coords="203,229,280,256"/>
+<area shape="poly" title=" " alt="" coords="169,179,217,219,212,219,167,184"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><img src="a00106.png" border="0" usemap="#a_unix_datagram_socket_8hdep" loading="lazy" alt=""/></div>
+<map name="a_unix_datagram_socket_8hdep" id="a_unix_datagram_socket_8hdep">
+<area shape="rect" title=" " alt="" coords="12,5,170,32"/>
+<area shape="rect" href="a00095.html" title=" " alt="" coords="5,80,177,107"/>
+<area shape="poly" title=" " alt="" coords="93,46,93,81,89,79,89,50"/>
 </map>
 </div>
 </div>
 <p><a href="a00104_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:NET_3A_3AUnixDatagramSocket" id="r_NET_3A_3AUnixDatagramSocket"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a00981.html">NET::UnixDatagramSocket</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unix datagram socket class.  <a href="a00981.html#details">More...</a><br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:NET" id="r_NET"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="a00108.html">NET</a></td></tr>
+</table>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
@@ -114,7 +117,7 @@ Include dependency graph for UnixStreamSocket.cpp:</div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_43e0a1f539e00dcfa1a6bc4d4fee4fc2.html">home</a></li><li class="navelem"><a href="dir_973469fe03307bc0e5780de41ae07045.html">seek</a></li><li class="navelem"><a href="dir_81a8672a3de2fdc40453108918520b77.html">Data</a></li><li class="navelem"><a href="dir_c5c04bceea4264d11ac3486c90412d29.html">Repositories</a></li><li class="navelem"><a href="dir_ffd1759873cc7e6debbb5be08b79e165.html">simple-socket</a></li><li class="navelem"><a href="a00104.html">UnixStreamSocket.cpp</a></li>
+    <li class="navelem"><a href="dir_43e0a1f539e00dcfa1a6bc4d4fee4fc2.html">home</a></li><li class="navelem"><a href="dir_973469fe03307bc0e5780de41ae07045.html">seek</a></li><li class="navelem"><a href="dir_81a8672a3de2fdc40453108918520b77.html">Data</a></li><li class="navelem"><a href="dir_c5c04bceea4264d11ac3486c90412d29.html">Repositories</a></li><li class="navelem"><a href="dir_ffd1759873cc7e6debbb5be08b79e165.html">simple-socket</a></li><li class="navelem"><a href="a00104.html">UnixDatagramSocket.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

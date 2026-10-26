@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>simple-socket library: SocketUtils.cpp File Reference</title>
+<title>simple-socket library: TCP_Server.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -60,62 +60,118 @@ $(function(){initNavTree('a00107.html','',''); });
 <div id="container">
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">SocketUtils.cpp File Reference</div></div>
+  <div class="headertitle"><div class="title">TCP_Server.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="a00095_source.html">SocketUtils.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="a00155_source.html">SimpleSocket.h</a>&quot;</code><br />
-<code>#include &lt;sys/socket.h&gt;</code><br />
-<code>#include &lt;sys/ioctl.h&gt;</code><br />
-<code>#include &lt;arpa/inet.h&gt;</code><br />
-<code>#include &lt;net/if.h&gt;</code><br />
-<code>#include &lt;net/if_arp.h&gt;</code><br />
-<code>#include &lt;netdb.h&gt;</code><br />
-<code>#include &lt;unistd.h&gt;</code><br />
-<code>#include &lt;cstring&gt;</code><br />
-<code>#include &lt;memory&gt;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="a00095_source.html">../TCPSocket.h</a>&quot;</code><br />
+<code>#include &lt;iostream&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
-Include dependency graph for SocketUtils.cpp:</div>
+Include dependency graph for TCP_Server.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="a00108.png" border="0" usemap="#a_socket_utils_8cpp" loading="lazy" alt=""/></div>
-<map name="a_socket_utils_8cpp" id="a_socket_utils_8cpp">
-<area shape="rect" title=" " alt="" coords="605,5,719,32"/>
-<area shape="rect" href="a00095.html" title=" " alt="" coords="88,80,188,107"/>
-<area shape="poly" title=" " alt="" coords="604,30,220,83,205,85,203,80,219,77,605,25"/>
-<area shape="rect" href="a00155.html" title=" " alt="" coords="231,80,344,107"/>
-<area shape="poly" title=" " alt="" coords="602,32,360,81,359,76,607,30"/>
-<area shape="rect" title=" " alt="" coords="350,155,446,181"/>
-<area shape="poly" title=" " alt="" coords="602,27,492,48,442,63,423,72,411,82,403,94,398,109,396,141,392,138,393,108,398,92,407,78,421,68,440,58,491,43,607,25"/>
-<area shape="rect" title=" " alt="" coords="420,80,502,107"/>
-<area shape="poly" title=" " alt="" coords="630,32,511,77,510,72,625,33"/>
-<area shape="rect" title=" " alt="" coords="525,80,607,107"/>
-<area shape="poly" title=" " alt="" coords="648,32,596,73,594,68,643,34"/>
-<area shape="rect" title=" " alt="" coords="632,80,693,107"/>
-<area shape="poly" title=" " alt="" coords="664,31,664,66,660,63,660,35"/>
-<area shape="rect" title=" " alt="" coords="716,80,803,107"/>
-<area shape="poly" title=" " alt="" coords="680,30,733,71,728,70,678,35"/>
-<area shape="rect" title=" " alt="" coords="827,80,892,107"/>
-<area shape="poly" title=" " alt="" coords="697,30,816,75,810,75,696,35"/>
-<area shape="rect" title=" " alt="" coords="915,80,982,107"/>
-<area shape="poly" title=" " alt="" coords="714,30,903,79,897,79,714,35"/>
-<area shape="rect" title=" " alt="" coords="1007,80,1067,107"/>
-<area shape="poly" title=" " alt="" coords="720,26,841,47,994,80,989,80,840,52,719,31"/>
-<area shape="rect" title=" " alt="" coords="1091,80,1159,107"/>
-<area shape="poly" title=" " alt="" coords="720,23,877,43,1078,79,1073,79,876,49,720,29"/>
-<area shape="rect" title=" " alt="" coords="5,155,66,181"/>
-<area shape="poly" title=" " alt="" coords="123,107,68,147,65,143,118,108"/>
-<area shape="rect" title=" " alt="" coords="90,155,147,181"/>
-<area shape="poly" title=" " alt="" coords="137,106,128,141,123,138,133,109"/>
-<area shape="rect" title=" " alt="" coords="172,155,225,181"/>
-<area shape="poly" title=" " alt="" coords="150,105,181,143,176,143,148,110"/>
-<area shape="poly" title=" " alt="" coords="274,106,227,147,224,142,269,108"/>
-<area shape="poly" title=" " alt="" coords="308,105,369,146,364,146,306,110"/>
-<area shape="rect" title=" " alt="" coords="249,155,326,181"/>
-<area shape="poly" title=" " alt="" coords="289,105,290,141,285,138,286,109"/>
+<div class="center"><img src="a00108.png" border="0" usemap="#a_t_c_p___server_8cpp" loading="lazy" alt=""/></div>
+<map name="a_t_c_p___server_8cpp" id="a_t_c_p___server_8cpp">
+<area shape="rect" title=" " alt="" coords="130,5,248,32"/>
+<area shape="rect" href="a00095.html" title=" " alt="" coords="76,80,188,107"/>
+<area shape="poly" title=" " alt="" coords="178,35,153,69,149,66,181,30"/>
+<area shape="rect" title=" " alt="" coords="212,80,284,107"/>
+<area shape="poly" title=" " alt="" coords="200,30,231,68,225,68,199,35"/>
+<area shape="rect" href="a00170.html" title=" " alt="" coords="5,155,120,181"/>
+<area shape="poly" title=" " alt="" coords="118,110,87,145,83,142,121,105"/>
+<area shape="rect" href="a00158.html" title=" " alt="" coords="144,155,261,181"/>
+<area shape="poly" title=" " alt="" coords="144,105,182,143,177,144,144,110"/>
+<area shape="rect" title=" " alt="" coords="29,229,96,256"/>
+<area shape="poly" title=" " alt="" coords="63,179,65,214,60,213,62,184"/>
+<area shape="rect" href="a00149.html" title=" " alt="" coords="146,229,259,256"/>
+<area shape="poly" title=" " alt="" coords="204,180,205,215,200,213,201,184"/>
+<area shape="rect" title=" " alt="" coords="56,304,152,331"/>
+<area shape="poly" title=" " alt="" coords="188,256,134,297,132,292,183,257"/>
+<area shape="rect" title=" " alt="" coords="176,304,229,331"/>
+<area shape="poly" title=" " alt="" coords="204,255,205,290,200,287,201,258"/>
+<area shape="rect" title=" " alt="" coords="253,304,330,331"/>
+<area shape="poly" title=" " alt="" coords="219,254,267,294,262,294,217,259"/>
 </map>
 </div>
 </div>
 <p><a href="a00107_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4" id="r_ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a082ab9f8464f9d636e4b83d7498bfebb" id="r_a082ab9f8464f9d636e4b83d7498bfebb"><td class="memItemLeft">static const size_t&#160;</td><td class="memItemRight"><a class="el" href="#a082ab9f8464f9d636e4b83d7498bfebb">send_len</a> = sizeof(<a class="el" href="#a91f12e91f0647734f40a2577ffbce84a">send_msg</a>) - 1</td></tr>
+<tr class="memitem:a91f12e91f0647734f40a2577ffbce84a" id="r_a91f12e91f0647734f40a2577ffbce84a"><td class="memItemLeft">static const char&#160;</td><td class="memItemRight"><a class="el" href="#a91f12e91f0647734f40a2577ffbce84a">send_msg</a> [] = &quot;The quick brown fox jumps over the lazy dog&quot;</td></tr>
+</table>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="ae66f6b31b5ad750f1fe042a706a4e3d4" name="ae66f6b31b5ad750f1fe042a706a4e3d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae66f6b31b5ad750f1fe042a706a4e3d4">&#9670;&#160;</a></span>main()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int main </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00107_source.html#l00008">8</a> of file <a class="el" href="a00107_source.html">TCP_Server.cpp</a>.</p>
+
+</div>
+</div>
+<a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
+<a id="a91f12e91f0647734f40a2577ffbce84a" name="a91f12e91f0647734f40a2577ffbce84a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91f12e91f0647734f40a2577ffbce84a">&#9670;&#160;</a></span>send_msg</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char send_msg[] = &quot;The quick brown fox jumps over the lazy dog&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00107_source.html#l00005">5</a> of file <a class="el" href="a00107_source.html">TCP_Server.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a082ab9f8464f9d636e4b83d7498bfebb" name="a082ab9f8464f9d636e4b83d7498bfebb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a082ab9f8464f9d636e4b83d7498bfebb">&#9670;&#160;</a></span>send_len</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const size_t send_len = sizeof(<a class="el" href="#a91f12e91f0647734f40a2577ffbce84a">send_msg</a>) - 1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00107_source.html#l00006">6</a> of file <a class="el" href="a00107_source.html">TCP_Server.cpp</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
@@ -129,7 +185,7 @@ Include dependency graph for SocketUtils.cpp:</div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_43e0a1f539e00dcfa1a6bc4d4fee4fc2.html">home</a></li><li class="navelem"><a href="dir_973469fe03307bc0e5780de41ae07045.html">seek</a></li><li class="navelem"><a href="dir_81a8672a3de2fdc40453108918520b77.html">Data</a></li><li class="navelem"><a href="dir_c5c04bceea4264d11ac3486c90412d29.html">Repositories</a></li><li class="navelem"><a href="dir_ffd1759873cc7e6debbb5be08b79e165.html">simple-socket</a></li><li class="navelem"><a href="a00107.html">SocketUtils.cpp</a></li>
+    <li class="navelem"><a href="dir_43e0a1f539e00dcfa1a6bc4d4fee4fc2.html">home</a></li><li class="navelem"><a href="dir_973469fe03307bc0e5780de41ae07045.html">seek</a></li><li class="navelem"><a href="dir_81a8672a3de2fdc40453108918520b77.html">Data</a></li><li class="navelem"><a href="dir_c5c04bceea4264d11ac3486c90412d29.html">Repositories</a></li><li class="navelem"><a href="dir_ffd1759873cc7e6debbb5be08b79e165.html">simple-socket</a></li><li class="navelem"><a href="dir_eb4225bc3a5edebf6510ab9ef791a4bc.html">examples</a></li><li class="navelem"><a href="a00107.html">TCP_Server.cpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>simple-socket library: SocketUtils_TEST.cpp File Reference</title>
+<title>simple-socket library: UDP_Multicast.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -60,27 +60,34 @@ $(function(){initNavTree('a00119.html','',''); });
 <div id="container">
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">SocketUtils_TEST.cpp File Reference</div></div>
+  <div class="headertitle"><div class="title">UDP_Multicast.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;cppunit/extensions/HelperMacros.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="a00095_source.html">../SocketUtils.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="a00155_source.html">../UDPSocket.h</a>&quot;</code><br />
+<code>#include &lt;array&gt;</code><br />
+<code>#include &lt;iostream&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
-Include dependency graph for SocketUtils_TEST.cpp:</div>
+Include dependency graph for UDP_Multicast.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="a00120.png" border="0" usemap="#a_socket_utils___t_e_s_t_8cpp" loading="lazy" alt=""/></div>
-<map name="a_socket_utils___t_e_s_t_8cpp" id="a_socket_utils___t_e_s_t_8cpp">
-<area shape="rect" title=" " alt="" coords="65,5,220,32"/>
-<area shape="rect" title=" " alt="" coords="5,80,136,123"/>
-<area shape="poly" title=" " alt="" coords="130,35,101,70,97,67,133,30"/>
-<area shape="rect" href="a00095.html" title=" " alt="" coords="160,88,272,115"/>
-<area shape="poly" title=" " alt="" coords="155,30,197,76,192,77,153,35"/>
-<area shape="rect" title=" " alt="" coords="103,171,163,197"/>
-<area shape="poly" title=" " alt="" coords="205,114,158,162,155,158,200,116"/>
-<area shape="rect" title=" " alt="" coords="187,171,244,197"/>
-<area shape="poly" title=" " alt="" coords="218,113,218,157,214,154,214,117"/>
-<area shape="rect" title=" " alt="" coords="269,171,322,197"/>
-<area shape="poly" title=" " alt="" coords="229,113,276,160,270,160,227,118"/>
+<div class="center"><img src="a00120.png" border="0" usemap="#a_u_d_p___multicast_8cpp" loading="lazy" alt=""/></div>
+<map name="a_u_d_p___multicast_8cpp" id="a_u_d_p___multicast_8cpp">
+<area shape="rect" title=" " alt="" coords="191,5,326,32"/>
+<area shape="rect" href="a00155.html" title=" " alt="" coords="95,80,209,107"/>
+<area shape="poly" title=" " alt="" coords="238,35,185,73,182,69,242,31"/>
+<area shape="rect" title=" " alt="" coords="234,80,284,107"/>
+<area shape="poly" title=" " alt="" coords="260,30,261,65,256,64,258,35"/>
+<area shape="rect" title=" " alt="" coords="308,80,380,107"/>
+<area shape="poly" title=" " alt="" coords="274,30,321,70,316,70,274,35"/>
+<area shape="rect" href="a00158.html" title=" " alt="" coords="94,155,211,181"/>
+<area shape="poly" title=" " alt="" coords="153,105,155,140,150,138,151,110"/>
+<area shape="rect" href="a00149.html" title=" " alt="" coords="96,229,209,256"/>
+<area shape="poly" title=" " alt="" coords="153,180,155,215,150,213,151,184"/>
+<area shape="rect" title=" " alt="" coords="5,304,102,331"/>
+<area shape="poly" title=" " alt="" coords="138,256,84,297,81,293,132,257"/>
+<area shape="rect" title=" " alt="" coords="126,304,179,331"/>
+<area shape="poly" title=" " alt="" coords="154,255,155,290,150,287,150,258"/>
+<area shape="rect" title=" " alt="" coords="203,304,280,331"/>
+<area shape="poly" title=" " alt="" coords="169,254,217,294,212,294,167,259"/>
 </map>
 </div>
 </div>
@@ -88,23 +95,129 @@ Include dependency graph for SocketUtils_TEST.cpp:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:ad06691eac3060bc8150390c1530e951a" id="r_ad06691eac3060bc8150390c1530e951a"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad06691eac3060bc8150390c1530e951a">CPPUNIT_TEST_SUITE_REGISTRATION</a> (SocketUtils_TEST)</td></tr>
+<tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4" id="r_ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a918af6d26af58e0ac23c45418dfceee4" id="r_a918af6d26af58e0ac23c45418dfceee4"><td class="memItemLeft">static const char&#160;</td><td class="memItemRight"><a class="el" href="#a918af6d26af58e0ac23c45418dfceee4">multicast_group</a> [] = &quot;239.255.0.1&quot;</td></tr>
+<tr class="memitem:a9ee23a4098a0019e554c59fc5f79b8f7" id="r_a9ee23a4098a0019e554c59fc5f79b8f7"><td class="memItemLeft">static const unsigned short&#160;</td><td class="memItemRight"><a class="el" href="#a9ee23a4098a0019e554c59fc5f79b8f7">multicast_port</a> = 47777</td></tr>
+<tr class="memitem:a8747901d6abb4519ce0d7d82c0476ca3" id="r_a8747901d6abb4519ce0d7d82c0476ca3"><td class="memItemLeft">static const int&#160;</td><td class="memItemRight"><a class="el" href="#a8747901d6abb4519ce0d7d82c0476ca3">send_len</a> = sizeof(<a class="el" href="#a91f12e91f0647734f40a2577ffbce84a">send_msg</a>) - 1</td></tr>
+<tr class="memitem:a91f12e91f0647734f40a2577ffbce84a" id="r_a91f12e91f0647734f40a2577ffbce84a"><td class="memItemLeft">static const char&#160;</td><td class="memItemRight"><a class="el" href="#a91f12e91f0647734f40a2577ffbce84a">send_msg</a> [] = &quot;Welcome to our multicast group!&quot;</td></tr>
 </table>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="ad06691eac3060bc8150390c1530e951a" name="ad06691eac3060bc8150390c1530e951a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad06691eac3060bc8150390c1530e951a">&#9670;&#160;</a></span>CPPUNIT_TEST_SUITE_REGISTRATION()</h2>
+<a id="ae66f6b31b5ad750f1fe042a706a4e3d4" name="ae66f6b31b5ad750f1fe042a706a4e3d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae66f6b31b5ad750f1fe042a706a4e3d4">&#9670;&#160;</a></span>main()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">CPPUNIT_TEST_SUITE_REGISTRATION </td>
+          <td class="memname">int main </td>
           <td>(</td>
-          <td class="paramtype">SocketUtils_TEST</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00119_source.html#l00011">11</a> of file <a class="el" href="a00119_source.html">UDP_Multicast.cpp</a>.</p>
+
+</div>
+</div>
+<a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
+<a id="a918af6d26af58e0ac23c45418dfceee4" name="a918af6d26af58e0ac23c45418dfceee4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a918af6d26af58e0ac23c45418dfceee4">&#9670;&#160;</a></span>multicast_group</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char multicast_group[] = &quot;239.255.0.1&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00119_source.html#l00006">6</a> of file <a class="el" href="a00119_source.html">UDP_Multicast.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a9ee23a4098a0019e554c59fc5f79b8f7" name="a9ee23a4098a0019e554c59fc5f79b8f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9ee23a4098a0019e554c59fc5f79b8f7">&#9670;&#160;</a></span>multicast_port</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const unsigned short multicast_port = 47777</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00119_source.html#l00007">7</a> of file <a class="el" href="a00119_source.html">UDP_Multicast.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a91f12e91f0647734f40a2577ffbce84a" name="a91f12e91f0647734f40a2577ffbce84a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a91f12e91f0647734f40a2577ffbce84a">&#9670;&#160;</a></span>send_msg</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char send_msg[] = &quot;Welcome to our multicast group!&quot;</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00119_source.html#l00008">8</a> of file <a class="el" href="a00119_source.html">UDP_Multicast.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a8747901d6abb4519ce0d7d82c0476ca3" name="a8747901d6abb4519ce0d7d82c0476ca3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8747901d6abb4519ce0d7d82c0476ca3">&#9670;&#160;</a></span>send_len</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const int send_len = sizeof(<a class="el" href="#a91f12e91f0647734f40a2577ffbce84a">send_msg</a>) - 1</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel static">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00119_source.html#l00009">9</a> of file <a class="el" href="a00119_source.html">UDP_Multicast.cpp</a>.</p>
 
 </div>
 </div>
@@ -121,7 +234,7 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_43e0a1f539e00dcfa1a6bc4d4fee4fc2.html">home</a></li><li class="navelem"><a href="dir_973469fe03307bc0e5780de41ae07045.html">seek</a></li><li class="navelem"><a href="dir_81a8672a3de2fdc40453108918520b77.html">Data</a></li><li class="navelem"><a href="dir_c5c04bceea4264d11ac3486c90412d29.html">Repositories</a></li><li class="navelem"><a href="dir_ffd1759873cc7e6debbb5be08b79e165.html">simple-socket</a></li><li class="navelem"><a href="dir_8c845b097cea0c7c4fede62210bd4c65.html">tests</a></li><li class="navelem"><a href="a00119.html">SocketUtils_TEST.cpp</a></li>
+    <li class="navelem"><a href="dir_43e0a1f539e00dcfa1a6bc4d4fee4fc2.html">home</a></li><li class="navelem"><a href="dir_973469fe03307bc0e5780de41ae07045.html">seek</a></li><li class="navelem"><a href="dir_81a8672a3de2fdc40453108918520b77.html">Data</a></li><li class="navelem"><a href="dir_c5c04bceea4264d11ac3486c90412d29.html">Repositories</a></li><li class="navelem"><a href="dir_ffd1759873cc7e6debbb5be08b79e165.html">simple-socket</a></li><li class="navelem"><a href="dir_eb4225bc3a5edebf6510ab9ef791a4bc.html">examples</a></li><li class="navelem"><a href="a00119.html">UDP_Multicast.cpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

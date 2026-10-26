@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>simple-socket library: CANRawSocket.h File Reference</title>
+<title>simple-socket library: TCP_Client.cpp File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -60,54 +60,67 @@ $(function(){initNavTree('a00110.html','',''); });
 <div id="container">
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">CANRawSocket.h File Reference</div></div>
+  <div class="headertitle"><div class="title">TCP_Client.cpp File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="a00191_source.html">CANSocket.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="a00095_source.html">../TCPSocket.h</a>&quot;</code><br />
+<code>#include &lt;array&gt;</code><br />
+<code>#include &lt;iostream&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
-Include dependency graph for CANRawSocket.h:</div>
+Include dependency graph for TCP_Client.cpp:</div>
 <div class="dyncontent">
-<div class="center"><img src="a00111.png" border="0" usemap="#a_c_a_n_raw_socket_8h" loading="lazy" alt=""/></div>
-<map name="a_c_a_n_raw_socket_8h" id="a_c_a_n_raw_socket_8h">
-<area shape="rect" title=" " alt="" coords="149,5,278,32"/>
-<area shape="rect" href="a00191.html" title=" " alt="" coords="162,80,265,107"/>
-<area shape="poly" title=" " alt="" coords="215,30,216,65,211,63,212,35"/>
-<area shape="rect" href="a00155.html" title=" " alt="" coords="96,155,209,181"/>
-<area shape="poly" title=" " alt="" coords="205,106,174,145,171,141,201,109"/>
-<area shape="rect" title=" " alt="" coords="233,155,317,181"/>
-<area shape="poly" title=" " alt="" coords="225,105,257,143,252,143,223,110"/>
-<area shape="rect" title=" " alt="" coords="5,229,102,256"/>
-<area shape="poly" title=" " alt="" coords="138,181,84,222,81,218,132,183"/>
-<area shape="rect" title=" " alt="" coords="126,229,179,256"/>
-<area shape="poly" title=" " alt="" coords="154,180,155,215,150,212,150,184"/>
-<area shape="rect" title=" " alt="" coords="203,229,280,256"/>
-<area shape="poly" title=" " alt="" coords="169,179,217,219,212,219,167,184"/>
-</map>
-</div>
-</div><div class="textblock"><div class="dynheader">
-This graph shows which files directly or indirectly include this file:</div>
-<div class="dyncontent">
-<div class="center"><img src="a00112.png" border="0" usemap="#a_c_a_n_raw_socket_8hdep" loading="lazy" alt=""/></div>
-<map name="a_c_a_n_raw_socket_8hdep" id="a_c_a_n_raw_socket_8hdep">
-<area shape="rect" title=" " alt="" coords="99,5,228,32"/>
-<area shape="rect" href="a00167.html" title=" " alt="" coords="5,80,149,107"/>
-<area shape="poly" title=" " alt="" coords="140,42,93,82,90,77,134,43"/>
-<area shape="rect" href="a00134.html" title=" " alt="" coords="172,80,328,107"/>
-<area shape="poly" title=" " alt="" coords="191,40,238,80,233,80,189,45"/>
+<div class="center"><img src="a00111.png" border="0" usemap="#a_t_c_p___client_8cpp" loading="lazy" alt=""/></div>
+<map name="a_t_c_p___client_8cpp" id="a_t_c_p___client_8cpp">
+<area shape="rect" title=" " alt="" coords="180,5,294,32"/>
+<area shape="rect" href="a00095.html" title=" " alt="" coords="76,80,188,107"/>
+<area shape="poly" title=" " alt="" coords="217,35,164,73,161,69,221,31"/>
+<area shape="rect" title=" " alt="" coords="212,80,262,107"/>
+<area shape="poly" title=" " alt="" coords="238,30,240,65,235,64,236,35"/>
+<area shape="rect" title=" " alt="" coords="287,80,358,107"/>
+<area shape="poly" title=" " alt="" coords="252,30,299,70,294,70,252,35"/>
+<area shape="rect" href="a00170.html" title=" " alt="" coords="5,155,120,181"/>
+<area shape="poly" title=" " alt="" coords="118,110,87,145,83,142,121,105"/>
+<area shape="rect" href="a00158.html" title=" " alt="" coords="144,155,261,181"/>
+<area shape="poly" title=" " alt="" coords="144,105,182,143,177,144,144,110"/>
+<area shape="rect" title=" " alt="" coords="29,229,96,256"/>
+<area shape="poly" title=" " alt="" coords="63,179,65,214,60,213,62,184"/>
+<area shape="rect" href="a00149.html" title=" " alt="" coords="146,229,259,256"/>
+<area shape="poly" title=" " alt="" coords="204,180,205,215,200,213,201,184"/>
+<area shape="rect" title=" " alt="" coords="56,304,152,331"/>
+<area shape="poly" title=" " alt="" coords="188,256,134,297,132,292,183,257"/>
+<area shape="rect" title=" " alt="" coords="176,304,229,331"/>
+<area shape="poly" title=" " alt="" coords="204,255,205,290,200,287,201,258"/>
+<area shape="rect" title=" " alt="" coords="253,304,330,331"/>
+<area shape="poly" title=" " alt="" coords="219,254,267,294,262,294,217,259"/>
 </map>
 </div>
 </div>
 <p><a href="a00110_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
-Classes</h2></td></tr>
-<tr class="memitem:NET_3A_3ACANRawSocket" id="r_NET_3A_3ACANRawSocket"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="a01022.html">NET::CANRawSocket</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Raw CAN socket class.  <a href="a01022.html#details">More...</a><br /></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:NET" id="r_NET"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="a00198.html">NET</a></td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ae66f6b31b5ad750f1fe042a706a4e3d4" id="r_ae66f6b31b5ad750f1fe042a706a4e3d4"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a> ()</td></tr>
 </table>
+<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="ae66f6b31b5ad750f1fe042a706a4e3d4" name="ae66f6b31b5ad750f1fe042a706a4e3d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae66f6b31b5ad750f1fe042a706a4e3d4">&#9670;&#160;</a></span>main()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int main </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="a00110_source.html#l00006">6</a> of file <a class="el" href="a00110_source.html">TCP_Client.cpp</a>.</p>
+
+</div>
+</div>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
@@ -121,7 +134,7 @@ Namespaces</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_43e0a1f539e00dcfa1a6bc4d4fee4fc2.html">home</a></li><li class="navelem"><a href="dir_973469fe03307bc0e5780de41ae07045.html">seek</a></li><li class="navelem"><a href="dir_81a8672a3de2fdc40453108918520b77.html">Data</a></li><li class="navelem"><a href="dir_c5c04bceea4264d11ac3486c90412d29.html">Repositories</a></li><li class="navelem"><a href="dir_ffd1759873cc7e6debbb5be08b79e165.html">simple-socket</a></li><li class="navelem"><a href="a00110.html">CANRawSocket.h</a></li>
+    <li class="navelem"><a href="dir_43e0a1f539e00dcfa1a6bc4d4fee4fc2.html">home</a></li><li class="navelem"><a href="dir_973469fe03307bc0e5780de41ae07045.html">seek</a></li><li class="navelem"><a href="dir_81a8672a3de2fdc40453108918520b77.html">Data</a></li><li class="navelem"><a href="dir_c5c04bceea4264d11ac3486c90412d29.html">Repositories</a></li><li class="navelem"><a href="dir_ffd1759873cc7e6debbb5be08b79e165.html">simple-socket</a></li><li class="navelem"><a href="dir_eb4225bc3a5edebf6510ab9ef791a4bc.html">examples</a></li><li class="navelem"><a href="a00110.html">TCP_Client.cpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

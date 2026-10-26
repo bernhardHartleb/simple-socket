@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.16.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>simple-socket library: CANSocket_TEST.cpp File Reference</title>
+<title>simple-socket library: TempFailure.h File Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -60,66 +60,72 @@ $(function(){initNavTree('a00134.html','',''); });
 <div id="container">
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">CANSocket_TEST.cpp File Reference</div></div>
+  <div class="headertitle"><div class="title">TempFailure.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;cppunit/extensions/HelperMacros.h&gt;</code><br />
-<code>#include &quot;<a class="el" href="a00110_source.html">../CANRawSocket.h</a>&quot;</code><br />
-<code>#include &lt;net/if.h&gt;</code><br />
-<code>#include &lt;algorithm&gt;</code><br />
-<code>#include &lt;initializer_list&gt;</code><br />
+<div class="textblock"><code>#include &lt;unistd.h&gt;</code><br />
+<code>#include &lt;errno.h&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
-Include dependency graph for CANSocket_TEST.cpp:</div>
+Include dependency graph for TempFailure.h:</div>
 <div class="dyncontent">
-<div class="center"><img src="a00135.png" border="0" usemap="#a_c_a_n_socket___t_e_s_t_8cpp" loading="lazy" alt=""/></div>
-<map name="a_c_a_n_socket___t_e_s_t_8cpp" id="a_c_a_n_socket___t_e_s_t_8cpp">
-<area shape="rect" title=" " alt="" coords="278,5,434,32"/>
-<area shape="rect" title=" " alt="" coords="5,80,136,123"/>
-<area shape="poly" title=" " alt="" coords="310,35,152,80,149,75,313,30"/>
-<area shape="rect" href="a00110.html" title=" " alt="" coords="160,88,301,115"/>
-<area shape="poly" title=" " alt="" coords="334,34,264,82,261,77,338,31"/>
-<area shape="rect" title=" " alt="" coords="325,88,386,115"/>
-<area shape="poly" title=" " alt="" coords="357,30,358,74,353,72,355,35"/>
-<area shape="rect" title=" " alt="" coords="411,88,485,115"/>
-<area shape="poly" title=" " alt="" coords="371,30,425,78,420,78,370,35"/>
-<area shape="rect" title=" " alt="" coords="509,88,605,115"/>
-<area shape="poly" title=" " alt="" coords="387,30,514,81,509,83,387,35"/>
-<area shape="rect" href="a00191.html" title=" " alt="" coords="179,171,282,197"/>
-<area shape="poly" title=" " alt="" coords="232,113,233,156,228,155,229,118"/>
-<area shape="rect" href="a00155.html" title=" " alt="" coords="112,245,226,272"/>
-<area shape="poly" title=" " alt="" coords="222,196,191,235,188,232,218,200"/>
-<area shape="rect" title=" " alt="" coords="250,245,334,272"/>
-<area shape="poly" title=" " alt="" coords="242,195,274,234,269,233,240,200"/>
-<area shape="rect" title=" " alt="" coords="22,320,119,347"/>
-<area shape="poly" title=" " alt="" coords="155,272,101,313,98,309,149,273"/>
-<area shape="rect" title=" " alt="" coords="142,320,196,347"/>
-<area shape="poly" title=" " alt="" coords="171,271,172,306,167,303,167,274"/>
-<area shape="rect" title=" " alt="" coords="220,320,297,347"/>
-<area shape="poly" title=" " alt="" coords="186,270,234,310,229,310,184,275"/>
+<div class="center"><img src="a00135.png" border="0" usemap="#a_temp_failure_8h" loading="lazy" alt=""/></div>
+<map name="a_temp_failure_8h" id="a_temp_failure_8h">
+<area shape="rect" title=" " alt="" coords="31,5,135,32"/>
+<area shape="rect" title=" " alt="" coords="5,80,73,107"/>
+<area shape="poly" title=" " alt="" coords="78,31,57,68,52,65,73,34"/>
+<area shape="rect" title=" " alt="" coords="96,80,158,107"/>
+<area shape="poly" title=" " alt="" coords="92,30,114,67,109,67,89,35"/>
+</map>
+</div>
+</div><div class="textblock"><div class="dynheader">
+This graph shows which files directly or indirectly include this file:</div>
+<div class="dyncontent">
+<div class="center"><img src="a00136.png" border="0" usemap="#a_temp_failure_8hdep" loading="lazy" alt=""/></div>
+<map name="a_temp_failure_8hdep" id="a_temp_failure_8hdep">
+<area shape="rect" title=" " alt="" coords="560,5,663,32"/>
+<area shape="rect" href="a00161.html" title=" " alt="" coords="5,80,149,107"/>
+<area shape="poly" title=" " alt="" coords="545,31,161,83,149,84,149,79,161,77,544,26"/>
+<area shape="rect" href="a00152.html" title=" " alt="" coords="173,80,304,107"/>
+<area shape="poly" title=" " alt="" coords="547,33,304,82,303,77,542,33"/>
+<area shape="rect" href="a00167.html" title=" " alt="" coords="329,80,452,107"/>
+<area shape="poly" title=" " alt="" coords="561,37,430,82,429,77,556,38"/>
+<area shape="rect" href="a00143.html" title=" " alt="" coords="476,80,603,107"/>
+<area shape="poly" title=" " alt="" coords="591,42,553,82,551,77,586,44"/>
+<area shape="rect" href="a00176.html" title=" " alt="" coords="628,80,742,107"/>
+<area shape="poly" title=" " alt="" coords="636,41,675,80,670,79,634,46"/>
+<area shape="rect" href="a00140.html" title=" " alt="" coords="767,80,883,107"/>
+<area shape="poly" title=" " alt="" coords="664,35,790,80,785,79,663,40"/>
+<area shape="rect" href="a00182.html" title=" " alt="" coords="907,80,1079,107"/>
+<area shape="poly" title=" " alt="" coords="679,30,929,79,923,79,678,35"/>
+<area shape="rect" href="a00104.html" title=" " alt="" coords="1103,80,1259,107"/>
+<area shape="poly" title=" " alt="" coords="679,26,1091,77,1105,82,1100,81,1090,83,678,31"/>
 </map>
 </div>
 </div>
 <p><a href="a00134_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a416c5eae26c07d2adfcc96c1dc0e921c" id="r_a416c5eae26c07d2adfcc96c1dc0e921c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a416c5eae26c07d2adfcc96c1dc0e921c">CPPUNIT_TEST_SUITE_REGISTRATION</a> (CANSocket_TEST)</td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ae3924d534a2de097f5cccb535330e8c2" id="r_ae3924d534a2de097f5cccb535330e8c2"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ae3924d534a2de097f5cccb535330e8c2">TEMP_FAILURE_RETRY</a>(expression)</td></tr>
 </table>
-<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="a416c5eae26c07d2adfcc96c1dc0e921c" name="a416c5eae26c07d2adfcc96c1dc0e921c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a416c5eae26c07d2adfcc96c1dc0e921c">&#9670;&#160;</a></span>CPPUNIT_TEST_SUITE_REGISTRATION()</h2>
+<a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
+<a id="ae3924d534a2de097f5cccb535330e8c2" name="ae3924d534a2de097f5cccb535330e8c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3924d534a2de097f5cccb535330e8c2">&#9670;&#160;</a></span>TEMP_FAILURE_RETRY</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">CPPUNIT_TEST_SUITE_REGISTRATION </td>
+          <td class="memname">#define TEMP_FAILURE_RETRY</td>
           <td>(</td>
-          <td class="paramtype">CANSocket_TEST</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>expression</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">(expression)</div>
+</div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="a00134_source.html#l00008">8</a> of file <a class="el" href="a00134_source.html">TempFailure.h</a>.</p>
 
 </div>
 </div>
@@ -136,7 +142,7 @@ Functions</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="dir_43e0a1f539e00dcfa1a6bc4d4fee4fc2.html">home</a></li><li class="navelem"><a href="dir_973469fe03307bc0e5780de41ae07045.html">seek</a></li><li class="navelem"><a href="dir_81a8672a3de2fdc40453108918520b77.html">Data</a></li><li class="navelem"><a href="dir_c5c04bceea4264d11ac3486c90412d29.html">Repositories</a></li><li class="navelem"><a href="dir_ffd1759873cc7e6debbb5be08b79e165.html">simple-socket</a></li><li class="navelem"><a href="dir_8c845b097cea0c7c4fede62210bd4c65.html">tests</a></li><li class="navelem"><a href="a00134.html">CANSocket_TEST.cpp</a></li>
+    <li class="navelem"><a href="dir_43e0a1f539e00dcfa1a6bc4d4fee4fc2.html">home</a></li><li class="navelem"><a href="dir_973469fe03307bc0e5780de41ae07045.html">seek</a></li><li class="navelem"><a href="dir_81a8672a3de2fdc40453108918520b77.html">Data</a></li><li class="navelem"><a href="dir_c5c04bceea4264d11ac3486c90412d29.html">Repositories</a></li><li class="navelem"><a href="dir_ffd1759873cc7e6debbb5be08b79e165.html">simple-socket</a></li><li class="navelem"><a href="a00134.html">TempFailure.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

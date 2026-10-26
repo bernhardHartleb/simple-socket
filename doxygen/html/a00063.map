@@ -1,0 +1,9 @@
+<map id="SimpleSocket.h" name="SimpleSocket.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="96,5,209,32"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,80,102,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="138,32,84,73,81,69,132,33"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="126,80,179,107"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="154,31,155,66,150,63,150,34"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="203,80,280,107"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="169,30,217,70,212,70,167,35"/>
+</map>
