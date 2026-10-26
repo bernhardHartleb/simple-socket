@@ -1,18 +1,24 @@
 /*! \mainpage
 
-An easy to use C++ socket and network library, mainly for UNIX systems.
+An easy to use C++ socket and network library, for Unix based systems.
 
 \section Overview
 
 The following features are currently available:
 
-- Streams (TCP) and Datagrams (UDP)
-- IPv4 and Unix Domain Sockets
-- UDP Multicasting
-- Experimental SCTP protocol support
+- IPv4/IPv6 TCP and UDP sockets
+- UDP multicast support (IPv4 only)
+- Unix domain stream and datagram sockets
+- Blocking I/O plus timeout variants for connect, accept and receive
+- Peer-disconnect tracking for connected sockets
+- Stream based sendAll and receiveAll helpers
+- Hostname, service and network-interface utilities
+- Optional SocketCAN support
+- Optional SCTP support
+- CMake build, unit tests and example programs
 
 \section License
 
-This library is released under the <a href="http://en.wikipedia.org/wiki/MIT_License" target="_blank">MIT License</a>.
+This library is released under the <a href="https://en.wikipedia.org/wiki/MIT_License" target="_blank">MIT License</a>.
 
 */

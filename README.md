@@ -2,17 +2,17 @@
 
 `simple-socket` is a lightweight C++17 based wrapper around POSIX socket APIs.
 It keeps the native socket model visible while providing RAII ownership, exceptions and convenience functions.
-All blocking socket operations come with variants accepting a timeout.
+All IP addresses are simple strings. Blocking socket operations have variants accepting a timeout.
 Utilities for DNS resolution and limited network interface management are provided.
 
 ## Features
 
-- IPv4 TCP and UDP sockets
+- IPv4/IPv6 TCP and UDP sockets
+- UDP multicast support (IPv4 only)
 - Unix-domain stream and datagram sockets
 - Blocking I/O plus timeout variants for connect, accept and receive
-- UDP multicast support
 - Peer-disconnect tracking for connected sockets
-- TCP/Unix-stream sendAll and receiveAll helpers
+- Stream based sendAll and receiveAll helpers
 - Hostname, service and network-interface utilities
 - Optional SocketCAN support
 - Optional SCTP support
