@@ -13,6 +13,7 @@ class TCPSocket_TEST : public CppUnit::TestFixture
 	CPPUNIT_TEST(testTimedReceive);
 	CPPUNIT_TEST(testTimedConnect);
 	CPPUNIT_TEST(testGracefulShutdown);
+	CPPUNIT_TEST(testIPv6);
 	CPPUNIT_TEST_SUITE_END();
 
 private:
@@ -191,6 +192,37 @@ public:
 		const int ret = session.timedReceive(buffer, sizeof(buffer), 1000);
 		CPPUNIT_ASSERT_EQUAL(0, ret);
 		CPPUNIT_ASSERT(session.peerDisconnected());
+	}
+
+	void testIPv6()
+	{
+		NET::TCPSocket server(NET::IPv6);
+		// ipv4 should not work
+		CPPUNIT_ASSERT_THROW(server.bind(LOOPBACK), NET::SocketException);
+
+		server.bind("::1", 0);
+		server.listen();
+		const unsigned short port = server.getLocalPort();
+
+		NET::TCPSocket client(NET::IPv6);
+		// ipv4 should not work
+		CPPUNIT_ASSERT_THROW(client.connect(LOOPBACK, port), NET::SocketException);
+
+		const int ret = client.timedConnect("::1", port, 1000);
+		CPPUNIT_ASSERT_EQUAL(1, ret);
+
+		NET::TCPSocket session(server.accept());
+		CPPUNIT_ASSERT_EQUAL(std::string("::1"), client.getForeignAddress());
+		CPPUNIT_ASSERT_EQUAL(NET::IPv6, client.addressFamily());
+
+		const char message[] = "IPv6 works";
+		const int sent = client.sendAll(message, sizeof(message));
+		CPPUNIT_ASSERT_EQUAL(static_cast<int>(sizeof(message)), sent);
+
+		char buffer[sizeof(message)]{};
+		const int recv = session.timedReceive(buffer, sizeof(buffer), 1000);
+		CPPUNIT_ASSERT_EQUAL(static_cast<int>(sizeof(message)), recv);
+		CPPUNIT_ASSERT(std::memcmp(message, buffer, sizeof(message)) == 0);
 	}
 };
 

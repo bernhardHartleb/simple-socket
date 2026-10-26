@@ -216,11 +216,34 @@ public:
 
 	void testInvalidAddress()
 	{
-		NET::UDPSocket socket;
-		const std::string address_ip("255.255.255.256");
-		CPPUNIT_ASSERT_THROW(socket.bind(address_ip), NET::SocketException);
-		const std::string address_len(32, '0');
-		CPPUNIT_ASSERT_THROW(socket.bind(address_len), NET::SocketException);
+		NET::UDPSocket socket_ipv4(NET::IPv4);
+		NET::UDPSocket socket_ipv6(NET::IPv6);
+
+		const std::string ipv4("127.0.0.1");
+		const std::string ipv6("::1");
+
+		const std::string bad_ip4("255.255.255.256");
+		const std::string bad_ip6("2001:db8::1:1:1:1:1");
+		const std::string bad_nul("");
+		const std::string bad_len(255, '0');
+
+		// IPv4
+		CPPUNIT_ASSERT_THROW(socket_ipv4.bind(ipv6),    NET::SocketException);
+		CPPUNIT_ASSERT_THROW(socket_ipv4.bind(bad_ip4), NET::SocketException);
+		CPPUNIT_ASSERT_THROW(socket_ipv4.bind(bad_ip6), NET::SocketException);
+		CPPUNIT_ASSERT_THROW(socket_ipv4.bind(bad_nul), NET::SocketException);
+		CPPUNIT_ASSERT_THROW(socket_ipv4.bind(bad_len), NET::SocketException);
+
+		// IPv6
+		CPPUNIT_ASSERT_THROW(socket_ipv6.bind(ipv4),    NET::SocketException);
+		CPPUNIT_ASSERT_THROW(socket_ipv6.bind(bad_ip4), NET::SocketException);
+		CPPUNIT_ASSERT_THROW(socket_ipv6.bind(bad_ip6), NET::SocketException);
+		CPPUNIT_ASSERT_THROW(socket_ipv6.bind(bad_nul), NET::SocketException);
+		CPPUNIT_ASSERT_THROW(socket_ipv6.bind(bad_len), NET::SocketException);
+
+		// this should work
+		socket_ipv4.bind(ipv4);
+		socket_ipv6.bind(ipv6);
 	}
 };
 
