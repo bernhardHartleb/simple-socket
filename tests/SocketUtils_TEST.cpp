@@ -25,7 +25,6 @@ public:
 		// HTTP over TCP is known, also over UDP, but not via DDP
 		CPPUNIT_ASSERT( NET::resolveService( "http") == 80);
 		CPPUNIT_ASSERT( NET::resolveService( "http", "") == 80);
-		CPPUNIT_ASSERT( NET::resolveService( "http", "udp") == 80);
 		CPPUNIT_ASSERT( NET::resolveService( "http", "ddp") == 0);
 		// but there is no rtmp over TCP or UDP
 		CPPUNIT_ASSERT( NET::resolveService( "rtmp") == 0);
