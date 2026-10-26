@@ -3,8 +3,6 @@
 
 #include "SimpleSocket.h"
 
-struct sockaddr_in;
-
 namespace NET
 {
 	//! Internet socket class
@@ -38,7 +36,7 @@ namespace NET
 		 * use the send() function like on a connection oriented socket.
 		 * If not connected, you would have to use sendTo
 		 *
-		 * \param foreignAddress foreign address (IPv4 address)
+		 * \param foreignAddress foreign address
 		 * \param foreignPort foreign port
 		 * \exception SocketException thrown if unable to establish connection
 		 */
@@ -48,7 +46,7 @@ namespace NET
 		/*!
 		 * Provides timeout for TCP socket connection establishment.
 		 *
-		 * \param foreignAddress foreign address (IPv4 address)
+		 * \param foreignAddress foreign address
 		 * \param foreignPort foreign port
 		 * \return 0 on timeout, 1 when connection is established
 		 * \exception SocketException thrown if unable to establish connection
@@ -112,23 +110,18 @@ namespace NET
 		 */
 		unsigned short getForeignPort() const;
 
+		//! return wether this socket was created for IPv4 or IPv6
+		AddressFamily addressFamily() const noexcept { return m_family; }
+
 	protected:
 		//! create socket from a SocketHandle returned by an accept() call
 		explicit InternetSocket( int sockfd);
 
 		//! allows a subclass to create new socket
-		InternetSocket( SocketType type, int protocol);
+		InternetSocket( AddressFamily family, int type, int protocol);
 
-		/*!
-		 * Fill an address structure with the given address and port number.
-		 * If the given address is not a valid IPv4 address, it will throw.
-		 *
-		 * \param address IPv4 address
-		 * \param port port number to fill in
-		 * \param addr address structure to fill
-		 * \exception SocketException thrown if unable to parse IP
-		 */
-		static void fillAddress( std::string_view address, unsigned short port, sockaddr_in& addr);
+		// IPv4 or IPv6
+		AddressFamily m_family;
 	};
 
 } // namespace NET

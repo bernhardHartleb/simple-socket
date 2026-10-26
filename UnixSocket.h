@@ -3,8 +3,6 @@
 
 #include "SimpleSocket.h"
 
-struct sockaddr_un;
-
 namespace NET
 {
 	//! Unix domain socket class
@@ -46,26 +44,13 @@ namespace NET
 
 	protected:
 		//! allows a subclass to create new socket
-		UnixSocket( SocketType type, int protocol);
+		UnixSocket( int type, int protocol);
 
 		//! allows a subclass to take ownership of an accepted socket
 		explicit UnixSocket( int sockfd);
 
 		// track created socket file
 		std::string m_boundPath;
-
-		/*!
-		 * Fill an address structure with the given path.
-		 * If the given path is not valid addr will be unchanged.
-		 *
-		 * \param path path to unix domain socket
-		 * \param addr address structure to fill
-		 * \exception SocketException thrown if path is not valid
-		 */
-		static void fillAddress( std::string_view path, sockaddr_un& addr);
-
-		//! extracts a path string from the socket address structure
-		static std::string extractPath( const sockaddr_un& addr, socklen_t len);
 	};
 
 } // namespace NET

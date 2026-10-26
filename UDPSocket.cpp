@@ -1,4 +1,5 @@
 #include "UDPSocket.h"
+#include "SockAddress.h"
 #include "TempFailure.h"
 
 #include <sys/socket.h>
@@ -28,18 +29,17 @@ int groupAction( int socket, const std::string& multicastGroup, int action)
 
 } // namespace
 
-UDPSocket::UDPSocket()
-: InternetSocket( DATAGRAM, IPPROTO_UDP)
+UDPSocket::UDPSocket( AddressFamily family)
+: InternetSocket( family, SOCK_DGRAM, IPPROTO_UDP)
 {
 	setBroadcast(m_socket);
 }
 
 void UDPSocket::sendTo( const void* buffer, size_t len, std::string_view foreignAddress, unsigned short foreignPort)
 {
-	sockaddr_in destAddr;
-	fillAddress( foreignAddress, foreignPort, destAddr);
+	SockAddress addr( m_family, foreignAddress, foreignPort);
 
-	int sent = TEMP_FAILURE_RETRY (::sendto( m_socket, (const raw_type*)buffer, len, 0, (sockaddr*)&destAddr, sizeof(destAddr)));
+	int sent = TEMP_FAILURE_RETRY (::sendto( m_socket, (const raw_type*)buffer, len, 0, addr.data(), addr.length()));
 
 	// Write out the whole buffer as a single message
 	if( sent != (int)len)
@@ -48,15 +48,14 @@ void UDPSocket::sendTo( const void* buffer, size_t len, std::string_view foreign
 
 int UDPSocket::receiveFrom( void* buffer, size_t len, std::string& sourceAddress, unsigned short& sourcePort)
 {
-	sockaddr_in clientAddr;
-	socklen_t addrLen = sizeof(clientAddr);
+	SockAddress addr;
 
-	int ret = TEMP_FAILURE_RETRY (::recvfrom( m_socket, (raw_type*)buffer, len, 0, (sockaddr*)&clientAddr, &addrLen));
+	int ret = TEMP_FAILURE_RETRY (::recvfrom( m_socket, (raw_type*)buffer, len, 0, addr.data(), addr.lengthPtr()));
 	if( ret < 0)
 		throw SocketException("Receive failed (recvfrom)");
 
-	sourceAddress = inet_ntoa( clientAddr.sin_addr);
-	sourcePort = ntohs( clientAddr.sin_port);
+	sourceAddress = addr.address();
+	sourcePort = addr.port();
 
 	return ret;
 }

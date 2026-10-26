@@ -1,22 +1,21 @@
 #include "UnixDatagramSocket.h"
+#include "SockAddress.h"
 #include "TempFailure.h"
 
 #include <sys/socket.h>
-#include <sys/un.h>
 #include <poll.h>
 
 using namespace NET;
 
 UnixDatagramSocket::UnixDatagramSocket()
-: UnixSocket( DATAGRAM, 0)
+: UnixSocket( SOCK_DGRAM, 0)
 {}
 
 void UnixDatagramSocket::sendTo( const void* buffer, size_t len, std::string_view foreignPath)
 {
-	sockaddr_un destAddr;
-	fillAddress( foreignPath, destAddr);
+	SockAddress addr( foreignPath);
 
-	int sent = TEMP_FAILURE_RETRY (::sendto( m_socket, (const raw_type*)buffer, len, 0, (sockaddr*)&destAddr, sizeof(destAddr)));
+	int sent = TEMP_FAILURE_RETRY (::sendto( m_socket, (const raw_type*)buffer, len, 0, addr.data(), addr.length()));
 
 	// Write out the whole buffer as a single message
 	if( sent != (int)len)
@@ -25,14 +24,13 @@ void UnixDatagramSocket::sendTo( const void* buffer, size_t len, std::string_vie
 
 int UnixDatagramSocket::receiveFrom( void* buffer, size_t len, std::string& sourcePath)
 {
-	sockaddr_un clientAddr;
-	socklen_t addr_len = sizeof(clientAddr);
+	SockAddress addr;
 
-	int ret = TEMP_FAILURE_RETRY (::recvfrom( m_socket, (raw_type*)buffer, len, 0, (sockaddr*)&clientAddr, &addr_len));
+	int ret = TEMP_FAILURE_RETRY (::recvfrom( m_socket, (raw_type*)buffer, len, 0, addr.data(), addr.lengthPtr()));
 	if( ret < 0)
 		throw SocketException("Receive failed (recvfrom)");
 
-	sourcePath = extractPath( clientAddr, addr_len);
+	sourcePath = addr.address();
 	return ret;
 }
 

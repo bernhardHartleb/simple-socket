@@ -8,8 +8,8 @@
 
 using namespace NET;
 
-TCPSocket::TCPSocket()
-: InternetSocket( STREAM, IPPROTO_TCP)
+TCPSocket::TCPSocket( AddressFamily family)
+: InternetSocket( family, SOCK_STREAM, IPPROTO_TCP)
 {}
 
 TCPSocket::TCPSocket( Handle&& handle)

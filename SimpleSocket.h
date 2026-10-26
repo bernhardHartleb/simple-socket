@@ -35,6 +35,12 @@ namespace NET
 		int m_errorcode;
 	};
 
+	enum AddressFamily
+	{
+		IPv4,
+		IPv6
+	};
+
 	//! \cond internal
 	//! data type used by transmit and receive functions
 	typedef void raw_type;
@@ -59,7 +65,7 @@ namespace NET
 		SimpleSocket& operator=( const SimpleSocket&) = delete;
 
 		//! return the native handle of the open socket
-		inline int nativeHandle() { return m_socket; }
+		int nativeHandle() noexcept { return m_socket; }
 
 		//! send data through a connected socket
 		/*!
@@ -222,25 +228,11 @@ namespace NET
 		 */
 		int receiveAll( void* buffer, size_t len);
 
-		enum SocketDomain
-		{
-			INTERNET = AF_INET,
-			UNIX = AF_UNIX,
-			CAN = AF_CAN
-		};
-
-		enum SocketType
-		{
-			RAW = SOCK_RAW,
-			STREAM = SOCK_STREAM,
-			DATAGRAM = SOCK_DGRAM
-		};
-
 		//! enables return of an accepted socket
 		explicit SimpleSocket( int sockfd);
 
 		//! allows a subclass to create new socket
-		SimpleSocket( SocketDomain domain, SocketType type, int protocol);
+		SimpleSocket( int domain, int type, int protocol);
 
 		// protected to avoid delete via base class
 		~SimpleSocket();

@@ -11,8 +11,8 @@
 
 using namespace NET;
 
-CANSocket::CANSocket( SocketType type, int protocol)
-: SimpleSocket( CAN, type, protocol)
+CANSocket::CANSocket( int type, int protocol)
+: SimpleSocket( AF_CAN, type, protocol)
 {}
 
 void CANSocket::connect( std::string_view interface)

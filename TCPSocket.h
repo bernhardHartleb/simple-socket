@@ -17,7 +17,7 @@ namespace NET
 		 * Construct a TCP socket
 		 * \exception SocketException thrown if unable to create the socket
 		 */
-		TCPSocket();
+		TCPSocket( AddressFamily family = IPv4);
 
 		/*!
 		 * Construct a Socket from a Handle returned by accept()

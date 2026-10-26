@@ -9,7 +9,7 @@
 using namespace NET;
 
 CANRawSocket::CANRawSocket()
-: CANSocket( RAW, CAN_RAW)
+: CANSocket( SOCK_RAW, CAN_RAW)
 {}
 
 void CANRawSocket::send( const ::can_frame& frame)

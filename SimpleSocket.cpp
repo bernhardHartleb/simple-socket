@@ -1,4 +1,5 @@
 #include "SimpleSocket.h"
+#include "SockAddress.h"
 #include "TempFailure.h"
 
 #include <poll.h>
@@ -20,9 +21,9 @@ SocketException::SocketException( std::string_view message, bool inclSysMsg /* =
 	}
 }
 
-SimpleSocket::SimpleSocket( SocketDomain domain, SocketType type, int protocol)
+SimpleSocket::SimpleSocket( int domain, int type, int protocol)
 : m_peerDisconnected(false)
-, m_connectionOriented(type == STREAM)
+, m_connectionOriented(type == SOCK_STREAM)
 {
 	if( (m_socket = ::socket( domain, type, protocol)) < 0)
 		throw SocketException("Socket creation failed (socket)");

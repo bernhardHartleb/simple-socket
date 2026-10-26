@@ -13,7 +13,7 @@ namespace NET
 		 * Construct a UDP socket and enable broadcast capabilities
 		 * \exception SocketException thrown if unable to create the socket
 		 */
-		UDPSocket();
+		UDPSocket( AddressFamily family = IPv4);
 
 		/*!
 		 * Send the given buffer as a UDP datagram to the
@@ -30,7 +30,7 @@ namespace NET
 		 *
 		 * \param buffer data to be send
 		 * \param len number of bytes to write
-		 * \param foreignAddress address (IPv4 address) to send to
+		 * \param foreignAddress address to send to
 		 * \param foreignPort port number to send to
 		 * \exception SocketException thrown if unable to send datagram
 		 */

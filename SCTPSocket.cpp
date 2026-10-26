@@ -1,8 +1,7 @@
 #include "SCTPSocket.h"
+#include "SockAddress.h"
 #include "TempFailure.h"
 
-#include <vector>
-#include <netinet/in.h>
 #include <poll.h>
 
 using namespace NET;
@@ -24,24 +23,31 @@ SCTPSocket::SCTPSocket( uint16_t numOutStreams /* = 10 */,
                         uint16_t maxInStreams /* = 65535 */,
                         uint16_t maxAttempts /* = 4 */,
                         uint16_t maxInitTimeout /* = 0 */)
-: InternetSocket( STREAM, IPPROTO_SCTP)
+: InternetSocket( IPv4, SOCK_STREAM, IPPROTO_SCTP)
+, m_family( IPv4)
 {
 	setInitValues( numOutStreams, maxInStreams, maxAttempts, maxInitTimeout);
 }
 
 SCTPSocket::SCTPSocket( Handle&& handle)
 : InternetSocket( handle.release() )
+, m_family( IPv4)
 {}
 
 int SCTPSocket::bind( const std::vector<std::string>& localAddresses, unsigned short localPort /* = 0 */)
 {
-	size_t size = localAddresses.size();
-	std::vector<sockaddr_in> dest(size);
+	std::vector<sockaddr_in> dest;
+	dest.reserve(localAddresses.size());
 
-	for( size_t i = 0; i < size; ++i)
-		fillAddress( localAddresses[i], localPort, dest[i]);
+	for( const auto& address : localAddresses)
+	{
+		SockAddress addr( AddressFamily::IPv4, address, localPort);
+		sockaddr_in native{};
+		std::memcpy( &native, addr.data(), sizeof(native));
+		dest.push_back(native);
+	}
 
-	int ret = sctp_bindx( m_socket, reinterpret_cast<sockaddr*>(dest.data()), static_cast<int>(size), SCTP_BINDX_ADD_ADDR);
+	int ret = sctp_bindx( m_socket, reinterpret_cast<sockaddr*>(dest.data()), static_cast<int>(dest.size()), SCTP_BINDX_ADD_ADDR);
 	if(ret < 0)
 		throw SocketException("Set of local address and port failed (sctp_bindx)");
 	return ret;
@@ -49,14 +55,19 @@ int SCTPSocket::bind( const std::vector<std::string>& localAddresses, unsigned s
 
 int SCTPSocket::connect( const std::vector<std::string>& foreignAddresses, unsigned short foreignPort /* = 0 */)
 {
-	size_t size = foreignAddresses.size();
-	std::vector<sockaddr_in> dest(size);
+	std::vector<sockaddr_in> dest;
+	dest.reserve(foreignAddresses.size());
 
-	for( size_t i = 0; i < size; ++i)
-		fillAddress( foreignAddresses[i], foreignPort, dest[i]);
+	for( const auto& address : foreignAddresses)
+	{
+		SockAddress addr( AddressFamily::IPv4, address, foreignPort);
+		sockaddr_in native{};
+		std::memcpy( &native, addr.data(), sizeof(native));
+		dest.push_back(native);
+	}
 
 	// TODO maybe save connection id for later use
-	int ret = sctp_connectx( m_socket, reinterpret_cast<sockaddr*>(dest.data()), static_cast<int>(size), 0);
+	int ret = sctp_connectx( m_socket, reinterpret_cast<sockaddr*>(dest.data()), static_cast<int>(dest.size()), 0);
 	if(ret < 0)
 		throw SocketException("Connect failed (sctp_connectx)");
 

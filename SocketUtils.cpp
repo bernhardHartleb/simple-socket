@@ -20,7 +20,7 @@ namespace
 	class temp_socket : public SimpleSocket
 	{
 	public:
-		temp_socket() : SimpleSocket( INTERNET, DATAGRAM, 0) {}
+		temp_socket() : SimpleSocket( AF_INET, SOCK_DGRAM, 0) {}
 	};
 
 	in_addr ipv4Address( const sockaddr& sa)

@@ -1,13 +1,13 @@
 #include "UnixStreamSocket.h"
 #include "TempFailure.h"
 
-#include <poll.h>
 #include <sys/socket.h>
+#include <poll.h>
 
 using namespace NET;
 
 UnixStreamSocket::UnixStreamSocket()
-: UnixSocket( STREAM, 0)
+: UnixSocket( SOCK_STREAM, 0)
 {}
 
 UnixStreamSocket::UnixStreamSocket( Handle&& handle)

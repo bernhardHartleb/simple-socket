@@ -40,6 +40,7 @@ include(CTest)
 
 set(sources
 	SimpleSocket.cpp
+	SockAddress.cpp
 	SocketUtils.cpp
 	InternetSocket.cpp
 	TCPSocket.cpp

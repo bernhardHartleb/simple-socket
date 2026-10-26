@@ -6,9 +6,7 @@
 
 #include <netinet/in.h>
 #include <netinet/sctp.h>
-
 #include <vector>
-#include <string>
 
 namespace NET
 {
@@ -80,6 +78,9 @@ namespace NET
 
 	protected:
 		void setInitValues( uint16_t ostr, uint16_t istr, uint16_t att, uint16_t time);
+
+		// IPv4 only for now!
+		AddressFamily m_family;
 	};
 
 } // namespace NET
