@@ -29,12 +29,10 @@ add_compile_options(
 	-Wmissing-include-dirs
 	-Wpacked
 	-Wdisabled-optimization
-	-Wlogical-op
 	-Wcast-qual
 	-Wcast-align
 	-Wsign-conversion
 	-Wsign-promo
-	-Wstrict-null-sentinel
 	-Wzero-as-null-pointer-constant
 )
 
