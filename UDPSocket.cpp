@@ -77,7 +77,7 @@ int UDPSocket::timedReceiveFrom( void* buffer, size_t len, std::string& sourceAd
 	if( poll.revents & POLLIN || poll.revents & POLLPRI)
 		return receiveFrom( buffer, len, sourceAddress, sourcePort);
 
-	if( poll.revents & POLLERR)
+	if( poll.revents & (POLLERR | POLLNVAL))
 		throw SocketException("timedReceive failed (poll)");
 
 	return 0;

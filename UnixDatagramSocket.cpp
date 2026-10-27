@@ -51,7 +51,7 @@ int UnixDatagramSocket::timedReceiveFrom( void* buffer, size_t len, std::string&
 	if( poll.revents & POLLIN || poll.revents & POLLPRI)
 		return receiveFrom( buffer, len, sourcePath);
 
-	if( poll.revents & POLLERR)
+	if( poll.revents & (POLLERR | POLLNVAL))
 		throw SocketException("timedReceive failed (poll)");
 
 	return 0;

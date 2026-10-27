@@ -70,7 +70,7 @@ int CANRawSocket::timedReceiveFrom( ::can_frame& frame, std::string& interface, 
 	if( poll.revents & POLLIN || poll.revents & POLLPRI)
 		return receiveFrom( frame, interface);
 
-	if( poll.revents & POLLERR)
+	if( poll.revents & (POLLERR | POLLNVAL))
 		throw SocketException("timedReceive failed (poll)");
 
 	return 0;
