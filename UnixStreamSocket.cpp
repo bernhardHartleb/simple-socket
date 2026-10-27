@@ -23,11 +23,16 @@ void UnixStreamSocket::listen( int backlog)
 
 UnixStreamSocket::Handle UnixStreamSocket::accept() const
 {
-	int fd = TEMP_FAILURE_RETRY (::accept( m_socket, nullptr, nullptr));
-	if( fd < 0)
+#ifdef SOCK_CLOEXEC
+	// prevent leaking socket descriptor on exec
+	int ret = TEMP_FAILURE_RETRY (::accept4( m_socket, nullptr, nullptr, SOCK_CLOEXEC));
+#else
+	int ret = TEMP_FAILURE_RETRY (::accept( m_socket, nullptr, nullptr));
+#endif
+	if( ret < 0)
 		throw SocketException("UnixStreamSocket::accept failed");
 
-	return Handle(fd);
+	return Handle(ret);
 }
 
 UnixStreamSocket::Handle UnixStreamSocket::timedAccept( int timeout) const

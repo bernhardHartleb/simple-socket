@@ -32,7 +32,12 @@ void TCPSocket::listen( int backlog)
 
 TCPSocket::Handle TCPSocket::accept() const
 {
+#ifdef SOCK_CLOEXEC
+	// prevent leaking socket descriptor on exec
+	int ret = TEMP_FAILURE_RETRY (::accept4( m_socket, nullptr, nullptr, SOCK_CLOEXEC));
+#else
 	int ret = TEMP_FAILURE_RETRY (::accept( m_socket, nullptr, nullptr));
+#endif
 	if( ret < 0)
 		throw SocketException("TCPSocket::accept failed");
 

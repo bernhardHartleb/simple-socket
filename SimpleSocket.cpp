@@ -25,6 +25,10 @@ SimpleSocket::SimpleSocket( int domain, int type, int protocol)
 : m_peerDisconnected(false)
 , m_connectionOriented(type == SOCK_STREAM)
 {
+#ifdef SOCK_CLOEXEC
+	// prevent leaking socket descriptor on exec
+	type |= SOCK_CLOEXEC;
+#endif
 	if( (m_socket = ::socket( domain, type, protocol)) < 0)
 		throw SocketException("Socket creation failed (socket)");
 }
@@ -47,6 +51,7 @@ int SimpleSocket::send( const void* buffer, size_t len)
 {
 	int flags = 0;
 #ifdef MSG_NOSIGNAL
+	// do not generate SIGPIPE on closed connection
 	flags |= MSG_NOSIGNAL;
 #endif
 	int sent = TEMP_FAILURE_RETRY (::send( m_socket, (const raw_type*) buffer, len, flags));
