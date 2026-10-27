@@ -72,7 +72,9 @@ namespace NET
 		int timedReceive( void* data, size_t maxLen, uint16_t& stream, int timeout);
 		int timedReceive( void* data, size_t maxLen, uint16_t& stream, receiveFlag& flag, int timeout);
 
-		void listen( int backlog = 5);
+		//! Listen for incoming connections
+		using SimpleSocket::listen;
+
 		Handle accept() const;
 		Handle timedAccept( int timeout) const;
 

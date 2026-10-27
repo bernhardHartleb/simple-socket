@@ -191,6 +191,25 @@ namespace NET
 		bool peerDisconnected() const noexcept;
 
 	protected:
+		//! listen for incoming connections
+		/*!
+		 * listen() can be called on a bound socket.
+		 * The socket will then go into a passive state and accept incoming
+		 * connections. To answer to an incoming connection call accept() or
+		 * timedAccept() on the socket.
+		 *
+		 * The backlog is a buffer for incoming connections. If backlog is set
+		 * to 0, the number of incoming connections is only limited by the
+		 * operating system. If backlog is set to a value > 0, only the upper
+		 * limit of connections is set, the OS can limit the number further.
+		 *
+		 * After starting to listen, use accept to accept incoming connections.
+		 *
+		 * \param backlog upper limit of pending incoming connections
+		 * \exception SocketException
+		 */
+		void listen( int backlog = 5);
+
 		//! send data through a connected socket
 		/*!
 		 * sendAll() can only be used on a socket that called connect()
@@ -236,6 +255,12 @@ namespace NET
 
 		// protected to avoid delete via base class
 		~SimpleSocket();
+
+		//! allows stream sockets to accept connections into Handles
+		int accept() const;
+
+		//! allows stream sockets timed accept
+		int timedAccept( int timeout) const;
 
 		// socket descriptor
 		int m_socket;

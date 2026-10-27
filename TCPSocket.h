@@ -25,11 +25,8 @@ namespace NET
 		 */
 		explicit TCPSocket( Handle&& handle);
 
-		//! Send the complete buffer
-		using SimpleSocket::sendAll;
-
-		//! Receive the complete requested buffer
-		using SimpleSocket::receiveAll;
+		//! Listen for incoming connections
+		using SimpleSocket::listen;
 
 		//! Enable or disable TCP_NODELAY
 		/*!
@@ -42,25 +39,6 @@ namespace NET
 		* \exception SocketException if changing the option fails
 		*/
 		void setNoDelay( bool enable);
-
-		//! listen for incoming connections
-		/*!
-		 * listen() can be called on a bound socket.
-		 * The socket will then go into a passive state and accept incoming
-		 * connections. To answer to an incoming connection call accept() or
-		 * timedAccept() on the socket.
-		 *
-		 * The backlog is a buffer for incoming connections. If backlog is set
-		 * to 0, the number of incoming connections is only limited by the
-		 * operating system. If backlog is set to a value > 0, only the upper
-		 * limit of connections is set, the OS can limit the number further.
-		 *
-		 * After starting to listen, use accept to accept incoming connections.
-		 *
-		 * \param backlog upper limit of pending incoming connections
-		 * \exception SocketException
-		 */
-		void listen( int backlog = 5);
 
 		//! wait for another socket to connect
 		/*!
@@ -102,6 +80,12 @@ namespace NET
 		 * \exception SocketException
 		 */
 		Handle timedAccept( int timeout) const;
+
+		//! Send the complete buffer
+		using SimpleSocket::sendAll;
+
+		//! Receive the complete requested buffer
+		using SimpleSocket::receiveAll;
 	};
 
 } // namespace NET

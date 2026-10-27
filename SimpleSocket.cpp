@@ -134,6 +134,44 @@ bool SimpleSocket::peerDisconnected() const noexcept
 	return m_peerDisconnected;
 }
 
+void SimpleSocket::listen( int backlog)
+{
+	int ret = ::listen( m_socket, backlog);
+	if( ret < 0)
+		throw SocketException("Listen failed (listen)");
+}
+
+int SimpleSocket::accept() const
+{
+#ifdef SOCK_CLOEXEC
+	// prevent leaking socket descriptor on exec
+	int ret = TEMP_FAILURE_RETRY (::accept4( m_socket, nullptr, nullptr, SOCK_CLOEXEC));
+#else
+	int ret = TEMP_FAILURE_RETRY (::accept( m_socket, nullptr, nullptr));
+#endif
+	if( ret < 0)
+		throw SocketException("Accept failed (accept)");
+
+	return ret;
+}
+
+int SimpleSocket::timedAccept( int timeout) const
+{
+	struct pollfd poll;
+	poll.fd = m_socket;
+	poll.events = POLLIN;
+
+	int ret = TEMP_FAILURE_RETRY (::poll( &poll, 1, timeout));
+	if( ret == 0) return -1; // invalid handle
+	if( ret < 0)
+		throw SocketException("timedAccept failed (poll)");
+
+	if( poll.revents & (POLLERR | POLLNVAL))
+		throw SocketException("timedAccept failed (poll)");
+
+	return SimpleSocket::accept();
+}
+
 int SimpleSocket::sendAll( const void* buffer, size_t len)
 {
 	size_t sent = 0;

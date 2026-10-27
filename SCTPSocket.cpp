@@ -200,37 +200,16 @@ int SCTPSocket::timedReceive( void* data, size_t maxLen, uint16_t& stream, recei
 	return 0;
 }
 
-void SCTPSocket::listen( int backlog)
-{
-	int ret = ::listen( m_socket, backlog);
-	if( ret < 0)
-		throw SocketException("SCTPSocket::listen failed");
-}
-
 SCTPSocket::Handle SCTPSocket::accept() const
 {
-	int ret = TEMP_FAILURE_RETRY (::accept( m_socket, nullptr, nullptr));
-	if( ret < 0)
-		throw SocketException("SCTPSocket::accept failed (accept)");
-
+	int ret = SimpleSocket::accept();
 	return Handle(ret);
 }
 
 SCTPSocket::Handle SCTPSocket::timedAccept( int timeout) const
 {
-	struct pollfd poll;
-	poll.fd = m_socket;
-	poll.events = POLLIN;
-
-	int ret = TEMP_FAILURE_RETRY (::poll( &poll, 1, timeout));
-
-	if( ret == 0) return Handle();
-	if( ret < 0) throw SocketException("SCTPSocket::timedAccept failed (poll)");
-
-	if( poll.revents & (POLLERR | POLLNVAL))
-		throw SocketException("SCTPSocket::timedAccept failed (poll)");
-
-	return accept();
+	int ret = SimpleSocket::timedAccept(timeout);
+	return Handle(ret);
 }
 
 void SCTPSocket::setInitValues( uint16_t numOutStreams, uint16_t maxInStreams, uint16_t maxAttempts, uint16_t maxInitTimeout)

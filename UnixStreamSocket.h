@@ -28,19 +28,8 @@ namespace NET
 		 */
 		explicit UnixStreamSocket( Handle&& handle);
 
-		//! Send the complete buffer
-		using SimpleSocket::sendAll;
-
-		//! Receive the complete requested buffer
-		using SimpleSocket::receiveAll;
-
-		/*!
-		 * Put a bound socket into listening state.
-		 *
-		 * \param backlog upper limit of pending incoming connections
-		 * \exception SocketException if listen fails
-		 */
-		void listen( int backlog = 5);
+		//! Listen for incoming connections
+		using SimpleSocket::listen;
 
 		/*!
 		 * Wait for and accept an incoming connection.
@@ -57,6 +46,12 @@ namespace NET
 		 * \exception SocketException on errors
 		 */
 		Handle timedAccept( int timeout) const;
+
+		//! Send the complete buffer
+		using SimpleSocket::sendAll;
+
+		//! Receive the complete requested buffer
+		using SimpleSocket::receiveAll;
 	};
 
 } // namespace NET
