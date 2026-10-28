@@ -1,5 +1,5 @@
 #include <cppunit/extensions/HelperMacros.h>
-#include "../TCPSocket.h"
+#include <simple_socket/TCPSocket.h>
 
 #include <cstring>
 #include <vector>

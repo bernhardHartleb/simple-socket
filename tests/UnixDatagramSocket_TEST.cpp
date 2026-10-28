@@ -1,5 +1,5 @@
 #include <cppunit/extensions/HelperMacros.h>
-#include "../UnixDatagramSocket.h"
+#include <simple_socket/UnixDatagramSocket.h>
 
 #include <unistd.h>
 #include <cstring>

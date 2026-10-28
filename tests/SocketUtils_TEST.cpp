@@ -1,5 +1,5 @@
 #include <cppunit/extensions/HelperMacros.h>
-#include "../SocketUtils.h"
+#include <simple_socket/SocketUtils.h>
 
 class SocketUtils_TEST : public CppUnit::TestFixture
 {

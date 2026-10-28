@@ -1,5 +1,5 @@
-#include "../SimpleSocket.h"
-#include "../SocketUtils.h"
+#include <simple_socket/SimpleSocket.h>
+#include <simple_socket/SocketUtils.h>
 
 #include <iostream>
 #include <sstream>

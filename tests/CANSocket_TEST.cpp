@@ -1,5 +1,5 @@
 #include <cppunit/extensions/HelperMacros.h>
-#include "../CANRawSocket.h"
+#include <simple_socket/CANRawSocket.h>
 
 #include <net/if.h>
 #include <algorithm>

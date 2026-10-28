@@ -1,29 +1,29 @@
-message("Building tests:")
+message("Building simple-socket tests:")
 
-# Collect all unit tests
-set(Test_SRC
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(CPPUNIT REQUIRED IMPORTED_TARGET cppunit)
+
+set(SIMPLE_SOCKET_TESTS
 	TCPSocket_TEST.cpp
 	UDPSocket_TEST.cpp
 	SocketUtils_TEST.cpp)
 
 if(UNIX)
-	list(APPEND Test_SRC
+	list(APPEND SIMPLE_SOCKET_TESTS
 		UnixDatagramSocket_TEST.cpp
 		UnixStreamSocket_TEST.cpp)
 endif()
 
-if(BUILD_CAN)
-	list(APPEND Test_SRC
+if(SIMPLE_SOCKET_ENABLE_CAN)
+	list(APPEND SIMPLE_SOCKET_TESTS
 		CANSocket_TEST.cpp)
 endif()
 
-find_library(CPPUNIT_LIBRARY NAMES cppunit)
+add_executable(UnitTester test_runner.cpp ${SIMPLE_SOCKET_TESTS})
+target_link_libraries(UnitTester PRIVATE simple-socket PkgConfig::CPPUNIT)
 
-add_executable(UnitTester test_runner.cpp ${Test_SRC})
-target_link_libraries(UnitTester PRIVATE network ${CPPUNIT_LIBRARY})
-
-foreach(TB ${Test_SRC})
-	get_filename_component(TestName ${TB} NAME_WE)
-	message("* ${TestName}")
-	add_test(${TestName} UnitTester ${TestName})
+foreach(TS IN LISTS SIMPLE_SOCKET_TESTS)
+	get_filename_component(TN ${TS} NAME_WE)
+	message("* ${TN}")
+	add_test(${TN} UnitTester ${TN})
 endforeach()

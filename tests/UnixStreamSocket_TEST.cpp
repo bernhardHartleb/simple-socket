@@ -1,5 +1,5 @@
 #include <cppunit/extensions/HelperMacros.h>
-#include "../UnixStreamSocket.h"
+#include <simple_socket/UnixStreamSocket.h>
 
 #include <unistd.h>
 #include <cstring>
