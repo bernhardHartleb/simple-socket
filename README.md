@@ -28,7 +28,7 @@ Utilities for DNS resolution and limited network interface management are provid
 Minimal TCP server:
 
 ```cpp
-#include "TCPSocket.h"
+#include <simple_socket/TCPSocket.h>
 
 #include <iostream>
 #include <utility>
@@ -59,24 +59,27 @@ int main()
 
 ## Building
 
-A basic build without unit tests:
+To use the library in your own project, it is easiest to use add_subdirectory in your CMakeLists.txt:
 
-```sh
-cmake -S . -B build -DBUILD_TESTING=OFF
-cmake --build build
+```cmake
+add_subdirectory(external/simple-socket)
+add_executable(myapp main.cpp)
+target_link_libraries(myapp PRIVATE simple-socket)
 ```
 
-To build and run the unit tests, install CppUnit and use:
+When used as a subproject, simple-socket does not build tests or examples by default.
+For a standalone build with unit tests, install CppUnit and use:
 
 ```sh
-cmake -S . -B build
+cmake -B build
 cmake --build build
 ctest --test-dir build --output-on-failure
 ```
 
-SocketCAN and SCTP support can be enabled with `-DBUILD_CAN=ON` and `-DBUILD_SCTP=ON` respectively.
+SocketCAN and SCTP support can be enabled with `-DSIMPLE_SOCKET_ENABLE_CAN=ON` and `-DSIMPLE_SOCKET_ENABLE_SCTP=ON` respectively.
 API documentation can be generated with the `doc` target when Doxygen is available.
 
 ## License
 
-MIT. See `LICENSE`.
+This library is released under the MIT License.
+See `LICENSE`.
