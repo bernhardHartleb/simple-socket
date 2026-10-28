@@ -27,15 +27,6 @@ var NAVTREE =
   [ "simple-socket library", "index.html", [
     [ "Overview", "index.html#Overview", null ],
     [ "License", "index.html#License", null ],
-    [ "Namespaces", "namespaces.html", [
-      [ "Namespace List", "namespaces.html", "namespaces_dup" ],
-      [ "Namespace Members", "namespacemembers.html", [
-        [ "All", "namespacemembers.html", null ],
-        [ "Functions", "namespacemembers_func.html", null ],
-        [ "Enumerations", "namespacemembers_enum.html", null ],
-        [ "Enumerator", "namespacemembers_eval.html", null ]
-      ] ]
-    ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
@@ -43,21 +34,13 @@ var NAVTREE =
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", null ],
         [ "Functions", "functions_func.html", null ],
-        [ "Variables", "functions_vars.html", null ],
         [ "Typedefs", "functions_type.html", null ],
         [ "Enumerations", "functions_enum.html", null ],
-        [ "Enumerator", "functions_eval.html", null ],
-        [ "Related Symbols", "functions_rela.html", null ]
+        [ "Enumerator", "functions_eval.html", null ]
       ] ]
     ] ],
     [ "Files", "files.html", [
-      [ "File List", "files.html", "files_dup" ],
-      [ "File Members", "globals.html", [
-        [ "All", "globals.html", null ],
-        [ "Functions", "globals_func.html", null ],
-        [ "Variables", "globals_vars.html", null ],
-        [ "Macros", "globals_defs.html", null ]
-      ] ]
+      [ "File List", "files.html", "files_dup" ]
     ] ],
     [ "Examples", "examples.html", "examples" ]
   ] ]
@@ -65,10 +48,8 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"a00002.html",
-"a00945.html#a720690007444358deac8d21a7f1a82bd",
-"a00965.html#a9f1ac1de1ede338619b2177e075689bb",
-"a00985.html#af3ce1e8b3022868b72932f6c43351d0c"
+"CANRawSocket_8cpp_source.html",
+"classNET_1_1UnixDatagramSocket.html#a4684d7f8b29b43c51bcc25f01c7df437"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

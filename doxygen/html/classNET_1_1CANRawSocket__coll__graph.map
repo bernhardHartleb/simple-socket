@@ -1,0 +1,7 @@
+<map id="NET::CANRawSocket" name="NET::CANRawSocket">
+<area shape="rect" id="Node000001" title="Raw CAN socket class." alt="" coords="5,155,157,181"/>
+<area shape="rect" id="Node000002" href="$classNET_1_1CANSocket.html" title="CAN socket class." alt="" coords="19,80,143,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="83,121,84,155,78,153,79,124"/>
+<area shape="rect" id="Node000003" href="$classNET_1_1SimpleSocket.html" title="A socket representing a basic communication endpoint." alt="" coords="13,5,149,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="82,45,84,80,78,79,80,50"/>
+</map>

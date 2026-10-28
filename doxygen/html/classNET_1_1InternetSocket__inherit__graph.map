@@ -1,0 +1,11 @@
+<map id="NET::InternetSocket" name="NET::InternetSocket">
+<area shape="rect" id="Node000001" title="Internet socket class." alt="" coords="152,80,291,107"/>
+<area shape="rect" id="Node000003" href="$classNET_1_1SCTPSocket.html" title="SCTP socket class." alt="" coords="5,155,137,181"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="184,114,99,156,96,152,179,113"/>
+<area shape="rect" id="Node000004" href="$classNET_1_1TCPSocket.html" title="TCP socket class." alt="" coords="160,155,283,181"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="224,121,224,156,219,153,220,124"/>
+<area shape="rect" id="Node000005" href="$classNET_1_1UDPSocket.html" title="UDP socket class." alt="" coords="308,155,432,181"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="262,111,346,154,341,154,260,116"/>
+<area shape="rect" id="Node000002" href="$classNET_1_1SimpleSocket.html" title="A socket representing a basic communication endpoint." alt="" coords="154,5,289,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="223,46,224,81,219,78,220,50"/>
+</map>

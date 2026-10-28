@@ -1,0 +1,7 @@
+<map id="NET::UnixDatagramSocket" name="NET::UnixDatagramSocket">
+<area shape="rect" id="Node000001" title="Unix datagram socket class." alt="" coords="5,155,185,181"/>
+<area shape="rect" id="Node000002" href="$classNET_1_1UnixSocket.html" title="Unix domain socket class." alt="" coords="34,80,156,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,121,97,155,93,153,93,124"/>
+<area shape="rect" id="Node000003" href="$classNET_1_1SimpleSocket.html" title="A socket representing a basic communication endpoint." alt="" coords="27,5,163,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="96,45,98,80,92,79,94,50"/>
+</map>

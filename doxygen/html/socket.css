@@ -1,0 +1,29 @@
+/* Left navigation tree */
+#nav-tree,
+#nav-tree .label,
+#nav-tree a {
+    font-size: 0.84rem;
+}
+
+/* Top navigation */
+#main-nav,
+#main-nav a,
+.sm-dox a {
+    font-size: 0.89rem;
+}
+
+code,
+pre,
+.fragment,
+div.line {
+    font-family:
+        "Cascadia Mono",
+        "SFMono-Regular",
+        Consolas,
+        "Liberation Mono",
+        "DejaVu Sans Mono",
+        monospace;
+
+    font-size: 0.95em;
+    line-height: 1.35;
+}

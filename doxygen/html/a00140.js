@@ -1,4 +1,0 @@
-var a00140 =
-[
-    [ "CPPUNIT_TEST_SUITE_REGISTRATION", "a00140.html#a7295e146f132710f6fa98ed2bde789df", null ]
-];

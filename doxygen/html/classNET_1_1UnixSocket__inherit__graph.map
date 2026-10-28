@@ -1,0 +1,9 @@
+<map id="NET::UnixSocket" name="NET::UnixSocket">
+<area shape="rect" id="Node000001" title="Unix domain socket class." alt="" coords="131,80,254,107"/>
+<area shape="rect" id="Node000003" href="$classNET_1_1UnixDatagramSocket.html" title="Unix datagram socket class." alt="" coords="5,155,185,181"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="166,115,113,157,110,152,161,117"/>
+<area shape="rect" id="Node000004" href="$classNET_1_1UnixStreamSocket.html" title="Unix domain stream socket class." alt="" coords="209,155,373,181"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="223,114,277,154,271,154,221,119"/>
+<area shape="rect" id="Node000002" href="$classNET_1_1SimpleSocket.html" title="A socket representing a basic communication endpoint." alt="" coords="125,5,260,32"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="194,46,195,81,190,79,191,50"/>
+</map>

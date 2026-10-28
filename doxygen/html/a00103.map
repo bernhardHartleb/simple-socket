@@ -1,9 +1,0 @@
-<map id="CANSocket.h" name="CANSocket.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="99,5,202,32"/>
-<area shape="rect" id="Node000002" href="$a00038.html" title=" " alt="" coords="12,80,142,107"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="125,45,92,81,88,78,128,41"/>
-<area shape="rect" id="Node000004" href="$a00029.html" title=" " alt="" coords="166,80,282,107"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="175,41,214,79,208,80,173,46"/>
-<area shape="rect" id="Node000003" href="$a00074.html" title=" " alt="" coords="5,155,149,181"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="79,121,80,155,74,153,75,124"/>
-</map>

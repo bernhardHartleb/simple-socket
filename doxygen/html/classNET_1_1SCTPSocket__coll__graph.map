@@ -1,0 +1,7 @@
+<map id="NET::SCTPSocket" name="NET::SCTPSocket">
+<area shape="rect" id="Node000001" title="SCTP socket class." alt="" coords="9,155,141,181"/>
+<area shape="rect" id="Node000002" href="$classNET_1_1InternetSocket.html" title="Internet socket class." alt="" coords="5,80,145,107"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="77,121,78,155,72,153,73,124"/>
+<area shape="rect" id="Node000003" href="$classNET_1_1SimpleSocket.html" title="A socket representing a basic communication endpoint." alt="" coords="7,5,143,32"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="76,45,78,80,72,79,74,50"/>
+</map>
