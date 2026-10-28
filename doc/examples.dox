@@ -24,7 +24,7 @@ Received data from server: The quick brown fox jumps over the lazy dog
 \example UDP_Multicast.cpp
 This is a simple example on how to do UDP multicast.
 
-\b Output if any non-local network is available:
+\b Output if any local network is available:
 \verbatim
 Your.local.ip.addr:47776 Welcome to our multicast group!
 We got another message.
