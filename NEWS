@@ -1,3 +1,14 @@
+1.5.0
+~~~~~
+- IPv6 support for internet socket types
+- Internal SockAddress container for addresses
+- Use SOCK_CLOEXEC by default for all sockets
+- Fix handling of externally closed socket errors
+- Restructure and split library into src and includes
+- Allow direct add_subdirectory() use via CMake
+- CI build and tests run for GCC and CLang
+- Generated docs now contain examples
+
 1.4.0
 ~~~~~
 - receiveAll() convience function for streams
