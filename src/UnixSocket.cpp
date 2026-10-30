@@ -10,7 +10,7 @@ UnixSocket::UnixSocket( int type, int protocol)
 : SimpleSocket( AF_UNIX, type, protocol)
 {}
 
-UnixSocket::UnixSocket( int sockfd)
+UnixSocket::UnixSocket( AdoptSocketTag, int sockfd)
 : SimpleSocket(sockfd)
 {}
 

@@ -12,14 +12,14 @@ UnixStreamSocket::UnixStreamSocket()
 UnixStreamSocket UnixStreamSocket::accept() const
 {
 	int ret = SimpleSocket::accept();
-	return UnixStreamSocket(ret);
+	return UnixStreamSocket( AdoptSocketTag{}, ret);
 }
 
-std::optional<NET::UnixStreamSocket> UnixStreamSocket::timedAccept( int timeout) const
+std::optional<UnixStreamSocket> UnixStreamSocket::timedAccept( int timeout) const
 {
 	int ret = SimpleSocket::timedAccept(timeout);
 	if( ret >= 0)
-		return std::optional<NET::UnixStreamSocket>{ UnixStreamSocket(ret)};
+		return std::optional<UnixStreamSocket>{ UnixStreamSocket( AdoptSocketTag{}, ret)};
 	else
 		return std::nullopt;
 }

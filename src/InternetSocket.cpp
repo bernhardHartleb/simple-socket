@@ -59,7 +59,7 @@ InternetSocket::InternetSocket( AddressFamily family, int type, int protocol)
 , m_family( family)
 {}
 
-InternetSocket::InternetSocket( int sockfd)
+InternetSocket::InternetSocket( AdoptSocketTag, int sockfd)
 : SimpleSocket( sockfd)
 , m_family( socketAddressFamily(sockfd))
 {}

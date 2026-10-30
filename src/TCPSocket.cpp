@@ -21,14 +21,14 @@ void TCPSocket::setNoDelay( bool enable)
 TCPSocket TCPSocket::accept() const
 {
 	int ret = SimpleSocket::accept();
-	return TCPSocket(ret);
+	return TCPSocket( AdoptSocketTag{}, ret);
 }
 
-std::optional<NET::TCPSocket> TCPSocket::timedAccept( int timeout) const
+std::optional<TCPSocket> TCPSocket::timedAccept( int timeout) const
 {
 	int ret = SimpleSocket::timedAccept(timeout);
 	if( ret >= 0)
-		return std::optional<NET::TCPSocket>{ TCPSocket(ret)};
+		return std::optional<TCPSocket>{ TCPSocket( AdoptSocketTag{}, ret)};
 	else
 		return std::nullopt;
 }

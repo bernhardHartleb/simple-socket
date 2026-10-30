@@ -197,14 +197,14 @@ int SCTPSocket::timedReceive( void* data, size_t maxLen, uint16_t& stream, recei
 SCTPSocket SCTPSocket::accept() const
 {
 	int ret = SimpleSocket::accept();
-	return SCTPSocket(ret);
+	return SCTPSocket( AdoptSocketTag{}, ret);
 }
 
-std::optional<NET::SCTPSocket> SCTPSocket::timedAccept( int timeout) const
+std::optional<SCTPSocket> SCTPSocket::timedAccept( int timeout) const
 {
 	int ret = SimpleSocket::timedAccept(timeout);
 	if( ret >= 0)
-		return std::optional<NET::SCTPSocket>{ SCTPSocket(ret)};
+		return std::optional<SCTPSocket>{ SCTPSocket( AdoptSocketTag{}, ret)};
 	else
 		return std::nullopt;
 }

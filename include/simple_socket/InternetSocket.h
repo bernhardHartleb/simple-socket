@@ -120,8 +120,10 @@ namespace NET
 		//! allows a subclass to create new socket
 		InternetSocket( AddressFamily family, int type, int protocol);
 
+		//! used to safely adopt internal socket descriptor
+		struct AdoptSocketTag {};
 		//! allows a subclass to take ownership of an accepted socket
-		explicit InternetSocket( int sockfd);
+		InternetSocket( AdoptSocketTag, int sockfd);
 
 		InternetSocket( InternetSocket&& other) noexcept = default;
 		InternetSocket& operator=( InternetSocket&& other) noexcept = default;
