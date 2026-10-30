@@ -1,28 +1,32 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>simple-socket @ GitHub</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="Modern C++ socket usability with simple-socket">
+	<meta name="author" content="Bernhard Hartleb">
+	<title>simple-socket - modern C++ sockets</title>
 
 	<style type="text/css">
 		body {
 			margin-top: 1.0em;
-			background-color: #a8cda6;
-			font-family: "Helvetica,Arial,FreeSans";
+			background-color: #aacfa8;
+			font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+			line-height: 1.5;
 			color: #000000;
 		}
 		#container {
 			margin: 0 auto;
-			width: 700px;
+			width: 720px;
 		}
-		h1 { font-size: 3.8em; color: #2648b8; margin-bottom: 3px; }
+		h1 { font-size: 3.2em; color: #513788; margin-bottom: 3px; }
 		h1 .small { font-size: 0.4em; }
 		h1 a { text-decoration: none }
-		h2 { font-size: 1.5em; color: #2648b8; }
-		h3 { text-align: center; color: #2648b8; }
+		h2 { font-size: 1.5em; color: #513788; }
+		h3 { text-align: center; color: #513788; }
+		p { font-size: 1.1em; }
 		a { color: #5137b8; }
-		.description { font-size: 1.2em; margin-bottom: 30px; margin-top: 30px; font-style: italic;}
+		.description { font-size: 1.2em; margin-bottom: 20px; margin-top: 30px; font-style: italic;}
 		.download { float: right; }
 		pre { background: #000; color: #fff; padding: 15px;}
 		hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
@@ -31,36 +35,37 @@
 </head>
 
 <body>
-	<a href="https://github.com/bernhardHartleb/simple-socket">
-		<img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub" />
-	</a>
-
 	<div id="container">
 		<div class="download">
-			<a href="https://github.com/bernhardHartleb/simple-socket/zipball/master">
-				<img border="0" width="90" src="https://github.com/images/modules/download/zip.png" alt="zip" /></a>
 			<a href="https://github.com/bernhardHartleb/simple-socket/tarball/master">
 				<img border="0" width="90" src="https://github.com/images/modules/download/tar.png" alt="tar" /></a>
 		</div>
 
 		<h1><a href="https://github.com/bernhardHartleb/simple-socket">simple-socket</a>
-			<span class="small">by <a href="https://github.com/bernhardHartleb">bernhardHartleb</a></span></h1>
+			<span class="small">by <a href="https://github.com/bernhardHartleb">Bernhard Hartleb</a></span></h1>
 
 		<div class="description">
-			An easy to use C++ socket and network library, mainly for UNIX systems.
+			An easy to use modern C++ socket and network library for Linux.
 		</div>
 
-		<h2>Authors</h2>
-		<p>
-			<ul><li>
-			Bernhard Hartleb
-			</li><li>
-			Andreas Wallner
-			</li></ul>
-		</p>
+		<h2>Features</h2>
+		<ul>
+		<li>IPv4/IPv6 TCP and UDP sockets</li>
+		<li>UDP multicast support (IPv4 only)</li>
+		<li>Unix-domain stream and datagram sockets</li>
+		<li>Blocking I/O plus timeout variants for connect, accept and receive</li>
+		<li>Peer-disconnect tracking for connected sockets</li>
+		<li>Stream based sendAll and receiveAll helpers</li>
+		<li>Resolve hostnames, services and list network addresses</li>
+		<li>Network-interface management</li>
+		<li>Optional SocketCAN (CAN bus) support</li>
+		<li>Optional SCTP support</li>
+		<li>CMake build, unit tests and example programs</li>
+		</ul>
 
 		<h2>Documentation</h2>
-		<p>Interface documentation and usage examples are available <a href="doxygen/html/index.html" target="_blank">here</a>.</p>
+		<p>Complete <a href="doxygen/html/index.html" target="_blank">interface documentation</a> and
+		<a href="https://github.com/bernhardHartleb/simple-socket/tree/master/examples" target="_blank">usage examples</a> are available.</p>
 
 		<h2>Download</h2>
 		<p>
@@ -70,11 +75,11 @@
 		</p>
 		<p>
 			You can also clone the project with <a href="https://git-scm.com">Git</a> by running:
-			<pre>$ git clone git://github.com/bernhardHartleb/simple-socket</pre>
+			<pre>$ git clone https://github.com/bernhardHartleb/simple-socket.git</pre>
 		</p>
 
 		<div class="footer">
-			get the source code on GitHub: <a href="https://github.com/bernhardHartleb/simple-socket">bernhardHartleb/simple-socket</a>
+			Get the source code on GitHub: <a href="https://github.com/bernhardHartleb/simple-socket">bernhardHartleb/simple-socket</a>
 		</div>
 	</div>
 </body>
