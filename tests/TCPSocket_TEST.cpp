@@ -205,10 +205,12 @@ public:
 
 		const int ret = client.timedConnect("::1", port, 1000);
 		CPPUNIT_ASSERT_EQUAL(1, ret);
+		CPPUNIT_ASSERT_EQUAL(NET::IPv6, client.addressFamily());
 
 		NET::TCPSocket session(server.accept());
 		CPPUNIT_ASSERT_EQUAL(std::string("::1"), client.getForeignAddress());
-		CPPUNIT_ASSERT_EQUAL(NET::IPv6, client.addressFamily());
+		CPPUNIT_ASSERT_EQUAL(std::string("::1"), session.getForeignAddress());
+		CPPUNIT_ASSERT_EQUAL(NET::IPv6, session.addressFamily());
 
 		const char message[] = "IPv6 works";
 		const int sent = client.sendAll(message, sizeof(message));
