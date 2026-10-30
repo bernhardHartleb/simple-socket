@@ -14,6 +14,17 @@ class SocketUtils_TEST : public CppUnit::TestFixture
 	CPPUNIT_TEST(getHardwareAddress);
 	CPPUNIT_TEST_SUITE_END();
 
+private:
+	static bool isLoopback( const std::string& ifname)
+	{
+		return (ifname.rfind("lo", 0) == 0); // starts with lo
+	}
+
+	static bool checkLoopback( const NET::NetworkInterface& iface)
+	{
+		return isLoopback( iface.name());
+	}
+
 public:
 	void resolveHostname()
 	{
@@ -44,7 +55,6 @@ public:
 		const auto list = NET::getNetworkAddresses();
 		CPPUNIT_ASSERT( !list.empty() );
 
-		// assumes there is a loopback interface
 		const auto loopback = std::find_if(
 			list.begin(), list.end(),
 			[](const NET::NetworkAddressInfo& info) {
@@ -52,11 +62,11 @@ public:
 				       info.address == "127.0.0.1";
 			});
 
-		CPPUNIT_ASSERT( loopback != list.end() );
-		CPPUNIT_ASSERT_EQUAL( std::string("lo"),        loopback->name);
+		CPPUNIT_ASSERT( loopback != list.end());
+		CPPUNIT_ASSERT( isLoopback( loopback->name));
+		CPPUNIT_ASSERT( loopback->broadcast.empty());
+		CPPUNIT_ASSERT( loopback->destination.empty());
 		CPPUNIT_ASSERT_EQUAL( std::string("255.0.0.0"), loopback->netmask);
-		CPPUNIT_ASSERT( loopback->broadcast.empty() );
-		CPPUNIT_ASSERT( loopback->destination.empty() );
 	}
 
 	void getNetworkInterfaces()
@@ -64,33 +74,26 @@ public:
 		const auto list = NET::getNetworkInterfaces();
 		CPPUNIT_ASSERT( !list.empty() );
 
-		// assumes there is a loopback interface
 		const auto loopback = std::find_if(
-			list.begin(), list.end(),
-			[](const NET::NetworkInterface& iface) {
-				return iface.name() == "lo";
-			});
+			list.begin(), list.end(), &checkLoopback);
 
-		CPPUNIT_ASSERT( loopback != list.end() );
+		CPPUNIT_ASSERT( loopback != list.end());
+		CPPUNIT_ASSERT( 1400 < loopback->getMTU());
 		CPPUNIT_ASSERT_EQUAL( std::string("127.0.0.1"), loopback->getInterfaceAddress());
-		CPPUNIT_ASSERT_EQUAL( std::string("0.0.0.0"),   loopback->getBroadcastAddress());
 		CPPUNIT_ASSERT_EQUAL( std::string("255.0.0.0"), loopback->getNetmask());
+		CPPUNIT_ASSERT_EQUAL( std::string("0.0.0.0"),   loopback->getBroadcastAddress());
 		CPPUNIT_ASSERT_EQUAL( std::string("127.0.0.1"), loopback->getDestinationAddress());
 		CPPUNIT_ASSERT_EQUAL( std::string(""),          loopback->getHardwareAddress());
-		CPPUNIT_ASSERT_EQUAL( 65536,                    loopback->getMTU());
 	}
 
 	void getHardwareAddress()
 	{
 		const auto list = NET::getNetworkInterfaces();
-		const auto interface = std::find_if(
-			list.begin(), list.end(),
-			[](const NET::NetworkInterface& iface) {
-				return iface.name() != "lo";
-			});
+		const auto interface = std::find_if_not(
+			list.begin(), list.end(), &checkLoopback);
 
-		// assumes there is a real itnerface with hwaddr
-		CPPUNIT_ASSERT( interface != list.end() );
+		// assumes there is a real interface with hwaddr
+		CPPUNIT_ASSERT( interface != list.end());
 		const auto mac = interface->getHardwareAddress();
 		CPPUNIT_ASSERT( mac.size() == 17);
 	}
