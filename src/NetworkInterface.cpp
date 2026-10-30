@@ -60,6 +60,7 @@ namespace
 
 	std::string addressString( const sockaddr* address)
 	{
+		if( address == nullptr) return {};
 		return SockAddress(address).address();
 	}
 }
@@ -88,13 +89,13 @@ std::vector<NetworkAddressInfo> NET::getNetworkAddresses()
 
 		// ifa_broadaddr and ifa_dstaddr share storage on common
 		// getifaddrs implementations, so the flags determine which is valid.
-		if( entry->ifa_broadaddr && (entry->ifa_flags & IFF_BROADCAST) != 0)
+		if( (entry->ifa_flags & IFF_BROADCAST) != 0)
 			broadcast = addressString(entry->ifa_broadaddr);
 
-		if( entry->ifa_dstaddr && (entry->ifa_flags & IFF_POINTOPOINT) != 0)
+		if( (entry->ifa_flags & IFF_POINTOPOINT) != 0)
 			destination = addressString(entry->ifa_dstaddr);
 
-		ret.emplace_back(
+		ret.push_back( NetworkAddressInfo{
 			std::string(entry->ifa_name),
 			addressString(entry->ifa_addr),
 			addressString(entry->ifa_netmask),
@@ -102,7 +103,7 @@ std::vector<NetworkAddressInfo> NET::getNetworkAddresses()
 			std::move(destination),
 			(family == AF_INET ? AddressFamily::IPv4 : AddressFamily::IPv6),
 			entry->ifa_flags
-		);
+		});
 	}
 	return ret;
 }
@@ -132,7 +133,7 @@ std::string NetworkInterface::getInterfaceAddress() const
 
 	temp_socket sock;
 	if( ioctl( sock.nativeHandle(), SIOCGIFADDR, &ifr) < 0)
-		return std::string();
+		return {};
 
 	return inet_ntoa( ipv4Address(ifr.ifr_addr));
 }
@@ -155,7 +156,7 @@ std::string NetworkInterface::getBroadcastAddress() const
 
 	temp_socket sock;
 	if( ioctl( sock.nativeHandle(), SIOCGIFBRDADDR, &ifr) < 0)
-		return std::string();
+		return {};
 
 	return inet_ntoa( ipv4Address(ifr.ifr_broadaddr));
 }
@@ -178,7 +179,7 @@ std::string NetworkInterface::getNetmask() const
 
 	temp_socket sock;
 	if( ioctl( sock.nativeHandle(), SIOCGIFNETMASK, &ifr) < 0)
-		return std::string();
+		return {};
 
 	return inet_ntoa( ipv4Address(ifr.ifr_netmask));
 }
@@ -201,7 +202,7 @@ std::string NetworkInterface::getDestinationAddress() const
 
 	temp_socket sock;
 	if( ioctl( sock.nativeHandle(), SIOCGIFDSTADDR, &ifr) < 0)
-		return std::string();
+		return {};
 
 	return inet_ntoa( ipv4Address(ifr.ifr_dstaddr));
 }
@@ -248,11 +249,11 @@ std::string NetworkInterface::getHardwareAddress() const
 
 	temp_socket sock;
 	if( ioctl( sock.nativeHandle(), SIOCGIFHWADDR, &ifr) < 0)
-		return std::string();
+		return {};
 
 	switch( ifr.ifr_hwaddr.sa_family) {
 		default:
-			return std::string();
+			return {};
 			break;
 		case ARPHRD_NETROM:
 		case ARPHRD_ETHER:
