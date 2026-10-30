@@ -95,13 +95,14 @@ std::vector<NetworkAddressInfo> NET::getNetworkAddresses()
 			destination = addressString(entry->ifa_dstaddr);
 
 		ret.emplace_back(
-			entry->ifa_name,
+			std::string(entry->ifa_name),
 			addressString(entry->ifa_addr),
 			addressString(entry->ifa_netmask),
 			std::move(broadcast),
 			std::move(destination),
-			(family == AF_INET ? IPv4 : IPv6),
-			entry->ifa_flags);
+			(family == AF_INET ? AddressFamily::IPv4 : AddressFamily::IPv6),
+			entry->ifa_flags
+		);
 	}
 	return ret;
 }
