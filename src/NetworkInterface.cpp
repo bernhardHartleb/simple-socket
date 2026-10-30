@@ -69,7 +69,7 @@ std::vector<NetworkAddressInfo> NET::getNetworkAddresses()
 {
 	ifaddrs* interfaces = nullptr;
 	if( ::getifaddrs(&interfaces) < 0)
-		throw SocketException("getifaddrs failed (getNetworkInterfaces)");
+		throw SocketException("getifaddrs failed (getNetworkAddresses)");
 
 	std::unique_ptr<ifaddrs, decltype(&::freeifaddrs)>
 		interfaces_guard(interfaces, &::freeifaddrs);
@@ -84,6 +84,7 @@ std::vector<NetworkAddressInfo> NET::getNetworkAddresses()
 		if( family != AF_INET && family != AF_INET6)
 			continue;
 
+		const SockAddress ifAddr(entry->ifa_addr);
 		std::string broadcast;
 		std::string destination;
 
@@ -96,13 +97,14 @@ std::vector<NetworkAddressInfo> NET::getNetworkAddresses()
 			destination = addressString(entry->ifa_dstaddr);
 
 		ret.push_back( NetworkAddressInfo{
-			std::string(entry->ifa_name),
-			addressString(entry->ifa_addr),
+			entry->ifa_name,
+			ifAddr.address(),
 			addressString(entry->ifa_netmask),
 			std::move(broadcast),
 			std::move(destination),
-			(family == AF_INET ? AddressFamily::IPv4 : AddressFamily::IPv6),
-			entry->ifa_flags
+			(family == AF_INET ? NET::IPv4 : NET::IPv6),
+			entry->ifa_flags,
+			ifAddr.scopeId()
 		});
 	}
 	return ret;
@@ -112,7 +114,8 @@ std::vector<NetworkInterface> NET::getNetworkInterfaces()
 {
 	std::vector<NetworkInterface> ret;
 	struct if_nameindex* index = ::if_nameindex();
-	if(index == nullptr) return ret;
+	if( index == nullptr)
+		throw SocketException("if_nameindex failed (getNetworkInterfaces)");
 
 	for( int i = 0; (index[i].if_index != 0); ++i)
 		ret.push_back( NetworkInterface( std::string( index[i].if_name)));
@@ -264,7 +267,7 @@ std::string NetworkInterface::getHardwareAddress() const
 	}
 
 	char mac[20];
-	auto addr = reinterpret_cast<unsigned char*>( ifr.ifr_addr.sa_data);
+	auto addr = reinterpret_cast<unsigned char*>( ifr.ifr_hwaddr.sa_data);
 	int len = sprintf(mac, "%02x:%02x:%02x:%02x:%02x:%02x", addr[0], addr[1], addr[2], addr[3], addr[4], addr[5]);
 	return std::string(mac, static_cast<size_t>(len));
 }

@@ -6,6 +6,7 @@
 #include <string>
 #include <string_view>
 #include <vector>
+#include <cstdint>
 
 namespace NET
 {
@@ -18,6 +19,7 @@ namespace NET
 		std::string destination;
 		AddressFamily family;
 		unsigned int flags;
+		uint32_t scopeId = 0;
 	};
 
 	//! Return IPv4/IPv6 address entries for the local network interfaces.
