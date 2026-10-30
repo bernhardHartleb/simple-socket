@@ -1,5 +1,5 @@
 #include <simple_socket/SimpleSocket.h>
-#include <simple_socket/SocketUtils.h>
+#include <simple_socket/NetworkInterface.h>
 
 #include <iostream>
 #include <sstream>
@@ -54,36 +54,19 @@ void usage()
 	std::cout << progName << usageString;
 }
 
-// small wrapper that converts exceptions into a <fail> string
-template<typename Callable>
-std::string wrapEx(Callable c)
-{
-	try {
-		std::ostringstream ss;
-		ss << c();
-		return ss.str();
-	}
-	catch(const NET::SocketException& e)
-	{
-		return "<fail>";
-	}
-}
-
 //! output information for all accessible interfaces
 int print()
 {
 	auto ifs = NET::getNetworkInterfaces();
 	// go through all settings and print them
-	// since all of the calls might throw, all of them are
-	// wrapped in wrapEx for this example
 	for(const auto& i : ifs)
 	{
-		std::cout << i << ":" << "\n";
-		std::cout << "\t" << "mtu " << wrapEx([i] {return NET::getMTU(i);}) << "\n";
-		std::cout << "\t" << "inet " << wrapEx([i] {return NET::getInterfaceAddress(i);}) << " ";
-		std::cout         << "netmask " << wrapEx([i] {return NET::getNetmask(i);}) << " ";
-		std::cout         << "broadcast " << wrapEx([i] {return NET::getBroadcastAddress(i);}) << "\n";
-		std::cout << "\t" << "ether " << wrapEx([i] {return NET::getHardwareAddress(i);}) << std::endl;
+		std::cout << i.name() << ":" << "\n";
+		std::cout << "\t" << "mtu " << i.getMTU() << "\n";
+		std::cout << "\t" << "inet " << i.getInterfaceAddress() << " ";
+		std::cout         << "netmask " << i.getNetmask() << " ";
+		std::cout         << "broadcast " << i.getBroadcastAddress() << "\n";
+		std::cout << "\t" << "ether " << i.getHardwareAddress() << std::endl;
 	}
 	return 0;
 }
@@ -94,16 +77,17 @@ int configure(const std::string& interface, const std::string& setting, const st
 	// check which setting we want to configure
 	// and set the value appropriately
 	try {
+		NET::NetworkInterface nwi(interface);
 		if(setting == "mtu") {
-			NET::setMTU(interface, std::stoi(val));
+			nwi.setMTU(std::stoi(val));
 		} else if(setting == "address") {
-			NET::setInterfaceAddress(interface, val);
+			nwi.setInterfaceAddress(val);
 		} else if(setting == "broadcast") {
-			NET::setBroadcastAddress(interface, val);
+			nwi.setBroadcastAddress(val);
 		} else if(setting == "netmask") {
-			NET::setNetmask(interface, val);
+			nwi.setNetmask(val);
 		} else if(setting == "destination") {
-			NET::setDestinationAddress(interface, val);
+			nwi.setDestinationAddress(val);
 		} else {
 			usage();
 			return -1;

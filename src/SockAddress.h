@@ -3,7 +3,7 @@
 
 #include "SimpleSocket.h"
 
-#include <cstddef>
+#include <cstdint>
 #include <cstring>
 #include <string>
 
@@ -11,6 +11,10 @@
 
 namespace NET
 {
+	/*
+	 * @internal
+	 * sockaddr abstraction to handle IPv4/IPV6 and Unix paths
+	 */
 	class SockAddress
 	{
 	public:
@@ -24,6 +28,9 @@ namespace NET
 
 		// Unix filesystem pathname
 		explicit SockAddress( std::string_view path);
+
+		// Copy a native socket address
+		explicit SockAddress( const sockaddr* address);
 
 		sockaddr* data() noexcept;
 		const sockaddr* data() const noexcept;
@@ -40,6 +47,9 @@ namespace NET
 		unsigned short port() const noexcept;
 
 		std::string address() const;
+
+		// Valid for AF_INET6. Returns 0 for other families or no scope.
+		uint32_t scopeId() const noexcept;
 
 		static sa_family_t nativeFamily(AddressFamily family) noexcept;
 

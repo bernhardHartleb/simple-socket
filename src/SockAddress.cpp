@@ -117,6 +117,26 @@ SockAddress::SockAddress( std::string_view path)
 	store( addr, length);
 }
 
+SockAddress::SockAddress( const sockaddr* address)
+{
+	if( address == nullptr)
+		throw SocketException("Null socket address", false);
+
+	socklen_t size = 0;
+	switch( address->sa_family)
+	{
+		case AF_INET:
+			size = static_cast<socklen_t>(sizeof(sockaddr_in));
+			break;
+		case AF_INET6:
+			size = static_cast<socklen_t>(sizeof(sockaddr_in6));
+			break;
+		default:
+			throw SocketException("Unsupported address family", false);
+	}
+	store( *address, size);
+}
+
 sockaddr* SockAddress::data() noexcept
 {
 	return reinterpret_cast<sockaddr*>(&m_storage);
@@ -221,6 +241,15 @@ std::string SockAddress::address() const
 		default:
 			throw SocketException("Unsupported address family", false);
 	}
+}
+
+uint32_t SockAddress::scopeId() const noexcept
+{
+	if( family() != AF_INET6) return 0;
+
+	sockaddr_in6 addr{};
+	std::memcpy(&addr, &m_storage, sizeof(addr));
+	return addr.sin6_scope_id;
 }
 
 sa_family_t SockAddress::nativeFamily( AddressFamily family) noexcept
