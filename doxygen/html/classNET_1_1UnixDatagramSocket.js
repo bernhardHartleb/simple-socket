@@ -1,10 +1,5 @@
 var classNET_1_1UnixDatagramSocket =
 [
-    [ "ShutdownDirection", "classNET_1_1UnixDatagramSocket.html#ab2d98f9c05fb0c016782269d6c053db9", [
-      [ "STOP_SEND", "classNET_1_1UnixDatagramSocket.html#ab2d98f9c05fb0c016782269d6c053db9a8efb8dcfe05bb52129f436538b77bc1c", null ],
-      [ "STOP_RECEIVE", "classNET_1_1UnixDatagramSocket.html#ab2d98f9c05fb0c016782269d6c053db9a8cc7b3f7c09884085e7bd7f14a996f07", null ],
-      [ "STOP_BOTH", "classNET_1_1UnixDatagramSocket.html#ab2d98f9c05fb0c016782269d6c053db9a92c5b6b1319adf4f8eec96da6fa4e8b0", null ]
-    ] ],
     [ "UnixDatagramSocket", "classNET_1_1UnixDatagramSocket.html#ab7f8812e08206cd15bf72aaca11a6b2f", null ],
     [ "accept", "classNET_1_1UnixDatagramSocket.html#a23f806c99ec86fe75872ac60d9af9996", null ],
     [ "bind", "classNET_1_1UnixDatagramSocket.html#ae23f670d8502edb7d8d6f46620aab0ab", null ],
@@ -24,5 +19,10 @@ var classNET_1_1UnixDatagramSocket =
     [ "shutdown", "classNET_1_1UnixDatagramSocket.html#a5b5500498eeb1292eea3c5dc4e531d19", null ],
     [ "timedAccept", "classNET_1_1UnixDatagramSocket.html#af9cd7f2b28969fa1383d8e8751a868f5", null ],
     [ "timedReceive", "classNET_1_1UnixDatagramSocket.html#a0c14e0e6413cf606d52ab7d606a175f8", null ],
-    [ "timedReceiveFrom", "classNET_1_1UnixDatagramSocket.html#aaf252bc735198a705cffbc0dc5b58827", null ]
+    [ "timedReceiveFrom", "classNET_1_1UnixDatagramSocket.html#aaf252bc735198a705cffbc0dc5b58827", null ],
+    [ "valid", "classNET_1_1UnixDatagramSocket.html#a5ccd319fcf01dd3f58b9365bb3e24fa8", null ],
+    [ "m_boundPath", "classNET_1_1UnixDatagramSocket.html#a096fe42e3e8c68e868a8831a8aa3489c", null ],
+    [ "m_connectionOriented", "classNET_1_1UnixDatagramSocket.html#a3fb5e518e4483437776fc997ef172546", null ],
+    [ "m_peerDisconnected", "classNET_1_1UnixDatagramSocket.html#a9c07dffe5a98a2700dc4cb1d6e7a30fa", null ],
+    [ "m_socket", "classNET_1_1UnixDatagramSocket.html#a721049909aca828a6dd9ee7868897d7c", null ]
 ];

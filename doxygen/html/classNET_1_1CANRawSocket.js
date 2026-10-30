@@ -1,10 +1,5 @@
 var classNET_1_1CANRawSocket =
 [
-    [ "ShutdownDirection", "classNET_1_1CANRawSocket.html#ab2d98f9c05fb0c016782269d6c053db9", [
-      [ "STOP_SEND", "classNET_1_1CANRawSocket.html#ab2d98f9c05fb0c016782269d6c053db9a8efb8dcfe05bb52129f436538b77bc1c", null ],
-      [ "STOP_RECEIVE", "classNET_1_1CANRawSocket.html#ab2d98f9c05fb0c016782269d6c053db9a8cc7b3f7c09884085e7bd7f14a996f07", null ],
-      [ "STOP_BOTH", "classNET_1_1CANRawSocket.html#ab2d98f9c05fb0c016782269d6c053db9a92c5b6b1319adf4f8eec96da6fa4e8b0", null ]
-    ] ],
     [ "CANRawSocket", "classNET_1_1CANRawSocket.html#ad868a485163c6b64f1c1716e693caf3a", null ],
     [ "accept", "classNET_1_1CANRawSocket.html#a23f806c99ec86fe75872ac60d9af9996", null ],
     [ "bind", "classNET_1_1CANRawSocket.html#a71ec3496167a325769cde2d0522fbc66", null ],
@@ -33,5 +28,9 @@ var classNET_1_1CANRawSocket =
     [ "timedAccept", "classNET_1_1CANRawSocket.html#af9cd7f2b28969fa1383d8e8751a868f5", null ],
     [ "timedReceive", "classNET_1_1CANRawSocket.html#ab657e66c35605b58e9cef94960288257", null ],
     [ "timedReceive", "classNET_1_1CANRawSocket.html#a0c14e0e6413cf606d52ab7d606a175f8", null ],
-    [ "timedReceiveFrom", "classNET_1_1CANRawSocket.html#aa21a9271a0f94472b8d3b7554c0f7160", null ]
+    [ "timedReceiveFrom", "classNET_1_1CANRawSocket.html#aa21a9271a0f94472b8d3b7554c0f7160", null ],
+    [ "valid", "classNET_1_1CANRawSocket.html#a5ccd319fcf01dd3f58b9365bb3e24fa8", null ],
+    [ "m_connectionOriented", "classNET_1_1CANRawSocket.html#a3fb5e518e4483437776fc997ef172546", null ],
+    [ "m_peerDisconnected", "classNET_1_1CANRawSocket.html#a9c07dffe5a98a2700dc4cb1d6e7a30fa", null ],
+    [ "m_socket", "classNET_1_1CANRawSocket.html#a721049909aca828a6dd9ee7868897d7c", null ]
 ];

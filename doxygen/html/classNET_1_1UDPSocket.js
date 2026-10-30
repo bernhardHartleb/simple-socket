@@ -1,10 +1,5 @@
 var classNET_1_1UDPSocket =
 [
-    [ "ShutdownDirection", "classNET_1_1UDPSocket.html#ab2d98f9c05fb0c016782269d6c053db9", [
-      [ "STOP_SEND", "classNET_1_1UDPSocket.html#ab2d98f9c05fb0c016782269d6c053db9a8efb8dcfe05bb52129f436538b77bc1c", null ],
-      [ "STOP_RECEIVE", "classNET_1_1UDPSocket.html#ab2d98f9c05fb0c016782269d6c053db9a8cc7b3f7c09884085e7bd7f14a996f07", null ],
-      [ "STOP_BOTH", "classNET_1_1UDPSocket.html#ab2d98f9c05fb0c016782269d6c053db9a92c5b6b1319adf4f8eec96da6fa4e8b0", null ]
-    ] ],
     [ "UDPSocket", "classNET_1_1UDPSocket.html#a8d0b8995262242a74ecfca1e507a29e6", null ],
     [ "accept", "classNET_1_1UDPSocket.html#a23f806c99ec86fe75872ac60d9af9996", null ],
     [ "addressFamily", "classNET_1_1UDPSocket.html#aa6552ffddfa5a21312578503e4389fd2", null ],
@@ -34,5 +29,10 @@ var classNET_1_1UDPSocket =
     [ "timedAccept", "classNET_1_1UDPSocket.html#af9cd7f2b28969fa1383d8e8751a868f5", null ],
     [ "timedConnect", "classNET_1_1UDPSocket.html#a81df71c2db5574be7645674d4fba58f6", null ],
     [ "timedReceive", "classNET_1_1UDPSocket.html#a0c14e0e6413cf606d52ab7d606a175f8", null ],
-    [ "timedReceiveFrom", "classNET_1_1UDPSocket.html#a1be4253434f78c9e227719c80c8074ef", null ]
+    [ "timedReceiveFrom", "classNET_1_1UDPSocket.html#a1be4253434f78c9e227719c80c8074ef", null ],
+    [ "valid", "classNET_1_1UDPSocket.html#a5ccd319fcf01dd3f58b9365bb3e24fa8", null ],
+    [ "m_connectionOriented", "classNET_1_1UDPSocket.html#a3fb5e518e4483437776fc997ef172546", null ],
+    [ "m_family", "classNET_1_1UDPSocket.html#a8e3123134c81887a7d977df194d71678", null ],
+    [ "m_peerDisconnected", "classNET_1_1UDPSocket.html#a9c07dffe5a98a2700dc4cb1d6e7a30fa", null ],
+    [ "m_socket", "classNET_1_1UDPSocket.html#a721049909aca828a6dd9ee7868897d7c", null ]
 ];

@@ -27,6 +27,15 @@ var NAVTREE =
   [ "simple-socket library", "index.html", [
     [ "Overview", "index.html#Overview", null ],
     [ "License", "index.html#License", null ],
+    [ "Namespaces", "namespaces.html", [
+      [ "Namespace List", "namespaces.html", "namespaces_dup" ],
+      [ "Namespace Members", "namespacemembers.html", [
+        [ "All", "namespacemembers.html", null ],
+        [ "Functions", "namespacemembers_func.html", null ],
+        [ "Enumerations", "namespacemembers_enum.html", null ],
+        [ "Enumerator", "namespacemembers_eval.html", null ]
+      ] ]
+    ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
@@ -34,13 +43,17 @@ var NAVTREE =
       [ "Class Members", "functions.html", [
         [ "All", "functions.html", null ],
         [ "Functions", "functions_func.html", null ],
-        [ "Typedefs", "functions_type.html", null ],
+        [ "Variables", "functions_vars.html", null ],
         [ "Enumerations", "functions_enum.html", null ],
         [ "Enumerator", "functions_eval.html", null ]
       ] ]
     ] ],
     [ "Files", "files.html", [
-      [ "File List", "files.html", "files_dup" ]
+      [ "File List", "files.html", "files_dup" ],
+      [ "File Members", "globals.html", [
+        [ "All", "globals.html", null ],
+        [ "Macros", "globals_defs.html", null ]
+      ] ]
     ] ],
     [ "Examples", "examples.html", "examples" ]
   ] ]
@@ -48,8 +61,10 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"CANRawSocket_8cpp_source.html",
-"classNET_1_1UnixDatagramSocket.html#a4684d7f8b29b43c51bcc25f01c7df437"
+"CANRawSocket_8cpp.html",
+"classNET_1_1NetworkInterface.html#a79d1e53084c3e976758e51c54a911a87",
+"classNET_1_1TCPSocket.html#a690773b3fefeeb026006713e54e6d08a",
+"classNET_1_1UnixStreamSocket.html#ac02f55ec90f1833c8fef7d8f0da34645"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

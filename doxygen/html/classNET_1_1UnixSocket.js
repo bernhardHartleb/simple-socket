@@ -1,12 +1,10 @@
 var classNET_1_1UnixSocket =
 [
-    [ "ShutdownDirection", "classNET_1_1UnixSocket.html#ab2d98f9c05fb0c016782269d6c053db9", [
-      [ "STOP_SEND", "classNET_1_1UnixSocket.html#ab2d98f9c05fb0c016782269d6c053db9a8efb8dcfe05bb52129f436538b77bc1c", null ],
-      [ "STOP_RECEIVE", "classNET_1_1UnixSocket.html#ab2d98f9c05fb0c016782269d6c053db9a8cc7b3f7c09884085e7bd7f14a996f07", null ],
-      [ "STOP_BOTH", "classNET_1_1UnixSocket.html#ab2d98f9c05fb0c016782269d6c053db9a92c5b6b1319adf4f8eec96da6fa4e8b0", null ]
-    ] ],
+    [ "AdoptSocketTag", "structNET_1_1UnixSocket_1_1AdoptSocketTag.html", null ],
+    [ "~UnixSocket", "classNET_1_1UnixSocket.html#a4158645e201be3e343ce927d776a9867", null ],
     [ "UnixSocket", "classNET_1_1UnixSocket.html#ad695ef23f071b90e2388b3c6d8c98923", null ],
-    [ "UnixSocket", "classNET_1_1UnixSocket.html#afb51aca909f43cc41905a7f4053bec96", null ],
+    [ "UnixSocket", "classNET_1_1UnixSocket.html#ad406e5164c74f23fc19ee9aedb9a50ca", null ],
+    [ "UnixSocket", "classNET_1_1UnixSocket.html#ac0df0f22e6396a2a76fd28be194f40d6", null ],
     [ "accept", "classNET_1_1UnixSocket.html#a23f806c99ec86fe75872ac60d9af9996", null ],
     [ "bind", "classNET_1_1UnixSocket.html#ae23f670d8502edb7d8d6f46620aab0ab", null ],
     [ "connect", "classNET_1_1UnixSocket.html#a3694a5b17e66373bb20a2dec5f6a3d31", null ],
@@ -15,6 +13,7 @@ var classNET_1_1UnixSocket =
     [ "getLocalPath", "classNET_1_1UnixSocket.html#af3ce1e8b3022868b72932f6c43351d0c", null ],
     [ "listen", "classNET_1_1UnixSocket.html#a4684d7f8b29b43c51bcc25f01c7df437", null ],
     [ "nativeHandle", "classNET_1_1UnixSocket.html#a830de7b14a78664508052051991ced63", null ],
+    [ "operator=", "classNET_1_1UnixSocket.html#a391f1a3eabbaf06b4be401ee08ec7225", null ],
     [ "peerDisconnected", "classNET_1_1UnixSocket.html#adc7b2b80c852e7163a7bab9ce4b7c060", null ],
     [ "receive", "classNET_1_1UnixSocket.html#ab89a477e571a47efd9ec39089aeebf56", null ],
     [ "receiveAll", "classNET_1_1UnixSocket.html#a263f823dd259f3f7af8cc218fba9b5cf", null ],
@@ -22,5 +21,10 @@ var classNET_1_1UnixSocket =
     [ "sendAll", "classNET_1_1UnixSocket.html#a690773b3fefeeb026006713e54e6d08a", null ],
     [ "shutdown", "classNET_1_1UnixSocket.html#a5b5500498eeb1292eea3c5dc4e531d19", null ],
     [ "timedAccept", "classNET_1_1UnixSocket.html#af9cd7f2b28969fa1383d8e8751a868f5", null ],
-    [ "timedReceive", "classNET_1_1UnixSocket.html#a0c14e0e6413cf606d52ab7d606a175f8", null ]
+    [ "timedReceive", "classNET_1_1UnixSocket.html#a0c14e0e6413cf606d52ab7d606a175f8", null ],
+    [ "valid", "classNET_1_1UnixSocket.html#a5ccd319fcf01dd3f58b9365bb3e24fa8", null ],
+    [ "m_boundPath", "classNET_1_1UnixSocket.html#a096fe42e3e8c68e868a8831a8aa3489c", null ],
+    [ "m_connectionOriented", "classNET_1_1UnixSocket.html#a3fb5e518e4483437776fc997ef172546", null ],
+    [ "m_peerDisconnected", "classNET_1_1UnixSocket.html#a9c07dffe5a98a2700dc4cb1d6e7a30fa", null ],
+    [ "m_socket", "classNET_1_1UnixSocket.html#a721049909aca828a6dd9ee7868897d7c", null ]
 ];

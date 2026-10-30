@@ -33,7 +33,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.5.0</span>
+   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.6.0</span>
    </div>
   </td>
  </tr>
@@ -107,79 +107,102 @@ $(function() {
   <div class="headertitle"><div class="title">SockAddress.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef NET_SockAddress_h__</span></div>
+<a href="SockAddress_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef NET_SockAddress_h__</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define NET_SockAddress_h__</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;SimpleSocket.h&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="SimpleSocket_8h.html">SimpleSocket.h</a>&quot;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;cstddef&gt;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;cstdint&gt;</span></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;cstring&gt;</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;sys/socket.h&gt;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span>NET</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceNET.html">NET</a></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>{</div>
-<div class="foldopen" id="foldopen00014" data-start="{" data-end="};">
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="classNET_1_1SockAddress.html">   14</a></span>    <span class="keyword">class </span>SockAddress</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    {</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        SockAddress() <span class="keyword">noexcept</span> = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        <span class="comment">// Numeric IPv4 or IPv6 address</span></div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        SockAddress( AddressFamily family, std::string_view address, <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> port);</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="comment">// Wildcard address: 0.0.0.0 or ::</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        SockAddress( AddressFamily family, <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> port);</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>        <span class="comment">// Unix filesystem pathname</span></div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="keyword">explicit</span> SockAddress( std::string_view path);</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>        sockaddr* data() <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="keyword">const</span> sockaddr* data() <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        socklen_t length() <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="comment">/*</span></div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="comment">     * @internal</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span><span class="comment">     * sockaddr abstraction to handle IPv4/IPV6 and Unix paths</span></div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="comment">     */</span></div>
+<div class="foldopen" id="foldopen00018" data-start="{" data-end="};">
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="classNET_1_1SockAddress.html">   18</a></span>    <span class="keyword">class </span><a class="code hl_function" href="classNET_1_1SockAddress.html#aba2be31173ba66ba8ba2ebe61829dfbc">SockAddress</a></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="classNET_1_1SockAddress.html#aba2be31173ba66ba8ba2ebe61829dfbc">   21</a></span>        <a class="code hl_function" href="classNET_1_1SockAddress.html#aba2be31173ba66ba8ba2ebe61829dfbc">SockAddress</a>() noexcept = default;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="comment">// Numeric IPv4 or IPv6 address</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <a class="code hl_function" href="classNET_1_1SockAddress.html#aba2be31173ba66ba8ba2ebe61829dfbc">SockAddress</a>( <a class="code hl_enumeration" href="namespaceNET.html#a657e1fa5f020df28069800f3fb19eab6">AddressFamily</a> <a class="code hl_function" href="classNET_1_1SockAddress.html#a3ba381424a896b547619dc60d0e37292">family</a>, std::string_view <a class="code hl_function" href="classNET_1_1SockAddress.html#a20a7990ddf520d0324be42cf9f049432">address</a>, <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> <a class="code hl_function" href="classNET_1_1SockAddress.html#aff5cfa790098c71c771f86666f40b507">port</a>);</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>        <span class="comment">// Wildcard address: 0.0.0.0 or ::</span></div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>        <a class="code hl_function" href="classNET_1_1SockAddress.html#aba2be31173ba66ba8ba2ebe61829dfbc">SockAddress</a>( <a class="code hl_enumeration" href="namespaceNET.html#a657e1fa5f020df28069800f3fb19eab6">AddressFamily</a> <a class="code hl_function" href="classNET_1_1SockAddress.html#a3ba381424a896b547619dc60d0e37292">family</a>, <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> <a class="code hl_function" href="classNET_1_1SockAddress.html#aff5cfa790098c71c771f86666f40b507">port</a>);</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>        <span class="comment">// Unix filesystem pathname</span></div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        explicit <a class="code hl_function" href="classNET_1_1SockAddress.html#aba2be31173ba66ba8ba2ebe61829dfbc">SockAddress</a>( std::string_view path);</div>
 <div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span> </div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        sa_family_t family() <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keywordtype">bool</span> empty() <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        <span class="comment">// Copy a native socket address</span></div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        explicit <a class="code hl_function" href="classNET_1_1SockAddress.html#aba2be31173ba66ba8ba2ebe61829dfbc">SockAddress</a>( const sockaddr* <a class="code hl_function" href="classNET_1_1SockAddress.html#a20a7990ddf520d0324be42cf9f049432">address</a>);</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span> </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        <span class="comment">// For getsockname(), getpeername(), recvfrom(), etc.</span></div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        <span class="comment">// Resets internal state to accept new data from syscall</span></div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        socklen_t* lengthPtr() <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>        sockaddr* <a class="code hl_function" href="classNET_1_1SockAddress.html#a993f541b3750df516bfdde8b46bd69dc">data</a>() noexcept;</div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>        const sockaddr* <a class="code hl_function" href="classNET_1_1SockAddress.html#a993f541b3750df516bfdde8b46bd69dc">data</a>() const noexcept;</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        socklen_t <a class="code hl_function" href="classNET_1_1SockAddress.html#a74f7e09dfd04ece1bfd36247ba3341e3">length</a>() const noexcept;</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        <span class="comment">// Valid for AF_INET / AF_INET6</span></div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> port() <span class="keyword">const</span> <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        sa_family_t <a class="code hl_function" href="classNET_1_1SockAddress.html#a3ba381424a896b547619dc60d0e37292">family</a>() const noexcept;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>        <span class="keywordtype">bool</span> <a class="code hl_function" href="classNET_1_1SockAddress.html#a9b71b2af574e1888d5c2d59d2f547449">empty</a>() const noexcept;</div>
 <div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span> </div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        std::string address() <span class="keyword">const</span>;</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span> </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        <span class="keyword">static</span> sa_family_t nativeFamily(AddressFamily family) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="comment">// For getsockname(), getpeername(), recvfrom(), etc.</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        <span class="comment">// Resets internal state to accept new data from syscall</span></div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        socklen_t* <a class="code hl_function" href="classNET_1_1SockAddress.html#aeea47e7927d59125b5994d18b327b9df">lengthPtr</a>() noexcept;</div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>    <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>        <span class="keywordtype">void</span> store(<span class="keyword">const</span> T&amp; address, socklen_t length) <span class="keyword">noexcept</span></div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        {</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>            <span class="keyword">static_assert</span>(<span class="keyword">sizeof</span>(T) &lt;= <span class="keyword">sizeof</span>(sockaddr_storage));</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>            <span class="keyword">static_assert</span>(<span class="keyword">alignof</span>(T) &lt;= <span class="keyword">alignof</span>(sockaddr_storage));</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span> </div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>            m_storage = {};</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>            std::memcpy( &amp;m_storage, &amp;address, <span class="keyword">sizeof</span>(address));</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>            m_length = length;</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>        }</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        sockaddr_storage m_storage{};</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        socklen_t m_length = <span class="keyword">sizeof</span>(m_storage);</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>    };</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="comment">// Valid for AF_INET / AF_INET6</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> <a class="code hl_function" href="classNET_1_1SockAddress.html#aff5cfa790098c71c771f86666f40b507">port</a>() const noexcept;</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>        std::<span class="keywordtype">string</span> <a class="code hl_function" href="classNET_1_1SockAddress.html#a20a7990ddf520d0324be42cf9f049432">address</a>() const;</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span> </div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>        <span class="comment">// Valid for AF_INET6. Returns 0 for other families or no scope.</span></div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        uint32_t <a class="code hl_function" href="classNET_1_1SockAddress.html#a134a6a0c456980dd232fde6881dfe8ec">scopeId</a>() const noexcept;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        static sa_family_t <a class="code hl_function" href="classNET_1_1SockAddress.html#a0ba9251fb99e616636124b909df5864b">nativeFamily</a>(<a class="code hl_enumeration" href="namespaceNET.html#a657e1fa5f020df28069800f3fb19eab6">AddressFamily</a> <a class="code hl_function" href="classNET_1_1SockAddress.html#a3ba381424a896b547619dc60d0e37292">family</a>) noexcept;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    private:</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        template&lt;typename T&gt;</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>        <span class="keywordtype">void</span> store(const T&amp; <a class="code hl_function" href="classNET_1_1SockAddress.html#a20a7990ddf520d0324be42cf9f049432">address</a>, socklen_t <a class="code hl_function" href="classNET_1_1SockAddress.html#a74f7e09dfd04ece1bfd36247ba3341e3">length</a>) noexcept</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        {</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>            <span class="keyword">static_assert</span>(<span class="keyword">sizeof</span>(T) &lt;= <span class="keyword">sizeof</span>(sockaddr_storage));</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>            <span class="keyword">static_assert</span>(<span class="keyword">alignof</span>(T) &lt;= <span class="keyword">alignof</span>(sockaddr_storage));</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>            m_storage = {};</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>            std::memcpy( &amp;m_storage, &amp;<a class="code hl_function" href="classNET_1_1SockAddress.html#a20a7990ddf520d0324be42cf9f049432">address</a>, <span class="keyword">sizeof</span>(<a class="code hl_function" href="classNET_1_1SockAddress.html#a20a7990ddf520d0324be42cf9f049432">address</a>));</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>            m_length = <a class="code hl_function" href="classNET_1_1SockAddress.html#a74f7e09dfd04ece1bfd36247ba3341e3">length</a>;</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        }</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>        sockaddr_storage m_storage{};</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        socklen_t m_length = <span class="keyword">sizeof</span>(m_storage);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    };</div>
 </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>} <span class="comment">// namespace NET</span></div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="preprocessor">#endif </span><span class="comment">// NET_SockAddress_h__</span></div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>} <span class="comment">// namespace NET</span></div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span><span class="preprocessor">#endif </span><span class="comment">// NET_SockAddress_h__</span></div>
+<div class="ttc" id="aSimpleSocket_8h_html"><div class="ttname"><a href="SimpleSocket_8h.html">SimpleSocket.h</a></div></div>
+<div class="ttc" id="aclassNET_1_1SockAddress_html_a0ba9251fb99e616636124b909df5864b"><div class="ttname"><a href="classNET_1_1SockAddress.html#a0ba9251fb99e616636124b909df5864b">NET::SockAddress::nativeFamily</a></div><div class="ttdeci">static sa_family_t nativeFamily(AddressFamily family) noexcept</div><div class="ttdef"><b>Definition</b> <a href="SockAddress_8cpp_source.html#l00257">SockAddress.cpp:257</a></div></div>
+<div class="ttc" id="aclassNET_1_1SockAddress_html_a134a6a0c456980dd232fde6881dfe8ec"><div class="ttname"><a href="classNET_1_1SockAddress.html#a134a6a0c456980dd232fde6881dfe8ec">NET::SockAddress::scopeId</a></div><div class="ttdeci">uint32_t scopeId() const noexcept</div><div class="ttdef"><b>Definition</b> <a href="SockAddress_8cpp_source.html#l00248">SockAddress.cpp:248</a></div></div>
+<div class="ttc" id="aclassNET_1_1SockAddress_html_a20a7990ddf520d0324be42cf9f049432"><div class="ttname"><a href="classNET_1_1SockAddress.html#a20a7990ddf520d0324be42cf9f049432">NET::SockAddress::address</a></div><div class="ttdeci">std::string address() const</div><div class="ttdef"><b>Definition</b> <a href="SockAddress_8cpp_source.html#l00195">SockAddress.cpp:195</a></div></div>
+<div class="ttc" id="aclassNET_1_1SockAddress_html_a3ba381424a896b547619dc60d0e37292"><div class="ttname"><a href="classNET_1_1SockAddress.html#a3ba381424a896b547619dc60d0e37292">NET::SockAddress::family</a></div><div class="ttdeci">sa_family_t family() const noexcept</div><div class="ttdef"><b>Definition</b> <a href="SockAddress_8cpp_source.html#l00157">SockAddress.cpp:157</a></div></div>
+<div class="ttc" id="aclassNET_1_1SockAddress_html_a74f7e09dfd04ece1bfd36247ba3341e3"><div class="ttname"><a href="classNET_1_1SockAddress.html#a74f7e09dfd04ece1bfd36247ba3341e3">NET::SockAddress::length</a></div><div class="ttdeci">socklen_t length() const noexcept</div><div class="ttdef"><b>Definition</b> <a href="SockAddress_8cpp_source.html#l00152">SockAddress.cpp:152</a></div></div>
+<div class="ttc" id="aclassNET_1_1SockAddress_html_a993f541b3750df516bfdde8b46bd69dc"><div class="ttname"><a href="classNET_1_1SockAddress.html#a993f541b3750df516bfdde8b46bd69dc">NET::SockAddress::data</a></div><div class="ttdeci">sockaddr * data() noexcept</div><div class="ttdef"><b>Definition</b> <a href="SockAddress_8cpp_source.html#l00142">SockAddress.cpp:142</a></div></div>
+<div class="ttc" id="aclassNET_1_1SockAddress_html_a9b71b2af574e1888d5c2d59d2f547449"><div class="ttname"><a href="classNET_1_1SockAddress.html#a9b71b2af574e1888d5c2d59d2f547449">NET::SockAddress::empty</a></div><div class="ttdeci">bool empty() const noexcept</div><div class="ttdef"><b>Definition</b> <a href="SockAddress_8cpp_source.html#l00162">SockAddress.cpp:162</a></div></div>
+<div class="ttc" id="aclassNET_1_1SockAddress_html_aba2be31173ba66ba8ba2ebe61829dfbc"><div class="ttname"><a href="classNET_1_1SockAddress.html#aba2be31173ba66ba8ba2ebe61829dfbc">NET::SockAddress::SockAddress</a></div><div class="ttdeci">SockAddress() noexcept=default</div></div>
+<div class="ttc" id="aclassNET_1_1SockAddress_html_aeea47e7927d59125b5994d18b327b9df"><div class="ttname"><a href="classNET_1_1SockAddress.html#aeea47e7927d59125b5994d18b327b9df">NET::SockAddress::lengthPtr</a></div><div class="ttdeci">socklen_t * lengthPtr() noexcept</div><div class="ttdef"><b>Definition</b> <a href="SockAddress_8cpp_source.html#l00167">SockAddress.cpp:167</a></div></div>
+<div class="ttc" id="aclassNET_1_1SockAddress_html_aff5cfa790098c71c771f86666f40b507"><div class="ttname"><a href="classNET_1_1SockAddress.html#aff5cfa790098c71c771f86666f40b507">NET::SockAddress::port</a></div><div class="ttdeci">unsigned short port() const noexcept</div><div class="ttdef"><b>Definition</b> <a href="SockAddress_8cpp_source.html#l00174">SockAddress.cpp:174</a></div></div>
+<div class="ttc" id="anamespaceNET_html"><div class="ttname"><a href="namespaceNET.html">NET</a></div><div class="ttdef"><b>Definition</b> <a href="CANRawSocket_8h_source.html#l00006">CANRawSocket.h:7</a></div></div>
+<div class="ttc" id="anamespaceNET_html_a657e1fa5f020df28069800f3fb19eab6"><div class="ttname"><a href="namespaceNET.html#a657e1fa5f020df28069800f3fb19eab6">NET::AddressFamily</a></div><div class="ttdeci">AddressFamily</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00037">SimpleSocket.h:38</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>src</b></li><li class="navelem"><b>SockAddress.h</b></li>
+    <li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="SockAddress_8h.html">SockAddress.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

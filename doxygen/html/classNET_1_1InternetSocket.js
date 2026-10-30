@@ -1,12 +1,9 @@
 var classNET_1_1InternetSocket =
 [
-    [ "ShutdownDirection", "classNET_1_1InternetSocket.html#ab2d98f9c05fb0c016782269d6c053db9", [
-      [ "STOP_SEND", "classNET_1_1InternetSocket.html#ab2d98f9c05fb0c016782269d6c053db9a8efb8dcfe05bb52129f436538b77bc1c", null ],
-      [ "STOP_RECEIVE", "classNET_1_1InternetSocket.html#ab2d98f9c05fb0c016782269d6c053db9a8cc7b3f7c09884085e7bd7f14a996f07", null ],
-      [ "STOP_BOTH", "classNET_1_1InternetSocket.html#ab2d98f9c05fb0c016782269d6c053db9a92c5b6b1319adf4f8eec96da6fa4e8b0", null ]
-    ] ],
-    [ "InternetSocket", "classNET_1_1InternetSocket.html#a720690007444358deac8d21a7f1a82bd", null ],
+    [ "AdoptSocketTag", "structNET_1_1InternetSocket_1_1AdoptSocketTag.html", null ],
     [ "InternetSocket", "classNET_1_1InternetSocket.html#a0e7bfe284c7085381b141b5fd85a4484", null ],
+    [ "InternetSocket", "classNET_1_1InternetSocket.html#acaf5ea4499a554ddd8f82f92483838cd", null ],
+    [ "InternetSocket", "classNET_1_1InternetSocket.html#adaeeb637df37b75fca832fff7d746ed8", null ],
     [ "accept", "classNET_1_1InternetSocket.html#a23f806c99ec86fe75872ac60d9af9996", null ],
     [ "addressFamily", "classNET_1_1InternetSocket.html#aa6552ffddfa5a21312578503e4389fd2", null ],
     [ "bind", "classNET_1_1InternetSocket.html#aa5a9ac4408c1103f151945781172682f", null ],
@@ -19,6 +16,7 @@ var classNET_1_1InternetSocket =
     [ "getLocalPort", "classNET_1_1InternetSocket.html#a107aca419c74eb2785641b2ad4670433", null ],
     [ "listen", "classNET_1_1InternetSocket.html#a4684d7f8b29b43c51bcc25f01c7df437", null ],
     [ "nativeHandle", "classNET_1_1InternetSocket.html#a830de7b14a78664508052051991ced63", null ],
+    [ "operator=", "classNET_1_1InternetSocket.html#ac2afc105d29b5f0a64205a6317ca4ba5", null ],
     [ "peerDisconnected", "classNET_1_1InternetSocket.html#adc7b2b80c852e7163a7bab9ce4b7c060", null ],
     [ "receive", "classNET_1_1InternetSocket.html#ab89a477e571a47efd9ec39089aeebf56", null ],
     [ "receiveAll", "classNET_1_1InternetSocket.html#a263f823dd259f3f7af8cc218fba9b5cf", null ],
@@ -28,5 +26,10 @@ var classNET_1_1InternetSocket =
     [ "shutdown", "classNET_1_1InternetSocket.html#a5b5500498eeb1292eea3c5dc4e531d19", null ],
     [ "timedAccept", "classNET_1_1InternetSocket.html#af9cd7f2b28969fa1383d8e8751a868f5", null ],
     [ "timedConnect", "classNET_1_1InternetSocket.html#a81df71c2db5574be7645674d4fba58f6", null ],
-    [ "timedReceive", "classNET_1_1InternetSocket.html#a0c14e0e6413cf606d52ab7d606a175f8", null ]
+    [ "timedReceive", "classNET_1_1InternetSocket.html#a0c14e0e6413cf606d52ab7d606a175f8", null ],
+    [ "valid", "classNET_1_1InternetSocket.html#a5ccd319fcf01dd3f58b9365bb3e24fa8", null ],
+    [ "m_connectionOriented", "classNET_1_1InternetSocket.html#a3fb5e518e4483437776fc997ef172546", null ],
+    [ "m_family", "classNET_1_1InternetSocket.html#a8e3123134c81887a7d977df194d71678", null ],
+    [ "m_peerDisconnected", "classNET_1_1InternetSocket.html#a9c07dffe5a98a2700dc4cb1d6e7a30fa", null ],
+    [ "m_socket", "classNET_1_1InternetSocket.html#a721049909aca828a6dd9ee7868897d7c", null ]
 ];

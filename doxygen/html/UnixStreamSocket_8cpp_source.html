@@ -33,7 +33,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.5.0</span>
+   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.6.0</span>
    </div>
   </td>
  </tr>
@@ -107,54 +107,54 @@ $(function() {
   <div class="headertitle"><div class="title">UnixStreamSocket.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;UnixStreamSocket.h&quot;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;TempFailure.h&quot;</span></div>
+<a href="UnixStreamSocket_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="UnixStreamSocket_8h.html">UnixStreamSocket.h</a>&quot;</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;<a class="code" href="TempFailure_8h.html">TempFailure.h</a>&quot;</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &lt;sys/socket.h&gt;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">using namespace </span>NET;</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespaceNET.html">NET</a>;</div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
 <div class="foldopen" id="foldopen00008" data-start="{" data-end="}">
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="classNET_1_1UnixStreamSocket.html#acbce576df8b43297612c2ff7e3c42210">    8</a></span><a class="code hl_function" href="classNET_1_1UnixStreamSocket.html#acbce576df8b43297612c2ff7e3c42210">UnixStreamSocket::UnixStreamSocket</a>()</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>: <a class="code hl_function" href="classNET_1_1UnixSocket.html#ad695ef23f071b90e2388b3c6d8c98923">UnixSocket</a>( SOCK_STREAM, 0)</div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>: <a class="code hl_function" href="classNET_1_1UnixStreamSocket.html#ad695ef23f071b90e2388b3c6d8c98923">UnixSocket</a>( SOCK_STREAM, 0)</div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>{}</div>
 </div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
 <div class="foldopen" id="foldopen00012" data-start="{" data-end="}">
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="classNET_1_1UnixStreamSocket.html#a94532fe356d0e373b7aae6aa491684b5">   12</a></span><a class="code hl_function" href="classNET_1_1UnixStreamSocket.html#acbce576df8b43297612c2ff7e3c42210">UnixStreamSocket::UnixStreamSocket</a>( <a class="code hl_typedef" href="classNET_1_1UnixStreamSocket.html#a7c8b8b62c664ebabec8f5c0918620aa4">Handle</a>&amp;&amp; handle)</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>: <a class="code hl_function" href="classNET_1_1UnixSocket.html#ad695ef23f071b90e2388b3c6d8c98923">UnixSocket</a>( handle.release())</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>{}</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="classNET_1_1UnixStreamSocket.html#a4b31f4b2898d6c25b68a9f5469a0d0a0">   12</a></span><a class="code hl_function" href="classNET_1_1UnixStreamSocket.html#acbce576df8b43297612c2ff7e3c42210">UnixStreamSocket</a> <a class="code hl_function" href="classNET_1_1UnixStreamSocket.html#a4b31f4b2898d6c25b68a9f5469a0d0a0">UnixStreamSocket::accept</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keywordtype">int</span> ret = <a class="code hl_function" href="classNET_1_1SimpleSocket.html#a23f806c99ec86fe75872ac60d9af9996">SimpleSocket::accept</a>();</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="classNET_1_1UnixStreamSocket.html#acbce576df8b43297612c2ff7e3c42210">UnixStreamSocket</a>( <a class="code hl_struct" href="structNET_1_1UnixSocket_1_1AdoptSocketTag.html">AdoptSocketTag</a>{}, ret);</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>}</div>
 </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="foldopen" id="foldopen00016" data-start="{" data-end="}">
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="classNET_1_1UnixStreamSocket.html#aa3ddb02b1cd51d7177a37632c7215fc8">   16</a></span><a class="code hl_typedef" href="classNET_1_1UnixStreamSocket.html#a7c8b8b62c664ebabec8f5c0918620aa4">UnixStreamSocket::Handle</a> <a class="code hl_function" href="classNET_1_1UnixStreamSocket.html#aa3ddb02b1cd51d7177a37632c7215fc8">UnixStreamSocket::accept</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keywordtype">int</span> ret = <a class="code hl_function" href="classNET_1_1SimpleSocket.html#a23f806c99ec86fe75872ac60d9af9996">SimpleSocket::accept</a>();</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    <span class="keywordflow">return</span> <a class="code hl_typedef" href="classNET_1_1UnixStreamSocket.html#a7c8b8b62c664ebabec8f5c0918620aa4">Handle</a>(ret);</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>}</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="foldopen" id="foldopen00018" data-start="{" data-end="}">
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="classNET_1_1UnixStreamSocket.html#a27370121047cd28f7a6eb651e41bc184">   18</a></span>std::optional&lt;UnixStreamSocket&gt; <a class="code hl_function" href="classNET_1_1UnixStreamSocket.html#a27370121047cd28f7a6eb651e41bc184">UnixStreamSocket::timedAccept</a>( <span class="keywordtype">int</span> timeout)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keywordtype">int</span> ret = <a class="code hl_function" href="classNET_1_1SimpleSocket.html#af9cd7f2b28969fa1383d8e8751a868f5">SimpleSocket::timedAccept</a>(timeout);</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    <span class="keywordflow">if</span>( ret &gt;= 0)</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keywordflow">return</span> std::optional&lt;UnixStreamSocket&gt;{ <a class="code hl_function" href="classNET_1_1UnixStreamSocket.html#acbce576df8b43297612c2ff7e3c42210">UnixStreamSocket</a>( <a class="code hl_struct" href="structNET_1_1UnixSocket_1_1AdoptSocketTag.html">AdoptSocketTag</a>{}, ret)};</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    <span class="keywordflow">else</span></div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>        <span class="keywordflow">return</span> std::nullopt;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>}</div>
 </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
-<div class="foldopen" id="foldopen00022" data-start="{" data-end="}">
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno"><a class="line" href="classNET_1_1UnixStreamSocket.html#a7ca1f07fab1821a5449f5d492cfc4538">   22</a></span><a class="code hl_typedef" href="classNET_1_1UnixStreamSocket.html#a7c8b8b62c664ebabec8f5c0918620aa4">UnixStreamSocket::Handle</a> <a class="code hl_function" href="classNET_1_1UnixStreamSocket.html#a7ca1f07fab1821a5449f5d492cfc4538">UnixStreamSocket::timedAccept</a>( <span class="keywordtype">int</span> timeout)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keywordtype">int</span> ret = <a class="code hl_function" href="classNET_1_1SimpleSocket.html#af9cd7f2b28969fa1383d8e8751a868f5">SimpleSocket::timedAccept</a>(timeout);</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordflow">return</span> <a class="code hl_typedef" href="classNET_1_1UnixStreamSocket.html#a7c8b8b62c664ebabec8f5c0918620aa4">Handle</a>(ret);</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>}</div>
-</div>
-<div class="ttc" id="aclassNET_1_1SimpleSocket_html_a23f806c99ec86fe75872ac60d9af9996"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#a23f806c99ec86fe75872ac60d9af9996">NET::SimpleSocket::accept</a></div><div class="ttdeci">int accept() const</div><div class="ttdoc">allows stream sockets to accept connections into Handles</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8cpp_source.html#l00144">SimpleSocket.cpp:144</a></div></div>
-<div class="ttc" id="aclassNET_1_1SimpleSocket_html_af9cd7f2b28969fa1383d8e8751a868f5"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#af9cd7f2b28969fa1383d8e8751a868f5">NET::SimpleSocket::timedAccept</a></div><div class="ttdeci">int timedAccept(int timeout) const</div><div class="ttdoc">allows stream sockets timed accept</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8cpp_source.html#l00158">SimpleSocket.cpp:158</a></div></div>
-<div class="ttc" id="aclassNET_1_1UnixSocket_html_ad695ef23f071b90e2388b3c6d8c98923"><div class="ttname"><a href="classNET_1_1UnixSocket.html#ad695ef23f071b90e2388b3c6d8c98923">NET::UnixSocket::UnixSocket</a></div><div class="ttdeci">UnixSocket(int type, int protocol)</div><div class="ttdoc">allows a subclass to create new socket</div><div class="ttdef"><b>Definition</b> <a href="UnixSocket_8cpp_source.html#l00009">UnixSocket.cpp:9</a></div></div>
-<div class="ttc" id="aclassNET_1_1UnixStreamSocket_html_a7c8b8b62c664ebabec8f5c0918620aa4"><div class="ttname"><a href="classNET_1_1UnixStreamSocket.html#a7c8b8b62c664ebabec8f5c0918620aa4">NET::UnixStreamSocket::Handle</a></div><div class="ttdeci">SocketHandle&lt; UnixStreamSocket &gt; Handle</div><div class="ttdoc">Handle for a new socket returned by accept().</div><div class="ttdef"><b>Definition</b> <a href="UnixStreamSocket_8h_source.html#l00014">UnixStreamSocket.h:14</a></div></div>
-<div class="ttc" id="aclassNET_1_1UnixStreamSocket_html_a7ca1f07fab1821a5449f5d492cfc4538"><div class="ttname"><a href="classNET_1_1UnixStreamSocket.html#a7ca1f07fab1821a5449f5d492cfc4538">NET::UnixStreamSocket::timedAccept</a></div><div class="ttdeci">Handle timedAccept(int timeout) const</div><div class="ttdef"><b>Definition</b> <a href="#l00022">UnixStreamSocket.cpp:22</a></div></div>
-<div class="ttc" id="aclassNET_1_1UnixStreamSocket_html_aa3ddb02b1cd51d7177a37632c7215fc8"><div class="ttname"><a href="classNET_1_1UnixStreamSocket.html#aa3ddb02b1cd51d7177a37632c7215fc8">NET::UnixStreamSocket::accept</a></div><div class="ttdeci">Handle accept() const</div><div class="ttdef"><b>Definition</b> <a href="#l00016">UnixStreamSocket.cpp:16</a></div></div>
+<div class="ttc" id="aTempFailure_8h_html"><div class="ttname"><a href="TempFailure_8h.html">TempFailure.h</a></div></div>
+<div class="ttc" id="aUnixStreamSocket_8h_html"><div class="ttname"><a href="UnixStreamSocket_8h.html">UnixStreamSocket.h</a></div></div>
+<div class="ttc" id="aclassNET_1_1SimpleSocket_html_a23f806c99ec86fe75872ac60d9af9996"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#a23f806c99ec86fe75872ac60d9af9996">NET::SimpleSocket::accept</a></div><div class="ttdeci">int accept() const</div><div class="ttdoc">allows stream sockets to accept connections</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8cpp_source.html#l00179">SimpleSocket.cpp:179</a></div></div>
+<div class="ttc" id="aclassNET_1_1SimpleSocket_html_af9cd7f2b28969fa1383d8e8751a868f5"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#af9cd7f2b28969fa1383d8e8751a868f5">NET::SimpleSocket::timedAccept</a></div><div class="ttdeci">int timedAccept(int timeout) const</div><div class="ttdoc">allows stream sockets timed accept</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8cpp_source.html#l00193">SimpleSocket.cpp:193</a></div></div>
+<div class="ttc" id="aclassNET_1_1UnixStreamSocket_html_a27370121047cd28f7a6eb651e41bc184"><div class="ttname"><a href="classNET_1_1UnixStreamSocket.html#a27370121047cd28f7a6eb651e41bc184">NET::UnixStreamSocket::timedAccept</a></div><div class="ttdeci">std::optional&lt; UnixStreamSocket &gt; timedAccept(int timeout) const</div><div class="ttdef"><b>Definition</b> <a href="#l00018">UnixStreamSocket.cpp:18</a></div></div>
+<div class="ttc" id="aclassNET_1_1UnixStreamSocket_html_a4b31f4b2898d6c25b68a9f5469a0d0a0"><div class="ttname"><a href="classNET_1_1UnixStreamSocket.html#a4b31f4b2898d6c25b68a9f5469a0d0a0">NET::UnixStreamSocket::accept</a></div><div class="ttdeci">UnixStreamSocket accept() const</div><div class="ttdef"><b>Definition</b> <a href="#l00012">UnixStreamSocket.cpp:12</a></div></div>
 <div class="ttc" id="aclassNET_1_1UnixStreamSocket_html_acbce576df8b43297612c2ff7e3c42210"><div class="ttname"><a href="classNET_1_1UnixStreamSocket.html#acbce576df8b43297612c2ff7e3c42210">NET::UnixStreamSocket::UnixStreamSocket</a></div><div class="ttdeci">UnixStreamSocket()</div><div class="ttdef"><b>Definition</b> <a href="#l00008">UnixStreamSocket.cpp:8</a></div></div>
+<div class="ttc" id="aclassNET_1_1UnixStreamSocket_html_ad695ef23f071b90e2388b3c6d8c98923"><div class="ttname"><a href="classNET_1_1UnixStreamSocket.html#ad695ef23f071b90e2388b3c6d8c98923">NET::UnixStreamSocket::UnixSocket</a></div><div class="ttdeci">UnixSocket(int type, int protocol)</div><div class="ttdoc">allows a subclass to create new socket</div><div class="ttdef"><b>Definition</b> <a href="UnixSocket_8cpp_source.html#l00047">UnixSocket.cpp:9</a></div></div>
+<div class="ttc" id="anamespaceNET_html"><div class="ttname"><a href="namespaceNET.html">NET</a></div><div class="ttdef"><b>Definition</b> <a href="CANRawSocket_8h_source.html#l00006">CANRawSocket.h:7</a></div></div>
+<div class="ttc" id="astructNET_1_1UnixSocket_1_1AdoptSocketTag_html"><div class="ttname"><a href="structNET_1_1UnixSocket_1_1AdoptSocketTag.html">NET::UnixSocket::AdoptSocketTag</a></div><div class="ttdoc">used to safely adopt internal socket descriptor</div><div class="ttdef"><b>Definition</b> <a href="UnixSocket_8h_source.html#l00050">UnixSocket.h:50</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>src</b></li><li class="navelem"><b>UnixStreamSocket.cpp</b></li>
+    <li class="navelem"><a href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a href="UnixStreamSocket_8cpp.html">UnixStreamSocket.cpp</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

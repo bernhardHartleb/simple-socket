@@ -1,0 +1,16 @@
+<map id="include/simple_socket/NetworkInterface.h" name="include/simple_socket/NetworkInterface.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="173,5,323,48"/>
+<area shape="rect" id="Node000002" href="$SimpleSocket_8h.html" title=" " alt="" coords="67,96,181,123"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="214,50,157,90,154,85,218,47"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,171,59,197"/>
+<area shape="poly" id="edge4_Node000001_Node000003" title=" " alt="" coords="170,40,112,61,83,77,58,98,42,126,36,156,31,155,37,124,54,94,80,72,109,56,174,36"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="204,96,292,123"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="250,46,250,81,246,79,246,51"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="315,96,373,123"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="273,46,320,86,315,86,272,51"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="396,96,457,123"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="294,46,387,89,382,90,294,51"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="111,123,61,163,58,159,105,124"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="85,171,163,197"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="126,121,126,156,122,154,122,125"/>
+</map>

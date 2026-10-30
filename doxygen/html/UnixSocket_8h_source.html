@@ -33,7 +33,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.5.0</span>
+   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.6.0</span>
    </div>
   </td>
  </tr>
@@ -107,19 +107,19 @@ $(function() {
   <div class="headertitle"><div class="title">UnixSocket.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef NET_UnixSocket_h__</span></div>
+<a href="UnixSocket_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef NET_UnixSocket_h__</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define NET_UnixSocket_h__</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;SimpleSocket.h&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="SimpleSocket_8h.html">SimpleSocket.h</a>&quot;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span>NET</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceNET.html">NET</a></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span></div>
 <div class="foldopen" id="foldopen00012" data-start="{" data-end="};">
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="classNET_1_1UnixSocket.html">   12</a></span>    <span class="keyword">class </span><a class="code hl_function" href="classNET_1_1UnixSocket.html#ad695ef23f071b90e2388b3c6d8c98923">UnixSocket</a> : <span class="keyword">public</span> SimpleSocket</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="classNET_1_1UnixSocket.html">   12</a></span>    <span class="keyword">class </span><a class="code hl_function" href="classNET_1_1UnixSocket.html#ad695ef23f071b90e2388b3c6d8c98923">UnixSocket</a> : <span class="keyword">public</span> <a class="code hl_function" href="classNET_1_1SimpleSocket.html#a53ccfa544aa458e821fcbb1c6979fd62">SimpleSocket</a></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    {</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        <a class="code hl_function" href="classNET_1_1UnixSocket.html#ad695ef23f071b90e2388b3c6d8c98923">~UnixSocket</a>();</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>        <a class="code hl_function" href="classNET_1_1UnixSocket.html#a4158645e201be3e343ce927d776a9867">~UnixSocket</a>();</div>
 <div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span></div>
 <div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classNET_1_1UnixSocket.html#a3694a5b17e66373bb20a2dec5f6a3d31">connect</a>( std::string_view foreignPath);</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span></div>
@@ -132,28 +132,39 @@ $(function() {
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keyword">protected</span>:</div>
 <div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        <a class="code hl_function" href="classNET_1_1UnixSocket.html#ad695ef23f071b90e2388b3c6d8c98923">UnixSocket</a>( <span class="keywordtype">int</span> type, <span class="keywordtype">int</span> protocol);</div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span></div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>        <span class="keyword">explicit</span> <a class="code hl_function" href="classNET_1_1UnixSocket.html#ad695ef23f071b90e2388b3c6d8c98923">UnixSocket</a>( <span class="keywordtype">int</span> sockfd);</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span> </div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <span class="comment">// track created socket file</span></div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>        std::string m_boundPath;</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    };</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno"><a class="line" href="structNET_1_1UnixSocket_1_1AdoptSocketTag.html">   50</a></span>        <span class="keyword">struct </span><a class="code hl_struct" href="structNET_1_1UnixSocket_1_1AdoptSocketTag.html">AdoptSocketTag</a> {};</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>        <a class="code hl_function" href="classNET_1_1UnixSocket.html#ad695ef23f071b90e2388b3c6d8c98923">UnixSocket</a>( <a class="code hl_struct" href="structNET_1_1UnixSocket_1_1AdoptSocketTag.html">AdoptSocketTag</a>, <span class="keywordtype">int</span> sockfd);</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span> </div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <a class="code hl_function" href="classNET_1_1UnixSocket.html#ad695ef23f071b90e2388b3c6d8c98923">UnixSocket</a>( <a class="code hl_function" href="classNET_1_1UnixSocket.html#ad695ef23f071b90e2388b3c6d8c98923">UnixSocket</a>&amp;&amp; other) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        <a class="code hl_function" href="classNET_1_1UnixSocket.html#ad695ef23f071b90e2388b3c6d8c98923">UnixSocket</a>&amp; <a class="code hl_function" href="classNET_1_1UnixSocket.html#a391f1a3eabbaf06b4be401ee08ec7225">operator=</a>( <a class="code hl_function" href="classNET_1_1UnixSocket.html#ad695ef23f071b90e2388b3c6d8c98923">UnixSocket</a>&amp;&amp; other) <span class="keyword">noexcept</span>;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>        <span class="comment">// track created socket file</span></div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno"><a class="line" href="classNET_1_1UnixSocket.html#a096fe42e3e8c68e868a8831a8aa3489c">   58</a></span>        std::string <a class="code hl_variable" href="classNET_1_1UnixSocket.html#a096fe42e3e8c68e868a8831a8aa3489c">m_boundPath</a>;</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>    };</div>
 </div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>} <span class="comment">// namespace NET</span></div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span><span class="preprocessor">#endif </span><span class="comment">// NET_UnixSocket_h__</span></div>
-<div class="ttc" id="aclassNET_1_1UnixSocket_html_a3694a5b17e66373bb20a2dec5f6a3d31"><div class="ttname"><a href="classNET_1_1UnixSocket.html#a3694a5b17e66373bb20a2dec5f6a3d31">NET::UnixSocket::connect</a></div><div class="ttdeci">void connect(std::string_view foreignPath)</div><div class="ttdef"><b>Definition</b> <a href="UnixSocket_8cpp_source.html#l00023">UnixSocket.cpp:23</a></div></div>
-<div class="ttc" id="aclassNET_1_1UnixSocket_html_ac02f55ec90f1833c8fef7d8f0da34645"><div class="ttname"><a href="classNET_1_1UnixSocket.html#ac02f55ec90f1833c8fef7d8f0da34645">NET::UnixSocket::getForeignPath</a></div><div class="ttdeci">std::string getForeignPath() const</div><div class="ttdef"><b>Definition</b> <a href="UnixSocket_8cpp_source.html#l00053">UnixSocket.cpp:53</a></div></div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>} <span class="comment">// namespace NET</span></div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span><span class="preprocessor">#endif </span><span class="comment">// NET_UnixSocket_h__</span></div>
+<div class="ttc" id="aSimpleSocket_8h_html"><div class="ttname"><a href="SimpleSocket_8h.html">SimpleSocket.h</a></div></div>
+<div class="ttc" id="aclassNET_1_1SimpleSocket_html_a53ccfa544aa458e821fcbb1c6979fd62"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#a53ccfa544aa458e821fcbb1c6979fd62">NET::SimpleSocket::SimpleSocket</a></div><div class="ttdeci">SimpleSocket(const SimpleSocket &amp;)=delete</div></div>
+<div class="ttc" id="aclassNET_1_1UnixSocket_html_a096fe42e3e8c68e868a8831a8aa3489c"><div class="ttname"><a href="classNET_1_1UnixSocket.html#a096fe42e3e8c68e868a8831a8aa3489c">NET::UnixSocket::m_boundPath</a></div><div class="ttdeci">std::string m_boundPath</div><div class="ttdef"><b>Definition</b> <a href="#l00058">UnixSocket.h:58</a></div></div>
+<div class="ttc" id="aclassNET_1_1UnixSocket_html_a3694a5b17e66373bb20a2dec5f6a3d31"><div class="ttname"><a href="classNET_1_1UnixSocket.html#a3694a5b17e66373bb20a2dec5f6a3d31">NET::UnixSocket::connect</a></div><div class="ttdeci">void connect(std::string_view foreignPath)</div><div class="ttdef"><b>Definition</b> <a href="UnixSocket_8cpp_source.html#l00044">UnixSocket.cpp:44</a></div></div>
+<div class="ttc" id="aclassNET_1_1UnixSocket_html_a391f1a3eabbaf06b4be401ee08ec7225"><div class="ttname"><a href="classNET_1_1UnixSocket.html#a391f1a3eabbaf06b4be401ee08ec7225">NET::UnixSocket::operator=</a></div><div class="ttdeci">UnixSocket &amp; operator=(UnixSocket &amp;&amp;other) noexcept</div><div class="ttdef"><b>Definition</b> <a href="UnixSocket_8cpp_source.html#l00024">UnixSocket.cpp:24</a></div></div>
+<div class="ttc" id="aclassNET_1_1UnixSocket_html_a4158645e201be3e343ce927d776a9867"><div class="ttname"><a href="classNET_1_1UnixSocket.html#a4158645e201be3e343ce927d776a9867">NET::UnixSocket::~UnixSocket</a></div><div class="ttdeci">~UnixSocket()</div><div class="ttdef"><b>Definition</b> <a href="UnixSocket_8cpp_source.html#l00038">UnixSocket.cpp:38</a></div></div>
+<div class="ttc" id="aclassNET_1_1UnixSocket_html_ac02f55ec90f1833c8fef7d8f0da34645"><div class="ttname"><a href="classNET_1_1UnixSocket.html#ac02f55ec90f1833c8fef7d8f0da34645">NET::UnixSocket::getForeignPath</a></div><div class="ttdeci">std::string getForeignPath() const</div><div class="ttdef"><b>Definition</b> <a href="UnixSocket_8cpp_source.html#l00074">UnixSocket.cpp:74</a></div></div>
 <div class="ttc" id="aclassNET_1_1UnixSocket_html_ad695ef23f071b90e2388b3c6d8c98923"><div class="ttname"><a href="classNET_1_1UnixSocket.html#ad695ef23f071b90e2388b3c6d8c98923">NET::UnixSocket::UnixSocket</a></div><div class="ttdeci">UnixSocket(int type, int protocol)</div><div class="ttdoc">allows a subclass to create new socket</div><div class="ttdef"><b>Definition</b> <a href="UnixSocket_8cpp_source.html#l00009">UnixSocket.cpp:9</a></div></div>
-<div class="ttc" id="aclassNET_1_1UnixSocket_html_ae23f670d8502edb7d8d6f46620aab0ab"><div class="ttname"><a href="classNET_1_1UnixSocket.html#ae23f670d8502edb7d8d6f46620aab0ab">NET::UnixSocket::bind</a></div><div class="ttdeci">void bind(std::string_view localPath)</div><div class="ttdef"><b>Definition</b> <a href="UnixSocket_8cpp_source.html#l00033">UnixSocket.cpp:33</a></div></div>
-<div class="ttc" id="aclassNET_1_1UnixSocket_html_af3ce1e8b3022868b72932f6c43351d0c"><div class="ttname"><a href="classNET_1_1UnixSocket.html#af3ce1e8b3022868b72932f6c43351d0c">NET::UnixSocket::getLocalPath</a></div><div class="ttdeci">std::string getLocalPath() const</div><div class="ttdef"><b>Definition</b> <a href="UnixSocket_8cpp_source.html#l00043">UnixSocket.cpp:43</a></div></div>
+<div class="ttc" id="aclassNET_1_1UnixSocket_html_ae23f670d8502edb7d8d6f46620aab0ab"><div class="ttname"><a href="classNET_1_1UnixSocket.html#ae23f670d8502edb7d8d6f46620aab0ab">NET::UnixSocket::bind</a></div><div class="ttdeci">void bind(std::string_view localPath)</div><div class="ttdef"><b>Definition</b> <a href="UnixSocket_8cpp_source.html#l00054">UnixSocket.cpp:54</a></div></div>
+<div class="ttc" id="aclassNET_1_1UnixSocket_html_af3ce1e8b3022868b72932f6c43351d0c"><div class="ttname"><a href="classNET_1_1UnixSocket.html#af3ce1e8b3022868b72932f6c43351d0c">NET::UnixSocket::getLocalPath</a></div><div class="ttdeci">std::string getLocalPath() const</div><div class="ttdef"><b>Definition</b> <a href="UnixSocket_8cpp_source.html#l00064">UnixSocket.cpp:64</a></div></div>
+<div class="ttc" id="anamespaceNET_html"><div class="ttname"><a href="namespaceNET.html">NET</a></div><div class="ttdef"><b>Definition</b> <a href="CANRawSocket_8h_source.html#l00006">CANRawSocket.h:7</a></div></div>
+<div class="ttc" id="astructNET_1_1UnixSocket_1_1AdoptSocketTag_html"><div class="ttname"><a href="structNET_1_1UnixSocket_1_1AdoptSocketTag.html">NET::UnixSocket::AdoptSocketTag</a></div><div class="ttdoc">used to safely adopt internal socket descriptor</div><div class="ttdef"><b>Definition</b> <a href="#l00050">UnixSocket.h:50</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>include</b></li><li class="navelem"><b>simple_socket</b></li><li class="navelem"><b>UnixSocket.h</b></li>
+    <li class="navelem"><a href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a href="dir_17bf707cbdf83821672bc21fabf5bbe7.html">simple_socket</a></li><li class="navelem"><a href="UnixSocket_8h.html">UnixSocket.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

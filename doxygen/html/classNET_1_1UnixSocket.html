@@ -33,7 +33,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.5.0</span>
+   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.6.0</span>
    </div>
   </td>
  </tr>
@@ -125,21 +125,22 @@ $(function() {
 <div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="classNET_1_1UnixSocket__coll__graph.svg" width="274" height="228"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 <center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-pub-types" class="groupheader"><a id="pub-types" name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:ab2d98f9c05fb0c016782269d6c053db9" id="r_ab2d98f9c05fb0c016782269d6c053db9"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#ab2d98f9c05fb0c016782269d6c053db9">ShutdownDirection</a> { <a class="el" href="classNET_1_1SimpleSocket.html#ab2d98f9c05fb0c016782269d6c053db9a8efb8dcfe05bb52129f436538b77bc1c">STOP_SEND</a> = SHUT_WR
-, <a class="el" href="classNET_1_1SimpleSocket.html#ab2d98f9c05fb0c016782269d6c053db9a8cc7b3f7c09884085e7bd7f14a996f07">STOP_RECEIVE</a> = SHUT_RD
-, <a class="el" href="classNET_1_1SimpleSocket.html#ab2d98f9c05fb0c016782269d6c053db9a92c5b6b1319adf4f8eec96da6fa4e8b0">STOP_BOTH</a> = SHUT_RDWR
- }</td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:AdoptSocketTag" id="r_AdoptSocketTag"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structNET_1_1UnixSocket_1_1AdoptSocketTag.html">AdoptSocketTag</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">used to safely adopt internal socket descriptor  <a href="structNET_1_1UnixSocket_1_1AdoptSocketTag.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a4158645e201be3e343ce927d776a9867" id="r_a4158645e201be3e343ce927d776a9867"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a4158645e201be3e343ce927d776a9867">~UnixSocket</a> ()</td></tr>
 <tr class="memitem:a3694a5b17e66373bb20a2dec5f6a3d31" id="r_a3694a5b17e66373bb20a2dec5f6a3d31"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a3694a5b17e66373bb20a2dec5f6a3d31">connect</a> (std::string_view foreignPath)</td></tr>
 <tr class="memitem:ae23f670d8502edb7d8d6f46620aab0ab" id="r_ae23f670d8502edb7d8d6f46620aab0ab"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ae23f670d8502edb7d8d6f46620aab0ab">bind</a> (std::string_view localPath)</td></tr>
 <tr class="memitem:af3ce1e8b3022868b72932f6c43351d0c" id="r_af3ce1e8b3022868b72932f6c43351d0c"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#af3ce1e8b3022868b72932f6c43351d0c">getLocalPath</a> () const</td></tr>
 <tr class="memitem:ac02f55ec90f1833c8fef7d8f0da34645" id="r_ac02f55ec90f1833c8fef7d8f0da34645"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="#ac02f55ec90f1833c8fef7d8f0da34645">getForeignPath</a> () const</td></tr>
 <tr class="memitem:a830de7b14a78664508052051991ced63" id="r_a830de7b14a78664508052051991ced63"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#a830de7b14a78664508052051991ced63">nativeHandle</a> () noexcept</td></tr>
-<tr class="memdesc:a830de7b14a78664508052051991ced63"><td class="mdescLeft">&#160;</td><td class="mdescRight">return the native handle of the open socket  <br /></td></tr>
+<tr class="memdesc:a830de7b14a78664508052051991ced63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the native descriptor. Ownership remains with the object.  <br /></td></tr>
+<tr class="memitem:a5ccd319fcf01dd3f58b9365bb3e24fa8" id="r_a5ccd319fcf01dd3f58b9365bb3e24fa8"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#a5ccd319fcf01dd3f58b9365bb3e24fa8">valid</a> () const noexcept</td></tr>
+<tr class="memdesc:a5ccd319fcf01dd3f58b9365bb3e24fa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if socket is in a usable (non-moved) state.  <br /></td></tr>
 <tr class="memitem:a6e3ec021c1ae9ea1e1d0aaa0129e7c50" id="r_a6e3ec021c1ae9ea1e1d0aaa0129e7c50"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#a6e3ec021c1ae9ea1e1d0aaa0129e7c50">send</a> (const void *buffer, size_t len)</td></tr>
 <tr class="memdesc:a6e3ec021c1ae9ea1e1d0aaa0129e7c50"><td class="mdescLeft">&#160;</td><td class="mdescRight">send data through a connected socket  <br /></td></tr>
 <tr class="memitem:ab89a477e571a47efd9ec39089aeebf56" id="r_ab89a477e571a47efd9ec39089aeebf56"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#ab89a477e571a47efd9ec39089aeebf56">receive</a> (void *buffer, size_t len)</td></tr>
@@ -148,7 +149,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a0c14e0e6413cf606d52ab7d606a175f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">receive data from a bound socket, return after the given timespan  <br /></td></tr>
 <tr class="memitem:a107f5074fd3f153ce0c1d2329c755d8f" id="r_a107f5074fd3f153ce0c1d2329c755d8f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#a107f5074fd3f153ce0c1d2329c755d8f">disconnect</a> ()</td></tr>
 <tr class="memdesc:a107f5074fd3f153ce0c1d2329c755d8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disconnect and unset any foreign addresses.  <br /></td></tr>
-<tr class="memitem:a5b5500498eeb1292eea3c5dc4e531d19" id="r_a5b5500498eeb1292eea3c5dc4e531d19"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#a5b5500498eeb1292eea3c5dc4e531d19">shutdown</a> (<a class="el" href="classNET_1_1SimpleSocket.html#ab2d98f9c05fb0c016782269d6c053db9">ShutdownDirection</a> type)</td></tr>
+<tr class="memitem:a5b5500498eeb1292eea3c5dc4e531d19" id="r_a5b5500498eeb1292eea3c5dc4e531d19"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#a5b5500498eeb1292eea3c5dc4e531d19">shutdown</a> (<a class="el" href="namespaceNET.html#a9b61e3d2422a1203909bd7985df95884">ShutdownDirection</a> type)</td></tr>
 <tr class="memdesc:a5b5500498eeb1292eea3c5dc4e531d19"><td class="mdescLeft">&#160;</td><td class="mdescRight">shutdown the connection in the specified direction  <br /></td></tr>
 <tr class="memitem:adc7b2b80c852e7163a7bab9ce4b7c060" id="r_adc7b2b80c852e7163a7bab9ce4b7c060"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#adc7b2b80c852e7163a7bab9ce4b7c060">peerDisconnected</a> () const noexcept</td></tr>
 <tr class="memdesc:adc7b2b80c852e7163a7bab9ce4b7c060"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns whether a currently associated peer disconnected  <br /></td></tr>
@@ -157,8 +158,10 @@ Public Member Functions</h2></td></tr>
 Protected Member Functions</h2></td></tr>
 <tr class="memitem:ad695ef23f071b90e2388b3c6d8c98923" id="r_ad695ef23f071b90e2388b3c6d8c98923"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad695ef23f071b90e2388b3c6d8c98923">UnixSocket</a> (int type, int protocol)</td></tr>
 <tr class="memdesc:ad695ef23f071b90e2388b3c6d8c98923"><td class="mdescLeft">&#160;</td><td class="mdescRight">allows a subclass to create new socket  <br /></td></tr>
-<tr class="memitem:afb51aca909f43cc41905a7f4053bec96" id="r_afb51aca909f43cc41905a7f4053bec96"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#afb51aca909f43cc41905a7f4053bec96">UnixSocket</a> (int sockfd)</td></tr>
-<tr class="memdesc:afb51aca909f43cc41905a7f4053bec96"><td class="mdescLeft">&#160;</td><td class="mdescRight">allows a subclass to take ownership of an accepted socket  <br /></td></tr>
+<tr class="memitem:ad406e5164c74f23fc19ee9aedb9a50ca" id="r_ad406e5164c74f23fc19ee9aedb9a50ca"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad406e5164c74f23fc19ee9aedb9a50ca">UnixSocket</a> (<a class="el" href="structNET_1_1UnixSocket_1_1AdoptSocketTag.html">AdoptSocketTag</a>, int sockfd)</td></tr>
+<tr class="memdesc:ad406e5164c74f23fc19ee9aedb9a50ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">allows a subclass to take ownership of an accepted socket  <br /></td></tr>
+<tr class="memitem:ac0df0f22e6396a2a76fd28be194f40d6" id="r_ac0df0f22e6396a2a76fd28be194f40d6"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac0df0f22e6396a2a76fd28be194f40d6">UnixSocket</a> (UnixSocket &amp;&amp;other) noexcept</td></tr>
+<tr class="memitem:a391f1a3eabbaf06b4be401ee08ec7225" id="r_a391f1a3eabbaf06b4be401ee08ec7225"><td class="memItemLeft"><a class="el" href="#ad695ef23f071b90e2388b3c6d8c98923">UnixSocket</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a391f1a3eabbaf06b4be401ee08ec7225">operator=</a> (<a class="el" href="#ad695ef23f071b90e2388b3c6d8c98923">UnixSocket</a> &amp;&amp;other) noexcept</td></tr>
 <tr class="memitem:a4684d7f8b29b43c51bcc25f01c7df437" id="r_a4684d7f8b29b43c51bcc25f01c7df437"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#a4684d7f8b29b43c51bcc25f01c7df437">listen</a> (int backlog=5)</td></tr>
 <tr class="memdesc:a4684d7f8b29b43c51bcc25f01c7df437"><td class="mdescLeft">&#160;</td><td class="mdescRight">listen for incoming connections  <br /></td></tr>
 <tr class="memitem:a690773b3fefeeb026006713e54e6d08a" id="r_a690773b3fefeeb026006713e54e6d08a"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#a690773b3fefeeb026006713e54e6d08a">sendAll</a> (const void *buffer, size_t len)</td></tr>
@@ -166,7 +169,7 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:a263f823dd259f3f7af8cc218fba9b5cf" id="r_a263f823dd259f3f7af8cc218fba9b5cf"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#a263f823dd259f3f7af8cc218fba9b5cf">receiveAll</a> (void *buffer, size_t len)</td></tr>
 <tr class="memdesc:a263f823dd259f3f7af8cc218fba9b5cf"><td class="mdescLeft">&#160;</td><td class="mdescRight">receive exactly the requested amount unless the peer disconnects  <br /></td></tr>
 <tr class="memitem:a23f806c99ec86fe75872ac60d9af9996" id="r_a23f806c99ec86fe75872ac60d9af9996"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#a23f806c99ec86fe75872ac60d9af9996">accept</a> () const</td></tr>
-<tr class="memdesc:a23f806c99ec86fe75872ac60d9af9996"><td class="mdescLeft">&#160;</td><td class="mdescRight">allows stream sockets to accept connections into Handles  <br /></td></tr>
+<tr class="memdesc:a23f806c99ec86fe75872ac60d9af9996"><td class="mdescLeft">&#160;</td><td class="mdescRight">allows stream sockets to accept connections  <br /></td></tr>
 <tr class="memitem:af9cd7f2b28969fa1383d8e8751a868f5" id="r_af9cd7f2b28969fa1383d8e8751a868f5"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#af9cd7f2b28969fa1383d8e8751a868f5">timedAccept</a> (int timeout) const</td></tr>
 <tr class="memdesc:af9cd7f2b28969fa1383d8e8751a868f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">allows stream sockets timed accept  <br /></td></tr>
 </table><table class="memberdecls">
@@ -182,40 +185,7 @@ Protected Attributes</h2></td></tr>
 <p>Base class for sockets identified by files in the filessystem. </p>
 
 <p class="definition">Definition at line <a class="el" href="UnixSocket_8h_source.html#l00012">12</a> of file <a class="el" href="UnixSocket_8h_source.html">UnixSocket.h</a>.</p>
-</div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Member Enumeration Documentation</h2>
-<a id="ab2d98f9c05fb0c016782269d6c053db9" name="ab2d98f9c05fb0c016782269d6c053db9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab2d98f9c05fb0c016782269d6c053db9">&#9670;&#160;</a></span>ShutdownDirection</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum <a class="el" href="classNET_1_1SimpleSocket.html#ab2d98f9c05fb0c016782269d6c053db9">NET::SimpleSocket::ShutdownDirection</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inherited">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ab2d98f9c05fb0c016782269d6c053db9a8efb8dcfe05bb52129f436538b77bc1c" name="ab2d98f9c05fb0c016782269d6c053db9a8efb8dcfe05bb52129f436538b77bc1c"></a>STOP_SEND&#160;</td><td class="fielddoc"><p>disable all variants of <a class="el" href="classNET_1_1SimpleSocket.html#a6e3ec021c1ae9ea1e1d0aaa0129e7c50" title="send data through a connected socket">send()</a> on the socket, receive calls still work </p>
-</td></tr>
-<tr><td class="fieldname"><a id="ab2d98f9c05fb0c016782269d6c053db9a8cc7b3f7c09884085e7bd7f14a996f07" name="ab2d98f9c05fb0c016782269d6c053db9a8cc7b3f7c09884085e7bd7f14a996f07"></a>STOP_RECEIVE&#160;</td><td class="fielddoc"><p>disable all variants of <a class="el" href="classNET_1_1SimpleSocket.html#ab89a477e571a47efd9ec39089aeebf56" title="receive data from a bound socket">receive()</a> on the socket, send calls still work </p>
-</td></tr>
-<tr><td class="fieldname"><a id="ab2d98f9c05fb0c016782269d6c053db9a92c5b6b1319adf4f8eec96da6fa4e8b0" name="ab2d98f9c05fb0c016782269d6c053db9a92c5b6b1319adf4f8eec96da6fa4e8b0"></a>STOP_BOTH&#160;</td><td class="fielddoc"><p>disable all <a class="el" href="classNET_1_1SimpleSocket.html#a6e3ec021c1ae9ea1e1d0aaa0129e7c50" title="send data through a connected socket">send()</a> and <a class="el" href="classNET_1_1SimpleSocket.html#ab89a477e571a47efd9ec39089aeebf56" title="receive data from a bound socket">receive()</a> calls on the socket </p>
-</td></tr>
-</table>
-
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8h_source.html#l00057">57</a> of file <a class="el" href="SimpleSocket_8h_source.html">SimpleSocket.h</a>.</p>
-
-</div>
-</div>
-<a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a4158645e201be3e343ce927d776a9867" name="a4158645e201be3e343ce927d776a9867"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4158645e201be3e343ce927d776a9867">&#9670;&#160;</a></span>~UnixSocket()</h2>
 
@@ -231,12 +201,12 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="UnixSocket_8cpp_source.html#l00017">17</a> of file <a class="el" href="UnixSocket_8cpp_source.html">UnixSocket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="UnixSocket_8cpp_source.html#l00038">38</a> of file <a class="el" href="UnixSocket_8cpp_source.html">UnixSocket.cpp</a>.</p>
 
 </div>
 </div>
 <a id="ad695ef23f071b90e2388b3c6d8c98923" name="ad695ef23f071b90e2388b3c6d8c98923"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad695ef23f071b90e2388b3c6d8c98923">&#9670;&#160;</a></span>UnixSocket() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad695ef23f071b90e2388b3c6d8c98923">&#9670;&#160;</a></span>UnixSocket() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -268,8 +238,8 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="afb51aca909f43cc41905a7f4053bec96" name="afb51aca909f43cc41905a7f4053bec96"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afb51aca909f43cc41905a7f4053bec96">&#9670;&#160;</a></span>UnixSocket() <span class="overload">[2/2]</span></h2>
+<a id="ad406e5164c74f23fc19ee9aedb9a50ca" name="ad406e5164c74f23fc19ee9aedb9a50ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad406e5164c74f23fc19ee9aedb9a50ca">&#9670;&#160;</a></span>UnixSocket() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -280,13 +250,17 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">UnixSocket::UnixSocket </td>
           <td>(</td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>sockfd</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="structNET_1_1UnixSocket_1_1AdoptSocketTag.html">AdoptSocketTag</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>sockfd</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel explicit">explicit</span><span class="mlabel protected">protected</span></span>  </td>
+<span class="mlabels"><span class="mlabel protected">protected</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
@@ -294,6 +268,33 @@ Protected Attributes</h2></td></tr>
 <p>allows a subclass to take ownership of an accepted socket </p>
 
 <p class="definition">Definition at line <a class="el" href="UnixSocket_8cpp_source.html#l00013">13</a> of file <a class="el" href="UnixSocket_8cpp_source.html">UnixSocket.cpp</a>.</p>
+
+</div>
+</div>
+<a id="ac0df0f22e6396a2a76fd28be194f40d6" name="ac0df0f22e6396a2a76fd28be194f40d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac0df0f22e6396a2a76fd28be194f40d6">&#9670;&#160;</a></span>UnixSocket() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">UnixSocket::UnixSocket </td>
+          <td>(</td>
+          <td class="paramtype">UnixSocket &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="UnixSocket_8cpp_source.html#l00017">17</a> of file <a class="el" href="UnixSocket_8cpp_source.html">UnixSocket.cpp</a>.</p>
 
 </div>
 </div>
@@ -321,9 +322,9 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>allows stream sockets to accept connections into Handles </p>
+<p>allows stream sockets to accept connections </p>
 
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8cpp_source.html#l00144">144</a> of file <a class="el" href="SimpleSocket_8cpp_source.html">SimpleSocket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SimpleSocket_8cpp_source.html#l00179">179</a> of file <a class="el" href="SimpleSocket_8cpp_source.html">SimpleSocket.cpp</a>.</p>
 
 </div>
 </div>
@@ -354,7 +355,7 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="UnixSocket_8cpp_source.html#l00033">33</a> of file <a class="el" href="UnixSocket_8cpp_source.html">UnixSocket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="UnixSocket_8cpp_source.html#l00054">54</a> of file <a class="el" href="UnixSocket_8cpp_source.html">UnixSocket.cpp</a>.</p>
 
 </div>
 </div>
@@ -385,7 +386,7 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="UnixSocket_8cpp_source.html#l00023">23</a> of file <a class="el" href="UnixSocket_8cpp_source.html">UnixSocket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="UnixSocket_8cpp_source.html#l00044">44</a> of file <a class="el" href="UnixSocket_8cpp_source.html">UnixSocket.cpp</a>.</p>
 
 </div>
 </div>
@@ -422,7 +423,7 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8cpp_source.html#l00112">112</a> of file <a class="el" href="SimpleSocket_8cpp_source.html">SimpleSocket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SimpleSocket_8cpp_source.html#l00139">139</a> of file <a class="el" href="SimpleSocket_8cpp_source.html">SimpleSocket.cpp</a>.</p>
 
 </div>
 </div>
@@ -448,7 +449,7 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="UnixSocket_8cpp_source.html#l00053">53</a> of file <a class="el" href="UnixSocket_8cpp_source.html">UnixSocket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="UnixSocket_8cpp_source.html#l00074">74</a> of file <a class="el" href="UnixSocket_8cpp_source.html">UnixSocket.cpp</a>.</p>
 
 </div>
 </div>
@@ -474,7 +475,7 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="UnixSocket_8cpp_source.html#l00043">43</a> of file <a class="el" href="UnixSocket_8cpp_source.html">UnixSocket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="UnixSocket_8cpp_source.html#l00064">64</a> of file <a class="el" href="UnixSocket_8cpp_source.html">UnixSocket.cpp</a>.</p>
 
 </div>
 </div>
@@ -502,7 +503,7 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>listen for incoming connections </p>
-<p><a class="el" href="classNET_1_1SimpleSocket.html#a4684d7f8b29b43c51bcc25f01c7df437" title="listen for incoming connections">listen()</a> can be called on a bound socket. The socket will then go into a passive state and accept incoming connections. To answer to an incoming connection call <a class="el" href="classNET_1_1SimpleSocket.html#a23f806c99ec86fe75872ac60d9af9996" title="allows stream sockets to accept connections into Handles">accept()</a> or <a class="el" href="classNET_1_1SimpleSocket.html#af9cd7f2b28969fa1383d8e8751a868f5" title="allows stream sockets timed accept">timedAccept()</a> on the socket.</p>
+<p><a class="el" href="classNET_1_1SimpleSocket.html#a4684d7f8b29b43c51bcc25f01c7df437" title="listen for incoming connections">listen()</a> can be called on a bound socket. The socket will then go into a passive state and accept incoming connections. To answer to an incoming connection call <a class="el" href="classNET_1_1SimpleSocket.html#a23f806c99ec86fe75872ac60d9af9996" title="allows stream sockets to accept connections">accept()</a> or <a class="el" href="classNET_1_1SimpleSocket.html#af9cd7f2b28969fa1383d8e8751a868f5" title="allows stream sockets timed accept">timedAccept()</a> on the socket.</p>
 <p>The backlog is a buffer for incoming connections. If backlog is set to 0, the number of incoming connections is only limited by the operating system. If backlog is set to a value &gt; 0, only the upper limit of connections is set, the OS can limit the number further.</p>
 <p>After starting to listen, use accept to accept incoming connections.</p>
 <dl class="params"><dt>Parameters</dt><dd>
@@ -518,7 +519,7 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8cpp_source.html#l00137">137</a> of file <a class="el" href="SimpleSocket_8cpp_source.html">SimpleSocket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SimpleSocket_8cpp_source.html#l00172">172</a> of file <a class="el" href="SimpleSocket_8cpp_source.html">SimpleSocket.cpp</a>.</p>
 
 </div>
 </div>
@@ -545,9 +546,36 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>return the native handle of the open socket </p>
+<p>Return the native descriptor. Ownership remains with the object. </p>
 
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8h_source.html#l00068">68</a> of file <a class="el" href="SimpleSocket_8h_source.html">SimpleSocket.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SimpleSocket_8h_source.html#l00067">67</a> of file <a class="el" href="SimpleSocket_8h_source.html">SimpleSocket.h</a>.</p>
+
+</div>
+</div>
+<a id="a391f1a3eabbaf06b4be401ee08ec7225" name="a391f1a3eabbaf06b4be401ee08ec7225"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a391f1a3eabbaf06b4be401ee08ec7225">&#9670;&#160;</a></span>operator=()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#ad695ef23f071b90e2388b3c6d8c98923">UnixSocket</a> &amp; UnixSocket::operator= </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="#ad695ef23f071b90e2388b3c6d8c98923">UnixSocket</a> &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="UnixSocket_8cpp_source.html#l00024">24</a> of file <a class="el" href="UnixSocket_8cpp_source.html">UnixSocket.cpp</a>.</p>
 
 </div>
 </div>
@@ -582,7 +610,7 @@ Protected Attributes</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="TCP_Client_8cpp-example.html#a3">TCP_Client.cpp</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8cpp_source.html#l00132">132</a> of file <a class="el" href="SimpleSocket_8cpp_source.html">SimpleSocket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SimpleSocket_8cpp_source.html#l00167">167</a> of file <a class="el" href="SimpleSocket_8cpp_source.html">SimpleSocket.cpp</a>.</p>
 
 </div>
 </div>
@@ -633,7 +661,7 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8cpp_source.html#l00070">70</a> of file <a class="el" href="SimpleSocket_8cpp_source.html">SimpleSocket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SimpleSocket_8cpp_source.html#l00097">97</a> of file <a class="el" href="SimpleSocket_8cpp_source.html">SimpleSocket.cpp</a>.</p>
 
 </div>
 </div>
@@ -682,7 +710,7 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8cpp_source.html#l00188">188</a> of file <a class="el" href="SimpleSocket_8cpp_source.html">SimpleSocket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SimpleSocket_8cpp_source.html#l00223">223</a> of file <a class="el" href="SimpleSocket_8cpp_source.html">SimpleSocket.cpp</a>.</p>
 
 </div>
 </div>
@@ -732,7 +760,7 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8cpp_source.html#l00050">50</a> of file <a class="el" href="SimpleSocket_8cpp_source.html">SimpleSocket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SimpleSocket_8cpp_source.html#l00077">77</a> of file <a class="el" href="SimpleSocket_8cpp_source.html">SimpleSocket.cpp</a>.</p>
 
 </div>
 </div>
@@ -781,7 +809,7 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8cpp_source.html#l00175">175</a> of file <a class="el" href="SimpleSocket_8cpp_source.html">SimpleSocket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SimpleSocket_8cpp_source.html#l00210">210</a> of file <a class="el" href="SimpleSocket_8cpp_source.html">SimpleSocket.cpp</a>.</p>
 
 </div>
 </div>
@@ -797,7 +825,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void SimpleSocket::shutdown </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classNET_1_1SimpleSocket.html#ab2d98f9c05fb0c016782269d6c053db9">ShutdownDirection</a></td>          <td class="paramname"><span class="paramname"><em>type</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="namespaceNET.html#a9b61e3d2422a1203909bd7985df95884">ShutdownDirection</a></td>          <td class="paramname"><span class="paramname"><em>type</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -810,11 +838,11 @@ Protected Attributes</h2></td></tr>
 
 <p>shutdown the connection in the specified direction </p>
 <p>This will gracefully end a connection by sending a FIN frame. Use this to end a normal communication cycle. To abort a connection see <a class="el" href="classNET_1_1SimpleSocket.html#a107f5074fd3f153ce0c1d2329c755d8f" title="Disconnect and unset any foreign addresses.">disconnect()</a>.</p>
-<p>Depending on the specified <a class="el" href="classNET_1_1SimpleSocket.html#ab2d98f9c05fb0c016782269d6c053db9">ShutdownDirection</a>, calls for that direction will stop working. Use this function if you want to have more control than just destroing the socket. It allows you to cut the connection in one direction, or both.</p>
+<p>Depending on the specified <a class="el" href="namespaceNET.html#a9b61e3d2422a1203909bd7985df95884">ShutdownDirection</a>, calls for that direction will stop working. Use this function if you want to have more control than just destroing the socket. It allows you to cut the connection in one direction, or both.</p>
 <p>If you use <a class="el" href="classNET_1_1SimpleSocket.html#a5b5500498eeb1292eea3c5dc4e531d19" title="shutdown the connection in the specified direction">shutdown()</a> on an unconnected socket, the corresponding calls will simply stop working.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">type</td><td>the <a class="el" href="classNET_1_1SimpleSocket.html#ab2d98f9c05fb0c016782269d6c053db9">ShutdownDirection</a> that be used </td></tr>
+    <tr><td class="paramname">type</td><td>the <a class="el" href="namespaceNET.html#a9b61e3d2422a1203909bd7985df95884">ShutdownDirection</a> that be used </td></tr>
   </table>
   </dd>
 </dl>
@@ -824,10 +852,10 @@ Protected Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="TCP_Server_8cpp-example.html#a9">TCP_Server.cpp</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="TCP_Server_8cpp-example.html#a8">TCP_Server.cpp</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8cpp_source.html#l00126">126</a> of file <a class="el" href="SimpleSocket_8cpp_source.html">SimpleSocket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SimpleSocket_8cpp_source.html#l00153">153</a> of file <a class="el" href="SimpleSocket_8cpp_source.html">SimpleSocket.cpp</a>.</p>
 
 </div>
 </div>
@@ -856,7 +884,7 @@ Protected Attributes</h2></td></tr>
 
 <p>allows stream sockets timed accept </p>
 
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8cpp_source.html#l00158">158</a> of file <a class="el" href="SimpleSocket_8cpp_source.html">SimpleSocket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SimpleSocket_8cpp_source.html#l00193">193</a> of file <a class="el" href="SimpleSocket_8cpp_source.html">SimpleSocket.cpp</a>.</p>
 
 </div>
 </div>
@@ -915,7 +943,36 @@ Protected Attributes</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="TCP_Client_8cpp-example.html#a2">TCP_Client.cpp</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8cpp_source.html#l00089">89</a> of file <a class="el" href="SimpleSocket_8cpp_source.html">SimpleSocket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SimpleSocket_8cpp_source.html#l00116">116</a> of file <a class="el" href="SimpleSocket_8cpp_source.html">SimpleSocket.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a5ccd319fcf01dd3f58b9365bb3e24fa8" name="a5ccd319fcf01dd3f58b9365bb3e24fa8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ccd319fcf01dd3f58b9365bb3e24fa8">&#9670;&#160;</a></span>valid()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool NET::SimpleSocket::valid </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel noexcept">noexcept</span><span class="mlabel inherited">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Returns true if socket is in a usable (non-moved) state. </p>
+
+<p class="definition">Definition at line <a class="el" href="SimpleSocket_8h_source.html#l00070">70</a> of file <a class="el" href="SimpleSocket_8h_source.html">SimpleSocket.h</a>.</p>
 
 </div>
 </div>
@@ -940,7 +997,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="UnixSocket_8h_source.html#l00053">53</a> of file <a class="el" href="UnixSocket_8h_source.html">UnixSocket.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="UnixSocket_8h_source.html#l00058">58</a> of file <a class="el" href="UnixSocket_8h_source.html">UnixSocket.h</a>.</p>
 
 </div>
 </div>
@@ -964,7 +1021,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8h_source.html#l00268">268</a> of file <a class="el" href="SimpleSocket_8h_source.html">SimpleSocket.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SimpleSocket_8h_source.html#l00274">274</a> of file <a class="el" href="SimpleSocket_8h_source.html">SimpleSocket.h</a>.</p>
 
 </div>
 </div>
@@ -988,7 +1045,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8h_source.html#l00267">267</a> of file <a class="el" href="SimpleSocket_8h_source.html">SimpleSocket.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SimpleSocket_8h_source.html#l00273">273</a> of file <a class="el" href="SimpleSocket_8h_source.html">SimpleSocket.h</a>.</p>
 
 </div>
 </div>
@@ -1012,7 +1069,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8h_source.html#l00266">266</a> of file <a class="el" href="SimpleSocket_8h_source.html">SimpleSocket.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SimpleSocket_8h_source.html#l00272">272</a> of file <a class="el" href="SimpleSocket_8h_source.html">SimpleSocket.h</a>.</p>
 
 </div>
 </div>
@@ -1033,7 +1090,7 @@ Protected Attributes</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>NET</b></li><li class="navelem"><a href="classNET_1_1UnixSocket.html">UnixSocket</a></li>
+    <li class="navelem"><a href="namespaceNET.html">NET</a></li><li class="navelem"><a href="classNET_1_1UnixSocket.html">UnixSocket</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

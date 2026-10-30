@@ -1,16 +1,16 @@
 var classNET_1_1SimpleSocket =
 [
-    [ "ShutdownDirection", "classNET_1_1SimpleSocket.html#ab2d98f9c05fb0c016782269d6c053db9", [
-      [ "STOP_SEND", "classNET_1_1SimpleSocket.html#ab2d98f9c05fb0c016782269d6c053db9a8efb8dcfe05bb52129f436538b77bc1c", null ],
-      [ "STOP_RECEIVE", "classNET_1_1SimpleSocket.html#ab2d98f9c05fb0c016782269d6c053db9a8cc7b3f7c09884085e7bd7f14a996f07", null ],
-      [ "STOP_BOTH", "classNET_1_1SimpleSocket.html#ab2d98f9c05fb0c016782269d6c053db9a92c5b6b1319adf4f8eec96da6fa4e8b0", null ]
-    ] ],
+    [ "SimpleSocket", "classNET_1_1SimpleSocket.html#a53ccfa544aa458e821fcbb1c6979fd62", null ],
     [ "SimpleSocket", "classNET_1_1SimpleSocket.html#a889ecbd4628d84380bb95fc2e58a92ba", null ],
     [ "SimpleSocket", "classNET_1_1SimpleSocket.html#a7059c7c1be8f34d7034ddacf8a6bb9a4", null ],
+    [ "SimpleSocket", "classNET_1_1SimpleSocket.html#a26cc58213a75e970a580d87807fec3c5", null ],
+    [ "~SimpleSocket", "classNET_1_1SimpleSocket.html#abf7d41536d2ecf56de1364d36db5fd67", null ],
     [ "accept", "classNET_1_1SimpleSocket.html#a23f806c99ec86fe75872ac60d9af9996", null ],
     [ "disconnect", "classNET_1_1SimpleSocket.html#a107f5074fd3f153ce0c1d2329c755d8f", null ],
     [ "listen", "classNET_1_1SimpleSocket.html#a4684d7f8b29b43c51bcc25f01c7df437", null ],
     [ "nativeHandle", "classNET_1_1SimpleSocket.html#a830de7b14a78664508052051991ced63", null ],
+    [ "operator=", "classNET_1_1SimpleSocket.html#a4c8ad3d5254e16471050c3aecb65f991", null ],
+    [ "operator=", "classNET_1_1SimpleSocket.html#abcfea3b75c3025ebf1f7b92c43104a17", null ],
     [ "peerDisconnected", "classNET_1_1SimpleSocket.html#adc7b2b80c852e7163a7bab9ce4b7c060", null ],
     [ "receive", "classNET_1_1SimpleSocket.html#ab89a477e571a47efd9ec39089aeebf56", null ],
     [ "receiveAll", "classNET_1_1SimpleSocket.html#a263f823dd259f3f7af8cc218fba9b5cf", null ],
@@ -18,5 +18,9 @@ var classNET_1_1SimpleSocket =
     [ "sendAll", "classNET_1_1SimpleSocket.html#a690773b3fefeeb026006713e54e6d08a", null ],
     [ "shutdown", "classNET_1_1SimpleSocket.html#a5b5500498eeb1292eea3c5dc4e531d19", null ],
     [ "timedAccept", "classNET_1_1SimpleSocket.html#af9cd7f2b28969fa1383d8e8751a868f5", null ],
-    [ "timedReceive", "classNET_1_1SimpleSocket.html#a0c14e0e6413cf606d52ab7d606a175f8", null ]
+    [ "timedReceive", "classNET_1_1SimpleSocket.html#a0c14e0e6413cf606d52ab7d606a175f8", null ],
+    [ "valid", "classNET_1_1SimpleSocket.html#a5ccd319fcf01dd3f58b9365bb3e24fa8", null ],
+    [ "m_connectionOriented", "classNET_1_1SimpleSocket.html#a3fb5e518e4483437776fc997ef172546", null ],
+    [ "m_peerDisconnected", "classNET_1_1SimpleSocket.html#a9c07dffe5a98a2700dc4cb1d6e7a30fa", null ],
+    [ "m_socket", "classNET_1_1SimpleSocket.html#a721049909aca828a6dd9ee7868897d7c", null ]
 ];

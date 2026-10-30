@@ -33,7 +33,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.5.0</span>
+   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.6.0</span>
    </div>
   </td>
  </tr>
@@ -107,16 +107,16 @@ $(function() {
   <div class="headertitle"><div class="title">InternetSocket.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef NET_InternetSocket_h__</span></div>
+<a href="InternetSocket_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef NET_InternetSocket_h__</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define NET_InternetSocket_h__</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;SimpleSocket.h&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="SimpleSocket_8h.html">SimpleSocket.h</a>&quot;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span>NET</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceNET.html">NET</a></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span></div>
 <div class="foldopen" id="foldopen00016" data-start="{" data-end="};">
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="classNET_1_1InternetSocket.html">   16</a></span>    <span class="keyword">class </span><a class="code hl_function" href="classNET_1_1InternetSocket.html#a720690007444358deac8d21a7f1a82bd">InternetSocket</a> : <span class="keyword">public</span> SimpleSocket</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="classNET_1_1InternetSocket.html">   16</a></span>    <span class="keyword">class </span><a class="code hl_function" href="classNET_1_1InternetSocket.html#a0e7bfe284c7085381b141b5fd85a4484">InternetSocket</a> : <span class="keyword">public</span> <a class="code hl_function" href="classNET_1_1SimpleSocket.html#a53ccfa544aa458e821fcbb1c6979fd62">SimpleSocket</a></div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    {</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span></div>
@@ -141,38 +141,50 @@ $(function() {
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span></div>
 <div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> <a class="code hl_function" href="classNET_1_1InternetSocket.html#a3bed9eaad1c7dfc3d3ad2515260cf388">getForeignPort</a>() <span class="keyword">const</span>;</div>
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span></div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno"><a class="line" href="classNET_1_1InternetSocket.html#aa6552ffddfa5a21312578503e4389fd2">  117</a></span>        AddressFamily <a class="code hl_function" href="classNET_1_1InternetSocket.html#aa6552ffddfa5a21312578503e4389fd2">addressFamily</a>() const noexcept { <span class="keywordflow">return</span> m_family; }</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno"><a class="line" href="classNET_1_1InternetSocket.html#aa6552ffddfa5a21312578503e4389fd2">  117</a></span>        <a class="code hl_enumeration" href="namespaceNET.html#a657e1fa5f020df28069800f3fb19eab6">AddressFamily</a> <a class="code hl_function" href="classNET_1_1InternetSocket.html#aa6552ffddfa5a21312578503e4389fd2">addressFamily</a>() const noexcept { <span class="keywordflow">return</span> <a class="code hl_variable" href="classNET_1_1InternetSocket.html#a8e3123134c81887a7d977df194d71678">m_family</a>; }</div>
 <div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
 <div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    <span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        <span class="keyword">explicit</span> <a class="code hl_function" href="classNET_1_1InternetSocket.html#a720690007444358deac8d21a7f1a82bd">InternetSocket</a>( <span class="keywordtype">int</span> sockfd);</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>        <a class="code hl_function" href="classNET_1_1InternetSocket.html#a0e7bfe284c7085381b141b5fd85a4484">InternetSocket</a>( <a class="code hl_enumeration" href="namespaceNET.html#a657e1fa5f020df28069800f3fb19eab6">AddressFamily</a> family, <span class="keywordtype">int</span> type, <span class="keywordtype">int</span> protocol);</div>
 <div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span></div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>        <a class="code hl_function" href="classNET_1_1InternetSocket.html#a720690007444358deac8d21a7f1a82bd">InternetSocket</a>( AddressFamily family, <span class="keywordtype">int</span> type, <span class="keywordtype">int</span> protocol);</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        <span class="comment">// IPv4 or IPv6</span></div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>        AddressFamily m_family;</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    };</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno"><a class="line" href="structNET_1_1InternetSocket_1_1AdoptSocketTag.html">  124</a></span>        <span class="keyword">struct </span><a class="code hl_struct" href="structNET_1_1InternetSocket_1_1AdoptSocketTag.html">AdoptSocketTag</a> {};</div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>        <a class="code hl_function" href="classNET_1_1InternetSocket.html#a0e7bfe284c7085381b141b5fd85a4484">InternetSocket</a>( <a class="code hl_struct" href="structNET_1_1InternetSocket_1_1AdoptSocketTag.html">AdoptSocketTag</a>, <span class="keywordtype">int</span> sockfd);</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno"><a class="line" href="classNET_1_1InternetSocket.html#adaeeb637df37b75fca832fff7d746ed8">  128</a></span>        <a class="code hl_function" href="classNET_1_1InternetSocket.html#adaeeb637df37b75fca832fff7d746ed8">InternetSocket</a>( <a class="code hl_function" href="classNET_1_1InternetSocket.html#a0e7bfe284c7085381b141b5fd85a4484">InternetSocket</a>&amp;&amp; other) <span class="keyword">noexcept</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno"><a class="line" href="classNET_1_1InternetSocket.html#ac2afc105d29b5f0a64205a6317ca4ba5">  129</a></span>        <a class="code hl_function" href="classNET_1_1InternetSocket.html#a0e7bfe284c7085381b141b5fd85a4484">InternetSocket</a>&amp; <a class="code hl_function" href="classNET_1_1InternetSocket.html#ac2afc105d29b5f0a64205a6317ca4ba5">operator=</a>( <a class="code hl_function" href="classNET_1_1InternetSocket.html#a0e7bfe284c7085381b141b5fd85a4484">InternetSocket</a>&amp;&amp; other) <span class="keyword">noexcept</span> = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        <span class="comment">// IPv4 or IPv6</span></div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno"><a class="line" href="classNET_1_1InternetSocket.html#a8e3123134c81887a7d977df194d71678">  132</a></span>        <a class="code hl_enumeration" href="namespaceNET.html#a657e1fa5f020df28069800f3fb19eab6">AddressFamily</a> <a class="code hl_variable" href="classNET_1_1InternetSocket.html#a8e3123134c81887a7d977df194d71678">m_family</a>;</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    };</div>
 </div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>} <span class="comment">// namespace NET</span></div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span><span class="preprocessor">#endif </span><span class="comment">// NET_InternetSocket_h__</span></div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>} <span class="comment">// namespace NET</span></div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span><span class="preprocessor">#endif </span><span class="comment">// NET_InternetSocket_h__</span></div>
+<div class="ttc" id="aSimpleSocket_8h_html"><div class="ttname"><a href="SimpleSocket_8h.html">SimpleSocket.h</a></div></div>
 <div class="ttc" id="aclassNET_1_1InternetSocket_html_a02046392ba4e5810f7dc900686ac9a93"><div class="ttname"><a href="classNET_1_1InternetSocket.html#a02046392ba4e5810f7dc900686ac9a93">NET::InternetSocket::bind</a></div><div class="ttdeci">void bind(unsigned short localPort=0)</div><div class="ttdef"><b>Definition</b> <a href="InternetSocket_8cpp_source.html#l00132">InternetSocket.cpp:132</a></div></div>
+<div class="ttc" id="aclassNET_1_1InternetSocket_html_a0e7bfe284c7085381b141b5fd85a4484"><div class="ttname"><a href="classNET_1_1InternetSocket.html#a0e7bfe284c7085381b141b5fd85a4484">NET::InternetSocket::InternetSocket</a></div><div class="ttdeci">InternetSocket(AddressFamily family, int type, int protocol)</div><div class="ttdoc">allows a subclass to create new socket</div><div class="ttdef"><b>Definition</b> <a href="InternetSocket_8cpp_source.html#l00057">InternetSocket.cpp:57</a></div></div>
 <div class="ttc" id="aclassNET_1_1InternetSocket_html_a107aca419c74eb2785641b2ad4670433"><div class="ttname"><a href="classNET_1_1InternetSocket.html#a107aca419c74eb2785641b2ad4670433">NET::InternetSocket::getLocalPort</a></div><div class="ttdeci">unsigned short getLocalPort() const</div><div class="ttdef"><b>Definition</b> <a href="InternetSocket_8cpp_source.html#l00158">InternetSocket.cpp:158</a></div></div>
 <div class="ttc" id="aclassNET_1_1InternetSocket_html_a3bed9eaad1c7dfc3d3ad2515260cf388"><div class="ttname"><a href="classNET_1_1InternetSocket.html#a3bed9eaad1c7dfc3d3ad2515260cf388">NET::InternetSocket::getForeignPort</a></div><div class="ttdeci">unsigned short getForeignPort() const</div><div class="ttdef"><b>Definition</b> <a href="InternetSocket_8cpp_source.html#l00178">InternetSocket.cpp:178</a></div></div>
-<div class="ttc" id="aclassNET_1_1InternetSocket_html_a720690007444358deac8d21a7f1a82bd"><div class="ttname"><a href="classNET_1_1InternetSocket.html#a720690007444358deac8d21a7f1a82bd">NET::InternetSocket::InternetSocket</a></div><div class="ttdeci">InternetSocket(int sockfd)</div><div class="ttdoc">create socket from a SocketHandle returned by an accept() call</div><div class="ttdef"><b>Definition</b> <a href="InternetSocket_8cpp_source.html#l00062">InternetSocket.cpp:62</a></div></div>
 <div class="ttc" id="aclassNET_1_1InternetSocket_html_a81df71c2db5574be7645674d4fba58f6"><div class="ttname"><a href="classNET_1_1InternetSocket.html#a81df71c2db5574be7645674d4fba58f6">NET::InternetSocket::timedConnect</a></div><div class="ttdeci">int timedConnect(std::string_view foreignAddress, unsigned short foreignPort, int timeout)</div><div class="ttdoc">establish a connection with the given foreign address and port</div><div class="ttdef"><b>Definition</b> <a href="InternetSocket_8cpp_source.html#l00084">InternetSocket.cpp:84</a></div></div>
+<div class="ttc" id="aclassNET_1_1InternetSocket_html_a8e3123134c81887a7d977df194d71678"><div class="ttname"><a href="classNET_1_1InternetSocket.html#a8e3123134c81887a7d977df194d71678">NET::InternetSocket::m_family</a></div><div class="ttdeci">AddressFamily m_family</div><div class="ttdef"><b>Definition</b> <a href="#l00132">InternetSocket.h:132</a></div></div>
 <div class="ttc" id="aclassNET_1_1InternetSocket_html_a927d978f6f79933d109433f607c8241a"><div class="ttname"><a href="classNET_1_1InternetSocket.html#a927d978f6f79933d109433f607c8241a">NET::InternetSocket::setReuseAddress</a></div><div class="ttdeci">void setReuseAddress(bool enable)</div><div class="ttdoc">Enable or disable local address reuse.</div><div class="ttdef"><b>Definition</b> <a href="InternetSocket_8cpp_source.html#l00067">InternetSocket.cpp:67</a></div></div>
 <div class="ttc" id="aclassNET_1_1InternetSocket_html_aa6552ffddfa5a21312578503e4389fd2"><div class="ttname"><a href="classNET_1_1InternetSocket.html#aa6552ffddfa5a21312578503e4389fd2">NET::InternetSocket::addressFamily</a></div><div class="ttdeci">AddressFamily addressFamily() const noexcept</div><div class="ttdoc">return wether this socket was created for IPv4 or IPv6</div><div class="ttdef"><b>Definition</b> <a href="#l00117">InternetSocket.h:117</a></div></div>
 <div class="ttc" id="aclassNET_1_1InternetSocket_html_ab5151cf3fcd5768c6d40e585774b417b"><div class="ttname"><a href="classNET_1_1InternetSocket.html#ab5151cf3fcd5768c6d40e585774b417b">NET::InternetSocket::connect</a></div><div class="ttdeci">void connect(std::string_view foreignAddress, unsigned short foreignPort)</div><div class="ttdoc">establish a connection with the given foreign address and port</div><div class="ttdef"><b>Definition</b> <a href="InternetSocket_8cpp_source.html#l00074">InternetSocket.cpp:74</a></div></div>
+<div class="ttc" id="aclassNET_1_1InternetSocket_html_ac2afc105d29b5f0a64205a6317ca4ba5"><div class="ttname"><a href="classNET_1_1InternetSocket.html#ac2afc105d29b5f0a64205a6317ca4ba5">NET::InternetSocket::operator=</a></div><div class="ttdeci">InternetSocket &amp; operator=(InternetSocket &amp;&amp;other) noexcept=default</div></div>
 <div class="ttc" id="aclassNET_1_1InternetSocket_html_acaf6862f1a15b8a69a259537cfb054e5"><div class="ttname"><a href="classNET_1_1InternetSocket.html#acaf6862f1a15b8a69a259537cfb054e5">NET::InternetSocket::getLocalAddress</a></div><div class="ttdeci">std::string getLocalAddress() const</div><div class="ttdef"><b>Definition</b> <a href="InternetSocket_8cpp_source.html#l00148">InternetSocket.cpp:148</a></div></div>
 <div class="ttc" id="aclassNET_1_1InternetSocket_html_ad473c333c130d87fcfdfe44b1309e128"><div class="ttname"><a href="classNET_1_1InternetSocket.html#ad473c333c130d87fcfdfe44b1309e128">NET::InternetSocket::getForeignAddress</a></div><div class="ttdeci">std::string getForeignAddress() const</div><div class="ttdef"><b>Definition</b> <a href="InternetSocket_8cpp_source.html#l00168">InternetSocket.cpp:168</a></div></div>
+<div class="ttc" id="aclassNET_1_1InternetSocket_html_adaeeb637df37b75fca832fff7d746ed8"><div class="ttname"><a href="classNET_1_1InternetSocket.html#adaeeb637df37b75fca832fff7d746ed8">NET::InternetSocket::InternetSocket</a></div><div class="ttdeci">InternetSocket(InternetSocket &amp;&amp;other) noexcept=default</div></div>
+<div class="ttc" id="aclassNET_1_1SimpleSocket_html_a53ccfa544aa458e821fcbb1c6979fd62"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#a53ccfa544aa458e821fcbb1c6979fd62">NET::SimpleSocket::SimpleSocket</a></div><div class="ttdeci">SimpleSocket(const SimpleSocket &amp;)=delete</div></div>
+<div class="ttc" id="anamespaceNET_html"><div class="ttname"><a href="namespaceNET.html">NET</a></div><div class="ttdef"><b>Definition</b> <a href="CANRawSocket_8h_source.html#l00006">CANRawSocket.h:7</a></div></div>
+<div class="ttc" id="anamespaceNET_html_a657e1fa5f020df28069800f3fb19eab6"><div class="ttname"><a href="namespaceNET.html#a657e1fa5f020df28069800f3fb19eab6">NET::AddressFamily</a></div><div class="ttdeci">AddressFamily</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00037">SimpleSocket.h:38</a></div></div>
+<div class="ttc" id="astructNET_1_1InternetSocket_1_1AdoptSocketTag_html"><div class="ttname"><a href="structNET_1_1InternetSocket_1_1AdoptSocketTag.html">NET::InternetSocket::AdoptSocketTag</a></div><div class="ttdoc">used to safely adopt internal socket descriptor</div><div class="ttdef"><b>Definition</b> <a href="#l00124">InternetSocket.h:124</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>include</b></li><li class="navelem"><b>simple_socket</b></li><li class="navelem"><b>InternetSocket.h</b></li>
+    <li class="navelem"><a href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a href="dir_17bf707cbdf83821672bc21fabf5bbe7.html">simple_socket</a></li><li class="navelem"><a href="InternetSocket_8h.html">InternetSocket.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

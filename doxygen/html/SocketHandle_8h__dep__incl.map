@@ -1,0 +1,15 @@
+<map id="include/simple_socket/SocketHandle.h" name="include/simple_socket/SocketHandle.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="180,5,330,48"/>
+<area shape="rect" id="Node000002" href="$SCTPSocket_8h.html" title=" " alt="" coords="5,96,156,139"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="199,57,123,98,120,93,203,53"/>
+<area shape="rect" id="Node000004" href="$TCPSocket_8h.html" title=" " alt="" coords="180,96,330,139"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="257,61,258,97,253,94,254,66"/>
+<area shape="rect" id="Node000006" href="$UnixStreamSocket_8h.html" title=" " alt="" coords="357,96,508,139"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="311,53,394,95,389,96,310,58"/>
+<area shape="rect" id="Node000003" href="$SCTPSocket_8cpp.html" title=" " alt="" coords="8,187,153,213"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="82,153,83,187,78,185,79,156"/>
+<area shape="rect" id="Node000005" href="$TCPSocket_8cpp.html" title=" " alt="" coords="184,187,321,213"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="256,153,255,188,251,185,252,156"/>
+<area shape="rect" id="Node000007" href="$UnixStreamSocket_8cpp.html" title=" " alt="" coords="345,187,523,213"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="435,153,436,188,432,184,431,156"/>
+</map>

@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['canrawsocket_0',['CANRawSocket',['../classNET_1_1CANRawSocket.html',1,'NET']]],
-  ['cansocket_1',['CANSocket',['../classNET_1_1CANSocket.html',1,'NET']]]
+  ['adoptsockettag_0',['AdoptSocketTag',['../structNET_1_1InternetSocket_1_1AdoptSocketTag.html',1,'NET::InternetSocket::AdoptSocketTag'],['../structNET_1_1UnixSocket_1_1AdoptSocketTag.html',1,'NET::UnixSocket::AdoptSocketTag']]]
 ];

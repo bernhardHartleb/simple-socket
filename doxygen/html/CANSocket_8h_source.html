@@ -33,7 +33,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.5.0</span>
+   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.6.0</span>
    </div>
   </td>
  </tr>
@@ -107,16 +107,16 @@ $(function() {
   <div class="headertitle"><div class="title">CANSocket.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef NET_CANSocket_h__</span></div>
+<a href="CANSocket_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef NET_CANSocket_h__</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define NET_CANSocket_h__</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;SimpleSocket.h&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="SimpleSocket_8h.html">SimpleSocket.h</a>&quot;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;linux/can.h&gt;</span></div>
 <div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span>NET</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceNET.html">NET</a></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>{</div>
 <div class="foldopen" id="foldopen00010" data-start="{" data-end="};">
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="classNET_1_1CANSocket.html">   10</a></span>    <span class="keyword">class </span><a class="code hl_function" href="classNET_1_1CANSocket.html#a5ff94fcc793ccef1c0c51e551d588d50">CANSocket</a> : <span class="keyword">public</span> SimpleSocket</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="classNET_1_1CANSocket.html">   10</a></span>    <span class="keyword">class </span><a class="code hl_function" href="classNET_1_1CANSocket.html#a5ff94fcc793ccef1c0c51e551d588d50">CANSocket</a> : <span class="keyword">public</span> <a class="code hl_function" href="classNET_1_1SimpleSocket.html#a53ccfa544aa458e821fcbb1c6979fd62">SimpleSocket</a></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    {</div>
 <div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keyword">public</span>:</div>
 <div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classNET_1_1CANSocket.html#aea8d29e947c49b01d1ce6151c0ed2848">connect</a>( std::string_view interface = <span class="stringliteral">&quot;&quot;</span>);</div>
@@ -141,6 +141,7 @@ $(function() {
 <div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>} <span class="comment">// namespace NET</span></div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span><span class="preprocessor">#endif </span><span class="comment">// NET_CANSocket_h__</span></div>
+<div class="ttc" id="aSimpleSocket_8h_html"><div class="ttname"><a href="SimpleSocket_8h.html">SimpleSocket.h</a></div></div>
 <div class="ttc" id="aclassNET_1_1CANSocket_html_a47f35a2c8e4f81118b354ba7935492f1"><div class="ttname"><a href="classNET_1_1CANSocket.html#a47f35a2c8e4f81118b354ba7935492f1">NET::CANSocket::getLocalInterface</a></div><div class="ttdeci">std::string getLocalInterface() const</div><div class="ttdef"><b>Definition</b> <a href="CANSocket_8cpp_source.html#l00038">CANSocket.cpp:38</a></div></div>
 <div class="ttc" id="aclassNET_1_1CANSocket_html_a58024afb1f6c2ff8cd5a26a0ebe673b2"><div class="ttname"><a href="classNET_1_1CANSocket.html#a58024afb1f6c2ff8cd5a26a0ebe673b2">NET::CANSocket::getInterfaceIndex</a></div><div class="ttdeci">int getInterfaceIndex(std::string_view interface) const</div><div class="ttdoc">get CAN interface index from interface name</div><div class="ttdef"><b>Definition</b> <a href="CANSocket_8cpp_source.html#l00071">CANSocket.cpp:71</a></div></div>
 <div class="ttc" id="aclassNET_1_1CANSocket_html_a5ff94fcc793ccef1c0c51e551d588d50"><div class="ttname"><a href="classNET_1_1CANSocket.html#a5ff94fcc793ccef1c0c51e551d588d50">NET::CANSocket::CANSocket</a></div><div class="ttdeci">CANSocket(int type, int protocol)</div><div class="ttdoc">allows a subclass to create new socket</div><div class="ttdef"><b>Definition</b> <a href="CANSocket_8cpp_source.html#l00014">CANSocket.cpp:14</a></div></div>
@@ -149,13 +150,15 @@ $(function() {
 <div class="ttc" id="aclassNET_1_1CANSocket_html_a8a5b34c3817f15d96f8bfb09838ecb8f"><div class="ttname"><a href="classNET_1_1CANSocket.html#a8a5b34c3817f15d96f8bfb09838ecb8f">NET::CANSocket::getInterfaceName</a></div><div class="ttdeci">std::string getInterfaceName(const sockaddr_can &amp;addr) const</div><div class="ttdoc">get CAN interface name from socket address structure</div><div class="ttdef"><b>Definition</b> <a href="CANSocket_8cpp_source.html#l00060">CANSocket.cpp:60</a></div></div>
 <div class="ttc" id="aclassNET_1_1CANSocket_html_ac3a801abe40e43c52c5133549513dcb1"><div class="ttname"><a href="classNET_1_1CANSocket.html#ac3a801abe40e43c52c5133549513dcb1">NET::CANSocket::getForeignInterface</a></div><div class="ttdeci">std::string getForeignInterface() const</div><div class="ttdef"><b>Definition</b> <a href="CANSocket_8cpp_source.html#l00049">CANSocket.cpp:49</a></div></div>
 <div class="ttc" id="aclassNET_1_1CANSocket_html_aea8d29e947c49b01d1ce6151c0ed2848"><div class="ttname"><a href="classNET_1_1CANSocket.html#aea8d29e947c49b01d1ce6151c0ed2848">NET::CANSocket::connect</a></div><div class="ttdeci">void connect(std::string_view interface=&quot;&quot;)</div><div class="ttdef"><b>Definition</b> <a href="CANSocket_8cpp_source.html#l00018">CANSocket.cpp:18</a></div></div>
+<div class="ttc" id="aclassNET_1_1SimpleSocket_html_a53ccfa544aa458e821fcbb1c6979fd62"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#a53ccfa544aa458e821fcbb1c6979fd62">NET::SimpleSocket::SimpleSocket</a></div><div class="ttdeci">SimpleSocket(const SimpleSocket &amp;)=delete</div></div>
+<div class="ttc" id="anamespaceNET_html"><div class="ttname"><a href="namespaceNET.html">NET</a></div><div class="ttdef"><b>Definition</b> <a href="CANRawSocket_8h_source.html#l00006">CANRawSocket.h:7</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>include</b></li><li class="navelem"><b>simple_socket</b></li><li class="navelem"><b>CANSocket.h</b></li>
+    <li class="navelem"><a href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a href="dir_17bf707cbdf83821672bc21fabf5bbe7.html">simple_socket</a></li><li class="navelem"><a href="CANSocket_8h.html">CANSocket.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

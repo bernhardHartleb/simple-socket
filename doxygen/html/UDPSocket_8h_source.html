@@ -33,7 +33,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.5.0</span>
+   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.6.0</span>
    </div>
   </td>
  </tr>
@@ -107,18 +107,18 @@ $(function() {
   <div class="headertitle"><div class="title">UDPSocket.h</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef NET_UDPSocket_h__</span></div>
+<a href="UDPSocket_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef NET_UDPSocket_h__</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define NET_UDPSocket_h__</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;InternetSocket.h&quot;</span></div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="InternetSocket_8h.html">InternetSocket.h</a>&quot;</span></div>
 <div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span>NET</div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespaceNET.html">NET</a></div>
 <div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>{</div>
 <div class="foldopen" id="foldopen00009" data-start="{" data-end="};">
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="classNET_1_1UDPSocket.html">    9</a></span>    <span class="keyword">class </span><a class="code hl_function" href="classNET_1_1UDPSocket.html#a8d0b8995262242a74ecfca1e507a29e6">UDPSocket</a> : <span class="keyword">public</span> <a class="code hl_function" href="classNET_1_1InternetSocket.html#a720690007444358deac8d21a7f1a82bd">InternetSocket</a></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="classNET_1_1UDPSocket.html">    9</a></span>    <span class="keyword">class </span><a class="code hl_function" href="classNET_1_1UDPSocket.html#a8d0b8995262242a74ecfca1e507a29e6">UDPSocket</a> : <span class="keyword">public</span> <a class="code hl_function" href="classNET_1_1InternetSocket.html#a0e7bfe284c7085381b141b5fd85a4484">InternetSocket</a></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>    {</div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        <a class="code hl_function" href="classNET_1_1UDPSocket.html#a8d0b8995262242a74ecfca1e507a29e6">UDPSocket</a>( AddressFamily family = IPv4);</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>        <a class="code hl_function" href="classNET_1_1UDPSocket.html#a8d0b8995262242a74ecfca1e507a29e6">UDPSocket</a>( <a class="code hl_enumeration" href="namespaceNET.html#a657e1fa5f020df28069800f3fb19eab6">AddressFamily</a> family = <a class="code hl_enumvalue" href="namespaceNET.html#a657e1fa5f020df28069800f3fb19eab6a18565c1ed23cf01bb372e354fbc670dd">IPv4</a>);</div>
 <div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span></div>
 <div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>        <span class="keywordtype">void</span> <a class="code hl_function" href="classNET_1_1UDPSocket.html#ad523f1e8b0e299262f06043ac7be1e50">sendTo</a>( <span class="keyword">const</span> <span class="keywordtype">void</span>* buffer, <span class="keywordtype">size_t</span> len, std::string_view foreignAddress, <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> foreignPort);</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span></div>
@@ -139,7 +139,8 @@ $(function() {
 <div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>} <span class="comment">// namespace NET</span></div>
 <div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
 <div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span><span class="preprocessor">#endif </span><span class="comment">// NET_UDPSocket_h__</span></div>
-<div class="ttc" id="aclassNET_1_1InternetSocket_html_a720690007444358deac8d21a7f1a82bd"><div class="ttname"><a href="classNET_1_1InternetSocket.html#a720690007444358deac8d21a7f1a82bd">NET::InternetSocket::InternetSocket</a></div><div class="ttdeci">InternetSocket(int sockfd)</div><div class="ttdoc">create socket from a SocketHandle returned by an accept() call</div><div class="ttdef"><b>Definition</b> <a href="InternetSocket_8cpp_source.html#l00062">InternetSocket.cpp:62</a></div></div>
+<div class="ttc" id="aInternetSocket_8h_html"><div class="ttname"><a href="InternetSocket_8h.html">InternetSocket.h</a></div></div>
+<div class="ttc" id="aclassNET_1_1InternetSocket_html_a0e7bfe284c7085381b141b5fd85a4484"><div class="ttname"><a href="classNET_1_1InternetSocket.html#a0e7bfe284c7085381b141b5fd85a4484">NET::InternetSocket::InternetSocket</a></div><div class="ttdeci">InternetSocket(AddressFamily family, int type, int protocol)</div><div class="ttdoc">allows a subclass to create new socket</div><div class="ttdef"><b>Definition</b> <a href="InternetSocket_8cpp_source.html#l00057">InternetSocket.cpp:57</a></div></div>
 <div class="ttc" id="aclassNET_1_1UDPSocket_html_a1be4253434f78c9e227719c80c8074ef"><div class="ttname"><a href="classNET_1_1UDPSocket.html#a1be4253434f78c9e227719c80c8074ef">NET::UDPSocket::timedReceiveFrom</a></div><div class="ttdeci">int timedReceiveFrom(void *buffer, size_t len, std::string &amp;sourceAddress, unsigned short &amp;sourcePort, int timeout)</div><div class="ttdef"><b>Definition</b> <a href="UDPSocket_8cpp_source.html#l00063">UDPSocket.cpp:63</a></div></div>
 <div class="ttc" id="aclassNET_1_1UDPSocket_html_a358b18cc6bdc794eb33dd0df9ccb495b"><div class="ttname"><a href="classNET_1_1UDPSocket.html#a358b18cc6bdc794eb33dd0df9ccb495b">NET::UDPSocket::receiveFrom</a></div><div class="ttdeci">int receiveFrom(void *buffer, size_t len, std::string &amp;sourceAddress, unsigned short &amp;sourcePort)</div><div class="ttdef"><b>Definition</b> <a href="UDPSocket_8cpp_source.html#l00049">UDPSocket.cpp:49</a></div></div>
 <div class="ttc" id="aclassNET_1_1UDPSocket_html_a4dcfff33b45d1b84b5a602fc6f4a27f8"><div class="ttname"><a href="classNET_1_1UDPSocket.html#a4dcfff33b45d1b84b5a602fc6f4a27f8">NET::UDPSocket::setMulticastTTL</a></div><div class="ttdeci">void setMulticastTTL(unsigned char multicastTTL)</div><div class="ttdef"><b>Definition</b> <a href="UDPSocket_8cpp_source.html#l00086">UDPSocket.cpp:86</a></div></div>
@@ -148,13 +149,16 @@ $(function() {
 <div class="ttc" id="aclassNET_1_1UDPSocket_html_ac6cdb609f7f9579384129042f90cd220"><div class="ttname"><a href="classNET_1_1UDPSocket.html#ac6cdb609f7f9579384129042f90cd220">NET::UDPSocket::joinGroup</a></div><div class="ttdeci">void joinGroup(const std::string &amp;multicastGroup)</div><div class="ttdef"><b>Definition</b> <a href="UDPSocket_8cpp_source.html#l00103">UDPSocket.cpp:103</a></div></div>
 <div class="ttc" id="aclassNET_1_1UDPSocket_html_ad523f1e8b0e299262f06043ac7be1e50"><div class="ttname"><a href="classNET_1_1UDPSocket.html#ad523f1e8b0e299262f06043ac7be1e50">NET::UDPSocket::sendTo</a></div><div class="ttdeci">void sendTo(const void *buffer, size_t len, std::string_view foreignAddress, unsigned short foreignPort)</div><div class="ttdef"><b>Definition</b> <a href="UDPSocket_8cpp_source.html#l00038">UDPSocket.cpp:38</a></div></div>
 <div class="ttc" id="aclassNET_1_1UDPSocket_html_ad5f835c48b840e30b471e19d7c3cc2aa"><div class="ttname"><a href="classNET_1_1UDPSocket.html#ad5f835c48b840e30b471e19d7c3cc2aa">NET::UDPSocket::leaveGroup</a></div><div class="ttdeci">void leaveGroup(const std::string &amp;multicastGroup)</div><div class="ttdef"><b>Definition</b> <a href="UDPSocket_8cpp_source.html#l00109">UDPSocket.cpp:109</a></div></div>
+<div class="ttc" id="anamespaceNET_html"><div class="ttname"><a href="namespaceNET.html">NET</a></div><div class="ttdef"><b>Definition</b> <a href="CANRawSocket_8h_source.html#l00006">CANRawSocket.h:7</a></div></div>
+<div class="ttc" id="anamespaceNET_html_a657e1fa5f020df28069800f3fb19eab6"><div class="ttname"><a href="namespaceNET.html#a657e1fa5f020df28069800f3fb19eab6">NET::AddressFamily</a></div><div class="ttdeci">AddressFamily</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00037">SimpleSocket.h:38</a></div></div>
+<div class="ttc" id="anamespaceNET_html_a657e1fa5f020df28069800f3fb19eab6a18565c1ed23cf01bb372e354fbc670dd"><div class="ttname"><a href="namespaceNET.html#a657e1fa5f020df28069800f3fb19eab6a18565c1ed23cf01bb372e354fbc670dd">NET::IPv4</a></div><div class="ttdeci">@ IPv4</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00039">SimpleSocket.h:39</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>include</b></li><li class="navelem"><b>simple_socket</b></li><li class="navelem"><b>UDPSocket.h</b></li>
+    <li class="navelem"><a href="dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a href="dir_17bf707cbdf83821672bc21fabf5bbe7.html">simple_socket</a></li><li class="navelem"><a href="UDPSocket_8h.html">UDPSocket.h</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

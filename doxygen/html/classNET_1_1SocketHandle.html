@@ -122,14 +122,13 @@ Public Types</h2></td></tr>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:af810dc908fcdd5e7e189a71beb3503d1" id="r_af810dc908fcdd5e7e189a71beb3503d1"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#af810dc908fcdd5e7e189a71beb3503d1">SocketHandle</a> () noexcept</td></tr>
 <tr class="memdesc:af810dc908fcdd5e7e189a71beb3503d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">constructs an invalid socket handle  <br /></td></tr>
-<tr class="memitem:aedddb0f1c71366ae06c7618eb58112d8" id="r_aedddb0f1c71366ae06c7618eb58112d8"><td class="memItemLeft"><a id="aedddb0f1c71366ae06c7618eb58112d8" name="aedddb0f1c71366ae06c7618eb58112d8"></a>
-&#160;</td><td class="memItemRight"><b>SocketHandle</b> (const SocketHandle &amp;)=delete</td></tr>
-<tr class="memitem:a4807e707ed35c79c3de954840dc8b73a" id="r_a4807e707ed35c79c3de954840dc8b73a"><td class="memItemLeft"><a id="a4807e707ed35c79c3de954840dc8b73a" name="a4807e707ed35c79c3de954840dc8b73a"></a>
-<a class="el" href="#af810dc908fcdd5e7e189a71beb3503d1">SocketHandle</a> &amp;&#160;</td><td class="memItemRight"><b>operator=</b> (const <a class="el" href="#af810dc908fcdd5e7e189a71beb3503d1">SocketHandle</a> &amp;)=delete</td></tr>
+<tr class="memitem:aedddb0f1c71366ae06c7618eb58112d8" id="r_aedddb0f1c71366ae06c7618eb58112d8"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aedddb0f1c71366ae06c7618eb58112d8">SocketHandle</a> (const SocketHandle &amp;)=delete</td></tr>
+<tr class="memitem:a4807e707ed35c79c3de954840dc8b73a" id="r_a4807e707ed35c79c3de954840dc8b73a"><td class="memItemLeft"><a class="el" href="#af810dc908fcdd5e7e189a71beb3503d1">SocketHandle</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a4807e707ed35c79c3de954840dc8b73a">operator=</a> (const <a class="el" href="#af810dc908fcdd5e7e189a71beb3503d1">SocketHandle</a> &amp;)=delete</td></tr>
 <tr class="memitem:a1dd5597021af545d876f4eadc52888d4" id="r_a1dd5597021af545d876f4eadc52888d4"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a1dd5597021af545d876f4eadc52888d4">SocketHandle</a> (SocketHandle &amp;&amp;other) noexcept</td></tr>
 <tr class="memdesc:a1dd5597021af545d876f4eadc52888d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">move constructor: transfers ownership from other  <br /></td></tr>
 <tr class="memitem:a223b14b00b0c1c64f492fb9294afa5aa" id="r_a223b14b00b0c1c64f492fb9294afa5aa"><td class="memItemLeft"><a class="el" href="#af810dc908fcdd5e7e189a71beb3503d1">SocketHandle</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a223b14b00b0c1c64f492fb9294afa5aa">operator=</a> (<a class="el" href="#af810dc908fcdd5e7e189a71beb3503d1">SocketHandle</a> &amp;&amp;other) noexcept</td></tr>
 <tr class="memdesc:a223b14b00b0c1c64f492fb9294afa5aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">move assignment: closes the currently owned descriptor first  <br /></td></tr>
+<tr class="memitem:a9f1ac1de1ede338619b2177e075689bb" id="r_a9f1ac1de1ede338619b2177e075689bb"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a9f1ac1de1ede338619b2177e075689bb">~SocketHandle</a> () noexcept</td></tr>
 <tr class="memitem:aed9eab408f6a72c47687a4e2f3a7f50b" id="r_aed9eab408f6a72c47687a4e2f3a7f50b"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#aed9eab408f6a72c47687a4e2f3a7f50b">operator bool</a> () const noexcept</td></tr>
 <tr class="memdesc:aed9eab408f6a72c47687a4e2f3a7f50b"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns whether the socket handle is valid  <br /></td></tr>
 </table><table class="memberdecls">
@@ -180,7 +179,7 @@ template&lt;class Socket&gt; </div>
 </div>
 <a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="af810dc908fcdd5e7e189a71beb3503d1" name="af810dc908fcdd5e7e189a71beb3503d1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af810dc908fcdd5e7e189a71beb3503d1">&#9670;&#160;</a></span>SocketHandle() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af810dc908fcdd5e7e189a71beb3503d1">&#9670;&#160;</a></span>SocketHandle() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -210,8 +209,35 @@ template&lt;class Socket&gt; </div>
 
 </div>
 </div>
+<a id="aedddb0f1c71366ae06c7618eb58112d8" name="aedddb0f1c71366ae06c7618eb58112d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aedddb0f1c71366ae06c7618eb58112d8">&#9670;&#160;</a></span>SocketHandle() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Socket&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classNET_1_1SocketHandle.html">NET::SocketHandle</a>&lt; Socket &gt;::SocketHandle </td>
+          <td>(</td>
+          <td class="paramtype">const SocketHandle&lt; Socket &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel delete">delete</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a1dd5597021af545d876f4eadc52888d4" name="a1dd5597021af545d876f4eadc52888d4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1dd5597021af545d876f4eadc52888d4">&#9670;&#160;</a></span>SocketHandle() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1dd5597021af545d876f4eadc52888d4">&#9670;&#160;</a></span>SocketHandle() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -308,8 +334,35 @@ template&lt;class Socket&gt; </div>
 
 </div>
 </div>
+<a id="a4807e707ed35c79c3de954840dc8b73a" name="a4807e707ed35c79c3de954840dc8b73a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4807e707ed35c79c3de954840dc8b73a">&#9670;&#160;</a></span>operator=() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;class Socket&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#af810dc908fcdd5e7e189a71beb3503d1">SocketHandle</a> &amp; <a class="el" href="classNET_1_1SocketHandle.html">NET::SocketHandle</a>&lt; Socket &gt;::operator= </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="#af810dc908fcdd5e7e189a71beb3503d1">SocketHandle</a>&lt; Socket &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel delete">delete</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a223b14b00b0c1c64f492fb9294afa5aa" name="a223b14b00b0c1c64f492fb9294afa5aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a223b14b00b0c1c64f492fb9294afa5aa">&#9670;&#160;</a></span>operator=()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a223b14b00b0c1c64f492fb9294afa5aa">&#9670;&#160;</a></span>operator=() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -434,7 +487,7 @@ template&lt;class Socket&gt; </div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>NET</b></li><li class="navelem"><a href="classNET_1_1SocketHandle.html">SocketHandle</a></li>
+    <li class="navelem"><a href="namespaceNET.html">NET</a></li><li class="navelem"><a href="classNET_1_1SocketHandle.html">SocketHandle</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.16.1 </li>
   </ul>
 </div>

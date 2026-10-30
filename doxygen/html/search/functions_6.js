@@ -1,13 +1,21 @@
 var searchData=
 [
-  ['getforeignaddress_0',['getForeignAddress',['../classNET_1_1InternetSocket.html#ad473c333c130d87fcfdfe44b1309e128',1,'NET::InternetSocket']]],
-  ['getforeigninterface_1',['getForeignInterface',['../classNET_1_1CANSocket.html#ac3a801abe40e43c52c5133549513dcb1',1,'NET::CANSocket']]],
-  ['getforeignpath_2',['getForeignPath',['../classNET_1_1UnixSocket.html#ac02f55ec90f1833c8fef7d8f0da34645',1,'NET::UnixSocket']]],
-  ['getforeignport_3',['getForeignPort',['../classNET_1_1InternetSocket.html#a3bed9eaad1c7dfc3d3ad2515260cf388',1,'NET::InternetSocket']]],
-  ['getinterfaceindex_4',['getInterfaceIndex',['../classNET_1_1CANSocket.html#a58024afb1f6c2ff8cd5a26a0ebe673b2',1,'NET::CANSocket']]],
-  ['getinterfacename_5',['getInterfaceName',['../classNET_1_1CANSocket.html#a8a5b34c3817f15d96f8bfb09838ecb8f',1,'NET::CANSocket']]],
-  ['getlocaladdress_6',['getLocalAddress',['../classNET_1_1InternetSocket.html#acaf6862f1a15b8a69a259537cfb054e5',1,'NET::InternetSocket']]],
-  ['getlocalinterface_7',['getLocalInterface',['../classNET_1_1CANSocket.html#a47f35a2c8e4f81118b354ba7935492f1',1,'NET::CANSocket']]],
-  ['getlocalpath_8',['getLocalPath',['../classNET_1_1UnixSocket.html#af3ce1e8b3022868b72932f6c43351d0c',1,'NET::UnixSocket']]],
-  ['getlocalport_9',['getLocalPort',['../classNET_1_1InternetSocket.html#a107aca419c74eb2785641b2ad4670433',1,'NET::InternetSocket']]]
+  ['getbroadcastaddress_0',['getBroadcastAddress',['../classNET_1_1NetworkInterface.html#a79d1e53084c3e976758e51c54a911a87',1,'NET::NetworkInterface']]],
+  ['getdestinationaddress_1',['getDestinationAddress',['../classNET_1_1NetworkInterface.html#ad7c8266821039a7d7ae85588ed2cb252',1,'NET::NetworkInterface']]],
+  ['getforeignaddress_2',['getForeignAddress',['../classNET_1_1InternetSocket.html#ad473c333c130d87fcfdfe44b1309e128',1,'NET::InternetSocket']]],
+  ['getforeigninterface_3',['getForeignInterface',['../classNET_1_1CANSocket.html#ac3a801abe40e43c52c5133549513dcb1',1,'NET::CANSocket']]],
+  ['getforeignpath_4',['getForeignPath',['../classNET_1_1UnixSocket.html#ac02f55ec90f1833c8fef7d8f0da34645',1,'NET::UnixSocket']]],
+  ['getforeignport_5',['getForeignPort',['../classNET_1_1InternetSocket.html#a3bed9eaad1c7dfc3d3ad2515260cf388',1,'NET::InternetSocket']]],
+  ['gethardwareaddress_6',['getHardwareAddress',['../classNET_1_1NetworkInterface.html#a62f6e644631def8cb86888fd63102d01',1,'NET::NetworkInterface']]],
+  ['getinterfaceaddress_7',['getInterfaceAddress',['../classNET_1_1NetworkInterface.html#aa41d15d9fc8850a427e95c6a3ca4352f',1,'NET::NetworkInterface']]],
+  ['getinterfaceindex_8',['getInterfaceIndex',['../classNET_1_1CANSocket.html#a58024afb1f6c2ff8cd5a26a0ebe673b2',1,'NET::CANSocket']]],
+  ['getinterfacename_9',['getInterfaceName',['../classNET_1_1CANSocket.html#a8a5b34c3817f15d96f8bfb09838ecb8f',1,'NET::CANSocket']]],
+  ['getlocaladdress_10',['getLocalAddress',['../classNET_1_1InternetSocket.html#acaf6862f1a15b8a69a259537cfb054e5',1,'NET::InternetSocket']]],
+  ['getlocalinterface_11',['getLocalInterface',['../classNET_1_1CANSocket.html#a47f35a2c8e4f81118b354ba7935492f1',1,'NET::CANSocket']]],
+  ['getlocalpath_12',['getLocalPath',['../classNET_1_1UnixSocket.html#af3ce1e8b3022868b72932f6c43351d0c',1,'NET::UnixSocket']]],
+  ['getlocalport_13',['getLocalPort',['../classNET_1_1InternetSocket.html#a107aca419c74eb2785641b2ad4670433',1,'NET::InternetSocket']]],
+  ['getmtu_14',['getMTU',['../classNET_1_1NetworkInterface.html#a91e7ae22d2594fa31373cff044373ba0',1,'NET::NetworkInterface']]],
+  ['getnetmask_15',['getNetmask',['../classNET_1_1NetworkInterface.html#aa8de26944dc777062dbd5aba2219aac0',1,'NET::NetworkInterface']]],
+  ['getnetworkaddresses_16',['getNetworkAddresses',['../namespaceNET.html#a95d8269ce9e34533e328185b092ee528',1,'NET']]],
+  ['getnetworkinterfaces_17',['getNetworkInterfaces',['../namespaceNET.html#abb32304e7f86bf2379e62634ea55d930',1,'NET']]]
 ];

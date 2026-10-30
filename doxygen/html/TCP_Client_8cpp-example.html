@@ -33,7 +33,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.5.0</span>
+   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.6.0</span>
    </div>
   </td>
  </tr>
@@ -110,7 +110,7 @@ $(function() {
 <p>This is an example for a very simple TCP client application.</p>
 <p><b>Output</b> when started without a server running: <code>"Connection Refused"</code> </p>
 <p><b>Output</b> when the TCP_Server example is running: </p><pre class="fragment">Received data from server: The quick brown fox jumps over the lazy dog
-</pre><div class="fragment"><div class="line"><span class="preprocessor">#include &lt;simple_socket/TCPSocket.h&gt;</span></div>
+</pre><div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="TCPSocket_8h.html">simple_socket/TCPSocket.h</a>&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#include &lt;array&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
@@ -163,11 +163,12 @@ $(function() {
 <div class="line"> </div>
 <div class="line">    <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
+<div class="ttc" id="aTCPSocket_8h_html"><div class="ttname"><a href="TCPSocket_8h.html">TCPSocket.h</a></div></div>
 <div class="ttc" id="aclassNET_1_1InternetSocket_html_ab5151cf3fcd5768c6d40e585774b417b"><div class="ttname"><a href="classNET_1_1InternetSocket.html#ab5151cf3fcd5768c6d40e585774b417b">NET::InternetSocket::connect</a></div><div class="ttdeci">void connect(std::string_view foreignAddress, unsigned short foreignPort)</div><div class="ttdoc">establish a connection with the given foreign address and port</div><div class="ttdef"><b>Definition</b> <a href="InternetSocket_8cpp_source.html#l00074">InternetSocket.cpp:74</a></div></div>
-<div class="ttc" id="aclassNET_1_1SimpleSocket_html_a0c14e0e6413cf606d52ab7d606a175f8"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#a0c14e0e6413cf606d52ab7d606a175f8">NET::SimpleSocket::timedReceive</a></div><div class="ttdeci">int timedReceive(void *buffer, size_t len, int timeout)</div><div class="ttdoc">receive data from a bound socket, return after the given timespan</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8cpp_source.html#l00089">SimpleSocket.cpp:89</a></div></div>
-<div class="ttc" id="aclassNET_1_1SimpleSocket_html_adc7b2b80c852e7163a7bab9ce4b7c060"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#adc7b2b80c852e7163a7bab9ce4b7c060">NET::SimpleSocket::peerDisconnected</a></div><div class="ttdeci">bool peerDisconnected() const noexcept</div><div class="ttdoc">returns whether a currently associated peer disconnected</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8cpp_source.html#l00132">SimpleSocket.cpp:132</a></div></div>
-<div class="ttc" id="aclassNET_1_1SocketException_html"><div class="ttname"><a href="classNET_1_1SocketException.html">NET::SocketException</a></div><div class="ttdoc">Signals a problem with the execution of a socket call.</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00011">SimpleSocket.h:12</a></div></div>
-<div class="ttc" id="aclassNET_1_1SocketException_html_a4175605c41f8230e18aa3323a2ef80c5"><div class="ttname"><a href="classNET_1_1SocketException.html#a4175605c41f8230e18aa3323a2ef80c5">NET::SocketException::what</a></div><div class="ttdeci">const char * what() const noexcept</div><div class="ttdoc">Returns a C-string describing the cause of the current error.</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00028">SimpleSocket.h:28</a></div></div>
+<div class="ttc" id="aclassNET_1_1SimpleSocket_html_a0c14e0e6413cf606d52ab7d606a175f8"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#a0c14e0e6413cf606d52ab7d606a175f8">NET::SimpleSocket::timedReceive</a></div><div class="ttdeci">int timedReceive(void *buffer, size_t len, int timeout)</div><div class="ttdoc">receive data from a bound socket, return after the given timespan</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8cpp_source.html#l00116">SimpleSocket.cpp:116</a></div></div>
+<div class="ttc" id="aclassNET_1_1SimpleSocket_html_adc7b2b80c852e7163a7bab9ce4b7c060"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#adc7b2b80c852e7163a7bab9ce4b7c060">NET::SimpleSocket::peerDisconnected</a></div><div class="ttdeci">bool peerDisconnected() const noexcept</div><div class="ttdoc">returns whether a currently associated peer disconnected</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8cpp_source.html#l00167">SimpleSocket.cpp:167</a></div></div>
+<div class="ttc" id="aclassNET_1_1SocketException_html"><div class="ttname"><a href="classNET_1_1SocketException.html">NET::SocketException</a></div><div class="ttdoc">Signals a problem with the execution of a socket call.</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00010">SimpleSocket.h:11</a></div></div>
+<div class="ttc" id="aclassNET_1_1SocketException_html_a4175605c41f8230e18aa3323a2ef80c5"><div class="ttname"><a href="classNET_1_1SocketException.html#a4175605c41f8230e18aa3323a2ef80c5">NET::SocketException::what</a></div><div class="ttdeci">const char * what() const noexcept</div><div class="ttdoc">Returns a C-string describing the cause of the current error.</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00027">SimpleSocket.h:27</a></div></div>
 <div class="ttc" id="aclassNET_1_1TCPSocket_html"><div class="ttname"><a href="classNET_1_1TCPSocket.html">NET::TCPSocket</a></div><div class="ttdoc">TCP socket class.</div><div class="ttdef"><b>Definition</b> <a href="TCPSocket_8h_source.html#l00010">TCPSocket.h:11</a></div></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->

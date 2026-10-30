@@ -33,7 +33,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.5.0</span>
+   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.6.0</span>
    </div>
   </td>
  </tr>
@@ -110,7 +110,7 @@ $(function() {
 <p>This is a simple example on how to do UDP multicast.</p>
 <p><b>Output</b> if any local network is available: </p><pre class="fragment">Your.local.ip.addr:47776 Welcome to our multicast group!
 We got another message.
-</pre><div class="fragment"><div class="line"><span class="preprocessor">#include &lt;simple_socket/UDPSocket.h&gt;</span></div>
+</pre><div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="UDPSocket_8h.html">simple_socket/UDPSocket.h</a>&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#include &lt;array&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
@@ -168,10 +168,11 @@ We got another message.
 <div class="line"> </div>
 <div class="line">    <span class="keywordflow">return</span> 0;</div>
 <div class="line">}</div>
+<div class="ttc" id="aUDPSocket_8h_html"><div class="ttname"><a href="UDPSocket_8h.html">UDPSocket.h</a></div></div>
 <div class="ttc" id="aclassNET_1_1InternetSocket_html_a02046392ba4e5810f7dc900686ac9a93"><div class="ttname"><a href="classNET_1_1InternetSocket.html#a02046392ba4e5810f7dc900686ac9a93">NET::InternetSocket::bind</a></div><div class="ttdeci">void bind(unsigned short localPort=0)</div><div class="ttdef"><b>Definition</b> <a href="InternetSocket_8cpp_source.html#l00132">InternetSocket.cpp:132</a></div></div>
 <div class="ttc" id="aclassNET_1_1InternetSocket_html_a927d978f6f79933d109433f607c8241a"><div class="ttname"><a href="classNET_1_1InternetSocket.html#a927d978f6f79933d109433f607c8241a">NET::InternetSocket::setReuseAddress</a></div><div class="ttdeci">void setReuseAddress(bool enable)</div><div class="ttdoc">Enable or disable local address reuse.</div><div class="ttdef"><b>Definition</b> <a href="InternetSocket_8cpp_source.html#l00067">InternetSocket.cpp:67</a></div></div>
-<div class="ttc" id="aclassNET_1_1SocketException_html"><div class="ttname"><a href="classNET_1_1SocketException.html">NET::SocketException</a></div><div class="ttdoc">Signals a problem with the execution of a socket call.</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00011">SimpleSocket.h:12</a></div></div>
-<div class="ttc" id="aclassNET_1_1SocketException_html_a4175605c41f8230e18aa3323a2ef80c5"><div class="ttname"><a href="classNET_1_1SocketException.html#a4175605c41f8230e18aa3323a2ef80c5">NET::SocketException::what</a></div><div class="ttdeci">const char * what() const noexcept</div><div class="ttdoc">Returns a C-string describing the cause of the current error.</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00028">SimpleSocket.h:28</a></div></div>
+<div class="ttc" id="aclassNET_1_1SocketException_html"><div class="ttname"><a href="classNET_1_1SocketException.html">NET::SocketException</a></div><div class="ttdoc">Signals a problem with the execution of a socket call.</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00010">SimpleSocket.h:11</a></div></div>
+<div class="ttc" id="aclassNET_1_1SocketException_html_a4175605c41f8230e18aa3323a2ef80c5"><div class="ttname"><a href="classNET_1_1SocketException.html#a4175605c41f8230e18aa3323a2ef80c5">NET::SocketException::what</a></div><div class="ttdeci">const char * what() const noexcept</div><div class="ttdoc">Returns a C-string describing the cause of the current error.</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00027">SimpleSocket.h:27</a></div></div>
 <div class="ttc" id="aclassNET_1_1UDPSocket_html"><div class="ttname"><a href="classNET_1_1UDPSocket.html">NET::UDPSocket</a></div><div class="ttdoc">UDP socket class.</div><div class="ttdef"><b>Definition</b> <a href="UDPSocket_8h_source.html#l00009">UDPSocket.h:10</a></div></div>
 <div class="ttc" id="aclassNET_1_1UDPSocket_html_a1be4253434f78c9e227719c80c8074ef"><div class="ttname"><a href="classNET_1_1UDPSocket.html#a1be4253434f78c9e227719c80c8074ef">NET::UDPSocket::timedReceiveFrom</a></div><div class="ttdeci">int timedReceiveFrom(void *buffer, size_t len, std::string &amp;sourceAddress, unsigned short &amp;sourcePort, int timeout)</div><div class="ttdef"><b>Definition</b> <a href="UDPSocket_8cpp_source.html#l00063">UDPSocket.cpp:63</a></div></div>
 <div class="ttc" id="aclassNET_1_1UDPSocket_html_a4dcfff33b45d1b84b5a602fc6f4a27f8"><div class="ttname"><a href="classNET_1_1UDPSocket.html#a4dcfff33b45d1b84b5a602fc6f4a27f8">NET::UDPSocket::setMulticastTTL</a></div><div class="ttdeci">void setMulticastTTL(unsigned char multicastTTL)</div><div class="ttdef"><b>Definition</b> <a href="UDPSocket_8cpp_source.html#l00086">UDPSocket.cpp:86</a></div></div>
