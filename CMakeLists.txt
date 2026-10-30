@@ -34,22 +34,41 @@ set(SIMPLE_SOCKET_SOURCES
 	src/TCPSocket.cpp
 	src/UDPSocket.cpp)
 
+set(SIMPLE_SOCKET_HAVE_UNIX OFF)
+
 if(UNIX)
+	set(SIMPLE_SOCKET_HAVE_UNIX ON)
+
 	list(APPEND SIMPLE_SOCKET_SOURCES
 		src/UnixSocket.cpp
 		src/UnixDatagramSocket.cpp
 		src/UnixStreamSocket.cpp)
 endif()
 
+set(SIMPLE_SOCKET_HAVE_CAN OFF)
+
 if(SIMPLE_SOCKET_ENABLE_CAN)
+	set(SIMPLE_SOCKET_HAVE_CAN ON)
+
 	list(APPEND SIMPLE_SOCKET_SOURCES
 		src/CANSocket.cpp
 		src/CANRawSocket.cpp)
 endif()
 
+set(SIMPLE_SOCKET_HAVE_SCTP OFF)
+
 if(SIMPLE_SOCKET_ENABLE_SCTP)
-	list(APPEND SIMPLE_SOCKET_SOURCES
-		src/SCTPSocket.cpp)
+	find_path(SCTP_INCLUDE_DIR NAMES netinet/sctp.h)
+	find_library(SCTP_LIBRARY NAMES sctp)
+
+	if(SCTP_INCLUDE_DIR AND SCTP_LIBRARY)
+		set(SIMPLE_SOCKET_HAVE_SCTP ON)
+
+		list(APPEND SIMPLE_SOCKET_SOURCES
+			src/SCTPSocket.cpp)
+	else()
+		message(FATAL_ERROR "SCTP support requested but libsctp was not found")
+	endif()
 endif()
 
 
@@ -100,16 +119,18 @@ target_compile_options(simple-socket
 	-Wzero-as-null-pointer-constant
 )
 
-if(SIMPLE_SOCKET_ENABLE_SCTP)
-	find_path(SCTP_INCLUDE_DIR NAMES netinet/sctp.h)
-	find_library(SCTP_LIBRARY NAMES sctp)
+if(SIMPLE_SOCKET_HAVE_UNIX)
+	target_compile_definitions(simple-socket PUBLIC SIMPLE_SOCKET_HAVE_UNIX)
+endif()
 
-	if(SCTP_INCLUDE_DIR AND SCTP_LIBRARY)
-		target_include_directories(simple-socket PRIVATE ${SCTP_INCLUDE_DIR})
-		target_link_libraries(simple-socket PRIVATE ${SCTP_LIBRARY})
-	else()
-		message(FATAL_ERROR "SCTP support requested but libsctp was not found")
-	endif()
+if(SIMPLE_SOCKET_HAVE_CAN)
+	target_compile_definitions(simple-socket PUBLIC SIMPLE_SOCKET_HAVE_CAN)
+endif()
+
+if(SIMPLE_SOCKET_HAVE_SCTP)
+	target_compile_definitions(simple-socket PUBLIC SIMPLE_SOCKET_HAVE_SCTP)
+	target_include_directories(simple-socket PRIVATE ${SCTP_INCLUDE_DIR})
+	target_link_libraries(simple-socket PRIVATE ${SCTP_LIBRARY})
 endif()
 
 

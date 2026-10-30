@@ -8,16 +8,21 @@ set(SIMPLE_SOCKET_TESTS
 	UDPSocket_TEST.cpp
 	SocketUtils_TEST.cpp)
 
-if(UNIX)
+if(SIMPLE_SOCKET_HAVE_UNIX)
 	list(APPEND SIMPLE_SOCKET_TESTS
 		UnixDatagramSocket_TEST.cpp
 		UnixStreamSocket_TEST.cpp)
 endif()
 
-if(SIMPLE_SOCKET_ENABLE_CAN)
+if(SIMPLE_SOCKET_HAVE_CAN)
 	list(APPEND SIMPLE_SOCKET_TESTS
 		CANSocket_TEST.cpp)
 endif()
+
+#if(SIMPLE_SOCKET_HAVE_SCTP)
+#	list(APPEND SIMPLE_SOCKET_TESTS
+#		SCTPSocket_TEST.cpp)
+#endif()
 
 add_executable(UnitTester test_runner.cpp ${SIMPLE_SOCKET_TESTS})
 target_link_libraries(UnitTester PRIVATE simple-socket PkgConfig::CPPUNIT)
