@@ -9,5 +9,3 @@ SCTPSocket:
 
 SocketUtils:
 - time of last received packet (SIOCGSTAMP / SIOCGSTAMPNS)
-- routing table maintenance (SIOCADDRT / SIOCDELRT / SIOCRTMSG)
-- arp table maintenance (SIOCDARP / SIOCGARP / SIOCSARP)

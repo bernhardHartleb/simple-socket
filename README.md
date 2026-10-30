@@ -1,9 +1,9 @@
 # simple-socket
 
 `simple-socket` is a lightweight C++17 based wrapper around POSIX socket APIs.
-It keeps the native socket model visible while providing RAII ownership, exceptions and convenience functions.
-All IP addresses are simple strings. Blocking socket operations have variants accepting a timeout.
-Utilities for DNS resolution and limited network interface management are provided.
+It keeps the native socket model visible while providing RAII ownership, error handling, poll and convenience functions.
+The API uses strings for IPv4/6 addresses and keeps pointer handling to a minimum. Blocking socket operations have variants accepting a timeout.
+Functions for DNS resolution and limited network interface management are included.
 
 ## Features
 
@@ -13,8 +13,9 @@ Utilities for DNS resolution and limited network interface management are provid
 - Blocking I/O plus timeout variants for connect, accept and receive
 - Peer-disconnect tracking for connected sockets
 - Stream based sendAll and receiveAll helpers
-- Hostname, service and network-interface utilities
-- Optional SocketCAN support
+- Resolve hostnames, services and list network addresses
+- Network-interface management
+- Optional SocketCAN (CAN bus) support
 - Optional SCTP support
 - CMake build, unit tests and example programs
 
