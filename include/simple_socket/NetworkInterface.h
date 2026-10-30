@@ -52,14 +52,14 @@ namespace NET
 
 		//! Return the IPv4 address of the given network interface
 		/*!
-		* Call may throw if e.g. the interface it not up or not with
+		* Returns empty string if the interface it not up or not with
 		* an IP address.
 		*/
 		std::string getInterfaceAddress() const;
 
 		//! Set the IPv4 address of the given network interface
 		/*!
-		* Call may throw if unable to set IP address (e.g. non Ethernet
+		* Call may throw if unable to set IP address (non Ethernet
 		* interface, etc.)
 		*/
 		void setInterfaceAddress( std::string_view address);
@@ -76,8 +76,8 @@ namespace NET
 
 		//! Set the IPv4 broadcast address of the given network interface
 		/*!
-		* This call my throw if e.g. used on an interface that can not have
-		* a BC address e.g. a bluetooth device
+		* This call my throw if used on an interface that can not have
+		* a broadcast address.
 		*
 		* \param address IPV4 address to configure the interface to
 		*/
@@ -85,14 +85,14 @@ namespace NET
 
 		//! Return the IPv4 netmask of the given network interface
 		/*!
-		* Returns empty string if the interface e.g. has no netmask
-		* configured (e.g. if interface is down) or can't have one (e.g. bluetooth)
+		* Returns empty string if the interface has no netmask
+		* configured (if interface is down) or can't have one (bluetooth)
 		*/
 		std::string getNetmask() const;
 
 		//! Set the IPv4 netmask of the given network interface
 		/*!
-		* This call may throw if the interface e.g. can not have a broadcast
+		* This call may throw if the interface can not have a broadcast
 		* address, is down, etc.
 		*
 		* \param address IPV4 address to set the netmask to
@@ -101,14 +101,14 @@ namespace NET
 
 		//! Return the IPv4 destination address of the given network interface
 		/*!
-		* This call may throw if the interface e.g. has no destination address
-		* configured (e.g. if interface is down) or can't have one (e.g. bluetooth)
+		* Returns empty string if the interface has no destination address
+		* configured (if interface is down) or can't have one (bluetooth)
 		*/
 		std::string getDestinationAddress() const;
 
 		//! Set the IPv4 destination address of the given network interface
 		/*!
-		* Returns empty string if the interface e.g. can not have a destination
+		* This call may throw if the interface can not have a destination
 		* address, is down, etc.
 		*
 		* \param address IPV4 address to set the netmask to
@@ -117,7 +117,7 @@ namespace NET
 
 		//! Return the MTU (Maximum Transmission Unit) of the given network interface in bytes
 		/*!
-		* This call may throw.
+		* Returns 0 on error.
 		*/
 		int getMTU() const;
 
