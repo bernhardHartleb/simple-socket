@@ -18,7 +18,7 @@ UnixStreamSocket UnixStreamSocket::accept() const
 std::optional<NET::UnixStreamSocket> UnixStreamSocket::timedAccept( int timeout) const
 {
 	int ret = SimpleSocket::timedAccept(timeout);
-	if( ret > 0)
+	if( ret >= 0)
 		return std::optional<NET::UnixStreamSocket>{ UnixStreamSocket(ret)};
 	else
 		return std::nullopt;

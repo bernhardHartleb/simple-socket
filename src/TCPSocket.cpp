@@ -27,7 +27,7 @@ TCPSocket TCPSocket::accept() const
 std::optional<NET::TCPSocket> TCPSocket::timedAccept( int timeout) const
 {
 	int ret = SimpleSocket::timedAccept(timeout);
-	if( ret > 0)
+	if( ret >= 0)
 		return std::optional<NET::TCPSocket>{ TCPSocket(ret)};
 	else
 		return std::nullopt;

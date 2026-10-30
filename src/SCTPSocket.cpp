@@ -203,7 +203,7 @@ SCTPSocket SCTPSocket::accept() const
 std::optional<NET::SCTPSocket> SCTPSocket::timedAccept( int timeout) const
 {
 	int ret = SimpleSocket::timedAccept(timeout);
-	if( ret > 0)
+	if( ret >= 0)
 		return std::optional<NET::SCTPSocket>{ SCTPSocket(ret)};
 	else
 		return std::nullopt;
