@@ -134,7 +134,9 @@ SockAddress::SockAddress( const sockaddr* address)
 		default:
 			throw SocketException("Unsupported address family", false);
 	}
-	store( *address, size);
+	m_storage = {};
+	std::memcpy( &m_storage, address, size);
+	m_length = size;
 }
 
 sockaddr* SockAddress::data() noexcept
