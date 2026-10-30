@@ -6,7 +6,8 @@ pkg_check_modules(CPPUNIT REQUIRED IMPORTED_TARGET cppunit)
 set(SIMPLE_SOCKET_TESTS
 	TCPSocket_TEST.cpp
 	UDPSocket_TEST.cpp
-	SocketUtils_TEST.cpp)
+	SocketUtils_TEST.cpp
+	SocketTraits_TEST.cpp)
 
 if(SIMPLE_SOCKET_HAVE_UNIX)
 	list(APPEND SIMPLE_SOCKET_TESTS
