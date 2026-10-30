@@ -47,7 +47,7 @@ EXAMPLE_PATH           = "@PROJECT_SOURCE_DIR@/examples"
 # Documentation extraction
 # =============================================================================
 
-EXTRACT_ALL            = NO
+EXTRACT_ALL            = YES
 EXTRACT_PRIVATE        = NO
 EXTRACT_STATIC         = NO
 
