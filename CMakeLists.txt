@@ -4,10 +4,6 @@ project(simple-socket
 	VERSION 1.5.0
 	LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED true)
-set(CMAKE_CXX_EXTENSIONS OFF)
-
 if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
 	set(SIMPLE_SOCKET_TOP_LEVEL ON)
 else()
@@ -21,7 +17,7 @@ option(SIMPLE_SOCKET_BUILD_DOCS "Enable the Doxygen documentation target." ${SIM
 
 # BUILD_TESTING uses conventional CMake option
 if(SIMPLE_SOCKET_TOP_LEVEL)
-    include(CTest)
+	include(CTest)
 endif()
 
 include(GNUInstallDirs)
