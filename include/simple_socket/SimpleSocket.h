@@ -63,11 +63,11 @@ namespace NET
 		SimpleSocket( const SimpleSocket&) = delete;
 		SimpleSocket& operator=( const SimpleSocket&) = delete;
 
-		SimpleSocket( SimpleSocket&& other) noexcept;
-		SimpleSocket& operator=( SimpleSocket&& other) noexcept;
-
-		//! return the native handle of the open socket
+		//! Return the native descriptor. Ownership remains with the object.
 		int nativeHandle() noexcept { return m_socket; }
+
+		//! Returns true if socket is in a usable (non-moved) state
+		bool valid() const noexcept { return m_socket >= 0; }
 
 		//! send data through a connected socket
 		/*!
@@ -254,6 +254,10 @@ namespace NET
 
 		//! allows a subclass to create new socket
 		SimpleSocket( int domain, int type, int protocol);
+
+		//! allows moving concrete classes
+		SimpleSocket( SimpleSocket&& other) noexcept;
+		SimpleSocket& operator=( SimpleSocket&& other) noexcept;
 
 		// protected to avoid delete via base class
 		~SimpleSocket();

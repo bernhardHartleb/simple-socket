@@ -101,8 +101,10 @@ public:
 
 		opt = server.timedAccept(1000);
 		CPPUNIT_ASSERT(opt);
+		CPPUNIT_ASSERT(opt->valid());
 
 		NET::TCPSocket session(std::move(*opt));
+		CPPUNIT_ASSERT(!opt->valid());
 		opt.reset();
 		CPPUNIT_ASSERT(!opt);
 		CPPUNIT_ASSERT(!session.peerDisconnected());
