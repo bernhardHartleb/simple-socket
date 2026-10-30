@@ -38,15 +38,10 @@ public:
 
 		client.connect(LOOPBACK, port);
 
-		NET::TCPSocket::Handle handle = server.accept();
-		CPPUNIT_ASSERT(handle);
-
-		NET::TCPSocket session(std::move(handle));
-		CPPUNIT_ASSERT(!handle);
+		NET::TCPSocket session = server.accept();
 		CPPUNIT_ASSERT(!client.peerDisconnected());
 		CPPUNIT_ASSERT(!session.peerDisconnected());
 
-		CPPUNIT_ASSERT_THROW(NET::TCPSocket(std::move(handle)), NET::SocketException);
 		CPPUNIT_ASSERT_EQUAL(std::string(LOOPBACK), client.getForeignAddress());
 		CPPUNIT_ASSERT_EQUAL(std::string(LOOPBACK), session.getLocalAddress());
 		CPPUNIT_ASSERT_EQUAL(port, client.getForeignPort());
@@ -99,16 +94,17 @@ public:
 		const unsigned short port = prepareServer(server);
 
 		// No client yet, this should simply time out
-		NET::TCPSocket::Handle handle = server.timedAccept(50);
-		CPPUNIT_ASSERT(!handle);
+		auto opt = server.timedAccept(50);
+		CPPUNIT_ASSERT(!opt);
 
 		client.connect(LOOPBACK, port);
 
-		handle = server.timedAccept(1000);
-		CPPUNIT_ASSERT(handle);
+		opt = server.timedAccept(1000);
+		CPPUNIT_ASSERT(opt);
 
-		NET::TCPSocket session(std::move(handle));
-		CPPUNIT_ASSERT(!handle);
+		NET::TCPSocket session(std::move(*opt));
+		opt.reset();
+		CPPUNIT_ASSERT(!opt);
 		CPPUNIT_ASSERT(!session.peerDisconnected());
 	}
 
@@ -166,10 +162,7 @@ public:
 		CPPUNIT_ASSERT_EQUAL(std::string(LOOPBACK), client.getForeignAddress());
 		CPPUNIT_ASSERT_EQUAL(port, client.getForeignPort());
 
-		NET::TCPSocket::Handle handle = server.accept();
-		CPPUNIT_ASSERT(handle);
-
-		NET::TCPSocket session(std::move(handle));
+		NET::TCPSocket session = server.accept();;
 		CPPUNIT_ASSERT(!client.peerDisconnected());
 		CPPUNIT_ASSERT(!session.peerDisconnected());
 	}

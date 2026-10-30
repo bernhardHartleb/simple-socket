@@ -117,11 +117,14 @@ namespace NET
 		AddressFamily addressFamily() const noexcept { return m_family; }
 
 	protected:
-		//! create socket from a SocketHandle returned by an accept() call
-		explicit InternetSocket( int sockfd);
-
 		//! allows a subclass to create new socket
 		InternetSocket( AddressFamily family, int type, int protocol);
+
+		//! allows a subclass to take ownership of an accepted socket
+		explicit InternetSocket( int sockfd);
+
+		InternetSocket( InternetSocket&& other) noexcept = default;
+		InternetSocket& operator=( InternetSocket&& other) noexcept = default;
 
 		// IPv4 or IPv6
 		AddressFamily m_family;

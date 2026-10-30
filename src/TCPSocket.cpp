@@ -11,10 +11,6 @@ TCPSocket::TCPSocket( AddressFamily family)
 : InternetSocket( family, SOCK_STREAM, IPPROTO_TCP)
 {}
 
-TCPSocket::TCPSocket( Handle&& handle)
-: InternetSocket( handle.release() )
-{}
-
 void TCPSocket::setNoDelay( bool enable)
 {
 	const int value = enable;
@@ -22,14 +18,17 @@ void TCPSocket::setNoDelay( bool enable)
 		throw SocketException("Failed to set TCP_NODELAY (setsockopt)");
 }
 
-TCPSocket::Handle TCPSocket::accept() const
+TCPSocket TCPSocket::accept() const
 {
 	int ret = SimpleSocket::accept();
-	return Handle(ret);
+	return TCPSocket(ret);
 }
 
-TCPSocket::Handle TCPSocket::timedAccept( int timeout) const
+std::optional<NET::TCPSocket> TCPSocket::timedAccept( int timeout) const
 {
 	int ret = SimpleSocket::timedAccept(timeout);
-	return Handle(ret);
+	if( ret > 0)
+		return std::optional<NET::TCPSocket>{ TCPSocket(ret)};
+	else
+		return std::nullopt;
 }

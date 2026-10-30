@@ -42,6 +42,33 @@ SimpleSocket::SimpleSocket( int sockfd)
 		throw SocketException("Tried to initialize Socket with invalid Handle", false);
 }
 
+SimpleSocket::SimpleSocket( SimpleSocket&& other) noexcept
+: m_socket(other.m_socket)
+, m_peerDisconnected(other.m_peerDisconnected)
+, m_connectionOriented(other.m_connectionOriented)
+{
+	other.m_socket = -1;
+	other.m_peerDisconnected = false;
+	other.m_connectionOriented = false;
+}
+
+SimpleSocket& SimpleSocket::operator=( SimpleSocket&& other) noexcept
+{
+	if( this != &other)
+	{
+		if( m_socket >= 0) ::close(m_socket);
+
+		m_socket = other.m_socket;
+		m_peerDisconnected = other.m_peerDisconnected;
+		m_connectionOriented = other.m_connectionOriented;
+
+		other.m_socket = -1;
+		other.m_peerDisconnected = false;
+		other.m_connectionOriented = false;
+	}
+	return *this;
+}
+
 SimpleSocket::~SimpleSocket()
 {
 	if( m_socket >= 0) ::close(m_socket);

@@ -63,6 +63,9 @@ namespace NET
 		SimpleSocket( const SimpleSocket&) = delete;
 		SimpleSocket& operator=( const SimpleSocket&) = delete;
 
+		SimpleSocket( SimpleSocket&& other) noexcept;
+		SimpleSocket& operator=( SimpleSocket&& other) noexcept;
+
 		//! return the native handle of the open socket
 		int nativeHandle() noexcept { return m_socket; }
 
@@ -255,7 +258,7 @@ namespace NET
 		// protected to avoid delete via base class
 		~SimpleSocket();
 
-		//! allows stream sockets to accept connections into Handles
+		//! allows stream sockets to accept connections
 		int accept() const;
 
 		//! allows stream sockets timed accept

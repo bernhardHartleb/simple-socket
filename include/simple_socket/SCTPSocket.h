@@ -1,12 +1,12 @@
 #ifndef NET_SCTPSocket_h__
 #define NET_SCTPSocket_h__
 
-#include "SocketHandle.h"
 #include "InternetSocket.h"
 
 #include <netinet/in.h>
 #include <netinet/sctp.h>
 #include <vector>
+#include <optional>
 
 namespace NET
 {
@@ -14,9 +14,6 @@ namespace NET
 	class SCTPSocket : public InternetSocket
 	{
 	public:
-		//! Handle for a new socket returned by accept()
-		typedef SocketHandle<SCTPSocket> Handle;
-
 		enum abortFlag
 		{
 			ABORT = SCTP_ABORT,
@@ -37,11 +34,6 @@ namespace NET
 		SCTPSocket( uint16_t numOutStreams = 10, uint16_t maxInStreams = 65535, uint16_t maxAttempts = 4,
 		            uint16_t maxInitTimeout = 0 /* TODO */);
 
-		/*!
-		 * Construct a Socket from a Handle returned by accept()
-		 * \exception SocketException thrown if handle is invalid
-		*/
-		explicit SCTPSocket( Handle&& handle);
 
 		using InternetSocket::bind;
 		int bind( const std::vector<std::string>& localAddresses, unsigned short localPort = 0);
@@ -75,14 +67,14 @@ namespace NET
 		//! Listen for incoming connections
 		using SimpleSocket::listen;
 
-		Handle accept() const;
-		Handle timedAccept( int timeout) const;
+		SCTPSocket accept() const;
+		std::optional<SCTPSocket> timedAccept( int timeout) const;
 
 	protected:
 		void setInitValues( uint16_t ostr, uint16_t istr, uint16_t att, uint16_t time);
 
-		// IPv4 only for now!
-		AddressFamily m_family;
+		// allow construction by accept()
+		using InternetSocket::InternetSocket;
 	};
 
 } // namespace NET

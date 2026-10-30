@@ -1,8 +1,8 @@
 #ifndef NET_TCPSocket_h__
 #define NET_TCPSocket_h__
 
-#include "SocketHandle.h"
 #include "InternetSocket.h"
+#include <optional>
 
 namespace NET
 {
@@ -10,20 +10,11 @@ namespace NET
 	class TCPSocket : public InternetSocket
 	{
 	public:
-		//! Handle for a new socket returned by accept()
-		typedef SocketHandle<TCPSocket> Handle;
-
 		/*!
 		 * Construct a TCP socket
 		 * \exception SocketException thrown if unable to create the socket
 		 */
 		TCPSocket( AddressFamily family = IPv4);
-
-		/*!
-		 * Construct a Socket from a Handle returned by accept()
-		 * \exception SocketException thrown if handle is invalid
-		 */
-		explicit TCPSocket( Handle&& handle);
 
 		//! Listen for incoming connections
 		using SimpleSocket::listen;
@@ -48,15 +39,10 @@ namespace NET
 		 *
 		 * accept can be only called on a listening socket.
 		 *
-		 * Use the returned handle to create a new TCPSocket to communicate
-		 * with the new connected client. Regardless of what you do with a
-		 * handle, accept() can be used to wait for next incoming connection
-		 * after the handle was received.
-		 *
-		 * \return SocketHandle object to the new connection
+		 * \return TCPSocket object to the new connection
 		 * \exception SocketException
 		 */
-		Handle accept() const;
+		TCPSocket accept() const;
 
 		//! wait for another socket to connect
 		/*!
@@ -64,28 +50,23 @@ namespace NET
 		 * timeout runs out. It is used to create TCP server applications. On
 		 * return it will return the handle to the incoming connection.
 		 *
-		 * This handle might be invalid, so it should be checked before it is
-		 * used. Creating a new socket object using an invalid handle will
-		 * raise an exception.
-		 *
 		 * timedAccept() can only be called on a listening socket.
 		 *
-		 * Use the returned handle to create a new TCPSocket to communicate
-		 * with the new connected client. Regardless of what you do with a
-		 * handle, timedAccept() can be used to wait for next incoming
-		 * connection after the handle was returned.
-		 *
 		 * \param timeout the timeout in ms after which accept will give up and return
-		 * \return Handle object to the new connection
+		 * \return optional TCPSocket object to the new connection, nullopt on timeout
 		 * \exception SocketException
 		 */
-		Handle timedAccept( int timeout) const;
+		std::optional<TCPSocket> timedAccept( int timeout) const;
 
 		//! Send the complete buffer
 		using SimpleSocket::sendAll;
 
 		//! Receive the complete requested buffer
 		using SimpleSocket::receiveAll;
+
+	protected:
+		// allow construction by accept()
+		using InternetSocket::InternetSocket;
 	};
 
 } // namespace NET

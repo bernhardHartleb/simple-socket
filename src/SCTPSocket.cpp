@@ -24,15 +24,9 @@ SCTPSocket::SCTPSocket( uint16_t numOutStreams /* = 10 */,
                         uint16_t maxAttempts /* = 4 */,
                         uint16_t maxInitTimeout /* = 0 */)
 : InternetSocket( IPv4, SOCK_STREAM, IPPROTO_SCTP)
-, m_family( IPv4)
 {
 	setInitValues( numOutStreams, maxInStreams, maxAttempts, maxInitTimeout);
 }
-
-SCTPSocket::SCTPSocket( Handle&& handle)
-: InternetSocket( handle.release() )
-, m_family( IPv4)
-{}
 
 int SCTPSocket::bind( const std::vector<std::string>& localAddresses, unsigned short localPort /* = 0 */)
 {
@@ -200,16 +194,19 @@ int SCTPSocket::timedReceive( void* data, size_t maxLen, uint16_t& stream, recei
 	return 0;
 }
 
-SCTPSocket::Handle SCTPSocket::accept() const
+SCTPSocket SCTPSocket::accept() const
 {
 	int ret = SimpleSocket::accept();
-	return Handle(ret);
+	return SCTPSocket(ret);
 }
 
-SCTPSocket::Handle SCTPSocket::timedAccept( int timeout) const
+std::optional<NET::SCTPSocket> SCTPSocket::timedAccept( int timeout) const
 {
 	int ret = SimpleSocket::timedAccept(timeout);
-	return Handle(ret);
+	if( ret > 0)
+		return std::optional<NET::SCTPSocket>{ SCTPSocket(ret)};
+	else
+		return std::nullopt;
 }
 
 void SCTPSocket::setInitValues( uint16_t numOutStreams, uint16_t maxInStreams, uint16_t maxAttempts, uint16_t maxInitTimeout)

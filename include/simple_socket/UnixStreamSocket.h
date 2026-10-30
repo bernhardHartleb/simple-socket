@@ -1,8 +1,8 @@
 #ifndef NET_UnixStreamSocket_h__
 #define NET_UnixStreamSocket_h__
 
-#include "SocketHandle.h"
 #include "UnixSocket.h"
+#include <optional>
 
 namespace NET
 {
@@ -10,23 +10,11 @@ namespace NET
 	class UnixStreamSocket : public UnixSocket
 	{
 	public:
-		//! Handle for a new socket returned by accept()
-		typedef SocketHandle<UnixStreamSocket> Handle;
-
 		/*!
 		 * Construct a Unix domain stream socket.
 		 * \exception SocketException thrown if unable to create the socket
 		 */
 		UnixStreamSocket();
-
-		/*!
-		 * Construct a socket from a Handle returned by accept().
-		 * Ownership of the descriptor is transferred from the handle.
-		 * The accepted socket does not own the listening socket's pathname.
-		 *
-		 * \exception SocketException thrown if handle is invalid
-		 */
-		explicit UnixStreamSocket( Handle&& handle);
 
 		//! Listen for incoming connections
 		using SimpleSocket::listen;
@@ -34,24 +22,28 @@ namespace NET
 		/*!
 		 * Wait for and accept an incoming connection.
 		 *
-		 * \return handle owning the accepted socket
+		 * \return  UnixStreamSocket object owning the accepted socket
 		 * \exception SocketException if accept fails
 		 */
-		Handle accept() const;
+		UnixStreamSocket accept() const;
 
 		/*!
 		 * Wait up to timeout milliseconds for an incoming connection.
 		 *
-		 * \return valid handle on success, invalid handle on timeout
+		 * \return optional UnixStreamSocket object to the new connection, nullopt on timeout
 		 * \exception SocketException on errors
 		 */
-		Handle timedAccept( int timeout) const;
+		std::optional<UnixStreamSocket> timedAccept( int timeout) const;
 
 		//! Send the complete buffer
 		using SimpleSocket::sendAll;
 
 		//! Receive the complete requested buffer
 		using SimpleSocket::receiveAll;
+
+	protected:
+		// allow construction by accept()
+		using UnixSocket::UnixSocket;
 	};
 
 } // namespace NET

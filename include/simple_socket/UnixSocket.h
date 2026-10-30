@@ -49,6 +49,9 @@ namespace NET
 		//! allows a subclass to take ownership of an accepted socket
 		explicit UnixSocket( int sockfd);
 
+		UnixSocket( UnixSocket&& other) noexcept;
+		UnixSocket& operator=( UnixSocket&& other) noexcept;
+
 		// track created socket file
 		std::string m_boundPath;
 	};

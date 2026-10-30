@@ -14,6 +14,27 @@ UnixSocket::UnixSocket( int sockfd)
 : SimpleSocket(sockfd)
 {}
 
+UnixSocket::UnixSocket( UnixSocket&& other) noexcept
+: SimpleSocket(std::move(other))
+, m_boundPath(std::move(other.m_boundPath))
+{
+	other.m_boundPath.clear();
+}
+
+UnixSocket& UnixSocket::operator=( UnixSocket&& other) noexcept
+{
+	if( this != &other)
+	{
+		if( !m_boundPath.empty())
+			::unlink(m_boundPath.c_str());
+
+		SimpleSocket::operator=(std::move(other));
+		m_boundPath = std::move(other.m_boundPath);
+		other.m_boundPath.clear();
+	}
+	return *this;
+}
+
 UnixSocket::~UnixSocket()
 {
 	if( !m_boundPath.empty())

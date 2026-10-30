@@ -19,7 +19,7 @@ int main()
 	std::cout << "Waiting for a client..." << std::endl;
 
 	// Wait up to 5 seconds for an incoming connection
-	NET::TCPSocket::Handle handle = server_socket.timedAccept(5000);
+	auto handle = server_socket.timedAccept(5000);
 	if (!handle)
 	{
 		std::cerr << "Timed out waiting for a client." << std::endl;
@@ -27,7 +27,7 @@ int main()
 	}
 
 	// The accepted handle owns the new connection until it is moved into a TCPSocket
-	NET::TCPSocket session_socket(std::move(handle));
+	NET::TCPSocket session_socket = std::move(*handle);
 
 	std::cout << "Client connected from " << session_socket.getForeignAddress()
 	          << ":" << session_socket.getForeignPort() << std::endl;

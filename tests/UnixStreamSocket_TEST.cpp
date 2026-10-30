@@ -55,12 +55,7 @@ public:
 		client.bind(clientPath);
 		client.connect(serverPath);
 
-		NET::UnixStreamSocket::Handle handle = server.accept();
-		CPPUNIT_ASSERT(handle);
-
-		NET::UnixStreamSocket session(std::move(handle));
-
-		CPPUNIT_ASSERT(!handle);
+		NET::UnixStreamSocket session = server.accept();
 		CPPUNIT_ASSERT_EQUAL(serverPath, server.getLocalPath());
 		CPPUNIT_ASSERT_EQUAL(clientPath, client.getLocalPath());
 		CPPUNIT_ASSERT_EQUAL(serverPath, client.getForeignPath());
@@ -118,20 +113,18 @@ public:
 		server.listen();
 
 		// Nobody is connecting yet
-		NET::UnixStreamSocket::Handle handle = server.timedAccept(50);
-		CPPUNIT_ASSERT(!handle);
-
-		// Constructing a socket from invalid handle is a user error
-		CPPUNIT_ASSERT_THROW(NET::UnixStreamSocket(std::move(handle)), NET::SocketException);
+		auto opt = server.timedAccept(50);
+		CPPUNIT_ASSERT(!opt);
 
 		NET::UnixStreamSocket client;
 		client.connect(serverPath);
 
-		handle = server.timedAccept(1000);
-		CPPUNIT_ASSERT(handle);
+		opt = server.timedAccept(1000);
+		CPPUNIT_ASSERT(opt);
 
-		NET::UnixStreamSocket session(std::move(handle));
-		CPPUNIT_ASSERT(!handle);
+		NET::UnixStreamSocket session(std::move(*opt));
+		opt.reset();
+		CPPUNIT_ASSERT(!opt);
 		CPPUNIT_ASSERT(!session.peerDisconnected());
 	}
 

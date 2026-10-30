@@ -9,18 +9,17 @@ UnixStreamSocket::UnixStreamSocket()
 : UnixSocket( SOCK_STREAM, 0)
 {}
 
-UnixStreamSocket::UnixStreamSocket( Handle&& handle)
-: UnixSocket( handle.release())
-{}
-
-UnixStreamSocket::Handle UnixStreamSocket::accept() const
+UnixStreamSocket UnixStreamSocket::accept() const
 {
 	int ret = SimpleSocket::accept();
-	return Handle(ret);
+	return UnixStreamSocket(ret);
 }
 
-UnixStreamSocket::Handle UnixStreamSocket::timedAccept( int timeout) const
+std::optional<NET::UnixStreamSocket> UnixStreamSocket::timedAccept( int timeout) const
 {
 	int ret = SimpleSocket::timedAccept(timeout);
-	return Handle(ret);
+	if( ret > 0)
+		return std::optional<NET::UnixStreamSocket>{ UnixStreamSocket(ret)};
+	else
+		return std::nullopt;
 }
