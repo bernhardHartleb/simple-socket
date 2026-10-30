@@ -43,8 +43,7 @@ int main()
         server.listen();
 
         std::cout << "waiting for a client\n";
-        NET::TCPSocket::Handle handle = server.accept();
-        NET::TCPSocket client(std::move(handle));
+        NET::TCPSocket client = server.accept();
 
         const char message[] = "hello from simple-socket\n";
         client.sendAll(message, sizeof(message) - 1);
