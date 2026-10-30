@@ -34,10 +34,10 @@ namespace NET
 		//! wait for another socket to connect
 		/*!
 		 * accept() will block until a new connection arrives. It is used to
-		 * create TCP server applications. On return it will return the handle
-		 * to the incoming connection.
+		 * create TCP server applications. On return it will return the
+		 * TCPSocket object to the incoming connection.
 		 *
-		 * accept can be only called on a listening socket.
+		 * accept() can be only called on a listening socket.
 		 *
 		 * \return TCPSocket object to the new connection
 		 * \exception SocketException
@@ -48,7 +48,7 @@ namespace NET
 		/*!
 		 * timedAccept() will block until a new connection arrives, or the given
 		 * timeout runs out. It is used to create TCP server applications. On
-		 * return it will return the handle to the incoming connection.
+		 * return it will return the TCPSocket object to the incoming connection.
 		 *
 		 * timedAccept() can only be called on a listening socket.
 		 *
