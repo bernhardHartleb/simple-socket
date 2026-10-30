@@ -1,3 +1,14 @@
+1.6.0
+~~~~~
+- Socket classes are now C++ move-only types
+- Retire SocketHandle class without replacement
+- Network interface listing now lists all interfaces again
+- Listing of all network interface addreses IPv4/6
+- NetworkInterface getters do not throw any more
+- Add type trait tests for all user facing sockets
+- CMake flags for platform specific or optional features
+- Build missing docs for utility functions
+
 1.5.0
 ~~~~~
 - IPv6 support for internet socket types
