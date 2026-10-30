@@ -9,11 +9,11 @@
 
 using namespace NET;
 
-SocketException::SocketException( std::string_view message, bool inclSysMsg /* = true */)
+SocketException::SocketException( std::string_view message, bool inclErrno /* = true */)
 : m_message(message)
 , m_errorcode(0)
 {
-	if(inclSysMsg)
+	if(inclErrno)
 	{
 		m_errorcode = errno;
 		m_message += ": ";
@@ -125,7 +125,15 @@ void SimpleSocket::disconnect()
 
 void SimpleSocket::shutdown( ShutdownDirection type)
 {
-	if( ::shutdown( m_socket, type) < 0)
+	int how = 0;
+	switch(type)
+	{
+	case STOP_RECEIVE: how = SHUT_RD; break;
+	case STOP_SEND:    how = SHUT_WR; break;
+	case STOP_BOTH:    how = SHUT_RDWR; break;
+	}
+
+	if( ::shutdown( m_socket, how) < 0)
 		throw SocketException("Shutdown failed (shutdown)");
 }
 

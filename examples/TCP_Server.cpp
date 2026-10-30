@@ -43,7 +43,7 @@ int main()
 
 	// Gracefully signal that no more data will be sent
 	// The socket could still receive data after this call
-	session_socket.shutdown(NET::SimpleSocket::STOP_SEND);
+	session_socket.shutdown(NET::STOP_SEND);
 
 	std::cout << "Successfully sent " << sent << " bytes." << std::endl;
 	// No explicit close is necessary

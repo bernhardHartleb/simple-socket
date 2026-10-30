@@ -186,7 +186,7 @@ public:
 		CPPUNIT_ASSERT(!session.peerDisconnected());
 
 		// Send a FIN while retaining the client socket itself
-		client.shutdown(NET::SimpleSocket::STOP_SEND);
+		client.shutdown(NET::STOP_SEND);
 
 		char buffer[16];
 		const int ret = session.timedReceive(buffer, sizeof(buffer), 1000);

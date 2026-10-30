@@ -182,7 +182,7 @@ public:
 		NET::UnixStreamSocket session(server.accept());
 		CPPUNIT_ASSERT(!session.peerDisconnected());
 
-		client.shutdown(NET::SimpleSocket::STOP_SEND);
+		client.shutdown(NET::STOP_SEND);
 
 		char buffer[16];
 		const int received = session.timedReceive(buffer, sizeof(buffer), 1000);

@@ -1,7 +1,6 @@
 #ifndef NET_SimpleSocket_h__
 #define NET_SimpleSocket_h__
 
-#include <sys/socket.h>
 #include <string>
 #include <exception>
 
@@ -14,10 +13,10 @@ namespace NET
 		/*!
 		 * Construct a SocketException with a explanatory message.
 		 * \param message explanatory message
-		 * \param inclSysMsg true if system message from strerror(errno)
+		 * \param inclErrno true if system message from strerror(errno)
 		 * should be postfixed to the user provided message
 		 */
-		SocketException( std::string_view message, bool inclSysMsg = true);
+		SocketException( std::string_view message, bool inclErrno = true);
 
 		SocketException( const SocketException&) = default;
 
@@ -41,6 +40,13 @@ namespace NET
 		IPv6
 	};
 
+	enum ShutdownDirection
+	{
+		STOP_RECEIVE,    ///< disable all variants of receive() on the socket, send calls still work
+		STOP_SEND,       ///< disable all variants of send() on the socket, receive calls still work
+		STOP_BOTH        ///< disable all send() and receive() calls on the socket
+	};
+
 	//! \cond internal
 	//! data type used by transmit and receive functions
 	typedef void raw_type;
@@ -54,13 +60,6 @@ namespace NET
 	class SimpleSocket
 	{
 	public:
-		enum ShutdownDirection
-		{
-			STOP_SEND = SHUT_WR,     ///< disable all variants of send() on the socket, receive calls still work
-			STOP_RECEIVE = SHUT_RD,  ///< disable all variants of receive() on the socket, send calls still work
-			STOP_BOTH = SHUT_RDWR    ///< disable all send() and receive() calls on the socket
-		};
-
 		SimpleSocket( const SimpleSocket&) = delete;
 		SimpleSocket& operator=( const SimpleSocket&) = delete;
 
