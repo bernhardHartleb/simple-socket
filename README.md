@@ -7,16 +7,15 @@ Functions for DNS resolution and limited network interface management are includ
 
 ## Features
 
-- IPv4/IPv6 TCP and UDP sockets
-- UDP multicast support (IPv4 only)
+- IPv4 / IPv6 TCP and UDP sockets
 - Unix-domain stream and datagram sockets
-- Blocking I/O plus timeout variants for connect, accept and receive
+- UDP multicast support (IPv4 only)
+- Timeout support for connect, accept and receive (poll)
 - Peer-disconnect tracking for connected sockets
-- Stream based sendAll and receiveAll helpers
-- Resolve hostnames, services and list network addresses
-- Network-interface management
-- Optional SocketCAN (CAN bus) support
-- Optional SCTP support
+- Convenient error handling and stream helpers
+- Hostname and service resolution
+- Network-address and network-interface utilities
+- Optional SocketCAN and SCTP support
 - CMake build, unit tests and example programs
 
 ## Documentation
@@ -63,6 +62,7 @@ To use the library in your own project, it is easiest to use add_subdirectory in
 
 ```cmake
 add_subdirectory(external/simple-socket)
+
 add_executable(myapp main.cpp)
 target_link_libraries(myapp PRIVATE simple-socket)
 ```
