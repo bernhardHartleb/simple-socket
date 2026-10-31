@@ -7,76 +7,210 @@
 	<meta name="author" content="Bernhard Hartleb">
 	<meta name="google-site-verification" content="r6SBH8X-0-NNU0lSVG4xBmjSf3d07f68JyvNHc5UBKc">
 	<title>simple-socket - modern C++ sockets</title>
-
 	<style type="text/css">
+		* { box-sizing: border-box; }
+
 		body {
-			margin-top: 1.0em;
+			margin: 0;
 			background-color: #aacfa8;
 			font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-			line-height: 1.5;
-			color: #000000;
+			line-height: 1.55;
+			color: #182018;
 		}
+
 		#container {
+			width: min(820px, calc(100% - 48px));
 			margin: 0 auto;
-			width: 720px;
+			padding: 42px 0 48px;
 		}
-		h1 { font-size: 3.2em; color: #513788; margin-bottom: 3px; }
-		h1 .small { font-size: 0.4em; }
-		h1 a { text-decoration: none }
-		h2 { font-size: 1.5em; color: #513788; }
+
+		h1 {
+			margin: 0 0 8px;
+			color: #513788;
+			font-size: clamp(2.5rem, 6vw, 3.5rem);
+			line-height: 1.05;
+			letter-spacing: -0.03em;
+		}
+		h1 .small {
+			display: inline-block;
+			margin-left: 0.35em;
+			font-size: 0.36em;
+			font-weight: 500;
+			letter-spacing: 0;
+			white-space: nowrap;
+		}
+		h1 a { text-decoration: none; }
+
+		h2 {
+			margin: 1.3em 0 0.55em;
+			color: #513788;
+			font-size: 1.45rem;
+			line-height: 1.2;
+		}
+
 		h3 { text-align: center; color: #513788; }
-		p { font-size: 1.1em; }
-		a { color: #5137b8; }
-		.description { font-size: 1.2em; margin-bottom: 20px; margin-top: 30px; font-style: italic;}
-		.download { float: right; }
-		pre { background: #000; color: #fff; padding: 15px;}
-		hr { border: 0; width: 80%; border-bottom: 1px solid #aaa}
-		.footer { text-align:center; padding-top:30px; font-style: italic; }
+
+		p, li { font-size: 1.05rem; }
+		p { margin: 0.75em 0; }
+		ul { margin: 0.6em 0 0; padding-left: 1.35em; }
+		li + li { margin-top: 0.18em; }
+
+		a {
+			color: #5137b8;
+			text-underline-offset: 0.14em;
+		}
+		a:hover { text-decoration-thickness: 2px; }
+
+		.description {
+			max-width: 680px;
+			margin: 10px 0 20px;
+			font-size: 1.18rem;
+			font-style: italic;
+		}
+
+		.header {
+			display: flex;
+			align-items: flex-start;
+			justify-content: space-between;
+			gap: 24px;
+		}
+		.download {
+			flex: 0 0 auto;
+			margin-top: 5px;
+		}
+		.download a {
+			display: inline-block;
+			padding: 9px 13px;
+			border: 1px solid rgba(81, 55, 136, 0.45);
+			border-radius: 6px;
+			background: rgba(255, 255, 255, 0.25);
+			font-weight: 650;
+			text-decoration: none;
+		}
+
+		pre {
+			margin: 0.85em 0 0;
+			padding: 14px 16px;
+			overflow-x: auto;
+			border-radius: 6px;
+			background: #151515;
+			color: #fff;
+			font-size: 0.95rem;
+			line-height: 1.45;
+			-webkit-overflow-scrolling: touch;
+		}
+
+		hr { border: 0; width: 80%; border-bottom: 1px solid #aaa; }
+
+		.footer {
+			margin-top: 36px;
+			padding-top: 22px;
+			border-top: 1px solid rgba(81, 55, 136, 0.22);
+			text-align: center;
+			font-style: italic;
+			font-size: 0.95rem;
+		}
+
+		@media (max-width: 600px) {
+			#container {
+				width: min(100% - 32px, 820px);
+				padding-top: 26px;
+				padding-bottom: 32px;
+			}
+
+			.header {
+				display: block;
+			}
+			.download {
+				margin: 18px 0 0;
+			}
+
+			h1 {
+				font-size: clamp(2.2rem, 12vw, 3rem);
+			}
+			h1 .small {
+				display: block;
+				margin: 0.45em 0 0;
+				font-size: 0.38em;
+				white-space: normal;
+			}
+
+			h2 { margin-top: 1.2em; }
+			p, li { font-size: 1rem; }
+		}
 	</style>
 </head>
-
 <body>
 	<div id="container">
-		<div class="download">
-			<a href="https://github.com/bernhardHartleb/simple-socket/tarball/master">
-				<img border="0" width="90" src="https://github.com/images/modules/download/tar.png" alt="tar" /></a>
+		<div class="header">
+			<h1>
+				<a href="https://github.com/bernhardHartleb/simple-socket">simple-socket</a>
+				<span class="small">by <a href="https://github.com/bernhardHartleb">Bernhard Hartleb</a></span>
+			</h1>
+
+			<div class="download">
+				<a href="https://github.com/bernhardHartleb/simple-socket">GitHub Page</a>
+			</div>
+			<div class="download">
+				<a href="https://github.com/bernhardHartleb/simple-socket/tarball/master">Download</a>
+			</div>
 		</div>
 
-		<h1><a href="https://github.com/bernhardHartleb/simple-socket">simple-socket</a>
-			<span class="small">by <a href="https://github.com/bernhardHartleb">Bernhard Hartleb</a></span></h1>
+		<div class="description">An easy to use modern C++ socket and network library for Linux.</div>
 
-		<div class="description">
-			An easy to use modern C++ socket and network library for Linux.
-		</div>
+		<h2>Description</h2>
+		<p>
+			<strong>simple-socket</strong> is a lightweight C++17 based wrapper around POSIX socket APIs.
+			It keeps the native socket model visible while providing RAII ownership, error handling, poll and convenience functions.
+			The API uses strings for IPv4/6 addresses and keeps pointer handling to a minimum.
+			Blocking socket operations have variants accepting a timeout.
+			Functions for DNS resolution and limited network interface management are included.
+		</p>
 
 		<h2>Features</h2>
 		<ul>
-		<li>IPv4/IPv6 TCP and UDP sockets</li>
-		<li>UDP multicast support (IPv4 only)</li>
-		<li>Unix-domain stream and datagram sockets</li>
-		<li>Blocking I/O plus timeout variants for connect, accept and receive</li>
-		<li>Peer-disconnect tracking for connected sockets</li>
-		<li>Stream based sendAll and receiveAll helpers</li>
-		<li>Resolve hostnames, services and list network addresses</li>
-		<li>Network-interface management</li>
-		<li>Optional SocketCAN (CAN bus) support</li>
-		<li>Optional SCTP support</li>
-		<li>CMake build, unit tests and example programs</li>
+			<li>IPv4 / IPv6 TCP and UDP sockets</li>
+			<li>Unix-domain stream and datagram sockets</li>
+			<li>UDP multicast support (IPv4 only)</li>
+			<li>Timeout support for connect, accept and receive (poll)</li>
+			<li>Peer-disconnect tracking for connected sockets</li>
+			<li>Convenient error handling and stream helpers</li>
+			<li>Hostname and service resolution</li>
+			<li>Network-address and network-interface utilities</li>
+			<li>Optional SocketCAN and SCTP support</li>
+			<li>CMake build, unit tests and example programs</li>
 		</ul>
 
-		<h2>Documentation</h2>
-		<p>Complete <a href="doxygen/html/index.html" target="_blank">interface documentation</a> and
-		<a href="https://github.com/bernhardHartleb/simple-socket/tree/master/examples" target="_blank">usage examples</a> are available.</p>
+		<h2>Quick start</h2>
+		<p>Clone the repository and build it using CMake:</p>
 
-		<h2>Download</h2>
+<pre><code>$ git clone https://github.com/bernhardHartleb/simple-socket.git
+$ cd simple-socket
+$ cmake -B build
+$ cmake --build build</code></pre>
+
+		<h2>Documentation</h2>
 		<p>
-			You can download the latest version of the project in either
-			<a href="https://github.com/bernhardHartleb/simple-socket/zipball/master">zip</a> or
-			<a href="https://github.com/bernhardHartleb/simple-socket/tarball/master">tar</a> formats.
+			Usage examples are included in the
+			<a href="https://github.com/bernhardHartleb/simple-socket/tree/master/examples"
+				target="_blank" rel="noopener">examples directory</a>.
 		</p>
 		<p>
-			You can also clone the project with <a href="https://git-scm.com">Git</a> by running:
-			<pre>$ git clone https://github.com/bernhardHartleb/simple-socket.git</pre>
+			For the complete API and available classes, see the
+			<a href="doxygen/html/index.html" target="_blank" rel="noopener">interface documentation</a>.
+		</p>
+
+		<h2>Usage</h2>
+		<p>
+			To use the library in your own project, it is easiest to add this in your CMakeLists.txt:
+			<code> add_subdirectory(external/simple-socket) </code>
+		</p>
+		<p>
+			simple-socket uses CMake and includes several unit tests and example programs.
+			There are no external dependencies.
+			The library targets Linux and requires C++17 compiler support;
+			SocketCAN and SCTP support are optional.
+			Source code is released under the MIT License.
 		</p>
 
 		<div class="footer">
