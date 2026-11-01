@@ -73,9 +73,10 @@ namespace NET
 	{
 		Connected,
 		Timeout,
-		Refused,
-		Unreachable,
-		Aborted
+		Failed
+		//Refused,
+		//Unreachable,
+		//Aborted
 	};
 
 	enum ShutdownDirection

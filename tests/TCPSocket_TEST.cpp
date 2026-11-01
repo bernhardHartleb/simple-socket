@@ -6,6 +6,7 @@
 
 using NET::IOResult;
 using NET::IOStatus;
+using NET::ConnectResult;
 
 class TCPSocket_TEST : public CppUnit::TestFixture
 {
@@ -169,15 +170,16 @@ public:
 		const unsigned short refusedPort = notListening.getLocalPort();
 		CPPUNIT_ASSERT(refusedPort != 0);
 
-		CPPUNIT_ASSERT_THROW(client.timedConnect(LOOPBACK, refusedPort, 1000), NET::SocketException);
+		ConnectResult err = client.timedConnect(LOOPBACK, refusedPort, 50);
+		CPPUNIT_ASSERT_EQUAL(ConnectResult::Failed, err);
 		// reset connection attempt (this works for TCP only on Linux)
 		client.disconnect();
 		CPPUNIT_ASSERT(client.peerDisconnected());
 
 		const unsigned short port = prepareServer(server);
-		const int ret = client.timedConnect(LOOPBACK, port, 1000);
+		ConnectResult res = client.timedConnect(LOOPBACK, port, 1000);
 
-		CPPUNIT_ASSERT_EQUAL(1, ret);
+		CPPUNIT_ASSERT_EQUAL(ConnectResult::Connected, res);
 		CPPUNIT_ASSERT_EQUAL(std::string(LOOPBACK), client.getForeignAddress());
 		CPPUNIT_ASSERT_EQUAL(port, client.getForeignPort());
 
@@ -224,8 +226,8 @@ public:
 		// ipv4 should not work
 		CPPUNIT_ASSERT_THROW(client.connect(LOOPBACK, port), NET::SocketException);
 
-		const int ret = client.timedConnect("::1", port, 1000);
-		CPPUNIT_ASSERT_EQUAL(1, ret);
+		ConnectResult res = client.timedConnect("::1", port, 1000);
+		CPPUNIT_ASSERT_EQUAL(ConnectResult::Connected, res);
 		CPPUNIT_ASSERT_EQUAL(NET::IPv6, client.addressFamily());
 
 		NET::TCPSocket session(server.accept());

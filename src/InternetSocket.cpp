@@ -79,7 +79,7 @@ void InternetSocket::connect( std::string_view foreignAddress, unsigned short fo
 		throw SocketException("Connect failed (connect)");
 }
 
-int InternetSocket::timedConnect( std::string_view foreignAddress, unsigned short foreignPort, int timeout)
+ConnectResult InternetSocket::timedConnect( std::string_view foreignAddress, unsigned short foreignPort, int timeout)
 {
 	SockAddress addr( m_family, foreignAddress, foreignPort);
 
@@ -92,9 +92,8 @@ int InternetSocket::timedConnect( std::string_view foreignAddress, unsigned shor
 
 	// Asynchronous connection attempt
 	int ret = ::connect( m_socket, addr.data(), addr.length());
-	if( ret == 0) { // Already connected
-		return 1;
-	}
+	if( ret == 0) // Already connected
+		return ConnectResult::Connected;
 
 	// Did connect return an unexpected error?
 	switch(errno)
@@ -114,28 +113,25 @@ int InternetSocket::timedConnect( std::string_view foreignAddress, unsigned shor
 
 	ret = TEMP_FAILURE_RETRY (::poll( &pfd, 1, timeout));
 	if( ret < 0) throwError();
-	if( ret == 0) { // Timeout
-		errno = ETIMEDOUT;
-		return 0;
-	}
+
+	if( ret == 0) return ConnectResult::Timeout;
 
 	// Check for socket errors after poll success
 	int sockError = 0;
 	socklen_t errLen = sizeof(sockError);
 	ret = ::getsockopt( m_socket, SOL_SOCKET, SO_ERROR, &sockError, &errLen);
 	if( ret < 0) throwError();
+
 	if( sockError != 0)
 	{
-		// Expected connection failure?
+		// known connection issues should not throw
 		if( isConnectionLossError(sockError))
-		{
-			// TODO
-			//return ConnectResult::Refused / Failed / Timeout etc.
-		}
+			return ConnectResult::Failed;
+
 		errno = sockError;
 		throwError();
 	}
-	return 1;
+	return ConnectResult::Connected;
 }
 
 void InternetSocket::bind( unsigned short localPort /* = 0 */)

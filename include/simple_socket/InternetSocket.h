@@ -51,10 +51,10 @@ namespace NET
 		 * \param foreignAddress foreign address
 		 * \param foreignPort foreign port
 		 * \param timeout the timeout in ms after which connect will give up and return
-		 * \return 0 on timeout, 1 when connection is established
+		 * \return ConnectResult
 		 * \exception SocketException thrown if unable to establish connection
 		 */
-		int timedConnect( std::string_view foreignAddress, unsigned short foreignPort, int timeout);
+		ConnectResult timedConnect( std::string_view foreignAddress, unsigned short foreignPort, int timeout);
 
 		/*!
 		 * \overload
