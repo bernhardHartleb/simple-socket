@@ -27,7 +27,7 @@ int main()
 			std::cout.write(buffer.data(), res.bytes);
 			continue;
 		}
-		else if (client_socket.peerDisconnected())
+		else if (res.status == NET::IOStatus::PeerDisconnected)
 		{
 			// Graceful EOF from the server
 			break;
