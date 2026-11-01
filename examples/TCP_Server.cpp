@@ -34,8 +34,8 @@ int main()
 
 	// TCP is a byte stream. send() may send only part of a buffer
 	// sendAll() keeps sending until the complete buffer was handled
-	int sent = session_socket.sendAll(send_msg, send_len);
-	if (sent != static_cast<int>(send_len))
+	NET::IOResult sent = session_socket.sendAll(send_msg, send_len);
+	if (sent.status == NET::IOStatus::PeerDisconnected)
 	{
 		std::cerr << "Client disconnected while sending." << std::endl;
 		return 1;
@@ -45,7 +45,7 @@ int main()
 	// The socket could still receive data after this call
 	session_socket.shutdown(NET::STOP_SEND);
 
-	std::cout << "Successfully sent " << sent << " bytes." << std::endl;
+	std::cout << "Successfully sent " << sent.bytes << " bytes." << std::endl;
 	// No explicit close is necessary
 	return 0;
 

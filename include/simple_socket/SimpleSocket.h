@@ -58,7 +58,6 @@ namespace NET
 	 * PeerDisconnected
 	 *  bytes == 0
 	 *  only produced for connection-oriented sockets
-	 *  sets m_peerDisconnected
 	 *
 	 * DestinationUnavailable
 	 *  bytes == 0
@@ -68,8 +67,6 @@ namespace NET
 	{
 		IOStatus status;
 		size_t bytes;
-
-		explicit operator bool() const { return status == IOStatus::Success; }
 	};
 
 	enum class ConnectResult
@@ -269,10 +266,10 @@ namespace NET
 		 *
 		 * \param buffer data to be send
 		 * \param len length of the data to be sent
-		 * \return number of bytes sent
+		 * \return IOResult
 		 * \exception SocketException
 		 */
-		size_t sendAll( const void* buffer, size_t len);
+		IOResult sendAll( const void* buffer, size_t len);
 
 		//! receive exactly the requested amount unless the peer disconnects
 		/*!
@@ -286,10 +283,10 @@ namespace NET
 		 *
 		 * \param buffer buffer the received data will be written to
 		 * \param len number of bytes to receive
-		 * \return number of bytes received
+		 * \return IOResult
 		 * \exception SocketException on receive errors other than peer loss
 		 */
-		[[nodiscard]] size_t receiveAll( void* buffer, size_t len);
+		[[nodiscard]] IOResult receiveAll( void* buffer, size_t len);
 
 		//! enables return of an accepted socket
 		explicit SimpleSocket( int sockfd);

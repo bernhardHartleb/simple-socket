@@ -56,15 +56,13 @@ public:
 
 		const char message[] = "Hello TCP";
 		IOResult sent = client.send(message, sizeof(message));
-
 		CPPUNIT_ASSERT_EQUAL(sent.status, IOStatus::Success);
 		CPPUNIT_ASSERT_EQUAL(sent.bytes, sizeof(message));
 
 		char buffer[sizeof(message)] = {};
-		IOResult received = session.receive(buffer, sent.bytes);
-
-		CPPUNIT_ASSERT_EQUAL(received.status, IOStatus::Success);
-		CPPUNIT_ASSERT_EQUAL(received.bytes, sent.bytes);
+		IOResult recv = session.receive(buffer, sent.bytes);
+		CPPUNIT_ASSERT_EQUAL(recv.status, IOStatus::Success);
+		CPPUNIT_ASSERT_EQUAL(recv.bytes, sent.bytes);
 		CPPUNIT_ASSERT(std::memcmp(message, buffer, sent.bytes) == 0);
 	}
 
@@ -85,14 +83,14 @@ public:
 		for (size_t i = 0; i < sendBuffer.size(); ++i)
 			sendBuffer[i] = static_cast<char>(i % 251);
 
-		size_t sent = client.sendAll(sendBuffer.data(), sendBuffer.size());
-		//CPPUNIT_ASSERT_EQUAL(sent.status, IOStatus::Success);
-		CPPUNIT_ASSERT_EQUAL(len, sent);
+		IOResult sent = client.sendAll(sendBuffer.data(), sendBuffer.size());
+		CPPUNIT_ASSERT_EQUAL(sent.status, IOStatus::Success);
+		CPPUNIT_ASSERT_EQUAL(len, sent.bytes);
 
 		std::vector<char> receiveBuffer(sendBuffer.size());
-		size_t received = session.receiveAll(receiveBuffer.data(), receiveBuffer.size());
-		//CPPUNIT_ASSERT_EQUAL(received.status, IOStatus::Success);
-		CPPUNIT_ASSERT_EQUAL(len, received);
+		IOResult recv = session.receiveAll(receiveBuffer.data(), receiveBuffer.size());
+		CPPUNIT_ASSERT_EQUAL(recv.status, IOStatus::Success);
+		CPPUNIT_ASSERT_EQUAL(len, recv.bytes);
 		CPPUNIT_ASSERT(sendBuffer == receiveBuffer);
 	}
 
@@ -148,9 +146,9 @@ public:
 		CPPUNIT_ASSERT(!session.peerDisconnected());
 
 		const char message[] = "Timed receive";
-		size_t sent = client.sendAll(message, sizeof(message));
-		//CPPUNIT_ASSERT_EQUAL(IOStatus::Success, sent.status);
-		CPPUNIT_ASSERT_EQUAL(sizeof(message), sent);
+		IOResult sent = client.sendAll(message, sizeof(message));
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, sent.status);
+		CPPUNIT_ASSERT_EQUAL(sizeof(message), sent.bytes);
 
 		ret = session.timedReceive(buffer, sizeof(buffer), 1000);
 		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, ret.status);
@@ -236,9 +234,9 @@ public:
 		CPPUNIT_ASSERT_EQUAL(NET::IPv6, session.addressFamily());
 
 		const char message[] = "IPv6 works";
-		size_t sent = client.sendAll(message, sizeof(message));
-		//CPPUNIT_ASSERT_EQUAL(IOStatus::Success, sent.status);
-		CPPUNIT_ASSERT_EQUAL(sizeof(message), sent);
+		IOResult sent = client.sendAll(message, sizeof(message));
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, sent.status);
+		CPPUNIT_ASSERT_EQUAL(sizeof(message), sent.bytes);
 
 		char buffer[sizeof(message)]{};
 		IOResult recv = session.timedReceive(buffer, sizeof(buffer), 1000);

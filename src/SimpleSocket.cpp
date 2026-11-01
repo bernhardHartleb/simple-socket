@@ -211,7 +211,7 @@ int SimpleSocket::timedAccept( int timeout) const
 	return SimpleSocket::accept();
 }
 
-size_t SimpleSocket::sendAll( const void* buffer, size_t len)
+IOResult SimpleSocket::sendAll( const void* buffer, size_t len)
 {
 	size_t sent = 0;
 	while( sent != len)
@@ -219,22 +219,22 @@ size_t SimpleSocket::sendAll( const void* buffer, size_t len)
 		const char* buf = static_cast<const char*>(buffer) + sent;
 		IOResult res = send( buf, len - sent);
 		sent += res.bytes;
-		if( res.status != IOStatus::Success ) break;
+		if( res.bytes == 0) return { res.status, sent };
 	}
-	return sent;
+	return { IOStatus::Success, sent };
 }
 
-size_t SimpleSocket::receiveAll( void* buffer, size_t len)
+IOResult SimpleSocket::receiveAll( void* buffer, size_t len)
 {
 	size_t received = 0;
 	while( received != len)
 	{
 		char* buf = static_cast<char*>(buffer) + received;
 		IOResult res = receive( buf, len - received);
-		if( res.bytes == 0) break;
 		received += res.bytes;
+		if( res.bytes == 0) return { res.status, received };
 	}
-	return received;
+	return { IOStatus::Success, received };
 }
 
 bool SimpleSocket::isConnectionLossError( int error) noexcept
