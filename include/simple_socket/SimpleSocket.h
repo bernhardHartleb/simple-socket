@@ -48,6 +48,22 @@ namespace NET
 		DestinationUnavailable
 	};
 
+	/*!
+	 * Success
+	 *  byes is meaningful, including zero
+	 *
+	 * Timeout
+	 *  bytes == 0
+	 *
+	 * PeerDisconnected
+	 *  bytes == 0
+	 *  only produced for connection-oriented sockets
+	 *  sets m_peerDisconnected
+	 *
+	 * DestinationUnavailable
+	 *  bytes == 0
+	 *  primarily datagram semantics
+	 */
 	struct IOResult
 	{
 		IOStatus status;
@@ -206,22 +222,17 @@ namespace NET
 		//! returns whether a currently associated peer disconnected
 		/*!
 		 * For stream sockets this is set when the peer closes or resets the connection.
-		 * Use this function after a call to receive, returned 0 received bytes.
+		 * A false result does not guarantee that the remote peer is reachable.
 		 *
-		 * For connected datagram sockets it may also be set when
-		 * the network reports that the configured peer is unreachable.
-		 *
-		 * The flag is cleared by a successful connect().
-		 *
-		 * \return true if a peer disconnected
+		 * \return true if a peer disconnected or no peer is connected
 		 */
-		bool peerDisconnected() const noexcept;
+		[[nodiscard]] bool peerDisconnected() const;
 
 		//! return true for indications of a disconnect
-		static bool isConnectionLossError(int error) noexcept;
+		static bool isConnectionLossError( int error) noexcept;
 
 		//! return true for transient datagram errors
-		static bool isNonFatalDatagramError(int error) noexcept;
+		static bool isNonFatalDatagramError( int error) noexcept;
 
 	protected:
 		//! listen for incoming connections
@@ -278,7 +289,7 @@ namespace NET
 		 * \return number of bytes received
 		 * \exception SocketException on receive errors other than peer loss
 		 */
-		size_t receiveAll( void* buffer, size_t len);
+		[[nodiscard]] size_t receiveAll( void* buffer, size_t len);
 
 		//! enables return of an accepted socket
 		explicit SimpleSocket( int sockfd);
@@ -301,7 +312,6 @@ namespace NET
 
 		// socket descriptor
 		int m_socket;
-		bool m_peerDisconnected;
 		bool m_connectionOriented;
 	};
 

@@ -64,7 +64,6 @@ int SCTPSocket::connect( const std::vector<std::string>& foreignAddresses, unsig
 	if(ret < 0)
 		throw SocketException("Connect failed (sctp_connectx)");
 
-	m_peerDisconnected = false;
 	return ret;
 }
 
@@ -152,13 +151,13 @@ IOResult SCTPSocket::receive( void* data, size_t maxLen, uint16_t& stream, recei
 
 IOResult SCTPSocket::timedReceive( void* data, size_t maxLen, uint16_t& stream, int timeout)
 {
-	return timedReceiveImpl( m_socket, m_peerDisconnected, timeout,
+	return timedReceiveImpl( m_socket, m_connectionOriented, timeout,
 		[&] { return receive( data, maxLen, stream); });
 }
 
 IOResult SCTPSocket::timedReceive( void* data, size_t maxLen, uint16_t& stream, receiveFlag& flag, int timeout)
 {
-	return timedReceiveImpl( m_socket, m_peerDisconnected, timeout,
+	return timedReceiveImpl( m_socket, m_connectionOriented, timeout,
 		[&] { return receive( data, maxLen, stream, flag); });
 }
 

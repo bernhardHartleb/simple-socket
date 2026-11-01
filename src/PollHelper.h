@@ -10,7 +10,7 @@
 namespace NET
 {
 	template <typename ReceiveFunc>
-	IOResult timedReceiveImpl( int fd, bool& peerDisconnected, int timeout, ReceiveFunc&& receiveFunc)
+	IOResult timedReceiveImpl( int fd, bool connectionOriented, int timeout, ReceiveFunc&& receiveFunc)
 	{
 		const auto throwError = []() {
 			throw SocketException("timedReceive failed");
@@ -21,9 +21,9 @@ namespace NET
 		pfd.events = POLLIN | POLLPRI | POLLRDHUP;
 
 		const int ret = TEMP_FAILURE_RETRY(::poll( &pfd, 1, timeout));
+		if( ret < 0) throwError();
 
 		if( ret == 0) return { IOStatus::Timeout, 0 };
-		if( ret < 0) throwError();
 
 		if( pfd.revents & POLLNVAL)
 			throwError();
@@ -36,20 +36,19 @@ namespace NET
 			if( ::getsockopt( fd, SOL_SOCKET, SO_ERROR, &error, &len) < 0)
 				throwError();
 
-			if( SimpleSocket::isConnectionLossError(error))
+			if( connectionOriented && SimpleSocket::isConnectionLossError(error))
 			{
 				return { IOStatus::PeerDisconnected, 0 };
-				//m_peerDisconnected = true;
-				//return 0;
 			}
 			throw SocketException("timedReceive failed", error);
 		}
 
-		if( pfd.revents & (POLLRDHUP | POLLHUP))
-			peerDisconnected = true;
-
+		// Data has priority. There may be queued data followed by FIN
 		if( pfd.revents & (POLLIN | POLLPRI))
 			return std::forward<ReceiveFunc>(receiveFunc)();
+
+		if( pfd.revents & (POLLRDHUP | POLLHUP))
+			return { IOStatus::PeerDisconnected, 0 };
 
 		throwError();
 		// silence warning

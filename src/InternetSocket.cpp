@@ -77,8 +77,6 @@ void InternetSocket::connect( std::string_view foreignAddress, unsigned short fo
 
 	if( ::connect( m_socket, addr.data(), addr.length()) < 0)
 		throw SocketException("Connect failed (connect)");
-
-	m_peerDisconnected = false;
 }
 
 int InternetSocket::timedConnect( std::string_view foreignAddress, unsigned short foreignPort, int timeout)
@@ -89,26 +87,32 @@ int InternetSocket::timedConnect( std::string_view foreignAddress, unsigned shor
 	NonBlockingGuard nonBlocking( m_socket);
 
 	const auto throwError = []() {
-		throw SocketException("timedConnect failed (connect)");
+		throw SocketException("timedConnect failed");
 	};
 
 	// Asynchronous connection attempt
 	int ret = ::connect( m_socket, addr.data(), addr.length());
 	if( ret == 0) { // Already connected
-		m_peerDisconnected = false;
 		return 1;
 	}
 
 	// Did connect return an unexpected error?
-	if( errno != EINPROGRESS && errno != EWOULDBLOCK && errno != EINTR)
-		throwError();
+	switch(errno)
+	{
+		case EINPROGRESS:
+		case EWOULDBLOCK:
+		case EINTR:
+			break;
+		default:
+			throwError();
+	}
 
 	// Wait for the connection to complete
-	struct pollfd poll;
-	poll.fd = m_socket;
-	poll.events = POLLOUT;
+	pollfd pfd {};
+	pfd.fd = m_socket;
+	pfd.events = POLLOUT;
 
-	ret = TEMP_FAILURE_RETRY (::poll( &poll, 1, timeout));
+	ret = TEMP_FAILURE_RETRY (::poll( &pfd, 1, timeout));
 	if( ret < 0) throwError();
 	if( ret == 0) { // Timeout
 		errno = ETIMEDOUT;
@@ -120,12 +124,17 @@ int InternetSocket::timedConnect( std::string_view foreignAddress, unsigned shor
 	socklen_t errLen = sizeof(sockError);
 	ret = ::getsockopt( m_socket, SOL_SOCKET, SO_ERROR, &sockError, &errLen);
 	if( ret < 0) throwError();
-	if( sockError != 0) { // Socket error
+	if( sockError != 0)
+	{
+		// Expected connection failure?
+		if( isConnectionLossError(sockError))
+		{
+			// TODO
+			//return ConnectResult::Refused / Failed / Timeout etc.
+		}
 		errno = sockError;
 		throwError();
 	}
-
-	m_peerDisconnected = false;
 	return 1;
 }
 

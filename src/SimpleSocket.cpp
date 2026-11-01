@@ -22,8 +22,7 @@ SocketException::SocketException( std::string_view message, bool inclErrno /* = 
 }
 
 SimpleSocket::SimpleSocket( int domain, int type, int protocol)
-: m_peerDisconnected(false)
-, m_connectionOriented(type == SOCK_STREAM)
+: m_connectionOriented(type == SOCK_STREAM)
 {
 #ifdef SOCK_CLOEXEC
 	// prevent leaking socket descriptor on exec
@@ -35,7 +34,6 @@ SimpleSocket::SimpleSocket( int domain, int type, int protocol)
 
 SimpleSocket::SimpleSocket( int sockfd)
 : m_socket(sockfd)
-, m_peerDisconnected(false)
 , m_connectionOriented(true) // accepted sockets have connections
 {
 	if(sockfd < 0)
@@ -44,11 +42,9 @@ SimpleSocket::SimpleSocket( int sockfd)
 
 SimpleSocket::SimpleSocket( SimpleSocket&& other) noexcept
 : m_socket(other.m_socket)
-, m_peerDisconnected(other.m_peerDisconnected)
 , m_connectionOriented(other.m_connectionOriented)
 {
 	other.m_socket = -1;
-	other.m_peerDisconnected = false;
 	other.m_connectionOriented = false;
 }
 
@@ -59,11 +55,9 @@ SimpleSocket& SimpleSocket::operator=( SimpleSocket&& other) noexcept
 		if( m_socket >= 0) ::close(m_socket);
 
 		m_socket = other.m_socket;
-		m_peerDisconnected = other.m_peerDisconnected;
 		m_connectionOriented = other.m_connectionOriented;
 
 		other.m_socket = -1;
-		other.m_peerDisconnected = false;
 		other.m_connectionOriented = false;
 	}
 	return *this;
@@ -88,7 +82,6 @@ IOResult SimpleSocket::send( const void* buffer, size_t len)
 	const int error = errno;
 	if( m_connectionOriented && isConnectionLossError(error))
 	{
-		m_peerDisconnected = true;
 		return { IOStatus::PeerDisconnected, 0 };
 	}
 	if( !m_connectionOriented && isNonFatalDatagramError(error))
@@ -110,7 +103,6 @@ IOResult SimpleSocket::receive( void* buffer, size_t len)
 	{
 		if( m_connectionOriented && len != 0)
 		{
-			m_peerDisconnected = true;
 			return { IOStatus::PeerDisconnected, 0 };
 		}
 		return { IOStatus::Success, 0 };
@@ -119,7 +111,6 @@ IOResult SimpleSocket::receive( void* buffer, size_t len)
 	const int error = errno;
 	if( m_connectionOriented && isConnectionLossError(error))
 	{
-		m_peerDisconnected = true;
 		return { IOStatus::PeerDisconnected, 0 };
 	}
 	throw SocketException("Receive failed (receive)");
@@ -127,7 +118,7 @@ IOResult SimpleSocket::receive( void* buffer, size_t len)
 
 IOResult SimpleSocket::timedReceive( void* buffer, size_t len, int timeout)
 {
-	return timedReceiveImpl( m_socket, m_peerDisconnected, timeout,
+	return timedReceiveImpl( m_socket, m_connectionOriented, timeout,
 		[&] { return receive( buffer, len); });
 }
 
@@ -142,7 +133,6 @@ void SimpleSocket::disconnect()
 		if( errno != ECONNRESET)
 			throw SocketException("Disconnect failed (connect)");
 	}
-	m_peerDisconnected = false;
 }
 
 void SimpleSocket::shutdown( ShutdownDirection type)
@@ -156,12 +146,31 @@ void SimpleSocket::shutdown( ShutdownDirection type)
 	}
 
 	if( ::shutdown( m_socket, how) < 0)
-		throw SocketException("Shutdown failed (shutdown)");
+	{
+		if( errno != ENOTCONN)
+			throw SocketException("Shutdown failed (shutdown)");
+	}
 }
 
-bool SimpleSocket::peerDisconnected() const noexcept
+bool SimpleSocket::peerDisconnected() const
 {
-	return m_peerDisconnected;
+	if( !m_connectionOriented) return false;
+
+	pollfd pfd {};
+	pfd.fd = m_socket;
+	pfd.events = POLLIN | POLLPRI | POLLRDHUP;
+
+	const int ret = TEMP_FAILURE_RETRY(::poll( &pfd, 1, 0));
+	if( ret < 0)
+		throw SocketException("peerDisconnected failed (poll)");
+
+	if( ret == 0) return false;
+
+	if( pfd.revents & POLLNVAL)
+		throw SocketException("peerDisconnected failed (invalid socket)", false);
+
+	// HUP or error states means the connection is gone
+	return pfd.revents & (POLLRDHUP | POLLHUP | POLLERR);
 }
 
 void SimpleSocket::listen( int backlog)
@@ -187,16 +196,16 @@ int SimpleSocket::accept() const
 
 int SimpleSocket::timedAccept( int timeout) const
 {
-	struct pollfd poll;
-	poll.fd = m_socket;
-	poll.events = POLLIN;
+	pollfd pfd {};
+	pfd.fd = m_socket;
+	pfd.events = POLLIN;
 
-	int ret = TEMP_FAILURE_RETRY (::poll( &poll, 1, timeout));
+	int ret = TEMP_FAILURE_RETRY (::poll( &pfd, 1, timeout));
 	if( ret == 0) return -1; // invalid handle
 	if( ret < 0)
 		throw SocketException("timedAccept failed (poll)");
 
-	if( poll.revents & (POLLERR | POLLNVAL))
+	if( pfd.revents & (POLLERR | POLLNVAL))
 		throw SocketException("timedAccept failed (poll)");
 
 	return SimpleSocket::accept();
@@ -210,7 +219,7 @@ size_t SimpleSocket::sendAll( const void* buffer, size_t len)
 		const char* buf = static_cast<const char*>(buffer) + sent;
 		IOResult res = send( buf, len - sent);
 		sent += res.bytes;
-		if( m_peerDisconnected) break;
+		if( res.status != IOStatus::Success ) break;
 	}
 	return sent;
 }
@@ -228,7 +237,7 @@ size_t SimpleSocket::receiveAll( void* buffer, size_t len)
 	return received;
 }
 
-bool SimpleSocket::isConnectionLossError(int error) noexcept
+bool SimpleSocket::isConnectionLossError( int error) noexcept
 {
 	switch(error)
 	{
@@ -243,7 +252,7 @@ bool SimpleSocket::isConnectionLossError(int error) noexcept
 	}
 }
 
-bool SimpleSocket::isNonFatalDatagramError(int error) noexcept
+bool SimpleSocket::isNonFatalDatagramError( int error) noexcept
 {
 	switch(error)
 	{

@@ -172,9 +172,9 @@ public:
 		CPPUNIT_ASSERT(refusedPort != 0);
 
 		CPPUNIT_ASSERT_THROW(client.timedConnect(LOOPBACK, refusedPort, 1000), NET::SocketException);
-		// reset connection attempt
+		// reset connection attempt (this works for TCP only on Linux)
 		client.disconnect();
-		CPPUNIT_ASSERT(!client.peerDisconnected());
+		CPPUNIT_ASSERT(client.peerDisconnected());
 
 		const unsigned short port = prepareServer(server);
 		const int ret = client.timedConnect(LOOPBACK, port, 1000);
@@ -208,8 +208,8 @@ public:
 		CPPUNIT_ASSERT_EQUAL(0ul, ret.bytes);
 		CPPUNIT_ASSERT(session.peerDisconnected());
 
-		session.disconnect(); // this only works for TCP on Linux
-		CPPUNIT_ASSERT(!session.peerDisconnected());
+		session.disconnect(); // this works for TCP only on Linux
+		CPPUNIT_ASSERT(session.peerDisconnected());
 	}
 
 	void testIPv6()

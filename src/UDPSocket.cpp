@@ -68,7 +68,7 @@ IOResult UDPSocket::receiveFrom( void* buffer, size_t len, std::string& sourceAd
 
 IOResult UDPSocket::timedReceiveFrom( void* buffer, size_t len, std::string& sourceAddress, unsigned short& sourcePort, int timeout)
 {
-	return timedReceiveImpl( m_socket, m_peerDisconnected, timeout,
+	return timedReceiveImpl( m_socket, m_connectionOriented, timeout,
 		[&] { return receiveFrom( buffer, len, sourceAddress, sourcePort); });
 }
 

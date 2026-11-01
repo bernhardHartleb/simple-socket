@@ -55,7 +55,7 @@ IOResult CANRawSocket::receiveFrom( ::can_frame& frame, std::string& interface)
 
 IOResult CANRawSocket::timedReceiveFrom( ::can_frame& frame, std::string& interface, int timeout)
 {
-	return timedReceiveImpl( m_socket, m_peerDisconnected, timeout,
+	return timedReceiveImpl( m_socket, m_connectionOriented, timeout,
 		[&] { return receiveFrom( frame, interface); });
 }
 

@@ -44,6 +44,6 @@ IOResult UnixDatagramSocket::receiveFrom( void* buffer, size_t len, std::string&
 
 IOResult UnixDatagramSocket::timedReceiveFrom( void* buffer, size_t len, std::string& sourcePath, int timeout)
 {
-	return timedReceiveImpl( m_socket, m_peerDisconnected, timeout,
+	return timedReceiveImpl( m_socket, m_connectionOriented, timeout,
 		[&] { return receiveFrom( buffer, len, sourcePath); });
 }
