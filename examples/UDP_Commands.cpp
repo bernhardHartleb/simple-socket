@@ -19,9 +19,9 @@ static int runServer()
 		std::string sourceAddress;
 		unsigned short sourcePort = 0;
 
-		int received = socket.receiveFrom(buffer.data(), buffer.size(), sourceAddress, sourcePort);
+		NET::IOResult res = socket.receiveFrom(buffer.data(), buffer.size(), sourceAddress, sourcePort);
 
-		std::string command(buffer.data(), static_cast<size_t>(received));
+		std::string command(buffer.data(), res.bytes);
 		std::cout << "Received from " << sourceAddress << ":" << sourcePort << " " << command << std::endl;
 
 		if (command == "quit")

@@ -18,29 +18,28 @@ int main()
 	{
 		// TCP is a byte stream: one receive call is not guaranteed
 		// to return everything the peer sent
-		int received = client_socket.timedReceive(buffer.data(), buffer.size(), 5000);
-		if (received > 0)
+		NET::IOResult res = client_socket.timedReceive(buffer.data(), buffer.size(), 5000);
+
+		if (res.status == NET::IOStatus::Success)
 		{
 			// Use the returned byte count
 			// Received network data is not necessarily null terminated
-			std::cout.write(buffer.data(), received);
+			std::cout.write(buffer.data(), res.bytes);
 			continue;
 		}
-
-		if (client_socket.peerDisconnected())
+		else if (client_socket.peerDisconnected())
 		{
 			// Graceful EOF from the server
 			break;
 		}
 
-		// timedReceive() also returns 0 when its timeout expires
 		std::cerr << "\nTimed out waiting for server data." << std::endl;
-
 		return 1;
 	}
 
 	std::cout << std::endl;
 	// No explicit close is necessary
+	return 0;
 
 	}
 	catch (const NET::SocketException& e)
@@ -48,6 +47,4 @@ int main()
 		std::cerr << e.what() << std::endl;
 		return 1;
 	}
-
-	return 0;
 }

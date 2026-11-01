@@ -32,20 +32,22 @@ int main()
 
 	// UDP preserves datagram boundaries
 	// one receiveFrom() corresponds to one datagram
-	int received = recv_socket.timedReceiveFrom(buffer.data(), buffer.size(), source, source_port, 1000);
-	if (received == 0)
+	NET::IOResult res = recv_socket.timedReceiveFrom(buffer.data(), buffer.size(), source, source_port, 1000);
+	if (res.status == NET::IOStatus::Timeout)
 	{
 		std::cerr << "Timed out waiting for multicast datagram." << std::endl;
 		return 1;
 	}
 
 	std::cout << "Received from " << source << ":" << source_port << ": ";
-	std::cout.write(buffer.data(), received);
+	std::cout.write(buffer.data(), res.bytes);
 	std::cout << std::endl;
 
 	// Not required before destruction, but shown because leaving
 	// multicast groups explicitly can be useful
 	recv_socket.leaveGroup(multicast_group);
+
+	return 0;
 
 	}
 	catch (const NET::SocketException& e)
@@ -53,6 +55,4 @@ int main()
 		std::cerr << e.what() << std::endl;
 		return 1;
 	}
-
-	return 0;
 }

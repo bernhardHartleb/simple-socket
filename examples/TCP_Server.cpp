@@ -47,6 +47,7 @@ int main()
 
 	std::cout << "Successfully sent " << sent << " bytes." << std::endl;
 	// No explicit close is necessary
+	return 0;
 
 	}
 	catch (const NET::SocketException& e)
@@ -54,6 +55,4 @@ int main()
 		std::cerr << e.what() << std::endl;
 		return 1;
 	}
-
-	return 0;
 }
