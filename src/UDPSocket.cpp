@@ -1,10 +1,10 @@
 #include "UDPSocket.h"
 #include "SockAddress.h"
 #include "TempFailure.h"
+#include "PollHelper.h"
 
 #include <sys/socket.h>
 #include <arpa/inet.h>
-#include <poll.h>
 
 using namespace NET;
 
@@ -62,25 +62,8 @@ int UDPSocket::receiveFrom( void* buffer, size_t len, std::string& sourceAddress
 
 int UDPSocket::timedReceiveFrom( void* buffer, size_t len, std::string& sourceAddress, unsigned short& sourcePort, int timeout)
 {
-	struct pollfd poll;
-	poll.fd = m_socket;
-	poll.events = POLLIN | POLLPRI | POLLRDHUP;
-
-	int ret = TEMP_FAILURE_RETRY (::poll( &poll, 1, timeout));
-
-	if( ret == 0) return 0;
-	if( ret < 0)  throw SocketException("timedReceive failed (poll)");
-
-	if( poll.revents & POLLRDHUP || poll.revents & POLLHUP)
-		m_peerDisconnected = true;
-
-	if( poll.revents & POLLIN || poll.revents & POLLPRI)
-		return receiveFrom( buffer, len, sourceAddress, sourcePort);
-
-	if( poll.revents & (POLLERR | POLLNVAL))
-		throw SocketException("timedReceive failed (poll)");
-
-	return 0;
+	return timedReceiveImpl( m_socket, m_peerDisconnected, timeout,
+		[&] { return receiveFrom( buffer, len, sourceAddress, sourcePort); });
 }
 
 void UDPSocket::setMulticastTTL( unsigned char multicastTTL)

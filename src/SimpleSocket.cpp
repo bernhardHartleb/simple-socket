@@ -1,8 +1,8 @@
 #include "SimpleSocket.h"
 #include "SockAddress.h"
 #include "TempFailure.h"
+#include "PollHelper.h"
 
-#include <poll.h>
 #include <unistd.h>
 #include <cstring>
 #include <cerrno>
@@ -115,25 +115,8 @@ int SimpleSocket::receive( void* buffer, size_t len)
 
 int SimpleSocket::timedReceive( void* buffer, size_t len, int timeout)
 {
-	struct pollfd poll;
-	poll.fd = m_socket;
-	poll.events = POLLIN | POLLPRI | POLLRDHUP;
-
-	int ret = TEMP_FAILURE_RETRY (::poll( &poll, 1, timeout));
-
-	if( ret == 0) return 0;
-	if( ret < 0)  throw SocketException("timedReceive failed (poll)");
-
-	if( poll.revents & POLLRDHUP || poll.revents & POLLHUP)
-		m_peerDisconnected = true;
-
-	if( poll.revents & POLLIN || poll.revents & POLLPRI)
-		return receive( buffer, len);
-
-	if( poll.revents & (POLLERR | POLLNVAL))
-		throw SocketException("timedReceive failed (poll)");
-
-	return 0;
+	return timedReceiveImpl( m_socket, m_peerDisconnected, timeout,
+		[&] { return receive( buffer, len); });
 }
 
 void SimpleSocket::disconnect()

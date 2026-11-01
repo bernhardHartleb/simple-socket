@@ -1,8 +1,7 @@
 #include "SCTPSocket.h"
 #include "SockAddress.h"
 #include "TempFailure.h"
-
-#include <poll.h>
+#include "PollHelper.h"
 
 using namespace NET;
 
@@ -150,48 +149,14 @@ int SCTPSocket::receive( void* data, size_t maxLen, uint16_t& stream, receiveFla
 
 int SCTPSocket::timedReceive( void* data, size_t maxLen, uint16_t& stream, int timeout)
 {
-	struct pollfd poll;
-	poll.fd = m_socket;
-	poll.events = POLLIN | POLLPRI | POLLRDHUP;
-
-	int ret = TEMP_FAILURE_RETRY (::poll( &poll, 1, timeout));
-
-	if( ret == 0) return 0;
-	if( ret < 0) throw SocketException("SCTPSocket::timedReceive failed (poll)");
-
-	if( poll.revents & POLLRDHUP || poll.revents & POLLHUP)
-		m_peerDisconnected = true;
-
-	if( poll.revents & POLLIN || poll.revents & POLLPRI)
-		return receive( data, maxLen, stream);
-
-	if( poll.revents & (POLLERR | POLLNVAL))
-		throw SocketException("SCTPSocket::timedReceive failed (poll)");
-
-	return 0;
+	return timedReceiveImpl( m_socket, m_peerDisconnected, timeout,
+		[&] { return receive( data, maxLen, stream); });
 }
 
 int SCTPSocket::timedReceive( void* data, size_t maxLen, uint16_t& stream, receiveFlag& flag, int timeout)
 {
-	struct pollfd poll;
-	poll.fd = m_socket;
-	poll.events = POLLIN | POLLPRI | POLLRDHUP;
-
-	int ret = TEMP_FAILURE_RETRY (::poll( &poll, 1, timeout));
-
-	if( ret == 0) return 0;
-	if( ret < 0) throw SocketException("SCTPSocket::timedReceive failed (poll)");
-
-	if( poll.revents & POLLRDHUP || poll.revents & POLLHUP)
-		m_peerDisconnected = true;
-
-	if( poll.revents & POLLIN || poll.revents & POLLPRI)
-		return receive( data, maxLen, stream, flag);
-
-	if( poll.revents & (POLLERR | POLLNVAL))
-		throw SocketException("SCTPSocket::timedReceive failed (poll)");
-
-	return 0;
+	return timedReceiveImpl( m_socket, m_peerDisconnected, timeout,
+		[&] { return receive( data, maxLen, stream, flag); });
 }
 
 SCTPSocket SCTPSocket::accept() const
