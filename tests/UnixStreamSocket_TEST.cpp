@@ -47,7 +47,7 @@ public:
 		NET::UnixStreamSocket client;
 
 		// No peer exists before connect()
-		CPPUNIT_ASSERT_THROW(client.getForeignPath(), NET::SocketException);
+		CPPUNIT_ASSERT_EQUAL(std::string(), client.getForeignPath());
 
 		server.bind(serverPath);
 		server.listen();

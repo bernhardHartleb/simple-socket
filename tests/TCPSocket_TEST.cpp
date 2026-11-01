@@ -36,6 +36,10 @@ public:
 		const unsigned short port = prepareServer(server);
 		CPPUNIT_ASSERT(port != 0);
 
+		// No peer exists before connect()
+		CPPUNIT_ASSERT_EQUAL(std::string(), client.getForeignAddress());
+		CPPUNIT_ASSERT_EQUAL(static_cast<unsigned short>(0), client.getForeignPort());
+
 		client.connect(LOOPBACK, port);
 
 		NET::TCPSocket session = server.accept();

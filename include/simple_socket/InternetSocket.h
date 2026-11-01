@@ -101,14 +101,14 @@ namespace NET
 
 		/*!
 		 * Get the foreign address. Call connect() before using this function.
-		 * \return foreign address
+		 * \return foreign address or empty string when not connected
 		 * \exception SocketException thrown if unable to fetch foreign address
 		 */
 		std::string getForeignAddress() const;
 
 		/*!
 		 * Get the foreign port. Call connect() before using this function.
-		 * \return foreign port
+		 * \return foreign port or 0 when not connected
 		 * \exception SocketException thrown if unable to fetch foreign port
 		 */
 		unsigned short getForeignPort() const;

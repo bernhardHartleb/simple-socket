@@ -37,7 +37,7 @@ namespace NET
 
 		/*!
 		 * Get the foreign path. Call connect() before using this function.
-		 * \return foreign path
+		 * \return foreign path or empty string when not connected
 		 * \exception SocketException thrown if fetch fails
 		 */
 		std::string getForeignPath() const;

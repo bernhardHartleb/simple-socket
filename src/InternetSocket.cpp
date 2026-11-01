@@ -170,8 +170,10 @@ std::string InternetSocket::getForeignAddress() const
 	SockAddress addr;
 
 	if( ::getpeername( m_socket, addr.data(), addr.lengthPtr()) < 0)
+	{
+		if( errno == ENOTCONN) return {};
 		throw SocketException("Fetch of foreign address failed (getpeername)");
-
+	}
 	return addr.address();
 }
 
@@ -180,7 +182,9 @@ unsigned short InternetSocket::getForeignPort() const
 	SockAddress addr;
 
 	if( ::getpeername( m_socket, addr.data(), addr.lengthPtr()) < 0)
+	{
+		if( errno == ENOTCONN) return 0;
 		throw SocketException("Fetch of foreign port failed (getpeername)");
-
+	}
 	return addr.port();
 }

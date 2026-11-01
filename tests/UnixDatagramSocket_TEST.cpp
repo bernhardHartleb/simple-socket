@@ -78,7 +78,7 @@ public:
 		server.bind(serverPath);
 
 		// No peer exists before connect()
-		CPPUNIT_ASSERT_THROW(client.getForeignPath(), NET::SocketException);
+		CPPUNIT_ASSERT_EQUAL(std::string(), client.getForeignPath());
 
 		client.connect(serverPath);
 		server.connect(clientPath);

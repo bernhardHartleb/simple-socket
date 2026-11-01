@@ -76,7 +76,9 @@ std::string UnixSocket::getForeignPath() const
 	SockAddress addr;
 
 	if( ::getpeername( m_socket, addr.data(), addr.lengthPtr()) < 0)
+	{
+		if( errno == ENOTCONN) return {};
 		throw SocketException("Fetch of foreign path failed (getpeername)");
-
+	}
 	return addr.address();
 }
