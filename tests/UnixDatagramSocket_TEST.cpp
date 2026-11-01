@@ -5,6 +5,9 @@
 #include <cstring>
 #include <string>
 
+using NET::IOResult;
+using NET::IOStatus;
+
 class UnixDatagramSocket_TEST : public CppUnit::TestFixture
 {
 	CPPUNIT_TEST_SUITE(UnixDatagramSocket_TEST);
@@ -56,9 +59,9 @@ public:
 		char buffer[sizeof(message)] = {};
 		std::string sourcePath;
 
-		const int received = receiver.receiveFrom(buffer, sizeof(buffer), sourcePath);
-
-		CPPUNIT_ASSERT_EQUAL(static_cast<int>(sizeof(message)), received);
+		IOResult recv = receiver.receiveFrom(buffer, sizeof(buffer), sourcePath);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, recv.status);
+		CPPUNIT_ASSERT_EQUAL(sizeof(message), recv.bytes);
 		CPPUNIT_ASSERT_EQUAL(senderPath, sourcePath);
 		CPPUNIT_ASSERT(std::memcmp(message, buffer, sizeof(message)) == 0);
 	}
@@ -89,24 +92,25 @@ public:
 		CPPUNIT_ASSERT_EQUAL(clientPath, server.getForeignPath());
 
 		const char request[] = "Unix datagram request";
-		int sent = client.send(request, sizeof(request));
-
-		CPPUNIT_ASSERT_EQUAL(static_cast<int>(sizeof(request)), sent);
+		IOResult sent = client.send(request, sizeof(request));
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, sent.status);
+		CPPUNIT_ASSERT_EQUAL(sizeof(request), sent.bytes);
 
 		char buffer[64] = {};
-		int received = server.timedReceive(buffer, sizeof(buffer), 1000);
-
-		CPPUNIT_ASSERT_EQUAL(static_cast<int>(sizeof(request)), received);
+		IOResult recv = server.timedReceive(buffer, sizeof(buffer), 1000);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, recv.status);
+		CPPUNIT_ASSERT_EQUAL(sizeof(request), recv.bytes);
 		CPPUNIT_ASSERT(std::memcmp(request, buffer, sizeof(request)) == 0);
 
 		const char reply[] = "Unix datagram reply";
 		sent = server.send(reply, sizeof(reply));
-		CPPUNIT_ASSERT_EQUAL(static_cast<int>(sizeof(reply)), sent);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, sent.status);
+		CPPUNIT_ASSERT_EQUAL(sizeof(reply), sent.bytes);
 
 		std::memset(buffer, 0, sizeof(buffer));
-		received = client.timedReceive(buffer, sizeof(buffer), 1000);
-
-		CPPUNIT_ASSERT_EQUAL(static_cast<int>(sizeof(reply)), received);
+		recv = client.timedReceive(buffer, sizeof(buffer), 1000);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, recv.status);
+		CPPUNIT_ASSERT_EQUAL(sizeof(reply), recv.bytes);
 		CPPUNIT_ASSERT(std::memcmp(reply, buffer, sizeof(reply)) == 0);
 	}
 
@@ -129,9 +133,9 @@ public:
 		std::string sourcePath = "unchanged";
 
 		// No datagram waiting.
-		int received = receiver.timedReceiveFrom(buffer, sizeof(buffer), sourcePath, 50);
-
-		CPPUNIT_ASSERT_EQUAL(0, received);
+		IOResult recv = receiver.timedReceiveFrom(buffer, sizeof(buffer), sourcePath, 50);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Timeout, recv.status);
+		CPPUNIT_ASSERT_EQUAL(0ul, recv.bytes);
 		// Neither the source path nor receive buffer should have been modified
 		CPPUNIT_ASSERT_EQUAL(std::string("unchanged"), sourcePath);
 
@@ -141,9 +145,9 @@ public:
 		const char message[] = "Timed Unix datagram";
 		sender.sendTo(message, sizeof(message), receiverPath);
 
-		received = receiver.timedReceiveFrom(buffer, sizeof(buffer), sourcePath, 1000);
-
-		CPPUNIT_ASSERT_EQUAL(static_cast<int>(sizeof(message)), received);
+		recv = receiver.timedReceiveFrom(buffer, sizeof(buffer), sourcePath, 1000);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, recv.status);
+		CPPUNIT_ASSERT_EQUAL(sizeof(message), recv.bytes);
 		CPPUNIT_ASSERT_EQUAL(senderPath, sourcePath);
 		CPPUNIT_ASSERT(std::memcmp(message, buffer, sizeof(message)) == 0);
 	}
@@ -166,10 +170,10 @@ public:
 		sender.sendTo(&dummy, 0, receiverPath);
 
 		std::string sourcePath;
-		const int received = receiver.receiveFrom(&dummy, sizeof(dummy), sourcePath);
-
+		IOResult recv = receiver.receiveFrom(&dummy, sizeof(dummy), sourcePath);
 		// Zero bytes is a valid datagram
-		CPPUNIT_ASSERT_EQUAL(0, received);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, recv.status);
+		CPPUNIT_ASSERT_EQUAL(0ul, recv.bytes);
 		// Sender path demonstrates that an actual datagram was consumed
 		CPPUNIT_ASSERT_EQUAL(senderPath, sourcePath);
 		CPPUNIT_ASSERT_EQUAL('X', dummy);
@@ -179,9 +183,7 @@ public:
 	{
 		const std::string path = socketPath("unix-dgram-cleanup");
 		removeStaleSocket(path);
-
 		CPPUNIT_ASSERT(::access(path.c_str(), F_OK) != 0);
-
 		{
 			NET::UnixDatagramSocket socket;
 			socket.bind(path);
@@ -189,7 +191,6 @@ public:
 			CPPUNIT_ASSERT_EQUAL(path, socket.getLocalPath());
 			CPPUNIT_ASSERT(::access(path.c_str(), F_OK) == 0);
 		}
-
 		// UnixSocket owns paths it binds and removes them during destruction
 		CPPUNIT_ASSERT(::access(path.c_str(), F_OK) != 0);
 	}

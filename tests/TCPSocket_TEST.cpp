@@ -4,6 +4,9 @@
 #include <cstring>
 #include <vector>
 
+using NET::IOResult;
+using NET::IOStatus;
+
 class TCPSocket_TEST : public CppUnit::TestFixture
 {
 	CPPUNIT_TEST_SUITE(TCPSocket_TEST);
@@ -52,16 +55,17 @@ public:
 		CPPUNIT_ASSERT_EQUAL(port, session.getLocalPort());
 
 		const char message[] = "Hello TCP";
-		const int sent = client.send(message, sizeof(message));
+		IOResult sent = client.send(message, sizeof(message));
 
-		CPPUNIT_ASSERT(sent > 0);
-		CPPUNIT_ASSERT(sent <= static_cast<int>(sizeof(message)));
+		CPPUNIT_ASSERT_EQUAL(sent.status, IOStatus::Success);
+		CPPUNIT_ASSERT_EQUAL(sent.bytes, sizeof(message));
 
 		char buffer[sizeof(message)] = {};
-		const int received = session.receive(buffer, static_cast<size_t>(sent));
+		IOResult received = session.receive(buffer, sent.bytes);
 
-		CPPUNIT_ASSERT_EQUAL(sent, received);
-		CPPUNIT_ASSERT(std::memcmp(message, buffer, static_cast<size_t>(sent)) == 0);
+		CPPUNIT_ASSERT_EQUAL(received.status, IOStatus::Success);
+		CPPUNIT_ASSERT_EQUAL(received.bytes, sent.bytes);
+		CPPUNIT_ASSERT(std::memcmp(message, buffer, sent.bytes) == 0);
 	}
 
 	void testSendAll()
@@ -76,16 +80,18 @@ public:
 
 		// Large enough to exercise more than just a trivial message
 		std::vector<char> sendBuffer(32 * 1024);
-		const int len = static_cast<int>(sendBuffer.size());
+		const size_t len = sendBuffer.size();
 
 		for (size_t i = 0; i < sendBuffer.size(); ++i)
 			sendBuffer[i] = static_cast<char>(i % 251);
 
-		const int sent = client.sendAll(sendBuffer.data(), sendBuffer.size());
+		size_t sent = client.sendAll(sendBuffer.data(), sendBuffer.size());
+		//CPPUNIT_ASSERT_EQUAL(sent.status, IOStatus::Success);
 		CPPUNIT_ASSERT_EQUAL(len, sent);
 
 		std::vector<char> receiveBuffer(sendBuffer.size());
-		const int received = session.receiveAll(receiveBuffer.data(), receiveBuffer.size());
+		size_t received = session.receiveAll(receiveBuffer.data(), receiveBuffer.size());
+		//CPPUNIT_ASSERT_EQUAL(received.status, IOStatus::Success);
 		CPPUNIT_ASSERT_EQUAL(len, received);
 		CPPUNIT_ASSERT(sendBuffer == receiveBuffer);
 	}
@@ -112,6 +118,13 @@ public:
 		opt.reset();
 		CPPUNIT_ASSERT(!opt);
 		CPPUNIT_ASSERT(!session.peerDisconnected());
+
+		// try send after shutdown
+		session.shutdown(NET::STOP_BOTH);
+		char dummy = 0;
+		IOResult sent = session.send( &dummy, sizeof(dummy));
+		CPPUNIT_ASSERT_EQUAL(IOStatus::PeerDisconnected, sent.status);
+		CPPUNIT_ASSERT_EQUAL(0ul, sent.bytes);
 	}
 
 	void testTimedReceive()
@@ -128,19 +141,21 @@ public:
 
 		char buffer[64] = {};
 		// Connected socket, but no data waiting
-		int ret = session.timedReceive(buffer, sizeof(buffer), 50);
-		CPPUNIT_ASSERT_EQUAL(0, ret);
+		IOResult ret = session.timedReceive(buffer, sizeof(buffer), 50);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Timeout, ret.status);
+		CPPUNIT_ASSERT_EQUAL(0ul, ret.bytes);
 		// Timeout must not be mistaken for peer disconnect
 		CPPUNIT_ASSERT(!session.peerDisconnected());
 
 		const char message[] = "Timed receive";
-		const int sent = client.sendAll(message, sizeof(message));
-		CPPUNIT_ASSERT_EQUAL(static_cast<int>(sizeof(message)), sent);
+		size_t sent = client.sendAll(message, sizeof(message));
+		//CPPUNIT_ASSERT_EQUAL(IOStatus::Success, sent.status);
+		CPPUNIT_ASSERT_EQUAL(sizeof(message), sent);
 
 		ret = session.timedReceive(buffer, sizeof(buffer), 1000);
-		CPPUNIT_ASSERT(ret > 0);
-		CPPUNIT_ASSERT(ret <= static_cast<int>(sizeof(message)));
-		CPPUNIT_ASSERT(std::memcmp(message, buffer, static_cast<size_t>(ret)) == 0);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, ret.status);
+		CPPUNIT_ASSERT(ret.bytes == sizeof(message));
+		CPPUNIT_ASSERT(std::memcmp(message, buffer, ret.bytes) == 0);
 		CPPUNIT_ASSERT(!session.peerDisconnected());
 	}
 
@@ -188,9 +203,13 @@ public:
 		client.shutdown(NET::STOP_SEND);
 
 		char buffer[16];
-		const int ret = session.timedReceive(buffer, sizeof(buffer), 1000);
-		CPPUNIT_ASSERT_EQUAL(0, ret);
+		IOResult ret = session.timedReceive(buffer, sizeof(buffer), 1000);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::PeerDisconnected, ret.status);
+		CPPUNIT_ASSERT_EQUAL(0ul, ret.bytes);
 		CPPUNIT_ASSERT(session.peerDisconnected());
+
+		session.disconnect(); // this only works for TCP on Linux
+		CPPUNIT_ASSERT(!session.peerDisconnected());
 	}
 
 	void testIPv6()
@@ -217,12 +236,14 @@ public:
 		CPPUNIT_ASSERT_EQUAL(NET::IPv6, session.addressFamily());
 
 		const char message[] = "IPv6 works";
-		const int sent = client.sendAll(message, sizeof(message));
-		CPPUNIT_ASSERT_EQUAL(static_cast<int>(sizeof(message)), sent);
+		size_t sent = client.sendAll(message, sizeof(message));
+		//CPPUNIT_ASSERT_EQUAL(IOStatus::Success, sent.status);
+		CPPUNIT_ASSERT_EQUAL(sizeof(message), sent);
 
 		char buffer[sizeof(message)]{};
-		const int recv = session.timedReceive(buffer, sizeof(buffer), 1000);
-		CPPUNIT_ASSERT_EQUAL(static_cast<int>(sizeof(message)), recv);
+		IOResult recv = session.timedReceive(buffer, sizeof(buffer), 1000);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, recv.status);
+		CPPUNIT_ASSERT_EQUAL(sizeof(message), recv.bytes);
 		CPPUNIT_ASSERT(std::memcmp(message, buffer, sizeof(message)) == 0);
 	}
 };

@@ -4,6 +4,9 @@
 #include <cstring>
 #include <string>
 
+using NET::IOResult;
+using NET::IOStatus;
+
 class UDPSocket_TEST : public CppUnit::TestFixture
 {
 	CPPUNIT_TEST_SUITE(UDPSocket_TEST);
@@ -35,15 +38,17 @@ public:
 		CPPUNIT_ASSERT(receiverPort != 0);
 
 		const char message[] = "Hello UDP";
-		sender.sendTo(message, sizeof(message), LOOPBACK, receiverPort);
+		IOResult sent = sender.sendTo(message, sizeof(message), LOOPBACK, receiverPort);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, sent.status);
+		CPPUNIT_ASSERT_EQUAL(sizeof(message), sent.bytes);
 
 		char buffer[sizeof(message)] = {};
 		std::string sourceAddress;
 		unsigned short sourcePort = 0;
 
-		const int received = receiver.receiveFrom(buffer, sizeof(buffer), sourceAddress, sourcePort);
-
-		CPPUNIT_ASSERT_EQUAL(static_cast<int>(sizeof(message)), received);
+		IOResult recv = receiver.receiveFrom(buffer, sizeof(buffer), sourceAddress, sourcePort);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, recv.status);
+		CPPUNIT_ASSERT_EQUAL(sizeof(message), recv.bytes);
 		CPPUNIT_ASSERT_EQUAL(std::string(LOOPBACK), sourceAddress);
 		CPPUNIT_ASSERT_EQUAL(senderPort, sourcePort);
 		CPPUNIT_ASSERT(std::memcmp(message, buffer, sizeof(message)) == 0);
@@ -65,17 +70,18 @@ public:
 		CPPUNIT_ASSERT_EQUAL(serverPort, client.getForeignPort());
 
 		const char request[] = "UDP request";
-		const int sent = client.send(request, sizeof(request));
-		CPPUNIT_ASSERT_EQUAL(static_cast<int>(sizeof(request)), sent);
+		IOResult sent = client.send(request, sizeof(request));
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, sent.status);
+		CPPUNIT_ASSERT_EQUAL(sizeof(request), sent.bytes);
 		CPPUNIT_ASSERT(!client.peerDisconnected());
 
 		char buffer[64] = {};
 		std::string sourceAddress;
 		unsigned short sourcePort = 0;
 
-		int received = server.receiveFrom(buffer, sizeof(buffer), sourceAddress, sourcePort);
-
-		CPPUNIT_ASSERT_EQUAL(static_cast<int>(sizeof(request)), received);
+		IOResult recv = server.receiveFrom(buffer, sizeof(buffer), sourceAddress, sourcePort);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, recv.status);
+		CPPUNIT_ASSERT_EQUAL(sizeof(request), recv.bytes);
 		CPPUNIT_ASSERT_EQUAL(std::string(LOOPBACK), sourceAddress);
 		CPPUNIT_ASSERT(sourcePort != 0);
 		CPPUNIT_ASSERT(std::memcmp(request, buffer, sizeof(request)) == 0);
@@ -84,9 +90,9 @@ public:
 		server.sendTo(reply, sizeof(reply), sourceAddress, sourcePort);
 
 		std::memset(buffer, 0, sizeof(buffer));
-		received = client.timedReceive(buffer, sizeof(buffer), 1000);
-
-		CPPUNIT_ASSERT_EQUAL(static_cast<int>(sizeof(reply)), received);
+		recv = client.timedReceive(buffer, sizeof(buffer), 1000);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, recv.status);
+		CPPUNIT_ASSERT_EQUAL(sizeof(reply), recv.bytes);
 		CPPUNIT_ASSERT(std::memcmp(reply, buffer, sizeof(reply)) == 0);
 	}
 
@@ -105,9 +111,9 @@ public:
 		unsigned short sourcePort = 12345;
 
 		// Nothing has been sent yet
-		int received = receiver.timedReceiveFrom(buffer, sizeof(buffer), sourceAddress, sourcePort, 50);
-
-		CPPUNIT_ASSERT_EQUAL(0, received);
+		IOResult recv = receiver.timedReceiveFrom(buffer, sizeof(buffer), sourceAddress, sourcePort, 50);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Timeout, recv.status);
+		CPPUNIT_ASSERT_EQUAL(0ul, recv.bytes);
 		CPPUNIT_ASSERT_EQUAL(std::string("unchanged"), sourceAddress);
 		CPPUNIT_ASSERT_EQUAL(static_cast<unsigned short>(12345), sourcePort);
 		CPPUNIT_ASSERT(!receiver.peerDisconnected());
@@ -118,9 +124,9 @@ public:
 		const char message[] = "Timed UDP";
 		sender.sendTo(message, sizeof(message), LOOPBACK, receiverPort);
 
-		received = receiver.timedReceiveFrom(buffer, sizeof(buffer), sourceAddress, sourcePort, 1000);
-
-		CPPUNIT_ASSERT_EQUAL(static_cast<int>(sizeof(message)), received);
+		recv = receiver.timedReceiveFrom(buffer, sizeof(buffer), sourceAddress, sourcePort, 1000);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, recv.status);
+		CPPUNIT_ASSERT_EQUAL(sizeof(message), recv.bytes);
 		CPPUNIT_ASSERT_EQUAL(std::string(LOOPBACK), sourceAddress);
 		CPPUNIT_ASSERT_EQUAL(sender.getLocalPort(), sourcePort);
 		CPPUNIT_ASSERT(std::memcmp(message, buffer, sizeof(message)) == 0);
@@ -141,10 +147,10 @@ public:
 		std::string sourceAddress;
 		unsigned short sourcePort = 0;
 
-		const int received = receiver.receiveFrom(&dummy, sizeof(dummy), sourceAddress, sourcePort);
-
+		IOResult recv = receiver.receiveFrom(&dummy, sizeof(dummy), sourceAddress, sourcePort);
 		// Zero is a valid UDP datagram size
-		CPPUNIT_ASSERT_EQUAL(0, received);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, recv.status);
+		CPPUNIT_ASSERT_EQUAL(0ul, recv.bytes);
 		// receiveFrom() still provides the sender information, which proves
 		// that an actual datagram was received rather than a timeout.
 		CPPUNIT_ASSERT_EQUAL(std::string(LOOPBACK), sourceAddress);
@@ -171,16 +177,16 @@ public:
 		std::string sourceAddress;
 		unsigned short sourcePort = 0;
 
-		int received = receiver.receiveFrom(buffer, sizeof(buffer), sourceAddress, sourcePort);
-
+		IOResult recv = receiver.receiveFrom(buffer, sizeof(buffer), sourceAddress, sourcePort);
 		// Datagram sockets return only what fits into the supplied buffer
-		CPPUNIT_ASSERT_EQUAL(static_cast<int>(sizeof(buffer)), received);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, recv.status);
+		CPPUNIT_ASSERT_EQUAL(sizeof(buffer), recv.bytes);
 		CPPUNIT_ASSERT(std::memcmp(message, buffer, sizeof(buffer)) == 0);
 
+		recv = receiver.timedReceiveFrom(buffer, sizeof(buffer), sourceAddress, sourcePort, 50);
 		// Nothing from the truncated datagram should remain queued
-		received = receiver.timedReceiveFrom(buffer, sizeof(buffer), sourceAddress, sourcePort, 50);
-
-		CPPUNIT_ASSERT_EQUAL(0, received);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Timeout, recv.status);
+		CPPUNIT_ASSERT_EQUAL(0ul, recv.bytes);
 	}
 
 	void testMulticast()
@@ -190,7 +196,7 @@ public:
 
 		const char group[] = "224.40.0.1";
 		const char message[] = "The quick brown fox jumps over the lazy dog";
-		const int len = sizeof(message);
+		const size_t len = sizeof(message);
 
 		sender.setMulticastTTL(0);
 		sender.connect(group, 47777);
@@ -198,20 +204,23 @@ public:
 		receiver.bind(47777);
 		receiver.joinGroup(group);
 
-		int sent = sender.send(message, len);
-		CPPUNIT_ASSERT_EQUAL(len, sent);
+		IOResult sent = sender.send(message, len);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, sent.status);
+		CPPUNIT_ASSERT_EQUAL(len, sent.bytes);
 
 		char buffer[64] = {};
-		int received = receiver.receive(buffer, len);
-		CPPUNIT_ASSERT_EQUAL(len, received);
+		IOResult recv = receiver.receive(buffer, len);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, recv.status);
+		CPPUNIT_ASSERT_EQUAL(len, recv.bytes);
 		CPPUNIT_ASSERT(std::memcmp(message, buffer, len) == 0);
 
 		receiver.leaveGroup(group);
 		sent = sender.send(message, len);
-		CPPUNIT_ASSERT_EQUAL(len, sent);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, sent.status);
 
-		received = receiver.timedReceive(buffer, len, 50);
-		CPPUNIT_ASSERT_EQUAL(0, received);
+		recv = receiver.timedReceive(buffer, len, 50);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Timeout, recv.status);
+		CPPUNIT_ASSERT_EQUAL(0ul, recv.bytes);
 	}
 
 	void testInvalidAddress()

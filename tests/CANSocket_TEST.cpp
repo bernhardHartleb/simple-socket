@@ -5,6 +5,9 @@
 #include <algorithm>
 #include <initializer_list>
 
+using NET::IOResult;
+using NET::IOStatus;
+
 class CANSocket_TEST : public CppUnit::TestFixture
 {
 	CPPUNIT_TEST_SUITE(CANSocket_TEST);
@@ -69,9 +72,10 @@ public:
 
 		::can_frame received{};
 		std::string sourceInterface;
-		const int ret = receiver.timedReceiveFrom(received, sourceInterface, 1000);
+		IOResult ret = receiver.timedReceiveFrom(received, sourceInterface, 1000);
 
-		CPPUNIT_ASSERT_EQUAL(static_cast<int>(sizeof(::can_frame)), ret);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, ret.status);
+		CPPUNIT_ASSERT_EQUAL(sizeof(::can_frame), ret.bytes);
 		CPPUNIT_ASSERT_EQUAL(std::string(INTERFACE), sourceInterface);
 		assertFrameEqual(sent, received);
 	}
@@ -91,9 +95,10 @@ public:
 		sender.send(sent);
 
 		::can_frame received{};
-		const int ret = receiver.timedReceive(received, 1000);
+		IOResult ret = receiver.timedReceive(received, 1000);
 
-		CPPUNIT_ASSERT_EQUAL(static_cast<int>(sizeof(::can_frame)), ret);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, ret.status);
+		CPPUNIT_ASSERT_EQUAL(sizeof(::can_frame), ret.bytes);
 		assertFrameEqual(sent, received);
 	}
 
@@ -107,9 +112,10 @@ public:
 
 		::can_frame frame = makeFrame(0x777, {0xAA});
 		const ::can_frame original = frame;
-		const int ret = receiver.timedReceive(frame, 50);
+		IOResult ret = receiver.timedReceive(frame, 50);
 
-		CPPUNIT_ASSERT_EQUAL(0, ret);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Timeout, ret.status);
+		CPPUNIT_ASSERT_EQUAL(0ul, ret.bytes);
 		// Timeout must not modify the receive buffer
 		assertFrameEqual(original, frame);
 	}
@@ -131,16 +137,17 @@ public:
 
 		::can_frame received{};
 		// The non-matching frame must not reach this socket
-		int ret = receiver.timedReceive(received, 50);
-		CPPUNIT_ASSERT_EQUAL(0, ret);
+		IOResult ret = receiver.timedReceive(received, 50);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Timeout, ret.status);
+		CPPUNIT_ASSERT_EQUAL(0ul, ret.bytes);
 
 		sender.send(accepted);
 		ret = receiver.timedReceive(received, 1000);
 
-		CPPUNIT_ASSERT_EQUAL(static_cast<int>(sizeof(::can_frame)), ret);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, ret.status);
+		CPPUNIT_ASSERT_EQUAL(sizeof(::can_frame), ret.bytes);
 		assertFrameEqual(accepted, received);
 	}
-
 
 	void testReceiveOwnMessages()
 	{
@@ -157,15 +164,17 @@ public:
 		// socket does not receive its own transmitted frames by default.
 		socket.send(sent);
 
-		int ret = socket.timedReceive(received, 50);
-		CPPUNIT_ASSERT_EQUAL(0, ret);
+		IOResult ret = socket.timedReceive(received, 50);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Timeout, ret.status);
+		CPPUNIT_ASSERT_EQUAL(0ul, ret.bytes);
 
 		socket.setReceiveOwnMessages(true);
 		socket.send(sent);
 
 		ret = socket.timedReceive(received, 1000);
 
-		CPPUNIT_ASSERT_EQUAL(static_cast<int>(sizeof(::can_frame)), ret);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, ret.status);
+		CPPUNIT_ASSERT_EQUAL(sizeof(::can_frame), ret.bytes);
 		assertFrameEqual(sent, received);
 	}
 

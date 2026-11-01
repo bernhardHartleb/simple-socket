@@ -7,6 +7,9 @@
 #include <utility>
 #include <vector>
 
+using NET::IOResult;
+using NET::IOStatus;
+
 class UnixStreamSocket_TEST : public CppUnit::TestFixture
 {
 	CPPUNIT_TEST_SUITE(UnixStreamSocket_TEST);
@@ -63,13 +66,14 @@ public:
 		CPPUNIT_ASSERT_EQUAL(clientPath, session.getForeignPath());
 
 		const char message[] = "Hello Unix stream";
-		const int sent = client.sendAll(message, sizeof(message));
-		CPPUNIT_ASSERT_EQUAL(static_cast<int>(sizeof(message)), sent);
+		size_t sent = client.sendAll(message, sizeof(message));
+		//CPPUNIT_ASSERT_EQUAL(IOStatus::Success, sent.status);
+		CPPUNIT_ASSERT_EQUAL(sizeof(message), sent);
 
 		char buffer[sizeof(message)] = {};
-		const int received = session.receive(buffer, sizeof(message));
-
-		CPPUNIT_ASSERT_EQUAL(sent, received);
+		IOResult recv = session.receive(buffer, sizeof(message));
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, recv.status);
+		CPPUNIT_ASSERT_EQUAL(sizeof(message), recv.bytes);
 		CPPUNIT_ASSERT(std::memcmp(message, buffer, sizeof(message)) == 0);
 	}
 
@@ -88,16 +92,16 @@ public:
 		NET::UnixStreamSocket session(server.accept());
 
 		std::vector<char> sendBuffer(32 * 1024);
-		const int len = static_cast<int>(sendBuffer.size());
+		const size_t len = sendBuffer.size();
 
 		for (size_t i = 0; i < sendBuffer.size(); ++i)
 			sendBuffer[i] = static_cast<char>(i % 251);
 
-		const int sent = client.sendAll(sendBuffer.data(), sendBuffer.size());
+		size_t sent = client.sendAll(sendBuffer.data(), sendBuffer.size());
 		CPPUNIT_ASSERT_EQUAL(len, sent);
 
 		std::vector<char> receiveBuffer(sendBuffer.size());
-		const int received = session.receiveAll(receiveBuffer.data(), receiveBuffer.size());
+		size_t received = session.receiveAll(receiveBuffer.data(), receiveBuffer.size());
 		CPPUNIT_ASSERT_EQUAL(len, received);
 		CPPUNIT_ASSERT(sendBuffer == receiveBuffer);
 	}
@@ -128,6 +132,13 @@ public:
 		opt.reset();
 		CPPUNIT_ASSERT(!opt);
 		CPPUNIT_ASSERT(!session.peerDisconnected());
+
+		// try send after shutdown
+		session.shutdown(NET::STOP_BOTH);
+		char dummy = 0;
+		IOResult sent = session.send( &dummy, sizeof(dummy));
+		CPPUNIT_ASSERT_EQUAL(IOStatus::PeerDisconnected, sent.status);
+		CPPUNIT_ASSERT_EQUAL(0ul, sent.bytes);
 	}
 
 	void testTimedReceive()
@@ -146,19 +157,21 @@ public:
 
 		char buffer[64] = {};
 		// Connection exists, but no data is waiting
-		int received = session.timedReceive(buffer, sizeof(buffer), 50);
-		CPPUNIT_ASSERT_EQUAL(0, received);
+		IOResult recv = session.timedReceive(buffer, sizeof(buffer), 50);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Timeout, recv.status);
+		CPPUNIT_ASSERT_EQUAL(0ul, recv.bytes);
 		// Timeout must not be mistaken for peer disconnect
 		CPPUNIT_ASSERT(!session.peerDisconnected());
 
 		const char message[] = "Timed Unix stream";
-		const int sent = client.sendAll(message, sizeof(message));
-		CPPUNIT_ASSERT_EQUAL(static_cast<int>(sizeof(message)), sent);
+		size_t sent = client.sendAll(message, sizeof(message));
+		//CPPUNIT_ASSERT_EQUAL(IOStatus::Success, sent.status);
+		CPPUNIT_ASSERT_EQUAL(sizeof(message), sent);
 
-		received = session.timedReceive(buffer, sizeof(buffer), 1000);
-		CPPUNIT_ASSERT(received > 0);
-		CPPUNIT_ASSERT(received <= static_cast<int>(sizeof(message)));
-		CPPUNIT_ASSERT(std::memcmp(message,buffer,static_cast<size_t>(received)) == 0);
+		recv = session.timedReceive(buffer, sizeof(buffer), 1000);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, recv.status);
+		CPPUNIT_ASSERT_EQUAL(sizeof(message), recv.bytes);
+		CPPUNIT_ASSERT(std::memcmp(message,buffer, recv.bytes) == 0);
 		CPPUNIT_ASSERT(!session.peerDisconnected());
 	}
 
@@ -180,9 +193,9 @@ public:
 		client.shutdown(NET::STOP_SEND);
 
 		char buffer[16];
-		const int received = session.timedReceive(buffer, sizeof(buffer), 1000);
-		CPPUNIT_ASSERT_EQUAL(0, received);
-
+		IOResult recv = session.timedReceive(buffer, sizeof(buffer), 1000);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::PeerDisconnected, recv.status);
+		CPPUNIT_ASSERT_EQUAL(0ul, recv.bytes);
 		// Distinguishes orderly stream EOF from a normal timeout
 		CPPUNIT_ASSERT(session.peerDisconnected());
 	}
