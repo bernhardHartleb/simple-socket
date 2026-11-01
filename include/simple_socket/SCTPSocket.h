@@ -60,8 +60,8 @@ namespace NET
 		IOResult receive( void* data, size_t maxLen, uint16_t& stream, receiveFlag& flag);
 
 		using SimpleSocket::timedReceive;
-		IOResult timedReceive( void* data, size_t maxLen, uint16_t& stream, int timeout);
-		IOResult timedReceive( void* data, size_t maxLen, uint16_t& stream, receiveFlag& flag, int timeout);
+		[[nodiscard]] IOResult timedReceive( void* data, size_t maxLen, uint16_t& stream, int timeout);
+		[[nodiscard]] IOResult timedReceive( void* data, size_t maxLen, uint16_t& stream, receiveFlag& flag, int timeout);
 
 		//! Listen for incoming connections
 		using SimpleSocket::listen;

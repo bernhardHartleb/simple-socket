@@ -25,7 +25,7 @@ namespace NET
 		 * \return  UnixStreamSocket object owning the accepted socket
 		 * \exception SocketException if accept fails
 		 */
-		UnixStreamSocket accept() const;
+		[[nodiscard]] UnixStreamSocket accept() const;
 
 		/*!
 		 * Wait up to timeout milliseconds for an incoming connection.
@@ -33,7 +33,7 @@ namespace NET
 		 * \return optional UnixStreamSocket object to the new connection, nullopt on timeout
 		 * \exception SocketException on errors
 		 */
-		std::optional<UnixStreamSocket> timedAccept( int timeout) const;
+		[[nodiscard]] std::optional<UnixStreamSocket> timedAccept( int timeout) const;
 
 		//! Send the complete buffer
 		using SimpleSocket::sendAll;

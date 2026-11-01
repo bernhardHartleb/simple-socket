@@ -56,6 +56,15 @@ namespace NET
 		explicit operator bool() const { return status == IOStatus::Success; }
 	};
 
+	enum class ConnectResult
+	{
+		Connected,
+		Timeout,
+		Refused,
+		Unreachable,
+		Aborted
+	};
+
 	enum ShutdownDirection
 	{
 		STOP_RECEIVE,    ///< disable all variants of receive() on the socket, send calls still work
@@ -103,7 +112,7 @@ namespace NET
 		 *
 		 * \param buffer data to be send
 		 * \param len length of the data to be sent
-		 * \return number of bytes sent
+		 * \return IOResult
 		 * \exception SocketException if sending went wrong
 		 */
 		IOResult send( const void* buffer, size_t len);
@@ -129,7 +138,7 @@ namespace NET
 		 *
 		 * \param buffer the buffer the received data will be written to
 		 * \param len length of the provided buffer, receive will not read more than that
-		 * \return number of bytes received
+		 * \return IOResult
 		 * \exception SocketException in case an error occured
 		 */
 		IOResult receive( void* buffer, size_t len);
@@ -156,10 +165,10 @@ namespace NET
 		 * \param buffer the buffer the received data will be written to
 		 * \param len length of the provided buffer, receive will not read more than that
 		 * \param timeout the timeout in ms after which receive will give up and return
-		 * \return number of bytes received, 0 on timeout
+		 * \return IOResult
 		 * \exception SocketException in case an error occured
 		 */
-		IOResult timedReceive( void* buffer, size_t len, int timeout);
+		[[nodiscard]] IOResult timedReceive( void* buffer, size_t len, int timeout);
 
 		//! Disconnect and unset any foreign addresses
 		/*!

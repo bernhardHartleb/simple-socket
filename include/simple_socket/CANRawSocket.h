@@ -22,7 +22,7 @@ namespace NET
 		IOResult receive( ::can_frame& frame);
 
 		//! (overload) receive can frame from a bound socket with timeout
-		IOResult timedReceive( ::can_frame& frame, int timeout);
+		[[nodiscard]] IOResult timedReceive( ::can_frame& frame, int timeout);
 
 		/*!
 		 * Send the given CAN frame using the specified interface.
@@ -36,6 +36,7 @@ namespace NET
 		 *
 		 * \param frame CAN frame structure to be send
 		 * \param interface specifies the CAN interface to send used for sending
+		 * \return IOResult
 		 * \exception SocketException thrown if unable to send frame
 		 */
 		IOResult sendTo( const ::can_frame& frame, std::string_view interface);
@@ -48,7 +49,7 @@ namespace NET
 		 *
 		 * \param frame CAN frame structure to be send
 		 * \param interface specifies the CAN interface used for reception
-		 * \return number of bytes received
+		 * \return IOResult
 		 * \exception SocketException thrown if unable to receive datagram
 		 */
 		IOResult receiveFrom( ::can_frame& frame, std::string& interface);
@@ -64,10 +65,10 @@ namespace NET
 		 * \param frame CAN frame structure to be send
 		 * \param interface specifies the CAN interface used for reception
 		 * \param timeout timeout in milliseconds
-		 * \return number of bytes received, 0 on timeout
+		 * \return IOResult
 		 * \exception SocketException thrown if unable to receive datagram
 		 */
-		IOResult timedReceiveFrom( ::can_frame& frame, std::string& interface, int timeout);
+		[[nodiscard]] IOResult timedReceiveFrom( ::can_frame& frame, std::string& interface, int timeout);
 
 		/*!
 		 * 

@@ -42,7 +42,7 @@ namespace NET
 		 * \return TCPSocket object to the new connection
 		 * \exception SocketException
 		 */
-		TCPSocket accept() const;
+		[[nodiscard]] TCPSocket accept() const;
 
 		//! wait for another socket to connect
 		/*!
@@ -56,7 +56,7 @@ namespace NET
 		 * \return optional TCPSocket object to the new connection, nullopt on timeout
 		 * \exception SocketException
 		 */
-		std::optional<TCPSocket> timedAccept( int timeout) const;
+		[[nodiscard]] std::optional<TCPSocket> timedAccept( int timeout) const;
 
 		//! Send the complete buffer
 		using SimpleSocket::sendAll;

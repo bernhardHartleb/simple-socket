@@ -32,6 +32,7 @@ namespace NET
 		 * \param len number of bytes to write
 		 * \param foreignAddress address to send to
 		 * \param foreignPort port number to send to
+		 * \return IOResult
 		 * \exception SocketException thrown if unable to send datagram
 		 */
 		IOResult sendTo( const void* buffer, size_t len, std::string_view foreignAddress, unsigned short foreignPort);
@@ -47,7 +48,7 @@ namespace NET
 		 * \param len maximum number of bytes to receive
 		 * \param sourceAddress address of datagram source
 		 * \param sourcePort port of data source
-		 * \return number of bytes received
+		 * \return IOResult
 		 * \exception SocketException thrown if unable to receive datagram
 		 */
 		IOResult receiveFrom( void* buffer, size_t len, std::string& sourceAddress, unsigned short& sourcePort);
@@ -66,10 +67,10 @@ namespace NET
 		 * \param sourceAddress address of datagram source
 		 * \param sourcePort port of data source
 		 * \param timeout timeout in milliseconds
-		 * \return number of bytes received, 0 on timeout
+		 * \return IOResult
 		 * \exception SocketException thrown if unable to receive datagram
 		 */
-		IOResult timedReceiveFrom( void* buffer, size_t len, std::string& sourceAddress, unsigned short& sourcePort, int timeout);
+		[[nodiscard]] IOResult timedReceiveFrom( void* buffer, size_t len, std::string& sourceAddress, unsigned short& sourcePort, int timeout);
 
 		/*!
 		 * Set the multicast TTL
