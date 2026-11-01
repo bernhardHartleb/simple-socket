@@ -35,32 +35,38 @@ UDPSocket::UDPSocket( AddressFamily family)
 	setBroadcast(m_socket);
 }
 
-void UDPSocket::sendTo( const void* buffer, size_t len, std::string_view foreignAddress, unsigned short foreignPort)
+IOResult UDPSocket::sendTo( const void* buffer, size_t len, std::string_view foreignAddress, unsigned short foreignPort)
 {
 	SockAddress addr( m_family, foreignAddress, foreignPort);
 
-	int sent = TEMP_FAILURE_RETRY (::sendto( m_socket, (const raw_type*)buffer, len, 0, addr.data(), addr.length()));
+	ssize_t ret = TEMP_FAILURE_RETRY (::sendto( m_socket, (const raw_type*)buffer, len, 0, addr.data(), addr.length()));
 
 	// Write out the whole buffer as a single message
-	if( sent != (int)len)
-		throw SocketException("Send failed (sendto)");
+	if( ret >= 0 && static_cast<size_t>(ret) == len)
+		return { IOStatus::Success, static_cast<size_t>(ret) };
+
+	const int error = errno;
+	if( isNonFatalDatagramError(error))
+	{
+		return { IOStatus::DestinationUnavailable, 0 };
+	}
+	throw SocketException("Send failed (sendto)");
 }
 
-int UDPSocket::receiveFrom( void* buffer, size_t len, std::string& sourceAddress, unsigned short& sourcePort)
+IOResult UDPSocket::receiveFrom( void* buffer, size_t len, std::string& sourceAddress, unsigned short& sourcePort)
 {
 	SockAddress addr;
 
-	int ret = TEMP_FAILURE_RETRY (::recvfrom( m_socket, (raw_type*)buffer, len, 0, addr.data(), addr.lengthPtr()));
+	ssize_t ret = TEMP_FAILURE_RETRY (::recvfrom( m_socket, (raw_type*)buffer, len, 0, addr.data(), addr.lengthPtr()));
 	if( ret < 0)
 		throw SocketException("Receive failed (recvfrom)");
 
 	sourceAddress = addr.address();
 	sourcePort = addr.port();
-
-	return ret;
+	return { IOStatus::Success, static_cast<size_t>(ret) };
 }
 
-int UDPSocket::timedReceiveFrom( void* buffer, size_t len, std::string& sourceAddress, unsigned short& sourcePort, int timeout)
+IOResult UDPSocket::timedReceiveFrom( void* buffer, size_t len, std::string& sourceAddress, unsigned short& sourcePort, int timeout)
 {
 	return timedReceiveImpl( m_socket, m_peerDisconnected, timeout,
 		[&] { return receiveFrom( buffer, len, sourceAddress, sourcePort); });

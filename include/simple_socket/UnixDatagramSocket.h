@@ -23,7 +23,7 @@ namespace NET
 		 * \param foreignPath filename of the datagram socket the data should be sent to
 		 * \exception SocketException thrown if unable to send datagram
 		 */
-		void sendTo( const void* buffer, size_t len, std::string_view foreignPath);
+		IOResult sendTo( const void* buffer, size_t len, std::string_view foreignPath);
 
 		/*!
 		 * Read read up to len bytes data from this socket. The given
@@ -35,7 +35,7 @@ namespace NET
 		 * \return number of bytes received
 		 * \exception SocketException thrown if unable to receive datagram
 		 */
-		int receiveFrom( void* buffer, size_t len, std::string& sourcePath);
+		IOResult receiveFrom( void* buffer, size_t len, std::string& sourcePath);
 
 		/*!
 		 * Read read up to len bytes data from this socket. The given
@@ -50,7 +50,7 @@ namespace NET
 		 * \return number of bytes received, 0 on timeout
 		 * \exception SocketException thrown if unable to receive datagram
 		 */
-		int timedReceiveFrom( void* buffer, size_t len, std::string& sourcePath, int timeout);
+		IOResult timedReceiveFrom( void* buffer, size_t len, std::string& sourcePath, int timeout);
 	};
 
 } // namespace NET

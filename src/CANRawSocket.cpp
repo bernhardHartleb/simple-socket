@@ -12,48 +12,48 @@ CANRawSocket::CANRawSocket()
 : CANSocket( SOCK_RAW, CAN_RAW)
 {}
 
-void CANRawSocket::send( const ::can_frame& frame)
+IOResult CANRawSocket::send( const ::can_frame& frame)
 {
-	SimpleSocket::send( &frame, sizeof(frame));
+	return SimpleSocket::send( &frame, sizeof(frame));
 }
 
-int CANRawSocket::receive( ::can_frame& frame)
+IOResult CANRawSocket::receive( ::can_frame& frame)
 {
 	return SimpleSocket::receive( &frame, sizeof(frame));
 }
 
-int CANRawSocket::timedReceive( ::can_frame& frame, int timeout)
+IOResult CANRawSocket::timedReceive( ::can_frame& frame, int timeout)
 {
 	return SimpleSocket::timedReceive( &frame, sizeof(frame), timeout);
 }
 
-void CANRawSocket::sendTo( const ::can_frame& frame, std::string_view interface)
+IOResult CANRawSocket::sendTo( const ::can_frame& frame, std::string_view interface)
 {
 	sockaddr_can destAddr;
 	destAddr.can_family = AF_CAN;
 	destAddr.can_ifindex = getInterfaceIndex(interface);
 
-	int sent = TEMP_FAILURE_RETRY (::sendto( m_socket, (const raw_type*)&frame, sizeof(frame), 0, (sockaddr*)&destAddr, sizeof(destAddr)));
-
-	// Write out the whole buffer as a single message
-	if( sent != sizeof(frame))
+	ssize_t ret = TEMP_FAILURE_RETRY (::sendto( m_socket, (const raw_type*)&frame, sizeof(frame), 0, (sockaddr*)&destAddr, sizeof(destAddr)));
+	if( ret < 0)
 		throw SocketException("Send failed (sendto)");
+
+	return { IOStatus::Success, static_cast<size_t>(ret) };
 }
 
-int CANRawSocket::receiveFrom( ::can_frame& frame, std::string& interface)
+IOResult CANRawSocket::receiveFrom( ::can_frame& frame, std::string& interface)
 {
 	sockaddr_can clientAddr;
 	socklen_t addrLen = sizeof(clientAddr);
 
-	int ret = TEMP_FAILURE_RETRY (::recvfrom( m_socket, (raw_type*)&frame, sizeof(frame), 0, (sockaddr*)&clientAddr, &addrLen));
+	ssize_t ret = TEMP_FAILURE_RETRY (::recvfrom( m_socket, (raw_type*)&frame, sizeof(frame), 0, (sockaddr*)&clientAddr, &addrLen));
 	if( ret < 0)
 		throw SocketException("Receive failed (recvfrom)");
 
 	interface = getInterfaceName(clientAddr);
-	return ret;
+	return { IOStatus::Success, static_cast<size_t>(ret) };
 }
 
-int CANRawSocket::timedReceiveFrom( ::can_frame& frame, std::string& interface, int timeout)
+IOResult CANRawSocket::timedReceiveFrom( ::can_frame& frame, std::string& interface, int timeout)
 {
 	return timedReceiveImpl( m_socket, m_peerDisconnected, timeout,
 		[&] { return receiveFrom( frame, interface); });

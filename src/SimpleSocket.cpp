@@ -74,46 +74,58 @@ SimpleSocket::~SimpleSocket()
 	if( m_socket >= 0) ::close(m_socket);
 }
 
-int SimpleSocket::send( const void* buffer, size_t len)
+IOResult SimpleSocket::send( const void* buffer, size_t len)
 {
 	int flags = 0;
 #ifdef MSG_NOSIGNAL
 	// do not generate SIGPIPE on closed connection
 	flags |= MSG_NOSIGNAL;
 #endif
-	int sent = TEMP_FAILURE_RETRY (::send( m_socket, (const raw_type*) buffer, len, flags));
-	if( sent < 0)
-	{
-		if( errno == ECONNRESET || errno == ECONNREFUSED || errno == EPIPE)
-		{
-			m_peerDisconnected = true;
-			return 0;
-		}
-		throw SocketException("Send failed (send)");
-	}
-	return sent;
-}
+	ssize_t ret = TEMP_FAILURE_RETRY (::send( m_socket, (const raw_type*) buffer, len, flags));
+	if( ret >= 0)
+		return { IOStatus::Success, static_cast<size_t>(ret) };
 
-int SimpleSocket::receive( void* buffer, size_t len)
-{
-	int ret = TEMP_FAILURE_RETRY (::recv( m_socket, (raw_type*) buffer, len, 0));
-	if( ret < 0)
+	const int error = errno;
+	if( m_connectionOriented && isConnectionLossError(error))
 	{
-		if( errno == ECONNRESET && m_connectionOriented)
-		{
-			m_peerDisconnected = true;
-			return 0;
-		}
-		throw SocketException("Received failed (receive)");
-	}
-
-	if( ret == 0 && len != 0 && m_connectionOriented)
 		m_peerDisconnected = true;
-
-	return ret;
+		return { IOStatus::PeerDisconnected, 0 };
+	}
+	if( !m_connectionOriented && isNonFatalDatagramError(error))
+	{
+		return { IOStatus::DestinationUnavailable, 0 };
+	}
+	throw SocketException("Send failed (send)");
 }
 
-int SimpleSocket::timedReceive( void* buffer, size_t len, int timeout)
+IOResult SimpleSocket::receive( void* buffer, size_t len)
+{
+	ssize_t ret = TEMP_FAILURE_RETRY (::recv( m_socket, (raw_type*) buffer, len, 0));
+	if( ret > 0)
+		return { IOStatus::Success, static_cast<size_t>(ret) };
+
+	// recv() == 0 means EOF only for connection-oriented sockets
+	// for datagram sockets a zero-length is valid
+	if( ret == 0)
+	{
+		if( m_connectionOriented && len != 0)
+		{
+			m_peerDisconnected = true;
+			return { IOStatus::PeerDisconnected, 0 };
+		}
+		return { IOStatus::Success, 0 };
+	}
+
+	const int error = errno;
+	if( m_connectionOriented && isConnectionLossError(error))
+	{
+		m_peerDisconnected = true;
+		return { IOStatus::PeerDisconnected, 0 };
+	}
+	throw SocketException("Receive failed (receive)");
+}
+
+IOResult SimpleSocket::timedReceive( void* buffer, size_t len, int timeout)
 {
 	return timedReceiveImpl( m_socket, m_peerDisconnected, timeout,
 		[&] { return receive( buffer, len); });
@@ -190,28 +202,55 @@ int SimpleSocket::timedAccept( int timeout) const
 	return SimpleSocket::accept();
 }
 
-int SimpleSocket::sendAll( const void* buffer, size_t len)
+size_t SimpleSocket::sendAll( const void* buffer, size_t len)
 {
 	size_t sent = 0;
 	while( sent != len)
 	{
 		const char* buf = static_cast<const char*>(buffer) + sent;
-		auto ret = send( buf, len - sent);
-		sent += static_cast<size_t>(ret);
+		IOResult res = send( buf, len - sent);
+		sent += res.bytes;
 		if( m_peerDisconnected) break;
 	}
 	return sent;
 }
 
-int SimpleSocket::receiveAll( void* buffer, size_t len)
+size_t SimpleSocket::receiveAll( void* buffer, size_t len)
 {
 	size_t received = 0;
 	while( received != len)
 	{
 		char* buf = static_cast<char*>(buffer) + received;
-		auto ret = receive( buf, len - received);
-		if( ret == 0) break;
-		received += static_cast<size_t>(ret);
+		IOResult res = receive( buf, len - received);
+		if( res.bytes == 0) break;
+		received += res.bytes;
 	}
 	return received;
+}
+
+bool SimpleSocket::isConnectionLossError(int error) noexcept
+{
+	switch(error)
+	{
+		case ECONNRESET:   // the connection died
+		case ECONNABORTED: // connection was aborted
+		case ECONNREFUSED: // configured peer rejected it
+		case EPIPE:        // connection can no longer send
+		case ETIMEDOUT:    // connection died by timeout
+			return true;
+		default:
+			return false;
+	}
+}
+
+bool SimpleSocket::isNonFatalDatagramError(int error) noexcept
+{
+	switch(error)
+	{
+		case ECONNREFUSED:
+		case EHOSTUNREACH:
+			return true;
+		default:
+			return false;
+	}
 }

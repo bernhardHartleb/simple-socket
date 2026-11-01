@@ -1,25 +1,49 @@
 #ifndef NET_PollHelper_h__
 #define NET_PollHelper_h__
 
+#include "SimpleSocket.h"
 #include "TempFailure.h"
+
+#include <sys/socket.h>
 #include <poll.h>
 
 namespace NET
 {
 	template <typename ReceiveFunc>
-	int timedReceiveImpl( int fd, bool& peerDisconnected, int timeout, ReceiveFunc&& receiveFunc)
+	IOResult timedReceiveImpl( int fd, bool& peerDisconnected, int timeout, ReceiveFunc&& receiveFunc)
 	{
+		const auto throwError = []() {
+			throw SocketException("timedReceive failed");
+		};
+
 		pollfd pfd {};
 		pfd.fd = fd;
 		pfd.events = POLLIN | POLLPRI | POLLRDHUP;
 
 		const int ret = TEMP_FAILURE_RETRY(::poll( &pfd, 1, timeout));
 
-		if( ret == 0) return 0;
-		if( ret < 0) throw SocketException("timedReceive failed (poll)");
+		if( ret == 0) return { IOStatus::Timeout, 0 };
+		if( ret < 0) throwError();
 
-		if( pfd.revents & (POLLERR | POLLNVAL))
-			throw SocketException("timedReceive failed (poll)");
+		if( pfd.revents & POLLNVAL)
+			throwError();
+
+		if( pfd.revents & POLLERR) // async error with socket
+		{
+			int error = 0;
+			socklen_t len = sizeof(error);
+
+			if( ::getsockopt( fd, SOL_SOCKET, SO_ERROR, &error, &len) < 0)
+				throwError();
+
+			if( SimpleSocket::isConnectionLossError(error))
+			{
+				return { IOStatus::PeerDisconnected, 0 };
+				//m_peerDisconnected = true;
+				//return 0;
+			}
+			throw SocketException("timedReceive failed", error);
+		}
 
 		if( pfd.revents & (POLLRDHUP | POLLHUP))
 			peerDisconnected = true;
@@ -27,7 +51,9 @@ namespace NET
 		if( pfd.revents & (POLLIN | POLLPRI))
 			return std::forward<ReceiveFunc>(receiveFunc)();
 
-		return 0;
+		throwError();
+		// silence warning
+		return { IOStatus::PeerDisconnected, 0 };
 	}
 
 } // namespace NET

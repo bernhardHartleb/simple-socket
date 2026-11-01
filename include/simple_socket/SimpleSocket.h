@@ -40,6 +40,22 @@ namespace NET
 		IPv6
 	};
 
+	enum class IOStatus
+	{
+		Success,
+		Timeout,
+		PeerDisconnected,
+		DestinationUnavailable
+	};
+
+	struct IOResult
+	{
+		IOStatus status;
+		size_t bytes;
+
+		explicit operator bool() const { return status == IOStatus::Success; }
+	};
+
 	enum ShutdownDirection
 	{
 		STOP_RECEIVE,    ///< disable all variants of receive() on the socket, send calls still work
@@ -90,7 +106,7 @@ namespace NET
 		 * \return number of bytes sent
 		 * \exception SocketException if sending went wrong
 		 */
-		int send( const void* buffer, size_t len);
+		IOResult send( const void* buffer, size_t len);
 
 		//! receive data from a bound socket
 		/*!
@@ -116,7 +132,7 @@ namespace NET
 		 * \return number of bytes received
 		 * \exception SocketException in case an error occured
 		 */
-		int receive( void* buffer, size_t len);
+		IOResult receive( void* buffer, size_t len);
 
 		//! receive data from a bound socket, return after the given timespan
 		/*!
@@ -143,7 +159,7 @@ namespace NET
 		 * \return number of bytes received, 0 on timeout
 		 * \exception SocketException in case an error occured
 		 */
-		int timedReceive( void* buffer, size_t len, int timeout);
+		IOResult timedReceive( void* buffer, size_t len, int timeout);
 
 		//! Disconnect and unset any foreign addresses
 		/*!
@@ -192,6 +208,12 @@ namespace NET
 		 */
 		bool peerDisconnected() const noexcept;
 
+		//! return true for indications of a disconnect
+		static bool isConnectionLossError(int error) noexcept;
+
+		//! return true for transient datagram errors
+		static bool isNonFatalDatagramError(int error) noexcept;
+
 	protected:
 		//! listen for incoming connections
 		/*!
@@ -230,7 +252,7 @@ namespace NET
 		 * \return number of bytes sent
 		 * \exception SocketException
 		 */
-		int sendAll( const void* buffer, size_t len);
+		size_t sendAll( const void* buffer, size_t len);
 
 		//! receive exactly the requested amount unless the peer disconnects
 		/*!
@@ -247,7 +269,7 @@ namespace NET
 		 * \return number of bytes received
 		 * \exception SocketException on receive errors other than peer loss
 		 */
-		int receiveAll( void* buffer, size_t len);
+		size_t receiveAll( void* buffer, size_t len);
 
 		//! enables return of an accepted socket
 		explicit SimpleSocket( int sockfd);

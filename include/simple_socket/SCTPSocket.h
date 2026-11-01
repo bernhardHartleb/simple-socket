@@ -34,7 +34,6 @@ namespace NET
 		SCTPSocket( uint16_t numOutStreams = 10, uint16_t maxInStreams = 65535, uint16_t maxAttempts = 4,
 		            uint16_t maxInitTimeout = 0 /* TODO */);
 
-
 		using InternetSocket::bind;
 		int bind( const std::vector<std::string>& localAddresses, unsigned short localPort = 0);
 
@@ -50,19 +49,19 @@ namespace NET
 		std::string primaryAddress() const;
 
 		using SimpleSocket::send;
-		int send( const void* data, size_t length, uint16_t stream, unsigned ttl = 0, unsigned context = 0, unsigned ppid = 0,
-		          abortFlag abort = KEEPALIVE, switchAddressFlag switchAddr = KEEP_PRIMARY);
+		IOResult send( const void* data, size_t length, uint16_t stream, unsigned ttl = 0, unsigned context = 0, unsigned ppid = 0,
+			abortFlag abort = KEEPALIVE, switchAddressFlag switchAddr = KEEP_PRIMARY);
 
-		int sendUnordered( const void* data, size_t length, uint16_t stream, unsigned ttl = 0, unsigned context = 0,
-		                   unsigned ppid = 0, abortFlag abort = KEEPALIVE, switchAddressFlag switchAddr = KEEP_PRIMARY);
+		IOResult sendUnordered( const void* data, size_t length, uint16_t stream, unsigned ttl = 0, unsigned context = 0,
+			unsigned ppid = 0, abortFlag abort = KEEPALIVE, switchAddressFlag switchAddr = KEEP_PRIMARY);
 
 		using SimpleSocket::receive;
-		int receive( void* data, size_t maxLen, uint16_t& stream);
-		int receive( void* data, size_t maxLen, uint16_t& stream, receiveFlag& flag);
+		IOResult receive( void* data, size_t maxLen, uint16_t& stream);
+		IOResult receive( void* data, size_t maxLen, uint16_t& stream, receiveFlag& flag);
 
 		using SimpleSocket::timedReceive;
-		int timedReceive( void* data, size_t maxLen, uint16_t& stream, int timeout);
-		int timedReceive( void* data, size_t maxLen, uint16_t& stream, receiveFlag& flag, int timeout);
+		IOResult timedReceive( void* data, size_t maxLen, uint16_t& stream, int timeout);
+		IOResult timedReceive( void* data, size_t maxLen, uint16_t& stream, receiveFlag& flag, int timeout);
 
 		//! Listen for incoming connections
 		using SimpleSocket::listen;

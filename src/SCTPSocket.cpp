@@ -103,57 +103,60 @@ std::string SCTPSocket::primaryAddress() const
 	return std::string(); // TODO
 }
 
-int SCTPSocket::send( const void* data, size_t length, uint16_t stream, unsigned ttl /* = 0 */, unsigned context /* = 0 */,
-                      unsigned ppid /* = 0 */, abortFlag abort /* = KEEPALIVE */, switchAddressFlag switchAddr /* = KEEP_PRIMARY */)
+IOResult SCTPSocket::send( const void* data, size_t length, uint16_t stream, unsigned ttl /* = 0 */, unsigned context /* = 0 */,
+	unsigned ppid /* = 0 */, abortFlag abort /* = KEEPALIVE */, switchAddressFlag switchAddr /* = KEEP_PRIMARY */)
 {
 	int ret = sctp_sendmsg( m_socket, data, length, nullptr, 0, ppid, abort + switchAddr, stream, ttl, context);
 	if( ret < 0)
 		throw SocketException("SCTPSocket::send failed (sctp_sendmsg)");
-	else if (static_cast<size_t>(ret) < length)
+	else if( static_cast<size_t>(ret) < length)
 		throw SocketException("SCTP sent a fragemented packet!");
-	return ret;
+
+	return { IOStatus::Success, static_cast<size_t>(ret) };
 }
 
-int SCTPSocket::sendUnordered( const void* data, size_t length, uint16_t stream, unsigned ttl /* = 0 */, unsigned context /* = 0 */,
-                               unsigned ppid /* = 0 */, abortFlag abort /* = KEEPALIVE */,
-                               switchAddressFlag switchAddr /* = KEEP_PRIMARY */)
+IOResult SCTPSocket::sendUnordered( const void* data, size_t length, uint16_t stream, unsigned ttl /* = 0 */, unsigned context /* = 0 */,
+	unsigned ppid /* = 0 */, abortFlag abort /* = KEEPALIVE */, switchAddressFlag switchAddr /* = KEEP_PRIMARY */)
 {
 	int ret = sctp_sendmsg( m_socket, data, length, nullptr, 0, ppid, abort + switchAddr + SCTP_UNORDERED, stream, ttl, context);
 	if( ret < 0)
 		throw SocketException("SCTPSocket::send failed (sctp_sendmsg)");
-	else if (static_cast<size_t>(ret) < length)
+	else if( static_cast<size_t>(ret) < length)
 		throw SocketException("SCTP sent a fragemented packet!");
-	return ret;
+
+	return { IOStatus::Success, static_cast<size_t>(ret) };
 }
 
-int SCTPSocket::receive( void* data, size_t maxLen, uint16_t& stream)
+IOResult SCTPSocket::receive( void* data, size_t maxLen, uint16_t& stream)
 {
 	struct sctp_sndrcvinfo info;
-	int ret;
-	if( (ret = sctp_recvmsg( m_socket, data, maxLen, 0, 0, &info, 0)) < 0)
+	int ret = sctp_recvmsg( m_socket, data, maxLen, 0, 0, &info, 0);
+	if( ret < 0)
 		throw SocketException("SCTPSocket::receive failed (sctp_recvmsg)");
+
 	stream = info.sinfo_stream;
-	return ret;
+	return { IOStatus::Success, static_cast<size_t>(ret) };
 }
 
-int SCTPSocket::receive( void* data, size_t maxLen, uint16_t& stream, receiveFlag& flag)
+IOResult SCTPSocket::receive( void* data, size_t maxLen, uint16_t& stream, receiveFlag& flag)
 {
 	struct sctp_sndrcvinfo info;
-	int ret;
-	if( (ret = sctp_recvmsg( m_socket, data, maxLen, 0, 0, &info, 0)) < 0)
+	int ret = sctp_recvmsg( m_socket, data, maxLen, 0, 0, &info, 0);
+	if( ret < 0)
 		throw SocketException("SCTPSocket::receive failed (sctp_recvmsg)");
+
 	stream = info.sinfo_stream;
 	flag = static_cast<receiveFlag>(info.sinfo_flags);
-	return ret;
+	return { IOStatus::Success, static_cast<size_t>(ret) };
 }
 
-int SCTPSocket::timedReceive( void* data, size_t maxLen, uint16_t& stream, int timeout)
+IOResult SCTPSocket::timedReceive( void* data, size_t maxLen, uint16_t& stream, int timeout)
 {
 	return timedReceiveImpl( m_socket, m_peerDisconnected, timeout,
 		[&] { return receive( data, maxLen, stream); });
 }
 
-int SCTPSocket::timedReceive( void* data, size_t maxLen, uint16_t& stream, receiveFlag& flag, int timeout)
+IOResult SCTPSocket::timedReceive( void* data, size_t maxLen, uint16_t& stream, receiveFlag& flag, int timeout)
 {
 	return timedReceiveImpl( m_socket, m_peerDisconnected, timeout,
 		[&] { return receive( data, maxLen, stream, flag); });

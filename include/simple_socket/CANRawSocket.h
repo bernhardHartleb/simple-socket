@@ -16,13 +16,13 @@ namespace NET
 		CANRawSocket();
 
 		//! (overload) send can_frame through a connected socket
-		void send( const ::can_frame& frame);
+		IOResult send( const ::can_frame& frame);
 
 		//! (overload) receive can frame from a bound socket
-		int receive( ::can_frame& frame);
+		IOResult receive( ::can_frame& frame);
 
 		//! (overload) receive can frame from a bound socket with timeout
-		int timedReceive( ::can_frame& frame, int timeout);
+		IOResult timedReceive( ::can_frame& frame, int timeout);
 
 		/*!
 		 * Send the given CAN frame using the specified interface.
@@ -38,7 +38,7 @@ namespace NET
 		 * \param interface specifies the CAN interface to send used for sending
 		 * \exception SocketException thrown if unable to send frame
 		 */
-		void sendTo( const ::can_frame& frame, std::string_view interface);
+		IOResult sendTo( const ::can_frame& frame, std::string_view interface);
 
 		/*!
 		 * Read one CAN frame from this socket.
@@ -51,7 +51,7 @@ namespace NET
 		 * \return number of bytes received
 		 * \exception SocketException thrown if unable to receive datagram
 		 */
-		int receiveFrom( ::can_frame& frame, std::string& interface);
+		IOResult receiveFrom( ::can_frame& frame, std::string& interface);
 
 		/*!
 		 * Read one CAN frame from this socket. If no interface has received a
@@ -67,7 +67,7 @@ namespace NET
 		 * \return number of bytes received, 0 on timeout
 		 * \exception SocketException thrown if unable to receive datagram
 		 */
-		int timedReceiveFrom( ::can_frame& frame, std::string& interface, int timeout);
+		IOResult timedReceiveFrom( ::can_frame& frame, std::string& interface, int timeout);
 
 		/*!
 		 * 
