@@ -218,10 +218,10 @@ int SimpleSocket::timedAccept( int timeout) const
 IOResult SimpleSocket::sendAll( const void* buffer, size_t len)
 {
 	size_t sent = 0;
-	while( sent != len)
+	while( sent < len)
 	{
-		const char* buf = static_cast<const char*>(buffer) + sent;
-		IOResult res = send( buf, len - sent);
+		const char* pos = static_cast<const char*>(buffer) + sent;
+		IOResult res = send( pos, len - sent);
 		sent += res.bytes;
 		if( res.bytes == 0) return { res.status, sent };
 	}
@@ -231,10 +231,10 @@ IOResult SimpleSocket::sendAll( const void* buffer, size_t len)
 IOResult SimpleSocket::receiveAll( void* buffer, size_t len)
 {
 	size_t received = 0;
-	while( received != len)
+	while( received < len)
 	{
-		char* buf = static_cast<char*>(buffer) + received;
-		IOResult res = receive( buf, len - received);
+		char* pos = static_cast<char*>(buffer) + received;
+		IOResult res = receive( pos, len - received);
 		received += res.bytes;
 		if( res.bytes == 0) return { res.status, received };
 	}
