@@ -45,6 +45,9 @@ namespace NET
 		//! allows a subclass to create new socket
 		CANSocket( int type, int protocol);
 
+		CANSocket( CANSocket&& other) noexcept;
+		CANSocket& operator=( CANSocket&& other) noexcept;
+
 		//! get CAN interface name from socket address structure
 		std::string getInterfaceName( const sockaddr_can& addr) const;
 
