@@ -6,6 +6,7 @@
 
 #include <sys/socket.h>
 #include <poll.h>
+#include <utility>
 
 namespace NET
 {
@@ -33,9 +34,6 @@ namespace NET
 		if( pfd.revents & POLLIN)
 			return std::forward<ReceiveFunc>(receiveFunc)();
 
-		if( pfd.revents & (POLLRDHUP | POLLHUP))
-			return { IOStatus::PeerDisconnected, 0 };
-
 		if( pfd.revents & POLLERR) // async error with socket
 		{
 			int error = 0;
@@ -49,6 +47,9 @@ namespace NET
 
 			throw SocketException("timedReceive failed", error);
 		}
+
+		if( connectionOriented && (pfd.revents & (POLLRDHUP | POLLHUP)))
+			return { IOStatus::PeerDisconnected, 0 };
 
 		throwError();
 		// silence warning
