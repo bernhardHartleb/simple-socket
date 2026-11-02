@@ -20,6 +20,7 @@
 #include <type_traits>
 
 static_assert(!std::is_constructible_v<NET::SimpleSocket>);
+static_assert(!std::is_destructible_v<NET::SimpleSocket>);
 static_assert(!std::is_copy_constructible_v<NET::SimpleSocket>);
 static_assert(!std::is_copy_assignable_v<NET::SimpleSocket>);
 static_assert(!std::is_move_constructible_v<NET::SimpleSocket>);
