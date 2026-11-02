@@ -56,7 +56,7 @@ namespace NET
 
 	/*!
 	 * Success
-	 *  byes is meaningful, including zero
+	 *  bytes is meaningful, including zero
 	 *
 	 * Timeout
 	 *  bytes == 0
@@ -151,9 +151,9 @@ namespace NET
 		 * received datagram, the data you didn't read in the receive call will be discared.
 		 *
 		 * If the remote host has closed the connection (on a connection based socket
-		 * like TCP or SCTP) receive() will return 0. If you are using a connectionless
-		 * protocol (like UDP) there is no way to determine wheter the connection has
-		 * been closed by the remote host or not.
+		 * like TCP) receive() will return PeerDisconnected in the result status.
+		 * If you are using a connectionless protocol (like UDP) you may get
+		 * DestinationUnavailable in the result status when the peer refuses via ICMP.
 		 *
 		 * \param buffer the buffer the received data will be written to
 		 * \param len length of the provided buffer, receive will not read more than that
@@ -177,9 +177,9 @@ namespace NET
 		 * received datagram, the data you didn't read in the receive call will be discared.
 		 *
 		 * If the remote host has closed the connection (on a connection based socket
-		 * like TCP or SCTP) receive() will return 0. If you are using a connectionless
-		 * protocol (like UDP) there is no way to determine wheter the connection has
-		 * been closed by the remote host or not.
+		 * like TCP) receive() will return PeerDisconnected in the result status.
+		 * If you are using a connectionless protocol (like UDP) you may get
+		 * DestinationUnavailable in the result status when the peer refuses via ICMP.
 		 *
 		 * \param buffer the buffer the received data will be written to
 		 * \param len length of the provided buffer, receive will not read more than that
@@ -284,8 +284,7 @@ namespace NET
 		 * call is not guaranteed to return all bytes sent by the peer.
 		 *
 		 * If the peer closes or resets the connection before len bytes arrive, the
-		 * function returns the number of bytes received so far. In that case
-		 * peerDisconnected() is set by the underlying receive() call.
+		 * function returns the number of bytes received so far.
 		 *
 		 * \param buffer buffer the received data will be written to
 		 * \param len number of bytes to receive
