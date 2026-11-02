@@ -19,9 +19,15 @@
 
 #include <type_traits>
 
+static_assert(!std::is_constructible_v<NET::SimpleSocket>);
 static_assert(!std::is_copy_constructible_v<NET::SimpleSocket>);
 static_assert(!std::is_copy_assignable_v<NET::SimpleSocket>);
 static_assert(!std::is_move_constructible_v<NET::SimpleSocket>);
+
+static_assert(!std::is_constructible_v<NET::InternetSocket>);
+static_assert(!std::is_copy_constructible_v<NET::InternetSocket>);
+static_assert(!std::is_copy_assignable_v<NET::InternetSocket>);
+static_assert(!std::is_move_constructible_v<NET::InternetSocket>);
 
 static_assert(!std::is_copy_constructible_v<NET::UDPSocket>);
 static_assert(!std::is_copy_assignable_v<NET::UDPSocket>);
@@ -34,6 +40,11 @@ static_assert(std::is_nothrow_move_constructible_v<NET::TCPSocket>);
 static_assert(std::is_nothrow_move_assignable_v<NET::TCPSocket>);
 
 #ifdef SIMPLE_SOCKET_HAVE_UNIX
+static_assert(!std::is_constructible_v<NET::UnixSocket>);
+static_assert(!std::is_copy_constructible_v<NET::UnixSocket>);
+static_assert(!std::is_copy_assignable_v<NET::UnixSocket>);
+static_assert(!std::is_move_constructible_v<NET::UnixSocket>);
+
 static_assert(!std::is_copy_constructible_v<NET::UnixStreamSocket>);
 static_assert(!std::is_copy_assignable_v<NET::UnixStreamSocket>);
 static_assert(std::is_nothrow_move_constructible_v<NET::UnixStreamSocket>);
@@ -46,6 +57,11 @@ static_assert(std::is_nothrow_move_assignable_v<NET::UnixDatagramSocket>);
 #endif
 
 #ifdef SIMPLE_SOCKET_HAVE_CAN
+static_assert(!std::is_constructible_v<NET::CANSocket>);
+static_assert(!std::is_copy_constructible_v<NET::CANSocket>);
+static_assert(!std::is_copy_assignable_v<NET::CANSocket>);
+static_assert(!std::is_move_constructible_v<NET::CANSocket>);
+
 static_assert(!std::is_copy_constructible_v<NET::CANRawSocket>);
 static_assert(!std::is_copy_assignable_v<NET::CANRawSocket>);
 static_assert(std::is_nothrow_move_constructible_v<NET::CANRawSocket>);
