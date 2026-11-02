@@ -4,6 +4,9 @@
 #include <cstring>
 #include <vector>
 
+#include <fcntl.h>
+#include <unistd.h>
+
 using NET::IOResult;
 using NET::IOStatus;
 using NET::ConnectResult;
@@ -18,6 +21,7 @@ class TCPSocket_TEST : public CppUnit::TestFixture
 	CPPUNIT_TEST(testTimedConnect);
 	CPPUNIT_TEST(testGracefulShutdown);
 	CPPUNIT_TEST(testIPv6);
+	CPPUNIT_TEST(testAdoptNativeHandle);
 	CPPUNIT_TEST_SUITE_END();
 
 private:
@@ -245,6 +249,34 @@ public:
 		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, recv.status);
 		CPPUNIT_ASSERT_EQUAL(sizeof(message), recv.bytes);
 		CPPUNIT_ASSERT(std::memcmp(message, buffer, sizeof(message)) == 0);
+	}
+
+	void testAdoptNativeHandle()
+	{
+		NET::TCPSocket systemdOwnedListener;
+		const unsigned short port = prepareServer(systemdOwnedListener);
+
+		// systemd and the service each hold a descriptor referring to the same
+		// listening socket. dup() models the descriptor handed to the service.
+		const int passedFd = ::dup(systemdOwnedListener.nativeHandle());
+		CPPUNIT_ASSERT(passedFd >= 0);
+
+		{
+			NET::TCPSocket listener = NET::TCPSocket::adoptNativeHandle(passedFd);
+			CPPUNIT_ASSERT_EQUAL(passedFd, listener.nativeHandle());
+			CPPUNIT_ASSERT_EQUAL(NET::IPv4, listener.addressFamily());
+			CPPUNIT_ASSERT_EQUAL(port, listener.getLocalPort());
+
+			NET::TCPSocket client;
+			client.connect(LOOPBACK, port);
+			NET::TCPSocket session = listener.accept();
+			CPPUNIT_ASSERT(!session.peerDisconnected());
+		}
+
+		// The adopted descriptor is owned by the wrapper and must be closed.
+		errno = 0;
+		CPPUNIT_ASSERT(::fcntl(passedFd, F_GETFD) == -1);
+		CPPUNIT_ASSERT_EQUAL(EBADF, errno);
 	}
 };
 

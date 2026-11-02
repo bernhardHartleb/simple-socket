@@ -1,6 +1,7 @@
 #include <cppunit/extensions/HelperMacros.h>
 #include <simple_socket/UnixDatagramSocket.h>
 
+#include <fcntl.h>
 #include <unistd.h>
 #include <cstring>
 #include <string>
@@ -17,6 +18,7 @@ class UnixDatagramSocket_TEST : public CppUnit::TestFixture
 	CPPUNIT_TEST(testZeroLengthDatagram);
 	CPPUNIT_TEST(testSocketPathCleanup);
 	CPPUNIT_TEST(testInvalidPath);
+	CPPUNIT_TEST(testAdoptNativeHandle);
 	CPPUNIT_TEST_SUITE_END();
 
 private:
@@ -184,6 +186,7 @@ public:
 		const std::string path = socketPath("unix-dgram-cleanup");
 		removeStaleSocket(path);
 		CPPUNIT_ASSERT(::access(path.c_str(), F_OK) != 0);
+
 		{
 			NET::UnixDatagramSocket socket;
 			socket.bind(path);
@@ -200,6 +203,42 @@ public:
 		NET::UnixDatagramSocket socket;
 		const std::string path(1024, 'x');
 		CPPUNIT_ASSERT_THROW(socket.bind(path), NET::SocketException);
+	}
+
+	void testAdoptNativeHandle()
+	{
+		const std::string serverPath = socketPath("unix-dgram-systemd");
+		removeStaleSocket(serverPath);
+
+		NET::UnixDatagramSocket systemdOwned;
+		systemdOwned.bind(serverPath);
+
+		// dup() models systemd retaining its descriptor while passing another
+		// descriptor for the same listening socket to the service.
+		const int passedFd = ::dup(systemdOwned.nativeHandle());
+		CPPUNIT_ASSERT(passedFd >= 0);
+
+		{
+			NET::UnixDatagramSocket socket = NET::UnixDatagramSocket::adoptNativeHandle(passedFd);
+			CPPUNIT_ASSERT_EQUAL(passedFd, socket.nativeHandle());
+			CPPUNIT_ASSERT_EQUAL(serverPath, socket.getLocalPath());
+
+			NET::UnixDatagramSocket peer;
+			peer.connect(serverPath);
+			char buffer[] = "asdf";
+			peer.send( buffer, sizeof(buffer));
+
+			IOResult recv = socket.timedReceive( buffer, sizeof(buffer), 50);
+			CPPUNIT_ASSERT_EQUAL(IOStatus::Success, recv.status);
+			CPPUNIT_ASSERT_EQUAL(sizeof(buffer), recv.bytes);
+		}
+
+		// The service-side descriptor was owned by the wrapper and is closed,
+		// while the systemd-owned socket and pathname remain alive.
+		errno = 0;
+		CPPUNIT_ASSERT(::fcntl(passedFd, F_GETFD) == -1);
+		CPPUNIT_ASSERT_EQUAL(EBADF, errno);
+		CPPUNIT_ASSERT(::access(serverPath.c_str(), F_OK) == 0);
 	}
 };
 
