@@ -2,6 +2,7 @@
 #define NET_SimpleSocket_h__
 
 #include <string>
+#include <string_view>
 #include <exception>
 
 namespace NET
@@ -224,11 +225,10 @@ namespace NET
 
 		//! returns whether a currently associated peer disconnected
 		/*!
-		 * Retrieves the current state as observed by the OS-kernel.
-		 * For stream sockets, true means there is no connection with a peer.
+		 * Returns whether the OS currently reports hangup or error for the stream peer.
 		 * A false result does not guarantee that the remote peer is reachable.
 		 *
-		 * \return true if a peer disconnected or no peer is connected
+		 * \return true if a peer disconnected or is no longer connected
 		 */
 		[[nodiscard]] bool peerDisconnected() const;
 
@@ -245,8 +245,6 @@ namespace NET
 		 * operating system. If backlog is set to a value > 0, only the upper
 		 * limit of connections is set, the OS can limit the number further.
 		 *
-		 * After starting to listen, use accept to accept incoming connections.
-		 *
 		 * \param backlog upper limit of pending incoming connections
 		 * \exception SocketException
 		 */
@@ -259,7 +257,7 @@ namespace NET
 		 * a SocketException will be thrown.
 		 *
 		 * When using a stream oriented socket, the operating system is allowed
-		 * to send only a bit of the data you requested it to send.
+		 * to send only a part of the data you requested it to send.
 		 * Because of this, you would have to check the number of sent bytes
 		 * when using send(), and resend unsent data manually. sendAll() takes
 		 * that responsibility from you and resends as long as it needs, to
@@ -279,7 +277,7 @@ namespace NET
 		 * call is not guaranteed to return all bytes sent by the peer.
 		 *
 		 * If the peer closes or resets the connection before len bytes arrive, the
-		 * function returns the number of bytes received so far.
+		 * function returns an error status with the number of bytes received so far.
 		 *
 		 * \param buffer buffer the received data will be written to
 		 * \param len number of bytes to receive
