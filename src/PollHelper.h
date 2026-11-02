@@ -18,7 +18,7 @@ namespace NET
 
 		pollfd pfd {};
 		pfd.fd = fd;
-		pfd.events = POLLIN | POLLPRI | POLLRDHUP;
+		pfd.events = POLLIN | POLLRDHUP;
 
 		const int ret = TEMP_FAILURE_RETRY(::poll( &pfd, 1, timeout));
 		if( ret < 0)
@@ -30,7 +30,7 @@ namespace NET
 			throw SocketException("timedReceive failed (invalid socket)", false);
 
 		// Data has priority. There may be queued data followed by FIN
-		if( pfd.revents & (POLLIN | POLLPRI))
+		if( pfd.revents & POLLIN)
 			return std::forward<ReceiveFunc>(receiveFunc)();
 
 		if( pfd.revents & (POLLRDHUP | POLLHUP))

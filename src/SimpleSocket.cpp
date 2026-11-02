@@ -162,7 +162,7 @@ bool SimpleSocket::peerDisconnected() const
 
 	pollfd pfd {};
 	pfd.fd = m_socket;
-	pfd.events = POLLIN | POLLPRI | POLLRDHUP;
+	pfd.events = POLLIN | POLLRDHUP;
 
 	const int ret = TEMP_FAILURE_RETRY(::poll( &pfd, 1, 0));
 	if( ret < 0)
@@ -210,7 +210,7 @@ int SimpleSocket::timedAccept( int timeout) const
 		throw SocketException("timedAccept failed (poll)");
 
 	if( pfd.revents & (POLLERR | POLLNVAL))
-		throw SocketException("timedAccept failed (poll)");
+		throw SocketException("timedAccept failed (poll)", false);
 
 	return SimpleSocket::accept();
 }
