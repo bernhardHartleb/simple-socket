@@ -1,6 +1,7 @@
 #include "InternetSocket.h"
 #include "SockAddress.h"
 #include "TempFailure.h"
+#include "PollHelper.h"
 
 #include <sys/socket.h>
 #include <poll.h>
@@ -96,7 +97,7 @@ ConnectResult InternetSocket::timedConnect( std::string_view foreignAddress, uns
 		return ConnectResult::Connected;
 
 	// known connection issue?
-	auto result = connectResultFromError(errno);
+	auto result = detail::connectResultFromError(errno);
 	if( result) return *result;
 
 	// should we continue with poll?
@@ -129,7 +130,7 @@ ConnectResult InternetSocket::timedConnect( std::string_view foreignAddress, uns
 	if( sockError == 0) return ConnectResult::Connected;
 
 	// known connection issues should not throw
-	result = connectResultFromError(sockError);
+	result = detail::connectResultFromError(sockError);
 	if( result) return *result;
 
 	errno = sockError;

@@ -7,9 +7,18 @@
 #include <sys/socket.h>
 #include <poll.h>
 #include <utility>
+#include <optional>
 
-namespace NET
+namespace NET::detail
 {
+	//! return correct IOStatus for each un-excpetional failures
+	std::optional<IOStatus> classifyIoError( int error, bool connectionOriented) noexcept;
+
+	//! maps errno values into user visible connect result
+	std::optional<ConnectResult> connectResultFromError( int error) noexcept;
+
+
+	//! implements timedReceive() for all sockets
 	template <typename ReceiveFunc>
 	IOResult timedReceiveImpl( int fd, bool connectionOriented, int timeout, ReceiveFunc&& receiveFunc)
 	{
@@ -42,7 +51,7 @@ namespace NET
 			if( ::getsockopt( fd, SOL_SOCKET, SO_ERROR, &error, &len) < 0)
 				throwError();
 
-			auto status = SimpleSocket::classifyIoError( error, connectionOriented);
+			auto status = classifyIoError( error, connectionOriented);
 			if( status) return IOResult{ *status, 0 };
 
 			throw SocketException("timedReceive failed", error);
@@ -56,6 +65,6 @@ namespace NET
 		return { IOStatus::PeerDisconnected, 0 };
 	}
 
-} // namespace NET
+} // namespace NET::detail
 
 #endif // NET_SockAddress_h__

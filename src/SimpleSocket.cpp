@@ -91,7 +91,7 @@ IOResult SimpleSocket::send( const void* buffer, size_t len)
 	if( ret >= 0)
 		return { IOStatus::Success, static_cast<size_t>(ret) };
 
-	auto status = classifyIoError( errno, m_connectionOriented);
+	auto status = detail::classifyIoError( errno, m_connectionOriented);
 	if( status) return IOResult{ *status, 0 };
 
 	throw SocketException("Send failed (send)");
@@ -114,7 +114,7 @@ IOResult SimpleSocket::receive( void* buffer, size_t len)
 		return { IOStatus::Success, 0 };
 	}
 
-	auto status = classifyIoError( errno, m_connectionOriented);
+	auto status = detail::classifyIoError( errno, m_connectionOriented);
 	if( status) return IOResult{ *status, 0 };
 
 	throw SocketException("Receive failed (receive)");
@@ -122,7 +122,7 @@ IOResult SimpleSocket::receive( void* buffer, size_t len)
 
 IOResult SimpleSocket::timedReceive( void* buffer, size_t len, int timeout)
 {
-	return timedReceiveImpl( m_socket, m_connectionOriented, timeout,
+	return detail::timedReceiveImpl( m_socket, m_connectionOriented, timeout,
 		[&] { return receive( buffer, len); });
 }
 
@@ -239,66 +239,4 @@ IOResult SimpleSocket::receiveAll( void* buffer, size_t len)
 		if( res.bytes == 0) return { res.status, received };
 	}
 	return { IOStatus::Success, received };
-}
-
-namespace {
-
-bool isConnectionLossError( int error) noexcept
-{
-	switch(error)
-	{
-		case ECONNRESET:   // the connection died
-		case ECONNABORTED: // connection was aborted
-		case ECONNREFUSED: // configured peer rejected it
-		case EPIPE:        // connection can no longer send
-		case ETIMEDOUT:    // connection died by timeout
-			return true;
-		default:
-			return false;
-	}
-}
-
-bool isNonFatalDatagramError( int error) noexcept
-{
-	switch(error)
-	{
-		case ECONNREFUSED:
-		case EHOSTUNREACH:
-		case ENETUNREACH:
-			return true;
-		default:
-			return false;
-	}
-}
-
-}; // namespace
-
-std::optional<IOStatus> SimpleSocket::classifyIoError( int error, bool connectionOriented) noexcept
-{
-	if( connectionOriented && isConnectionLossError(error))
-		return IOStatus::PeerDisconnected;
-
-	if( !connectionOriented && isNonFatalDatagramError(error))
-		return IOStatus::DestinationUnavailable;
-
-	return std::nullopt;
-}
-
-std::optional<ConnectResult> SimpleSocket::connectResultFromError( int error) noexcept
-{
-	switch(error)
-	{
-		case ECONNREFUSED:
-			return ConnectResult::Refused;
-		case ECONNABORTED:
-		case ECONNRESET:
-			return ConnectResult::Aborted;
-		case ETIMEDOUT:
-			return ConnectResult::Timeout;
-		case EHOSTUNREACH:
-		case ENETUNREACH:
-			return ConnectResult::Unreachable;
-		default:
-			return std::nullopt;
-	}
 }

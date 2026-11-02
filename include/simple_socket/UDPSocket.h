@@ -21,8 +21,7 @@ namespace NET
 		 *
 		 * Can be substituted with send() if the socket is first connected to
 		 * an address and port. If sendTo() is used on a connected socket, the
-		 * destination parameters will be ignored, and the datagram will be sent
-		 * to the connected socket.
+		 * specified destination parameters will be used.
 		 *
 		 * If the message you are trying to send is too long for one of
 		 * the underlying protocols a SocketException will be thrown.

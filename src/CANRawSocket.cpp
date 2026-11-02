@@ -37,7 +37,7 @@ IOResult CANRawSocket::sendTo( const ::can_frame& frame, std::string_view interf
 	if( ret >= 0)
 		return { IOStatus::Success, static_cast<size_t>(ret) };
 
-	auto status = classifyIoError( errno, m_connectionOriented);
+	auto status = detail::classifyIoError( errno, m_connectionOriented);
 	if( status) return IOResult{ *status, 0 };
 
 	throw SocketException("Send failed (sendto)");
@@ -51,7 +51,7 @@ IOResult CANRawSocket::receiveFrom( ::can_frame& frame, std::string& interface)
 	ssize_t ret = TEMP_FAILURE_RETRY (::recvfrom( m_socket, (raw_type*)&frame, sizeof(frame), 0, (sockaddr*)&clientAddr, &addrLen));
 	if( ret < 0)
 	{
-		auto status = classifyIoError( errno, m_connectionOriented);
+		auto status = detail::classifyIoError( errno, m_connectionOriented);
 		if( status) return IOResult{ *status, 0 };
 
 		throw SocketException("Receive failed (recvfrom)");
@@ -62,7 +62,7 @@ IOResult CANRawSocket::receiveFrom( ::can_frame& frame, std::string& interface)
 
 IOResult CANRawSocket::timedReceiveFrom( ::can_frame& frame, std::string& interface, int timeout)
 {
-	return timedReceiveImpl( m_socket, m_connectionOriented, timeout,
+	return detail::timedReceiveImpl( m_socket, m_connectionOriented, timeout,
 		[&] { return receiveFrom( frame, interface); });
 }
 

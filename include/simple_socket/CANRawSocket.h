@@ -29,8 +29,7 @@ namespace NET
 		 *
 		 * Can be substituted with send() if the socket is first connected to
 		 * any interface. If sendTo() is used on a connected socket, the
-		 * destination parameters will be ignored, and the datagram will be sent
-		 * to the connected socket.
+		 * specified destination parameters will be used.
 		 *
 		 * Like send(), sendTo() blocks until the message was sent.
 		 *

@@ -3,7 +3,6 @@
 
 #include <string>
 #include <exception>
-#include <optional>
 
 namespace NET
 {
@@ -47,7 +46,7 @@ namespace NET
 		IPv6
 	};
 
-	enum class IOStatus
+	enum class [[nodiscard]] IOStatus
 	{
 		Success,
 		Timeout,
@@ -76,7 +75,7 @@ namespace NET
 		size_t bytes;
 	};
 
-	enum class ConnectResult
+	enum class [[nodiscard]] ConnectResult
 	{
 		Connected,
 		Timeout,
@@ -225,15 +224,13 @@ namespace NET
 
 		//! returns whether a currently associated peer disconnected
 		/*!
-		 * For stream sockets this is set when the peer closes or resets the connection.
+		 * Retrieves the current state as observed by the OS-kernel.
+		 * For stream sockets, true means there is no connection with a peer.
 		 * A false result does not guarantee that the remote peer is reachable.
 		 *
 		 * \return true if a peer disconnected or no peer is connected
 		 */
 		[[nodiscard]] bool peerDisconnected() const;
-
-		//! return correct IOStatus for each un-excpetional failures
-		static std::optional<IOStatus> classifyIoError( int error, bool connectionOriented) noexcept;
 
 	protected:
 		//! listen for incoming connections
@@ -309,9 +306,6 @@ namespace NET
 
 		//! allows stream sockets timed accept
 		int timedAccept( int timeout) const;
-
-		//! maps errno values into user visible connect result
-		std::optional<ConnectResult> connectResultFromError( int error) noexcept;
 
 		// socket descriptor
 		int m_socket;
