@@ -139,6 +139,10 @@ IOResult SCTPSocket::receive( void* data, size_t maxLen, uint16_t& stream)
 
 		throw SocketException("Receive failed (sctp_recvmsg)");
 	}
+	// for SCTP recv() == 0 means EOF
+	if( ret == 0)
+		return { IOStatus::PeerDisconnected, 0 };
+
 	stream = info.sinfo_stream;
 	return { IOStatus::Success, static_cast<size_t>(ret) };
 }
@@ -154,6 +158,10 @@ IOResult SCTPSocket::receive( void* data, size_t maxLen, uint16_t& stream, recei
 
 		throw SocketException("Receive failed (sctp_recvmsg)");
 	}
+	// for SCTP recv() == 0 means EOF
+	if( ret == 0)
+		return { IOStatus::PeerDisconnected, 0 };
+
 	stream = info.sinfo_stream;
 	flag = static_cast<receiveFlag>(info.sinfo_flags);
 	return { IOStatus::Success, static_cast<size_t>(ret) };
