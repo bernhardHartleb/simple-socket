@@ -15,6 +15,23 @@ namespace NET
 		 */
 		UnixDatagramSocket();
 
+		//! Take ownership of an existing native Unix datagram socket descriptor
+		/*!
+		 * This is intended for sockets created outside simple-socket, for example
+		 * listening sockets supplied through systemd socket activation.
+		 *
+		 * The descriptor must refer to an an AF_UNIX SOCK_DGRAM socket. On success
+		 * ownership is transferred to the returned object and the descriptor will
+		 * be closed when that object is destroyed.
+		 *
+		 * An adopted socket does not claim ownership of its filesystem path.
+		 *
+		 * \param sockfd native socket descriptor to adopt
+		 * \return UnixDatagramSocket owning sockfd
+		 * \exception SocketException if sockfd is invalid or not a Unix dgram socket
+		 */
+		[[nodiscard]] static UnixDatagramSocket adoptNativeHandle( int sockfd);
+
 		/*!
 		 * Send the given buffer as a datagram to the specified address / port.
 		 *
@@ -52,6 +69,10 @@ namespace NET
 		 * \exception SocketException thrown if unable to receive datagram
 		 */
 		[[nodiscard]] IOResult timedReceiveFrom( void* buffer, size_t len, std::string& sourcePath, int timeout);
+
+	protected:
+		// allow construction by adopt
+		using UnixSocket::UnixSocket;
 	};
 
 } // namespace NET

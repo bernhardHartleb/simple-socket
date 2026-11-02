@@ -24,6 +24,7 @@ namespace NET
 		 * The descriptor must refer to an IPv4 or IPv6 SOCK_STREAM socket using
 		 * the TCP protocol. On success ownership is transferred to the returned
 		 * object and the descriptor will be closed when that object is destroyed.
+		 * The address family IPv4 or IPv6 is detected automatically.
 		 *
 		 * \param sockfd native socket descriptor to adopt
 		 * \return TCPSocket owning sockfd

@@ -15,6 +15,22 @@ namespace NET
 		 */
 		UDPSocket( AddressFamily family = IPv4);
 
+		//! Take ownership of an existing native UDP socket descriptor
+		/*!
+		 * This is intended for sockets created outside simple-socket, for example
+		 * listening sockets supplied through systemd socket activation.
+		 *
+		 * The descriptor must refer to an IPv4 or IPv6 SCOK_DGRAM socket using
+		 * the UDP protocol. On success ownership is transferred to the returned
+		 * object and the descriptor will be closed when that object is destroyed.
+		 * The address family IPv4 or IPv6 is detected automatically.
+		 *
+		 * \param sockfd native socket descriptor to adopt
+		 * \return TCPSocket owning sockfd
+		 * \exception SocketException if sockfd is invalid or not a UDP socket
+		 */
+		[[nodiscard]] static UDPSocket adoptNativeHandle( int sockfd);
+
 		/*!
 		 * Send the given buffer as a UDP datagram to the
 		 * specified address / port.
@@ -104,6 +120,10 @@ namespace NET
 		 * \exception SocketException thrown if unable to leave group
 		 */
 		void leaveGroup( const std::string& multicastGroup);
+
+	protected:
+		// allow construction by adopt
+		using InternetSocket::InternetSocket;
 	};
 
 } // namespace NET

@@ -35,6 +35,12 @@ UDPSocket::UDPSocket( AddressFamily family)
 	setBroadcast(m_socket);
 }
 
+UDPSocket UDPSocket::adoptNativeHandle( int sockfd)
+{
+	validateSocket( sockfd, SOCK_DGRAM, IPPROTO_UDP);
+	return UDPSocket( AdoptSocketTag{}, sockfd, SOCK_DGRAM);
+}
+
 IOResult UDPSocket::sendTo( const void* buffer, size_t len, std::string_view foreignAddress, unsigned short foreignPort)
 {
 	SockAddress addr( m_family, foreignAddress, foreignPort);

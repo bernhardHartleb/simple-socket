@@ -11,6 +11,12 @@ UnixDatagramSocket::UnixDatagramSocket()
 : UnixSocket( SOCK_DGRAM, 0)
 {}
 
+UnixDatagramSocket UnixDatagramSocket::adoptNativeHandle( int sockfd)
+{
+	validateSocket( sockfd, SOCK_DGRAM, 0);
+	return UnixDatagramSocket( AdoptSocketTag{}, sockfd, SOCK_DGRAM);
+}
+
 IOResult UnixDatagramSocket::sendTo( const void* buffer, size_t len, std::string_view foreignPath)
 {
 	SockAddress addr( foreignPath);
