@@ -200,9 +200,17 @@ public:
 
 	void testInvalidPath()
 	{
+		const std::string badPath(1024, 'x');
+		const std::string missingPath = socketPath("unix-dgram-missing");
+		char buffer[] = "asdf";
+
 		NET::UnixDatagramSocket socket;
-		const std::string path(1024, 'x');
-		CPPUNIT_ASSERT_THROW(socket.bind(path), NET::SocketException);
+		CPPUNIT_ASSERT_THROW(socket.bind(badPath), NET::SocketException);
+		CPPUNIT_ASSERT_THROW(socket.sendTo(buffer, sizeof(buffer), badPath), NET::SocketException);
+
+		// no exception when sending datagrams to missing socket file
+		IOResult sent = socket.sendTo(buffer, sizeof(buffer), missingPath);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::DestinationUnavailable, sent.status);
 	}
 
 	void testAdoptNativeHandle()

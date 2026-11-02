@@ -25,6 +25,10 @@ IOResult UnixDatagramSocket::sendTo( const void* buffer, size_t len, std::string
 	if( ret >= 0)
 		return { IOStatus::Success, static_cast<size_t>(ret) };
 
+	// special case for Unix datagram: target socket does not exist
+	if( errno == ENOENT)
+		return { IOStatus::DestinationUnavailable, 0 };
+
 	auto status = detail::classifyIoError( errno, m_connectionOriented);
 	if( status) return IOResult{ *status, 0 };
 
