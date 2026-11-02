@@ -12,7 +12,7 @@ struct sctp_status getStatus( int socket)
 	struct sctp_status status;
 	socklen_t size = sizeof(status);
 	if( ::getsockopt( socket, IPPROTO_SCTP, SCTP_STATUS, &status, &size) < 0)
-		throw SocketException("SCTPSocket::getsockopt failed");
+		throw SocketException("Reading SCTP status failed (getsockopt)");
 	return status;
 }
 
@@ -106,26 +106,26 @@ IOResult SCTPSocket::send( const void* data, size_t length, uint16_t stream, uns
 	unsigned ppid /* = 0 */, abortFlag abort /* = KEEPALIVE */, switchAddressFlag switchAddr /* = KEEP_PRIMARY */)
 {
 	int ret = sctp_sendmsg( m_socket, data, length, nullptr, 0, ppid, abort + switchAddr, stream, ttl, context);
-	if( ret < 0)
-		throw SocketException("SCTPSocket::send failed (sctp_sendmsg)");
-	else if( static_cast<size_t>(ret) < length)
-		throw SocketException("SCTP sent a fragemented packet!");
+	if( ret > 0)
+		return { IOStatus::Success, static_cast<size_t>(ret) };
 
-	// TODO classifyIoError
-	return { IOStatus::Success, static_cast<size_t>(ret) };
+	auto status = detail::classifyIoError( errno, m_connectionOriented);
+	if( status) return IOResult{ *status, 0 };
+
+	throw SocketException("Send failed (sctp_sendmsg)");
 }
 
 IOResult SCTPSocket::sendUnordered( const void* data, size_t length, uint16_t stream, unsigned ttl /* = 0 */, unsigned context /* = 0 */,
 	unsigned ppid /* = 0 */, abortFlag abort /* = KEEPALIVE */, switchAddressFlag switchAddr /* = KEEP_PRIMARY */)
 {
 	int ret = sctp_sendmsg( m_socket, data, length, nullptr, 0, ppid, abort + switchAddr + SCTP_UNORDERED, stream, ttl, context);
-	if( ret < 0)
-		throw SocketException("SCTPSocket::send failed (sctp_sendmsg)");
-	else if( static_cast<size_t>(ret) < length)
-		throw SocketException("SCTP sent a fragemented packet!");
+	if( ret > 0)
+		return { IOStatus::Success, static_cast<size_t>(ret) };
 
-	// TODO classifyIoError
-	return { IOStatus::Success, static_cast<size_t>(ret) };
+	auto status = detail::classifyIoError( errno, m_connectionOriented);
+	if( status) return IOResult{ *status, 0 };
+
+	throw SocketException("Send failed (sctp_sendmsg)");
 }
 
 IOResult SCTPSocket::receive( void* data, size_t maxLen, uint16_t& stream)
@@ -133,9 +133,12 @@ IOResult SCTPSocket::receive( void* data, size_t maxLen, uint16_t& stream)
 	struct sctp_sndrcvinfo info;
 	int ret = sctp_recvmsg( m_socket, data, maxLen, 0, 0, &info, 0);
 	if( ret < 0)
-		throw SocketException("SCTPSocket::receive failed (sctp_recvmsg)");
+	{
+		auto status = detail::classifyIoError( errno, m_connectionOriented);
+		if( status) return IOResult{ *status, 0 };
 
-	// TODO classifyIoError
+		throw SocketException("Receive failed (sctp_recvmsg)");
+	}
 	stream = info.sinfo_stream;
 	return { IOStatus::Success, static_cast<size_t>(ret) };
 }
@@ -145,9 +148,12 @@ IOResult SCTPSocket::receive( void* data, size_t maxLen, uint16_t& stream, recei
 	struct sctp_sndrcvinfo info;
 	int ret = sctp_recvmsg( m_socket, data, maxLen, 0, 0, &info, 0);
 	if( ret < 0)
-		throw SocketException("SCTPSocket::receive failed (sctp_recvmsg)");
+	{
+		auto status = detail::classifyIoError( errno, m_connectionOriented);
+		if( status) return IOResult{ *status, 0 };
 
-	// TODO classifyIoError
+		throw SocketException("Receive failed (sctp_recvmsg)");
+	}
 	stream = info.sinfo_stream;
 	flag = static_cast<receiveFlag>(info.sinfo_flags);
 	return { IOStatus::Success, static_cast<size_t>(ret) };
