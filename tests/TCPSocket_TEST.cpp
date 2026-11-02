@@ -171,7 +171,7 @@ public:
 		CPPUNIT_ASSERT(refusedPort != 0);
 
 		ConnectResult err = client.timedConnect(LOOPBACK, refusedPort, 50);
-		CPPUNIT_ASSERT_EQUAL(ConnectResult::Failed, err);
+		CPPUNIT_ASSERT_EQUAL(ConnectResult::Refused, err);
 		// reset connection attempt (this works for TCP only on Linux)
 		client.disconnect();
 		CPPUNIT_ASSERT(client.peerDisconnected());

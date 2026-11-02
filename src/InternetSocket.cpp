@@ -122,16 +122,22 @@ ConnectResult InternetSocket::timedConnect( std::string_view foreignAddress, uns
 	ret = ::getsockopt( m_socket, SOL_SOCKET, SO_ERROR, &sockError, &errLen);
 	if( ret < 0) throwError();
 
-	if( sockError != 0)
-	{
-		// known connection issues should not throw
-		if( isConnectionLossError(sockError))
-			return ConnectResult::Failed;
+	if( sockError == 0) return ConnectResult::Connected;
 
-		errno = sockError;
-		throwError();
+	// known connection issues should not throw
+	if( isConnectionLossError(sockError))
+	{
+		switch(sockError)
+		{
+			case ECONNREFUSED: return ConnectResult::Refused;
+			case ECONNABORTED: return ConnectResult::Aborted;
+		}
+		return ConnectResult::Unreachable;
 	}
-	return ConnectResult::Connected;
+
+	errno = sockError;
+	throwError();
+	return ConnectResult::Unreachable;
 }
 
 void InternetSocket::bind( unsigned short localPort /* = 0 */)
