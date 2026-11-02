@@ -95,7 +95,11 @@ ConnectResult InternetSocket::timedConnect( std::string_view foreignAddress, uns
 	if( ret == 0) // Already connected
 		return ConnectResult::Connected;
 
-	// Did connect return an unexpected error?
+	// known connection issue?
+	auto result = connectResultFromError(errno);
+	if( result) return *result;
+
+	// should we continue with poll?
 	switch(errno)
 	{
 		case EINPROGRESS:
@@ -125,15 +129,8 @@ ConnectResult InternetSocket::timedConnect( std::string_view foreignAddress, uns
 	if( sockError == 0) return ConnectResult::Connected;
 
 	// known connection issues should not throw
-	if( isConnectionLossError(sockError))
-	{
-		switch(sockError)
-		{
-			case ECONNREFUSED: return ConnectResult::Refused;
-			case ECONNABORTED: return ConnectResult::Aborted;
-		}
-		return ConnectResult::Unreachable;
-	}
+	result = connectResultFromError(sockError);
+	if( result) return *result;
 
 	errno = sockError;
 	throwError();

@@ -275,3 +275,22 @@ bool SimpleSocket::isNonFatalDatagramError( int error) noexcept
 			return false;
 	}
 }
+
+std::optional<ConnectResult> SimpleSocket::connectResultFromError( int error) noexcept
+{
+	switch(error)
+	{
+		case ECONNREFUSED:
+			return ConnectResult::Refused;
+		case ECONNABORTED:
+		case ECONNRESET:
+			return ConnectResult::Aborted;
+		case ETIMEDOUT:
+			return ConnectResult::Timeout;
+		case EHOSTUNREACH:
+		case ENETUNREACH:
+			return ConnectResult::Unreachable;
+		default:
+			return std::nullopt;
+	}
+}

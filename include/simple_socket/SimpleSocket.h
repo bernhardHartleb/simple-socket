@@ -3,6 +3,7 @@
 
 #include <string>
 #include <exception>
+#include <optional>
 
 namespace NET
 {
@@ -311,6 +312,9 @@ namespace NET
 
 		//! allows stream sockets timed accept
 		int timedAccept( int timeout) const;
+
+		//! maps errno values into user visible connect result
+		std::optional<ConnectResult> connectResultFromError( int error) noexcept;
 
 		// socket descriptor
 		int m_socket;
