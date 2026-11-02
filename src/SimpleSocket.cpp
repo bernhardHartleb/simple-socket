@@ -25,8 +25,11 @@ SocketException::SocketException( std::string_view message, int error)
 : m_message(message)
 , m_errorcode(error)
 {
-	m_message += ": ";
-	m_message += strerror(m_errorcode);
+	if(error != 0)
+	{
+		m_message += ": ";
+		m_message += strerror(m_errorcode);
+	}
 }
 
 
