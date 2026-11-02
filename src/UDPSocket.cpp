@@ -40,9 +40,7 @@ IOResult UDPSocket::sendTo( const void* buffer, size_t len, std::string_view for
 	SockAddress addr( m_family, foreignAddress, foreignPort);
 
 	ssize_t ret = TEMP_FAILURE_RETRY (::sendto( m_socket, (const raw_type*)buffer, len, 0, addr.data(), addr.length()));
-
-	// Write out the whole buffer as a single message
-	if( ret >= 0 && static_cast<size_t>(ret) == len)
+	if( ret >= 0)
 		return { IOStatus::Success, static_cast<size_t>(ret) };
 
 	const int error = errno;
