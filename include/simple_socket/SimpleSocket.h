@@ -286,11 +286,14 @@ namespace NET
 		 */
 		[[nodiscard]] IOResult receiveAll( void* buffer, size_t len);
 
-		//! enables return of an accepted socket
-		explicit SimpleSocket( int sockfd);
 
-		//! allows a subclass to create new socket
+		//! allows a subclass to create a new socket
 		SimpleSocket( int domain, int type, int protocol);
+
+		//! used to safely adopt internal socket descriptor
+		struct AdoptSocketTag {};
+		//! allows a subclass to take ownership of an existing socket
+		SimpleSocket( AdoptSocketTag, int sockfd, int type);
 
 		//! allows moving concrete classes
 		SimpleSocket( SimpleSocket&& other) noexcept;
@@ -304,6 +307,9 @@ namespace NET
 
 		//! allows stream sockets timed accept
 		int timedAccept( int timeout) const;
+
+		//! check if external socket descriptor to fits the given parameters
+		static void validateSocket( int sockfd, int type, int protocol);
 
 		// socket descriptor
 		int m_socket;

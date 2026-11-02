@@ -11,6 +11,12 @@ TCPSocket::TCPSocket( AddressFamily family)
 : InternetSocket( family, SOCK_STREAM, IPPROTO_TCP)
 {}
 
+TCPSocket TCPSocket::adoptNativeHandle( int sockfd)
+{
+	validateSocket( sockfd, SOCK_STREAM, IPPROTO_TCP);
+	return TCPSocket( AdoptSocketTag{}, sockfd, SOCK_STREAM);
+}
+
 void TCPSocket::setNoDelay( bool enable)
 {
 	const int value = enable;
@@ -21,14 +27,14 @@ void TCPSocket::setNoDelay( bool enable)
 TCPSocket TCPSocket::accept() const
 {
 	int ret = SimpleSocket::accept();
-	return TCPSocket( AdoptSocketTag{}, ret);
+	return TCPSocket( AdoptSocketTag{}, ret, SOCK_STREAM);
 }
 
 std::optional<TCPSocket> TCPSocket::timedAccept( int timeout) const
 {
 	int ret = SimpleSocket::timedAccept(timeout);
 	if( ret >= 0)
-		return std::optional<TCPSocket>{ TCPSocket( AdoptSocketTag{}, ret)};
+		return std::optional<TCPSocket>{ TCPSocket( AdoptSocketTag{}, ret, SOCK_STREAM)};
 	else
 		return std::nullopt;
 }

@@ -16,6 +16,21 @@ namespace NET
 		 */
 		TCPSocket( AddressFamily family = IPv4);
 
+		//! Take ownership of an existing native TCP socket descriptor
+		/*!
+		 * This is intended for sockets created outside simple-socket, for example
+		 * listening sockets supplied through systemd socket activation.
+		 *
+		 * The descriptor must refer to an IPv4 or IPv6 SOCK_STREAM socket using
+		 * the TCP protocol. On success ownership is transferred to the returned
+		 * object and the descriptor will be closed when that object is destroyed.
+		 *
+		 * \param sockfd native socket descriptor to adopt
+		 * \return TCPSocket owning sockfd
+		 * \exception SocketException if sockfd is invalid or not a TCP socket
+		 */
+		[[nodiscard]] static TCPSocket adoptNativeHandle( int sockfd);
+
 		//! Listen for incoming connections
 		using SimpleSocket::listen;
 

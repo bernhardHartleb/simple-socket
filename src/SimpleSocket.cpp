@@ -44,9 +44,9 @@ SimpleSocket::SimpleSocket( int domain, int type, int protocol)
 		throw SocketException("Socket creation failed (socket)");
 }
 
-SimpleSocket::SimpleSocket( int sockfd)
+SimpleSocket::SimpleSocket( AdoptSocketTag, int sockfd, int type)
 : m_socket(sockfd)
-, m_connectionOriented(true) // accepted sockets have connections
+, m_connectionOriented(type == SOCK_STREAM)
 {
 	if(sockfd < 0)
 		throw SocketException("Tried to initialize Socket with invalid Handle", false);
@@ -239,4 +239,26 @@ IOResult SimpleSocket::receiveAll( void* buffer, size_t len)
 		if( res.bytes == 0) return { res.status, received };
 	}
 	return { IOStatus::Success, received };
+}
+
+void SimpleSocket::validateSocket( int sockfd, int type_req, int protocol_req)
+{
+	if( sockfd < 0)
+		throw SocketException("Invalid native handle", false);
+
+	int type = 0;
+	socklen_t len = sizeof(type);
+	if( ::getsockopt( sockfd, SOL_SOCKET, SO_TYPE, &type, &len) < 0)
+		throw SocketException("Unable to read native socket type (getsockopt)");
+	if( type != type_req)
+		throw SocketException("Native handle is the wrong socket type", false);
+
+#ifdef SO_PROTOCOL
+	int protocol = 0;
+	len = sizeof(protocol);
+	if( ::getsockopt( sockfd, SOL_SOCKET, SO_PROTOCOL, &protocol, &len) < 0)
+		throw SocketException("Unable to read native socket protocol (getsockopt)");
+	if( protocol != protocol_req)
+		throw SocketException("Native handle uses wrong protocol type", false);
+#endif
 }

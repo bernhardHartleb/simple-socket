@@ -111,6 +111,7 @@ IOResult SCTPSocket::send( const void* data, size_t length, uint16_t stream, uns
 	else if( static_cast<size_t>(ret) < length)
 		throw SocketException("SCTP sent a fragemented packet!");
 
+	// TODO classifyIoError
 	return { IOStatus::Success, static_cast<size_t>(ret) };
 }
 
@@ -123,6 +124,7 @@ IOResult SCTPSocket::sendUnordered( const void* data, size_t length, uint16_t st
 	else if( static_cast<size_t>(ret) < length)
 		throw SocketException("SCTP sent a fragemented packet!");
 
+	// TODO classifyIoError
 	return { IOStatus::Success, static_cast<size_t>(ret) };
 }
 
@@ -133,6 +135,7 @@ IOResult SCTPSocket::receive( void* data, size_t maxLen, uint16_t& stream)
 	if( ret < 0)
 		throw SocketException("SCTPSocket::receive failed (sctp_recvmsg)");
 
+	// TODO classifyIoError
 	stream = info.sinfo_stream;
 	return { IOStatus::Success, static_cast<size_t>(ret) };
 }
@@ -144,6 +147,7 @@ IOResult SCTPSocket::receive( void* data, size_t maxLen, uint16_t& stream, recei
 	if( ret < 0)
 		throw SocketException("SCTPSocket::receive failed (sctp_recvmsg)");
 
+	// TODO classifyIoError
 	stream = info.sinfo_stream;
 	flag = static_cast<receiveFlag>(info.sinfo_flags);
 	return { IOStatus::Success, static_cast<size_t>(ret) };
@@ -164,14 +168,14 @@ IOResult SCTPSocket::timedReceive( void* data, size_t maxLen, uint16_t& stream, 
 SCTPSocket SCTPSocket::accept() const
 {
 	int ret = SimpleSocket::accept();
-	return SCTPSocket( AdoptSocketTag{}, ret);
+	return SCTPSocket( AdoptSocketTag{}, ret, SOCK_STREAM);
 }
 
 std::optional<SCTPSocket> SCTPSocket::timedAccept( int timeout) const
 {
 	int ret = SimpleSocket::timedAccept(timeout);
 	if( ret >= 0)
-		return std::optional<SCTPSocket>{ SCTPSocket( AdoptSocketTag{}, ret)};
+		return std::optional<SCTPSocket>{ SCTPSocket( AdoptSocketTag{}, ret, SOCK_STREAM)};
 	else
 		return std::nullopt;
 }

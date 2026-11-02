@@ -46,10 +46,8 @@ namespace NET
 		//! allows a subclass to create new socket
 		UnixSocket( int type, int protocol);
 
-		//! used to safely adopt internal socket descriptor
-		struct AdoptSocketTag {};
-		//! allows a subclass to take ownership of an accepted socket
-		UnixSocket( AdoptSocketTag, int sockfd);
+		//! allows a subclass to take ownership of an existing socket
+		UnixSocket( AdoptSocketTag, int sockfd, int type);
 
 		UnixSocket( UnixSocket&& other) noexcept;
 		UnixSocket& operator=( UnixSocket&& other) noexcept;

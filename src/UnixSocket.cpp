@@ -10,8 +10,8 @@ UnixSocket::UnixSocket( int type, int protocol)
 : SimpleSocket( AF_UNIX, type, protocol)
 {}
 
-UnixSocket::UnixSocket( AdoptSocketTag, int sockfd)
-: SimpleSocket(sockfd)
+UnixSocket::UnixSocket( AdoptSocketTag tag, int sockfd, int type)
+: SimpleSocket( tag, sockfd, type)
 {}
 
 UnixSocket::UnixSocket( UnixSocket&& other) noexcept

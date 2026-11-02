@@ -60,8 +60,8 @@ InternetSocket::InternetSocket( AddressFamily family, int type, int protocol)
 , m_family( family)
 {}
 
-InternetSocket::InternetSocket( AdoptSocketTag, int sockfd)
-: SimpleSocket( sockfd)
+InternetSocket::InternetSocket( AdoptSocketTag tag, int sockfd, int type)
+: SimpleSocket( tag, sockfd, type)
 , m_family( socketAddressFamily(sockfd))
 {}
 

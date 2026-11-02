@@ -16,6 +16,23 @@ namespace NET
 		 */
 		UnixStreamSocket();
 
+		//! Take ownership of an existing native Unix stream socket descriptor
+		/*!
+		 * This is intended for sockets created outside simple-socket, for example
+		 * listening sockets supplied through systemd socket activation.
+		 *
+		 * The descriptor must refer to an AF_UNIX SOCK_STREAM socket. On success
+		 * ownership is transferred to the returned object and the descriptor will
+		 * be closed when that object is destroyed.
+		 *
+		 * An adopted socket does not claim ownership of its filesystem path.
+		 *
+		 * \param sockfd native socket descriptor to adopt
+		 * \return UnixStreamSocket owning sockfd
+		 * \exception SocketException if sockfd is invalid or not a Unix stream socket
+		 */
+		[[nodiscard]] static UnixStreamSocket adoptNativeHandle( int sockfd);
+
 		//! Listen for incoming connections
 		using SimpleSocket::listen;
 
