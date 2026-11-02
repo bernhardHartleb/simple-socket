@@ -47,7 +47,6 @@ namespace NET::detail
 		{
 			int error = 0;
 			socklen_t len = sizeof(error);
-
 			if( ::getsockopt( fd, SOL_SOCKET, SO_ERROR, &error, &len) < 0)
 				throwError();
 
@@ -60,11 +59,9 @@ namespace NET::detail
 		if( connectionOriented && (pfd.revents & (POLLRDHUP | POLLHUP)))
 			return { IOStatus::PeerDisconnected, 0 };
 
-		throwError();
-		// silence warning
-		return { IOStatus::PeerDisconnected, 0 };
+		throw SocketException("timedReceive failed", false);
 	}
 
 } // namespace NET::detail
 
-#endif // NET_SockAddress_h__
+#endif // NET_PollHelper_h__

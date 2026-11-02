@@ -122,20 +122,18 @@ ConnectResult InternetSocket::timedConnect( std::string_view foreignAddress, uns
 	if( ret == 0) return ConnectResult::Timeout;
 
 	// Check for socket errors after poll success
-	int sockError = 0;
-	socklen_t errLen = sizeof(sockError);
-	ret = ::getsockopt( m_socket, SOL_SOCKET, SO_ERROR, &sockError, &errLen);
-	if( ret < 0) throwError();
+	int error = 0;
+	socklen_t len = sizeof(error);
+	if( ::getsockopt( m_socket, SOL_SOCKET, SO_ERROR, &error, &len) < 0)
+		throwError();
 
-	if( sockError == 0) return ConnectResult::Connected;
+	if( error == 0) return ConnectResult::Connected;
 
 	// known connection issues should not throw
-	result = detail::connectResultFromError(sockError);
+	result = detail::connectResultFromError(error);
 	if( result) return *result;
 
-	errno = sockError;
-	throwError();
-	return ConnectResult::Unreachable;
+	throw SocketException("timedConnect failed", error);
 }
 
 void InternetSocket::bind( unsigned short localPort /* = 0 */)
