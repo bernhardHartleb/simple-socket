@@ -34,10 +34,13 @@ IOResult CANRawSocket::sendTo( const ::can_frame& frame, std::string_view interf
 	destAddr.can_ifindex = getInterfaceIndex(interface);
 
 	ssize_t ret = TEMP_FAILURE_RETRY (::sendto( m_socket, (const raw_type*)&frame, sizeof(frame), 0, (sockaddr*)&destAddr, sizeof(destAddr)));
-	if( ret < 0)
-		throw SocketException("Send failed (sendto)");
+	if( ret >= 0)
+		return { IOStatus::Success, static_cast<size_t>(ret) };
 
-	return { IOStatus::Success, static_cast<size_t>(ret) };
+	auto status = classifyIoError( errno, m_connectionOriented);
+	if( status) return IOResult{ *status, 0 };
+
+	throw SocketException("Send failed (sendto)");
 }
 
 IOResult CANRawSocket::receiveFrom( ::can_frame& frame, std::string& interface)
@@ -47,8 +50,12 @@ IOResult CANRawSocket::receiveFrom( ::can_frame& frame, std::string& interface)
 
 	ssize_t ret = TEMP_FAILURE_RETRY (::recvfrom( m_socket, (raw_type*)&frame, sizeof(frame), 0, (sockaddr*)&clientAddr, &addrLen));
 	if( ret < 0)
-		throw SocketException("Receive failed (recvfrom)");
+	{
+		auto status = classifyIoError( errno, m_connectionOriented);
+		if( status) return IOResult{ *status, 0 };
 
+		throw SocketException("Receive failed (recvfrom)");
+	}
 	interface = getInterfaceName(clientAddr);
 	return { IOStatus::Success, static_cast<size_t>(ret) };
 }

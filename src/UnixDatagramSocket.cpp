@@ -19,13 +19,10 @@ IOResult UnixDatagramSocket::sendTo( const void* buffer, size_t len, std::string
 	if( ret >= 0)
 		return { IOStatus::Success, static_cast<size_t>(ret) };
 
-	const int error = errno;
-	if( isNonFatalDatagramError(error))
-	{
-		return { IOStatus::DestinationUnavailable, 0 };
-	}
-	throw SocketException("Send failed (sendto)");
+	auto status = classifyIoError( errno, m_connectionOriented);
+	if( status) return IOResult{ *status, 0 };
 
+	throw SocketException("Send failed (sendto)");
 }
 
 IOResult UnixDatagramSocket::receiveFrom( void* buffer, size_t len, std::string& sourcePath)
@@ -34,8 +31,12 @@ IOResult UnixDatagramSocket::receiveFrom( void* buffer, size_t len, std::string&
 
 	ssize_t ret = TEMP_FAILURE_RETRY (::recvfrom( m_socket, (raw_type*)buffer, len, 0, addr.data(), addr.lengthPtr()));
 	if( ret < 0)
-		throw SocketException("Receive failed (recvfrom)");
+	{
+		auto status = classifyIoError( errno, m_connectionOriented);
+		if( status) return IOResult{ *status, 0 };
 
+		throw SocketException("Receive failed (recvfrom)");
+	}
 	sourcePath = addr.address();
 	return { IOStatus::Success, static_cast<size_t>(ret) };
 }

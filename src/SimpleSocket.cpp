@@ -91,15 +91,9 @@ IOResult SimpleSocket::send( const void* buffer, size_t len)
 	if( ret >= 0)
 		return { IOStatus::Success, static_cast<size_t>(ret) };
 
-	const int error = errno;
-	if( m_connectionOriented && isConnectionLossError(error))
-	{
-		return { IOStatus::PeerDisconnected, 0 };
-	}
-	if( !m_connectionOriented && isNonFatalDatagramError(error))
-	{
-		return { IOStatus::DestinationUnavailable, 0 };
-	}
+	auto status = classifyIoError( errno, m_connectionOriented);
+	if( status) return IOResult{ *status, 0 };
+
 	throw SocketException("Send failed (send)");
 }
 
@@ -120,11 +114,9 @@ IOResult SimpleSocket::receive( void* buffer, size_t len)
 		return { IOStatus::Success, 0 };
 	}
 
-	const int error = errno;
-	if( m_connectionOriented && isConnectionLossError(error))
-	{
-		return { IOStatus::PeerDisconnected, 0 };
-	}
+	auto status = classifyIoError( errno, m_connectionOriented);
+	if( status) return IOResult{ *status, 0 };
+
 	throw SocketException("Receive failed (receive)");
 }
 
@@ -249,7 +241,9 @@ IOResult SimpleSocket::receiveAll( void* buffer, size_t len)
 	return { IOStatus::Success, received };
 }
 
-bool SimpleSocket::isConnectionLossError( int error) noexcept
+namespace {
+
+bool isConnectionLossError( int error) noexcept
 {
 	switch(error)
 	{
@@ -264,16 +258,30 @@ bool SimpleSocket::isConnectionLossError( int error) noexcept
 	}
 }
 
-bool SimpleSocket::isNonFatalDatagramError( int error) noexcept
+bool isNonFatalDatagramError( int error) noexcept
 {
 	switch(error)
 	{
 		case ECONNREFUSED:
 		case EHOSTUNREACH:
+		case ENETUNREACH:
 			return true;
 		default:
 			return false;
 	}
+}
+
+}; // namespace
+
+std::optional<IOStatus> SimpleSocket::classifyIoError( int error, bool connectionOriented) noexcept
+{
+	if( connectionOriented && isConnectionLossError(error))
+		return IOStatus::PeerDisconnected;
+
+	if( !connectionOriented && isNonFatalDatagramError(error))
+		return IOStatus::DestinationUnavailable;
+
+	return std::nullopt;
 }
 
 std::optional<ConnectResult> SimpleSocket::connectResultFromError( int error) noexcept

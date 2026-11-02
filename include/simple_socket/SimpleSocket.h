@@ -232,11 +232,8 @@ namespace NET
 		 */
 		[[nodiscard]] bool peerDisconnected() const;
 
-		//! return true for indications of a disconnect
-		static bool isConnectionLossError( int error) noexcept;
-
-		//! return true for transient datagram errors
-		static bool isNonFatalDatagramError( int error) noexcept;
+		//! return correct IOStatus for each un-excpetional failures
+		static std::optional<IOStatus> classifyIoError( int error, bool connectionOriented) noexcept;
 
 	protected:
 		//! listen for incoming connections

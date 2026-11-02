@@ -44,10 +44,9 @@ namespace NET
 			if( ::getsockopt( fd, SOL_SOCKET, SO_ERROR, &error, &len) < 0)
 				throwError();
 
-			if( connectionOriented && SimpleSocket::isConnectionLossError(error))
-			{
-				return { IOStatus::PeerDisconnected, 0 };
-			}
+			auto status = SimpleSocket::classifyIoError( error, connectionOriented);
+			if( status) return IOResult{ *status, 0 };
+
 			throw SocketException("timedReceive failed", error);
 		}
 
