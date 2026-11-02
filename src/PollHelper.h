@@ -21,12 +21,20 @@ namespace NET
 		pfd.events = POLLIN | POLLPRI | POLLRDHUP;
 
 		const int ret = TEMP_FAILURE_RETRY(::poll( &pfd, 1, timeout));
-		if( ret < 0) throwError();
+		if( ret < 0)
+			throwError();
 
 		if( ret == 0) return { IOStatus::Timeout, 0 };
 
 		if( pfd.revents & POLLNVAL)
-			throwError();
+			throw SocketException("timedReceive failed (invalid socket)", false);
+
+		// Data has priority. There may be queued data followed by FIN
+		if( pfd.revents & (POLLIN | POLLPRI))
+			return std::forward<ReceiveFunc>(receiveFunc)();
+
+		if( pfd.revents & (POLLRDHUP | POLLHUP))
+			return { IOStatus::PeerDisconnected, 0 };
 
 		if( pfd.revents & POLLERR) // async error with socket
 		{
@@ -42,13 +50,6 @@ namespace NET
 			}
 			throw SocketException("timedReceive failed", error);
 		}
-
-		// Data has priority. There may be queued data followed by FIN
-		if( pfd.revents & (POLLIN | POLLPRI))
-			return std::forward<ReceiveFunc>(receiveFunc)();
-
-		if( pfd.revents & (POLLRDHUP | POLLHUP))
-			return { IOStatus::PeerDisconnected, 0 };
 
 		throwError();
 		// silence warning

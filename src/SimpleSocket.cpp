@@ -21,6 +21,15 @@ SocketException::SocketException( std::string_view message, bool inclErrno /* = 
 	}
 }
 
+SocketException::SocketException( std::string_view message, int error)
+: m_message(message)
+, m_errorcode(error)
+{
+	m_message += ": ";
+	m_message += strerror(m_errorcode);
+}
+
+
 SimpleSocket::SimpleSocket( int domain, int type, int protocol)
 : m_connectionOriented(type == SOCK_STREAM)
 {

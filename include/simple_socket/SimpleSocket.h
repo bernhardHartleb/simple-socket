@@ -13,10 +13,16 @@ namespace NET
 		/*!
 		 * Construct a SocketException with a explanatory message.
 		 * \param message explanatory message
-		 * \param inclErrno true if system message from strerror(errno)
-		 * should be postfixed to the user provided message
+		 * \param inclErrno if true system message from strerror(errno) is postfixed
 		 */
 		SocketException( std::string_view message, bool inclErrno = true);
+
+		/*!
+		 * Construct a SocketException with a explanatory message.
+		 * \param message explanatory message
+		 * \param error system message from strerror(error) is postfixed
+		 */
+		SocketException( std::string_view message, int error);
 
 		SocketException( const SocketException&) = default;
 
