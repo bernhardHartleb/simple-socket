@@ -302,10 +302,13 @@ namespace NET
 		// protected to avoid delete via base class
 		~SimpleSocket();
 
-		//! allows stream sockets to accept connections
+		//! direct accept syscall
+		int acceptNative() const;
+
+		//! retrying accept for use by stream sockets
 		int accept() const;
 
-		//! allows stream sockets timed accept
+		//! retrying accept with timeout for use by stream sockets
 		int timedAccept( int timeout) const;
 
 		//! check if external socket descriptor to fits the given parameters

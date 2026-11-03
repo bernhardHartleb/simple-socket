@@ -26,6 +26,7 @@ bool isNonFatalDatagramError( int error) noexcept
 		case ECONNREFUSED:
 		case EHOSTUNREACH:
 		case ENETUNREACH:
+		//case ENETDOWN: // leaving this out means throw when network is down
 			return true;
 		default:
 			return false;
@@ -35,6 +36,29 @@ bool isNonFatalDatagramError( int error) noexcept
 }; // namespace
 
 using namespace NET;
+
+bool detail::isTransientAcceptError( int error) noexcept
+{
+	switch(error)
+	{
+		case ECONNABORTED:
+		// Linux accept(2) explicitly recommends treating these
+		// pending network errors like EAGAIN and retrying.
+		case ENETDOWN:
+		case EPROTO:
+		case ENOPROTOOPT:
+		case EHOSTDOWN:
+		case ENONET:
+		case EHOSTUNREACH:
+		case EOPNOTSUPP:
+		case ENETUNREACH:
+		// Linux may also propagate this from the pending connection.
+		case ETIMEDOUT:
+			return true;
+		default:
+			return false;
+	}
+}
 
 std::optional<IOStatus> detail::classifyIoError( int error, bool connectionOriented) noexcept
 {

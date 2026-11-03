@@ -17,6 +17,9 @@ namespace NET::detail
 	//! maps errno values into user visible connect result
 	std::optional<ConnectResult> connectResultFromError( int error) noexcept;
 
+	//! returns true when to retry accept() due to a transient failure
+	bool isTransientAcceptError( int error) noexcept;
+
 
 	//! implements timedReceive() for all sockets
 	template <typename ReceiveFunc>

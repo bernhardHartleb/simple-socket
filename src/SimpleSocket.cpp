@@ -6,6 +6,7 @@
 #include <unistd.h>
 #include <cstring>
 #include <cerrno>
+#include <chrono>
 
 using namespace NET;
 
@@ -184,35 +185,85 @@ void SimpleSocket::listen( int backlog)
 		throw SocketException("Listen failed (listen)");
 }
 
-int SimpleSocket::accept() const
+int SimpleSocket::acceptNative() const
 {
 #ifdef SOCK_CLOEXEC
 	// prevent leaking socket descriptor on exec
-	int ret = TEMP_FAILURE_RETRY (::accept4( m_socket, nullptr, nullptr, SOCK_CLOEXEC));
+	return ::accept4( m_socket, nullptr, nullptr, SOCK_CLOEXEC);
 #else
-	int ret = TEMP_FAILURE_RETRY (::accept( m_socket, nullptr, nullptr));
+	return ::accept( m_socket, nullptr, nullptr);
 #endif
-	if( ret < 0)
-		throw SocketException("Accept failed (accept)");
+}
 
-	return ret;
+int SimpleSocket::accept() const
+{
+	// Retry until we reach a non-transient error
+	while(1)
+	{
+		int fd = acceptNative();
+		if( fd >= 0) return fd;
+
+		const int error = errno;
+		if( error == EINTR || detail::isTransientAcceptError(error))
+			continue;
+
+		throw SocketException("Accept failed (accept)", error);
+	}
 }
 
 int SimpleSocket::timedAccept( int timeout) const
 {
-	pollfd pfd {};
-	pfd.fd = m_socket;
-	pfd.events = POLLIN;
+	// negative timeout means wait forever
+	if( timeout < 0) return accept();
 
-	int ret = TEMP_FAILURE_RETRY (::poll( &pfd, 1, timeout));
-	if( ret == 0) return -1; // invalid handle
-	if( ret < 0)
-		throw SocketException("timedAccept failed (poll)");
+	using Clock = std::chrono::steady_clock;
+	const auto deadline = Clock::now() + std::chrono::milliseconds(timeout);
 
-	if( pfd.revents & (POLLERR | POLLNVAL))
-		throw SocketException("timedAccept failed (poll)", false);
+	while(1)
+	{
+		const auto now = Clock::now();
+		if( now >= deadline) return -1;
 
-	return SimpleSocket::accept();
+		auto remaining = std::chrono::ceil<std::chrono::milliseconds>(deadline - now);
+		const int pollTimeout = static_cast<int>(remaining.count());
+
+		pollfd pfd {};
+		pfd.fd = m_socket;
+		pfd.events = POLLIN;
+
+		int ret = ::poll( &pfd, 1, pollTimeout);
+		if( ret == 0) return -1; // invalid handle on timeout
+		if( ret < 0)
+		{
+			const int error = errno;
+			if( error == EINTR) continue;
+
+			throw SocketException("timedAccept failed (poll)", error);
+		}
+
+		if( pfd.revents & POLLNVAL)
+			throw SocketException("timedAccept failed (invalid socket)", false);
+
+		if( pfd.revents & POLLIN)
+		{
+			int fd = acceptNative();
+			if( fd >= 0) return fd;
+
+			const int error = errno;
+			if( error == EINTR
+			 || error == EAGAIN || error == EWOULDBLOCK
+			 || detail::isTransientAcceptError(error))
+				continue;
+
+			throw SocketException("timedAccept failed (accept)", error);
+		}
+
+		if( pfd.revents & POLLERR)
+			throw SocketException("timedAccept failed (POLLERR)", false);
+
+		if( pfd.revents & POLLHUP)
+			throw SocketException("timedAccept failed (listening socket hung up)", false);
+	}
 }
 
 IOResult SimpleSocket::sendAll( const void* buffer, size_t len)
