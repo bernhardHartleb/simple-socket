@@ -87,28 +87,26 @@ ConnectResult InternetSocket::timedConnect( std::string_view foreignAddress, uns
 	// Set O_NONBLOCK and restore blocking state on destruction
 	NonBlockingGuard nonBlocking( m_socket);
 
-	const auto throwError = []() {
-		throw SocketException("timedConnect failed");
-	};
-
 	// Asynchronous connection attempt
 	int ret = ::connect( m_socket, addr.data(), addr.length());
 	if( ret == 0) // Already connected
 		return ConnectResult::Connected;
 
+	int error = errno;
 	// known connection issue?
-	auto result = detail::connectResultFromError(errno);
+	auto result = detail::connectResultFromError(error);
 	if( result) return *result;
 
 	// should we continue with poll?
-	switch(errno)
+	switch(error)
 	{
-		case EINPROGRESS:
-		case EWOULDBLOCK:
+		case EALREADY:    // previous attempt still active, potentially not to the same endpoint
+		case EINPROGRESS: // asynchronous connect active
+		case EAGAIN:      // same for unix sockets, otherwise means routing cache full
 		case EINTR:
 			break;
 		default:
-			throwError();
+			throw SocketException("timedAccept failed (connect)", error);
 	}
 
 	// Wait for the connection to complete
@@ -117,15 +115,19 @@ ConnectResult InternetSocket::timedConnect( std::string_view foreignAddress, uns
 	pfd.events = POLLOUT;
 
 	ret = TEMP_FAILURE_RETRY (::poll( &pfd, 1, timeout));
-	if( ret < 0) throwError();
+	if( ret < 0)
+		throw SocketException("timedConnect failed (poll)");
 
 	if( ret == 0) return ConnectResult::Timeout;
 
+	if( pfd.revents & POLLNVAL)
+		throw SocketException("timedConnect failed (invalid socket)", false);
+
 	// Check for socket errors after poll success
-	int error = 0;
+	error = 0;
 	socklen_t len = sizeof(error);
 	if( ::getsockopt( m_socket, SOL_SOCKET, SO_ERROR, &error, &len) < 0)
-		throwError();
+		throw SocketException("timedConnect failed (getsockopt)");
 
 	if( error == 0) return ConnectResult::Connected;
 

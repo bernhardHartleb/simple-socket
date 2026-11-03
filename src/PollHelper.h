@@ -25,17 +25,13 @@ namespace NET::detail
 	template <typename ReceiveFunc>
 	IOResult timedReceiveImpl( int fd, bool connectionOriented, int timeout, ReceiveFunc&& receiveFunc)
 	{
-		const auto throwError = []() {
-			throw SocketException("timedReceive failed");
-		};
-
 		pollfd pfd {};
 		pfd.fd = fd;
 		pfd.events = POLLIN | POLLRDHUP;
 
-		const int ret = TEMP_FAILURE_RETRY(::poll( &pfd, 1, timeout));
+		int ret = TEMP_FAILURE_RETRY(::poll( &pfd, 1, timeout));
 		if( ret < 0)
-			throwError();
+			throw SocketException("timedReceive failed (poll)");
 
 		if( ret == 0) return { IOStatus::Timeout, 0 };
 
@@ -51,7 +47,7 @@ namespace NET::detail
 			int error = 0;
 			socklen_t len = sizeof(error);
 			if( ::getsockopt( fd, SOL_SOCKET, SO_ERROR, &error, &len) < 0)
-				throwError();
+				throw SocketException("timedConnect failed (invalid socket)", false);
 
 			auto status = classifyIoError( error, connectionOriented);
 			if( status) return IOResult{ *status, 0 };
