@@ -1,7 +1,6 @@
 #include <cppunit/extensions/HelperMacros.h>
 #include <simple_socket/UnixDatagramSocket.h>
 
-#include <fcntl.h>
 #include <unistd.h>
 #include <cstring>
 #include <string>
@@ -223,11 +222,12 @@ public:
 
 		// dup() models systemd retaining its descriptor while passing another
 		// descriptor for the same listening socket to the service.
-		const int passedFd = ::dup(systemdOwned.nativeHandle());
+		const int passedFd = systemdOwned.duplicateNativeHandle();
 		CPPUNIT_ASSERT(passedFd >= 0);
 
 		{
 			NET::UnixDatagramSocket socket = NET::UnixDatagramSocket::adoptNativeHandle(passedFd);
+			CPPUNIT_ASSERT(socket.valid());
 			CPPUNIT_ASSERT_EQUAL(passedFd, socket.nativeHandle());
 			CPPUNIT_ASSERT_EQUAL(serverPath, socket.getLocalPath());
 
@@ -243,9 +243,8 @@ public:
 
 		// The service-side descriptor was owned by the wrapper and is closed,
 		// while the systemd-owned socket and pathname remain alive.
-		errno = 0;
-		CPPUNIT_ASSERT(::fcntl(passedFd, F_GETFD) == -1);
-		CPPUNIT_ASSERT_EQUAL(EBADF, errno);
+		CPPUNIT_ASSERT_THROW(auto t = NET::UnixDatagramSocket::adoptNativeHandle(passedFd),  NET::SocketException);
+		CPPUNIT_ASSERT(systemdOwned.valid());
 		CPPUNIT_ASSERT(::access(serverPath.c_str(), F_OK) == 0);
 	}
 };

@@ -111,8 +111,11 @@ namespace NET
 		//! Return the native descriptor. Ownership remains with the object.
 		int nativeHandle() noexcept { return m_socket; }
 
-		//! Returns true if socket is in a usable (non-moved) state
-		bool valid() const noexcept { return m_socket >= 0; }
+		//! Duplicates the underlaying native socket descriptor
+		[[nodiscard]] int duplicateNativeHandle() const;
+
+		//! Returns true if socket is in a usable (non-moved) state and open
+		[[nodiscard]] bool valid() const noexcept;
 
 		//! send data through a connected socket
 		/*!

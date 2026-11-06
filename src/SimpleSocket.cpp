@@ -3,6 +3,7 @@
 #include "TempFailure.h"
 #include "PollHelper.h"
 
+#include <fcntl.h>
 #include <unistd.h>
 #include <cstring>
 #include <cerrno>
@@ -79,6 +80,21 @@ SimpleSocket& SimpleSocket::operator=( SimpleSocket&& other) noexcept
 SimpleSocket::~SimpleSocket()
 {
 	if( m_socket >= 0) ::close(m_socket);
+}
+
+int SimpleSocket::duplicateNativeHandle() const
+{
+	int ret = ::dup( m_socket);
+	if( ret < 0)
+		throw SocketException("Duplicate failed (dup)");
+	return ret;
+}
+
+bool SimpleSocket::valid() const noexcept
+{
+	if( m_socket < 0) return false;
+	// check the descriptor by reading its flags
+	return (::fcntl( m_socket, F_GETFD) >= 0);
 }
 
 IOResult SimpleSocket::send( const void* buffer, size_t len)
@@ -232,13 +248,11 @@ int SimpleSocket::timedAccept( int timeout) const
 		pfd.events = POLLIN;
 
 		int ret = ::poll( &pfd, 1, pollTimeout);
-		if( ret == 0) return -1; // invalid handle on timeout
+		if( ret == 0) return -1; // invalid socket handle on timeout
 		if( ret < 0)
 		{
-			const int error = errno;
-			if( error == EINTR) continue;
-
-			throw SocketException("timedAccept failed (poll)", error);
+			if( errno == EINTR) continue;
+			throw SocketException("timedAccept failed (poll)");
 		}
 
 		if( pfd.revents & POLLNVAL)

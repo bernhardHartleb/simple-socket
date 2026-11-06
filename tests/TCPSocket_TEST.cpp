@@ -4,9 +4,6 @@
 #include <cstring>
 #include <vector>
 
-#include <fcntl.h>
-#include <unistd.h>
-
 using NET::IOResult;
 using NET::IOStatus;
 using NET::ConnectResult;
@@ -253,16 +250,17 @@ public:
 
 	void testAdoptNativeHandle()
 	{
-		NET::TCPSocket systemdOwnedListener;
-		const unsigned short port = prepareServer(systemdOwnedListener);
+		NET::TCPSocket systemdOwned;
+		const unsigned short port = prepareServer(systemdOwned);
 
 		// systemd and the service each hold a descriptor referring to the same
 		// listening socket. dup() models the descriptor handed to the service.
-		const int passedFd = ::dup(systemdOwnedListener.nativeHandle());
+		const int passedFd = systemdOwned.duplicateNativeHandle();
 		CPPUNIT_ASSERT(passedFd >= 0);
 
 		{
 			NET::TCPSocket listener = NET::TCPSocket::adoptNativeHandle(passedFd);
+			CPPUNIT_ASSERT(listener.valid());
 			CPPUNIT_ASSERT_EQUAL(passedFd, listener.nativeHandle());
 			CPPUNIT_ASSERT_EQUAL(NET::IPv4, listener.addressFamily());
 			CPPUNIT_ASSERT_EQUAL(port, listener.getLocalPort());
@@ -274,9 +272,8 @@ public:
 		}
 
 		// The adopted descriptor is owned by the wrapper and must be closed.
-		errno = 0;
-		CPPUNIT_ASSERT(::fcntl(passedFd, F_GETFD) == -1);
-		CPPUNIT_ASSERT_EQUAL(EBADF, errno);
+		CPPUNIT_ASSERT_THROW(auto t = NET::TCPSocket::adoptNativeHandle(passedFd),  NET::SocketException);
+		CPPUNIT_ASSERT(systemdOwned.valid());
 	}
 };
 

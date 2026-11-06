@@ -5,9 +5,6 @@
 #include <cstring>
 #include <string>
 
-#include <fcntl.h>
-#include <unistd.h>
-
 using NET::IOResult;
 using NET::IOStatus;
 
@@ -264,22 +261,19 @@ public:
 	{
 		// A descriptor of the wrong socket type must be rejected without
 		// stealing ownership from the caller.
-		NET::UDPSocket datagram;
-		const int datagramFd = ::dup(datagram.nativeHandle());
+		NET::UDPSocket systemdOwned;
+		const int datagramFd = systemdOwned.duplicateNativeHandle();
 		CPPUNIT_ASSERT(datagramFd >= 0);
 		CPPUNIT_ASSERT_THROW(auto t = NET::TCPSocket::adoptNativeHandle(datagramFd), NET::SocketException);
-		CPPUNIT_ASSERT(::fcntl(datagramFd, F_GETFD) != -1);
 
 		{
 			NET::UDPSocket owner = NET::UDPSocket::adoptNativeHandle(datagramFd);
 			CPPUNIT_ASSERT(owner.valid());
-			CPPUNIT_ASSERT(::fcntl(datagramFd, F_GETFD) != -1);
 		}
 
 		// The adopted descriptor is owned by the wrapper and must be closed.
-		errno = 0;
-		CPPUNIT_ASSERT(::fcntl(datagramFd, F_GETFD) == -1);
-		CPPUNIT_ASSERT_EQUAL(EBADF, errno);
+		CPPUNIT_ASSERT_THROW(auto t = NET::UDPSocket::adoptNativeHandle(datagramFd),  NET::SocketException);
+		CPPUNIT_ASSERT(systemdOwned.valid());
 	}
 };
 
