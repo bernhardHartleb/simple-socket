@@ -179,7 +179,7 @@ bool SimpleSocket::peerDisconnected() const
 
 	pollfd pfd {};
 	pfd.fd = m_socket;
-	pfd.events = POLLIN | POLLRDHUP;
+	pfd.events = POLLRDHUP;
 
 	const int ret = TEMP_FAILURE_RETRY(::poll( &pfd, 1, 0));
 	if( ret < 0)
