@@ -3,8 +3,8 @@
 #include <array>
 #include <iostream>
 
-static const char LOOPBACK[] = "127.0.0.1";
-static const unsigned short PORT = 47778;
+const char LOOPBACK[] = "127.0.0.1";
+const unsigned short PORT = 47778;
 
 static int runServer()
 {
@@ -19,9 +19,10 @@ static int runServer()
 		std::string sourceAddress;
 		unsigned short sourcePort = 0;
 
-		NET::IOResult res = socket.receiveFrom(buffer.data(), buffer.size(), sourceAddress, sourcePort);
+		NET::IOResult result = socket.receiveFrom(buffer.data(), buffer.size(), sourceAddress, sourcePort);
+		if (result.bytes == 0) continue;
 
-		std::string command(buffer.data(), res.bytes);
+		std::string command(buffer.data(), result.bytes);
 		std::cout << "Received from " << sourceAddress << ":" << sourcePort << " " << command << std::endl;
 
 		if (command == "quit")

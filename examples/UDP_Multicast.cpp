@@ -3,10 +3,11 @@
 #include <array>
 #include <iostream>
 
-static const char multicast_group[] = "239.255.0.1";
-static const unsigned short multicast_port = 47777;
-static const char send_msg[] = "Welcome to our multicast group!";
-static const int send_len = sizeof(send_msg) - 1;
+const char multicast_group[] = "239.255.0.1";
+const unsigned short multicast_port = 47777;
+
+const char send_msg[] = "Welcome to our multicast group!";
+const int send_len = sizeof(send_msg) - 1;
 
 int main()
 {
@@ -20,11 +21,13 @@ int main()
 	// Join the multicast group so packets addressed to the group can be delivered to this socket
 	recv_socket.joinGroup(multicast_group);
 
+
 	NET::UDPSocket send_socket;
 	// TTL 0 keeps packets self-contained on the local host
 	send_socket.setMulticastTTL(0);
 	// Send to group
 	send_socket.sendTo(send_msg, send_len, multicast_group, multicast_port);
+
 
 	std::array<char, 256> buffer{};
 	std::string source;
@@ -33,6 +36,7 @@ int main()
 	// UDP preserves datagram boundaries
 	// one receiveFrom() corresponds to one datagram
 	NET::IOResult res = recv_socket.timedReceiveFrom(buffer.data(), buffer.size(), source, source_port, 1000);
+
 	if (res.status == NET::IOStatus::Timeout)
 	{
 		std::cerr << "Timed out waiting for multicast datagram." << std::endl;
