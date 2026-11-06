@@ -84,9 +84,11 @@ SimpleSocket::~SimpleSocket()
 
 int SimpleSocket::duplicateNativeHandle() const
 {
-	int ret = ::dup( m_socket);
+	// Atomically duplicate with close-on-exec
+	int ret = ::fcntl( m_socket, F_DUPFD_CLOEXEC, 0);
 	if( ret < 0)
-		throw SocketException("Duplicate failed (dup)");
+		throw SocketException("Duplicate failed (fcntl)");
+
 	return ret;
 }
 
