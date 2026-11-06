@@ -19,6 +19,7 @@ class UnixStreamSocket_TEST : public CppUnit::TestFixture
 	CPPUNIT_TEST(testTimedReceive);
 	CPPUNIT_TEST(testGracefulShutdown);
 	CPPUNIT_TEST(testSocketPathOwnership);
+	CPPUNIT_TEST(testAdoptNativeHandle);
 	CPPUNIT_TEST_SUITE_END();
 
 private:
@@ -245,6 +246,39 @@ public:
 
 		// Destruction of the listening socket removes its pathname
 		CPPUNIT_ASSERT(::access(serverPath.c_str(), F_OK) != 0);
+	}
+
+	void testAdoptNativeHandle()
+	{
+		const std::string serverPath = socketPath("unix-stream-systemd");
+		removeStaleSocket(serverPath);
+
+		NET::UnixStreamSocket systemdOwned;
+		systemdOwned.bind(serverPath);
+		systemdOwned.listen();
+
+		// dup() models systemd retaining its descriptor while passing another
+		// descriptor for the same listening socket to the service.
+		const int passedFd = systemdOwned.duplicateNativeHandle();
+		CPPUNIT_ASSERT(passedFd >= 0);
+
+		{
+			NET::UnixStreamSocket listener = NET::UnixStreamSocket::adoptNativeHandle(passedFd);
+			CPPUNIT_ASSERT(listener.valid());
+			CPPUNIT_ASSERT_EQUAL(passedFd, listener.nativeHandle());
+			CPPUNIT_ASSERT_EQUAL(serverPath, listener.getLocalPath());
+
+			NET::UnixStreamSocket client;
+			client.connect(serverPath);
+			NET::UnixStreamSocket session = listener.accept();
+			CPPUNIT_ASSERT(!session.peerDisconnected());
+		}
+
+		// The service-side descriptor was owned by the wrapper and is closed,
+		// while the systemd-owned listener and pathname remain alive.
+		CPPUNIT_ASSERT_THROW(auto t = NET::UnixStreamSocket::adoptNativeHandle(passedFd),  NET::SocketException);
+		CPPUNIT_ASSERT(systemdOwned.valid());
+		CPPUNIT_ASSERT(::access(serverPath.c_str(), F_OK) == 0);
 	}
 };
 
