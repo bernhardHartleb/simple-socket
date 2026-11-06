@@ -2,6 +2,7 @@ message("Building simple-socket examples:")
 
 set(SIMPLE_SOCKET_EXAMPLES
 	TCP_Client
+	TCP_Client_Reconnect
 	TCP_Server
 	UDP_Multicast
 	UDP_Commands
