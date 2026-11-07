@@ -1,3 +1,21 @@
+1.7.0
+~~~~~
+- Breaking API overhaul! All send/receive operations now return an IOResult
+  Expected networking or connection failures are now normal return values
+  IOStatus captures Success, Timeout, PeerDisconnected, DestinationUnavailable
+
+- timedConnect() captures network errors into a ConnectResult
+- peerDisconnected() returns the connection state of the socket
+- timedReceive() reads data first before EOF or errors are handled
+- accept() and timedAccept() reliably retry on transient failures
+
+- Allow validated adoption of native socket handles
+  This can be used for systemd socket activation
+- Duplicate underlying sockets descriptors
+
+- Fix throwing when querying peers of unconnected sockets
+- Fix potential hang caused by unhandeled OOB data
+
 1.6.0
 ~~~~~
 - Socket classes are now C++ move-only types
