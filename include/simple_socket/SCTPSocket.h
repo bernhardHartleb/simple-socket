@@ -34,10 +34,8 @@ namespace NET
 		SCTPSocket( uint16_t numOutStreams = 10, uint16_t maxInStreams = 65535, uint16_t maxAttempts = 4,
 		            uint16_t maxInitTimeout = 0 /* TODO */);
 
-		using InternetSocket::bind;
 		int bind( const std::vector<std::string>& localAddresses, unsigned short localPort = 0);
 
-		using InternetSocket::connect;
 		int connect( const std::vector<std::string>& foreignAddresses, unsigned short foreignPort = 0);
 
 		int state() const;
@@ -55,18 +53,16 @@ namespace NET
 		IOResult sendUnordered( const void* data, size_t length, uint16_t stream, unsigned ttl = 0, unsigned context = 0,
 			unsigned ppid = 0, abortFlag abort = KEEPALIVE, switchAddressFlag switchAddr = KEEP_PRIMARY);
 
-		using SimpleSocket::receive;
 		IOResult receive( void* data, size_t maxLen, uint16_t& stream);
 		IOResult receive( void* data, size_t maxLen, uint16_t& stream, receiveFlag& flag);
 
-		using SimpleSocket::timedReceive;
-		[[nodiscard]] IOResult timedReceive( void* data, size_t maxLen, uint16_t& stream, int timeout);
-		[[nodiscard]] IOResult timedReceive( void* data, size_t maxLen, uint16_t& stream, receiveFlag& flag, int timeout);
+		IOResult timedReceive( void* data, size_t maxLen, uint16_t& stream, int timeout);
+		IOResult timedReceive( void* data, size_t maxLen, uint16_t& stream, receiveFlag& flag, int timeout);
 
 		//! Listen for incoming connections
 		using SimpleSocket::listen;
 
-		SCTPSocket accept() const;
+		std::optional<SCTPSocket> accept() const;
 		std::optional<SCTPSocket> timedAccept( int timeout) const;
 
 	protected:

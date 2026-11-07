@@ -68,7 +68,7 @@ namespace NET
 		 * \return IOResult
 		 * \exception SocketException thrown if unable to receive datagram
 		 */
-		[[nodiscard]] IOResult timedReceiveFrom( void* buffer, size_t len, std::string& sourcePath, int timeout);
+		IOResult timedReceiveFrom( void* buffer, size_t len, std::string& sourcePath, int timeout);
 
 	protected:
 		// allow construction by adopt

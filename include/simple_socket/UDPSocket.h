@@ -85,7 +85,7 @@ namespace NET
 		 * \return IOResult
 		 * \exception SocketException thrown if unable to receive datagram
 		 */
-		[[nodiscard]] IOResult timedReceiveFrom( void* buffer, size_t len, std::string& sourceAddress, unsigned short& sourcePort, int timeout);
+		IOResult timedReceiveFrom( void* buffer, size_t len, std::string& sourceAddress, unsigned short& sourcePort, int timeout);
 
 		/*!
 		 * Set the multicast TTL

@@ -179,10 +179,13 @@ IOResult SCTPSocket::timedReceive( void* data, size_t maxLen, uint16_t& stream, 
 		[&] { return receive( data, maxLen, stream, flag); });
 }
 
-SCTPSocket SCTPSocket::accept() const
+std::optional<SCTPSocket> SCTPSocket::accept() const
 {
 	int ret = SimpleSocket::accept();
-	return SCTPSocket( AdoptSocketTag{}, ret, SOCK_STREAM);
+	if( ret >= 0)
+		return std::optional<SCTPSocket>{ SCTPSocket( AdoptSocketTag{}, ret, SOCK_STREAM)};
+	else
+		return std::nullopt;
 }
 
 std::optional<SCTPSocket> SCTPSocket::timedAccept( int timeout) const

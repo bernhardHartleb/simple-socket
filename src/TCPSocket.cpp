@@ -24,10 +24,13 @@ void TCPSocket::setNoDelay( bool enable)
 		throw SocketException("Failed to set TCP_NODELAY (setsockopt)");
 }
 
-TCPSocket TCPSocket::accept() const
+std::optional<TCPSocket> TCPSocket::accept() const
 {
 	int ret = SimpleSocket::accept();
-	return TCPSocket( AdoptSocketTag{}, ret, SOCK_STREAM);
+	if( ret >= 0)
+		return std::optional<TCPSocket>{ TCPSocket( AdoptSocketTag{}, ret, SOCK_STREAM)};
+	else
+		return std::nullopt;
 }
 
 std::optional<TCPSocket> TCPSocket::timedAccept( int timeout) const

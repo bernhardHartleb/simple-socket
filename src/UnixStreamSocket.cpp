@@ -15,10 +15,13 @@ UnixStreamSocket UnixStreamSocket::adoptNativeHandle( int sockfd)
 	return UnixStreamSocket( AdoptSocketTag{}, sockfd, SOCK_STREAM);
 }
 
-UnixStreamSocket UnixStreamSocket::accept() const
+std::optional<UnixStreamSocket> UnixStreamSocket::accept() const
 {
 	int ret = SimpleSocket::accept();
-	return UnixStreamSocket( AdoptSocketTag{}, ret, SOCK_STREAM);
+	if( ret >= 0)
+		return std::optional<UnixStreamSocket>{ UnixStreamSocket( AdoptSocketTag{}, ret, SOCK_STREAM)};
+	else
+		return std::nullopt;
 }
 
 std::optional<UnixStreamSocket> UnixStreamSocket::timedAccept( int timeout) const

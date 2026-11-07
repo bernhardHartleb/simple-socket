@@ -42,7 +42,7 @@ namespace NET
 		 * \return  UnixStreamSocket object owning the accepted socket
 		 * \exception SocketException if accept fails
 		 */
-		[[nodiscard]] UnixStreamSocket accept() const;
+		[[nodiscard]] std::optional<UnixStreamSocket> accept() const;
 
 		/*!
 		 * Wait up to timeout milliseconds for an incoming connection.

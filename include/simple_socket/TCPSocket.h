@@ -58,7 +58,7 @@ namespace NET
 		 * \return TCPSocket object to the new connection
 		 * \exception SocketException
 		 */
-		[[nodiscard]] TCPSocket accept() const;
+		[[nodiscard]] std::optional<TCPSocket> accept() const;
 
 		//! wait for another socket to connect
 		/*!
