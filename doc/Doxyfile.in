@@ -17,7 +17,6 @@ STRIP_FROM_INC_PATH    = "@PROJECT_SOURCE_DIR@/include"
 # =============================================================================
 
 INPUT                  = "@PROJECT_SOURCE_DIR@/include" \
-                         "@PROJECT_SOURCE_DIR@/src" \
                          "@PROJECT_SOURCE_DIR@/doc/mainpage.dox" \
                          "@PROJECT_SOURCE_DIR@/doc/examples.dox"
 
