@@ -1,5 +1,4 @@
 #include "TCPSocket.h"
-#include "TempFailure.h"
 
 #include <sys/socket.h>
 #include <netinet/in.h>

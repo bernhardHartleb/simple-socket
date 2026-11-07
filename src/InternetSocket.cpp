@@ -1,7 +1,5 @@
 #include "InternetSocket.h"
 #include "SockAddress.h"
-#include "TempFailure.h"
-#include "PollHelper.h"
 
 #include <sys/socket.h>
 

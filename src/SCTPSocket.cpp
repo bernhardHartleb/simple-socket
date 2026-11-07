@@ -1,6 +1,5 @@
 #include "SCTPSocket.h"
 #include "SockAddress.h"
-#include "TempFailure.h"
 #include "PollHelper.h"
 
 using namespace NET;

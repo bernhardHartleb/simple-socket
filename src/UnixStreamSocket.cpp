@@ -1,5 +1,4 @@
 #include "UnixStreamSocket.h"
-#include "TempFailure.h"
 
 #include <sys/socket.h>
 
