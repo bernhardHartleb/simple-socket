@@ -62,6 +62,9 @@ bool detail::isTransientAcceptError( int error) noexcept
 
 std::optional<IOStatus> detail::classifyIoError( int error, bool connectionOriented) noexcept
 {
+	if( error == EAGAIN || error == EWOULDBLOCK)
+		return IOStatus::WouldBlock;
+
 	if( connectionOriented && isConnectionLossError(error))
 		return IOStatus::PeerDisconnected;
 
