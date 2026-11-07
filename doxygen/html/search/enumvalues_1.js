@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['ipv4_0',['IPv4',['../namespaceNET.html#a657e1fa5f020df28069800f3fb19eab6a18565c1ed23cf01bb372e354fbc670dd',1,'NET']]],
-  ['ipv6_1',['IPv6',['../namespaceNET.html#a657e1fa5f020df28069800f3fb19eab6a8059a0b17480e790a863427324455b24',1,'NET']]]
+  ['connected_0',['Connected',['../namespaceNET.html#aaf70b419dfaefe3a31207434ee82ff4ca2ec0d16e4ca169baedb9b2d50ec5c6d7',1,'NET']]]
 ];

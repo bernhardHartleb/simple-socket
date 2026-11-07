@@ -33,7 +33,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.6.0</span>
+   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.7.0</span>
    </div>
   </td>
  </tr>
@@ -112,16 +112,26 @@ $(function() {
 Overview</h1>
 <p>The following features are currently available:</p>
 <ul>
-<li>IPv4/IPv6 TCP and UDP sockets</li>
+<li>IPv4 / IPv6 TCP and UDP sockets</li>
+<li>Unix-domain stream and datagram sockets</li>
 <li>UDP multicast support (IPv4 only)</li>
-<li>Unix domain stream and datagram sockets</li>
-<li>Blocking I/O plus timeout variants for connect, accept and receive</li>
-<li>Peer-disconnect tracking for connected sockets</li>
-<li>Stream based sendAll and receiveAll helpers</li>
-<li>Hostname, service and network-interface utilities</li>
-<li>Optional SocketCAN support</li>
-<li>Optional SCTP support</li>
+<li>Timeout support for connect, accept and receive (poll)</li>
+<li>Peer-disconnect detection for connected sockets</li>
+<li>Native descriptor adoption and duplication (e.g. socket activation)</li>
+<li>Hostname and service resolution</li>
+<li>Network-address and network-interface utilities</li>
+<li>Optional SocketCAN and SCTP support</li>
 <li>CMake build, unit tests and example programs</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="design"></a>
+Design choices</h1>
+<ul>
+<li>RAII socket ownership with minimal internal state</li>
+<li>Consistent string based interface for all address types</li>
+<li>Expected network failures return IOResult, ConnectResult instead of throwing</li>
+<li>Unexpect syscall errors are checked and throw SocketException</li>
+<li>Transient failures (e.g. EINTR, accept) are handeled for the user</li>
+<li>Created and accepted sockets have CLOEXEC enabled</li>
 </ul>
 <h1 class="doxsection"><a class="anchor" id="License"></a>
 License</h1>

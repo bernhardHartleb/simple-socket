@@ -33,7 +33,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.6.0</span>
+   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.7.0</span>
    </div>
   </td>
  </tr>
@@ -128,6 +128,7 @@ $(function() {
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ad700f28b153c6a5a622bd2c0bf5b8fb9" id="r_ad700f28b153c6a5a622bd2c0bf5b8fb9"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad700f28b153c6a5a622bd2c0bf5b8fb9">SocketException</a> (std::string_view message, bool inclErrno=true)</td></tr>
+<tr class="memitem:a2b94314080a2ee6362e7d794e7fa2ad6" id="r_a2b94314080a2ee6362e7d794e7fa2ad6"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a2b94314080a2ee6362e7d794e7fa2ad6">SocketException</a> (std::string_view message, int error)</td></tr>
 <tr class="memitem:a551c3975a9ada368204a77e2d0b56f84" id="r_a551c3975a9ada368204a77e2d0b56f84"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a551c3975a9ada368204a77e2d0b56f84">SocketException</a> (const SocketException &amp;)=default</td></tr>
 <tr class="memitem:ab50c18a0bcfbf8acfb0bdc19fce7a7d4" id="r_ab50c18a0bcfbf8acfb0bdc19fce7a7d4"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab50c18a0bcfbf8acfb0bdc19fce7a7d4">~SocketException</a> () noexcept</td></tr>
 <tr class="memdesc:ab50c18a0bcfbf8acfb0bdc19fce7a7d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Provided just to guarantee that no exceptions are thrown.  <br /></td></tr>
@@ -138,13 +139,13 @@ Public Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Signals a problem with the execution of a socket call. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="TCP_Client_8cpp-example.html#_a4">TCP_Client.cpp</a>, <a class="el" href="TCP_Server_8cpp-example.html#_a10">TCP_Server.cpp</a>, <a class="el" href="UDP_Commands_8cpp-example.html#_a4">UDP_Commands.cpp</a>, and <a class="el" href="UDP_Multicast_8cpp-example.html#_a8">UDP_Multicast.cpp</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="TCP_Client_8cpp-example.html#_a9">TCP_Client.cpp</a>, <a class="el" href="TCP_Client_Reconnect_8cpp-example.html#_a9">TCP_Client_Reconnect.cpp</a>, <a class="el" href="TCP_Server_8cpp-example.html#_a14">TCP_Server.cpp</a>, <a class="el" href="UDP_Commands_8cpp-example.html#_a6">UDP_Commands.cpp</a>, and <a class="el" href="UDP_Multicast_8cpp-example.html#_a12">UDP_Multicast.cpp</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8h_source.html#l00010">10</a> of file <a class="el" href="SimpleSocket_8h_source.html">SimpleSocket.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SimpleSocket_8h_source.html#l00011">11</a> of file <a class="el" href="SimpleSocket_8h_source.html">SimpleSocket.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ad700f28b153c6a5a622bd2c0bf5b8fb9" name="ad700f28b153c6a5a622bd2c0bf5b8fb9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad700f28b153c6a5a622bd2c0bf5b8fb9">&#9670;&#160;</a></span>SocketException() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ad700f28b153c6a5a622bd2c0bf5b8fb9">&#9670;&#160;</a></span>SocketException() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -164,17 +165,47 @@ Public Member Functions</h2></td></tr>
 <p>Construct a <a class="el" href="classNET_1_1SocketException.html" title="Signals a problem with the execution of a socket call.">SocketException</a> with a explanatory message. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">message</td><td>explanatory message </td></tr>
-    <tr><td class="paramname">inclErrno</td><td>true if system message from strerror(errno) should be postfixed to the user provided message </td></tr>
+    <tr><td class="paramname">inclErrno</td><td>if true system message from strerror(errno) is postfixed </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8cpp_source.html#l00012">12</a> of file <a class="el" href="SimpleSocket_8cpp_source.html">SimpleSocket.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SimpleSocket_8cpp_source.html#l00014">14</a> of file <a class="el" href="SimpleSocket_8cpp_source.html">SimpleSocket.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a2b94314080a2ee6362e7d794e7fa2ad6" name="a2b94314080a2ee6362e7d794e7fa2ad6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b94314080a2ee6362e7d794e7fa2ad6">&#9670;&#160;</a></span>SocketException() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">SocketException::SocketException </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>message</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>error</em></span>&#160;)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Construct a <a class="el" href="classNET_1_1SocketException.html" title="Signals a problem with the execution of a socket call.">SocketException</a> with a explanatory message. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">message</td><td>explanatory message </td></tr>
+    <tr><td class="paramname">error</td><td>system message from strerror(error) is postfixed </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="SimpleSocket_8cpp_source.html#l00026">26</a> of file <a class="el" href="SimpleSocket_8cpp_source.html">SimpleSocket.cpp</a>.</p>
 
 </div>
 </div>
 <a id="a551c3975a9ada368204a77e2d0b56f84" name="a551c3975a9ada368204a77e2d0b56f84"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a551c3975a9ada368204a77e2d0b56f84">&#9670;&#160;</a></span>SocketException() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a551c3975a9ada368204a77e2d0b56f84">&#9670;&#160;</a></span>SocketException() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -223,7 +254,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Provided just to guarantee that no exceptions are thrown. </p>
 
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8h_source.html#l00024">24</a> of file <a class="el" href="SimpleSocket_8h_source.html">SimpleSocket.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SimpleSocket_8h_source.html#l00031">31</a> of file <a class="el" href="SimpleSocket_8h_source.html">SimpleSocket.h</a>.</p>
 
 </div>
 </div>
@@ -253,7 +284,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Returns the glibc errno code of the current error. </p>
 
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8h_source.html#l00030">30</a> of file <a class="el" href="SimpleSocket_8h_source.html">SimpleSocket.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SimpleSocket_8h_source.html#l00037">37</a> of file <a class="el" href="SimpleSocket_8h_source.html">SimpleSocket.h</a>.</p>
 
 </div>
 </div>
@@ -281,10 +312,10 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Returns a C-string describing the cause of the current error. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="TCP_Client_8cpp-example.html#a5">TCP_Client.cpp</a>, <a class="el" href="TCP_Server_8cpp-example.html#a11">TCP_Server.cpp</a>, <a class="el" href="UDP_Commands_8cpp-example.html#a5">UDP_Commands.cpp</a>, and <a class="el" href="UDP_Multicast_8cpp-example.html#a9">UDP_Multicast.cpp</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="TCP_Client_8cpp-example.html#a10">TCP_Client.cpp</a>, <a class="el" href="TCP_Client_Reconnect_8cpp-example.html#a10">TCP_Client_Reconnect.cpp</a>, <a class="el" href="TCP_Server_8cpp-example.html#a15">TCP_Server.cpp</a>, <a class="el" href="UDP_Commands_8cpp-example.html#a7">UDP_Commands.cpp</a>, and <a class="el" href="UDP_Multicast_8cpp-example.html#a13">UDP_Multicast.cpp</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8h_source.html#l00027">27</a> of file <a class="el" href="SimpleSocket_8h_source.html">SimpleSocket.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SimpleSocket_8h_source.html#l00034">34</a> of file <a class="el" href="SimpleSocket_8h_source.html">SimpleSocket.h</a>.</p>
 
 </div>
 </div>

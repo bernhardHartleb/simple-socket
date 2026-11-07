@@ -1,7 +1,9 @@
 <map id="include/simple_socket/SimpleSocket.h" name="include/simple_socket/SimpleSocket.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,156,48"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="10,96,63,123"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="71,47,53,83,49,81,67,50"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="87,96,164,123"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="93,46,114,82,109,82,91,51"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="52,5,202,48"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,96,59,123"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="105,48,60,88,57,84,100,50"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="83,96,170,123"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="128,47,129,81,124,79,125,51"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="195,96,272,123"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="155,46,207,86,202,87,153,51"/>
 </map>

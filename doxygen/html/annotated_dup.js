@@ -8,6 +8,7 @@ var annotated_dup =
       [ "NetworkInterface", "classNET_1_1NetworkInterface.html", "classNET_1_1NetworkInterface" ],
       [ "SCTPSocket", "classNET_1_1SCTPSocket.html", "classNET_1_1SCTPSocket" ],
       [ "SocketException", "classNET_1_1SocketException.html", "classNET_1_1SocketException" ],
+      [ "IOResult", "structNET_1_1IOResult.html", "structNET_1_1IOResult" ],
       [ "SimpleSocket", "classNET_1_1SimpleSocket.html", "classNET_1_1SimpleSocket" ],
       [ "TCPSocket", "classNET_1_1TCPSocket.html", "classNET_1_1TCPSocket" ],
       [ "UDPSocket", "classNET_1_1UDPSocket.html", "classNET_1_1UDPSocket" ],

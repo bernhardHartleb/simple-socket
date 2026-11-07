@@ -33,7 +33,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.6.0</span>
+   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.7.0</span>
    </div>
   </td>
  </tr>
@@ -108,6 +108,10 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
+Namespaces</h2></td></tr>
+<tr class="memitem:detail" id="r_detail"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="namespaceNET_1_1detail.html">detail</a></td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:CANRawSocket" id="r_CANRawSocket"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1CANRawSocket.html">CANRawSocket</a></td></tr>
@@ -122,6 +126,7 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">SCTP socket class.  <a href="classNET_1_1SCTPSocket.html#details">More...</a><br /></td></tr>
 <tr class="memitem:SocketException" id="r_SocketException"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SocketException.html">SocketException</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Signals a problem with the execution of a socket call.  <a href="classNET_1_1SocketException.html#details">More...</a><br /></td></tr>
+<tr class="memitem:IOResult" id="r_IOResult"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structNET_1_1IOResult.html">IOResult</a></td></tr>
 <tr class="memitem:SimpleSocket" id="r_SimpleSocket"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html">SimpleSocket</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">A socket representing a basic communication endpoint.  <a href="classNET_1_1SimpleSocket.html#details">More...</a><br /></td></tr>
 <tr class="memitem:TCPSocket" id="r_TCPSocket"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1TCPSocket.html">TCPSocket</a></td></tr>
@@ -140,6 +145,20 @@ Classes</h2></td></tr>
 Enumerations</h2></td></tr>
 <tr class="memitem:a657e1fa5f020df28069800f3fb19eab6" id="r_a657e1fa5f020df28069800f3fb19eab6"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#a657e1fa5f020df28069800f3fb19eab6">AddressFamily</a> { <a class="el" href="#a657e1fa5f020df28069800f3fb19eab6a18565c1ed23cf01bb372e354fbc670dd">IPv4</a>
 , <a class="el" href="#a657e1fa5f020df28069800f3fb19eab6a8059a0b17480e790a863427324455b24">IPv6</a>
+ }</td></tr>
+<tr class="memitem:a6234637576bbb2ec0600642d629c2104" id="r_a6234637576bbb2ec0600642d629c2104"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a6234637576bbb2ec0600642d629c2104">IOStatus</a> { <a class="el" href="#a6234637576bbb2ec0600642d629c2104a505a83f220c02df2f85c3810cd9ceb38">Success</a>
+, <a class="el" href="#a6234637576bbb2ec0600642d629c2104ac85a251cc457840f1e032f1b733e9398">Timeout</a>
+, <a class="el" href="#a6234637576bbb2ec0600642d629c2104a333905113a456692308689b23e032249">PeerDisconnected</a>
+, <a class="el" href="#a6234637576bbb2ec0600642d629c2104a6e01666a2ff1333a6ceeab4d917a9172">DestinationUnavailable</a>
+ }</td></tr>
+<tr class="memitem:aaf70b419dfaefe3a31207434ee82ff4c" id="r_aaf70b419dfaefe3a31207434ee82ff4c"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#aaf70b419dfaefe3a31207434ee82ff4c">ConnectResult</a> { <br />
+&#160;&#160;<a class="el" href="#aaf70b419dfaefe3a31207434ee82ff4ca2ec0d16e4ca169baedb9b2d50ec5c6d7">Connected</a>
+, <a class="el" href="#aaf70b419dfaefe3a31207434ee82ff4cac85a251cc457840f1e032f1b733e9398">Timeout</a>
+, <a class="el" href="#aaf70b419dfaefe3a31207434ee82ff4caf48b206184b7442983452ea4c3e88a3a">Refused</a>
+, <a class="el" href="#aaf70b419dfaefe3a31207434ee82ff4ca721c28f4c74928cc9e0bb3fef345e408">Aborted</a>
+, <br />
+&#160;&#160;<a class="el" href="#aaf70b419dfaefe3a31207434ee82ff4ca4bed942140642650ca78039de000796a">Unreachable</a>
+<br />
  }</td></tr>
 <tr class="memitem:a9b61e3d2422a1203909bd7985df95884" id="r_a9b61e3d2422a1203909bd7985df95884"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="#a9b61e3d2422a1203909bd7985df95884">ShutdownDirection</a> { <a class="el" href="#a9b61e3d2422a1203909bd7985df95884ae9cb5d756b0cef8d4de6e226890bee43">STOP_RECEIVE</a>
 , <a class="el" href="#a9b61e3d2422a1203909bd7985df95884a033d3418b7b9455f3b5d7c6692155b3e">STOP_SEND</a>
@@ -172,7 +191,68 @@ Functions</h2></td></tr>
 <tr><td class="fieldname"><a id="a657e1fa5f020df28069800f3fb19eab6a8059a0b17480e790a863427324455b24" name="a657e1fa5f020df28069800f3fb19eab6a8059a0b17480e790a863427324455b24"></a>IPv6&#160;</td><td class="fielddoc"></td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8h_source.html#l00037">37</a> of file <a class="el" href="SimpleSocket_8h_source.html">SimpleSocket.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SimpleSocket_8h_source.html#l00044">44</a> of file <a class="el" href="SimpleSocket_8h_source.html">SimpleSocket.h</a>.</p>
+
+</div>
+</div>
+<a id="aaf70b419dfaefe3a31207434ee82ff4c" name="aaf70b419dfaefe3a31207434ee82ff4c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf70b419dfaefe3a31207434ee82ff4c">&#9670;&#160;</a></span>ConnectResult</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#aaf70b419dfaefe3a31207434ee82ff4c">NET::ConnectResult</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aaf70b419dfaefe3a31207434ee82ff4ca2ec0d16e4ca169baedb9b2d50ec5c6d7" name="aaf70b419dfaefe3a31207434ee82ff4ca2ec0d16e4ca169baedb9b2d50ec5c6d7"></a>Connected&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aaf70b419dfaefe3a31207434ee82ff4cac85a251cc457840f1e032f1b733e9398" name="aaf70b419dfaefe3a31207434ee82ff4cac85a251cc457840f1e032f1b733e9398"></a>Timeout&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aaf70b419dfaefe3a31207434ee82ff4caf48b206184b7442983452ea4c3e88a3a" name="aaf70b419dfaefe3a31207434ee82ff4caf48b206184b7442983452ea4c3e88a3a"></a>Refused&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aaf70b419dfaefe3a31207434ee82ff4ca721c28f4c74928cc9e0bb3fef345e408" name="aaf70b419dfaefe3a31207434ee82ff4ca721c28f4c74928cc9e0bb3fef345e408"></a>Aborted&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="aaf70b419dfaefe3a31207434ee82ff4ca4bed942140642650ca78039de000796a" name="aaf70b419dfaefe3a31207434ee82ff4ca4bed942140642650ca78039de000796a"></a>Unreachable&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="SimpleSocket_8h_source.html#l00079">79</a> of file <a class="el" href="SimpleSocket_8h_source.html">SimpleSocket.h</a>.</p>
+
+</div>
+</div>
+<a id="a6234637576bbb2ec0600642d629c2104" name="a6234637576bbb2ec0600642d629c2104"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6234637576bbb2ec0600642d629c2104">&#9670;&#160;</a></span>IOStatus</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#a6234637576bbb2ec0600642d629c2104">NET::IOStatus</a></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a6234637576bbb2ec0600642d629c2104a505a83f220c02df2f85c3810cd9ceb38" name="a6234637576bbb2ec0600642d629c2104a505a83f220c02df2f85c3810cd9ceb38"></a>Success&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a6234637576bbb2ec0600642d629c2104ac85a251cc457840f1e032f1b733e9398" name="a6234637576bbb2ec0600642d629c2104ac85a251cc457840f1e032f1b733e9398"></a>Timeout&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a6234637576bbb2ec0600642d629c2104a333905113a456692308689b23e032249" name="a6234637576bbb2ec0600642d629c2104a333905113a456692308689b23e032249"></a>PeerDisconnected&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="a6234637576bbb2ec0600642d629c2104a6e01666a2ff1333a6ceeab4d917a9172" name="a6234637576bbb2ec0600642d629c2104a6e01666a2ff1333a6ceeab4d917a9172"></a>DestinationUnavailable&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="SimpleSocket_8h_source.html#l00050">50</a> of file <a class="el" href="SimpleSocket_8h_source.html">SimpleSocket.h</a>.</p>
 
 </div>
 </div>
@@ -196,7 +276,7 @@ Functions</h2></td></tr>
 </td></tr>
 </table>
 
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8h_source.html#l00043">43</a> of file <a class="el" href="SimpleSocket_8h_source.html">SimpleSocket.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SimpleSocket_8h_source.html#l00088">88</a> of file <a class="el" href="SimpleSocket_8h_source.html">SimpleSocket.h</a>.</p>
 
 </div>
 </div>
@@ -268,6 +348,8 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>resolved hostname as standard IPv4 address </dd></dl>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="TCP_Client_8cpp-example.html#a0">TCP_Client.cpp</a>.</dd>
+</dl>
 
 <p class="definition">Definition at line <a class="el" href="SocketUtils_8cpp_source.html#l00012">12</a> of file <a class="el" href="SocketUtils_8cpp_source.html">SocketUtils.cpp</a>.</p>
 

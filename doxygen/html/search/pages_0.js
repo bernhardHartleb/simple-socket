@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['library_0',['simple-socket library',['../index.html',1,'']]]
+  ['choices_0',['Design choices',['../index.html#design',1,'']]]
 ];

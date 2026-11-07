@@ -26,6 +26,7 @@ var NAVTREE =
 [
   [ "simple-socket library", "index.html", [
     [ "Overview", "index.html#Overview", null ],
+    [ "Design choices", "index.html#design", null ],
     [ "License", "index.html#License", null ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
@@ -62,9 +63,9 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "CANRawSocket_8cpp.html",
-"classNET_1_1NetworkInterface.html#a79d1e53084c3e976758e51c54a911a87",
-"classNET_1_1TCPSocket.html#a690773b3fefeeb026006713e54e6d08a",
-"classNET_1_1UnixStreamSocket.html#ac02f55ec90f1833c8fef7d8f0da34645"
+"classNET_1_1InternetSocket.html#adaeeb637df37b75fca832fff7d746ed8",
+"classNET_1_1TCPSocket.html#a107aca419c74eb2785641b2ad4670433",
+"classNET_1_1UnixSocket.html#ae9af79a28259dad3318b15ac91ef18c5"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

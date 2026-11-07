@@ -1,10 +1,10 @@
 var hierarchy =
 [
-    [ "NET::InternetSocket::AdoptSocketTag", "structNET_1_1InternetSocket_1_1AdoptSocketTag.html", null ],
-    [ "NET::UnixSocket::AdoptSocketTag", "structNET_1_1UnixSocket_1_1AdoptSocketTag.html", null ],
+    [ "NET::SimpleSocket::AdoptSocketTag", "structNET_1_1SimpleSocket_1_1AdoptSocketTag.html", null ],
     [ "std::exception", null, [
       [ "NET::SocketException", "classNET_1_1SocketException.html", null ]
     ] ],
+    [ "NET::IOResult", "structNET_1_1IOResult.html", null ],
     [ "NET::NetworkAddressInfo", "structNET_1_1NetworkAddressInfo.html", null ],
     [ "NET::NetworkInterface", "classNET_1_1NetworkInterface.html", null ],
     [ "NET::SimpleSocket", "classNET_1_1SimpleSocket.html", [

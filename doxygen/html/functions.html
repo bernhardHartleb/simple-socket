@@ -33,7 +33,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.6.0</span>
+   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.7.0</span>
    </div>
   </td>
  </tr>
@@ -110,14 +110,17 @@ $(function() {
 <li>ABORT&#160;:&#160;<a class="el" href="classNET_1_1SCTPSocket.html#a5cacc0e36b9370338ae04154d18da02aabe00ed9e5acf6e938926cc0cf8d8b072">NET::SCTPSocket</a></li>
 <li>abortFlag&#160;:&#160;<a class="el" href="classNET_1_1SCTPSocket.html#a5cacc0e36b9370338ae04154d18da02a">NET::SCTPSocket</a></li>
 <li>accept()&#160;:&#160;<a class="el" href="classNET_1_1SCTPSocket.html#a0f9fc53c297b0447b4f80c6ad4c9b9d5">NET::SCTPSocket</a>, <a class="el" href="classNET_1_1SimpleSocket.html#a23f806c99ec86fe75872ac60d9af9996">NET::SimpleSocket</a>, <a class="el" href="classNET_1_1TCPSocket.html#a664a46561dfb0f122505c6cb4ceb75f0">NET::TCPSocket</a>, <a class="el" href="classNET_1_1UnixStreamSocket.html#a4b31f4b2898d6c25b68a9f5469a0d0a0">NET::UnixStreamSocket</a></li>
+<li>acceptNative()&#160;:&#160;<a class="el" href="classNET_1_1SimpleSocket.html#a5b5c42c7be2b83d2ba1c830c7d4a1cb8">NET::SimpleSocket</a></li>
 <li>address&#160;:&#160;<a class="el" href="structNET_1_1NetworkAddressInfo.html#ab7e9a5668b85e0c214e45952d9d4796a">NET::NetworkAddressInfo</a>, <a class="el" href="classNET_1_1SockAddress.html#a20a7990ddf520d0324be42cf9f049432">NET::SockAddress</a></li>
 <li>addressFamily()&#160;:&#160;<a class="el" href="classNET_1_1InternetSocket.html#aa6552ffddfa5a21312578503e4389fd2">NET::InternetSocket</a></li>
+<li>adoptNativeHandle()&#160;:&#160;<a class="el" href="classNET_1_1TCPSocket.html#aca84ae4f3d44825fc2b8cf0432efa0dc">NET::TCPSocket</a>, <a class="el" href="classNET_1_1UDPSocket.html#ad880218f09d15a3589c4ad5466160037">NET::UDPSocket</a>, <a class="el" href="classNET_1_1UnixDatagramSocket.html#acbd727f75e4f96d66cf472fe755add1d">NET::UnixDatagramSocket</a>, <a class="el" href="classNET_1_1UnixStreamSocket.html#a281cee97ee7e9601e5ab8c05384db96e">NET::UnixStreamSocket</a></li>
 </ul>
 
 
 <h3 class="doxsection"><a id="index_b" name="index_b"></a>- b -</h3><ul>
 <li>bind()&#160;:&#160;<a class="el" href="classNET_1_1CANSocket.html#a71ec3496167a325769cde2d0522fbc66">NET::CANSocket</a>, <a class="el" href="classNET_1_1InternetSocket.html#a02046392ba4e5810f7dc900686ac9a93">NET::InternetSocket</a>, <a class="el" href="classNET_1_1SCTPSocket.html#acac01f8cc992327ce041a407c6327ec8">NET::SCTPSocket</a>, <a class="el" href="classNET_1_1UnixSocket.html#ae23f670d8502edb7d8d6f46620aab0ab">NET::UnixSocket</a></li>
 <li>broadcast&#160;:&#160;<a class="el" href="structNET_1_1NetworkAddressInfo.html#acabb7111ffde5e163408421527555156">NET::NetworkAddressInfo</a></li>
+<li>bytes&#160;:&#160;<a class="el" href="structNET_1_1IOResult.html#a0ac6a3006dbb99852bc8636a47d92083">NET::IOResult</a></li>
 </ul>
 
 
@@ -132,6 +135,7 @@ $(function() {
 <li>data()&#160;:&#160;<a class="el" href="classNET_1_1SockAddress.html#a993f541b3750df516bfdde8b46bd69dc">NET::SockAddress</a></li>
 <li>destination&#160;:&#160;<a class="el" href="structNET_1_1NetworkAddressInfo.html#a2f93806c66c16f52b8372d9891a4f928">NET::NetworkAddressInfo</a></li>
 <li>disconnect()&#160;:&#160;<a class="el" href="classNET_1_1SimpleSocket.html#a107f5074fd3f153ce0c1d2329c755d8f">NET::SimpleSocket</a></li>
+<li>duplicateNativeHandle()&#160;:&#160;<a class="el" href="classNET_1_1SimpleSocket.html#a41cbc933680e957b63c8dfd71989d619">NET::SimpleSocket</a></li>
 </ul>
 
 
@@ -171,7 +175,7 @@ $(function() {
 
 <h3 class="doxsection"><a id="index_i" name="index_i"></a>- i -</h3><ul>
 <li>inStreams()&#160;:&#160;<a class="el" href="classNET_1_1SCTPSocket.html#a648d882a4abef538e25fa7137d43f67b">NET::SCTPSocket</a></li>
-<li>InternetSocket()&#160;:&#160;<a class="el" href="classNET_1_1InternetSocket.html#a0e7bfe284c7085381b141b5fd85a4484">NET::InternetSocket</a>, <a class="el" href="classNET_1_1SCTPSocket.html#a0e7bfe284c7085381b141b5fd85a4484">NET::SCTPSocket</a>, <a class="el" href="classNET_1_1TCPSocket.html#a0e7bfe284c7085381b141b5fd85a4484">NET::TCPSocket</a></li>
+<li>InternetSocket()&#160;:&#160;<a class="el" href="classNET_1_1InternetSocket.html#a0e7bfe284c7085381b141b5fd85a4484">NET::InternetSocket</a>, <a class="el" href="classNET_1_1SCTPSocket.html#a0e7bfe284c7085381b141b5fd85a4484">NET::SCTPSocket</a>, <a class="el" href="classNET_1_1TCPSocket.html#a0e7bfe284c7085381b141b5fd85a4484">NET::TCPSocket</a>, <a class="el" href="classNET_1_1UDPSocket.html#a0e7bfe284c7085381b141b5fd85a4484">NET::UDPSocket</a></li>
 </ul>
 
 
@@ -198,7 +202,6 @@ $(function() {
 <li>m_boundPath&#160;:&#160;<a class="el" href="classNET_1_1UnixSocket.html#a096fe42e3e8c68e868a8831a8aa3489c">NET::UnixSocket</a></li>
 <li>m_connectionOriented&#160;:&#160;<a class="el" href="classNET_1_1SimpleSocket.html#a3fb5e518e4483437776fc997ef172546">NET::SimpleSocket</a></li>
 <li>m_family&#160;:&#160;<a class="el" href="classNET_1_1InternetSocket.html#a8e3123134c81887a7d977df194d71678">NET::InternetSocket</a></li>
-<li>m_peerDisconnected&#160;:&#160;<a class="el" href="classNET_1_1SimpleSocket.html#a9c07dffe5a98a2700dc4cb1d6e7a30fa">NET::SimpleSocket</a></li>
 <li>m_socket&#160;:&#160;<a class="el" href="classNET_1_1SimpleSocket.html#a721049909aca828a6dd9ee7868897d7c">NET::SimpleSocket</a></li>
 </ul>
 
@@ -214,14 +217,14 @@ $(function() {
 
 
 <h3 class="doxsection"><a id="index_o" name="index_o"></a>- o -</h3><ul>
-<li>operator=()&#160;:&#160;<a class="el" href="classNET_1_1InternetSocket.html#ac2afc105d29b5f0a64205a6317ca4ba5">NET::InternetSocket</a>, <a class="el" href="classNET_1_1SimpleSocket.html#a4c8ad3d5254e16471050c3aecb65f991">NET::SimpleSocket</a>, <a class="el" href="classNET_1_1UnixSocket.html#a391f1a3eabbaf06b4be401ee08ec7225">NET::UnixSocket</a></li>
+<li>operator=()&#160;:&#160;<a class="el" href="classNET_1_1CANSocket.html#a3783ba8e70d75565168d69ea256261e4">NET::CANSocket</a>, <a class="el" href="classNET_1_1InternetSocket.html#ac2afc105d29b5f0a64205a6317ca4ba5">NET::InternetSocket</a>, <a class="el" href="classNET_1_1SimpleSocket.html#a4c8ad3d5254e16471050c3aecb65f991">NET::SimpleSocket</a>, <a class="el" href="classNET_1_1UnixSocket.html#a391f1a3eabbaf06b4be401ee08ec7225">NET::UnixSocket</a></li>
 <li>outStreams()&#160;:&#160;<a class="el" href="classNET_1_1SCTPSocket.html#a103c90b879e5ccd9521c75a7acebfb1d">NET::SCTPSocket</a></li>
 <li>OVERRIDE_PRIMARY&#160;:&#160;<a class="el" href="classNET_1_1SCTPSocket.html#a8e19511f74b30615a3acd79b378141f9a2bea5ca93d0a7336328555f606bca8e7">NET::SCTPSocket</a></li>
 </ul>
 
 
 <h3 class="doxsection"><a id="index_p" name="index_p"></a>- p -</h3><ul>
-<li>peerDisconnected()&#160;:&#160;<a class="el" href="classNET_1_1SimpleSocket.html#adc7b2b80c852e7163a7bab9ce4b7c060">NET::SimpleSocket</a></li>
+<li>peerDisconnected()&#160;:&#160;<a class="el" href="classNET_1_1SimpleSocket.html#a7e867144442c2fd38381a8a71f0f57c4">NET::SimpleSocket</a></li>
 <li>pendingData()&#160;:&#160;<a class="el" href="classNET_1_1SCTPSocket.html#a6e9dfa3a68af6626d764bd99d5a56488">NET::SCTPSocket</a></li>
 <li>port()&#160;:&#160;<a class="el" href="classNET_1_1SockAddress.html#aff5cfa790098c71c771f86666f40b507">NET::SockAddress</a></li>
 <li>primaryAddress()&#160;:&#160;<a class="el" href="classNET_1_1SCTPSocket.html#ae884cb27a22e316a5d12091b77f39d7d">NET::SCTPSocket</a></li>
@@ -229,20 +232,20 @@ $(function() {
 
 
 <h3 class="doxsection"><a id="index_r" name="index_r"></a>- r -</h3><ul>
-<li>receive()&#160;:&#160;<a class="el" href="classNET_1_1CANRawSocket.html#a918f54af6a350bd7badba888f74b86a1">NET::CANRawSocket</a>, <a class="el" href="classNET_1_1SCTPSocket.html#a95642ce55c71270a276c26fe30a9f88a">NET::SCTPSocket</a>, <a class="el" href="classNET_1_1SimpleSocket.html#ab89a477e571a47efd9ec39089aeebf56">NET::SimpleSocket</a></li>
-<li>receiveAll()&#160;:&#160;<a class="el" href="classNET_1_1SimpleSocket.html#a263f823dd259f3f7af8cc218fba9b5cf">NET::SimpleSocket</a>, <a class="el" href="classNET_1_1TCPSocket.html#a263f823dd259f3f7af8cc218fba9b5cf">NET::TCPSocket</a>, <a class="el" href="classNET_1_1UnixStreamSocket.html#a263f823dd259f3f7af8cc218fba9b5cf">NET::UnixStreamSocket</a></li>
+<li>receive()&#160;:&#160;<a class="el" href="classNET_1_1CANRawSocket.html#a76d381a300e7e06fdf25f018cdcd3db7">NET::CANRawSocket</a>, <a class="el" href="classNET_1_1SCTPSocket.html#a1f1ce6b01fe5e8fab50eda524a92b43b">NET::SCTPSocket</a>, <a class="el" href="classNET_1_1SimpleSocket.html#ab2c084ceb5c5773495566d37b2c99283">NET::SimpleSocket</a></li>
+<li>receiveAll()&#160;:&#160;<a class="el" href="classNET_1_1SimpleSocket.html#aa0ef8a33ae6e7279d2a2eb3661fae03c">NET::SimpleSocket</a>, <a class="el" href="classNET_1_1TCPSocket.html#aa0ef8a33ae6e7279d2a2eb3661fae03c">NET::TCPSocket</a>, <a class="el" href="classNET_1_1UnixStreamSocket.html#aa0ef8a33ae6e7279d2a2eb3661fae03c">NET::UnixStreamSocket</a></li>
 <li>receiveFlag&#160;:&#160;<a class="el" href="classNET_1_1SCTPSocket.html#aabb7de5b5f3553d114ba6b4380046b56">NET::SCTPSocket</a></li>
-<li>receiveFrom()&#160;:&#160;<a class="el" href="classNET_1_1CANRawSocket.html#a2df653d995fb10715b83efe3f2933a28">NET::CANRawSocket</a>, <a class="el" href="classNET_1_1UDPSocket.html#a358b18cc6bdc794eb33dd0df9ccb495b">NET::UDPSocket</a>, <a class="el" href="classNET_1_1UnixDatagramSocket.html#ae8d0db6e1d5bc3c84c66ed3bd6189751">NET::UnixDatagramSocket</a></li>
+<li>receiveFrom()&#160;:&#160;<a class="el" href="classNET_1_1CANRawSocket.html#ad9ee4da14f252c2545cf567d823eaa0d">NET::CANRawSocket</a>, <a class="el" href="classNET_1_1UDPSocket.html#a7b151adac0149a04efe1e0d2cee5dec4">NET::UDPSocket</a>, <a class="el" href="classNET_1_1UnixDatagramSocket.html#aeacbcb66ef5b5ccdc2326c5960c6eb84">NET::UnixDatagramSocket</a></li>
 </ul>
 
 
 <h3 class="doxsection"><a id="index_s" name="index_s"></a>- s -</h3><ul>
 <li>scopeId&#160;:&#160;<a class="el" href="structNET_1_1NetworkAddressInfo.html#a80d94a3e5cc4a2d8569a675313fa37fa">NET::NetworkAddressInfo</a>, <a class="el" href="classNET_1_1SockAddress.html#a134a6a0c456980dd232fde6881dfe8ec">NET::SockAddress</a></li>
 <li>SCTPSocket()&#160;:&#160;<a class="el" href="classNET_1_1SCTPSocket.html#a46c66d17aa78ec545940eb0f7b1b0009">NET::SCTPSocket</a></li>
-<li>send()&#160;:&#160;<a class="el" href="classNET_1_1CANRawSocket.html#aa29a109096719eace958d0b70f496854">NET::CANRawSocket</a>, <a class="el" href="classNET_1_1SCTPSocket.html#abd1721daa7a8f9e54092b282bb4cca28">NET::SCTPSocket</a>, <a class="el" href="classNET_1_1SimpleSocket.html#a6e3ec021c1ae9ea1e1d0aaa0129e7c50">NET::SimpleSocket</a></li>
-<li>sendAll()&#160;:&#160;<a class="el" href="classNET_1_1SimpleSocket.html#a690773b3fefeeb026006713e54e6d08a">NET::SimpleSocket</a>, <a class="el" href="classNET_1_1TCPSocket.html#a690773b3fefeeb026006713e54e6d08a">NET::TCPSocket</a>, <a class="el" href="classNET_1_1UnixStreamSocket.html#a690773b3fefeeb026006713e54e6d08a">NET::UnixStreamSocket</a></li>
-<li>sendTo()&#160;:&#160;<a class="el" href="classNET_1_1CANRawSocket.html#a1269297635ab58a27730be9bb75dd7d3">NET::CANRawSocket</a>, <a class="el" href="classNET_1_1UDPSocket.html#ad523f1e8b0e299262f06043ac7be1e50">NET::UDPSocket</a>, <a class="el" href="classNET_1_1UnixDatagramSocket.html#a1f9e19532782ff436127fe396a245f9f">NET::UnixDatagramSocket</a></li>
-<li>sendUnordered()&#160;:&#160;<a class="el" href="classNET_1_1SCTPSocket.html#a330f3509c49c2a81318c2ce9beb0089c">NET::SCTPSocket</a></li>
+<li>send()&#160;:&#160;<a class="el" href="classNET_1_1CANRawSocket.html#a7cc0040ae41b191ec45da15d90f47166">NET::CANRawSocket</a>, <a class="el" href="classNET_1_1SCTPSocket.html#a5850900070023c991525e28d7c3ba0d5">NET::SCTPSocket</a>, <a class="el" href="classNET_1_1SimpleSocket.html#aa05163ace5dbe56a53debe265045597f">NET::SimpleSocket</a></li>
+<li>sendAll()&#160;:&#160;<a class="el" href="classNET_1_1SimpleSocket.html#ae9af79a28259dad3318b15ac91ef18c5">NET::SimpleSocket</a>, <a class="el" href="classNET_1_1TCPSocket.html#ae9af79a28259dad3318b15ac91ef18c5">NET::TCPSocket</a>, <a class="el" href="classNET_1_1UnixStreamSocket.html#ae9af79a28259dad3318b15ac91ef18c5">NET::UnixStreamSocket</a></li>
+<li>sendTo()&#160;:&#160;<a class="el" href="classNET_1_1CANRawSocket.html#a9cde922521598212afdaa38d49b901ea">NET::CANRawSocket</a>, <a class="el" href="classNET_1_1UDPSocket.html#ac7d2be18e326a772a0f125bc15450901">NET::UDPSocket</a>, <a class="el" href="classNET_1_1UnixDatagramSocket.html#ab9a0c83c16a615ac5780a2a874cba94a">NET::UnixDatagramSocket</a></li>
+<li>sendUnordered()&#160;:&#160;<a class="el" href="classNET_1_1SCTPSocket.html#aea3947cd8b01de5f023c9d62ab06d98a">NET::SCTPSocket</a></li>
 <li>setBroadcastAddress()&#160;:&#160;<a class="el" href="classNET_1_1NetworkInterface.html#ab7f744c4ad909602a419ad7341e815c7">NET::NetworkInterface</a></li>
 <li>setDestinationAddress()&#160;:&#160;<a class="el" href="classNET_1_1NetworkInterface.html#a623b82dbda133ccd47561c861373e9c6">NET::NetworkInterface</a></li>
 <li>setErrorFilter()&#160;:&#160;<a class="el" href="classNET_1_1CANRawSocket.html#ae7b62158c4a51fcaa9198ac8e1c39f17">NET::CANRawSocket</a></li>
@@ -263,6 +266,7 @@ $(function() {
 <li>SockAddress()&#160;:&#160;<a class="el" href="classNET_1_1SockAddress.html#aba2be31173ba66ba8ba2ebe61829dfbc">NET::SockAddress</a></li>
 <li>SocketException()&#160;:&#160;<a class="el" href="classNET_1_1SocketException.html#ad700f28b153c6a5a622bd2c0bf5b8fb9">NET::SocketException</a></li>
 <li>state()&#160;:&#160;<a class="el" href="classNET_1_1SCTPSocket.html#a61a7cf3642f6af3dc572378682e72dc5">NET::SCTPSocket</a></li>
+<li>status&#160;:&#160;<a class="el" href="structNET_1_1IOResult.html#ac74ab0eb4d49d7e124037e414768cf41">NET::IOResult</a></li>
 <li>switchAddressFlag&#160;:&#160;<a class="el" href="classNET_1_1SCTPSocket.html#a8e19511f74b30615a3acd79b378141f9">NET::SCTPSocket</a></li>
 </ul>
 
@@ -270,22 +274,23 @@ $(function() {
 <h3 class="doxsection"><a id="index_t" name="index_t"></a>- t -</h3><ul>
 <li>TCPSocket()&#160;:&#160;<a class="el" href="classNET_1_1TCPSocket.html#a027ee58476587de7dd5adb0c56ee95d5">NET::TCPSocket</a></li>
 <li>timedAccept()&#160;:&#160;<a class="el" href="classNET_1_1SCTPSocket.html#ad73ea29565fefa05f6e88caaee415a5f">NET::SCTPSocket</a>, <a class="el" href="classNET_1_1SimpleSocket.html#af9cd7f2b28969fa1383d8e8751a868f5">NET::SimpleSocket</a>, <a class="el" href="classNET_1_1TCPSocket.html#a449fc9da7439ac68d348c29aec301a2b">NET::TCPSocket</a>, <a class="el" href="classNET_1_1UnixStreamSocket.html#a27370121047cd28f7a6eb651e41bc184">NET::UnixStreamSocket</a></li>
-<li>timedConnect()&#160;:&#160;<a class="el" href="classNET_1_1InternetSocket.html#a81df71c2db5574be7645674d4fba58f6">NET::InternetSocket</a></li>
-<li>timedReceive()&#160;:&#160;<a class="el" href="classNET_1_1CANRawSocket.html#ab657e66c35605b58e9cef94960288257">NET::CANRawSocket</a>, <a class="el" href="classNET_1_1SCTPSocket.html#ac29b5b1e1c6c457dc4d4fc126484fe5d">NET::SCTPSocket</a>, <a class="el" href="classNET_1_1SimpleSocket.html#a0c14e0e6413cf606d52ab7d606a175f8">NET::SimpleSocket</a></li>
-<li>timedReceiveFrom()&#160;:&#160;<a class="el" href="classNET_1_1CANRawSocket.html#aa21a9271a0f94472b8d3b7554c0f7160">NET::CANRawSocket</a>, <a class="el" href="classNET_1_1UDPSocket.html#a1be4253434f78c9e227719c80c8074ef">NET::UDPSocket</a>, <a class="el" href="classNET_1_1UnixDatagramSocket.html#aaf252bc735198a705cffbc0dc5b58827">NET::UnixDatagramSocket</a></li>
+<li>timedConnect()&#160;:&#160;<a class="el" href="classNET_1_1InternetSocket.html#a606cefbe73add4d6dddad89f1350925b">NET::InternetSocket</a></li>
+<li>timedReceive()&#160;:&#160;<a class="el" href="classNET_1_1CANRawSocket.html#ac1b4bb4275fe3fd0bb02a0c143bf4eb8">NET::CANRawSocket</a>, <a class="el" href="classNET_1_1SCTPSocket.html#a85b32ccd219dccbf32bf4ca87f66c045">NET::SCTPSocket</a>, <a class="el" href="classNET_1_1SimpleSocket.html#a90a7239e87f681acddc581082748b8a5">NET::SimpleSocket</a></li>
+<li>timedReceiveFrom()&#160;:&#160;<a class="el" href="classNET_1_1CANRawSocket.html#aa82c13851549df3e0828b47377029881">NET::CANRawSocket</a>, <a class="el" href="classNET_1_1UDPSocket.html#a225caff5fac24dd22c13899dda70915c">NET::UDPSocket</a>, <a class="el" href="classNET_1_1UnixDatagramSocket.html#a2e9fb9e1d554c701d08f768858875667">NET::UnixDatagramSocket</a></li>
 </ul>
 
 
 <h3 class="doxsection"><a id="index_u" name="index_u"></a>- u -</h3><ul>
 <li>UDPSocket()&#160;:&#160;<a class="el" href="classNET_1_1UDPSocket.html#a8d0b8995262242a74ecfca1e507a29e6">NET::UDPSocket</a></li>
 <li>UnixDatagramSocket()&#160;:&#160;<a class="el" href="classNET_1_1UnixDatagramSocket.html#ab7f8812e08206cd15bf72aaca11a6b2f">NET::UnixDatagramSocket</a></li>
-<li>UnixSocket()&#160;:&#160;<a class="el" href="classNET_1_1UnixSocket.html#ad695ef23f071b90e2388b3c6d8c98923">NET::UnixSocket</a>, <a class="el" href="classNET_1_1UnixStreamSocket.html#ad695ef23f071b90e2388b3c6d8c98923">NET::UnixStreamSocket</a></li>
+<li>UnixSocket()&#160;:&#160;<a class="el" href="classNET_1_1UnixDatagramSocket.html#ad695ef23f071b90e2388b3c6d8c98923">NET::UnixDatagramSocket</a>, <a class="el" href="classNET_1_1UnixSocket.html#ad695ef23f071b90e2388b3c6d8c98923">NET::UnixSocket</a>, <a class="el" href="classNET_1_1UnixStreamSocket.html#ad695ef23f071b90e2388b3c6d8c98923">NET::UnixStreamSocket</a></li>
 <li>UnixStreamSocket()&#160;:&#160;<a class="el" href="classNET_1_1UnixStreamSocket.html#acbce576df8b43297612c2ff7e3c42210">NET::UnixStreamSocket</a></li>
 </ul>
 
 
 <h3 class="doxsection"><a id="index_v" name="index_v"></a>- v -</h3><ul>
-<li>valid()&#160;:&#160;<a class="el" href="classNET_1_1SimpleSocket.html#a5ccd319fcf01dd3f58b9365bb3e24fa8">NET::SimpleSocket</a></li>
+<li>valid()&#160;:&#160;<a class="el" href="classNET_1_1SimpleSocket.html#a2c71ea5e5dc9837caf811da78cfd3b3a">NET::SimpleSocket</a></li>
+<li>validateSocket()&#160;:&#160;<a class="el" href="classNET_1_1SimpleSocket.html#a3457e2d858a0d4f04890e4bdf4e676d7">NET::SimpleSocket</a></li>
 </ul>
 
 

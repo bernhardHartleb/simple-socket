@@ -4,6 +4,8 @@ var dir_68267d1309a1af8e8297ef4c3efbcdba =
     [ "CANSocket.cpp", "CANSocket_8cpp.html", null ],
     [ "InternetSocket.cpp", "InternetSocket_8cpp.html", null ],
     [ "NetworkInterface.cpp", "NetworkInterface_8cpp.html", null ],
+    [ "PollHelper.cpp", "PollHelper_8cpp.html", null ],
+    [ "PollHelper.h", "PollHelper_8h.html", "PollHelper_8h" ],
     [ "SCTPSocket.cpp", "SCTPSocket_8cpp.html", null ],
     [ "SimpleSocket.cpp", "SimpleSocket_8cpp.html", null ],
     [ "SockAddress.cpp", "SockAddress_8cpp.html", null ],

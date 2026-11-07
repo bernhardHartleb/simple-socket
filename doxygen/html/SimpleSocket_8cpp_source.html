@@ -33,7 +33,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.6.0</span>
+   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.7.0</span>
    </div>
   </td>
  </tr>
@@ -110,273 +110,384 @@ $(function() {
 <a href="SimpleSocket_8cpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &quot;<a class="code" href="SimpleSocket_8h.html">SimpleSocket.h</a>&quot;</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &quot;<a class="code" href="SockAddress_8h.html">SockAddress.h</a>&quot;</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &quot;<a class="code" href="TempFailure_8h.html">TempFailure.h</a>&quot;</span></div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;poll.h&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;unistd.h&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;cstring&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;cerrno&gt;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespaceNET.html">NET</a>;</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="PollHelper_8h.html">PollHelper.h</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span> </div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;fcntl.h&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;unistd.h&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;cstring&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;cerrno&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;chrono&gt;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="foldopen" id="foldopen00012" data-start="{" data-end="}">
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="classNET_1_1SocketException.html#ad700f28b153c6a5a622bd2c0bf5b8fb9">   12</a></span><a class="code hl_function" href="classNET_1_1SocketException.html#ad700f28b153c6a5a622bd2c0bf5b8fb9">SocketException::SocketException</a>( std::string_view message, <span class="keywordtype">bool</span> inclErrno <span class="comment">/* = true */</span>)</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>: m_message(message)</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>, m_errorcode(0)</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>{</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keywordflow">if</span>(inclErrno)</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    {</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        m_errorcode = errno;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        m_message += <span class="stringliteral">&quot;: &quot;</span>;</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        m_message += strerror(m_errorcode);</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    }</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>}</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespaceNET.html">NET</a>;</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="foldopen" id="foldopen00014" data-start="{" data-end="}">
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="classNET_1_1SocketException.html#ad700f28b153c6a5a622bd2c0bf5b8fb9">   14</a></span><a class="code hl_function" href="classNET_1_1SocketException.html#ad700f28b153c6a5a622bd2c0bf5b8fb9">SocketException::SocketException</a>( std::string_view message, <span class="keywordtype">bool</span> inclErrno <span class="comment">/* = true */</span>)</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>: m_message(message)</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>, m_errorcode(0)</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>{</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>    <span class="keywordflow">if</span>(inclErrno)</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>        m_errorcode = errno;</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        m_message += <span class="stringliteral">&quot;: &quot;</span>;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        m_message += strerror(m_errorcode);</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    }</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>}</div>
 </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
-<div class="foldopen" id="foldopen00024" data-start="{" data-end="}">
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="classNET_1_1SimpleSocket.html#a7059c7c1be8f34d7034ddacf8a6bb9a4">   24</a></span><a class="code hl_function" href="classNET_1_1SimpleSocket.html#a53ccfa544aa458e821fcbb1c6979fd62">SimpleSocket::SimpleSocket</a>( <span class="keywordtype">int</span> domain, <span class="keywordtype">int</span> type, <span class="keywordtype">int</span> protocol)</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>: <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a9c07dffe5a98a2700dc4cb1d6e7a30fa">m_peerDisconnected</a>(false)</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>, <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a3fb5e518e4483437776fc997ef172546">m_connectionOriented</a>(type == SOCK_STREAM)</div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>{</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span><span class="preprocessor">#ifdef SOCK_CLOEXEC</span></div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="comment">// prevent leaking socket descriptor on exec</span></div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    type |= SOCK_CLOEXEC;</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>    <span class="keywordflow">if</span>( (<a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a> = ::socket( domain, type, protocol)) &lt; 0)</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        <span class="keywordflow">throw</span> <a class="code hl_class" href="classNET_1_1SocketException.html">SocketException</a>(<span class="stringliteral">&quot;Socket creation failed (socket)&quot;</span>);</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>}</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="foldopen" id="foldopen00026" data-start="{" data-end="}">
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno"><a class="line" href="classNET_1_1SocketException.html#a2b94314080a2ee6362e7d794e7fa2ad6">   26</a></span><a class="code hl_function" href="classNET_1_1SocketException.html#ad700f28b153c6a5a622bd2c0bf5b8fb9">SocketException::SocketException</a>( std::string_view message, <span class="keywordtype">int</span> error)</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>: m_message(message)</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>, m_errorcode(error)</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>{</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keywordflow">if</span>(error != 0)</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>    {</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>        m_message += <span class="stringliteral">&quot;: &quot;</span>;</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>        m_message += strerror(m_errorcode);</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    }</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>}</div>
 </div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="foldopen" id="foldopen00036" data-start="{" data-end="}">
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno"><a class="line" href="classNET_1_1SimpleSocket.html#a889ecbd4628d84380bb95fc2e58a92ba">   36</a></span><a class="code hl_function" href="classNET_1_1SimpleSocket.html#a53ccfa544aa458e821fcbb1c6979fd62">SimpleSocket::SimpleSocket</a>( <span class="keywordtype">int</span> sockfd)</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>: <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a>(sockfd)</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>, <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a9c07dffe5a98a2700dc4cb1d6e7a30fa">m_peerDisconnected</a>(false)</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>, <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a3fb5e518e4483437776fc997ef172546">m_connectionOriented</a>(true) <span class="comment">// accepted sockets have connections</span></div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="foldopen" id="foldopen00038" data-start="{" data-end="}">
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="classNET_1_1SimpleSocket.html#a7059c7c1be8f34d7034ddacf8a6bb9a4">   38</a></span><a class="code hl_function" href="classNET_1_1SimpleSocket.html#a53ccfa544aa458e821fcbb1c6979fd62">SimpleSocket::SimpleSocket</a>( <span class="keywordtype">int</span> domain, <span class="keywordtype">int</span> type, <span class="keywordtype">int</span> protocol)</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>: <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a3fb5e518e4483437776fc997ef172546">m_connectionOriented</a>(type == SOCK_STREAM)</div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>{</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keywordflow">if</span>(sockfd &lt; 0)</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        <span class="keywordflow">throw</span> <a class="code hl_class" href="classNET_1_1SocketException.html">SocketException</a>(<span class="stringliteral">&quot;Tried to initialize Socket with invalid Handle&quot;</span>, <span class="keyword">false</span>);</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>}</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span><span class="preprocessor">#ifdef SOCK_CLOEXEC</span></div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>    <span class="comment">// prevent leaking socket descriptor on exec</span></div>
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>    type |= SOCK_CLOEXEC;</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keywordflow">if</span>( (<a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a> = ::socket( domain, type, protocol)) &lt; 0)</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>        <span class="keywordflow">throw</span> <a class="code hl_class" href="classNET_1_1SocketException.html">SocketException</a>(<span class="stringliteral">&quot;Socket creation failed (socket)&quot;</span>);</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>}</div>
 </div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span> </div>
-<div class="foldopen" id="foldopen00045" data-start="{" data-end="}">
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno"><a class="line" href="classNET_1_1SimpleSocket.html#a26cc58213a75e970a580d87807fec3c5">   45</a></span><a class="code hl_function" href="classNET_1_1SimpleSocket.html#a53ccfa544aa458e821fcbb1c6979fd62">SimpleSocket::SimpleSocket</a>( <a class="code hl_function" href="classNET_1_1SimpleSocket.html#a53ccfa544aa458e821fcbb1c6979fd62">SimpleSocket</a>&amp;&amp; other) noexcept</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>: <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a>(other.m_socket)</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>, <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a9c07dffe5a98a2700dc4cb1d6e7a30fa">m_peerDisconnected</a>(other.m_peerDisconnected)</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>, <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a3fb5e518e4483437776fc997ef172546">m_connectionOriented</a>(other.m_connectionOriented)</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>{</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    other.m_socket = -1;</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    other.m_peerDisconnected = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>    other.m_connectionOriented = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>}</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
+<div class="foldopen" id="foldopen00049" data-start="{" data-end="}">
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno"><a class="line" href="classNET_1_1SimpleSocket.html#a0e2b21d3e7995b5cb2ffc672ea4a617b">   49</a></span><a class="code hl_function" href="classNET_1_1SimpleSocket.html#a53ccfa544aa458e821fcbb1c6979fd62">SimpleSocket::SimpleSocket</a>( <a class="code hl_struct" href="structNET_1_1SimpleSocket_1_1AdoptSocketTag.html">AdoptSocketTag</a>, <span class="keywordtype">int</span> sockfd, <span class="keywordtype">int</span> type)</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>: <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a>(sockfd)</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>, <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a3fb5e518e4483437776fc997ef172546">m_connectionOriented</a>(type == SOCK_STREAM)</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>{</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>    <span class="keywordflow">if</span>(sockfd &lt; 0)</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>        <span class="keywordflow">throw</span> <a class="code hl_class" href="classNET_1_1SocketException.html">SocketException</a>(<span class="stringliteral">&quot;Tried to initialize Socket with invalid Handle&quot;</span>, <span class="keyword">false</span>);</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>}</div>
 </div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span> </div>
-<div class="foldopen" id="foldopen00055" data-start="{" data-end="}">
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno"><a class="line" href="classNET_1_1SimpleSocket.html#abcfea3b75c3025ebf1f7b92c43104a17">   55</a></span><a class="code hl_function" href="classNET_1_1SimpleSocket.html#a53ccfa544aa458e821fcbb1c6979fd62">SimpleSocket</a>&amp; <a class="code hl_function" href="classNET_1_1SimpleSocket.html#a4c8ad3d5254e16471050c3aecb65f991">SimpleSocket::operator=</a>( <a class="code hl_function" href="classNET_1_1SimpleSocket.html#a53ccfa544aa458e821fcbb1c6979fd62">SimpleSocket</a>&amp;&amp; other) <span class="keyword">noexcept</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>{</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keywordflow">if</span>( <span class="keyword">this</span> != &amp;other)</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    {</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>        <span class="keywordflow">if</span>( <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a> &gt;= 0) ::close(<a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a>);</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>        <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a> = other.m_socket;</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a9c07dffe5a98a2700dc4cb1d6e7a30fa">m_peerDisconnected</a> = other.m_peerDisconnected;</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a3fb5e518e4483437776fc997ef172546">m_connectionOriented</a> = other.m_connectionOriented;</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
+<div class="foldopen" id="foldopen00057" data-start="{" data-end="}">
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="classNET_1_1SimpleSocket.html#a26cc58213a75e970a580d87807fec3c5">   57</a></span><a class="code hl_function" href="classNET_1_1SimpleSocket.html#a53ccfa544aa458e821fcbb1c6979fd62">SimpleSocket::SimpleSocket</a>( <a class="code hl_function" href="classNET_1_1SimpleSocket.html#a53ccfa544aa458e821fcbb1c6979fd62">SimpleSocket</a>&amp;&amp; other) noexcept</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>: <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a>(other.m_socket)</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>, <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a3fb5e518e4483437776fc997ef172546">m_connectionOriented</a>(other.m_connectionOriented)</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>{</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>    other.m_socket = -1;</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>    other.m_connectionOriented = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>}</div>
+</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        other.m_socket = -1;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        other.m_peerDisconnected = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>        other.m_connectionOriented = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    }</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>}</div>
+<div class="foldopen" id="foldopen00065" data-start="{" data-end="}">
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno"><a class="line" href="classNET_1_1SimpleSocket.html#abcfea3b75c3025ebf1f7b92c43104a17">   65</a></span><a class="code hl_function" href="classNET_1_1SimpleSocket.html#a53ccfa544aa458e821fcbb1c6979fd62">SimpleSocket</a>&amp; <a class="code hl_function" href="classNET_1_1SimpleSocket.html#a4c8ad3d5254e16471050c3aecb65f991">SimpleSocket::operator=</a>( <a class="code hl_function" href="classNET_1_1SimpleSocket.html#a53ccfa544aa458e821fcbb1c6979fd62">SimpleSocket</a>&amp;&amp; other) <span class="keyword">noexcept</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>{</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>    <span class="keywordflow">if</span>( <span class="keyword">this</span> != &amp;other)</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    {</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>        <span class="keywordflow">if</span>( <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a> &gt;= 0) ::close(<a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a>);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>        <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a> = other.m_socket;</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>        <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a3fb5e518e4483437776fc997ef172546">m_connectionOriented</a> = other.m_connectionOriented;</div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        other.m_socket = -1;</div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        other.m_connectionOriented = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    }</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>}</div>
 </div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="foldopen" id="foldopen00072" data-start="{" data-end="}">
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno"><a class="line" href="classNET_1_1SimpleSocket.html#abf7d41536d2ecf56de1364d36db5fd67">   72</a></span><a class="code hl_function" href="classNET_1_1SimpleSocket.html#abf7d41536d2ecf56de1364d36db5fd67">SimpleSocket::~SimpleSocket</a>()</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>{</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    <span class="keywordflow">if</span>( <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a> &gt;= 0) ::close(<a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a>);</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>}</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
+<div class="foldopen" id="foldopen00080" data-start="{" data-end="}">
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno"><a class="line" href="classNET_1_1SimpleSocket.html#abf7d41536d2ecf56de1364d36db5fd67">   80</a></span><a class="code hl_function" href="classNET_1_1SimpleSocket.html#abf7d41536d2ecf56de1364d36db5fd67">SimpleSocket::~SimpleSocket</a>()</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>{</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    <span class="keywordflow">if</span>( <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a> &gt;= 0) ::close(<a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a>);</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>}</div>
 </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="foldopen" id="foldopen00077" data-start="{" data-end="}">
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno"><a class="line" href="classNET_1_1SimpleSocket.html#a6e3ec021c1ae9ea1e1d0aaa0129e7c50">   77</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="classNET_1_1SimpleSocket.html#a6e3ec021c1ae9ea1e1d0aaa0129e7c50">SimpleSocket::send</a>( <span class="keyword">const</span> <span class="keywordtype">void</span>* buffer, <span class="keywordtype">size_t</span> len)</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>{</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keywordtype">int</span> flags = 0;</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="preprocessor">#ifdef MSG_NOSIGNAL</span></div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="comment">// do not generate SIGPIPE on closed connection</span></div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>    flags |= MSG_NOSIGNAL;</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span><span class="preprocessor">#endif</span></div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>    <span class="keywordtype">int</span> sent = <a class="code hl_define" href="TempFailure_8h.html#ae3924d534a2de097f5cccb535330e8c2">TEMP_FAILURE_RETRY</a> (<a class="code hl_function" href="classNET_1_1SimpleSocket.html#a6e3ec021c1ae9ea1e1d0aaa0129e7c50">::send</a>( <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a>, (<span class="keyword">const</span> raw_type*) buffer, len, flags));</div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>    <span class="keywordflow">if</span>( sent &lt; 0)</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    {</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>        <span class="keywordflow">if</span>( errno == ECONNRESET || errno == ECONNREFUSED || errno == EPIPE)</div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>        {</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>            <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a9c07dffe5a98a2700dc4cb1d6e7a30fa">m_peerDisconnected</a> = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>            <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>        }</div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>        <span class="keywordflow">throw</span> <a class="code hl_class" href="classNET_1_1SocketException.html">SocketException</a>(<span class="stringliteral">&quot;Send failed (send)&quot;</span>);</div>
-<div class="foldopen" id="foldopen00093" data-start="{" data-end="}">
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno"><a class="line" href="classNET_1_1SCTPSocket.html#a6e3ec021c1ae9ea1e1d0aaa0129e7c50">   93</a></span>    }</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="keywordflow">return</span> sent;</div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>}</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="foldopen" id="foldopen00085" data-start="{" data-end="}">
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno"><a class="line" href="classNET_1_1SimpleSocket.html#a41cbc933680e957b63c8dfd71989d619">   85</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="classNET_1_1SimpleSocket.html#a41cbc933680e957b63c8dfd71989d619">SimpleSocket::duplicateNativeHandle</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span>    <span class="comment">// Atomically duplicate with close-on-exec</span></div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    <span class="keywordtype">int</span> ret = ::fcntl( <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a>, F_DUPFD_CLOEXEC, 0);</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    <span class="keywordflow">if</span>( ret &lt; 0)</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>        <span class="keywordflow">throw</span> <a class="code hl_class" href="classNET_1_1SocketException.html">SocketException</a>(<span class="stringliteral">&quot;Duplicate failed (fcntl)&quot;</span>);</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="keywordflow">return</span> ret;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>}</div>
 </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span> </div>
+<div class="foldopen" id="foldopen00095" data-start="{" data-end="}">
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="classNET_1_1SimpleSocket.html#a2c71ea5e5dc9837caf811da78cfd3b3a">   95</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="classNET_1_1SimpleSocket.html#a2c71ea5e5dc9837caf811da78cfd3b3a">SimpleSocket::valid</a>() const noexcept</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>{</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="keywordflow">if</span>( <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a> &lt; 0) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="comment">// check the descriptor by reading its flags</span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keywordflow">return</span> (::fcntl( <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a>, F_GETFD) &gt;= 0);</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>}</div>
 </div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span> </div>
-<div class="foldopen" id="foldopen00097" data-start="{" data-end="}">
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno"><a class="line" href="classNET_1_1SimpleSocket.html#ab89a477e571a47efd9ec39089aeebf56">   97</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="classNET_1_1SimpleSocket.html#ab89a477e571a47efd9ec39089aeebf56">SimpleSocket::receive</a>( <span class="keywordtype">void</span>* buffer, <span class="keywordtype">size_t</span> len)</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>{</div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keywordtype">int</span> ret = <a class="code hl_define" href="TempFailure_8h.html#ae3924d534a2de097f5cccb535330e8c2">TEMP_FAILURE_RETRY</a> (::recv( <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a>, (raw_type*) buffer, len, 0));</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <span class="keywordflow">if</span>( ret &lt; 0)</div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    {</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>        <span class="keywordflow">if</span>( errno == ECONNRESET &amp;&amp; <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a3fb5e518e4483437776fc997ef172546">m_connectionOriented</a>)</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>        {</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>            <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a9c07dffe5a98a2700dc4cb1d6e7a30fa">m_peerDisconnected</a> = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>            <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>        }</div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>        <span class="keywordflow">throw</span> <a class="code hl_class" href="classNET_1_1SocketException.html">SocketException</a>(<span class="stringliteral">&quot;Received failed (receive)&quot;</span>);</div>
-<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span>    }</div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span> </div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="keywordflow">if</span>( ret == 0 &amp;&amp; len != 0 &amp;&amp; <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a3fb5e518e4483437776fc997ef172546">m_connectionOriented</a>)</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a9c07dffe5a98a2700dc4cb1d6e7a30fa">m_peerDisconnected</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="foldopen" id="foldopen00102" data-start="{" data-end="}">
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno"><a class="line" href="classNET_1_1SimpleSocket.html#aa05163ace5dbe56a53debe265045597f">  102</a></span><a class="code hl_struct" href="structNET_1_1IOResult.html">IOResult</a> <a class="code hl_function" href="classNET_1_1SimpleSocket.html#aa05163ace5dbe56a53debe265045597f">SimpleSocket::send</a>( <span class="keyword">const</span> <span class="keywordtype">void</span>* buffer, <span class="keywordtype">size_t</span> len)</div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>{</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    <span class="keywordtype">int</span> flags = 0;</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span><span class="preprocessor">#ifdef MSG_NOSIGNAL</span></div>
+<div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span>    <span class="comment">// do not generate SIGPIPE on closed connection</span></div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    flags |= MSG_NOSIGNAL;</div>
+<div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    ssize_t ret = <a class="code hl_define" href="TempFailure_8h.html#ae3924d534a2de097f5cccb535330e8c2">TEMP_FAILURE_RETRY</a> (<a class="code hl_function" href="classNET_1_1SimpleSocket.html#aa05163ace5dbe56a53debe265045597f">::send</a>( <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a>, (<span class="keyword">const</span> raw_type*) buffer, len, flags));</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>    <span class="keywordflow">if</span>( ret &gt;= 0)</div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>        <span class="keywordflow">return</span> { <a class="code hl_enumvalue" href="namespaceNET.html#a6234637576bbb2ec0600642d629c2104a505a83f220c02df2f85c3810cd9ceb38">IOStatus::Success</a>, <span class="keyword">static_cast&lt;</span><span class="keywordtype">size_t</span><span class="keyword">&gt;</span>(ret) };</div>
 <div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>}</div>
-</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>    <span class="keyword">auto</span> status = <a class="code hl_function" href="namespaceNET_1_1detail.html#ae377d816f4cc819d5cbfa5d14461dfe3">detail::classifyIoError</a>( errno, <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a3fb5e518e4483437776fc997ef172546">m_connectionOriented</a>);</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>    <span class="keywordflow">if</span>( status) <span class="keywordflow">return</span> <a class="code hl_struct" href="structNET_1_1IOResult.html">IOResult</a>{ *status, 0 };</div>
 <div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span> </div>
-<div class="foldopen" id="foldopen00116" data-start="{" data-end="}">
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno"><a class="line" href="classNET_1_1SimpleSocket.html#a0c14e0e6413cf606d52ab7d606a175f8">  116</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="classNET_1_1SimpleSocket.html#a0c14e0e6413cf606d52ab7d606a175f8">SimpleSocket::timedReceive</a>( <span class="keywordtype">void</span>* buffer, <span class="keywordtype">size_t</span> len, <span class="keywordtype">int</span> timeout)</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>{</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    <span class="keyword">struct </span>pollfd poll;</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>    <span class="keywordflow">throw</span> <a class="code hl_class" href="classNET_1_1SocketException.html">SocketException</a>(<span class="stringliteral">&quot;Send failed (send)&quot;</span>);</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>}</div>
+</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span> </div>
 <div class="foldopen" id="foldopen00119" data-start="{" data-end="}">
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="classNET_1_1SCTPSocket.html#ab89a477e571a47efd9ec39089aeebf56">  119</a></span>    poll.fd = <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a>;</div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    poll.events = POLLIN | POLLPRI | POLLRDHUP;</div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    <span class="keywordtype">int</span> ret = <a class="code hl_define" href="TempFailure_8h.html#ae3924d534a2de097f5cccb535330e8c2">TEMP_FAILURE_RETRY</a> (::poll( &amp;poll, 1, timeout));</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <span class="keywordflow">if</span>( ret == 0) <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="keywordflow">if</span>( ret &lt; 0)  <span class="keywordflow">throw</span> <a class="code hl_class" href="classNET_1_1SocketException.html">SocketException</a>(<span class="stringliteral">&quot;timedReceive failed (poll)&quot;</span>);</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    <span class="keywordflow">if</span>( poll.revents &amp; POLLRDHUP || poll.revents &amp; POLLHUP)</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>        <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a9c07dffe5a98a2700dc4cb1d6e7a30fa">m_peerDisconnected</a> = <span class="keyword">true</span>;</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    <span class="keywordflow">if</span>( poll.revents &amp; POLLIN || poll.revents &amp; POLLPRI)</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>        <span class="keywordflow">return</span> <a class="code hl_function" href="classNET_1_1SimpleSocket.html#ab89a477e571a47efd9ec39089aeebf56">receive</a>( buffer, len);</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span> </div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    <span class="keywordflow">if</span>( poll.revents &amp; (POLLERR | POLLNVAL))</div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>        <span class="keywordflow">throw</span> <a class="code hl_class" href="classNET_1_1SocketException.html">SocketException</a>(<span class="stringliteral">&quot;timedReceive failed (poll)&quot;</span>);</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno"><a class="line" href="classNET_1_1SimpleSocket.html#ab2c084ceb5c5773495566d37b2c99283">  119</a></span><a class="code hl_struct" href="structNET_1_1IOResult.html">IOResult</a> <a class="code hl_function" href="classNET_1_1SimpleSocket.html#ab2c084ceb5c5773495566d37b2c99283">SimpleSocket::receive</a>( <span class="keywordtype">void</span>* buffer, <span class="keywordtype">size_t</span> len)</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>{</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    ssize_t ret = <a class="code hl_define" href="TempFailure_8h.html#ae3924d534a2de097f5cccb535330e8c2">TEMP_FAILURE_RETRY</a> (::recv( <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a>, (raw_type*) buffer, len, 0));</div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    <span class="keywordflow">if</span>( ret &gt; 0)</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>        <span class="keywordflow">return</span> { <a class="code hl_enumvalue" href="namespaceNET.html#a6234637576bbb2ec0600642d629c2104a505a83f220c02df2f85c3810cd9ceb38">IOStatus::Success</a>, <span class="keyword">static_cast&lt;</span><span class="keywordtype">size_t</span><span class="keyword">&gt;</span>(ret) };</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span> </div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    <span class="comment">// recv() == 0 means EOF only for connection-oriented sockets</span></div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <span class="comment">// for datagram sockets a zero-length is valid</span></div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    <span class="keywordflow">if</span>( ret == 0)</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    {</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>        <span class="keywordflow">if</span>( <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a3fb5e518e4483437776fc997ef172546">m_connectionOriented</a> &amp;&amp; len != 0)</div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>        {</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>            <span class="keywordflow">return</span> { <a class="code hl_enumvalue" href="namespaceNET.html#a6234637576bbb2ec0600642d629c2104a333905113a456692308689b23e032249">IOStatus::PeerDisconnected</a>, 0 };</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>        }</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>        <span class="keywordflow">return</span> { <a class="code hl_enumvalue" href="namespaceNET.html#a6234637576bbb2ec0600642d629c2104a505a83f220c02df2f85c3810cd9ceb38">IOStatus::Success</a>, 0 };</div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    }</div>
 <div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span> </div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    <span class="keywordflow">return</span> 0;</div>
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>}</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>    <span class="keyword">auto</span> status = <a class="code hl_function" href="namespaceNET_1_1detail.html#ae377d816f4cc819d5cbfa5d14461dfe3">detail::classifyIoError</a>( errno, <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a3fb5e518e4483437776fc997ef172546">m_connectionOriented</a>);</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    <span class="keywordflow">if</span>( status) <span class="keywordflow">return</span> <a class="code hl_struct" href="structNET_1_1IOResult.html">IOResult</a>{ *status, 0 };</div>
 <div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span> </div>
-<div class="foldopen" id="foldopen00139" data-start="{" data-end="}">
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno"><a class="line" href="classNET_1_1SimpleSocket.html#a107f5074fd3f153ce0c1d2329c755d8f">  139</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classNET_1_1SimpleSocket.html#a107f5074fd3f153ce0c1d2329c755d8f">SimpleSocket::disconnect</a>()</div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>{</div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>    sockaddr addr;</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span>    std::memset( &amp;addr, 0, <span class="keyword">sizeof</span>(addr));</div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>    addr.sa_family = AF_UNSPEC;</div>
-<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span> </div>
-<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>    <span class="keywordflow">if</span>( ::connect( <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a>, &amp;addr, <span class="keyword">sizeof</span>(addr)) &lt; 0)</div>
-<div class="foldopen" id="foldopen00146" data-start="{" data-end="}">
-<div class="line"><a id="l00146" name="l00146"></a><span class="lineno"><a class="line" href="classNET_1_1SCTPSocket.html#a0c14e0e6413cf606d52ab7d606a175f8">  146</a></span>    {</div>
-<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span>        <span class="keywordflow">if</span>( errno != ECONNRESET)</div>
-<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>            <span class="keywordflow">throw</span> <a class="code hl_class" href="classNET_1_1SocketException.html">SocketException</a>(<span class="stringliteral">&quot;Disconnect failed (connect)&quot;</span>);</div>
-<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>    }</div>
-<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a9c07dffe5a98a2700dc4cb1d6e7a30fa">m_peerDisconnected</a> = <span class="keyword">false</span>;</div>
-<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>}</div>
-<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span> </div>
-<div class="foldopen" id="foldopen00153" data-start="{" data-end="}">
-<div class="line"><a id="l00153" name="l00153"></a><span class="lineno"><a class="line" href="classNET_1_1SimpleSocket.html#a5b5500498eeb1292eea3c5dc4e531d19">  153</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classNET_1_1SimpleSocket.html#a5b5500498eeb1292eea3c5dc4e531d19">SimpleSocket::shutdown</a>( <a class="code hl_enumeration" href="namespaceNET.html#a9b61e3d2422a1203909bd7985df95884">ShutdownDirection</a> type)</div>
-<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>{</div>
-<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    <span class="keywordtype">int</span> how = 0;</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>    <span class="keywordflow">switch</span>(type)</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    {</div>
-<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceNET.html#a9b61e3d2422a1203909bd7985df95884ae9cb5d756b0cef8d4de6e226890bee43">STOP_RECEIVE</a>: how = SHUT_RD; <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceNET.html#a9b61e3d2422a1203909bd7985df95884a033d3418b7b9455f3b5d7c6692155b3e">STOP_SEND</a>:    how = SHUT_WR; <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceNET.html#a9b61e3d2422a1203909bd7985df95884aac8f7825323c5ef9954fc0a7eac781d7">STOP_BOTH</a>:    how = SHUT_RDWR; <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    }</div>
-<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span> </div>
-<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    <span class="keywordflow">if</span>( <a class="code hl_function" href="classNET_1_1SimpleSocket.html#a5b5500498eeb1292eea3c5dc4e531d19">::shutdown</a>( <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a>, how) &lt; 0)</div>
-<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>        <span class="keywordflow">throw</span> <a class="code hl_class" href="classNET_1_1SocketException.html">SocketException</a>(<span class="stringliteral">&quot;Shutdown failed (shutdown)&quot;</span>);</div>
-<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>}</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>    <span class="keywordflow">throw</span> <a class="code hl_class" href="classNET_1_1SocketException.html">SocketException</a>(<span class="stringliteral">&quot;Receive failed (receive)&quot;</span>);</div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>}</div>
 </div>
-<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span> </div>
+<div class="foldopen" id="foldopen00141" data-start="{" data-end="}">
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno"><a class="line" href="classNET_1_1SCTPSocket.html#aa05163ace5dbe56a53debe265045597f">  141</a></span> </div>
+<div class="foldopen" id="foldopen00142" data-start="{" data-end="}">
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno"><a class="line" href="classNET_1_1SimpleSocket.html#a90a7239e87f681acddc581082748b8a5">  142</a></span><a class="code hl_struct" href="structNET_1_1IOResult.html">IOResult</a> <a class="code hl_function" href="classNET_1_1SimpleSocket.html#a90a7239e87f681acddc581082748b8a5">SimpleSocket::timedReceive</a>( <span class="keywordtype">void</span>* buffer, <span class="keywordtype">size_t</span> len, <span class="keywordtype">int</span> timeout)</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>{</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="namespaceNET_1_1detail.html#a18927c76c21b420570c9a3f08c4db169">detail::timedReceiveImpl</a>( <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a>, <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a3fb5e518e4483437776fc997ef172546">m_connectionOriented</a>, timeout,</div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span>        [&amp;] { <span class="keywordflow">return</span> <a class="code hl_function" href="classNET_1_1SimpleSocket.html#ab2c084ceb5c5773495566d37b2c99283">receive</a>( buffer, len); });</div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>}</div>
+</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
+<div class="foldopen" id="foldopen00148" data-start="{" data-end="}">
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno"><a class="line" href="classNET_1_1SimpleSocket.html#a107f5074fd3f153ce0c1d2329c755d8f">  148</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classNET_1_1SimpleSocket.html#a107f5074fd3f153ce0c1d2329c755d8f">SimpleSocket::disconnect</a>()</div>
+<div class="line"><a id="l00149" name="l00149"></a><span class="lineno">  149</span>{</div>
+<div class="line"><a id="l00150" name="l00150"></a><span class="lineno">  150</span>    sockaddr addr;</div>
+<div class="line"><a id="l00151" name="l00151"></a><span class="lineno">  151</span>    std::memset( &amp;addr, 0, <span class="keyword">sizeof</span>(addr));</div>
+<div class="line"><a id="l00152" name="l00152"></a><span class="lineno">  152</span>    addr.sa_family = AF_UNSPEC;</div>
+<div class="line"><a id="l00153" name="l00153"></a><span class="lineno">  153</span> </div>
+<div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span>    <span class="keywordflow">if</span>( ::connect( <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a>, &amp;addr, <span class="keyword">sizeof</span>(addr)) &lt; 0)</div>
+<div class="line"><a id="l00155" name="l00155"></a><span class="lineno">  155</span>    {</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>        <span class="keywordflow">if</span>( errno != ECONNRESET)</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>            <span class="keywordflow">throw</span> <a class="code hl_class" href="classNET_1_1SocketException.html">SocketException</a>(<span class="stringliteral">&quot;Disconnect failed (connect)&quot;</span>);</div>
+<div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    }</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>}</div>
+</div>
+<div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span> </div>
+<div class="foldopen" id="foldopen00161" data-start="{" data-end="}">
+<div class="line"><a id="l00161" name="l00161"></a><span class="lineno"><a class="line" href="classNET_1_1SimpleSocket.html#a5b5500498eeb1292eea3c5dc4e531d19">  161</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classNET_1_1SimpleSocket.html#a5b5500498eeb1292eea3c5dc4e531d19">SimpleSocket::shutdown</a>( <a class="code hl_enumeration" href="namespaceNET.html#a9b61e3d2422a1203909bd7985df95884">ShutdownDirection</a> type)</div>
+<div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>{</div>
+<div class="line"><a id="l00163" name="l00163"></a><span class="lineno">  163</span>    <span class="keywordtype">int</span> how = 0;</div>
+<div class="line"><a id="l00164" name="l00164"></a><span class="lineno">  164</span>    <span class="keywordflow">switch</span>(type)</div>
+<div class="line"><a id="l00165" name="l00165"></a><span class="lineno">  165</span>    {</div>
+<div class="line"><a id="l00166" name="l00166"></a><span class="lineno">  166</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceNET.html#a9b61e3d2422a1203909bd7985df95884ae9cb5d756b0cef8d4de6e226890bee43">STOP_RECEIVE</a>: how = SHUT_RD; <span class="keywordflow">break</span>;</div>
 <div class="foldopen" id="foldopen00167" data-start="{" data-end="}">
-<div class="line"><a id="l00167" name="l00167"></a><span class="lineno"><a class="line" href="classNET_1_1SimpleSocket.html#adc7b2b80c852e7163a7bab9ce4b7c060">  167</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="classNET_1_1SimpleSocket.html#adc7b2b80c852e7163a7bab9ce4b7c060">SimpleSocket::peerDisconnected</a>() const noexcept</div>
-<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>{</div>
-<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    <span class="keywordflow">return</span> <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a9c07dffe5a98a2700dc4cb1d6e7a30fa">m_peerDisconnected</a>;</div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>}</div>
-</div>
-<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span> </div>
-<div class="foldopen" id="foldopen00172" data-start="{" data-end="}">
-<div class="line"><a id="l00172" name="l00172"></a><span class="lineno"><a class="line" href="classNET_1_1SimpleSocket.html#a4684d7f8b29b43c51bcc25f01c7df437">  172</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classNET_1_1SimpleSocket.html#a4684d7f8b29b43c51bcc25f01c7df437">SimpleSocket::listen</a>( <span class="keywordtype">int</span> backlog)</div>
-<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>{</div>
-<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>    <span class="keywordtype">int</span> ret = <a class="code hl_function" href="classNET_1_1SimpleSocket.html#a4684d7f8b29b43c51bcc25f01c7df437">::listen</a>( <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a>, backlog);</div>
-<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    <span class="keywordflow">if</span>( ret &lt; 0)</div>
-<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>        <span class="keywordflow">throw</span> <a class="code hl_class" href="classNET_1_1SocketException.html">SocketException</a>(<span class="stringliteral">&quot;Listen failed (listen)&quot;</span>);</div>
-<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span>}</div>
-</div>
-<div class="line"><a id="l00178" name="l00178"></a><span class="lineno">  178</span> </div>
-<div class="foldopen" id="foldopen00179" data-start="{" data-end="}">
-<div class="line"><a id="l00179" name="l00179"></a><span class="lineno"><a class="line" href="classNET_1_1SimpleSocket.html#a23f806c99ec86fe75872ac60d9af9996">  179</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="classNET_1_1SimpleSocket.html#a23f806c99ec86fe75872ac60d9af9996">SimpleSocket::accept</a>()<span class="keyword"> const</span></div>
-<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span><span class="preprocessor">#ifdef SOCK_CLOEXEC</span></div>
-<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    <span class="comment">// prevent leaking socket descriptor on exec</span></div>
-<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    <span class="keywordtype">int</span> ret = <a class="code hl_define" href="TempFailure_8h.html#ae3924d534a2de097f5cccb535330e8c2">TEMP_FAILURE_RETRY</a> (::accept4( <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a>, <span class="keyword">nullptr</span>, <span class="keyword">nullptr</span>, SOCK_CLOEXEC));</div>
-<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span><span class="preprocessor">#else</span></div>
-<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span>    <span class="keywordtype">int</span> ret = <a class="code hl_define" href="TempFailure_8h.html#ae3924d534a2de097f5cccb535330e8c2">TEMP_FAILURE_RETRY</a> (<a class="code hl_function" href="classNET_1_1SimpleSocket.html#a23f806c99ec86fe75872ac60d9af9996">::accept</a>( <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a>, <span class="keyword">nullptr</span>, <span class="keyword">nullptr</span>));</div>
-<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00167" name="l00167"></a><span class="lineno"><a class="line" href="classNET_1_1SCTPSocket.html#ab2c084ceb5c5773495566d37b2c99283">  167</a></span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceNET.html#a9b61e3d2422a1203909bd7985df95884a033d3418b7b9455f3b5d7c6692155b3e">STOP_SEND</a>:    how = SHUT_WR; <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span>    <span class="keywordflow">case</span> <a class="code hl_enumvalue" href="namespaceNET.html#a9b61e3d2422a1203909bd7985df95884aac8f7825323c5ef9954fc0a7eac781d7">STOP_BOTH</a>:    how = SHUT_RDWR; <span class="keywordflow">break</span>;</div>
+<div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>    }</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span> </div>
+<div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    <span class="keywordflow">if</span>( <a class="code hl_function" href="classNET_1_1SimpleSocket.html#a5b5500498eeb1292eea3c5dc4e531d19">::shutdown</a>( <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a>, how) &lt; 0)</div>
+<div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>    {</div>
+<div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>        <span class="keywordflow">if</span>( errno != ENOTCONN)</div>
+<div class="line"><a id="l00174" name="l00174"></a><span class="lineno">  174</span>            <span class="keywordflow">throw</span> <a class="code hl_class" href="classNET_1_1SocketException.html">SocketException</a>(<span class="stringliteral">&quot;Shutdown failed (shutdown)&quot;</span>);</div>
+<div class="line"><a id="l00175" name="l00175"></a><span class="lineno">  175</span>    }</div>
+<div class="line"><a id="l00176" name="l00176"></a><span class="lineno">  176</span>}</div>
+<div class="line"><a id="l00177" name="l00177"></a><span class="lineno">  177</span> </div>
+<div class="foldopen" id="foldopen00178" data-start="{" data-end="}">
+<div class="line"><a id="l00178" name="l00178"></a><span class="lineno"><a class="line" href="classNET_1_1SimpleSocket.html#a7e867144442c2fd38381a8a71f0f57c4">  178</a></span><span class="keywordtype">bool</span> <a class="code hl_function" href="classNET_1_1SimpleSocket.html#a7e867144442c2fd38381a8a71f0f57c4">SimpleSocket::peerDisconnected</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00179" name="l00179"></a><span class="lineno">  179</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00180" name="l00180"></a><span class="lineno">  180</span>    <span class="keywordflow">if</span>( !<a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a3fb5e518e4483437776fc997ef172546">m_connectionOriented</a>) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00181" name="l00181"></a><span class="lineno">  181</span> </div>
+<div class="line"><a id="l00182" name="l00182"></a><span class="lineno">  182</span>    pollfd pfd {};</div>
+<div class="line"><a id="l00183" name="l00183"></a><span class="lineno">  183</span>    pfd.fd = <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a>;</div>
+<div class="line"><a id="l00184" name="l00184"></a><span class="lineno">  184</span>    pfd.events = POLLRDHUP;</div>
+<div class="line"><a id="l00185" name="l00185"></a><span class="lineno">  185</span> </div>
+<div class="line"><a id="l00186" name="l00186"></a><span class="lineno">  186</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> ret = <a class="code hl_define" href="TempFailure_8h.html#ae3924d534a2de097f5cccb535330e8c2">TEMP_FAILURE_RETRY</a>(::poll( &amp;pfd, 1, 0));</div>
 <div class="line"><a id="l00187" name="l00187"></a><span class="lineno">  187</span>    <span class="keywordflow">if</span>( ret &lt; 0)</div>
-<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>        <span class="keywordflow">throw</span> <a class="code hl_class" href="classNET_1_1SocketException.html">SocketException</a>(<span class="stringliteral">&quot;Accept failed (accept)&quot;</span>);</div>
+<div class="line"><a id="l00188" name="l00188"></a><span class="lineno">  188</span>        <span class="keywordflow">throw</span> <a class="code hl_class" href="classNET_1_1SocketException.html">SocketException</a>(<span class="stringliteral">&quot;peerDisconnected failed (poll)&quot;</span>);</div>
 <div class="line"><a id="l00189" name="l00189"></a><span class="lineno">  189</span> </div>
-<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    <span class="keywordflow">return</span> ret;</div>
-<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span>}</div>
-</div>
-<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span> </div>
-<div class="foldopen" id="foldopen00193" data-start="{" data-end="}">
-<div class="line"><a id="l00193" name="l00193"></a><span class="lineno"><a class="line" href="classNET_1_1SimpleSocket.html#af9cd7f2b28969fa1383d8e8751a868f5">  193</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="classNET_1_1SimpleSocket.html#af9cd7f2b28969fa1383d8e8751a868f5">SimpleSocket::timedAccept</a>( <span class="keywordtype">int</span> timeout)<span class="keyword"> const</span></div>
-<div class="line"><a id="l00194" name="l00194"></a><span class="lineno">  194</span><span class="keyword"></span>{</div>
-<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    <span class="keyword">struct </span>pollfd poll;</div>
-<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    poll.fd = <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a>;</div>
-<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>    poll.events = POLLIN;</div>
+<div class="line"><a id="l00190" name="l00190"></a><span class="lineno">  190</span>    <span class="keywordflow">if</span>( ret == 0) <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00191" name="l00191"></a><span class="lineno">  191</span> </div>
+<div class="line"><a id="l00192" name="l00192"></a><span class="lineno">  192</span>    <span class="keywordflow">if</span>( pfd.revents &amp; POLLNVAL)</div>
+<div class="line"><a id="l00193" name="l00193"></a><span class="lineno">  193</span>        <span class="keywordflow">throw</span> <a class="code hl_class" href="classNET_1_1SocketException.html">SocketException</a>(<span class="stringliteral">&quot;peerDisconnected failed (invalid socket)&quot;</span>, <span class="keyword">false</span>);</div>
+<div class="foldopen" id="foldopen00194" data-start="{" data-end="}">
+<div class="line"><a id="l00194" name="l00194"></a><span class="lineno"><a class="line" href="classNET_1_1SCTPSocket.html#a90a7239e87f681acddc581082748b8a5">  194</a></span> </div>
+<div class="line"><a id="l00195" name="l00195"></a><span class="lineno">  195</span>    <span class="comment">// HUP or error states means the connection is gone</span></div>
+<div class="line"><a id="l00196" name="l00196"></a><span class="lineno">  196</span>    <span class="keywordflow">return</span> pfd.revents &amp; (POLLRDHUP | POLLHUP | POLLERR);</div>
+<div class="line"><a id="l00197" name="l00197"></a><span class="lineno">  197</span>}</div>
 <div class="line"><a id="l00198" name="l00198"></a><span class="lineno">  198</span> </div>
-<div class="line"><a id="l00199" name="l00199"></a><span class="lineno">  199</span>    <span class="keywordtype">int</span> ret = <a class="code hl_define" href="TempFailure_8h.html#ae3924d534a2de097f5cccb535330e8c2">TEMP_FAILURE_RETRY</a> (::poll( &amp;poll, 1, timeout));</div>
-<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>    <span class="keywordflow">if</span>( ret == 0) <span class="keywordflow">return</span> -1; <span class="comment">// invalid handle</span></div>
-<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    <span class="keywordflow">if</span>( ret &lt; 0)</div>
-<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>        <span class="keywordflow">throw</span> <a class="code hl_class" href="classNET_1_1SocketException.html">SocketException</a>(<span class="stringliteral">&quot;timedAccept failed (poll)&quot;</span>);</div>
-<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span> </div>
-<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>    <span class="keywordflow">if</span>( poll.revents &amp; (POLLERR | POLLNVAL))</div>
-<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span>        <span class="keywordflow">throw</span> <a class="code hl_class" href="classNET_1_1SocketException.html">SocketException</a>(<span class="stringliteral">&quot;timedAccept failed (poll)&quot;</span>);</div>
-<div class="line"><a id="l00206" name="l00206"></a><span class="lineno">  206</span> </div>
-<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span>    <span class="keywordflow">return</span> <a class="code hl_function" href="classNET_1_1SimpleSocket.html#a23f806c99ec86fe75872ac60d9af9996">SimpleSocket::accept</a>();</div>
-<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span>}</div>
+<div class="foldopen" id="foldopen00199" data-start="{" data-end="}">
+<div class="line"><a id="l00199" name="l00199"></a><span class="lineno"><a class="line" href="classNET_1_1SimpleSocket.html#a4684d7f8b29b43c51bcc25f01c7df437">  199</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classNET_1_1SimpleSocket.html#a4684d7f8b29b43c51bcc25f01c7df437">SimpleSocket::listen</a>( <span class="keywordtype">int</span> backlog)</div>
+<div class="line"><a id="l00200" name="l00200"></a><span class="lineno">  200</span>{</div>
+<div class="line"><a id="l00201" name="l00201"></a><span class="lineno">  201</span>    <span class="keywordtype">int</span> ret = <a class="code hl_function" href="classNET_1_1SimpleSocket.html#a4684d7f8b29b43c51bcc25f01c7df437">::listen</a>( <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a>, backlog);</div>
+<div class="line"><a id="l00202" name="l00202"></a><span class="lineno">  202</span>    <span class="keywordflow">if</span>( ret &lt; 0)</div>
+<div class="line"><a id="l00203" name="l00203"></a><span class="lineno">  203</span>        <span class="keywordflow">throw</span> <a class="code hl_class" href="classNET_1_1SocketException.html">SocketException</a>(<span class="stringliteral">&quot;Listen failed (listen)&quot;</span>);</div>
+<div class="line"><a id="l00204" name="l00204"></a><span class="lineno">  204</span>}</div>
 </div>
-<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span> </div>
-<div class="foldopen" id="foldopen00210" data-start="{" data-end="}">
-<div class="line"><a id="l00210" name="l00210"></a><span class="lineno"><a class="line" href="classNET_1_1SimpleSocket.html#a690773b3fefeeb026006713e54e6d08a">  210</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="classNET_1_1SimpleSocket.html#a690773b3fefeeb026006713e54e6d08a">SimpleSocket::sendAll</a>( <span class="keyword">const</span> <span class="keywordtype">void</span>* buffer, <span class="keywordtype">size_t</span> len)</div>
-<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span>{</div>
-<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>    <span class="keywordtype">size_t</span> sent = 0;</div>
-<div class="foldopen" id="foldopen00213" data-start="{" data-end="}">
-<div class="line"><a id="l00213" name="l00213"></a><span class="lineno"><a class="line" href="classNET_1_1SCTPSocket.html#a4684d7f8b29b43c51bcc25f01c7df437">  213</a></span>    <span class="keywordflow">while</span>( sent != len)</div>
-<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>    {</div>
-<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span>        <span class="keyword">const</span> <span class="keywordtype">char</span>* buf = <span class="keyword">static_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(buffer) + sent;</div>
-<div class="line"><a id="l00216" name="l00216"></a><span class="lineno">  216</span>        <span class="keyword">auto</span> ret = <a class="code hl_function" href="classNET_1_1SimpleSocket.html#a6e3ec021c1ae9ea1e1d0aaa0129e7c50">send</a>( buf, len - sent);</div>
-<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span>        sent += <span class="keyword">static_cast&lt;</span><span class="keywordtype">size_t</span><span class="keyword">&gt;</span>(ret);</div>
-<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>        <span class="keywordflow">if</span>( <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a9c07dffe5a98a2700dc4cb1d6e7a30fa">m_peerDisconnected</a>) <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>    }</div>
-<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>    <span class="keywordflow">return</span> sent;</div>
-<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>}</div>
-<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span> </div>
-<div class="foldopen" id="foldopen00223" data-start="{" data-end="}">
-<div class="line"><a id="l00223" name="l00223"></a><span class="lineno"><a class="line" href="classNET_1_1SimpleSocket.html#a263f823dd259f3f7af8cc218fba9b5cf">  223</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="classNET_1_1SimpleSocket.html#a263f823dd259f3f7af8cc218fba9b5cf">SimpleSocket::receiveAll</a>( <span class="keywordtype">void</span>* buffer, <span class="keywordtype">size_t</span> len)</div>
-<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>{</div>
-<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>    <span class="keywordtype">size_t</span> received = 0;</div>
-<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>    <span class="keywordflow">while</span>( received != len)</div>
-<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span>    {</div>
-<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>        <span class="keywordtype">char</span>* buf = <span class="keyword">static_cast&lt;</span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(buffer) + received;</div>
-<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>        <span class="keyword">auto</span> ret = <a class="code hl_function" href="classNET_1_1SimpleSocket.html#ab89a477e571a47efd9ec39089aeebf56">receive</a>( buf, len - received);</div>
-<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>        <span class="keywordflow">if</span>( ret == 0) <span class="keywordflow">break</span>;</div>
-<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span>        received += <span class="keyword">static_cast&lt;</span><span class="keywordtype">size_t</span><span class="keyword">&gt;</span>(ret);</div>
-<div class="line"><a id="l00232" name="l00232"></a><span class="lineno">  232</span>    }</div>
-<div class="foldopen" id="foldopen00233" data-start="{" data-end="}">
-<div class="line"><a id="l00233" name="l00233"></a><span class="lineno"><a class="line" href="classNET_1_1TCPSocket.html#a690773b3fefeeb026006713e54e6d08a">  233</a></span>    <span class="keywordflow">return</span> received;</div>
-<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>}</div>
+<div class="line"><a id="l00205" name="l00205"></a><span class="lineno">  205</span> </div>
+<div class="foldopen" id="foldopen00206" data-start="{" data-end="}">
+<div class="line"><a id="l00206" name="l00206"></a><span class="lineno"><a class="line" href="classNET_1_1SimpleSocket.html#a5b5c42c7be2b83d2ba1c830c7d4a1cb8">  206</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="classNET_1_1SimpleSocket.html#a5b5c42c7be2b83d2ba1c830c7d4a1cb8">SimpleSocket::acceptNative</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00207" name="l00207"></a><span class="lineno">  207</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00208" name="l00208"></a><span class="lineno">  208</span><span class="preprocessor">#ifdef SOCK_CLOEXEC</span></div>
+<div class="line"><a id="l00209" name="l00209"></a><span class="lineno">  209</span>    <span class="comment">// prevent leaking socket descriptor on exec</span></div>
+<div class="line"><a id="l00210" name="l00210"></a><span class="lineno">  210</span>    return ::accept4( <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a>, <span class="keyword">nullptr</span>, <span class="keyword">nullptr</span>, SOCK_CLOEXEC);</div>
+<div class="line"><a id="l00211" name="l00211"></a><span class="lineno">  211</span><span class="preprocessor">#else</span></div>
+<div class="line"><a id="l00212" name="l00212"></a><span class="lineno">  212</span>    return ::accept( <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a>, <span class="keyword">nullptr</span>, <span class="keyword">nullptr</span>);</div>
+<div class="line"><a id="l00213" name="l00213"></a><span class="lineno">  213</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00214" name="l00214"></a><span class="lineno">  214</span>}</div>
+</div>
+<div class="line"><a id="l00215" name="l00215"></a><span class="lineno">  215</span> </div>
+<div class="foldopen" id="foldopen00216" data-start="{" data-end="}">
+<div class="line"><a id="l00216" name="l00216"></a><span class="lineno"><a class="line" href="classNET_1_1SimpleSocket.html#a23f806c99ec86fe75872ac60d9af9996">  216</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="classNET_1_1SimpleSocket.html#a23f806c99ec86fe75872ac60d9af9996">SimpleSocket::accept</a>()<span class="keyword"> const</span></div>
+<div class="line"><a id="l00217" name="l00217"></a><span class="lineno">  217</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00218" name="l00218"></a><span class="lineno">  218</span>    <span class="comment">// Retry until we reach a non-transient error</span></div>
+<div class="line"><a id="l00219" name="l00219"></a><span class="lineno">  219</span>    <span class="keywordflow">while</span>(1)</div>
+<div class="line"><a id="l00220" name="l00220"></a><span class="lineno">  220</span>    {</div>
+<div class="line"><a id="l00221" name="l00221"></a><span class="lineno">  221</span>        <span class="keywordtype">int</span> fd = <a class="code hl_function" href="classNET_1_1SimpleSocket.html#a5b5c42c7be2b83d2ba1c830c7d4a1cb8">acceptNative</a>();</div>
+<div class="line"><a id="l00222" name="l00222"></a><span class="lineno">  222</span>        <span class="keywordflow">if</span>( fd &gt;= 0) <span class="keywordflow">return</span> fd;</div>
+<div class="line"><a id="l00223" name="l00223"></a><span class="lineno">  223</span> </div>
+<div class="line"><a id="l00224" name="l00224"></a><span class="lineno">  224</span>        <span class="keyword">const</span> <span class="keywordtype">int</span> error = errno;</div>
+<div class="line"><a id="l00225" name="l00225"></a><span class="lineno">  225</span>        <span class="keywordflow">if</span>( error == EINTR || <a class="code hl_function" href="namespaceNET_1_1detail.html#ae5a93a3c1bb982aed4cf0092c1b345f6">detail::isTransientAcceptError</a>(error))</div>
+<div class="line"><a id="l00226" name="l00226"></a><span class="lineno">  226</span>            <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00227" name="l00227"></a><span class="lineno">  227</span> </div>
+<div class="line"><a id="l00228" name="l00228"></a><span class="lineno">  228</span>        <span class="keywordflow">throw</span> <a class="code hl_class" href="classNET_1_1SocketException.html">SocketException</a>(<span class="stringliteral">&quot;Accept failed (accept)&quot;</span>, error);</div>
+<div class="line"><a id="l00229" name="l00229"></a><span class="lineno">  229</span>    }</div>
+<div class="line"><a id="l00230" name="l00230"></a><span class="lineno">  230</span>}</div>
+</div>
+<div class="line"><a id="l00231" name="l00231"></a><span class="lineno">  231</span> </div>
+<div class="foldopen" id="foldopen00232" data-start="{" data-end="}">
+<div class="line"><a id="l00232" name="l00232"></a><span class="lineno"><a class="line" href="classNET_1_1SimpleSocket.html#af9cd7f2b28969fa1383d8e8751a868f5">  232</a></span><span class="keywordtype">int</span> <a class="code hl_function" href="classNET_1_1SimpleSocket.html#af9cd7f2b28969fa1383d8e8751a868f5">SimpleSocket::timedAccept</a>( <span class="keywordtype">int</span> timeout)<span class="keyword"> const</span></div>
+<div class="line"><a id="l00233" name="l00233"></a><span class="lineno">  233</span><span class="keyword"></span>{</div>
+<div class="line"><a id="l00234" name="l00234"></a><span class="lineno">  234</span>    <span class="comment">// negative timeout means wait forever</span></div>
+<div class="line"><a id="l00235" name="l00235"></a><span class="lineno">  235</span>    <span class="keywordflow">if</span>( timeout &lt; 0) <span class="keywordflow">return</span> <a class="code hl_function" href="classNET_1_1SimpleSocket.html#a23f806c99ec86fe75872ac60d9af9996">accept</a>();</div>
+<div class="line"><a id="l00236" name="l00236"></a><span class="lineno">  236</span> </div>
+<div class="line"><a id="l00237" name="l00237"></a><span class="lineno">  237</span>    <span class="keywordtype">bool</span> firstRun = <span class="keyword">true</span>;</div>
+<div class="line"><a id="l00238" name="l00238"></a><span class="lineno">  238</span>    <span class="keyword">using </span>Clock = std::chrono::steady_clock;</div>
+<div class="line"><a id="l00239" name="l00239"></a><span class="lineno">  239</span>    <span class="keyword">auto</span> now = Clock::now();</div>
+<div class="line"><a id="l00240" name="l00240"></a><span class="lineno">  240</span>    <span class="keyword">const</span> <span class="keyword">auto</span> deadline = now + std::chrono::milliseconds(timeout);</div>
+<div class="line"><a id="l00241" name="l00241"></a><span class="lineno">  241</span> </div>
+<div class="line"><a id="l00242" name="l00242"></a><span class="lineno">  242</span>    <span class="keywordflow">while</span>(1)</div>
+<div class="line"><a id="l00243" name="l00243"></a><span class="lineno">  243</span>    {</div>
+<div class="line"><a id="l00244" name="l00244"></a><span class="lineno">  244</span>        <span class="comment">// ensure now == deadline when timeout is zero</span></div>
+<div class="line"><a id="l00245" name="l00245"></a><span class="lineno">  245</span>        <span class="keywordflow">if</span>( !firstRun) now = Clock::now();</div>
+<div class="line"><a id="l00246" name="l00246"></a><span class="lineno">  246</span>        <span class="comment">// invalid socket handle on timeout</span></div>
+<div class="line"><a id="l00247" name="l00247"></a><span class="lineno">  247</span>        <span class="keywordflow">if</span>( now &gt;= deadline &amp;&amp; !firstRun) <span class="keywordflow">return</span> -1;</div>
+<div class="line"><a id="l00248" name="l00248"></a><span class="lineno">  248</span>        firstRun = <span class="keyword">false</span>;</div>
+<div class="line"><a id="l00249" name="l00249"></a><span class="lineno">  249</span> </div>
+<div class="line"><a id="l00250" name="l00250"></a><span class="lineno">  250</span>        <span class="keyword">auto</span> remaining = std::chrono::ceil&lt;std::chrono::milliseconds&gt;(deadline - now);</div>
+<div class="line"><a id="l00251" name="l00251"></a><span class="lineno">  251</span>        <span class="keyword">const</span> <span class="keywordtype">int</span> pollTimeout = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(remaining.count());</div>
+<div class="line"><a id="l00252" name="l00252"></a><span class="lineno">  252</span> </div>
+<div class="line"><a id="l00253" name="l00253"></a><span class="lineno">  253</span>        pollfd pfd {};</div>
+<div class="foldopen" id="foldopen00254" data-start="{" data-end="}">
+<div class="line"><a id="l00254" name="l00254"></a><span class="lineno"><a class="line" href="classNET_1_1SCTPSocket.html#a4684d7f8b29b43c51bcc25f01c7df437">  254</a></span>        pfd.fd = <a class="code hl_variable" href="classNET_1_1SimpleSocket.html#a721049909aca828a6dd9ee7868897d7c">m_socket</a>;</div>
+<div class="line"><a id="l00255" name="l00255"></a><span class="lineno">  255</span>        pfd.events = POLLIN;</div>
+<div class="line"><a id="l00256" name="l00256"></a><span class="lineno">  256</span> </div>
+<div class="line"><a id="l00257" name="l00257"></a><span class="lineno">  257</span>        <span class="keywordtype">int</span> ret = ::poll( &amp;pfd, 1, pollTimeout);</div>
+<div class="line"><a id="l00258" name="l00258"></a><span class="lineno">  258</span>        <span class="keywordflow">if</span>( ret == 0) <span class="keywordflow">return</span> -1; <span class="comment">// invalid socket handle on timeout</span></div>
+<div class="line"><a id="l00259" name="l00259"></a><span class="lineno">  259</span>        <span class="keywordflow">if</span>( ret &lt; 0)</div>
+<div class="line"><a id="l00260" name="l00260"></a><span class="lineno">  260</span>        {</div>
+<div class="line"><a id="l00261" name="l00261"></a><span class="lineno">  261</span>            <span class="keywordflow">if</span>( errno == EINTR) <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00262" name="l00262"></a><span class="lineno">  262</span>            <span class="keywordflow">throw</span> <a class="code hl_class" href="classNET_1_1SocketException.html">SocketException</a>(<span class="stringliteral">&quot;timedAccept failed (poll)&quot;</span>);</div>
+<div class="line"><a id="l00263" name="l00263"></a><span class="lineno">  263</span>        }</div>
+<div class="line"><a id="l00264" name="l00264"></a><span class="lineno">  264</span> </div>
+<div class="line"><a id="l00265" name="l00265"></a><span class="lineno">  265</span>        <span class="keywordflow">if</span>( pfd.revents &amp; POLLNVAL)</div>
+<div class="line"><a id="l00266" name="l00266"></a><span class="lineno">  266</span>            <span class="keywordflow">throw</span> <a class="code hl_class" href="classNET_1_1SocketException.html">SocketException</a>(<span class="stringliteral">&quot;timedAccept failed (invalid socket)&quot;</span>, <span class="keyword">false</span>);</div>
+<div class="line"><a id="l00267" name="l00267"></a><span class="lineno">  267</span> </div>
+<div class="line"><a id="l00268" name="l00268"></a><span class="lineno">  268</span>        <span class="keywordflow">if</span>( pfd.revents &amp; POLLIN)</div>
+<div class="line"><a id="l00269" name="l00269"></a><span class="lineno">  269</span>        {</div>
+<div class="line"><a id="l00270" name="l00270"></a><span class="lineno">  270</span>            <span class="keywordtype">int</span> fd = <a class="code hl_function" href="classNET_1_1SimpleSocket.html#a5b5c42c7be2b83d2ba1c830c7d4a1cb8">acceptNative</a>();</div>
+<div class="line"><a id="l00271" name="l00271"></a><span class="lineno">  271</span>            <span class="keywordflow">if</span>( fd &gt;= 0) <span class="keywordflow">return</span> fd;</div>
+<div class="line"><a id="l00272" name="l00272"></a><span class="lineno">  272</span> </div>
+<div class="line"><a id="l00273" name="l00273"></a><span class="lineno">  273</span>            <span class="keyword">const</span> <span class="keywordtype">int</span> error = errno;</div>
+<div class="foldopen" id="foldopen00274" data-start="{" data-end="}">
+<div class="line"><a id="l00274" name="l00274"></a><span class="lineno"><a class="line" href="classNET_1_1TCPSocket.html#ae9af79a28259dad3318b15ac91ef18c5">  274</a></span>            <span class="keywordflow">if</span>( error == EINTR</div>
+<div class="line"><a id="l00275" name="l00275"></a><span class="lineno">  275</span>             || error == EAGAIN || error == EWOULDBLOCK</div>
+<div class="line"><a id="l00276" name="l00276"></a><span class="lineno">  276</span>             || <a class="code hl_function" href="namespaceNET_1_1detail.html#ae5a93a3c1bb982aed4cf0092c1b345f6">detail::isTransientAcceptError</a>(error))</div>
+<div class="line"><a id="l00277" name="l00277"></a><span class="lineno">  277</span>                <span class="keywordflow">continue</span>;</div>
+<div class="line"><a id="l00278" name="l00278"></a><span class="lineno">  278</span> </div>
+<div class="line"><a id="l00279" name="l00279"></a><span class="lineno">  279</span>            <span class="keywordflow">throw</span> <a class="code hl_class" href="classNET_1_1SocketException.html">SocketException</a>(<span class="stringliteral">&quot;timedAccept failed (accept)&quot;</span>, error);</div>
+<div class="line"><a id="l00280" name="l00280"></a><span class="lineno">  280</span>        }</div>
+<div class="line"><a id="l00281" name="l00281"></a><span class="lineno">  281</span> </div>
+<div class="line"><a id="l00282" name="l00282"></a><span class="lineno">  282</span>        <span class="keywordflow">if</span>( pfd.revents &amp; POLLERR)</div>
+<div class="line"><a id="l00283" name="l00283"></a><span class="lineno">  283</span>            <span class="keywordflow">throw</span> <a class="code hl_class" href="classNET_1_1SocketException.html">SocketException</a>(<span class="stringliteral">&quot;timedAccept failed (POLLERR)&quot;</span>, <span class="keyword">false</span>);</div>
+<div class="line"><a id="l00284" name="l00284"></a><span class="lineno">  284</span> </div>
+<div class="line"><a id="l00285" name="l00285"></a><span class="lineno">  285</span>        <span class="keywordflow">if</span>( pfd.revents &amp; POLLHUP)</div>
+<div class="line"><a id="l00286" name="l00286"></a><span class="lineno">  286</span>            <span class="keywordflow">throw</span> <a class="code hl_class" href="classNET_1_1SocketException.html">SocketException</a>(<span class="stringliteral">&quot;timedAccept failed (listening socket hung up)&quot;</span>, <span class="keyword">false</span>);</div>
+<div class="line"><a id="l00287" name="l00287"></a><span class="lineno">  287</span>    }</div>
+<div class="line"><a id="l00288" name="l00288"></a><span class="lineno">  288</span>}</div>
+<div class="line"><a id="l00289" name="l00289"></a><span class="lineno">  289</span> </div>
+<div class="foldopen" id="foldopen00290" data-start="{" data-end="}">
+<div class="line"><a id="l00290" name="l00290"></a><span class="lineno"><a class="line" href="classNET_1_1TCPSocket.html#aa0ef8a33ae6e7279d2a2eb3661fae03c">  290</a></span><a class="code hl_struct" href="structNET_1_1IOResult.html">IOResult</a> <a class="code hl_function" href="classNET_1_1SimpleSocket.html#ae9af79a28259dad3318b15ac91ef18c5">SimpleSocket::sendAll</a>( <span class="keyword">const</span> <span class="keywordtype">void</span>* buffer, <span class="keywordtype">size_t</span> len)</div>
+<div class="line"><a id="l00291" name="l00291"></a><span class="lineno">  291</span>{</div>
+<div class="line"><a id="l00292" name="l00292"></a><span class="lineno">  292</span>    <span class="keywordtype">size_t</span> sent = 0;</div>
+<div class="line"><a id="l00293" name="l00293"></a><span class="lineno">  293</span>    <span class="keywordflow">while</span>( sent &lt; len)</div>
+<div class="line"><a id="l00294" name="l00294"></a><span class="lineno">  294</span>    {</div>
+<div class="line"><a id="l00295" name="l00295"></a><span class="lineno">  295</span>        <span class="keyword">const</span> <span class="keywordtype">char</span>* pos = <span class="keyword">static_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(buffer) + sent;</div>
+<div class="line"><a id="l00296" name="l00296"></a><span class="lineno">  296</span>        <a class="code hl_struct" href="structNET_1_1IOResult.html">IOResult</a> res = <a class="code hl_function" href="classNET_1_1SimpleSocket.html#aa05163ace5dbe56a53debe265045597f">send</a>( pos, len - sent);</div>
+<div class="line"><a id="l00297" name="l00297"></a><span class="lineno">  297</span>        sent += res.<a class="code hl_variable" href="structNET_1_1IOResult.html#a0ac6a3006dbb99852bc8636a47d92083">bytes</a>;</div>
+<div class="line"><a id="l00298" name="l00298"></a><span class="lineno">  298</span>        <span class="keywordflow">if</span>( res.<a class="code hl_variable" href="structNET_1_1IOResult.html#a0ac6a3006dbb99852bc8636a47d92083">bytes</a> == 0) <span class="keywordflow">return</span> { res.<a class="code hl_variable" href="structNET_1_1IOResult.html#ac74ab0eb4d49d7e124037e414768cf41">status</a>, sent };</div>
+<div class="line"><a id="l00299" name="l00299"></a><span class="lineno">  299</span>    }</div>
+<div class="line"><a id="l00300" name="l00300"></a><span class="lineno">  300</span>    <span class="keywordflow">return</span> { <a class="code hl_enumvalue" href="namespaceNET.html#a6234637576bbb2ec0600642d629c2104a505a83f220c02df2f85c3810cd9ceb38">IOStatus::Success</a>, sent };</div>
+<div class="line"><a id="l00301" name="l00301"></a><span class="lineno">  301</span>}</div>
+<div class="line"><a id="l00302" name="l00302"></a><span class="lineno">  302</span> </div>
+<div class="foldopen" id="foldopen00303" data-start="{" data-end="}">
+<div class="line"><a id="l00303" name="l00303"></a><span class="lineno"><a class="line" href="classNET_1_1SimpleSocket.html#aa0ef8a33ae6e7279d2a2eb3661fae03c">  303</a></span><a class="code hl_struct" href="structNET_1_1IOResult.html">IOResult</a> <a class="code hl_function" href="classNET_1_1SimpleSocket.html#aa0ef8a33ae6e7279d2a2eb3661fae03c">SimpleSocket::receiveAll</a>( <span class="keywordtype">void</span>* buffer, <span class="keywordtype">size_t</span> len)</div>
+<div class="line"><a id="l00304" name="l00304"></a><span class="lineno">  304</span>{</div>
+<div class="line"><a id="l00305" name="l00305"></a><span class="lineno">  305</span>    <span class="keywordtype">size_t</span> received = 0;</div>
+<div class="line"><a id="l00306" name="l00306"></a><span class="lineno">  306</span>    <span class="keywordflow">while</span>( received &lt; len)</div>
+<div class="line"><a id="l00307" name="l00307"></a><span class="lineno">  307</span>    {</div>
+<div class="line"><a id="l00308" name="l00308"></a><span class="lineno">  308</span>        <span class="keywordtype">char</span>* pos = <span class="keyword">static_cast&lt;</span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(buffer) + received;</div>
+<div class="line"><a id="l00309" name="l00309"></a><span class="lineno">  309</span>        <a class="code hl_struct" href="structNET_1_1IOResult.html">IOResult</a> res = <a class="code hl_function" href="classNET_1_1SimpleSocket.html#ab2c084ceb5c5773495566d37b2c99283">receive</a>( pos, len - received);</div>
+<div class="line"><a id="l00310" name="l00310"></a><span class="lineno">  310</span>        received += res.<a class="code hl_variable" href="structNET_1_1IOResult.html#a0ac6a3006dbb99852bc8636a47d92083">bytes</a>;</div>
+<div class="line"><a id="l00311" name="l00311"></a><span class="lineno">  311</span>        <span class="keywordflow">if</span>( res.<a class="code hl_variable" href="structNET_1_1IOResult.html#a0ac6a3006dbb99852bc8636a47d92083">bytes</a> == 0) <span class="keywordflow">return</span> { res.<a class="code hl_variable" href="structNET_1_1IOResult.html#ac74ab0eb4d49d7e124037e414768cf41">status</a>, received };</div>
+<div class="line"><a id="l00312" name="l00312"></a><span class="lineno">  312</span>    }</div>
+<div class="line"><a id="l00313" name="l00313"></a><span class="lineno">  313</span>    <span class="keywordflow">return</span> { <a class="code hl_enumvalue" href="namespaceNET.html#a6234637576bbb2ec0600642d629c2104a505a83f220c02df2f85c3810cd9ceb38">IOStatus::Success</a>, received };</div>
+<div class="line"><a id="l00314" name="l00314"></a><span class="lineno">  314</span>}</div>
+</div>
+</div>
+<div class="line"><a id="l00315" name="l00315"></a><span class="lineno">  315</span> </div>
+<div class="foldopen" id="foldopen00316" data-start="{" data-end="}">
+<div class="line"><a id="l00316" name="l00316"></a><span class="lineno"><a class="line" href="classNET_1_1SimpleSocket.html#a3457e2d858a0d4f04890e4bdf4e676d7">  316</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="classNET_1_1SimpleSocket.html#a3457e2d858a0d4f04890e4bdf4e676d7">SimpleSocket::validateSocket</a>( <span class="keywordtype">int</span> sockfd, <span class="keywordtype">int</span> type_req, <span class="keywordtype">int</span> protocol_req)</div>
+<div class="line"><a id="l00317" name="l00317"></a><span class="lineno">  317</span>{</div>
+<div class="line"><a id="l00318" name="l00318"></a><span class="lineno">  318</span>    <span class="keywordflow">if</span>( sockfd &lt; 0)</div>
+<div class="line"><a id="l00319" name="l00319"></a><span class="lineno">  319</span>        <span class="keywordflow">throw</span> <a class="code hl_class" href="classNET_1_1SocketException.html">SocketException</a>(<span class="stringliteral">&quot;Invalid native handle&quot;</span>, <span class="keyword">false</span>);</div>
+<div class="line"><a id="l00320" name="l00320"></a><span class="lineno">  320</span> </div>
+<div class="line"><a id="l00321" name="l00321"></a><span class="lineno">  321</span>    <span class="keywordtype">int</span> type = 0;</div>
+<div class="line"><a id="l00322" name="l00322"></a><span class="lineno">  322</span>    socklen_t len = <span class="keyword">sizeof</span>(type);</div>
+<div class="line"><a id="l00323" name="l00323"></a><span class="lineno">  323</span>    <span class="keywordflow">if</span>( ::getsockopt( sockfd, SOL_SOCKET, SO_TYPE, &amp;type, &amp;len) &lt; 0)</div>
+<div class="line"><a id="l00324" name="l00324"></a><span class="lineno">  324</span>        <span class="keywordflow">throw</span> <a class="code hl_class" href="classNET_1_1SocketException.html">SocketException</a>(<span class="stringliteral">&quot;Unable to read native socket type (getsockopt)&quot;</span>);</div>
+<div class="line"><a id="l00325" name="l00325"></a><span class="lineno">  325</span>    <span class="keywordflow">if</span>( type != type_req)</div>
+<div class="line"><a id="l00326" name="l00326"></a><span class="lineno">  326</span>        <span class="keywordflow">throw</span> <a class="code hl_class" href="classNET_1_1SocketException.html">SocketException</a>(<span class="stringliteral">&quot;Native handle is the wrong socket type&quot;</span>, <span class="keyword">false</span>);</div>
+<div class="line"><a id="l00327" name="l00327"></a><span class="lineno">  327</span> </div>
+<div class="line"><a id="l00328" name="l00328"></a><span class="lineno">  328</span><span class="preprocessor">#ifdef SO_PROTOCOL</span></div>
+<div class="line"><a id="l00329" name="l00329"></a><span class="lineno">  329</span>    <span class="keywordtype">int</span> protocol = 0;</div>
+<div class="line"><a id="l00330" name="l00330"></a><span class="lineno">  330</span>    len = <span class="keyword">sizeof</span>(protocol);</div>
+<div class="line"><a id="l00331" name="l00331"></a><span class="lineno">  331</span>    <span class="keywordflow">if</span>( ::getsockopt( sockfd, SOL_SOCKET, SO_PROTOCOL, &amp;protocol, &amp;len) &lt; 0)</div>
+<div class="line"><a id="l00332" name="l00332"></a><span class="lineno">  332</span>        <span class="keywordflow">throw</span> <a class="code hl_class" href="classNET_1_1SocketException.html">SocketException</a>(<span class="stringliteral">&quot;Unable to read native socket protocol (getsockopt)&quot;</span>);</div>
+<div class="line"><a id="l00333" name="l00333"></a><span class="lineno">  333</span>    <span class="keywordflow">if</span>( protocol != protocol_req)</div>
+<div class="line"><a id="l00334" name="l00334"></a><span class="lineno">  334</span>        <span class="keywordflow">throw</span> <a class="code hl_class" href="classNET_1_1SocketException.html">SocketException</a>(<span class="stringliteral">&quot;Native handle uses wrong protocol type&quot;</span>, <span class="keyword">false</span>);</div>
+<div class="line"><a id="l00335" name="l00335"></a><span class="lineno">  335</span><span class="preprocessor">#endif</span></div>
+<div class="line"><a id="l00336" name="l00336"></a><span class="lineno">  336</span>}</div>
 </div>
 </div>
 </div>
@@ -385,34 +496,48 @@ $(function() {
 </div>
 </div>
 </div>
+</div>
+<div class="ttc" id="aPollHelper_8h_html"><div class="ttname"><a href="PollHelper_8h.html">PollHelper.h</a></div></div>
 <div class="ttc" id="aSimpleSocket_8h_html"><div class="ttname"><a href="SimpleSocket_8h.html">SimpleSocket.h</a></div></div>
 <div class="ttc" id="aSockAddress_8h_html"><div class="ttname"><a href="SockAddress_8h.html">SockAddress.h</a></div></div>
 <div class="ttc" id="aTempFailure_8h_html"><div class="ttname"><a href="TempFailure_8h.html">TempFailure.h</a></div></div>
 <div class="ttc" id="aTempFailure_8h_html_ae3924d534a2de097f5cccb535330e8c2"><div class="ttname"><a href="TempFailure_8h.html#ae3924d534a2de097f5cccb535330e8c2">TEMP_FAILURE_RETRY</a></div><div class="ttdeci">#define TEMP_FAILURE_RETRY(expression)</div><div class="ttdef"><b>Definition</b> <a href="TempFailure_8h_source.html#l00008">TempFailure.h:8</a></div></div>
-<div class="ttc" id="aclassNET_1_1SimpleSocket_html_a0c14e0e6413cf606d52ab7d606a175f8"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#a0c14e0e6413cf606d52ab7d606a175f8">NET::SimpleSocket::timedReceive</a></div><div class="ttdeci">int timedReceive(void *buffer, size_t len, int timeout)</div><div class="ttdoc">receive data from a bound socket, return after the given timespan</div><div class="ttdef"><b>Definition</b> <a href="#l00116">SimpleSocket.cpp:116</a></div></div>
-<div class="ttc" id="aclassNET_1_1SimpleSocket_html_a107f5074fd3f153ce0c1d2329c755d8f"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#a107f5074fd3f153ce0c1d2329c755d8f">NET::SimpleSocket::disconnect</a></div><div class="ttdeci">void disconnect()</div><div class="ttdoc">Disconnect and unset any foreign addresses.</div><div class="ttdef"><b>Definition</b> <a href="#l00139">SimpleSocket.cpp:139</a></div></div>
-<div class="ttc" id="aclassNET_1_1SimpleSocket_html_a23f806c99ec86fe75872ac60d9af9996"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#a23f806c99ec86fe75872ac60d9af9996">NET::SimpleSocket::accept</a></div><div class="ttdeci">int accept() const</div><div class="ttdoc">allows stream sockets to accept connections</div><div class="ttdef"><b>Definition</b> <a href="#l00179">SimpleSocket.cpp:179</a></div></div>
-<div class="ttc" id="aclassNET_1_1SimpleSocket_html_a263f823dd259f3f7af8cc218fba9b5cf"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#a263f823dd259f3f7af8cc218fba9b5cf">NET::SimpleSocket::receiveAll</a></div><div class="ttdeci">int receiveAll(void *buffer, size_t len)</div><div class="ttdoc">receive exactly the requested amount unless the peer disconnects</div><div class="ttdef"><b>Definition</b> <a href="#l00223">SimpleSocket.cpp:223</a></div></div>
-<div class="ttc" id="aclassNET_1_1SimpleSocket_html_a3fb5e518e4483437776fc997ef172546"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#a3fb5e518e4483437776fc997ef172546">NET::SimpleSocket::m_connectionOriented</a></div><div class="ttdeci">bool m_connectionOriented</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00274">SimpleSocket.h:274</a></div></div>
-<div class="ttc" id="aclassNET_1_1SimpleSocket_html_a4684d7f8b29b43c51bcc25f01c7df437"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#a4684d7f8b29b43c51bcc25f01c7df437">NET::SimpleSocket::listen</a></div><div class="ttdeci">void listen(int backlog=5)</div><div class="ttdoc">listen for incoming connections</div><div class="ttdef"><b>Definition</b> <a href="#l00172">SimpleSocket.cpp:172</a></div></div>
+<div class="ttc" id="aclassNET_1_1SimpleSocket_html_a107f5074fd3f153ce0c1d2329c755d8f"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#a107f5074fd3f153ce0c1d2329c755d8f">NET::SimpleSocket::disconnect</a></div><div class="ttdeci">void disconnect()</div><div class="ttdoc">Disconnect and unset any foreign addresses.</div><div class="ttdef"><b>Definition</b> <a href="#l00148">SimpleSocket.cpp:148</a></div></div>
+<div class="ttc" id="aclassNET_1_1SimpleSocket_html_a23f806c99ec86fe75872ac60d9af9996"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#a23f806c99ec86fe75872ac60d9af9996">NET::SimpleSocket::accept</a></div><div class="ttdeci">int accept() const</div><div class="ttdoc">retrying accept for use by stream sockets</div><div class="ttdef"><b>Definition</b> <a href="#l00216">SimpleSocket.cpp:216</a></div></div>
+<div class="ttc" id="aclassNET_1_1SimpleSocket_html_a2c71ea5e5dc9837caf811da78cfd3b3a"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#a2c71ea5e5dc9837caf811da78cfd3b3a">NET::SimpleSocket::valid</a></div><div class="ttdeci">bool valid() const noexcept</div><div class="ttdoc">Returns true if socket is in a usable (non-moved) state and open.</div><div class="ttdef"><b>Definition</b> <a href="#l00095">SimpleSocket.cpp:95</a></div></div>
+<div class="ttc" id="aclassNET_1_1SimpleSocket_html_a3457e2d858a0d4f04890e4bdf4e676d7"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#a3457e2d858a0d4f04890e4bdf4e676d7">NET::SimpleSocket::validateSocket</a></div><div class="ttdeci">static void validateSocket(int sockfd, int type, int protocol)</div><div class="ttdoc">check if external socket descriptor to fits the given parameters</div><div class="ttdef"><b>Definition</b> <a href="#l00316">SimpleSocket.cpp:316</a></div></div>
+<div class="ttc" id="aclassNET_1_1SimpleSocket_html_a3fb5e518e4483437776fc997ef172546"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#a3fb5e518e4483437776fc997ef172546">NET::SimpleSocket::m_connectionOriented</a></div><div class="ttdeci">bool m_connectionOriented</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00322">SimpleSocket.h:322</a></div></div>
+<div class="ttc" id="aclassNET_1_1SimpleSocket_html_a41cbc933680e957b63c8dfd71989d619"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#a41cbc933680e957b63c8dfd71989d619">NET::SimpleSocket::duplicateNativeHandle</a></div><div class="ttdeci">int duplicateNativeHandle() const</div><div class="ttdoc">Duplicates the underlaying native socket descriptor.</div><div class="ttdef"><b>Definition</b> <a href="#l00085">SimpleSocket.cpp:85</a></div></div>
+<div class="ttc" id="aclassNET_1_1SimpleSocket_html_a4684d7f8b29b43c51bcc25f01c7df437"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#a4684d7f8b29b43c51bcc25f01c7df437">NET::SimpleSocket::listen</a></div><div class="ttdeci">void listen(int backlog=5)</div><div class="ttdoc">listen for incoming connections</div><div class="ttdef"><b>Definition</b> <a href="#l00199">SimpleSocket.cpp:199</a></div></div>
 <div class="ttc" id="aclassNET_1_1SimpleSocket_html_a4c8ad3d5254e16471050c3aecb65f991"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#a4c8ad3d5254e16471050c3aecb65f991">NET::SimpleSocket::operator=</a></div><div class="ttdeci">SimpleSocket &amp; operator=(const SimpleSocket &amp;)=delete</div></div>
 <div class="ttc" id="aclassNET_1_1SimpleSocket_html_a53ccfa544aa458e821fcbb1c6979fd62"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#a53ccfa544aa458e821fcbb1c6979fd62">NET::SimpleSocket::SimpleSocket</a></div><div class="ttdeci">SimpleSocket(const SimpleSocket &amp;)=delete</div></div>
-<div class="ttc" id="aclassNET_1_1SimpleSocket_html_a5b5500498eeb1292eea3c5dc4e531d19"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#a5b5500498eeb1292eea3c5dc4e531d19">NET::SimpleSocket::shutdown</a></div><div class="ttdeci">void shutdown(ShutdownDirection type)</div><div class="ttdoc">shutdown the connection in the specified direction</div><div class="ttdef"><b>Definition</b> <a href="#l00153">SimpleSocket.cpp:153</a></div></div>
-<div class="ttc" id="aclassNET_1_1SimpleSocket_html_a690773b3fefeeb026006713e54e6d08a"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#a690773b3fefeeb026006713e54e6d08a">NET::SimpleSocket::sendAll</a></div><div class="ttdeci">int sendAll(const void *buffer, size_t len)</div><div class="ttdoc">send data through a connected socket</div><div class="ttdef"><b>Definition</b> <a href="#l00210">SimpleSocket.cpp:210</a></div></div>
-<div class="ttc" id="aclassNET_1_1SimpleSocket_html_a6e3ec021c1ae9ea1e1d0aaa0129e7c50"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#a6e3ec021c1ae9ea1e1d0aaa0129e7c50">NET::SimpleSocket::send</a></div><div class="ttdeci">int send(const void *buffer, size_t len)</div><div class="ttdoc">send data through a connected socket</div><div class="ttdef"><b>Definition</b> <a href="#l00077">SimpleSocket.cpp:77</a></div></div>
-<div class="ttc" id="aclassNET_1_1SimpleSocket_html_a721049909aca828a6dd9ee7868897d7c"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#a721049909aca828a6dd9ee7868897d7c">NET::SimpleSocket::m_socket</a></div><div class="ttdeci">int m_socket</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00272">SimpleSocket.h:272</a></div></div>
-<div class="ttc" id="aclassNET_1_1SimpleSocket_html_a9c07dffe5a98a2700dc4cb1d6e7a30fa"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#a9c07dffe5a98a2700dc4cb1d6e7a30fa">NET::SimpleSocket::m_peerDisconnected</a></div><div class="ttdeci">bool m_peerDisconnected</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00273">SimpleSocket.h:273</a></div></div>
-<div class="ttc" id="aclassNET_1_1SimpleSocket_html_ab89a477e571a47efd9ec39089aeebf56"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#ab89a477e571a47efd9ec39089aeebf56">NET::SimpleSocket::receive</a></div><div class="ttdeci">int receive(void *buffer, size_t len)</div><div class="ttdoc">receive data from a bound socket</div><div class="ttdef"><b>Definition</b> <a href="#l00097">SimpleSocket.cpp:97</a></div></div>
-<div class="ttc" id="aclassNET_1_1SimpleSocket_html_abf7d41536d2ecf56de1364d36db5fd67"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#abf7d41536d2ecf56de1364d36db5fd67">NET::SimpleSocket::~SimpleSocket</a></div><div class="ttdeci">~SimpleSocket()</div><div class="ttdef"><b>Definition</b> <a href="#l00072">SimpleSocket.cpp:72</a></div></div>
-<div class="ttc" id="aclassNET_1_1SimpleSocket_html_adc7b2b80c852e7163a7bab9ce4b7c060"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#adc7b2b80c852e7163a7bab9ce4b7c060">NET::SimpleSocket::peerDisconnected</a></div><div class="ttdeci">bool peerDisconnected() const noexcept</div><div class="ttdoc">returns whether a currently associated peer disconnected</div><div class="ttdef"><b>Definition</b> <a href="#l00167">SimpleSocket.cpp:167</a></div></div>
-<div class="ttc" id="aclassNET_1_1SimpleSocket_html_af9cd7f2b28969fa1383d8e8751a868f5"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#af9cd7f2b28969fa1383d8e8751a868f5">NET::SimpleSocket::timedAccept</a></div><div class="ttdeci">int timedAccept(int timeout) const</div><div class="ttdoc">allows stream sockets timed accept</div><div class="ttdef"><b>Definition</b> <a href="#l00193">SimpleSocket.cpp:193</a></div></div>
-<div class="ttc" id="aclassNET_1_1SocketException_html"><div class="ttname"><a href="classNET_1_1SocketException.html">NET::SocketException</a></div><div class="ttdoc">Signals a problem with the execution of a socket call.</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00010">SimpleSocket.h:11</a></div></div>
-<div class="ttc" id="aclassNET_1_1SocketException_html_ad700f28b153c6a5a622bd2c0bf5b8fb9"><div class="ttname"><a href="classNET_1_1SocketException.html#ad700f28b153c6a5a622bd2c0bf5b8fb9">NET::SocketException::SocketException</a></div><div class="ttdeci">SocketException(std::string_view message, bool inclErrno=true)</div><div class="ttdef"><b>Definition</b> <a href="#l00012">SimpleSocket.cpp:12</a></div></div>
+<div class="ttc" id="aclassNET_1_1SimpleSocket_html_a5b5500498eeb1292eea3c5dc4e531d19"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#a5b5500498eeb1292eea3c5dc4e531d19">NET::SimpleSocket::shutdown</a></div><div class="ttdeci">void shutdown(ShutdownDirection type)</div><div class="ttdoc">shutdown the connection in the specified direction</div><div class="ttdef"><b>Definition</b> <a href="#l00161">SimpleSocket.cpp:161</a></div></div>
+<div class="ttc" id="aclassNET_1_1SimpleSocket_html_a5b5c42c7be2b83d2ba1c830c7d4a1cb8"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#a5b5c42c7be2b83d2ba1c830c7d4a1cb8">NET::SimpleSocket::acceptNative</a></div><div class="ttdeci">int acceptNative() const</div><div class="ttdoc">direct accept syscall</div><div class="ttdef"><b>Definition</b> <a href="#l00206">SimpleSocket.cpp:206</a></div></div>
+<div class="ttc" id="aclassNET_1_1SimpleSocket_html_a721049909aca828a6dd9ee7868897d7c"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#a721049909aca828a6dd9ee7868897d7c">NET::SimpleSocket::m_socket</a></div><div class="ttdeci">int m_socket</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00321">SimpleSocket.h:321</a></div></div>
+<div class="ttc" id="aclassNET_1_1SimpleSocket_html_a7e867144442c2fd38381a8a71f0f57c4"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#a7e867144442c2fd38381a8a71f0f57c4">NET::SimpleSocket::peerDisconnected</a></div><div class="ttdeci">bool peerDisconnected() const</div><div class="ttdoc">returns whether a currently associated peer disconnected</div><div class="ttdef"><b>Definition</b> <a href="#l00178">SimpleSocket.cpp:178</a></div></div>
+<div class="ttc" id="aclassNET_1_1SimpleSocket_html_a90a7239e87f681acddc581082748b8a5"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#a90a7239e87f681acddc581082748b8a5">NET::SimpleSocket::timedReceive</a></div><div class="ttdeci">IOResult timedReceive(void *buffer, size_t len, int timeout)</div><div class="ttdoc">receive data from a bound socket, return after the given timespan</div><div class="ttdef"><b>Definition</b> <a href="#l00142">SimpleSocket.cpp:142</a></div></div>
+<div class="ttc" id="aclassNET_1_1SimpleSocket_html_aa05163ace5dbe56a53debe265045597f"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#aa05163ace5dbe56a53debe265045597f">NET::SimpleSocket::send</a></div><div class="ttdeci">IOResult send(const void *buffer, size_t len)</div><div class="ttdoc">send data through a connected socket</div><div class="ttdef"><b>Definition</b> <a href="#l00102">SimpleSocket.cpp:102</a></div></div>
+<div class="ttc" id="aclassNET_1_1SimpleSocket_html_aa0ef8a33ae6e7279d2a2eb3661fae03c"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#aa0ef8a33ae6e7279d2a2eb3661fae03c">NET::SimpleSocket::receiveAll</a></div><div class="ttdeci">IOResult receiveAll(void *buffer, size_t len)</div><div class="ttdoc">receive exactly the requested amount unless the peer disconnects</div><div class="ttdef"><b>Definition</b> <a href="#l00303">SimpleSocket.cpp:303</a></div></div>
+<div class="ttc" id="aclassNET_1_1SimpleSocket_html_ab2c084ceb5c5773495566d37b2c99283"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#ab2c084ceb5c5773495566d37b2c99283">NET::SimpleSocket::receive</a></div><div class="ttdeci">IOResult receive(void *buffer, size_t len)</div><div class="ttdoc">receive data from a bound socket</div><div class="ttdef"><b>Definition</b> <a href="#l00119">SimpleSocket.cpp:119</a></div></div>
+<div class="ttc" id="aclassNET_1_1SimpleSocket_html_abf7d41536d2ecf56de1364d36db5fd67"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#abf7d41536d2ecf56de1364d36db5fd67">NET::SimpleSocket::~SimpleSocket</a></div><div class="ttdeci">~SimpleSocket()</div><div class="ttdef"><b>Definition</b> <a href="#l00080">SimpleSocket.cpp:80</a></div></div>
+<div class="ttc" id="aclassNET_1_1SimpleSocket_html_ae9af79a28259dad3318b15ac91ef18c5"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#ae9af79a28259dad3318b15ac91ef18c5">NET::SimpleSocket::sendAll</a></div><div class="ttdeci">IOResult sendAll(const void *buffer, size_t len)</div><div class="ttdoc">send data through a connected socket</div><div class="ttdef"><b>Definition</b> <a href="#l00290">SimpleSocket.cpp:290</a></div></div>
+<div class="ttc" id="aclassNET_1_1SimpleSocket_html_af9cd7f2b28969fa1383d8e8751a868f5"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#af9cd7f2b28969fa1383d8e8751a868f5">NET::SimpleSocket::timedAccept</a></div><div class="ttdeci">int timedAccept(int timeout) const</div><div class="ttdoc">retrying accept with timeout for use by stream sockets</div><div class="ttdef"><b>Definition</b> <a href="#l00232">SimpleSocket.cpp:232</a></div></div>
+<div class="ttc" id="aclassNET_1_1SocketException_html"><div class="ttname"><a href="classNET_1_1SocketException.html">NET::SocketException</a></div><div class="ttdoc">Signals a problem with the execution of a socket call.</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00011">SimpleSocket.h:12</a></div></div>
+<div class="ttc" id="aclassNET_1_1SocketException_html_ad700f28b153c6a5a622bd2c0bf5b8fb9"><div class="ttname"><a href="classNET_1_1SocketException.html#ad700f28b153c6a5a622bd2c0bf5b8fb9">NET::SocketException::SocketException</a></div><div class="ttdeci">SocketException(std::string_view message, bool inclErrno=true)</div><div class="ttdef"><b>Definition</b> <a href="#l00014">SimpleSocket.cpp:14</a></div></div>
+<div class="ttc" id="anamespaceNET_1_1detail_html_a18927c76c21b420570c9a3f08c4db169"><div class="ttname"><a href="namespaceNET_1_1detail.html#a18927c76c21b420570c9a3f08c4db169">NET::detail::timedReceiveImpl</a></div><div class="ttdeci">IOResult timedReceiveImpl(int fd, bool connectionOriented, int timeout, ReceiveFunc &amp;&amp;receiveFunc)</div><div class="ttdoc">implements timedReceive() for all sockets</div><div class="ttdef"><b>Definition</b> <a href="PollHelper_8h_source.html#l00026">PollHelper.h:26</a></div></div>
+<div class="ttc" id="anamespaceNET_1_1detail_html_ae377d816f4cc819d5cbfa5d14461dfe3"><div class="ttname"><a href="namespaceNET_1_1detail.html#ae377d816f4cc819d5cbfa5d14461dfe3">NET::detail::classifyIoError</a></div><div class="ttdeci">std::optional&lt; IOStatus &gt; classifyIoError(int error, bool connectionOriented) noexcept</div><div class="ttdoc">return correct IOStatus for each un-excpetional failures</div><div class="ttdef"><b>Definition</b> <a href="PollHelper_8cpp_source.html#l00063">PollHelper.cpp:63</a></div></div>
+<div class="ttc" id="anamespaceNET_1_1detail_html_ae5a93a3c1bb982aed4cf0092c1b345f6"><div class="ttname"><a href="namespaceNET_1_1detail.html#ae5a93a3c1bb982aed4cf0092c1b345f6">NET::detail::isTransientAcceptError</a></div><div class="ttdeci">bool isTransientAcceptError(int error) noexcept</div><div class="ttdoc">returns true when to retry accept() due to a transient failure</div><div class="ttdef"><b>Definition</b> <a href="PollHelper_8cpp_source.html#l00040">PollHelper.cpp:40</a></div></div>
 <div class="ttc" id="anamespaceNET_html"><div class="ttname"><a href="namespaceNET.html">NET</a></div><div class="ttdef"><b>Definition</b> <a href="CANRawSocket_8h_source.html#l00006">CANRawSocket.h:7</a></div></div>
-<div class="ttc" id="anamespaceNET_html_a9b61e3d2422a1203909bd7985df95884"><div class="ttname"><a href="namespaceNET.html#a9b61e3d2422a1203909bd7985df95884">NET::ShutdownDirection</a></div><div class="ttdeci">ShutdownDirection</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00043">SimpleSocket.h:44</a></div></div>
-<div class="ttc" id="anamespaceNET_html_a9b61e3d2422a1203909bd7985df95884a033d3418b7b9455f3b5d7c6692155b3e"><div class="ttname"><a href="namespaceNET.html#a9b61e3d2422a1203909bd7985df95884a033d3418b7b9455f3b5d7c6692155b3e">NET::STOP_SEND</a></div><div class="ttdeci">@ STOP_SEND</div><div class="ttdoc">disable all variants of send() on the socket, receive calls still work</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00046">SimpleSocket.h:46</a></div></div>
-<div class="ttc" id="anamespaceNET_html_a9b61e3d2422a1203909bd7985df95884aac8f7825323c5ef9954fc0a7eac781d7"><div class="ttname"><a href="namespaceNET.html#a9b61e3d2422a1203909bd7985df95884aac8f7825323c5ef9954fc0a7eac781d7">NET::STOP_BOTH</a></div><div class="ttdeci">@ STOP_BOTH</div><div class="ttdoc">disable all send() and receive() calls on the socket</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00047">SimpleSocket.h:47</a></div></div>
-<div class="ttc" id="anamespaceNET_html_a9b61e3d2422a1203909bd7985df95884ae9cb5d756b0cef8d4de6e226890bee43"><div class="ttname"><a href="namespaceNET.html#a9b61e3d2422a1203909bd7985df95884ae9cb5d756b0cef8d4de6e226890bee43">NET::STOP_RECEIVE</a></div><div class="ttdeci">@ STOP_RECEIVE</div><div class="ttdoc">disable all variants of receive() on the socket, send calls still work</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00045">SimpleSocket.h:45</a></div></div>
+<div class="ttc" id="anamespaceNET_html_a6234637576bbb2ec0600642d629c2104a333905113a456692308689b23e032249"><div class="ttname"><a href="namespaceNET.html#a6234637576bbb2ec0600642d629c2104a333905113a456692308689b23e032249">NET::IOStatus::PeerDisconnected</a></div><div class="ttdeci">@ PeerDisconnected</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00054">SimpleSocket.h:54</a></div></div>
+<div class="ttc" id="anamespaceNET_html_a6234637576bbb2ec0600642d629c2104a505a83f220c02df2f85c3810cd9ceb38"><div class="ttname"><a href="namespaceNET.html#a6234637576bbb2ec0600642d629c2104a505a83f220c02df2f85c3810cd9ceb38">NET::IOStatus::Success</a></div><div class="ttdeci">@ Success</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00052">SimpleSocket.h:52</a></div></div>
+<div class="ttc" id="anamespaceNET_html_a9b61e3d2422a1203909bd7985df95884"><div class="ttname"><a href="namespaceNET.html#a9b61e3d2422a1203909bd7985df95884">NET::ShutdownDirection</a></div><div class="ttdeci">ShutdownDirection</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00088">SimpleSocket.h:89</a></div></div>
+<div class="ttc" id="anamespaceNET_html_a9b61e3d2422a1203909bd7985df95884a033d3418b7b9455f3b5d7c6692155b3e"><div class="ttname"><a href="namespaceNET.html#a9b61e3d2422a1203909bd7985df95884a033d3418b7b9455f3b5d7c6692155b3e">NET::STOP_SEND</a></div><div class="ttdeci">@ STOP_SEND</div><div class="ttdoc">disable all variants of send() on the socket, receive calls still work</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00091">SimpleSocket.h:91</a></div></div>
+<div class="ttc" id="anamespaceNET_html_a9b61e3d2422a1203909bd7985df95884aac8f7825323c5ef9954fc0a7eac781d7"><div class="ttname"><a href="namespaceNET.html#a9b61e3d2422a1203909bd7985df95884aac8f7825323c5ef9954fc0a7eac781d7">NET::STOP_BOTH</a></div><div class="ttdeci">@ STOP_BOTH</div><div class="ttdoc">disable all send() and receive() calls on the socket</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00092">SimpleSocket.h:92</a></div></div>
+<div class="ttc" id="anamespaceNET_html_a9b61e3d2422a1203909bd7985df95884ae9cb5d756b0cef8d4de6e226890bee43"><div class="ttname"><a href="namespaceNET.html#a9b61e3d2422a1203909bd7985df95884ae9cb5d756b0cef8d4de6e226890bee43">NET::STOP_RECEIVE</a></div><div class="ttdeci">@ STOP_RECEIVE</div><div class="ttdoc">disable all variants of receive() on the socket, send calls still work</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00090">SimpleSocket.h:90</a></div></div>
+<div class="ttc" id="astructNET_1_1IOResult_html"><div class="ttname"><a href="structNET_1_1IOResult.html">NET::IOResult</a></div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00073">SimpleSocket.h:74</a></div></div>
+<div class="ttc" id="astructNET_1_1IOResult_html_a0ac6a3006dbb99852bc8636a47d92083"><div class="ttname"><a href="structNET_1_1IOResult.html#a0ac6a3006dbb99852bc8636a47d92083">NET::IOResult::bytes</a></div><div class="ttdeci">size_t bytes</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00076">SimpleSocket.h:76</a></div></div>
+<div class="ttc" id="astructNET_1_1IOResult_html_ac74ab0eb4d49d7e124037e414768cf41"><div class="ttname"><a href="structNET_1_1IOResult.html#ac74ab0eb4d49d7e124037e414768cf41">NET::IOResult::status</a></div><div class="ttdeci">IOStatus status</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00075">SimpleSocket.h:75</a></div></div>
+<div class="ttc" id="astructNET_1_1SimpleSocket_1_1AdoptSocketTag_html"><div class="ttname"><a href="structNET_1_1SimpleSocket_1_1AdoptSocketTag.html">NET::SimpleSocket::AdoptSocketTag</a></div><div class="ttdoc">used to safely adopt internal socket descriptor</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00297">SimpleSocket.h:297</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->
