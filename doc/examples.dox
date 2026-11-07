@@ -21,6 +21,11 @@ Received data from server: The quick brown fox jumps over the lazy dog
 */
 
 /*!
+\example TCP_Client_Reconnect.cpp
+A more advanced TCP client exmaple with reconection logic and full error handling.
+*/
+
+/*!
 \example UDP_Multicast.cpp
 This is a simple example on how to do UDP multicast.
 

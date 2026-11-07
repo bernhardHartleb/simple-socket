@@ -34,8 +34,8 @@ int main()
 
 			while(1)
 			{
-				// Expect to recevie data after at least 1s
-				const auto result = socket.timedReceive(buffer.data(), buffer.size(), 1000);
+				// Expect to recevie initial data after at least 2s
+				const auto result = socket.timedReceive(buffer.data(), buffer.size(), 2000);
 
 				if (result.status == NET::IOStatus::Success)
 				{
@@ -52,7 +52,7 @@ int main()
 				}
 				else
 				{
-					// No data within the deadline or another error
+					// No data within the deadline, or another error
 					std::cerr << "Receive timeout; reconnecting\n";
 					break;
 				}
