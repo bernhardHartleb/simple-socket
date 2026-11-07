@@ -50,18 +50,14 @@ IOResult UDPSocket::sendTo( const void* buffer, size_t len, std::string_view for
 IOResult UDPSocket::receiveFrom( void* buffer, size_t len, std::string& sourceAddress, unsigned short& sourcePort)
 {
 	SockAddress addr;
+	IOResult res = SimpleSocket::receiveFrom( buffer, len, addr);
 
-	ssize_t ret = TEMP_FAILURE_RETRY (::recvfrom( m_socket, (raw_type*)buffer, len, 0, addr.data(), addr.lengthPtr()));
-	if( ret < 0)
+	if( res.status == IOStatus::Success)
 	{
-		auto status = detail::classifyIoError( errno, m_connectionOriented);
-		if( status) return IOResult{ *status, 0 };
-
-		throw SocketException("Receive failed (recvfrom)");
+		sourceAddress = addr.address();
+		sourcePort = addr.port();
 	}
-	sourceAddress = addr.address();
-	sourcePort = addr.port();
-	return { IOStatus::Success, static_cast<size_t>(ret) };
+	return res;
 }
 
 IOResult UDPSocket::timedReceiveFrom( void* buffer, size_t len, std::string& sourceAddress, unsigned short& sourcePort, int timeout)

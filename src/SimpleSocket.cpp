@@ -187,6 +187,19 @@ IOResult SimpleSocket::receive( void* buffer, size_t len)
 	throw SocketException("Receive failed (receive)");
 }
 
+IOResult SimpleSocket::receiveFrom( void* buffer, size_t len, SockAddress& addr)
+{
+	ssize_t ret = TEMP_FAILURE_RETRY (::recvfrom( m_socket, (raw_type*)buffer, len, 0, addr.data(), addr.lengthPtr()));
+	if( ret < 0)
+	{
+		auto status = detail::classifyIoError( errno, m_connectionOriented);
+		if( status) return IOResult{ *status, 0 };
+
+		throw SocketException("Receive failed (recvfrom)");
+	}
+	return { IOStatus::Success, static_cast<size_t>(ret) };
+}
+
 IOResult SimpleSocket::timedReceive( void* buffer, size_t len, int timeout)
 {
 	return detail::timedReceiveImpl( m_socket, m_connectionOriented, timeout,

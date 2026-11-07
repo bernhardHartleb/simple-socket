@@ -340,6 +340,9 @@ namespace NET
 		//! sendTo for datagram sockets
 		IOResult sendTo( const void* buffer, size_t len, const SockAddress& addr);
 
+		//! receiveFrom for datagram sockets
+		IOResult receiveFrom( void* buffer, size_t len, SockAddress& addr);
+
 		//! direct accept syscall
 		int acceptNative() const;
 
