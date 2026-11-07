@@ -21,10 +21,10 @@ Functions for DNS resolution and limited network interface management are includ
 ## Design choices
 
 - RAII socket ownership with minimal internal state
-- Consistent string based interface for all address types
+- Consistent string-based interface for all address types
 - Expected network failures return IOResult, ConnectResult instead of throwing
-- Unexpect syscall errors are checked and throw SocketException
-- Transient failures (e.g. EINTR, accept) are handeled for the user
+- Unexpected syscall errors are checked and throw SocketException
+- Transient failures (e.g. EINTR, accept) are handled for the user
 - Created and accepted sockets have CLOEXEC enabled
 
 ## Documentation
@@ -38,9 +38,7 @@ Minimal TCP server:
 
 ```cpp
 #include <simple_socket/TCPSocket.h>
-
 #include <iostream>
-#include <utility>
 
 int main()
 {
@@ -51,11 +49,20 @@ int main()
         server.bind("127.0.0.1", 47777);
         server.listen();
 
-        std::cout << "waiting for a client\n";
+        std::cout << "Waiting for a client.\n";
         NET::TCPSocket client = server.accept();
 
         const char message[] = "hello from simple-socket\n";
-        client.sendAll(message, sizeof(message) - 1);
+        NET::IOResult sent = client.sendAll(message, sizeof(message) - 1);
+
+        if (sent.status == NET::IOStatus::PeerDisconnected)
+        {
+            std::cerr << "Client disconnected.\n";
+            return 1;
+        }
+
+        std::cout << "Successfully sent " << sent.bytes << " bytes.\n";
+        return 0;
     }
     catch (const NET::SocketException& e)
     {
