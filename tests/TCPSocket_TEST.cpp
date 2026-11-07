@@ -113,6 +113,10 @@ public:
 		CPPUNIT_ASSERT(opt);
 		CPPUNIT_ASSERT(opt->valid());
 
+		// non-blocking connect attempt return right away
+		auto tmp = server.timedAccept(0);
+		CPPUNIT_ASSERT(!tmp);
+
 		NET::TCPSocket session(std::move(*opt));
 		CPPUNIT_ASSERT(!opt->valid());
 		opt.reset();

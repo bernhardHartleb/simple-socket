@@ -234,13 +234,18 @@ int SimpleSocket::timedAccept( int timeout) const
 	// negative timeout means wait forever
 	if( timeout < 0) return accept();
 
+	bool firstRun = true;
 	using Clock = std::chrono::steady_clock;
-	const auto deadline = Clock::now() + std::chrono::milliseconds(timeout);
+	auto now = Clock::now();
+	const auto deadline = now + std::chrono::milliseconds(timeout);
 
 	while(1)
 	{
-		const auto now = Clock::now();
-		if( now >= deadline) return -1;
+		// ensure now == deadline when timeout is zero
+		if( !firstRun) now = Clock::now();
+		// invalid socket handle on timeout
+		if( now >= deadline && !firstRun) return -1;
+		firstRun = false;
 
 		auto remaining = std::chrono::ceil<std::chrono::milliseconds>(deadline - now);
 		const int pollTimeout = static_cast<int>(remaining.count());
