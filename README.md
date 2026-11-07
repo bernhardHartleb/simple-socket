@@ -11,12 +11,21 @@ Functions for DNS resolution and limited network interface management are includ
 - Unix-domain stream and datagram sockets
 - UDP multicast support (IPv4 only)
 - Timeout support for connect, accept and receive (poll)
-- Peer-disconnect tracking for connected sockets
-- Convenient error handling and stream helpers
+- Peer-disconnect detection for connected sockets
+- Native descriptor adoption and duplication (e.g. socket activation)
 - Hostname and service resolution
 - Network-address and network-interface utilities
 - Optional SocketCAN and SCTP support
 - CMake build, unit tests and example programs
+
+## Design choices
+
+- RAII socket ownership with minimal internal state
+- Consistent string based interface for all address types
+- Expected network failures return IOResult, ConnectResult instead of throwing
+- Unexpect syscall errors are checked and throw SocketException
+- Transient failures (e.g. EINTR, accept) are handeled for the user
+- Created and accepted sockets have CLOEXEC enabled
 
 ## Documentation
 

@@ -6,16 +6,25 @@ An easy to use C++ socket and network library, for Unix based systems.
 
 The following features are currently available:
 
-- IPv4/IPv6 TCP and UDP sockets
+- IPv4 / IPv6 TCP and UDP sockets
+- Unix-domain stream and datagram sockets
 - UDP multicast support (IPv4 only)
-- Unix domain stream and datagram sockets
-- Blocking I/O plus timeout variants for connect, accept and receive
-- Peer-disconnect tracking for connected sockets
-- Stream based sendAll and receiveAll helpers
-- Hostname, service and network-interface utilities
-- Optional SocketCAN support
-- Optional SCTP support
+- Timeout support for connect, accept and receive (poll)
+- Peer-disconnect detection for connected sockets
+- Native descriptor adoption and duplication (e.g. socket activation)
+- Hostname and service resolution
+- Network-address and network-interface utilities
+- Optional SocketCAN and SCTP support
 - CMake build, unit tests and example programs
+
+\section design Design choices
+
+- RAII socket ownership with minimal internal state
+- Consistent string based interface for all address types
+- Expected network failures return IOResult, ConnectResult instead of throwing
+- Unexpect syscall errors are checked and throw SocketException
+- Transient failures (e.g. EINTR, accept) are handeled for the user
+- Created and accepted sockets have CLOEXEC enabled
 
 \section License
 
