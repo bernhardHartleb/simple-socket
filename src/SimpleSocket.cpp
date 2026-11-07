@@ -148,6 +148,22 @@ IOResult SimpleSocket::send( const void* buffer, size_t len)
 	throw SocketException("Send failed (send)");
 }
 
+IOResult SimpleSocket::sendTo( const void* buffer, size_t len, const SockAddress& addr)
+{
+	ssize_t ret = TEMP_FAILURE_RETRY (::sendto( m_socket, (const raw_type*)buffer, len, 0, addr.data(), addr.length()));
+	if( ret >= 0)
+		return { IOStatus::Success, static_cast<size_t>(ret) };
+
+	// special case for Unix datagram: target socket does not exist
+	if( errno == ENOENT)
+		return { IOStatus::DestinationUnavailable, 0 };
+
+	auto status = detail::classifyIoError( errno, m_connectionOriented);
+	if( status) return IOResult{ *status, 0 };
+
+	throw SocketException("Send failed (sendto)");
+}
+
 IOResult SimpleSocket::receive( void* buffer, size_t len)
 {
 	ssize_t ret = TEMP_FAILURE_RETRY (::recv( m_socket, (raw_type*) buffer, len, 0));

@@ -20,19 +20,7 @@ UnixDatagramSocket UnixDatagramSocket::adoptNativeHandle( int sockfd)
 IOResult UnixDatagramSocket::sendTo( const void* buffer, size_t len, std::string_view foreignPath)
 {
 	SockAddress addr( foreignPath);
-
-	ssize_t ret = TEMP_FAILURE_RETRY (::sendto( m_socket, (const raw_type*)buffer, len, 0, addr.data(), addr.length()));
-	if( ret >= 0)
-		return { IOStatus::Success, static_cast<size_t>(ret) };
-
-	// special case for Unix datagram: target socket does not exist
-	if( errno == ENOENT)
-		return { IOStatus::DestinationUnavailable, 0 };
-
-	auto status = detail::classifyIoError( errno, m_connectionOriented);
-	if( status) return IOResult{ *status, 0 };
-
-	throw SocketException("Send failed (sendto)");
+	return SimpleSocket::sendTo( buffer, len, addr);
 }
 
 IOResult UnixDatagramSocket::receiveFrom( void* buffer, size_t len, std::string& sourcePath)

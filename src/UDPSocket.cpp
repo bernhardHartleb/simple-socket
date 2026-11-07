@@ -44,15 +44,7 @@ UDPSocket UDPSocket::adoptNativeHandle( int sockfd)
 IOResult UDPSocket::sendTo( const void* buffer, size_t len, std::string_view foreignAddress, unsigned short foreignPort)
 {
 	SockAddress addr( m_family, foreignAddress, foreignPort);
-
-	ssize_t ret = TEMP_FAILURE_RETRY (::sendto( m_socket, (const raw_type*)buffer, len, 0, addr.data(), addr.length()));
-	if( ret >= 0)
-		return { IOStatus::Success, static_cast<size_t>(ret) };
-
-	auto status = detail::classifyIoError( errno, m_connectionOriented);
-	if( status) return IOResult{ *status, 0 };
-
-	throw SocketException("Send failed (sendto)");
+	return SimpleSocket::sendTo( buffer, len, addr);
 }
 
 IOResult UDPSocket::receiveFrom( void* buffer, size_t len, std::string& sourceAddress, unsigned short& sourcePort)

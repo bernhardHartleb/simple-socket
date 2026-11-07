@@ -337,6 +337,9 @@ namespace NET
 
 		//! \cond internal
 
+		//! sendTo for datagram sockets
+		IOResult sendTo( const void* buffer, size_t len, const SockAddress& addr);
+
 		//! direct accept syscall
 		int acceptNative() const;
 
