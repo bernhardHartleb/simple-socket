@@ -7,6 +7,7 @@
 
 using NET::IOResult;
 using NET::IOStatus;
+using NET::ConnectResult;
 
 class UDPSocket_TEST : public CppUnit::TestFixture
 {
@@ -66,8 +67,8 @@ public:
 		const unsigned short serverPort = server.getLocalPort();
 		CPPUNIT_ASSERT(serverPort != 0);
 
-		client.connect(LOOPBACK, serverPort);
-
+		ConnectResult res = client.connect(LOOPBACK, serverPort);
+		CPPUNIT_ASSERT_EQUAL(ConnectResult::Connected, res);
 		CPPUNIT_ASSERT_EQUAL(std::string(LOOPBACK), client.getForeignAddress());
 		CPPUNIT_ASSERT_EQUAL(serverPort, client.getForeignPort());
 
@@ -89,7 +90,8 @@ public:
 		CPPUNIT_ASSERT(std::memcmp(request, buffer, sizeof(request)) == 0);
 
 		const char reply[] = "UDP reply";
-		server.sendTo(reply, sizeof(reply), sourceAddress, sourcePort);
+		sent = server.sendTo(reply, sizeof(reply), sourceAddress, sourcePort);
+		CPPUNIT_ASSERT(sent);
 
 		std::memset(buffer, 0, sizeof(buffer));
 		recv = client.timedReceive(buffer, sizeof(buffer), 1000);
@@ -124,7 +126,8 @@ public:
 			CPPUNIT_ASSERT_EQUAL(static_cast<char>(0x5a), c);
 
 		const char message[] = "Timed UDP";
-		sender.sendTo(message, sizeof(message), LOOPBACK, receiverPort);
+		IOResult sent = sender.sendTo(message, sizeof(message), LOOPBACK, receiverPort);
+		CPPUNIT_ASSERT(sent);
 
 		recv = receiver.timedReceiveFrom(buffer, sizeof(buffer), sourceAddress, sourcePort, 1000);
 		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, recv.status);
@@ -144,7 +147,8 @@ public:
 
 		const unsigned short receiverPort = receiver.getLocalPort();
 		char dummy = 'X';
-		sender.sendTo(&dummy, 0, LOOPBACK, receiverPort);
+		IOResult sent = sender.sendTo(&dummy, 0, LOOPBACK, receiverPort);
+		CPPUNIT_ASSERT(sent);
 
 		std::string sourceAddress;
 		unsigned short sourcePort = 0;
@@ -173,7 +177,8 @@ public:
 		const char message[] =
 			"This datagram is deliberately larger than the receive buffer";
 
-		sender.sendTo(message, sizeof(message), LOOPBACK, receiverPort);
+		IOResult sent = sender.sendTo(message, sizeof(message), LOOPBACK, receiverPort);
+		CPPUNIT_ASSERT(sent);
 
 		char buffer[8] = {};
 		std::string sourceAddress;
@@ -201,7 +206,8 @@ public:
 		const size_t len = sizeof(message);
 
 		sender.setMulticastTTL(0);
-		sender.connect(group, 47777);
+		ConnectResult res = sender.connect(group, 47777);
+		CPPUNIT_ASSERT_EQUAL(ConnectResult::Connected, res);
 
 		receiver.bind(47777);
 		receiver.joinGroup(group);
@@ -218,7 +224,7 @@ public:
 
 		receiver.leaveGroup(group);
 		sent = sender.send(message, len);
-		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, sent.status);
+		CPPUNIT_ASSERT(sent);
 
 		recv = receiver.timedReceive(buffer, len, 50);
 		CPPUNIT_ASSERT_EQUAL(IOStatus::Timeout, recv.status);

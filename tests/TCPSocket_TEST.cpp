@@ -45,9 +45,10 @@ public:
 		CPPUNIT_ASSERT_EQUAL(std::string(), client.getForeignAddress());
 		CPPUNIT_ASSERT_EQUAL(static_cast<unsigned short>(0), client.getForeignPort());
 
-		client.connect(LOOPBACK, port);
+		ConnectResult res = client.connect(LOOPBACK, port);
+		CPPUNIT_ASSERT_EQUAL(ConnectResult::Connected, res);
 
-		NET::TCPSocket session = server.accept();
+		NET::TCPSocket session = *server.accept();
 		CPPUNIT_ASSERT(!client.peerDisconnected());
 		CPPUNIT_ASSERT(!session.peerDisconnected());
 
@@ -58,12 +59,12 @@ public:
 
 		const char message[] = "Hello TCP";
 		IOResult sent = client.send(message, sizeof(message));
-		CPPUNIT_ASSERT_EQUAL(sent.status, IOStatus::Success);
-		CPPUNIT_ASSERT_EQUAL(sent.bytes, sizeof(message));
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, sent.status);
+		CPPUNIT_ASSERT_EQUAL(sizeof(message), sent.bytes);
 
 		char buffer[sizeof(message)] = {};
 		IOResult recv = session.receive(buffer, sent.bytes);
-		CPPUNIT_ASSERT_EQUAL(recv.status, IOStatus::Success);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, recv.status);
 		CPPUNIT_ASSERT_EQUAL(recv.bytes, sent.bytes);
 		CPPUNIT_ASSERT(std::memcmp(message, buffer, sent.bytes) == 0);
 	}
@@ -74,9 +75,10 @@ public:
 		NET::TCPSocket client;
 
 		const unsigned short port = prepareServer(server);
-		client.connect(LOOPBACK, port);
+		ConnectResult res = client.connect(LOOPBACK, port);
+		CPPUNIT_ASSERT_EQUAL(ConnectResult::Connected, res);
 
-		NET::TCPSocket session(server.accept());
+		NET::TCPSocket session(*server.accept());
 
 		// Large enough to exercise more than just a trivial message
 		std::vector<char> sendBuffer(32 * 1024);
@@ -86,12 +88,12 @@ public:
 			sendBuffer[i] = static_cast<char>(i % 251);
 
 		IOResult sent = client.sendAll(sendBuffer.data(), sendBuffer.size());
-		CPPUNIT_ASSERT_EQUAL(sent.status, IOStatus::Success);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, sent.status);
 		CPPUNIT_ASSERT_EQUAL(len, sent.bytes);
 
 		std::vector<char> receiveBuffer(sendBuffer.size());
 		IOResult recv = session.receiveAll(receiveBuffer.data(), receiveBuffer.size());
-		CPPUNIT_ASSERT_EQUAL(recv.status, IOStatus::Success);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, recv.status);
 		CPPUNIT_ASSERT_EQUAL(len, recv.bytes);
 		CPPUNIT_ASSERT(sendBuffer == receiveBuffer);
 	}
@@ -107,7 +109,8 @@ public:
 		auto opt = server.timedAccept(50);
 		CPPUNIT_ASSERT(!opt);
 
-		client.connect(LOOPBACK, port);
+		ConnectResult res = client.connect(LOOPBACK, port);
+		CPPUNIT_ASSERT_EQUAL(ConnectResult::Connected, res);
 
 		opt = server.timedAccept(1000);
 		CPPUNIT_ASSERT(opt);
@@ -137,11 +140,12 @@ public:
 		NET::TCPSocket client;
 
 		const unsigned short port = prepareServer(server);
-		client.connect(LOOPBACK, port);
+		ConnectResult res = client.connect(LOOPBACK, port);
+		CPPUNIT_ASSERT_EQUAL(ConnectResult::Connected, res);
 		// Does not influce results below
 		client.setNoDelay(true);
 
-		NET::TCPSocket session(server.accept());
+		NET::TCPSocket session(*server.accept());
 
 		char buffer[64] = {};
 		// Connected socket, but no data waiting
@@ -188,7 +192,7 @@ public:
 		CPPUNIT_ASSERT_EQUAL(std::string(LOOPBACK), client.getForeignAddress());
 		CPPUNIT_ASSERT_EQUAL(port, client.getForeignPort());
 
-		NET::TCPSocket session = server.accept();;
+		NET::TCPSocket session = *server.accept();;
 		CPPUNIT_ASSERT(!client.peerDisconnected());
 		CPPUNIT_ASSERT(!session.peerDisconnected());
 	}
@@ -199,9 +203,10 @@ public:
 		NET::TCPSocket client;
 
 		const unsigned short port = prepareServer(server);
-		client.connect(LOOPBACK, port);
+		ConnectResult res = client.connect(LOOPBACK, port);
+		CPPUNIT_ASSERT_EQUAL(ConnectResult::Connected, res);
 
-		NET::TCPSocket session(server.accept());
+		NET::TCPSocket session(*server.accept());
 		CPPUNIT_ASSERT(!session.peerDisconnected());
 
 		// Send a FIN while retaining the client socket itself
@@ -229,13 +234,13 @@ public:
 
 		NET::TCPSocket client(NET::IPv6);
 		// ipv4 should not work
-		CPPUNIT_ASSERT_THROW(client.connect(LOOPBACK, port), NET::SocketException);
+		CPPUNIT_ASSERT_THROW(auto t = client.connect(LOOPBACK, port), NET::SocketException);
 
 		ConnectResult res = client.timedConnect("::1", port, 1000);
 		CPPUNIT_ASSERT_EQUAL(ConnectResult::Connected, res);
 		CPPUNIT_ASSERT_EQUAL(NET::IPv6, client.addressFamily());
 
-		NET::TCPSocket session(server.accept());
+		NET::TCPSocket session(*server.accept());
 		CPPUNIT_ASSERT_EQUAL(std::string("::1"), client.getForeignAddress());
 		CPPUNIT_ASSERT_EQUAL(std::string("::1"), session.getForeignAddress());
 		CPPUNIT_ASSERT_EQUAL(NET::IPv6, session.addressFamily());
@@ -270,8 +275,9 @@ public:
 			CPPUNIT_ASSERT_EQUAL(port, listener.getLocalPort());
 
 			NET::TCPSocket client;
-			client.connect(LOOPBACK, port);
-			NET::TCPSocket session = listener.accept();
+			ConnectResult res = client.connect(LOOPBACK, port);
+			CPPUNIT_ASSERT_EQUAL(ConnectResult::Connected, res);
+			NET::TCPSocket session = *listener.accept();
 			CPPUNIT_ASSERT(!session.peerDisconnected());
 		}
 

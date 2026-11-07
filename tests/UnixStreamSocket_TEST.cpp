@@ -9,6 +9,7 @@
 
 using NET::IOResult;
 using NET::IOStatus;
+using NET::ConnectResult;
 
 class UnixStreamSocket_TEST : public CppUnit::TestFixture
 {
@@ -57,9 +58,10 @@ public:
 		server.listen();
 
 		client.bind(clientPath);
-		client.connect(serverPath);
+		ConnectResult res = client.connect(serverPath);
+		CPPUNIT_ASSERT_EQUAL(ConnectResult::Connected, res);
 
-		NET::UnixStreamSocket session = server.accept();
+		NET::UnixStreamSocket session = *server.accept();
 		CPPUNIT_ASSERT_EQUAL(serverPath, server.getLocalPath());
 		CPPUNIT_ASSERT_EQUAL(clientPath, client.getLocalPath());
 		CPPUNIT_ASSERT_EQUAL(serverPath, client.getForeignPath());
@@ -88,9 +90,10 @@ public:
 
 		server.bind(serverPath);
 		server.listen();
-		client.connect(serverPath);
+		ConnectResult res = client.connect(serverPath);
+		CPPUNIT_ASSERT_EQUAL(ConnectResult::Connected, res);
 
-		NET::UnixStreamSocket session(server.accept());
+		NET::UnixStreamSocket session(*server.accept());
 
 		std::vector<char> sendBuffer(32 * 1024);
 		const size_t len = sendBuffer.size();
@@ -124,7 +127,8 @@ public:
 		CPPUNIT_ASSERT(!opt);
 
 		NET::UnixStreamSocket client;
-		client.connect(serverPath);
+		ConnectResult res = client.connect(serverPath);
+		CPPUNIT_ASSERT_EQUAL(ConnectResult::Connected, res);
 
 		opt = server.timedAccept(1000);
 		CPPUNIT_ASSERT(opt);
@@ -154,9 +158,10 @@ public:
 
 		server.bind(serverPath);
 		server.listen();
-		client.connect(serverPath);
+		ConnectResult res = client.connect(serverPath);
+		CPPUNIT_ASSERT_EQUAL(ConnectResult::Connected, res);
 
-		NET::UnixStreamSocket session(server.accept());
+		NET::UnixStreamSocket session(*server.accept());
 
 		char buffer[64] = {};
 		// Connection exists, but no data is waiting
@@ -188,9 +193,11 @@ public:
 
 		server.bind(serverPath);
 		server.listen();
-		client.connect(serverPath);
 
-		NET::UnixStreamSocket session(server.accept());
+		ConnectResult res = client.connect(serverPath);
+		CPPUNIT_ASSERT_EQUAL(ConnectResult::Connected, res);
+
+		NET::UnixStreamSocket session(*server.accept());
 		CPPUNIT_ASSERT(!session.peerDisconnected());
 
 		client.shutdown(NET::STOP_SEND);
@@ -218,18 +225,18 @@ public:
 			NET::UnixStreamSocket server;
 			server.bind(serverPath);
 			server.listen();
-
 			CPPUNIT_ASSERT(::access(serverPath.c_str(), F_OK) == 0);
 
 			{
 				NET::UnixStreamSocket client;
 				client.bind(clientPath);
-				client.connect(serverPath);
 
+				ConnectResult res = client.connect(serverPath);
+				CPPUNIT_ASSERT_EQUAL(ConnectResult::Connected, res);
 				CPPUNIT_ASSERT(::access(clientPath.c_str(), F_OK) == 0);
 
 				{
-					NET::UnixStreamSocket session(server.accept());
+					NET::UnixStreamSocket session(*server.accept());
 					CPPUNIT_ASSERT_EQUAL(serverPath, session.getLocalPath());
 					CPPUNIT_ASSERT_EQUAL(clientPath, session.getForeignPath());
 				}
@@ -269,8 +276,9 @@ public:
 			CPPUNIT_ASSERT_EQUAL(serverPath, listener.getLocalPath());
 
 			NET::UnixStreamSocket client;
-			client.connect(serverPath);
-			NET::UnixStreamSocket session = listener.accept();
+			ConnectResult res = client.connect(serverPath);
+			CPPUNIT_ASSERT_EQUAL(ConnectResult::Connected, res);
+			NET::UnixStreamSocket session = *listener.accept();
 			CPPUNIT_ASSERT(!session.peerDisconnected());
 		}
 

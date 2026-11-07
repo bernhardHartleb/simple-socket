@@ -7,6 +7,7 @@
 
 using NET::IOResult;
 using NET::IOStatus;
+using NET::ConnectResult;
 
 class UnixDatagramSocket_TEST : public CppUnit::TestFixture
 {
@@ -55,7 +56,8 @@ public:
 		CPPUNIT_ASSERT_EQUAL(receiverPath, receiver.getLocalPath());
 
 		const char message[] = "Hello Unix datagram";
-		sender.sendTo(message, sizeof(message), receiverPath);
+		IOResult sent = sender.sendTo(message, sizeof(message), receiverPath);
+		CPPUNIT_ASSERT(sent);
 
 		char buffer[sizeof(message)] = {};
 		std::string sourcePath;
@@ -84,8 +86,11 @@ public:
 		// No peer exists before connect()
 		CPPUNIT_ASSERT_EQUAL(std::string(), client.getForeignPath());
 
-		client.connect(serverPath);
-		server.connect(clientPath);
+		ConnectResult res;
+		res = client.connect(serverPath);
+		CPPUNIT_ASSERT_EQUAL(ConnectResult::Connected, res);
+		res = server.connect(clientPath);
+		CPPUNIT_ASSERT_EQUAL(ConnectResult::Connected, res);
 
 		CPPUNIT_ASSERT_EQUAL(clientPath, client.getLocalPath());
 		CPPUNIT_ASSERT_EQUAL(serverPath, client.getForeignPath());
@@ -144,7 +149,8 @@ public:
 			CPPUNIT_ASSERT_EQUAL(static_cast<char>(0x5a), c);
 
 		const char message[] = "Timed Unix datagram";
-		sender.sendTo(message, sizeof(message), receiverPath);
+		IOResult sent = sender.sendTo(message, sizeof(message), receiverPath);
+		CPPUNIT_ASSERT(sent);
 
 		recv = receiver.timedReceiveFrom(buffer, sizeof(buffer), sourcePath, 1000);
 		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, recv.status);
@@ -168,7 +174,8 @@ public:
 		receiver.bind(receiverPath);
 
 		char dummy = 'X';
-		sender.sendTo(&dummy, 0, receiverPath);
+		IOResult sent = sender.sendTo(&dummy, 0, receiverPath);
+		CPPUNIT_ASSERT(sent);
 
 		std::string sourcePath;
 		IOResult recv = receiver.receiveFrom(&dummy, sizeof(dummy), sourcePath);
@@ -205,7 +212,7 @@ public:
 
 		NET::UnixDatagramSocket socket;
 		CPPUNIT_ASSERT_THROW(socket.bind(badPath), NET::SocketException);
-		CPPUNIT_ASSERT_THROW(socket.sendTo(buffer, sizeof(buffer), badPath), NET::SocketException);
+		CPPUNIT_ASSERT_THROW(auto t = socket.sendTo(buffer, sizeof(buffer), badPath), NET::SocketException);
 
 		// no exception when sending datagrams to missing socket file
 		IOResult sent = socket.sendTo(buffer, sizeof(buffer), missingPath);
@@ -232,9 +239,12 @@ public:
 			CPPUNIT_ASSERT_EQUAL(serverPath, socket.getLocalPath());
 
 			NET::UnixDatagramSocket peer;
-			peer.connect(serverPath);
+			ConnectResult res = peer.connect(serverPath);
+			CPPUNIT_ASSERT_EQUAL(ConnectResult::Connected, res);
+
 			char buffer[] = "asdf";
-			peer.send( buffer, sizeof(buffer));
+			IOResult sent = peer.send( buffer, sizeof(buffer));
+			CPPUNIT_ASSERT(sent);
 
 			IOResult recv = socket.timedReceive( buffer, sizeof(buffer), 50);
 			CPPUNIT_ASSERT_EQUAL(IOStatus::Success, recv.status);

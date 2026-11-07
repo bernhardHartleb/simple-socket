@@ -68,11 +68,12 @@ public:
 
 		const ::canid_t extid = (0x10000000 & CAN_EFF_MASK) | CAN_EFF_FLAG;
 		const ::can_frame sent = makeFrame(extid, {0x10, 0x20, 0x30, 0x40});
-		sender.sendTo(sent, INTERFACE);
+		IOResult ret = sender.sendTo(sent, INTERFACE);
+		CPPUNIT_ASSERT(ret);
 
 		::can_frame received{};
 		std::string sourceInterface;
-		IOResult ret = receiver.timedReceiveFrom(received, sourceInterface, 1000);
+		ret = receiver.timedReceiveFrom(received, sourceInterface, 1000);
 
 		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, ret.status);
 		CPPUNIT_ASSERT_EQUAL(sizeof(::can_frame), ret.bytes);
@@ -92,10 +93,11 @@ public:
 
 		// A bound CAN_RAW socket can use ordinary send()
 		// because the bound interface supplies the destination.
-		sender.send(sent);
+		IOResult ret = sender.send(sent);
+		CPPUNIT_ASSERT(ret);
 
 		::can_frame received{};
-		IOResult ret = receiver.timedReceive(received, 1000);
+		ret = receiver.timedReceive(received, 1000);
 
 		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, ret.status);
 		CPPUNIT_ASSERT_EQUAL(sizeof(::can_frame), ret.bytes);
@@ -133,17 +135,19 @@ public:
 		const ::can_frame rejected = makeFrame(0x320, {0x11});
 		const ::can_frame accepted = makeFrame(0x321, {0x22, 0x33});
 
-		sender.send(rejected);
+		IOResult ret = sender.send(rejected);
+		CPPUNIT_ASSERT(ret);
 
 		::can_frame received{};
 		// The non-matching frame must not reach this socket
-		IOResult ret = receiver.timedReceive(received, 50);
+		ret = receiver.timedReceive(received, 50);
 		CPPUNIT_ASSERT_EQUAL(IOStatus::Timeout, ret.status);
 		CPPUNIT_ASSERT_EQUAL(0ul, ret.bytes);
 
-		sender.send(accepted);
-		ret = receiver.timedReceive(received, 1000);
+		ret = sender.send(accepted);
+		CPPUNIT_ASSERT(ret);
 
+		ret = receiver.timedReceive(received, 1000);
 		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, ret.status);
 		CPPUNIT_ASSERT_EQUAL(sizeof(::can_frame), ret.bytes);
 		assertFrameEqual(accepted, received);
@@ -162,17 +166,18 @@ public:
 
 		// SocketCAN local loopback is enabled by default, but a RAW
 		// socket does not receive its own transmitted frames by default.
-		socket.send(sent);
+		IOResult ret = socket.send(sent);
+		CPPUNIT_ASSERT(ret);
 
-		IOResult ret = socket.timedReceive(received, 50);
+		ret = socket.timedReceive(received, 50);
 		CPPUNIT_ASSERT_EQUAL(IOStatus::Timeout, ret.status);
 		CPPUNIT_ASSERT_EQUAL(0ul, ret.bytes);
 
 		socket.setReceiveOwnMessages(true);
-		socket.send(sent);
+		ret = socket.send(sent);
+		CPPUNIT_ASSERT(ret);
 
 		ret = socket.timedReceive(received, 1000);
-
 		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, ret.status);
 		CPPUNIT_ASSERT_EQUAL(sizeof(::can_frame), ret.bytes);
 		assertFrameEqual(sent, received);
@@ -186,22 +191,19 @@ public:
 			NET::CANRawSocket socket;
 			CPPUNIT_ASSERT_THROW(socket.bind("no-such-can-interface"), NET::SocketException);
 		}
-
 		{
 			NET::CANRawSocket socket;
 			const std::string tooLong(IF_NAMESIZE, 'x');
 			CPPUNIT_ASSERT_THROW(socket.bind(tooLong), NET::SocketException);
 		}
-
 		{
 			NET::CANRawSocket socket;
 			// send() has no interface to use until the RAW socket is bound
-			CPPUNIT_ASSERT_THROW(socket.send(frame), NET::SocketException);
+			CPPUNIT_ASSERT_THROW(auto t = socket.send(frame), NET::SocketException);
 		}
-
 		{
 			NET::CANRawSocket socket;
-			CPPUNIT_ASSERT_THROW(socket.sendTo(frame, "no-such-can-interface"), NET::SocketException);
+			CPPUNIT_ASSERT_THROW(auto t = socket.sendTo(frame, "no-such-can-interface"), NET::SocketException);
 		}
 	}
 };
