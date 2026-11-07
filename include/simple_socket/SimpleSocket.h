@@ -41,15 +41,21 @@ namespace NET
 		int m_errorcode;
 	};
 
+	//! used by internet socket types
 	enum AddressFamily
 	{
 		IPv4,
 		IPv6
 	};
 
+	// forward declare internal type
+	class SockAddress;
+
+	//! status of the I/O operation
 	enum class [[nodiscard]] IOStatus
 	{
 		Success,
+		WouldBlock,
 		Timeout,
 		PeerDisconnected,
 		DestinationUnavailable
@@ -58,6 +64,10 @@ namespace NET
 	/*!
 	 * Success
 	 *  bytes is meaningful, including zero
+	 *
+	 * WouldBlock
+	 *  bytes == 0
+	 *  only produced when socket is non-blocking
 	 *
 	 * Timeout
 	 *  bytes == 0
@@ -70,21 +80,27 @@ namespace NET
 	 *  bytes == 0
 	 *  primarily datagram semantics
 	 */
-	struct IOResult
+	struct [[nodiscard]] IOResult
 	{
 		IOStatus status;
 		size_t bytes;
+
+		//! simple check for successfull IO
+		explicit operator bool() const noexcept { return status == IOStatus::Success; }
 	};
 
+	//! result of the connection attempt
 	enum class [[nodiscard]] ConnectResult
 	{
 		Connected,
+		InProgress,
 		Timeout,
 		Refused,
 		Aborted,
 		Unreachable
 	};
 
+	//! direction to close for a stream socket
 	enum ShutdownDirection
 	{
 		STOP_RECEIVE,    ///< disable all variants of receive() on the socket, send calls still work
@@ -115,7 +131,7 @@ namespace NET
 		[[nodiscard]] int duplicateNativeHandle() const;
 
 		//! Returns true if socket is in a usable (non-moved) state and open
-		[[nodiscard]] bool valid() const noexcept;
+		bool valid() const noexcept;
 
 		//! send data through a connected socket
 		/*!
@@ -191,7 +207,7 @@ namespace NET
 		 * \return IOResult
 		 * \exception SocketException in case an error occured
 		 */
-		[[nodiscard]] IOResult timedReceive( void* buffer, size_t len, int timeout);
+		IOResult timedReceive( void* buffer, size_t len, int timeout);
 
 		//! Disconnect and unset any foreign addresses
 		/*!
@@ -234,6 +250,21 @@ namespace NET
 		 * \return true if a peer disconnected or is no longer connected
 		 */
 		[[nodiscard]] bool peerDisconnected() const;
+
+		//! returns true if socket is in blocking mode
+		bool isBlocking() const;
+
+		//! set socket to blocking or non-blocking I/O operations
+		/*!
+		 * A non-blocking socket will return from all I/O operations right away.
+		 * The IOStatus WouldBlock is used to signify no work can be done
+		 * at the moment. An event handler can use poll(), epoll(), etc. to
+		 * monitor the socket for readyness for the next operation.
+		 *
+		 * All timed operations provided by socket classes are not affected.
+		 * Timed calls wait up to timeout ms for even with non-blocking sockets.
+		 */
+		void setBlocking(bool blocking);
 
 	protected:
 		//! listen for incoming connections
@@ -287,8 +318,7 @@ namespace NET
 		 * \return IOResult
 		 * \exception SocketException on receive errors other than peer loss
 		 */
-		[[nodiscard]] IOResult receiveAll( void* buffer, size_t len);
-
+		IOResult receiveAll( void* buffer, size_t len);
 
 		//! allows a subclass to create a new socket
 		SimpleSocket( int domain, int type, int protocol);
@@ -302,8 +332,10 @@ namespace NET
 		SimpleSocket( SimpleSocket&& other) noexcept;
 		SimpleSocket& operator=( SimpleSocket&& other) noexcept;
 
-		// protected to avoid delete via base class
+		//! protected destructor to avoid delete via base class
 		~SimpleSocket();
+
+		//! \cond internal
 
 		//! direct accept syscall
 		int acceptNative() const;
@@ -313,6 +345,14 @@ namespace NET
 
 		//! retrying accept with timeout for use by stream sockets
 		int timedAccept( int timeout) const;
+
+		//! address family agnostic connect
+		ConnectResult connect( const SockAddress& addr);
+
+		//! address family agnostic timed connect
+		ConnectResult timedConnect( const SockAddress& addr, int timeout);
+
+		//! \endcond
 
 		//! check if external socket descriptor to fits the given parameters
 		static void validateSocket( int sockfd, int type, int protocol);

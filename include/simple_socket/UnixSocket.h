@@ -17,9 +17,10 @@ namespace NET
 		/*!
 		 * Establish a socket connection with the given socket
 		 * \param foreignPath the path of the remote socket
+		 * \return ConnectResult
 		 * \exception SocketException thrown if unable to establish connection
 		 */
-		void connect( std::string_view foreignPath);
+		ConnectResult connect( std::string_view foreignPath);
 
 		/*!
 		 * Set the local path to the specified path

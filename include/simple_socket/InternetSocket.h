@@ -34,13 +34,14 @@ namespace NET
 		 * However, if you are using a non-connection oriented socket
 		 * (like UDPSocket), calling connect on that socket will allow you to
 		 * use the send() function like on a connection oriented socket.
-		 * If not connected, you would have to use sendTo
+		 * If not connected, you would have to use sendTo.
 		 *
 		 * \param foreignAddress foreign address
-		 * \param foreignPort foreign port
+		 * \param foreignPort foreign
+		 * \return ConnectResult
 		 * \exception SocketException thrown if unable to establish connection
 		 */
-		void connect( std::string_view foreignAddress, unsigned short foreignPort);
+		ConnectResult connect( std::string_view foreignAddress, unsigned short foreignPort);
 
 		//! establish a connection with the given foreign address and port
 		/*!
@@ -51,7 +52,7 @@ namespace NET
 		 * \param foreignAddress foreign address
 		 * \param foreignPort foreign port
 		 * \param timeout the timeout in ms after which connect will give up and return
-		 * \return ConnectResult
+
 		 * \exception SocketException thrown if unable to establish connection
 		 */
 		ConnectResult timedConnect( std::string_view foreignAddress, unsigned short foreignPort, int timeout);

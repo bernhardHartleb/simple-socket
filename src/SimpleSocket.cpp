@@ -11,6 +11,38 @@
 
 using namespace NET;
 
+namespace {
+
+class NonBlockingGuard
+{
+public:
+	explicit NonBlockingGuard(int fd) : m_fd(fd)
+	{
+		m_flags = ::fcntl( m_fd, F_GETFL, 0);
+		if( m_flags < 0)
+			throw SocketException("Unable to get file status (fcntl)");
+		if( ::fcntl( m_fd, F_SETFL, m_flags | O_NONBLOCK) < 0)
+			throw SocketException("Unable to set non-blocking mode (fcntl)");
+	}
+
+	~NonBlockingGuard()
+	{
+		const int savedErrno = errno;
+		::fcntl( m_fd, F_SETFL, m_flags);
+		errno = savedErrno;
+	}
+
+	NonBlockingGuard(const NonBlockingGuard&) = delete;
+	NonBlockingGuard& operator=(const NonBlockingGuard&) = delete;
+
+private:
+	int m_fd;
+	int m_flags;
+};
+
+}; // namespace
+
+
 SocketException::SocketException( std::string_view message, bool inclErrno /* = true */)
 : m_message(message)
 , m_errorcode(0)
@@ -196,6 +228,28 @@ bool SimpleSocket::peerDisconnected() const
 	return pfd.revents & (POLLRDHUP | POLLHUP | POLLERR);
 }
 
+bool SimpleSocket::isBlocking() const
+{
+	int flags = ::fcntl( m_socket, F_GETFL, 0);
+	if( flags < 0)
+		throw SocketException("Unable to get file status (fcntl)");
+
+	return !(flags & O_NONBLOCK);
+}
+
+void SimpleSocket::setBlocking(bool bl)
+{
+	int flags = ::fcntl( m_socket, F_GETFL, 0);
+	if( flags < 0)
+		throw SocketException("Unable to get file status (fcntl)");
+
+	if(bl) flags &= ~O_NONBLOCK;
+	else   flags |= O_NONBLOCK;
+
+	if( ::fcntl( m_socket, F_SETFL, flags) < 0)
+		throw SocketException("Unable to set non-blocking mode (fcntl)");
+}
+
 void SimpleSocket::listen( int backlog)
 {
 	int ret = ::listen( m_socket, backlog);
@@ -222,6 +276,11 @@ int SimpleSocket::accept() const
 		if( fd >= 0) return fd;
 
 		const int error = errno;
+		// non-blocking? return invalid
+		if( error == EAGAIN || error == EWOULDBLOCK)
+			return -1;
+
+		// error indicates we should try again
 		if( error == EINTR || detail::isTransientAcceptError(error))
 			continue;
 
@@ -231,13 +290,13 @@ int SimpleSocket::accept() const
 
 int SimpleSocket::timedAccept( int timeout) const
 {
-	// negative timeout means wait forever
-	if( timeout < 0) return accept();
-
 	bool firstRun = true;
 	using Clock = std::chrono::steady_clock;
 	auto now = Clock::now();
-	const auto deadline = now + std::chrono::milliseconds(timeout);
+	// negative timeout means wait forever
+	const bool infinite = timeout < 0;
+	const auto deadline = infinite ? Clock::time_point::max()
+		: now + std::chrono::milliseconds(timeout);
 
 	while(1)
 	{
@@ -271,9 +330,12 @@ int SimpleSocket::timedAccept( int timeout) const
 			if( fd >= 0) return fd;
 
 			const int error = errno;
-			if( error == EINTR
-			 || error == EAGAIN || error == EWOULDBLOCK
-			 || detail::isTransientAcceptError(error))
+			// try again until timeout
+			if( error == EAGAIN || error == EWOULDBLOCK)
+				continue;
+
+			// error indicates we should try again
+			if( error == EINTR || detail::isTransientAcceptError(error))
 				continue;
 
 			throw SocketException("timedAccept failed (accept)", error);
@@ -287,6 +349,89 @@ int SimpleSocket::timedAccept( int timeout) const
 	}
 }
 
+ConnectResult SimpleSocket::connect( const SockAddress& addr)
+{
+	if( ::connect( m_socket, addr.data(), addr.length()) == 0)
+		return ConnectResult::Connected;
+
+	const int error = errno;
+	switch(error)
+	{
+		case EINPROGRESS:
+		case EALREADY:
+		case EINTR:
+			return ConnectResult::InProgress;
+	}
+
+	// Linux uses EGAGIN for unix socckets non-blocking connect
+	if( error == EAGAIN && addr.family() == AF_UNIX)
+		return ConnectResult::InProgress;
+
+	if( auto result = detail::connectResultFromError(error))
+		return *result;
+
+	throw SocketException("Connect failed (connect)", error);
+}
+
+ConnectResult SimpleSocket::timedConnect( const SockAddress& addr, int timeout)
+{
+	// Set O_NONBLOCK and restore blocking state on destruction
+	NonBlockingGuard nonBlocking( m_socket);
+
+	// Asynchronous connection attempt
+	int ret = ::connect( m_socket, addr.data(), addr.length());
+	if( ret == 0) // Already connected
+		return ConnectResult::Connected;
+
+	int error = errno;
+	// known connection issue?
+	auto result = detail::connectResultFromError(error);
+	if( result) return *result;
+
+	// Linux uses EGAGIN for unix socckets non-blocking connect
+	if( error == EAGAIN && addr.family() == AF_UNIX)
+		error = EINPROGRESS;
+
+	// should we continue with poll?
+	switch(error)
+	{
+		case EINPROGRESS: // asynchronous connect active
+		case EALREADY:    // previous attempt still active, potentially not to the same endpoint
+		case EINTR:
+			break;
+		default:
+			throw SocketException("timedConnect failed (connect)", error);
+	}
+
+	// Wait for the connection to complete
+	pollfd pfd {};
+	pfd.fd = m_socket;
+	pfd.events = POLLOUT;
+
+	ret = TEMP_FAILURE_RETRY (::poll( &pfd, 1, timeout));
+	if( ret < 0)
+		throw SocketException("timedConnect failed (poll)");
+
+	if( ret == 0) return ConnectResult::Timeout;
+
+	if( pfd.revents & POLLNVAL)
+		throw SocketException("timedConnect failed (invalid socket)", false);
+
+	// Check for socket errors after poll success
+	error = 0;
+	socklen_t len = sizeof(error);
+	if( ::getsockopt( m_socket, SOL_SOCKET, SO_ERROR, &error, &len) < 0)
+		throw SocketException("timedConnect failed (getsockopt)");
+
+	if( error == 0) return ConnectResult::Connected;
+
+	// known connection issues should not throw
+	result = detail::connectResultFromError(error);
+	if( result) return *result;
+
+	throw SocketException("timedConnect failed", error);
+}
+
 IOResult SimpleSocket::sendAll( const void* buffer, size_t len)
 {
 	size_t sent = 0;
@@ -295,7 +440,7 @@ IOResult SimpleSocket::sendAll( const void* buffer, size_t len)
 		const char* pos = static_cast<const char*>(buffer) + sent;
 		IOResult res = send( pos, len - sent);
 		sent += res.bytes;
-		if( res.bytes == 0) return { res.status, sent };
+		if( res.status != IOStatus::Success) return { res.status, sent };
 	}
 	return { IOStatus::Success, sent };
 }
@@ -308,7 +453,7 @@ IOResult SimpleSocket::receiveAll( void* buffer, size_t len)
 		char* pos = static_cast<char*>(buffer) + received;
 		IOResult res = receive( pos, len - received);
 		received += res.bytes;
-		if( res.bytes == 0) return { res.status, received };
+		if( res.status != IOStatus::Success) return { res.status, received };
 	}
 	return { IOStatus::Success, received };
 }

@@ -4,39 +4,10 @@
 #include "PollHelper.h"
 
 #include <sys/socket.h>
-#include <poll.h>
-#include <fcntl.h>
 
 using namespace NET;
 
 namespace {
-
-class NonBlockingGuard
-{
-public:
-	explicit NonBlockingGuard(int fd) : m_fd(fd)
-	{
-		m_flags = ::fcntl( m_fd, F_GETFL, 0);
-		if( m_flags < 0)
-			throw SocketException("Unable to get file status (fcntl)");
-		if( ::fcntl( m_fd, F_SETFL, m_flags | O_NONBLOCK) < 0)
-			throw SocketException("Unable to set non-blocking mode (fcntl)");
-	}
-
-	~NonBlockingGuard()
-	{
-		const int savedErrno = errno;
-		::fcntl( m_fd, F_SETFL, m_flags);
-		errno = savedErrno;
-	}
-
-	NonBlockingGuard(const NonBlockingGuard&) = delete;
-	NonBlockingGuard& operator=(const NonBlockingGuard&) = delete;
-
-private:
-	int m_fd;
-	int m_flags;
-};
 
 AddressFamily socketAddressFamily(int fd)
 {
@@ -72,70 +43,16 @@ void InternetSocket::setReuseAddress( bool enable)
 		throw SocketException("Failed to set address reuse (setsockopt)");
 }
 
-void InternetSocket::connect( std::string_view foreignAddress, unsigned short foreignPort)
+ConnectResult InternetSocket::connect( std::string_view foreignAddress, unsigned short foreignPort)
 {
 	SockAddress addr( m_family, foreignAddress, foreignPort);
-
-	if( ::connect( m_socket, addr.data(), addr.length()) < 0)
-		throw SocketException("Connect failed (connect)");
+	return SimpleSocket::connect( addr);
 }
 
 ConnectResult InternetSocket::timedConnect( std::string_view foreignAddress, unsigned short foreignPort, int timeout)
 {
 	SockAddress addr( m_family, foreignAddress, foreignPort);
-
-	// Set O_NONBLOCK and restore blocking state on destruction
-	NonBlockingGuard nonBlocking( m_socket);
-
-	// Asynchronous connection attempt
-	int ret = ::connect( m_socket, addr.data(), addr.length());
-	if( ret == 0) // Already connected
-		return ConnectResult::Connected;
-
-	int error = errno;
-	// known connection issue?
-	auto result = detail::connectResultFromError(error);
-	if( result) return *result;
-
-	// should we continue with poll?
-	switch(error)
-	{
-		case EALREADY:    // previous attempt still active, potentially not to the same endpoint
-		case EINPROGRESS: // asynchronous connect active
-		case EAGAIN:      // same for unix sockets, otherwise means routing cache full
-		case EINTR:
-			break;
-		default:
-			throw SocketException("timedAccept failed (connect)", error);
-	}
-
-	// Wait for the connection to complete
-	pollfd pfd {};
-	pfd.fd = m_socket;
-	pfd.events = POLLOUT;
-
-	ret = TEMP_FAILURE_RETRY (::poll( &pfd, 1, timeout));
-	if( ret < 0)
-		throw SocketException("timedConnect failed (poll)");
-
-	if( ret == 0) return ConnectResult::Timeout;
-
-	if( pfd.revents & POLLNVAL)
-		throw SocketException("timedConnect failed (invalid socket)", false);
-
-	// Check for socket errors after poll success
-	error = 0;
-	socklen_t len = sizeof(error);
-	if( ::getsockopt( m_socket, SOL_SOCKET, SO_ERROR, &error, &len) < 0)
-		throw SocketException("timedConnect failed (getsockopt)");
-
-	if( error == 0) return ConnectResult::Connected;
-
-	// known connection issues should not throw
-	result = detail::connectResultFromError(error);
-	if( result) return *result;
-
-	throw SocketException("timedConnect failed", error);
+	return SimpleSocket::timedConnect( addr, timeout);
 }
 
 void InternetSocket::bind( unsigned short localPort /* = 0 */)

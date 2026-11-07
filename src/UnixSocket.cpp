@@ -41,12 +41,10 @@ UnixSocket::~UnixSocket()
 		::unlink( m_boundPath.c_str());
 }
 
-void UnixSocket::connect( std::string_view foreignPath)
+ConnectResult UnixSocket::connect( std::string_view foreignPath)
 {
 	SockAddress addr( foreignPath);
-
-	if( ::connect( m_socket, addr.data(), addr.length()) < 0)
-		throw SocketException("Connect failed (connect)");
+	return SimpleSocket::connect( addr);
 }
 
 void UnixSocket::bind( std::string_view localPath)
