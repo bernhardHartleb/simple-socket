@@ -37,8 +37,8 @@ static int runServer()
 static int sendCommand(const std::string& command)
 {
 	NET::UDPSocket socket;
-	socket.sendTo(command.data(), command.size(), LOOPBACK, PORT);
-	std::cout << "Sent command: " << command << std::endl;
+	NET::IOResult result = socket.sendTo(command.data(), command.size(), LOOPBACK, PORT);
+	if (result) std::cout << "Sent command: " << command << std::endl;
 	return 0;
 }
 

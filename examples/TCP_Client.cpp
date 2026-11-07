@@ -13,7 +13,13 @@ int main()
 
 	NET::TCPSocket client_socket;
 	// Connect to local TCP Server example
-	client_socket.connect(server_ip, 47777);
+	auto res = client_socket.connect(server_ip, 47777);
+
+	if( res != NET::ConnectResult::Connected)
+	{
+		std::cerr << "Unable to connect to server\n";
+		return 1;
+	}
 
 	std::array<char, 256> buffer{};
 

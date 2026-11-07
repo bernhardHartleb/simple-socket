@@ -26,8 +26,8 @@ int main()
 	// TTL 0 keeps packets self-contained on the local host
 	send_socket.setMulticastTTL(0);
 	// Send to group
-	send_socket.sendTo(send_msg, send_len, multicast_group, multicast_port);
-
+	NET::IOResult sent = send_socket.sendTo(send_msg, send_len, multicast_group, multicast_port);
+	static_cast<void>(sent);
 
 	std::array<char, 256> buffer{};
 	std::string source;
