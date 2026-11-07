@@ -1,10 +1,11 @@
 #include "CANRawSocket.h"
-#include "TempFailure.h"
+#include "SockAddress.h"
 #include "PollHelper.h"
 
 #include <sys/socket.h>
 #include <linux/can.h>
 #include <linux/can/raw.h>
+#include <cstring>
 
 using namespace NET;
 
@@ -33,31 +34,24 @@ IOResult CANRawSocket::sendTo( const ::can_frame& frame, std::string_view interf
 	destAddr.can_family = AF_CAN;
 	destAddr.can_ifindex = getInterfaceIndex(interface);
 
-	ssize_t ret = TEMP_FAILURE_RETRY (::sendto( m_socket, (const raw_type*)&frame, sizeof(frame), 0, (sockaddr*)&destAddr, sizeof(destAddr)));
-	if( ret >= 0)
-		return { IOStatus::Success, static_cast<size_t>(ret) };
+	SockAddress addr;
+	std::memcpy( addr.data(), &destAddr, addr.length());
 
-	auto status = detail::classifyIoError( errno, m_connectionOriented);
-	if( status) return IOResult{ *status, 0 };
-
-	throw SocketException("Send failed (sendto)");
+	return SimpleSocket::sendTo( (const void*)&frame, sizeof(frame), addr);
 }
 
 IOResult CANRawSocket::receiveFrom( ::can_frame& frame, std::string& interface)
 {
-	sockaddr_can clientAddr;
-	socklen_t addrLen = sizeof(clientAddr);
+	SockAddress addr;
+	IOResult res = SimpleSocket::receiveFrom( (void*)&frame, sizeof(frame), addr);
 
-	ssize_t ret = TEMP_FAILURE_RETRY (::recvfrom( m_socket, (raw_type*)&frame, sizeof(frame), 0, (sockaddr*)&clientAddr, &addrLen));
-	if( ret < 0)
+	if( res.status == IOStatus::Success)
 	{
-		auto status = detail::classifyIoError( errno, m_connectionOriented);
-		if( status) return IOResult{ *status, 0 };
-
-		throw SocketException("Receive failed (recvfrom)");
+		sockaddr_can clientAddr;
+		std::memcpy( &clientAddr, addr.data(), sizeof(clientAddr));
+		interface = getInterfaceName(clientAddr);
 	}
-	interface = getInterfaceName(clientAddr);
-	return { IOStatus::Success, static_cast<size_t>(ret) };
+	return res;
 }
 
 IOResult CANRawSocket::timedReceiveFrom( ::can_frame& frame, std::string& interface, int timeout)
