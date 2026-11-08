@@ -227,6 +227,19 @@ void SimpleSocket::disconnect()
 	}
 }
 
+bool SimpleSocket::isConnected() const
+{
+	SockAddress addr;
+
+	if( ::getpeername( m_socket, addr.data(), addr.lengthPtr()) == 0)
+		return true;
+
+	const int error = errno;
+	if( error == ENOTCONN) return false;
+
+	throw SocketException("isConnected failed (getpeername)", error);
+}
+
 void SimpleSocket::shutdown( ShutdownDirection type)
 {
 	int how = 0;
@@ -387,15 +400,22 @@ ConnectResult SimpleSocket::finishConnect( int timeout)
 		int error = 0;
 		socklen_t len = sizeof(error);
 		if( ::getsockopt( m_socket, SOL_SOCKET, SO_ERROR, &error, &len) < 0)
-			throw SocketException("timedConnect failed (getsockopt)");
+			throw SocketException("finishConnect failed (getsockopt)");
 
-		if( error == 0) return ConnectResult::Connected;
+		if( error == 0)
+		{
+			// SO_ERROR == 0 alone does not prove a connection exists.
+			// An unconnected socket may report POLLOUT | POLLHUP.
+			if( isConnected()) return ConnectResult::Connected;
+
+			throw SocketException("finishConnect failed (no connected peer)", ENOTCONN);
+		}
 
 		// known connection issues should not throw
 		auto result = detail::connectResultFromError(error);
 		if( result) return *result;
 
-		throw SocketException("timedConnect failed", error);
+		throw SocketException("finishConnect failed", error);
 	});
 
 	auto expired = (timeout == 0) ? ConnectResult::InProgress : ConnectResult::Timeout;

@@ -223,6 +223,20 @@ namespace NET
 		 */
 		void disconnect();
 
+		//! check if the kernel currently has an associated peer address
+		/*!
+		 * For stream sockets, true means a peer association exists; it does not
+		 * guarantee that the remote endpoint is alive or that I/O can succeed.
+		 * A peer that has sent FIN may still be associated with the socket.
+		 *
+		 * For datagram sockets, true only indicates that connect() configured
+		 * a default peer address; it does not establish a network connection.
+		 *
+		 * \return false if getpeername() reports ENOTCONN
+		 * \exception SocketException for other getpeername() errors
+		 */
+		[[nodiscard]] bool isConnected() const;
+
 		//! shutdown the connection in the specified direction
 		/*!
 		 * This will gracefully end a connection by sending a FIN frame.
@@ -252,7 +266,7 @@ namespace NET
 		[[nodiscard]] bool peerDisconnected() const;
 
 		//! returns true if socket is in blocking mode
-		bool isBlocking() const;
+		[[nodiscard]] bool isBlocking() const;
 
 		//! set socket to blocking or non-blocking I/O operations
 		/*!
