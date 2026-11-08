@@ -60,7 +60,7 @@ IOResult UDPSocket::receiveFrom( void* buffer, size_t len, std::string& sourceAd
 
 IOResult UDPSocket::timedReceiveFrom( void* buffer, size_t len, std::string& sourceAddress, unsigned short& sourcePort, int timeout)
 {
-	IOStatus res = SimpleSocket::timedReceive( timeout);
+	IOStatus res = SimpleSocket::waitReadable( timeout);
 	if( res == IOStatus::Success)
 		return receiveFrom( buffer, len, sourceAddress, sourcePort);
 	else

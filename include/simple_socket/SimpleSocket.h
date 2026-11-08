@@ -343,8 +343,8 @@ namespace NET
 		//! receiveFrom for datagram sockets
 		IOResult receiveFrom( void* buffer, size_t len, SockAddress& addr);
 
-		//! signal callers wether we can receive
-		IOStatus timedReceive( int timeout);
+		//! wait until timeout for the socket to become readable
+		IOStatus waitReadable( int timeout);
 
 		//! direct accept syscall
 		int acceptNative() const;

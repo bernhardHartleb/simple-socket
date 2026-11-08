@@ -168,7 +168,7 @@ IOResult SCTPSocket::receive( void* data, size_t maxLen, uint16_t& stream, recei
 
 IOResult SCTPSocket::timedReceive( void* data, size_t maxLen, uint16_t& stream, int timeout)
 {
-	IOStatus res = SimpleSocket::timedReceive( timeout);
+	IOStatus res = SimpleSocket::waitReadable( timeout);
 	if( res == IOStatus::Success)
 		return receive( data, maxLen, stream);
 	else
@@ -177,7 +177,7 @@ IOResult SCTPSocket::timedReceive( void* data, size_t maxLen, uint16_t& stream, 
 
 IOResult SCTPSocket::timedReceive( void* data, size_t maxLen, uint16_t& stream, receiveFlag& flag, int timeout)
 {
-	IOStatus res = SimpleSocket::timedReceive( timeout);
+	IOStatus res = SimpleSocket::waitReadable( timeout);
 	if( res == IOStatus::Success)
 		return receive( data, maxLen, stream, flag);
 	else

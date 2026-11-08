@@ -171,14 +171,14 @@ IOResult SimpleSocket::receiveFrom( void* buffer, size_t len, SockAddress& addr)
 
 IOResult SimpleSocket::timedReceive( void* buffer, size_t len, int timeout)
 {
-	IOStatus res = timedReceive( timeout);
+	IOStatus res = waitReadable( timeout);
 	if( res == IOStatus::Success)
 		return receive( buffer, len);
 	else
 		return { res, 0 };
 }
 
-IOStatus SimpleSocket::timedReceive( int timeout)
+IOStatus SimpleSocket::waitReadable( int timeout)
 {
 	bool firstRun = true;
 	using Clock = std::chrono::steady_clock;

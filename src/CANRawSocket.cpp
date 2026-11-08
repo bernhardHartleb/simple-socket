@@ -54,7 +54,7 @@ IOResult CANRawSocket::receiveFrom( ::can_frame& frame, std::string& interface)
 
 IOResult CANRawSocket::timedReceiveFrom( ::can_frame& frame, std::string& interface, int timeout)
 {
-	IOStatus res = SimpleSocket::timedReceive( timeout);
+	IOStatus res = SimpleSocket::waitReadable( timeout);
 	if( res == IOStatus::Success)
 		return receiveFrom( frame, interface);
 	else

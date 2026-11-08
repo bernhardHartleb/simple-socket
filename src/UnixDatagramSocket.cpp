@@ -35,7 +35,7 @@ IOResult UnixDatagramSocket::receiveFrom( void* buffer, size_t len, std::string&
 
 IOResult UnixDatagramSocket::timedReceiveFrom( void* buffer, size_t len, std::string& sourcePath, int timeout)
 {
-	IOStatus res = SimpleSocket::timedReceive( timeout);
+	IOStatus res = SimpleSocket::waitReadable( timeout);
 	if( res == IOStatus::Success)
 		return receiveFrom( buffer, len, sourcePath);
 	else
