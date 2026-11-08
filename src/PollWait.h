@@ -47,7 +47,7 @@ namespace NET::detail
 					return result;
 			}
 
-			if( Clock::now() >= deadline)
+			if( !infinite && Clock::now() >= deadline)
 				return Result {}; // Timeout
 		}
 	}
