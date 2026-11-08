@@ -49,13 +49,14 @@ namespace NET
 
 		//! wait for another socket to connect
 		/*!
-		 * accept() will block until a new connection arrives. It is used to
-		 * create TCP server applications. On return it will return the
-		 * TCPSocket object to the incoming connection.
+		 * accept() is used to create TCP server applications.
+		 * On return it will return the TCPSocket object to the incoming connection.
+		 * In blocking mode it will wait until the new connection arrives.
+		 * In non-blocking mode the optional return value may be nullopt.
 		 *
 		 * accept() can be only called on a listening socket.
 		 *
-		 * \return TCPSocket object to the new connection
+		 * \return optional TCPSocket object to the new connection
 		 * \exception SocketException
 		 */
 		[[nodiscard]] std::optional<TCPSocket> accept() const;
@@ -64,13 +65,14 @@ namespace NET
 		/*!
 		 * timedAccept() will block until a new connection arrives, or the given
 		 * timeout runs out. It is used to create TCP server applications. On
-		 * return it will return the TCPSocket object to the incoming connection.
+		 * success it will return the TCPSocket object to the incoming connection.
+		 * On timeout it returns nullopt.
 		 *
 		 * timedAccept() can only be called on a listening socket.
 		 *
-		 * \param timeout the timeout in ms after which accept will give up and return
+		 * \param timeout the timeout in ms after which accept will give up
 		 * \return optional TCPSocket object to the new connection, nullopt on timeout
-		 * \exception SocketException
+		 * \exception SocketException on other errors
 		 */
 		[[nodiscard]] std::optional<TCPSocket> timedAccept( int timeout) const;
 

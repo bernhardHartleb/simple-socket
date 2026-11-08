@@ -37,18 +37,25 @@ namespace NET
 		using SimpleSocket::listen;
 
 		/*!
-		 * Wait for and accept an incoming connection.
+		 * Accept an incoming connection.
+		 * In blocking mode it will wait until the new connection arrives.
+		 * In non-blocking mode the optional return value may be null right away.
 		 *
-		 * \return  UnixStreamSocket object owning the accepted socket
-		 * \exception SocketException if accept fails
+		 * accept() can be only called on a listening socket.
+		 *
+		 * \return optional UnixStreamSocket object owning the accepted socket
+		 * \exception SocketException
 		 */
 		[[nodiscard]] std::optional<UnixStreamSocket> accept() const;
 
 		/*!
 		 * Wait up to timeout milliseconds for an incoming connection.
 		 *
+		 * timedAccept() can only be called on a listening socket.
+		 *
+		 * \param timeout the timeout in ms after which accept will give up
 		 * \return optional UnixStreamSocket object to the new connection, nullopt on timeout
-		 * \exception SocketException on errors
+		 * \exception SocketException on other errors
 		 */
 		[[nodiscard]] std::optional<UnixStreamSocket> timedAccept( int timeout) const;
 
