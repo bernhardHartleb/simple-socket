@@ -19,6 +19,7 @@ namespace NET::detail
 	//! check if external socket descriptor to fits the given parameters
 	void validateSocket( int sockfd, int type, int protocol);
 
+
 	//! switch socket to non-blocking while instance lives
 	class NonBlockingGuard
 	{

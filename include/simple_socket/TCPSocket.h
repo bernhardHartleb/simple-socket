@@ -35,6 +35,9 @@ namespace NET
 		//! Listen for incoming connections
 		using SimpleSocket::listen;
 
+		//! Complete async connect attempt
+		using SimpleSocket::finishConnect;
+
 		//! Enable or disable TCP_NODELAY
 		/*!
 		* TCP_NODELAY disables Nagle's algorithm packet buffering. It

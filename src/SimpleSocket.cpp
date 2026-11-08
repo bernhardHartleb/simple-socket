@@ -2,13 +2,13 @@
 #include "SockAddress.h"
 #include "TempFailure.h"
 #include "Helper.h"
+#include "PollWait.h"
 
 #include <sys/socket.h>
 #include <poll.h>
 #include <fcntl.h>
 #include <cstring>
 #include <cerrno>
-#include <chrono>
 
 using namespace NET;
 
@@ -180,45 +180,15 @@ IOResult SimpleSocket::timedReceive( void* buffer, size_t len, int timeout)
 
 IOStatus SimpleSocket::waitReadable( int timeout)
 {
-	bool firstRun = true;
-	using Clock = std::chrono::steady_clock;
-	auto now = Clock::now();
-	// negative timeout means wait forever
-	const bool infinite = timeout < 0;
-	const auto deadline = now + std::chrono::milliseconds(timeout);
-
-	while(1)
+	// wait for socket becoming readable or peer closed
+	auto result = detail::pollWait( m_socket, POLLIN | POLLRDHUP, timeout,
+	[&](short revents) -> std::optional<IOStatus>
 	{
-		// ensure now == deadline when timeout is zero
-		if( !firstRun) now = Clock::now();
-		// zero timeout returns only after first loop
-		if( now > deadline && !firstRun && !infinite)
-			return IOStatus::Timeout;
-
-		firstRun = false;
-		auto remaining = std::chrono::ceil<std::chrono::milliseconds>(deadline - now);
-		const int pollTimeout = infinite ? -1 : static_cast<int>(remaining.count());
-
-		pollfd pfd {};
-		pfd.fd = m_socket;
-		pfd.events = POLLIN | POLLRDHUP;
-
-		int ret = ::poll( &pfd, 1, pollTimeout);
-		if( ret == 0) return IOStatus::Timeout;
-		if( ret < 0)
-		{
-			if( errno == EINTR) continue;
-			throw SocketException("timedReceive failed (poll)");
-		}
-
-		if( pfd.revents & POLLNVAL)
-			throw SocketException("timedReceive failed (invalid socket)", false);
-
 		// Data has priority. There may be queued data followed by FIN
-		if( pfd.revents & POLLIN)
+		if( revents & POLLIN)
 			return IOStatus::Success; // caller should try to receive
 
-		if( pfd.revents & POLLERR) // async error with socket
+		if( revents & POLLERR) // async error with socket
 		{
 			int error = 0;
 			socklen_t len = sizeof(error);
@@ -227,7 +197,7 @@ IOStatus SimpleSocket::waitReadable( int timeout)
 
 			// try again until timeout
 			if( error == EAGAIN || error == EWOULDBLOCK)
-				continue;
+				return std::nullopt; // continue
 
 			auto status = detail::classifyIoError( error, m_connectionOriented);
 			if( status) return *status;
@@ -235,11 +205,13 @@ IOStatus SimpleSocket::waitReadable( int timeout)
 			throw SocketException("timedReceive failed", error);
 		}
 
-		if( m_connectionOriented && (pfd.revents & (POLLRDHUP | POLLHUP)))
+		if( m_connectionOriented && (revents & (POLLRDHUP | POLLHUP)))
 			return IOStatus::PeerDisconnected;
 
 		throw SocketException("timedReceive failed", false);
-	}
+	});
+
+	return result.value_or(IOStatus::Timeout);
 }
 
 void SimpleSocket::disconnect()
@@ -359,40 +331,11 @@ int SimpleSocket::accept() const
 
 int SimpleSocket::timedAccept( int timeout) const
 {
-	bool firstRun = true;
-	using Clock = std::chrono::steady_clock;
-	auto now = Clock::now();
-	// negative timeout means wait forever
-	const bool infinite = timeout < 0;
-	const auto deadline = now + std::chrono::milliseconds(timeout);
-
-	while(1)
+	// wait for socket becoming readable
+	auto result = detail::pollWait( m_socket, POLLIN, timeout,
+	[&](short revents) -> std::optional<int>
 	{
-		// ensure now == deadline when timeout is zero
-		if( !firstRun) now = Clock::now();
-		// invalid socket handle on timeout
-		if( now >= deadline && !firstRun && !infinite) return -1;
-
-		firstRun = false;
-		auto remaining = std::chrono::ceil<std::chrono::milliseconds>(deadline - now);
-		const int pollTimeout = infinite ? -1 : static_cast<int>(remaining.count());
-
-		pollfd pfd {};
-		pfd.fd = m_socket;
-		pfd.events = POLLIN;
-
-		int ret = ::poll( &pfd, 1, pollTimeout);
-		if( ret == 0) return -1; // invalid socket handle on timeout
-		if( ret < 0)
-		{
-			if( errno == EINTR) continue;
-			throw SocketException("timedAccept failed (poll)");
-		}
-
-		if( pfd.revents & POLLNVAL)
-			throw SocketException("timedAccept failed (invalid socket)", false);
-
-		if( pfd.revents & POLLIN)
+		if( revents & POLLIN)
 		{
 			int fd = acceptNative();
 			if( fd >= 0) return fd;
@@ -400,21 +343,25 @@ int SimpleSocket::timedAccept( int timeout) const
 			const int error = errno;
 			// try again until timeout
 			if( error == EAGAIN || error == EWOULDBLOCK)
-				continue;
+				return std::nullopt; // continue
 
 			// error indicates we should try again
 			if( error == EINTR || detail::isTransientAcceptError(error))
-				continue;
+				return std::nullopt; // continue
 
 			throw SocketException("timedAccept failed (accept)", error);
 		}
 
-		if( pfd.revents & POLLERR)
+		if( revents & POLLERR)
 			throw SocketException("timedAccept failed (POLLERR)", false);
 
-		if( pfd.revents & POLLHUP)
+		if( revents & POLLHUP)
 			throw SocketException("timedAccept failed (listening socket hung up)", false);
-	}
+
+		return std::nullopt; // continue?
+	});
+
+	return result.value_or(-1);
 }
 
 ConnectResult SimpleSocket::connect( const SockAddress& addr)
@@ -429,53 +376,44 @@ ConnectResult SimpleSocket::connect( const SockAddress& addr)
 	throw SocketException("Connect failed (connect)", error);
 }
 
+ConnectResult SimpleSocket::finishConnect( int timeout)
+{
+	// wait for socket becoming writeable
+	auto result = detail::pollWait( m_socket, POLLOUT, timeout,
+	[&](short revents) -> std::optional<ConnectResult>
+	{
+		(void)revents;
+		// Check for socket errors after poll success
+		int error = 0;
+		socklen_t len = sizeof(error);
+		if( ::getsockopt( m_socket, SOL_SOCKET, SO_ERROR, &error, &len) < 0)
+			throw SocketException("timedConnect failed (getsockopt)");
+
+		if( error == 0) return ConnectResult::Connected;
+
+		// known connection issues should not throw
+		auto result = detail::connectResultFromError(error);
+		if( result) return *result;
+
+		throw SocketException("timedConnect failed", error);
+	});
+
+	return result.value_or(ConnectResult::Timeout);
+}
+
 ConnectResult SimpleSocket::timedConnect( const SockAddress& addr, int timeout)
 {
 	// Set O_NONBLOCK and restore blocking state on destruction
 	detail::NonBlockingGuard nonBlocking( m_socket);
 
 	// Asynchronous connection attempt
-	int ret = ::connect( m_socket, addr.data(), addr.length());
-	if( ret == 0) // Already connected
-		return ConnectResult::Connected;
+	ConnectResult con = SimpleSocket::connect(addr);
 
-	int error = errno;
-	auto result = detail::connectResultFromError(error);
-	if( result)
-	{
-		// should we continue with poll?
-		if( *result != ConnectResult::InProgress)
-			return *result;
-	}
-	else throw SocketException("timedConnect failed (connect)", error);
+	// continue with poll when InProgress
+	if( con != ConnectResult::InProgress)
+		return con;
 
-	// Wait for the connection to complete
-	pollfd pfd {};
-	pfd.fd = m_socket;
-	pfd.events = POLLOUT;
-
-	ret = TEMP_FAILURE_RETRY (::poll( &pfd, 1, timeout));
-	if( ret < 0)
-		throw SocketException("timedConnect failed (poll)");
-
-	if( ret == 0) return ConnectResult::Timeout;
-
-	if( pfd.revents & POLLNVAL)
-		throw SocketException("timedConnect failed (invalid socket)", false);
-
-	// Check for socket errors after poll success
-	error = 0;
-	socklen_t len = sizeof(error);
-	if( ::getsockopt( m_socket, SOL_SOCKET, SO_ERROR, &error, &len) < 0)
-		throw SocketException("timedConnect failed (getsockopt)");
-
-	if( error == 0) return ConnectResult::Connected;
-
-	// known connection issues should not throw
-	result = detail::connectResultFromError(error);
-	if( result) return *result;
-
-	throw SocketException("timedConnect failed", error);
+	return finishConnect(timeout);
 }
 
 IOResult SimpleSocket::sendAll( const void* buffer, size_t len)

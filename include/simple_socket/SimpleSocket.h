@@ -284,6 +284,15 @@ namespace NET
 		 */
 		void listen( int backlog = 5);
 
+		//! check if a previously started connected attempt is finished
+		/*!
+		 * Use this to check if a non-blocking connect() call has completed.
+		 *
+		 * \param timeout the timeout in ms after which we stop waiting, connection is still active
+		 * \exception SocketException
+		 */
+		ConnectResult finishConnect( int timeout = 0);
+
 		//! send data through a connected socket
 		/*!
 		 * sendAll() can only be used on a socket that called connect()

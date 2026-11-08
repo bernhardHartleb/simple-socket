@@ -36,6 +36,9 @@ namespace NET
 		//! Listen for incoming connections
 		using SimpleSocket::listen;
 
+		//! Complete async connect attempt
+		using SimpleSocket::finishConnect;
+
 		/*!
 		 * Accept an incoming connection.
 		 * In blocking mode it will wait until the new connection arrives.
