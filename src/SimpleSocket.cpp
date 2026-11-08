@@ -185,8 +185,7 @@ IOStatus SimpleSocket::timedReceive( int timeout)
 	auto now = Clock::now();
 	// negative timeout means wait forever
 	const bool infinite = timeout < 0;
-	const auto deadline = infinite ? Clock::time_point::max()
-		: now + std::chrono::milliseconds(timeout);
+	const auto deadline = now + std::chrono::milliseconds(timeout);
 
 	while(1)
 	{
@@ -196,8 +195,9 @@ IOStatus SimpleSocket::timedReceive( int timeout)
 		if( now > deadline && !firstRun)
 			return IOStatus::Timeout;
 
+		firstRun = false;
 		auto remaining = std::chrono::ceil<std::chrono::milliseconds>(deadline - now);
-		const int pollTimeout = static_cast<int>(remaining.count());
+		const int pollTimeout = infinite ? -1 : static_cast<int>(remaining.count());
 
 		pollfd pfd {};
 		pfd.fd = m_socket;
@@ -360,8 +360,7 @@ int SimpleSocket::timedAccept( int timeout) const
 	auto now = Clock::now();
 	// negative timeout means wait forever
 	const bool infinite = timeout < 0;
-	const auto deadline = infinite ? Clock::time_point::max()
-		: now + std::chrono::milliseconds(timeout);
+	const auto deadline = now + std::chrono::milliseconds(timeout);
 
 	while(1)
 	{
@@ -369,10 +368,10 @@ int SimpleSocket::timedAccept( int timeout) const
 		if( !firstRun) now = Clock::now();
 		// invalid socket handle on timeout
 		if( now >= deadline && !firstRun) return -1;
-		firstRun = false;
 
+		firstRun = false;
 		auto remaining = std::chrono::ceil<std::chrono::milliseconds>(deadline - now);
-		const int pollTimeout = static_cast<int>(remaining.count());
+		const int pollTimeout = infinite ? -1 : static_cast<int>(remaining.count());
 
 		pollfd pfd {};
 		pfd.fd = m_socket;
