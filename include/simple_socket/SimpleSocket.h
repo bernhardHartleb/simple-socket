@@ -280,6 +280,12 @@ namespace NET
 		 */
 		void setBlocking(bool blocking);
 
+		//! override default send buffer size for this socket
+		void setSendBufferSize( int bytes);
+
+		//! override default receive buffer size for this socket
+		void setReceiveBufferSize( int bytes);
+
 	protected:
 		//! listen for incoming connections
 		/*!

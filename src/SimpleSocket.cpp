@@ -437,6 +437,18 @@ ConnectResult SimpleSocket::timedConnect( const SockAddress& addr, int timeout)
 	return finishConnect(timeout);
 }
 
+void SimpleSocket::setSendBufferSize( int bytes)
+{
+	if( ::setsockopt( m_socket, SOL_SOCKET, SO_SNDBUF, &bytes, sizeof(bytes)) < 0)
+		throw SocketException("setsockopt failed");
+}
+
+void SimpleSocket::setReceiveBufferSize( int bytes)
+{
+	if( ::setsockopt( m_socket, SOL_SOCKET, SO_RCVBUF, &bytes, sizeof(bytes)) < 0)
+		throw SocketException("setsockopt failed");
+}
+
 IOResult SimpleSocket::sendAll( const void* buffer, size_t len)
 {
 	size_t sent = 0;
