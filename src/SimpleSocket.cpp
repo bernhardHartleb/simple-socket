@@ -192,7 +192,7 @@ IOStatus SimpleSocket::waitReadable( int timeout)
 		// ensure now == deadline when timeout is zero
 		if( !firstRun) now = Clock::now();
 		// zero timeout returns only after first loop
-		if( now > deadline && !firstRun)
+		if( now > deadline && !firstRun && !infinite)
 			return IOStatus::Timeout;
 
 		firstRun = false;
@@ -371,7 +371,7 @@ int SimpleSocket::timedAccept( int timeout) const
 		// ensure now == deadline when timeout is zero
 		if( !firstRun) now = Clock::now();
 		// invalid socket handle on timeout
-		if( now >= deadline && !firstRun) return -1;
+		if( now >= deadline && !firstRun && !infinite) return -1;
 
 		firstRun = false;
 		auto remaining = std::chrono::ceil<std::chrono::milliseconds>(deadline - now);
