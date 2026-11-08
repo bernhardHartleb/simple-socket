@@ -398,7 +398,8 @@ ConnectResult SimpleSocket::finishConnect( int timeout)
 		throw SocketException("timedConnect failed", error);
 	});
 
-	return result.value_or(ConnectResult::Timeout);
+	auto expired = (timeout == 0) ? ConnectResult::InProgress : ConnectResult::Timeout;
+	return result.value_or(expired);
 }
 
 ConnectResult SimpleSocket::timedConnect( const SockAddress& addr, int timeout)
