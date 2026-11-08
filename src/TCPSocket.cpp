@@ -1,4 +1,5 @@
 #include "TCPSocket.h"
+#include "Helper.h"
 
 #include <sys/socket.h>
 #include <netinet/in.h>
@@ -12,7 +13,7 @@ TCPSocket::TCPSocket( AddressFamily family)
 
 TCPSocket TCPSocket::adoptNativeHandle( int sockfd)
 {
-	validateSocket( sockfd, SOCK_STREAM, IPPROTO_TCP);
+	detail::validateSocket( sockfd, SOCK_STREAM, IPPROTO_TCP);
 	return TCPSocket( AdoptSocketTag{}, sockfd, SOCK_STREAM);
 }
 

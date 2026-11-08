@@ -1,47 +1,16 @@
 #include "SimpleSocket.h"
 #include "SockAddress.h"
 #include "TempFailure.h"
-#include "PollHelper.h"
+#include "Helper.h"
 
+#include <sys/socket.h>
+#include <poll.h>
 #include <fcntl.h>
-#include <unistd.h>
 #include <cstring>
 #include <cerrno>
 #include <chrono>
 
 using namespace NET;
-
-namespace {
-
-class NonBlockingGuard
-{
-public:
-	explicit NonBlockingGuard(int fd) : m_fd(fd)
-	{
-		m_flags = ::fcntl( m_fd, F_GETFL, 0);
-		if( m_flags < 0)
-			throw SocketException("Unable to get file status (fcntl)");
-		if( ::fcntl( m_fd, F_SETFL, m_flags | O_NONBLOCK) < 0)
-			throw SocketException("Unable to set non-blocking mode (fcntl)");
-	}
-
-	~NonBlockingGuard()
-	{
-		const int savedErrno = errno;
-		::fcntl( m_fd, F_SETFL, m_flags);
-		errno = savedErrno;
-	}
-
-	NonBlockingGuard(const NonBlockingGuard&) = delete;
-	NonBlockingGuard& operator=(const NonBlockingGuard&) = delete;
-
-private:
-	int m_fd;
-	int m_flags;
-};
-
-}; // namespace
-
 
 SocketException::SocketException( std::string_view message, bool inclErrno /* = true */)
 : m_message(message)
@@ -202,8 +171,75 @@ IOResult SimpleSocket::receiveFrom( void* buffer, size_t len, SockAddress& addr)
 
 IOResult SimpleSocket::timedReceive( void* buffer, size_t len, int timeout)
 {
-	return detail::timedReceiveImpl( m_socket, m_connectionOriented, timeout,
-		[&] { return receive( buffer, len); });
+	IOStatus res = timedReceive( timeout);
+	if( res == IOStatus::Success)
+		return receive( buffer, len);
+	else
+		return { res, 0 };
+}
+
+IOStatus SimpleSocket::timedReceive( int timeout)
+{
+	bool firstRun = true;
+	using Clock = std::chrono::steady_clock;
+	auto now = Clock::now();
+	// negative timeout means wait forever
+	const bool infinite = timeout < 0;
+	const auto deadline = infinite ? Clock::time_point::max()
+		: now + std::chrono::milliseconds(timeout);
+
+	while(1)
+	{
+		// ensure now == deadline when timeout is zero
+		if( !firstRun) now = Clock::now();
+		// zero timeout returns only after first loop
+		if( now > deadline && !firstRun)
+			return IOStatus::Timeout;
+
+		auto remaining = std::chrono::ceil<std::chrono::milliseconds>(deadline - now);
+		const int pollTimeout = static_cast<int>(remaining.count());
+
+		pollfd pfd {};
+		pfd.fd = m_socket;
+		pfd.events = POLLIN | POLLRDHUP;
+
+		int ret = ::poll( &pfd, 1, pollTimeout);
+		if( ret == 0) return IOStatus::Timeout;
+		if( ret < 0)
+		{
+			if( errno == EINTR) continue;
+			throw SocketException("timedReceive failed (poll)");
+		}
+
+		if( pfd.revents & POLLNVAL)
+			throw SocketException("timedReceive failed (invalid socket)", false);
+
+		// Data has priority. There may be queued data followed by FIN
+		if( pfd.revents & POLLIN)
+			return IOStatus::Success; // caller should try to receive
+
+		if( pfd.revents & POLLERR) // async error with socket
+		{
+			int error = 0;
+			socklen_t len = sizeof(error);
+			if( ::getsockopt( m_socket, SOL_SOCKET, SO_ERROR, &error, &len) < 0)
+				throw SocketException("timedReceive failed (getsockopt)");
+
+			// try again until timeout
+			if( error == EAGAIN || error == EWOULDBLOCK)
+				continue;
+
+			auto status = detail::classifyIoError( error, m_connectionOriented);
+			if( status) return *status;
+
+			throw SocketException("timedReceive failed", error);
+		}
+
+		if( m_connectionOriented && (pfd.revents & (POLLRDHUP | POLLHUP)))
+			return IOStatus::PeerDisconnected;
+
+		throw SocketException("timedReceive failed", false);
+	}
 }
 
 void SimpleSocket::disconnect()
@@ -405,7 +441,7 @@ ConnectResult SimpleSocket::connect( const SockAddress& addr)
 ConnectResult SimpleSocket::timedConnect( const SockAddress& addr, int timeout)
 {
 	// Set O_NONBLOCK and restore blocking state on destruction
-	NonBlockingGuard nonBlocking( m_socket);
+	detail::NonBlockingGuard nonBlocking( m_socket);
 
 	// Asynchronous connection attempt
 	int ret = ::connect( m_socket, addr.data(), addr.length());
@@ -485,26 +521,4 @@ IOResult SimpleSocket::receiveAll( void* buffer, size_t len)
 		if( res.status != IOStatus::Success) return { res.status, received };
 	}
 	return { IOStatus::Success, received };
-}
-
-void SimpleSocket::validateSocket( int sockfd, int type_req, int protocol_req)
-{
-	if( sockfd < 0)
-		throw SocketException("Invalid native handle", false);
-
-	int type = 0;
-	socklen_t len = sizeof(type);
-	if( ::getsockopt( sockfd, SOL_SOCKET, SO_TYPE, &type, &len) < 0)
-		throw SocketException("Unable to read native socket type (getsockopt)");
-	if( type != type_req)
-		throw SocketException("Native handle is the wrong socket type", false);
-
-#ifdef SO_PROTOCOL
-	int protocol = 0;
-	len = sizeof(protocol);
-	if( ::getsockopt( sockfd, SOL_SOCKET, SO_PROTOCOL, &protocol, &len) < 0)
-		throw SocketException("Unable to read native socket protocol (getsockopt)");
-	if( protocol != protocol_req)
-		throw SocketException("Native handle uses wrong protocol type", false);
-#endif
 }

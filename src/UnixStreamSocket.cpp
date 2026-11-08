@@ -1,4 +1,5 @@
 #include "UnixStreamSocket.h"
+#include "Helper.h"
 
 #include <sys/socket.h>
 
@@ -10,7 +11,7 @@ UnixStreamSocket::UnixStreamSocket()
 
 UnixStreamSocket UnixStreamSocket::adoptNativeHandle( int sockfd)
 {
-	validateSocket( sockfd, SOCK_STREAM, 0);
+	detail::validateSocket( sockfd, SOCK_STREAM, 0);
 	return UnixStreamSocket( AdoptSocketTag{}, sockfd, SOCK_STREAM);
 }
 

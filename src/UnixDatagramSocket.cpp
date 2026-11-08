@@ -1,6 +1,6 @@
 #include "UnixDatagramSocket.h"
 #include "SockAddress.h"
-#include "PollHelper.h"
+#include "Helper.h"
 
 #include <sys/socket.h>
 
@@ -12,7 +12,7 @@ UnixDatagramSocket::UnixDatagramSocket()
 
 UnixDatagramSocket UnixDatagramSocket::adoptNativeHandle( int sockfd)
 {
-	validateSocket( sockfd, SOCK_DGRAM, 0);
+	detail::validateSocket( sockfd, SOCK_DGRAM, 0);
 	return UnixDatagramSocket( AdoptSocketTag{}, sockfd, SOCK_DGRAM);
 }
 
@@ -26,7 +26,6 @@ IOResult UnixDatagramSocket::receiveFrom( void* buffer, size_t len, std::string&
 {
 	SockAddress addr;
 	IOResult res = SimpleSocket::receiveFrom( buffer, len, addr);
-
 	if( res.status == IOStatus::Success)
 	{
 		sourcePath = addr.address();
@@ -36,6 +35,9 @@ IOResult UnixDatagramSocket::receiveFrom( void* buffer, size_t len, std::string&
 
 IOResult UnixDatagramSocket::timedReceiveFrom( void* buffer, size_t len, std::string& sourcePath, int timeout)
 {
-	return detail::timedReceiveImpl( m_socket, m_connectionOriented, timeout,
-		[&] { return receiveFrom( buffer, len, sourcePath); });
+	IOStatus res = SimpleSocket::timedReceive( timeout);
+	if( res == IOStatus::Success)
+		return receiveFrom( buffer, len, sourcePath);
+	else
+		return { res, 0 };
 }

@@ -1,6 +1,5 @@
 #include "CANRawSocket.h"
 #include "SockAddress.h"
-#include "PollHelper.h"
 
 #include <sys/socket.h>
 #include <linux/can.h>
@@ -44,7 +43,6 @@ IOResult CANRawSocket::receiveFrom( ::can_frame& frame, std::string& interface)
 {
 	SockAddress addr;
 	IOResult res = SimpleSocket::receiveFrom( (void*)&frame, sizeof(frame), addr);
-
 	if( res.status == IOStatus::Success)
 	{
 		sockaddr_can clientAddr;
@@ -56,8 +54,11 @@ IOResult CANRawSocket::receiveFrom( ::can_frame& frame, std::string& interface)
 
 IOResult CANRawSocket::timedReceiveFrom( ::can_frame& frame, std::string& interface, int timeout)
 {
-	return detail::timedReceiveImpl( m_socket, m_connectionOriented, timeout,
-		[&] { return receiveFrom( frame, interface); });
+	IOStatus res = SimpleSocket::timedReceive( timeout);
+	if( res == IOStatus::Success)
+		return receiveFrom( frame, interface);
+	else
+		return { res, 0 };
 }
 
 void CANRawSocket::setReceiveFilter( const ::can_filter* filter, size_t len)

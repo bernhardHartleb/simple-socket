@@ -1,5 +1,7 @@
-#include "PollHelper.h"
+#include "Helper.h"
 
+#include <sys/socket.h>
+#include <fcntl.h>
 #include <cerrno>
 
 namespace {
@@ -91,4 +93,42 @@ std::optional<ConnectResult> detail::connectResultFromError( int error) noexcept
 		default:
 			return std::nullopt;
 	}
+}
+
+void detail::validateSocket( int sockfd, int type_req, int protocol_req)
+{
+	if( sockfd < 0)
+		throw SocketException("Invalid native handle", false);
+
+	int type = 0;
+	socklen_t len = sizeof(type);
+	if( ::getsockopt( sockfd, SOL_SOCKET, SO_TYPE, &type, &len) < 0)
+		throw SocketException("Unable to read native socket type (getsockopt)");
+	if( type != type_req)
+		throw SocketException("Native handle is the wrong socket type", false);
+
+#ifdef SO_PROTOCOL
+	int protocol = 0;
+	len = sizeof(protocol);
+	if( ::getsockopt( sockfd, SOL_SOCKET, SO_PROTOCOL, &protocol, &len) < 0)
+		throw SocketException("Unable to read native socket protocol (getsockopt)");
+	if( protocol != protocol_req)
+		throw SocketException("Native handle uses wrong protocol type", false);
+#endif
+}
+
+detail::NonBlockingGuard::NonBlockingGuard(int fd) : m_fd(fd)
+{
+	m_flags = ::fcntl( m_fd, F_GETFL, 0);
+	if( m_flags < 0)
+		throw SocketException("Unable to get file status (fcntl)");
+	if( ::fcntl( m_fd, F_SETFL, m_flags | O_NONBLOCK) < 0)
+		throw SocketException("Unable to set non-blocking mode (fcntl)");
+}
+
+detail::NonBlockingGuard::~NonBlockingGuard()
+{
+	const int savedErrno = errno;
+	::fcntl( m_fd, F_SETFL, m_flags);
+	errno = savedErrno;
 }

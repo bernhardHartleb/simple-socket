@@ -343,6 +343,9 @@ namespace NET
 		//! receiveFrom for datagram sockets
 		IOResult receiveFrom( void* buffer, size_t len, SockAddress& addr);
 
+		//! signal callers wether we can receive
+		IOStatus timedReceive( int timeout);
+
 		//! direct accept syscall
 		int acceptNative() const;
 
@@ -359,9 +362,6 @@ namespace NET
 		ConnectResult timedConnect( const SockAddress& addr, int timeout);
 
 		//! \endcond
-
-		//! check if external socket descriptor to fits the given parameters
-		static void validateSocket( int sockfd, int type, int protocol);
 
 		// socket descriptor
 		int m_socket;

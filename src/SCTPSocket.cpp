@@ -1,6 +1,6 @@
 #include "SCTPSocket.h"
 #include "SockAddress.h"
-#include "PollHelper.h"
+#include "Helper.h"
 
 using namespace NET;
 
@@ -168,14 +168,20 @@ IOResult SCTPSocket::receive( void* data, size_t maxLen, uint16_t& stream, recei
 
 IOResult SCTPSocket::timedReceive( void* data, size_t maxLen, uint16_t& stream, int timeout)
 {
-	return detail::timedReceiveImpl( m_socket, m_connectionOriented, timeout,
-		[&] { return receive( data, maxLen, stream); });
+	IOStatus res = SimpleSocket::timedReceive( timeout);
+	if( res == IOStatus::Success)
+		return receive( data, maxLen, stream);
+	else
+		return { res, 0 };
 }
 
 IOResult SCTPSocket::timedReceive( void* data, size_t maxLen, uint16_t& stream, receiveFlag& flag, int timeout)
 {
-	return detail::timedReceiveImpl( m_socket, m_connectionOriented, timeout,
-		[&] { return receive( data, maxLen, stream, flag); });
+	IOStatus res = SimpleSocket::timedReceive( timeout);
+	if( res == IOStatus::Success)
+		return receive( data, maxLen, stream, flag);
+	else
+		return { res, 0 };
 }
 
 std::optional<SCTPSocket> SCTPSocket::accept() const

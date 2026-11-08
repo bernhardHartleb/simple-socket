@@ -28,7 +28,7 @@ include(GNUInstallDirs)
 set(SIMPLE_SOCKET_SOURCES
 	src/SimpleSocket.cpp
 	src/SockAddress.cpp
-	src/PollHelper.cpp
+	src/Helper.cpp
 	src/SocketUtils.cpp
 	src/NetworkInterface.cpp
 	src/InternetSocket.cpp

@@ -1,6 +1,6 @@
 #include "UDPSocket.h"
 #include "SockAddress.h"
-#include "PollHelper.h"
+#include "Helper.h"
 
 #include <sys/socket.h>
 #include <arpa/inet.h>
@@ -36,7 +36,7 @@ UDPSocket::UDPSocket( AddressFamily family)
 
 UDPSocket UDPSocket::adoptNativeHandle( int sockfd)
 {
-	validateSocket( sockfd, SOCK_DGRAM, IPPROTO_UDP);
+	detail::validateSocket( sockfd, SOCK_DGRAM, IPPROTO_UDP);
 	return UDPSocket( AdoptSocketTag{}, sockfd, SOCK_DGRAM);
 }
 
@@ -50,7 +50,6 @@ IOResult UDPSocket::receiveFrom( void* buffer, size_t len, std::string& sourceAd
 {
 	SockAddress addr;
 	IOResult res = SimpleSocket::receiveFrom( buffer, len, addr);
-
 	if( res.status == IOStatus::Success)
 	{
 		sourceAddress = addr.address();
@@ -61,8 +60,11 @@ IOResult UDPSocket::receiveFrom( void* buffer, size_t len, std::string& sourceAd
 
 IOResult UDPSocket::timedReceiveFrom( void* buffer, size_t len, std::string& sourceAddress, unsigned short& sourcePort, int timeout)
 {
-	return detail::timedReceiveImpl( m_socket, m_connectionOriented, timeout,
-		[&] { return receiveFrom( buffer, len, sourceAddress, sourcePort); });
+	IOStatus res = SimpleSocket::timedReceive( timeout);
+	if( res == IOStatus::Success)
+		return receiveFrom( buffer, len, sourceAddress, sourcePort);
+	else
+		return { res, 0 };
 }
 
 void UDPSocket::setMulticastTTL( unsigned char multicastTTL)
