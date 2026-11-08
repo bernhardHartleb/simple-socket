@@ -326,7 +326,11 @@ int SimpleSocket::acceptNative() const
 {
 #ifdef SOCK_CLOEXEC
 	// prevent leaking socket descriptor on exec
-	return ::accept4( m_socket, nullptr, nullptr, SOCK_CLOEXEC);
+	int flags = SOCK_CLOEXEC;
+	// inherit blocking mode
+	if( !isBlocking()) flags |= SOCK_NONBLOCK;
+
+	return ::accept4( m_socket, nullptr, nullptr, flags);
 #else
 	return ::accept( m_socket, nullptr, nullptr);
 #endif
