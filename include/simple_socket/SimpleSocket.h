@@ -351,12 +351,12 @@ namespace NET
 		//! allows a subclass to take ownership of an existing socket
 		SimpleSocket( AdoptSocketTag, int sockfd, int type);
 
-		//! allows moving concrete classes
-		SimpleSocket( SimpleSocket&& other) noexcept;
-		SimpleSocket& operator=( SimpleSocket&& other) noexcept;
-
 		//! protected destructor to avoid delete via base class
 		~SimpleSocket();
+
+		// allow moving concrete classes
+		SimpleSocket( SimpleSocket&& other) noexcept;
+		SimpleSocket& operator=( SimpleSocket&& other) noexcept;
 
 		//! \cond internal
 

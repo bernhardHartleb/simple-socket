@@ -33,10 +33,10 @@ namespace NET
 		 */
 		[[nodiscard]] static UnixStreamSocket adoptNativeHandle( int sockfd);
 
-		//! Listen for incoming connections
+		// Listen for incoming connections
 		using SimpleSocket::listen;
 
-		//! Complete async connect attempt
+		// Complete async connect attempt
 		using SimpleSocket::finishConnect;
 
 		/*!
@@ -62,10 +62,10 @@ namespace NET
 		 */
 		[[nodiscard]] std::optional<UnixStreamSocket> timedAccept( int timeout) const;
 
-		//! Send the complete buffer
+		// Send the complete buffer
 		using SimpleSocket::sendAll;
 
-		//! Receive the complete requested buffer
+		// Receive the complete requested buffer
 		using SimpleSocket::receiveAll;
 
 	protected:

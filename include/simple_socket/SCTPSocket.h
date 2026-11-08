@@ -59,8 +59,11 @@ namespace NET
 		IOResult timedReceive( void* data, size_t maxLen, uint16_t& stream, int timeout);
 		IOResult timedReceive( void* data, size_t maxLen, uint16_t& stream, receiveFlag& flag, int timeout);
 
-		//! Listen for incoming connections
+		// Listen for incoming connections
 		using SimpleSocket::listen;
+
+		// Complete async connect attempt
+		using SimpleSocket::finishConnect;
 
 		std::optional<SCTPSocket> accept() const;
 		std::optional<SCTPSocket> timedAccept( int timeout) const;
