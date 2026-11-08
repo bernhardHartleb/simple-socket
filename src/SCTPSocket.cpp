@@ -105,7 +105,7 @@ IOResult SCTPSocket::send( const void* data, size_t length, uint16_t stream, uns
 	unsigned ppid /* = 0 */, abortFlag abort /* = KEEPALIVE */, switchAddressFlag switchAddr /* = KEEP_PRIMARY */)
 {
 	int ret = sctp_sendmsg( m_socket, data, length, nullptr, 0, ppid, abort + switchAddr, stream, ttl, context);
-	if( ret > 0)
+	if( ret >= 0)
 		return { IOStatus::Success, static_cast<size_t>(ret) };
 
 	auto status = detail::classifyIoError( errno, m_connectionOriented);
@@ -118,7 +118,7 @@ IOResult SCTPSocket::sendUnordered( const void* data, size_t length, uint16_t st
 	unsigned ppid /* = 0 */, abortFlag abort /* = KEEPALIVE */, switchAddressFlag switchAddr /* = KEEP_PRIMARY */)
 {
 	int ret = sctp_sendmsg( m_socket, data, length, nullptr, 0, ppid, abort + switchAddr + SCTP_UNORDERED, stream, ttl, context);
-	if( ret > 0)
+	if( ret >= 0)
 		return { IOStatus::Success, static_cast<size_t>(ret) };
 
 	auto status = detail::classifyIoError( errno, m_connectionOriented);
