@@ -80,10 +80,15 @@ std::optional<ConnectResult> detail::connectResultFromError( int error) noexcept
 {
 	switch(error)
 	{
+		case EINPROGRESS:
+		case EALREADY:
+		case EINTR:
+			return ConnectResult::InProgress;
 		case ECONNREFUSED:
 			return ConnectResult::Refused;
 		case ECONNABORTED:
 		case ECONNRESET:
+		case EAGAIN:
 			return ConnectResult::Aborted;
 		case ETIMEDOUT:
 			return ConnectResult::Timeout;

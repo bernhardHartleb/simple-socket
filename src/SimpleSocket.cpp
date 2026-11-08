@@ -423,18 +423,6 @@ ConnectResult SimpleSocket::connect( const SockAddress& addr)
 		return ConnectResult::Connected;
 
 	const int error = errno;
-	switch(error)
-	{
-		case EINPROGRESS:
-		case EALREADY:
-		case EINTR:
-			return ConnectResult::InProgress;
-	}
-
-	// Linux uses EGAGIN for unix socckets non-blocking connect
-	if( error == EAGAIN && addr.family() == AF_UNIX)
-		return ConnectResult::InProgress;
-
 	if( auto result = detail::connectResultFromError(error))
 		return *result;
 
@@ -452,24 +440,14 @@ ConnectResult SimpleSocket::timedConnect( const SockAddress& addr, int timeout)
 		return ConnectResult::Connected;
 
 	int error = errno;
-	// known connection issue?
 	auto result = detail::connectResultFromError(error);
-	if( result) return *result;
-
-	// Linux uses EGAGIN for unix socckets non-blocking connect
-	if( error == EAGAIN && addr.family() == AF_UNIX)
-		error = EINPROGRESS;
-
-	// should we continue with poll?
-	switch(error)
+	if( result)
 	{
-		case EINPROGRESS: // asynchronous connect active
-		case EALREADY:    // previous attempt still active, potentially not to the same endpoint
-		case EINTR:
-			break;
-		default:
-			throw SocketException("timedConnect failed (connect)", error);
+		// should we continue with poll?
+		if( *result != ConnectResult::InProgress)
+			return *result;
 	}
+	else throw SocketException("timedConnect failed (connect)", error);
 
 	// Wait for the connection to complete
 	pollfd pfd {};
