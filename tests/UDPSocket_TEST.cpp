@@ -17,6 +17,9 @@ class UDPSocket_TEST : public CppUnit::TestFixture
 	CPPUNIT_TEST(testTimedReceiveFrom);
 	CPPUNIT_TEST(testZeroLengthDatagram);
 	CPPUNIT_TEST(testTruncatedDatagram);
+	CPPUNIT_TEST(testNonBlockingReceiveFrom);
+	CPPUNIT_TEST(testNonBlockingZeroLengthDatagram);
+	CPPUNIT_TEST(testNonBlockingConnectedReceive);
 	CPPUNIT_TEST(testMulticast);
 	CPPUNIT_TEST(testInvalidAddress);
 	CPPUNIT_TEST(testAdoptNativeHandle);
@@ -280,6 +283,91 @@ public:
 		// The adopted descriptor is owned by the wrapper and must be closed.
 		CPPUNIT_ASSERT_THROW(auto t = NET::UDPSocket::adoptNativeHandle(datagramFd),  NET::SocketException);
 		CPPUNIT_ASSERT(systemdOwned.valid());
+	}
+
+	void testNonBlockingReceiveFrom()
+	{
+		NET::UDPSocket sender;
+		NET::UDPSocket receiver;
+		sender.bind(LOOPBACK, 0);
+		receiver.bind(LOOPBACK, 0);
+		receiver.setBlocking(false);
+
+		char buffer[64];
+		std::memset(buffer, 0x5a, sizeof(buffer));
+		std::string address = "unchanged";
+		unsigned short port = 54321;
+		IOResult result = receiver.receiveFrom(buffer, sizeof(buffer), address, port);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::WouldBlock, result.status);
+		CPPUNIT_ASSERT_EQUAL(size_t(0), result.bytes);
+		CPPUNIT_ASSERT_EQUAL(std::string("unchanged"), address);
+		CPPUNIT_ASSERT_EQUAL(static_cast<unsigned short>(54321), port);
+		for(char c : buffer) CPPUNIT_ASSERT_EQUAL(char(0x5a), c);
+
+		result = receiver.timedReceiveFrom(buffer, sizeof(buffer), address, port, 50);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Timeout, result.status);
+		CPPUNIT_ASSERT_EQUAL(size_t(0), result.bytes);
+		CPPUNIT_ASSERT_EQUAL(std::string("unchanged"), address);
+		CPPUNIT_ASSERT_EQUAL(static_cast<unsigned short>(54321), port);
+
+		const char payload[] = "nonblocking UDP";
+		IOResult sent = sender.sendTo(payload, sizeof(payload), LOOPBACK, receiver.getLocalPort());
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, sent.status);
+
+		result = receiver.timedReceiveFrom(buffer, sizeof(buffer), address, port, 1000);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, result.status);
+		CPPUNIT_ASSERT_EQUAL(sizeof(payload), result.bytes);
+		CPPUNIT_ASSERT_EQUAL(std::string(LOOPBACK), address);
+		CPPUNIT_ASSERT_EQUAL(sender.getLocalPort(), port);
+		CPPUNIT_ASSERT(std::memcmp(buffer, payload, sizeof(payload)) == 0);
+	}
+
+	void testNonBlockingZeroLengthDatagram()
+	{
+		NET::UDPSocket sender;
+		NET::UDPSocket receiver;
+		sender.bind(LOOPBACK, 0);
+		receiver.bind(LOOPBACK, 0);
+		receiver.setBlocking(false);
+
+		char dummy = 'Q';
+		IOResult sent = sender.sendTo(&dummy, 0, LOOPBACK, receiver.getLocalPort());
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, sent.status);
+		CPPUNIT_ASSERT_EQUAL(size_t(0), sent.bytes);
+
+		std::string address;
+		unsigned short port = 0;
+		IOResult result = receiver.timedReceiveFrom(&dummy, 1, address, port, 1000);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, result.status);
+		CPPUNIT_ASSERT_EQUAL(size_t(0), result.bytes);
+		CPPUNIT_ASSERT_EQUAL(sender.getLocalPort(), port);
+		CPPUNIT_ASSERT_EQUAL('Q', dummy);
+
+		result = receiver.receiveFrom(&dummy, 1, address, port);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::WouldBlock, result.status);
+		CPPUNIT_ASSERT_EQUAL(size_t(0), result.bytes);
+	}
+
+	void testNonBlockingConnectedReceive()
+	{
+		NET::UDPSocket sender;
+		NET::UDPSocket receiver;
+		receiver.bind(LOOPBACK, 0);
+
+		ConnectResult res = sender.connect(LOOPBACK, receiver.getLocalPort());
+		CPPUNIT_ASSERT_EQUAL(ConnectResult::Connected, res);
+		receiver.setBlocking(false);
+
+		char buffer[32]{};
+		IOResult result = receiver.receive(buffer, sizeof(buffer));
+		CPPUNIT_ASSERT_EQUAL(IOStatus::WouldBlock, result.status);
+
+		const char payload[] = "UDP data";
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, sender.send(payload, sizeof(payload)).status);
+		result = receiver.timedReceive(buffer, sizeof(buffer), 1000);
+		CPPUNIT_ASSERT_EQUAL(IOStatus::Success, result.status);
+		CPPUNIT_ASSERT_EQUAL(sizeof(payload), result.bytes);
+		CPPUNIT_ASSERT(std::memcmp(buffer, payload, sizeof(payload)) == 0);
 	}
 };
 

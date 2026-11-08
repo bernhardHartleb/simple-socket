@@ -16,6 +16,7 @@ class UnixDatagramSocket_TEST : public CppUnit::TestFixture
 	CPPUNIT_TEST(testConnectedSendReceive);
 	CPPUNIT_TEST(testTimedReceiveFrom);
 	CPPUNIT_TEST(testZeroLengthDatagram);
+	CPPUNIT_TEST(testNonBlockingSendToWouldBlock);
 	CPPUNIT_TEST(testSocketPathCleanup);
 	CPPUNIT_TEST(testInvalidPath);
 	CPPUNIT_TEST(testAdoptNativeHandle);
@@ -256,6 +257,38 @@ public:
 		CPPUNIT_ASSERT_THROW(auto t = NET::UnixDatagramSocket::adoptNativeHandle(passedFd),  NET::SocketException);
 		CPPUNIT_ASSERT(systemdOwned.valid());
 		CPPUNIT_ASSERT(::access(serverPath.c_str(), F_OK) == 0);
+	}
+
+	void testNonBlockingSendToWouldBlock()
+	{
+		const std::string senderPath = socketPath("unix-nonblocking-sender");
+		const std::string receiverPath = socketPath("unix-nonblocking-receiver");
+		removeStaleSocket(senderPath);
+		removeStaleSocket(receiverPath);
+
+		NET::UnixDatagramSocket sender;
+		NET::UnixDatagramSocket receiver;
+
+		sender.bind(senderPath);
+		receiver.bind(receiverPath);
+		sender.setBlocking(false);
+		CPPUNIT_ASSERT(!sender.isBlocking());
+
+		const char payload[] = "queued datagram";
+		bool sawWouldBlock = false;
+		for(unsigned i = 0; i < 1024; ++i) // bounded: receiver never reads
+		{
+			const IOResult result = sender.sendTo(payload, sizeof(payload), receiverPath);
+			if(result.status == IOStatus::WouldBlock)
+			{
+				CPPUNIT_ASSERT_EQUAL(size_t(0), result.bytes);
+				sawWouldBlock = true;
+				break;
+			}
+			CPPUNIT_ASSERT_EQUAL(IOStatus::Success, result.status);
+			CPPUNIT_ASSERT_EQUAL(sizeof(payload), result.bytes);
+		}
+		CPPUNIT_ASSERT(sawWouldBlock);
 	}
 };
 
