@@ -10,6 +10,7 @@ Functions for DNS resolution and limited network interface management are includ
 - IPv4 / IPv6 TCP and UDP sockets
 - Unix-domain stream and datagram sockets
 - UDP multicast support (IPv4 only)
+- Blocking and Non-Blocking I/O using the same API
 - Timeout support for connect, accept and receive (poll)
 - Peer-disconnect detection for connected sockets
 - Native descriptor adoption and duplication (e.g. socket activation)

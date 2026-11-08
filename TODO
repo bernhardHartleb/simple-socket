@@ -1,5 +1,4 @@
 General:
-- guard Linux specific options
 - test library with other OS (BSD, Mac)
 
 SCTPSocket:
