@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.16)
 
 project(simple-socket
-	VERSION 1.7.0
+	VERSION 1.8.0
 	LANGUAGES CXX)
 
 if(CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)

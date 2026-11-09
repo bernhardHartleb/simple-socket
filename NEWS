@@ -1,3 +1,29 @@
+1.8.0
+~~~~~
+- Add support for non-blocking I/O using the same API
+  Socket blocking mode can be changed using setBlocking()
+  Every send or receive operation works in both modes
+
+- Add IOStatus::WouldBlock for operations that cannot proceed immediately
+  Normal non-blocking conditions no longer result in exceptions
+
+- Add asynchronous connection establishment
+  connect() now reports InProgress for pending connection attempts
+  finishConnect() checks completion and reports the final ConnectResult
+
+- Support non-blocking accept() for TCP and Unix-domain stream sockets
+  Accepted sockets inherit the listener's blocking mode
+
+- Refactor timed operations to use a shared poll helper
+  Use deadlines and correctly handle interrupted polling,
+  repeated checks, and infinite or zero timeouts
+
+- Add isConnected() to query current peer association
+- All sendTo() and receiveFrom() variants use a shared implementation
+- Reduced and simplified necessary errno handling logic
+- Extend unit tests for non-blocking TCP, UDP and Unix-domain sockets
+- Update documentation and examples for non-blocking socket operations
+
 1.7.0
 ~~~~~
 - Breaking API overhaul! All send/receive operations now return an IOResult
