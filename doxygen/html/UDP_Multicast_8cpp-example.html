@@ -33,7 +33,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.7.0</span>
+   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.8.0</span>
    </div>
   </td>
  </tr>
@@ -127,19 +127,19 @@ We got another message.
 <div class="line"> </div>
 <div class="line">    <a id="_a0" name="_a0"></a><a class="code hl_class" href="classNET_1_1UDPSocket.html">NET::UDPSocket</a> recv_socket;</div>
 <div class="line">    <span class="comment">// Allow multiple multicast receivers on this port (all get a copy)</span></div>
-<div class="line">    recv_socket.<a id="a1" name="a1"></a><a class="code hl_function" href="classNET_1_1InternetSocket.html#a927d978f6f79933d109433f607c8241a">setReuseAddress</a>(<span class="keyword">true</span>);</div>
+<div class="line">    recv_socket.<a id="a1" name="a1"></a><a class="code hl_function" href="classNET_1_1InternetSocket.html#ae0396b46d0aa19d6f7824df0af884d5c">setReuseAddress</a>(<span class="keyword">true</span>);</div>
 <div class="line">    <span class="comment">// Listen on the multicast port on any IPv4 address</span></div>
-<div class="line">    recv_socket.<a id="a2" name="a2"></a><a class="code hl_function" href="classNET_1_1InternetSocket.html#a02046392ba4e5810f7dc900686ac9a93">bind</a>(multicast_port);</div>
+<div class="line">    recv_socket.<a id="a2" name="a2"></a><a class="code hl_function" href="classNET_1_1InternetSocket.html#a24f0bf3e2b081f02a348951bb497bfdc">bind</a>(multicast_port);</div>
 <div class="line">    <span class="comment">// Join the multicast group so packets addressed to the group can be delivered to this socket</span></div>
-<div class="line">    recv_socket.<a id="a3" name="a3"></a><a class="code hl_function" href="classNET_1_1UDPSocket.html#ac6cdb609f7f9579384129042f90cd220">joinGroup</a>(multicast_group);</div>
+<div class="line">    recv_socket.<a id="a3" name="a3"></a><a class="code hl_function" href="classNET_1_1UDPSocket.html#a865f78e6c2b806e0e4b2272086959933">joinGroup</a>(multicast_group);</div>
 <div class="line"> </div>
 <div class="line"> </div>
 <div class="line">    <a class="code hl_class" href="classNET_1_1UDPSocket.html">NET::UDPSocket</a> send_socket;</div>
 <div class="line">    <span class="comment">// TTL 0 keeps packets self-contained on the local host</span></div>
-<div class="line">    send_socket.<a id="a4" name="a4"></a><a class="code hl_function" href="classNET_1_1UDPSocket.html#a4dcfff33b45d1b84b5a602fc6f4a27f8">setMulticastTTL</a>(0);</div>
+<div class="line">    send_socket.<a id="a4" name="a4"></a><a class="code hl_function" href="classNET_1_1UDPSocket.html#a1dec227254edced01f3e1412a9f851b7">setMulticastTTL</a>(0);</div>
 <div class="line">    <span class="comment">// Send to group</span></div>
-<div class="line">    send_socket.<a id="a5" name="a5"></a><a class="code hl_function" href="classNET_1_1UDPSocket.html#ac7d2be18e326a772a0f125bc15450901">sendTo</a>(send_msg, send_len, multicast_group, multicast_port);</div>
-<div class="line"> </div>
+<div class="line">    <a id="_a5" name="_a5"></a><a class="code hl_struct" href="structNET_1_1IOResult.html">NET::IOResult</a> sent = send_socket.<a id="a6" name="a6"></a><a class="code hl_function" href="classNET_1_1UDPSocket.html#a129ed8c2d71ae845e231e4b05d9ff139">sendTo</a>(send_msg, send_len, multicast_group, multicast_port);</div>
+<div class="line">    <span class="keyword">static_cast&lt;</span><span class="keywordtype">void</span><span class="keyword">&gt;</span>(sent);</div>
 <div class="line"> </div>
 <div class="line">    std::array&lt;char, 256&gt; buffer{};</div>
 <div class="line">    std::string source;</div>
@@ -147,7 +147,7 @@ We got another message.
 <div class="line"> </div>
 <div class="line">    <span class="comment">// UDP preserves datagram boundaries</span></div>
 <div class="line">    <span class="comment">// one receiveFrom() corresponds to one datagram</span></div>
-<div class="line">    <a id="_a6" name="_a6"></a><a class="code hl_struct" href="structNET_1_1IOResult.html">NET::IOResult</a> res = recv_socket.<a id="a7" name="a7"></a><a class="code hl_function" href="classNET_1_1UDPSocket.html#a225caff5fac24dd22c13899dda70915c">timedReceiveFrom</a>(buffer.data(), buffer.size(), source, source_port, 1000);</div>
+<div class="line">    <a class="code hl_struct" href="structNET_1_1IOResult.html">NET::IOResult</a> res = recv_socket.<a id="a7" name="a7"></a><a class="code hl_function" href="classNET_1_1UDPSocket.html#a12988db87eefc41db20606433210697a">timedReceiveFrom</a>(buffer.data(), buffer.size(), source, source_port, 1000);</div>
 <div class="line"> </div>
 <div class="line">    <span class="keywordflow">if</span> (res.<a id="a8" name="a8"></a><a class="code hl_variable" href="structNET_1_1IOResult.html#ac74ab0eb4d49d7e124037e414768cf41">status</a> == <a id="_a9" name="_a9"></a><a class="code hl_enumvalue" href="namespaceNET.html#a6234637576bbb2ec0600642d629c2104ac85a251cc457840f1e032f1b733e9398">NET::IOStatus::Timeout</a>)</div>
 <div class="line">    {</div>
@@ -161,7 +161,7 @@ We got another message.
 <div class="line"> </div>
 <div class="line">    <span class="comment">// Not required before destruction, but shown because leaving</span></div>
 <div class="line">    <span class="comment">// multicast groups explicitly can be useful</span></div>
-<div class="line">    recv_socket.<a id="a11" name="a11"></a><a class="code hl_function" href="classNET_1_1UDPSocket.html#ad5f835c48b840e30b471e19d7c3cc2aa">leaveGroup</a>(multicast_group);</div>
+<div class="line">    recv_socket.<a id="a11" name="a11"></a><a class="code hl_function" href="classNET_1_1UDPSocket.html#a7d75e529e04b47aa59e7cfc31711bd93">leaveGroup</a>(multicast_group);</div>
 <div class="line"> </div>
 <div class="line">    <span class="keywordflow">return</span> 0;</div>
 <div class="line"> </div>
@@ -173,20 +173,20 @@ We got another message.
 <div class="line">    }</div>
 <div class="line">}</div>
 <div class="ttc" id="aUDPSocket_8h_html"><div class="ttname"><a href="UDPSocket_8h.html">UDPSocket.h</a></div></div>
-<div class="ttc" id="aclassNET_1_1InternetSocket_html_a02046392ba4e5810f7dc900686ac9a93"><div class="ttname"><a href="classNET_1_1InternetSocket.html#a02046392ba4e5810f7dc900686ac9a93">NET::InternetSocket::bind</a></div><div class="ttdeci">void bind(unsigned short localPort=0)</div><div class="ttdef"><b>Definition</b> <a href="InternetSocket_8cpp_source.html#l00141">InternetSocket.cpp:141</a></div></div>
-<div class="ttc" id="aclassNET_1_1InternetSocket_html_a927d978f6f79933d109433f607c8241a"><div class="ttname"><a href="classNET_1_1InternetSocket.html#a927d978f6f79933d109433f607c8241a">NET::InternetSocket::setReuseAddress</a></div><div class="ttdeci">void setReuseAddress(bool enable)</div><div class="ttdoc">Enable or disable local address reuse.</div><div class="ttdef"><b>Definition</b> <a href="InternetSocket_8cpp_source.html#l00068">InternetSocket.cpp:68</a></div></div>
+<div class="ttc" id="aclassNET_1_1InternetSocket_html_a24f0bf3e2b081f02a348951bb497bfdc"><div class="ttname"><a href="classNET_1_1InternetSocket.html#a24f0bf3e2b081f02a348951bb497bfdc">NET::InternetSocket::bind</a></div><div class="ttdeci">void bind(unsigned short localPort=0)</div></div>
+<div class="ttc" id="aclassNET_1_1InternetSocket_html_ae0396b46d0aa19d6f7824df0af884d5c"><div class="ttname"><a href="classNET_1_1InternetSocket.html#ae0396b46d0aa19d6f7824df0af884d5c">NET::InternetSocket::setReuseAddress</a></div><div class="ttdeci">void setReuseAddress(bool enable)</div><div class="ttdoc">Enable or disable local address reuse.</div></div>
 <div class="ttc" id="aclassNET_1_1SocketException_html"><div class="ttname"><a href="classNET_1_1SocketException.html">NET::SocketException</a></div><div class="ttdoc">Signals a problem with the execution of a socket call.</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00011">SimpleSocket.h:12</a></div></div>
 <div class="ttc" id="aclassNET_1_1SocketException_html_a4175605c41f8230e18aa3323a2ef80c5"><div class="ttname"><a href="classNET_1_1SocketException.html#a4175605c41f8230e18aa3323a2ef80c5">NET::SocketException::what</a></div><div class="ttdeci">const char * what() const noexcept</div><div class="ttdoc">Returns a C-string describing the cause of the current error.</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00034">SimpleSocket.h:34</a></div></div>
 <div class="ttc" id="aclassNET_1_1UDPSocket_html"><div class="ttname"><a href="classNET_1_1UDPSocket.html">NET::UDPSocket</a></div><div class="ttdoc">UDP socket class.</div><div class="ttdef"><b>Definition</b> <a href="UDPSocket_8h_source.html#l00009">UDPSocket.h:10</a></div></div>
-<div class="ttc" id="aclassNET_1_1UDPSocket_html_a225caff5fac24dd22c13899dda70915c"><div class="ttname"><a href="classNET_1_1UDPSocket.html#a225caff5fac24dd22c13899dda70915c">NET::UDPSocket::timedReceiveFrom</a></div><div class="ttdeci">IOResult timedReceiveFrom(void *buffer, size_t len, std::string &amp;sourceAddress, unsigned short &amp;sourcePort, int timeout)</div><div class="ttdef"><b>Definition</b> <a href="UDPSocket_8cpp_source.html#l00075">UDPSocket.cpp:75</a></div></div>
-<div class="ttc" id="aclassNET_1_1UDPSocket_html_a4dcfff33b45d1b84b5a602fc6f4a27f8"><div class="ttname"><a href="classNET_1_1UDPSocket.html#a4dcfff33b45d1b84b5a602fc6f4a27f8">NET::UDPSocket::setMulticastTTL</a></div><div class="ttdeci">void setMulticastTTL(unsigned char multicastTTL)</div><div class="ttdef"><b>Definition</b> <a href="UDPSocket_8cpp_source.html#l00081">UDPSocket.cpp:81</a></div></div>
-<div class="ttc" id="aclassNET_1_1UDPSocket_html_ac6cdb609f7f9579384129042f90cd220"><div class="ttname"><a href="classNET_1_1UDPSocket.html#ac6cdb609f7f9579384129042f90cd220">NET::UDPSocket::joinGroup</a></div><div class="ttdeci">void joinGroup(const std::string &amp;multicastGroup)</div><div class="ttdef"><b>Definition</b> <a href="UDPSocket_8cpp_source.html#l00098">UDPSocket.cpp:98</a></div></div>
-<div class="ttc" id="aclassNET_1_1UDPSocket_html_ac7d2be18e326a772a0f125bc15450901"><div class="ttname"><a href="classNET_1_1UDPSocket.html#ac7d2be18e326a772a0f125bc15450901">NET::UDPSocket::sendTo</a></div><div class="ttdeci">IOResult sendTo(const void *buffer, size_t len, std::string_view foreignAddress, unsigned short foreignPort)</div><div class="ttdef"><b>Definition</b> <a href="UDPSocket_8cpp_source.html#l00044">UDPSocket.cpp:44</a></div></div>
-<div class="ttc" id="aclassNET_1_1UDPSocket_html_ad5f835c48b840e30b471e19d7c3cc2aa"><div class="ttname"><a href="classNET_1_1UDPSocket.html#ad5f835c48b840e30b471e19d7c3cc2aa">NET::UDPSocket::leaveGroup</a></div><div class="ttdeci">void leaveGroup(const std::string &amp;multicastGroup)</div><div class="ttdef"><b>Definition</b> <a href="UDPSocket_8cpp_source.html#l00104">UDPSocket.cpp:104</a></div></div>
-<div class="ttc" id="anamespaceNET_html_a6234637576bbb2ec0600642d629c2104ac85a251cc457840f1e032f1b733e9398"><div class="ttname"><a href="namespaceNET.html#a6234637576bbb2ec0600642d629c2104ac85a251cc457840f1e032f1b733e9398">NET::IOStatus::Timeout</a></div><div class="ttdeci">@ Timeout</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00053">SimpleSocket.h:53</a></div></div>
-<div class="ttc" id="astructNET_1_1IOResult_html"><div class="ttname"><a href="structNET_1_1IOResult.html">NET::IOResult</a></div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00073">SimpleSocket.h:74</a></div></div>
-<div class="ttc" id="astructNET_1_1IOResult_html_a0ac6a3006dbb99852bc8636a47d92083"><div class="ttname"><a href="structNET_1_1IOResult.html#a0ac6a3006dbb99852bc8636a47d92083">NET::IOResult::bytes</a></div><div class="ttdeci">size_t bytes</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00076">SimpleSocket.h:76</a></div></div>
-<div class="ttc" id="astructNET_1_1IOResult_html_ac74ab0eb4d49d7e124037e414768cf41"><div class="ttname"><a href="structNET_1_1IOResult.html#ac74ab0eb4d49d7e124037e414768cf41">NET::IOResult::status</a></div><div class="ttdeci">IOStatus status</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00075">SimpleSocket.h:75</a></div></div>
+<div class="ttc" id="aclassNET_1_1UDPSocket_html_a12988db87eefc41db20606433210697a"><div class="ttname"><a href="classNET_1_1UDPSocket.html#a12988db87eefc41db20606433210697a">NET::UDPSocket::timedReceiveFrom</a></div><div class="ttdeci">IOResult timedReceiveFrom(void *buffer, size_t len, std::string &amp;sourceAddress, unsigned short &amp;sourcePort, int timeout)</div></div>
+<div class="ttc" id="aclassNET_1_1UDPSocket_html_a129ed8c2d71ae845e231e4b05d9ff139"><div class="ttname"><a href="classNET_1_1UDPSocket.html#a129ed8c2d71ae845e231e4b05d9ff139">NET::UDPSocket::sendTo</a></div><div class="ttdeci">IOResult sendTo(const void *buffer, size_t len, std::string_view foreignAddress, unsigned short foreignPort)</div></div>
+<div class="ttc" id="aclassNET_1_1UDPSocket_html_a1dec227254edced01f3e1412a9f851b7"><div class="ttname"><a href="classNET_1_1UDPSocket.html#a1dec227254edced01f3e1412a9f851b7">NET::UDPSocket::setMulticastTTL</a></div><div class="ttdeci">void setMulticastTTL(unsigned char multicastTTL)</div></div>
+<div class="ttc" id="aclassNET_1_1UDPSocket_html_a7d75e529e04b47aa59e7cfc31711bd93"><div class="ttname"><a href="classNET_1_1UDPSocket.html#a7d75e529e04b47aa59e7cfc31711bd93">NET::UDPSocket::leaveGroup</a></div><div class="ttdeci">void leaveGroup(const std::string &amp;multicastGroup)</div></div>
+<div class="ttc" id="aclassNET_1_1UDPSocket_html_a865f78e6c2b806e0e4b2272086959933"><div class="ttname"><a href="classNET_1_1UDPSocket.html#a865f78e6c2b806e0e4b2272086959933">NET::UDPSocket::joinGroup</a></div><div class="ttdeci">void joinGroup(const std::string &amp;multicastGroup)</div></div>
+<div class="ttc" id="anamespaceNET_html_a6234637576bbb2ec0600642d629c2104ac85a251cc457840f1e032f1b733e9398"><div class="ttname"><a href="namespaceNET.html#a6234637576bbb2ec0600642d629c2104ac85a251cc457840f1e032f1b733e9398">NET::IOStatus::Timeout</a></div><div class="ttdeci">@ Timeout</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00059">SimpleSocket.h:59</a></div></div>
+<div class="ttc" id="astructNET_1_1IOResult_html"><div class="ttname"><a href="structNET_1_1IOResult.html">NET::IOResult</a></div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00083">SimpleSocket.h:84</a></div></div>
+<div class="ttc" id="astructNET_1_1IOResult_html_a0ac6a3006dbb99852bc8636a47d92083"><div class="ttname"><a href="structNET_1_1IOResult.html#a0ac6a3006dbb99852bc8636a47d92083">NET::IOResult::bytes</a></div><div class="ttdeci">size_t bytes</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00086">SimpleSocket.h:86</a></div></div>
+<div class="ttc" id="astructNET_1_1IOResult_html_ac74ab0eb4d49d7e124037e414768cf41"><div class="ttname"><a href="structNET_1_1IOResult.html#ac74ab0eb4d49d7e124037e414768cf41">NET::IOResult::status</a></div><div class="ttdeci">IOStatus status</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00085">SimpleSocket.h:85</a></div></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->

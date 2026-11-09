@@ -20,6 +20,5 @@ var hierarchy =
         [ "NET::UnixDatagramSocket", "classNET_1_1UnixDatagramSocket.html", null ],
         [ "NET::UnixStreamSocket", "classNET_1_1UnixStreamSocket.html", null ]
       ] ]
-    ] ],
-    [ "NET::SockAddress", "classNET_1_1SockAddress.html", null ]
+    ] ]
 ];

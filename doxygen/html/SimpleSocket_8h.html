@@ -33,7 +33,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.7.0</span>
+   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.8.0</span>
    </div>
   </td>
  </tr>
@@ -120,7 +120,7 @@ $(function() {
 <div id="dynsection-1-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-1-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="SimpleSocket_8h__dep__incl.svg" width="100%" height="532"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="SimpleSocket_8h__dep__incl.svg" width="100%" height="476"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 </div>
 <p><a href="SimpleSocket_8h_source.html">Go to the source code of this file.</a></p>
@@ -144,24 +144,33 @@ Enumerations</h2></td></tr>
 <tr class="memitem:a657e1fa5f020df28069800f3fb19eab6" id="r_a657e1fa5f020df28069800f3fb19eab6"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="namespaceNET.html#a657e1fa5f020df28069800f3fb19eab6">NET::AddressFamily</a> { <a class="el" href="namespaceNET.html#a657e1fa5f020df28069800f3fb19eab6a18565c1ed23cf01bb372e354fbc670dd">NET::IPv4</a>
 , <a class="el" href="namespaceNET.html#a657e1fa5f020df28069800f3fb19eab6a8059a0b17480e790a863427324455b24">NET::IPv6</a>
  }</td></tr>
-<tr class="memitem:a6234637576bbb2ec0600642d629c2104" id="r_a6234637576bbb2ec0600642d629c2104"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespaceNET.html#a6234637576bbb2ec0600642d629c2104">NET::IOStatus</a> { <a class="el" href="namespaceNET.html#a6234637576bbb2ec0600642d629c2104a505a83f220c02df2f85c3810cd9ceb38">NET::Success</a>
+<tr class="memdesc:a657e1fa5f020df28069800f3fb19eab6"><td class="mdescLeft">&#160;</td><td class="mdescRight">used by internet socket types  <a href="namespaceNET.html#a657e1fa5f020df28069800f3fb19eab6">More...</a><br /></td></tr>
+<tr class="memitem:a6234637576bbb2ec0600642d629c2104" id="r_a6234637576bbb2ec0600642d629c2104"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespaceNET.html#a6234637576bbb2ec0600642d629c2104">NET::IOStatus</a> { <br />
+&#160;&#160;<a class="el" href="namespaceNET.html#a6234637576bbb2ec0600642d629c2104a505a83f220c02df2f85c3810cd9ceb38">NET::Success</a>
+, <a class="el" href="namespaceNET.html#a6234637576bbb2ec0600642d629c2104ae799f8e2bec1c2593f034ec5060229e6">NET::WouldBlock</a>
 , <a class="el" href="namespaceNET.html#a6234637576bbb2ec0600642d629c2104ac85a251cc457840f1e032f1b733e9398">NET::Timeout</a>
 , <a class="el" href="namespaceNET.html#a6234637576bbb2ec0600642d629c2104a333905113a456692308689b23e032249">NET::PeerDisconnected</a>
-, <a class="el" href="namespaceNET.html#a6234637576bbb2ec0600642d629c2104a6e01666a2ff1333a6ceeab4d917a9172">NET::DestinationUnavailable</a>
- }</td></tr>
-<tr class="memitem:aaf70b419dfaefe3a31207434ee82ff4c" id="r_aaf70b419dfaefe3a31207434ee82ff4c"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespaceNET.html#aaf70b419dfaefe3a31207434ee82ff4c">NET::ConnectResult</a> { <br />
-&#160;&#160;<a class="el" href="namespaceNET.html#aaf70b419dfaefe3a31207434ee82ff4ca2ec0d16e4ca169baedb9b2d50ec5c6d7">NET::Connected</a>
-, <a class="el" href="namespaceNET.html#aaf70b419dfaefe3a31207434ee82ff4cac85a251cc457840f1e032f1b733e9398">NET::Timeout</a>
-, <a class="el" href="namespaceNET.html#aaf70b419dfaefe3a31207434ee82ff4caf48b206184b7442983452ea4c3e88a3a">NET::Refused</a>
-, <a class="el" href="namespaceNET.html#aaf70b419dfaefe3a31207434ee82ff4ca721c28f4c74928cc9e0bb3fef345e408">NET::Aborted</a>
 , <br />
-&#160;&#160;<a class="el" href="namespaceNET.html#aaf70b419dfaefe3a31207434ee82ff4ca4bed942140642650ca78039de000796a">NET::Unreachable</a>
+&#160;&#160;<a class="el" href="namespaceNET.html#a6234637576bbb2ec0600642d629c2104a6e01666a2ff1333a6ceeab4d917a9172">NET::DestinationUnavailable</a>
 <br />
  }</td></tr>
+<tr class="memdesc:a6234637576bbb2ec0600642d629c2104"><td class="mdescLeft">&#160;</td><td class="mdescRight">status of the I/O operation  <a href="namespaceNET.html#a6234637576bbb2ec0600642d629c2104">More...</a><br /></td></tr>
+<tr class="memitem:aaf70b419dfaefe3a31207434ee82ff4c" id="r_aaf70b419dfaefe3a31207434ee82ff4c"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="namespaceNET.html#aaf70b419dfaefe3a31207434ee82ff4c">NET::ConnectResult</a> { <br />
+&#160;&#160;<a class="el" href="namespaceNET.html#aaf70b419dfaefe3a31207434ee82ff4ca2ec0d16e4ca169baedb9b2d50ec5c6d7">NET::Connected</a>
+, <a class="el" href="namespaceNET.html#aaf70b419dfaefe3a31207434ee82ff4ca12d868c18cb29bf58f02b504be9033fd">NET::InProgress</a>
+, <a class="el" href="namespaceNET.html#aaf70b419dfaefe3a31207434ee82ff4cac85a251cc457840f1e032f1b733e9398">NET::Timeout</a>
+, <a class="el" href="namespaceNET.html#aaf70b419dfaefe3a31207434ee82ff4caf48b206184b7442983452ea4c3e88a3a">NET::Refused</a>
+, <br />
+&#160;&#160;<a class="el" href="namespaceNET.html#aaf70b419dfaefe3a31207434ee82ff4ca721c28f4c74928cc9e0bb3fef345e408">NET::Aborted</a>
+, <a class="el" href="namespaceNET.html#aaf70b419dfaefe3a31207434ee82ff4ca4bed942140642650ca78039de000796a">NET::Unreachable</a>
+<br />
+ }</td></tr>
+<tr class="memdesc:aaf70b419dfaefe3a31207434ee82ff4c"><td class="mdescLeft">&#160;</td><td class="mdescRight">result of the connection attempt  <a href="namespaceNET.html#aaf70b419dfaefe3a31207434ee82ff4c">More...</a><br /></td></tr>
 <tr class="memitem:a9b61e3d2422a1203909bd7985df95884" id="r_a9b61e3d2422a1203909bd7985df95884"><td class="memItemLeft">enum &#160;</td><td class="memItemRight"><a class="el" href="namespaceNET.html#a9b61e3d2422a1203909bd7985df95884">NET::ShutdownDirection</a> { <a class="el" href="namespaceNET.html#a9b61e3d2422a1203909bd7985df95884ae9cb5d756b0cef8d4de6e226890bee43">NET::STOP_RECEIVE</a>
 , <a class="el" href="namespaceNET.html#a9b61e3d2422a1203909bd7985df95884a033d3418b7b9455f3b5d7c6692155b3e">NET::STOP_SEND</a>
 , <a class="el" href="namespaceNET.html#a9b61e3d2422a1203909bd7985df95884aac8f7825323c5ef9954fc0a7eac781d7">NET::STOP_BOTH</a>
  }</td></tr>
+<tr class="memdesc:a9b61e3d2422a1203909bd7985df95884"><td class="mdescLeft">&#160;</td><td class="mdescRight">direction to close for a stream socket  <a href="namespaceNET.html#a9b61e3d2422a1203909bd7985df95884">More...</a><br /></td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

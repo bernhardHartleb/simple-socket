@@ -33,7 +33,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.7.0</span>
+   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.8.0</span>
    </div>
   </td>
  </tr>
@@ -127,7 +127,7 @@ $(function() {
 <div class="line">            <a id="_a0" name="_a0"></a><a class="code hl_class" href="classNET_1_1TCPSocket.html">NET::TCPSocket</a> socket{<a id="_a1" name="_a1"></a><a class="code hl_enumvalue" href="namespaceNET.html#a657e1fa5f020df28069800f3fb19eab6a18565c1ed23cf01bb372e354fbc670dd">NET::IPv4</a>};</div>
 <div class="line"> </div>
 <div class="line">            <span class="comment">// Attempt to connect within 5s timeout</span></div>
-<div class="line">            <span class="keyword">const</span> <span class="keyword">auto</span> connection = socket.<a id="a2" name="a2"></a><a class="code hl_function" href="classNET_1_1InternetSocket.html#a606cefbe73add4d6dddad89f1350925b">timedConnect</a>(<span class="stringliteral">&quot;127.0.0.1&quot;</span>, 47777, 5000);</div>
+<div class="line">            <span class="keyword">const</span> <span class="keyword">auto</span> connection = socket.<a id="a2" name="a2"></a><a class="code hl_function" href="classNET_1_1InternetSocket.html#ab9998237c386b9606006836f7b7d6dff">timedConnect</a>(<span class="stringliteral">&quot;127.0.0.1&quot;</span>, 47777, 5000);</div>
 <div class="line"> </div>
 <div class="line">            <span class="keywordflow">if</span> (connection != <a id="_a3" name="_a3"></a><a class="code hl_enumvalue" href="namespaceNET.html#aaf70b419dfaefe3a31207434ee82ff4ca2ec0d16e4ca169baedb9b2d50ec5c6d7">NET::ConnectResult::Connected</a>)</div>
 <div class="line">            {</div>
@@ -137,15 +137,15 @@ $(function() {
 <div class="line">            }</div>
 <div class="line"> </div>
 <div class="line">            std::cout &lt;&lt; <span class="stringliteral">&quot;Connected to &quot;</span></div>
-<div class="line">                      &lt;&lt; socket.<a id="a4" name="a4"></a><a class="code hl_function" href="classNET_1_1InternetSocket.html#ad473c333c130d87fcfdfe44b1309e128">getForeignAddress</a>() &lt;&lt; <span class="stringliteral">&quot;:&quot;</span></div>
-<div class="line">                      &lt;&lt; socket.<a id="a5" name="a5"></a><a class="code hl_function" href="classNET_1_1InternetSocket.html#a3bed9eaad1c7dfc3d3ad2515260cf388">getForeignPort</a>() &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line">                      &lt;&lt; socket.<a id="a4" name="a4"></a><a class="code hl_function" href="classNET_1_1InternetSocket.html#a26f996c198c949e2d1e4f48bc4cb7086">getForeignAddress</a>() &lt;&lt; <span class="stringliteral">&quot;:&quot;</span></div>
+<div class="line">                      &lt;&lt; socket.<a id="a5" name="a5"></a><a class="code hl_function" href="classNET_1_1InternetSocket.html#a89710d1bf797105b025c4ddfd4caaea3">getForeignPort</a>() &lt;&lt; <span class="stringliteral">&quot;\n&quot;</span>;</div>
 <div class="line"> </div>
 <div class="line">            std::array&lt;char, 8192&gt; buffer;</div>
 <div class="line"> </div>
 <div class="line">            <span class="keywordflow">while</span>(1)</div>
 <div class="line">            {</div>
 <div class="line">                <span class="comment">// Expect to recevie initial data after at least 2s</span></div>
-<div class="line">                <span class="keyword">const</span> <span class="keyword">auto</span> result = socket.<a id="a6" name="a6"></a><a class="code hl_function" href="classNET_1_1SimpleSocket.html#a90a7239e87f681acddc581082748b8a5">timedReceive</a>(buffer.data(), buffer.size(), 2000);</div>
+<div class="line">                <span class="keyword">const</span> <span class="keyword">auto</span> result = socket.<a id="a6" name="a6"></a><a class="code hl_function" href="classNET_1_1SimpleSocket.html#aa60b710b1f6b259013a6520eeaa7bdb5">timedReceive</a>(buffer.data(), buffer.size(), 2000);</div>
 <div class="line"> </div>
 <div class="line">                <span class="keywordflow">if</span> (result.status == <a id="_a7" name="_a7"></a><a class="code hl_enumvalue" href="namespaceNET.html#a6234637576bbb2ec0600642d629c2104a505a83f220c02df2f85c3810cd9ceb38">NET::IOStatus::Success</a>)</div>
 <div class="line">                {</div>
@@ -180,17 +180,17 @@ $(function() {
 <div class="line">    }</div>
 <div class="line">}</div>
 <div class="ttc" id="aTCPSocket_8h_html"><div class="ttname"><a href="TCPSocket_8h.html">TCPSocket.h</a></div></div>
-<div class="ttc" id="aclassNET_1_1InternetSocket_html_a3bed9eaad1c7dfc3d3ad2515260cf388"><div class="ttname"><a href="classNET_1_1InternetSocket.html#a3bed9eaad1c7dfc3d3ad2515260cf388">NET::InternetSocket::getForeignPort</a></div><div class="ttdeci">unsigned short getForeignPort() const</div><div class="ttdef"><b>Definition</b> <a href="InternetSocket_8cpp_source.html#l00189">InternetSocket.cpp:189</a></div></div>
-<div class="ttc" id="aclassNET_1_1InternetSocket_html_a606cefbe73add4d6dddad89f1350925b"><div class="ttname"><a href="classNET_1_1InternetSocket.html#a606cefbe73add4d6dddad89f1350925b">NET::InternetSocket::timedConnect</a></div><div class="ttdeci">ConnectResult timedConnect(std::string_view foreignAddress, unsigned short foreignPort, int timeout)</div><div class="ttdoc">establish a connection with the given foreign address and port</div><div class="ttdef"><b>Definition</b> <a href="InternetSocket_8cpp_source.html#l00083">InternetSocket.cpp:83</a></div></div>
-<div class="ttc" id="aclassNET_1_1InternetSocket_html_ad473c333c130d87fcfdfe44b1309e128"><div class="ttname"><a href="classNET_1_1InternetSocket.html#ad473c333c130d87fcfdfe44b1309e128">NET::InternetSocket::getForeignAddress</a></div><div class="ttdeci">std::string getForeignAddress() const</div><div class="ttdef"><b>Definition</b> <a href="InternetSocket_8cpp_source.html#l00177">InternetSocket.cpp:177</a></div></div>
-<div class="ttc" id="aclassNET_1_1SimpleSocket_html_a90a7239e87f681acddc581082748b8a5"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#a90a7239e87f681acddc581082748b8a5">NET::SimpleSocket::timedReceive</a></div><div class="ttdeci">IOResult timedReceive(void *buffer, size_t len, int timeout)</div><div class="ttdoc">receive data from a bound socket, return after the given timespan</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8cpp_source.html#l00142">SimpleSocket.cpp:142</a></div></div>
+<div class="ttc" id="aclassNET_1_1InternetSocket_html_a26f996c198c949e2d1e4f48bc4cb7086"><div class="ttname"><a href="classNET_1_1InternetSocket.html#a26f996c198c949e2d1e4f48bc4cb7086">NET::InternetSocket::getForeignAddress</a></div><div class="ttdeci">std::string getForeignAddress() const</div></div>
+<div class="ttc" id="aclassNET_1_1InternetSocket_html_a89710d1bf797105b025c4ddfd4caaea3"><div class="ttname"><a href="classNET_1_1InternetSocket.html#a89710d1bf797105b025c4ddfd4caaea3">NET::InternetSocket::getForeignPort</a></div><div class="ttdeci">unsigned short getForeignPort() const</div></div>
+<div class="ttc" id="aclassNET_1_1InternetSocket_html_ab9998237c386b9606006836f7b7d6dff"><div class="ttname"><a href="classNET_1_1InternetSocket.html#ab9998237c386b9606006836f7b7d6dff">NET::InternetSocket::timedConnect</a></div><div class="ttdeci">ConnectResult timedConnect(std::string_view foreignAddress, unsigned short foreignPort, int timeout)</div><div class="ttdoc">establish a connection with the given foreign address and port</div></div>
+<div class="ttc" id="aclassNET_1_1SimpleSocket_html_aa60b710b1f6b259013a6520eeaa7bdb5"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#aa60b710b1f6b259013a6520eeaa7bdb5">NET::SimpleSocket::timedReceive</a></div><div class="ttdeci">IOResult timedReceive(void *buffer, size_t len, int timeout)</div><div class="ttdoc">receive data from a bound socket, return after the given timespan</div></div>
 <div class="ttc" id="aclassNET_1_1SocketException_html"><div class="ttname"><a href="classNET_1_1SocketException.html">NET::SocketException</a></div><div class="ttdoc">Signals a problem with the execution of a socket call.</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00011">SimpleSocket.h:12</a></div></div>
 <div class="ttc" id="aclassNET_1_1SocketException_html_a4175605c41f8230e18aa3323a2ef80c5"><div class="ttname"><a href="classNET_1_1SocketException.html#a4175605c41f8230e18aa3323a2ef80c5">NET::SocketException::what</a></div><div class="ttdeci">const char * what() const noexcept</div><div class="ttdoc">Returns a C-string describing the cause of the current error.</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00034">SimpleSocket.h:34</a></div></div>
 <div class="ttc" id="aclassNET_1_1TCPSocket_html"><div class="ttname"><a href="classNET_1_1TCPSocket.html">NET::TCPSocket</a></div><div class="ttdoc">TCP socket class.</div><div class="ttdef"><b>Definition</b> <a href="TCPSocket_8h_source.html#l00010">TCPSocket.h:11</a></div></div>
-<div class="ttc" id="anamespaceNET_html_a6234637576bbb2ec0600642d629c2104a333905113a456692308689b23e032249"><div class="ttname"><a href="namespaceNET.html#a6234637576bbb2ec0600642d629c2104a333905113a456692308689b23e032249">NET::IOStatus::PeerDisconnected</a></div><div class="ttdeci">@ PeerDisconnected</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00054">SimpleSocket.h:54</a></div></div>
-<div class="ttc" id="anamespaceNET_html_a6234637576bbb2ec0600642d629c2104a505a83f220c02df2f85c3810cd9ceb38"><div class="ttname"><a href="namespaceNET.html#a6234637576bbb2ec0600642d629c2104a505a83f220c02df2f85c3810cd9ceb38">NET::IOStatus::Success</a></div><div class="ttdeci">@ Success</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00052">SimpleSocket.h:52</a></div></div>
-<div class="ttc" id="anamespaceNET_html_a657e1fa5f020df28069800f3fb19eab6a18565c1ed23cf01bb372e354fbc670dd"><div class="ttname"><a href="namespaceNET.html#a657e1fa5f020df28069800f3fb19eab6a18565c1ed23cf01bb372e354fbc670dd">NET::IPv4</a></div><div class="ttdeci">@ IPv4</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00046">SimpleSocket.h:46</a></div></div>
-<div class="ttc" id="anamespaceNET_html_aaf70b419dfaefe3a31207434ee82ff4ca2ec0d16e4ca169baedb9b2d50ec5c6d7"><div class="ttname"><a href="namespaceNET.html#aaf70b419dfaefe3a31207434ee82ff4ca2ec0d16e4ca169baedb9b2d50ec5c6d7">NET::ConnectResult::Connected</a></div><div class="ttdeci">@ Connected</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00081">SimpleSocket.h:81</a></div></div>
+<div class="ttc" id="anamespaceNET_html_a6234637576bbb2ec0600642d629c2104a333905113a456692308689b23e032249"><div class="ttname"><a href="namespaceNET.html#a6234637576bbb2ec0600642d629c2104a333905113a456692308689b23e032249">NET::IOStatus::PeerDisconnected</a></div><div class="ttdeci">@ PeerDisconnected</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00060">SimpleSocket.h:60</a></div></div>
+<div class="ttc" id="anamespaceNET_html_a6234637576bbb2ec0600642d629c2104a505a83f220c02df2f85c3810cd9ceb38"><div class="ttname"><a href="namespaceNET.html#a6234637576bbb2ec0600642d629c2104a505a83f220c02df2f85c3810cd9ceb38">NET::IOStatus::Success</a></div><div class="ttdeci">@ Success</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00057">SimpleSocket.h:57</a></div></div>
+<div class="ttc" id="anamespaceNET_html_a657e1fa5f020df28069800f3fb19eab6a18565c1ed23cf01bb372e354fbc670dd"><div class="ttname"><a href="namespaceNET.html#a657e1fa5f020df28069800f3fb19eab6a18565c1ed23cf01bb372e354fbc670dd">NET::IPv4</a></div><div class="ttdeci">@ IPv4</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00047">SimpleSocket.h:47</a></div></div>
+<div class="ttc" id="anamespaceNET_html_aaf70b419dfaefe3a31207434ee82ff4ca2ec0d16e4ca169baedb9b2d50ec5c6d7"><div class="ttname"><a href="namespaceNET.html#aaf70b419dfaefe3a31207434ee82ff4ca2ec0d16e4ca169baedb9b2d50ec5c6d7">NET::ConnectResult::Connected</a></div><div class="ttdeci">@ Connected</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00095">SimpleSocket.h:95</a></div></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->

@@ -50,11 +50,7 @@ var NAVTREE =
       ] ]
     ] ],
     [ "Files", "files.html", [
-      [ "File List", "files.html", "files_dup" ],
-      [ "File Members", "globals.html", [
-        [ "All", "globals.html", null ],
-        [ "Macros", "globals_defs.html", null ]
-      ] ]
+      [ "File List", "files.html", "files_dup" ]
     ] ],
     [ "Examples", "examples.html", "examples" ]
   ] ]
@@ -62,10 +58,10 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"CANRawSocket_8cpp.html",
-"classNET_1_1InternetSocket.html#adaeeb637df37b75fca832fff7d746ed8",
-"classNET_1_1TCPSocket.html#a107aca419c74eb2785641b2ad4670433",
-"classNET_1_1UnixSocket.html#ae9af79a28259dad3318b15ac91ef18c5"
+"CANRawSocket_8h.html",
+"classNET_1_1NetworkInterface.html#a6a4f69bf797dc5c638eb4c835be82d76",
+"classNET_1_1TCPSocket.html#a774dcd3aec69d20b173e346d73bc3202",
+"classNET_1_1UnixSocket.html#ad1c5da36fdd720816fb8f162aa59798d"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

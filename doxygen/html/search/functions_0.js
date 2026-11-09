@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['accept_0',['accept',['../classNET_1_1SCTPSocket.html#a0f9fc53c297b0447b4f80c6ad4c9b9d5',1,'NET::SCTPSocket::accept()'],['../classNET_1_1SimpleSocket.html#a23f806c99ec86fe75872ac60d9af9996',1,'NET::SimpleSocket::accept()'],['../classNET_1_1TCPSocket.html#a664a46561dfb0f122505c6cb4ceb75f0',1,'NET::TCPSocket::accept()'],['../classNET_1_1UnixStreamSocket.html#a4b31f4b2898d6c25b68a9f5469a0d0a0',1,'NET::UnixStreamSocket::accept()']]],
-  ['acceptnative_1',['acceptNative',['../classNET_1_1SimpleSocket.html#a5b5c42c7be2b83d2ba1c830c7d4a1cb8',1,'NET::SimpleSocket']]],
-  ['address_2',['address',['../classNET_1_1SockAddress.html#a20a7990ddf520d0324be42cf9f049432',1,'NET::SockAddress']]],
-  ['addressfamily_3',['addressFamily',['../classNET_1_1InternetSocket.html#aa6552ffddfa5a21312578503e4389fd2',1,'NET::InternetSocket']]],
-  ['adoptnativehandle_4',['adoptNativeHandle',['../classNET_1_1TCPSocket.html#aca84ae4f3d44825fc2b8cf0432efa0dc',1,'NET::TCPSocket::adoptNativeHandle()'],['../classNET_1_1UDPSocket.html#ad880218f09d15a3589c4ad5466160037',1,'NET::UDPSocket::adoptNativeHandle()'],['../classNET_1_1UnixDatagramSocket.html#acbd727f75e4f96d66cf472fe755add1d',1,'NET::UnixDatagramSocket::adoptNativeHandle()'],['../classNET_1_1UnixStreamSocket.html#a281cee97ee7e9601e5ab8c05384db96e',1,'NET::UnixStreamSocket::adoptNativeHandle()']]]
+  ['accept_0',['accept',['../classNET_1_1SCTPSocket.html#a316cec6e3c6d60440e3961643a4e9eb5',1,'NET::SCTPSocket::accept()'],['../classNET_1_1TCPSocket.html#a811215ee2d9661635d68f2867e4c0652',1,'NET::TCPSocket::accept()'],['../classNET_1_1UnixStreamSocket.html#a9fd6bd78c64083df4ee83addae63c687',1,'NET::UnixStreamSocket::accept()']]],
+  ['addressfamily_1',['addressFamily',['../classNET_1_1InternetSocket.html#aa6552ffddfa5a21312578503e4389fd2',1,'NET::InternetSocket']]],
+  ['adoptnativehandle_2',['adoptNativeHandle',['../classNET_1_1TCPSocket.html#a3527fc826a0050e8154a54ef0138ebbf',1,'NET::TCPSocket::adoptNativeHandle()'],['../classNET_1_1UDPSocket.html#a7dfbf21fcb1516d63af1be41ca1b7455',1,'NET::UDPSocket::adoptNativeHandle()'],['../classNET_1_1UnixDatagramSocket.html#ac7b89b16779743d252b89e7fa95874ac',1,'NET::UnixDatagramSocket::adoptNativeHandle()'],['../classNET_1_1UnixStreamSocket.html#a9f3c0f789ca5ac405f473ed7d98df935',1,'NET::UnixStreamSocket::adoptNativeHandle()']]]
 ];

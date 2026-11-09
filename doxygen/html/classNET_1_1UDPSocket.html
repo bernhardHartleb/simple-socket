@@ -33,7 +33,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.7.0</span>
+   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.8.0</span>
    </div>
   </td>
  </tr>
@@ -127,77 +127,78 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a8d0b8995262242a74ecfca1e507a29e6" id="r_a8d0b8995262242a74ecfca1e507a29e6"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8d0b8995262242a74ecfca1e507a29e6">UDPSocket</a> (<a class="el" href="namespaceNET.html#a657e1fa5f020df28069800f3fb19eab6">AddressFamily</a> family=<a class="el" href="namespaceNET.html#a657e1fa5f020df28069800f3fb19eab6a18565c1ed23cf01bb372e354fbc670dd">IPv4</a>)</td></tr>
-<tr class="memitem:ac7d2be18e326a772a0f125bc15450901" id="r_ac7d2be18e326a772a0f125bc15450901"><td class="memItemLeft"><a class="el" href="structNET_1_1IOResult.html">IOResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac7d2be18e326a772a0f125bc15450901">sendTo</a> (const void *buffer, size_t len, std::string_view foreignAddress, unsigned short foreignPort)</td></tr>
-<tr class="memitem:a7b151adac0149a04efe1e0d2cee5dec4" id="r_a7b151adac0149a04efe1e0d2cee5dec4"><td class="memItemLeft"><a class="el" href="structNET_1_1IOResult.html">IOResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a7b151adac0149a04efe1e0d2cee5dec4">receiveFrom</a> (void *buffer, size_t len, std::string &amp;sourceAddress, unsigned short &amp;sourcePort)</td></tr>
-<tr class="memitem:a225caff5fac24dd22c13899dda70915c" id="r_a225caff5fac24dd22c13899dda70915c"><td class="memItemLeft"><a class="el" href="structNET_1_1IOResult.html">IOResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a225caff5fac24dd22c13899dda70915c">timedReceiveFrom</a> (void *buffer, size_t len, std::string &amp;sourceAddress, unsigned short &amp;sourcePort, int timeout)</td></tr>
-<tr class="memitem:a4dcfff33b45d1b84b5a602fc6f4a27f8" id="r_a4dcfff33b45d1b84b5a602fc6f4a27f8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a4dcfff33b45d1b84b5a602fc6f4a27f8">setMulticastTTL</a> (unsigned char multicastTTL)</td></tr>
-<tr class="memitem:a9d00dfd5fa5be755f7c834b68957d1f0" id="r_a9d00dfd5fa5be755f7c834b68957d1f0"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a9d00dfd5fa5be755f7c834b68957d1f0">setMulticastInterfaceAddr</a> (const std::string &amp;address)</td></tr>
-<tr class="memitem:ac6cdb609f7f9579384129042f90cd220" id="r_ac6cdb609f7f9579384129042f90cd220"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ac6cdb609f7f9579384129042f90cd220">joinGroup</a> (const std::string &amp;multicastGroup)</td></tr>
-<tr class="memitem:ad5f835c48b840e30b471e19d7c3cc2aa" id="r_ad5f835c48b840e30b471e19d7c3cc2aa"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#ad5f835c48b840e30b471e19d7c3cc2aa">leaveGroup</a> (const std::string &amp;multicastGroup)</td></tr>
-<tr class="memitem:a927d978f6f79933d109433f607c8241a" id="r_a927d978f6f79933d109433f607c8241a"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1InternetSocket.html#a927d978f6f79933d109433f607c8241a">setReuseAddress</a> (bool enable)</td></tr>
-<tr class="memdesc:a927d978f6f79933d109433f607c8241a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable or disable local address reuse.  <br /></td></tr>
-<tr class="memitem:ab5151cf3fcd5768c6d40e585774b417b" id="r_ab5151cf3fcd5768c6d40e585774b417b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1InternetSocket.html#ab5151cf3fcd5768c6d40e585774b417b">connect</a> (std::string_view foreignAddress, unsigned short foreignPort)</td></tr>
-<tr class="memdesc:ab5151cf3fcd5768c6d40e585774b417b"><td class="mdescLeft">&#160;</td><td class="mdescRight">establish a connection with the given foreign address and port  <br /></td></tr>
-<tr class="memitem:a606cefbe73add4d6dddad89f1350925b" id="r_a606cefbe73add4d6dddad89f1350925b"><td class="memItemLeft"><a class="el" href="namespaceNET.html#aaf70b419dfaefe3a31207434ee82ff4c">ConnectResult</a>&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1InternetSocket.html#a606cefbe73add4d6dddad89f1350925b">timedConnect</a> (std::string_view foreignAddress, unsigned short foreignPort, int timeout)</td></tr>
-<tr class="memdesc:a606cefbe73add4d6dddad89f1350925b"><td class="mdescLeft">&#160;</td><td class="mdescRight">establish a connection with the given foreign address and port  <br /></td></tr>
-<tr class="memitem:a02046392ba4e5810f7dc900686ac9a93" id="r_a02046392ba4e5810f7dc900686ac9a93"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1InternetSocket.html#a02046392ba4e5810f7dc900686ac9a93">bind</a> (unsigned short localPort=0)</td></tr>
-<tr class="memitem:aa5a9ac4408c1103f151945781172682f" id="r_aa5a9ac4408c1103f151945781172682f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1InternetSocket.html#aa5a9ac4408c1103f151945781172682f">bind</a> (std::string_view localAddress, unsigned short localPort=0)</td></tr>
-<tr class="memdesc:aa5a9ac4408c1103f151945781172682f"><td class="mdescLeft">&#160;</td><td class="mdescRight">bind socket to address / port  <br /></td></tr>
-<tr class="memitem:acaf6862f1a15b8a69a259537cfb054e5" id="r_acaf6862f1a15b8a69a259537cfb054e5"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1InternetSocket.html#acaf6862f1a15b8a69a259537cfb054e5">getLocalAddress</a> () const</td></tr>
-<tr class="memitem:a107aca419c74eb2785641b2ad4670433" id="r_a107aca419c74eb2785641b2ad4670433"><td class="memItemLeft">unsigned short&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1InternetSocket.html#a107aca419c74eb2785641b2ad4670433">getLocalPort</a> () const</td></tr>
-<tr class="memitem:ad473c333c130d87fcfdfe44b1309e128" id="r_ad473c333c130d87fcfdfe44b1309e128"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1InternetSocket.html#ad473c333c130d87fcfdfe44b1309e128">getForeignAddress</a> () const</td></tr>
-<tr class="memitem:a3bed9eaad1c7dfc3d3ad2515260cf388" id="r_a3bed9eaad1c7dfc3d3ad2515260cf388"><td class="memItemLeft">unsigned short&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1InternetSocket.html#a3bed9eaad1c7dfc3d3ad2515260cf388">getForeignPort</a> () const</td></tr>
+<tr class="memitem:a108f4de6f8e8fe38c662362aae606b3a" id="r_a108f4de6f8e8fe38c662362aae606b3a"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a108f4de6f8e8fe38c662362aae606b3a">UDPSocket</a> (<a class="el" href="namespaceNET.html#a657e1fa5f020df28069800f3fb19eab6">AddressFamily</a> family=<a class="el" href="namespaceNET.html#a657e1fa5f020df28069800f3fb19eab6a18565c1ed23cf01bb372e354fbc670dd">IPv4</a>)</td></tr>
+<tr class="memitem:a129ed8c2d71ae845e231e4b05d9ff139" id="r_a129ed8c2d71ae845e231e4b05d9ff139"><td class="memItemLeft"><a class="el" href="structNET_1_1IOResult.html">IOResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a129ed8c2d71ae845e231e4b05d9ff139">sendTo</a> (const void *buffer, size_t len, std::string_view foreignAddress, unsigned short foreignPort)</td></tr>
+<tr class="memitem:ad6606a7e2c7925a101b5701b2444da16" id="r_ad6606a7e2c7925a101b5701b2444da16"><td class="memItemLeft"><a class="el" href="structNET_1_1IOResult.html">IOResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#ad6606a7e2c7925a101b5701b2444da16">receiveFrom</a> (void *buffer, size_t len, std::string &amp;sourceAddress, unsigned short &amp;sourcePort)</td></tr>
+<tr class="memitem:a12988db87eefc41db20606433210697a" id="r_a12988db87eefc41db20606433210697a"><td class="memItemLeft"><a class="el" href="structNET_1_1IOResult.html">IOResult</a>&#160;</td><td class="memItemRight"><a class="el" href="#a12988db87eefc41db20606433210697a">timedReceiveFrom</a> (void *buffer, size_t len, std::string &amp;sourceAddress, unsigned short &amp;sourcePort, int timeout)</td></tr>
+<tr class="memitem:a1dec227254edced01f3e1412a9f851b7" id="r_a1dec227254edced01f3e1412a9f851b7"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a1dec227254edced01f3e1412a9f851b7">setMulticastTTL</a> (unsigned char multicastTTL)</td></tr>
+<tr class="memitem:a87336b5754b4862b47825ba5d3a30879" id="r_a87336b5754b4862b47825ba5d3a30879"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a87336b5754b4862b47825ba5d3a30879">setMulticastInterfaceAddr</a> (const std::string &amp;address)</td></tr>
+<tr class="memitem:a865f78e6c2b806e0e4b2272086959933" id="r_a865f78e6c2b806e0e4b2272086959933"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a865f78e6c2b806e0e4b2272086959933">joinGroup</a> (const std::string &amp;multicastGroup)</td></tr>
+<tr class="memitem:a7d75e529e04b47aa59e7cfc31711bd93" id="r_a7d75e529e04b47aa59e7cfc31711bd93"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="#a7d75e529e04b47aa59e7cfc31711bd93">leaveGroup</a> (const std::string &amp;multicastGroup)</td></tr>
+<tr class="memitem:ae0396b46d0aa19d6f7824df0af884d5c" id="r_ae0396b46d0aa19d6f7824df0af884d5c"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1InternetSocket.html#ae0396b46d0aa19d6f7824df0af884d5c">setReuseAddress</a> (bool enable)</td></tr>
+<tr class="memdesc:ae0396b46d0aa19d6f7824df0af884d5c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Enable or disable local address reuse.  <br /></td></tr>
+<tr class="memitem:adb221fc68184fbc3a8b0b5501a921b7c" id="r_adb221fc68184fbc3a8b0b5501a921b7c"><td class="memItemLeft"><a class="el" href="namespaceNET.html#aaf70b419dfaefe3a31207434ee82ff4c">ConnectResult</a>&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1InternetSocket.html#adb221fc68184fbc3a8b0b5501a921b7c">connect</a> (std::string_view foreignAddress, unsigned short foreignPort)</td></tr>
+<tr class="memdesc:adb221fc68184fbc3a8b0b5501a921b7c"><td class="mdescLeft">&#160;</td><td class="mdescRight">establish a connection with the given foreign address and port  <br /></td></tr>
+<tr class="memitem:ab9998237c386b9606006836f7b7d6dff" id="r_ab9998237c386b9606006836f7b7d6dff"><td class="memItemLeft"><a class="el" href="namespaceNET.html#aaf70b419dfaefe3a31207434ee82ff4c">ConnectResult</a>&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1InternetSocket.html#ab9998237c386b9606006836f7b7d6dff">timedConnect</a> (std::string_view foreignAddress, unsigned short foreignPort, int timeout)</td></tr>
+<tr class="memdesc:ab9998237c386b9606006836f7b7d6dff"><td class="mdescLeft">&#160;</td><td class="mdescRight">establish a connection with the given foreign address and port  <br /></td></tr>
+<tr class="memitem:a24f0bf3e2b081f02a348951bb497bfdc" id="r_a24f0bf3e2b081f02a348951bb497bfdc"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1InternetSocket.html#a24f0bf3e2b081f02a348951bb497bfdc">bind</a> (unsigned short localPort=0)</td></tr>
+<tr class="memitem:a0aa8de43a2a0fc13dba9b2b98c6d2dd5" id="r_a0aa8de43a2a0fc13dba9b2b98c6d2dd5"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1InternetSocket.html#a0aa8de43a2a0fc13dba9b2b98c6d2dd5">bind</a> (std::string_view localAddress, unsigned short localPort=0)</td></tr>
+<tr class="memdesc:a0aa8de43a2a0fc13dba9b2b98c6d2dd5"><td class="mdescLeft">&#160;</td><td class="mdescRight">bind socket to address / port  <br /></td></tr>
+<tr class="memitem:a551f1fe68478f01a98de50241953f370" id="r_a551f1fe68478f01a98de50241953f370"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1InternetSocket.html#a551f1fe68478f01a98de50241953f370">getLocalAddress</a> () const</td></tr>
+<tr class="memitem:a1daebeec59df97ad3d602e7a56af12b6" id="r_a1daebeec59df97ad3d602e7a56af12b6"><td class="memItemLeft">unsigned short&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1InternetSocket.html#a1daebeec59df97ad3d602e7a56af12b6">getLocalPort</a> () const</td></tr>
+<tr class="memitem:a26f996c198c949e2d1e4f48bc4cb7086" id="r_a26f996c198c949e2d1e4f48bc4cb7086"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1InternetSocket.html#a26f996c198c949e2d1e4f48bc4cb7086">getForeignAddress</a> () const</td></tr>
+<tr class="memitem:a89710d1bf797105b025c4ddfd4caaea3" id="r_a89710d1bf797105b025c4ddfd4caaea3"><td class="memItemLeft">unsigned short&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1InternetSocket.html#a89710d1bf797105b025c4ddfd4caaea3">getForeignPort</a> () const</td></tr>
 <tr class="memitem:aa6552ffddfa5a21312578503e4389fd2" id="r_aa6552ffddfa5a21312578503e4389fd2"><td class="memItemLeft"><a class="el" href="namespaceNET.html#a657e1fa5f020df28069800f3fb19eab6">AddressFamily</a>&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1InternetSocket.html#aa6552ffddfa5a21312578503e4389fd2">addressFamily</a> () const noexcept</td></tr>
 <tr class="memdesc:aa6552ffddfa5a21312578503e4389fd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">return wether this socket was created for IPv4 or IPv6  <br /></td></tr>
 <tr class="memitem:a830de7b14a78664508052051991ced63" id="r_a830de7b14a78664508052051991ced63"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#a830de7b14a78664508052051991ced63">nativeHandle</a> () noexcept</td></tr>
 <tr class="memdesc:a830de7b14a78664508052051991ced63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the native descriptor. Ownership remains with the object.  <br /></td></tr>
-<tr class="memitem:a41cbc933680e957b63c8dfd71989d619" id="r_a41cbc933680e957b63c8dfd71989d619"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#a41cbc933680e957b63c8dfd71989d619">duplicateNativeHandle</a> () const</td></tr>
-<tr class="memdesc:a41cbc933680e957b63c8dfd71989d619"><td class="mdescLeft">&#160;</td><td class="mdescRight">Duplicates the underlaying native socket descriptor.  <br /></td></tr>
-<tr class="memitem:a2c71ea5e5dc9837caf811da78cfd3b3a" id="r_a2c71ea5e5dc9837caf811da78cfd3b3a"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#a2c71ea5e5dc9837caf811da78cfd3b3a">valid</a> () const noexcept</td></tr>
-<tr class="memdesc:a2c71ea5e5dc9837caf811da78cfd3b3a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if socket is in a usable (non-moved) state and open.  <br /></td></tr>
-<tr class="memitem:aa05163ace5dbe56a53debe265045597f" id="r_aa05163ace5dbe56a53debe265045597f"><td class="memItemLeft"><a class="el" href="structNET_1_1IOResult.html">IOResult</a>&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#aa05163ace5dbe56a53debe265045597f">send</a> (const void *buffer, size_t len)</td></tr>
-<tr class="memdesc:aa05163ace5dbe56a53debe265045597f"><td class="mdescLeft">&#160;</td><td class="mdescRight">send data through a connected socket  <br /></td></tr>
-<tr class="memitem:ab2c084ceb5c5773495566d37b2c99283" id="r_ab2c084ceb5c5773495566d37b2c99283"><td class="memItemLeft"><a class="el" href="structNET_1_1IOResult.html">IOResult</a>&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#ab2c084ceb5c5773495566d37b2c99283">receive</a> (void *buffer, size_t len)</td></tr>
-<tr class="memdesc:ab2c084ceb5c5773495566d37b2c99283"><td class="mdescLeft">&#160;</td><td class="mdescRight">receive data from a bound socket  <br /></td></tr>
-<tr class="memitem:a90a7239e87f681acddc581082748b8a5" id="r_a90a7239e87f681acddc581082748b8a5"><td class="memItemLeft"><a class="el" href="structNET_1_1IOResult.html">IOResult</a>&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#a90a7239e87f681acddc581082748b8a5">timedReceive</a> (void *buffer, size_t len, int timeout)</td></tr>
-<tr class="memdesc:a90a7239e87f681acddc581082748b8a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">receive data from a bound socket, return after the given timespan  <br /></td></tr>
-<tr class="memitem:a107f5074fd3f153ce0c1d2329c755d8f" id="r_a107f5074fd3f153ce0c1d2329c755d8f"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#a107f5074fd3f153ce0c1d2329c755d8f">disconnect</a> ()</td></tr>
-<tr class="memdesc:a107f5074fd3f153ce0c1d2329c755d8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disconnect and unset any foreign addresses.  <br /></td></tr>
-<tr class="memitem:a5b5500498eeb1292eea3c5dc4e531d19" id="r_a5b5500498eeb1292eea3c5dc4e531d19"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#a5b5500498eeb1292eea3c5dc4e531d19">shutdown</a> (<a class="el" href="namespaceNET.html#a9b61e3d2422a1203909bd7985df95884">ShutdownDirection</a> type)</td></tr>
-<tr class="memdesc:a5b5500498eeb1292eea3c5dc4e531d19"><td class="mdescLeft">&#160;</td><td class="mdescRight">shutdown the connection in the specified direction  <br /></td></tr>
-<tr class="memitem:a7e867144442c2fd38381a8a71f0f57c4" id="r_a7e867144442c2fd38381a8a71f0f57c4"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#a7e867144442c2fd38381a8a71f0f57c4">peerDisconnected</a> () const</td></tr>
-<tr class="memdesc:a7e867144442c2fd38381a8a71f0f57c4"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns whether a currently associated peer disconnected  <br /></td></tr>
+<tr class="memitem:aab3dc013480443a77d0cbe2eaba0c018" id="r_aab3dc013480443a77d0cbe2eaba0c018"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#aab3dc013480443a77d0cbe2eaba0c018">duplicateNativeHandle</a> () const</td></tr>
+<tr class="memdesc:aab3dc013480443a77d0cbe2eaba0c018"><td class="mdescLeft">&#160;</td><td class="mdescRight">Duplicates the underlaying native socket descriptor.  <br /></td></tr>
+<tr class="memitem:a5ccd319fcf01dd3f58b9365bb3e24fa8" id="r_a5ccd319fcf01dd3f58b9365bb3e24fa8"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#a5ccd319fcf01dd3f58b9365bb3e24fa8">valid</a> () const noexcept</td></tr>
+<tr class="memdesc:a5ccd319fcf01dd3f58b9365bb3e24fa8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns true if socket is in a usable (non-moved) state and open.  <br /></td></tr>
+<tr class="memitem:a05b8d7a1cfa458e7e4e79acb80185077" id="r_a05b8d7a1cfa458e7e4e79acb80185077"><td class="memItemLeft"><a class="el" href="structNET_1_1IOResult.html">IOResult</a>&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#a05b8d7a1cfa458e7e4e79acb80185077">send</a> (const void *buffer, size_t len)</td></tr>
+<tr class="memdesc:a05b8d7a1cfa458e7e4e79acb80185077"><td class="mdescLeft">&#160;</td><td class="mdescRight">send data through a connected socket  <br /></td></tr>
+<tr class="memitem:a52c6d021b2382b673aded4721471a6d4" id="r_a52c6d021b2382b673aded4721471a6d4"><td class="memItemLeft"><a class="el" href="structNET_1_1IOResult.html">IOResult</a>&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#a52c6d021b2382b673aded4721471a6d4">receive</a> (void *buffer, size_t len)</td></tr>
+<tr class="memdesc:a52c6d021b2382b673aded4721471a6d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">receive data from a bound socket  <br /></td></tr>
+<tr class="memitem:aa60b710b1f6b259013a6520eeaa7bdb5" id="r_aa60b710b1f6b259013a6520eeaa7bdb5"><td class="memItemLeft"><a class="el" href="structNET_1_1IOResult.html">IOResult</a>&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#aa60b710b1f6b259013a6520eeaa7bdb5">timedReceive</a> (void *buffer, size_t len, int timeout)</td></tr>
+<tr class="memdesc:aa60b710b1f6b259013a6520eeaa7bdb5"><td class="mdescLeft">&#160;</td><td class="mdescRight">receive data from a bound socket, return after the given timespan  <br /></td></tr>
+<tr class="memitem:ad1c5da36fdd720816fb8f162aa59798d" id="r_ad1c5da36fdd720816fb8f162aa59798d"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#ad1c5da36fdd720816fb8f162aa59798d">disconnect</a> ()</td></tr>
+<tr class="memdesc:ad1c5da36fdd720816fb8f162aa59798d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Disconnect and unset any foreign addresses.  <br /></td></tr>
+<tr class="memitem:abb14e811896b7474d1a86f5fd9664db6" id="r_abb14e811896b7474d1a86f5fd9664db6"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#abb14e811896b7474d1a86f5fd9664db6">isConnected</a> () const</td></tr>
+<tr class="memdesc:abb14e811896b7474d1a86f5fd9664db6"><td class="mdescLeft">&#160;</td><td class="mdescRight">check if the kernel currently has an associated peer address  <br /></td></tr>
+<tr class="memitem:a14abd5d3c196375b470435d7f3f3648b" id="r_a14abd5d3c196375b470435d7f3f3648b"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#a14abd5d3c196375b470435d7f3f3648b">shutdown</a> (<a class="el" href="namespaceNET.html#a9b61e3d2422a1203909bd7985df95884">ShutdownDirection</a> type)</td></tr>
+<tr class="memdesc:a14abd5d3c196375b470435d7f3f3648b"><td class="mdescLeft">&#160;</td><td class="mdescRight">shutdown the connection in the specified direction  <br /></td></tr>
+<tr class="memitem:a774dcd3aec69d20b173e346d73bc3202" id="r_a774dcd3aec69d20b173e346d73bc3202"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#a774dcd3aec69d20b173e346d73bc3202">peerDisconnected</a> () const</td></tr>
+<tr class="memdesc:a774dcd3aec69d20b173e346d73bc3202"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns whether a currently associated peer disconnected  <br /></td></tr>
+<tr class="memitem:a3b0e1fe3692349ad468df6a2333ea776" id="r_a3b0e1fe3692349ad468df6a2333ea776"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#a3b0e1fe3692349ad468df6a2333ea776">isBlocking</a> () const</td></tr>
+<tr class="memdesc:a3b0e1fe3692349ad468df6a2333ea776"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns true if socket is in blocking mode  <br /></td></tr>
+<tr class="memitem:aa775ebaa641ab843ddf4b27f62bd1652" id="r_aa775ebaa641ab843ddf4b27f62bd1652"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#aa775ebaa641ab843ddf4b27f62bd1652">setBlocking</a> (bool blocking)</td></tr>
+<tr class="memdesc:aa775ebaa641ab843ddf4b27f62bd1652"><td class="mdescLeft">&#160;</td><td class="mdescRight">set socket to blocking or non-blocking I/O operations  <br /></td></tr>
+<tr class="memitem:abc3f66011ed1506bff81a0fbccbd29ff" id="r_abc3f66011ed1506bff81a0fbccbd29ff"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#abc3f66011ed1506bff81a0fbccbd29ff">setSendBufferSize</a> (int bytes)</td></tr>
+<tr class="memdesc:abc3f66011ed1506bff81a0fbccbd29ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">override default send buffer size for this socket  <br /></td></tr>
+<tr class="memitem:a8ea467901136d616cfc0d5f472630736" id="r_a8ea467901136d616cfc0d5f472630736"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#a8ea467901136d616cfc0d5f472630736">setReceiveBufferSize</a> (int bytes)</td></tr>
+<tr class="memdesc:a8ea467901136d616cfc0d5f472630736"><td class="mdescLeft">&#160;</td><td class="mdescRight">override default receive buffer size for this socket  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:ad880218f09d15a3589c4ad5466160037" id="r_ad880218f09d15a3589c4ad5466160037"><td class="memItemLeft">static <a class="el" href="#a8d0b8995262242a74ecfca1e507a29e6">UDPSocket</a>&#160;</td><td class="memItemRight"><a class="el" href="#ad880218f09d15a3589c4ad5466160037">adoptNativeHandle</a> (int sockfd)</td></tr>
-<tr class="memdesc:ad880218f09d15a3589c4ad5466160037"><td class="mdescLeft">&#160;</td><td class="mdescRight">Take ownership of an existing native UDP socket descriptor.  <br /></td></tr>
+<tr class="memitem:a7dfbf21fcb1516d63af1be41ca1b7455" id="r_a7dfbf21fcb1516d63af1be41ca1b7455"><td class="memItemLeft">static <a class="el" href="#a108f4de6f8e8fe38c662362aae606b3a">UDPSocket</a>&#160;</td><td class="memItemRight"><a class="el" href="#a7dfbf21fcb1516d63af1be41ca1b7455">adoptNativeHandle</a> (int sockfd)</td></tr>
+<tr class="memdesc:a7dfbf21fcb1516d63af1be41ca1b7455"><td class="mdescLeft">&#160;</td><td class="mdescRight">Take ownership of an existing native UDP socket descriptor.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pro-methods" class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:a0e7bfe284c7085381b141b5fd85a4484" id="r_a0e7bfe284c7085381b141b5fd85a4484"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a0e7bfe284c7085381b141b5fd85a4484">InternetSocket</a> (<a class="el" href="namespaceNET.html#a657e1fa5f020df28069800f3fb19eab6">AddressFamily</a> family, int type, int protocol)</td></tr>
-<tr class="memdesc:a0e7bfe284c7085381b141b5fd85a4484"><td class="mdescLeft">&#160;</td><td class="mdescRight">allows a subclass to create new socket  <br /></td></tr>
-<tr class="memitem:a28d15b135f35c5ad806c6beedab92f1d" id="r_a28d15b135f35c5ad806c6beedab92f1d"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a28d15b135f35c5ad806c6beedab92f1d">InternetSocket</a> (<a class="el" href="structNET_1_1SimpleSocket_1_1AdoptSocketTag.html">AdoptSocketTag</a>, int sockfd, int type)</td></tr>
-<tr class="memdesc:a28d15b135f35c5ad806c6beedab92f1d"><td class="mdescLeft">&#160;</td><td class="mdescRight">allows a subclass to take ownership of an existing socket  <br /></td></tr>
+<tr class="memitem:a3b07e42c8ca73a819a4a1eb95ca08b56" id="r_a3b07e42c8ca73a819a4a1eb95ca08b56"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a3b07e42c8ca73a819a4a1eb95ca08b56">InternetSocket</a> (<a class="el" href="namespaceNET.html#a657e1fa5f020df28069800f3fb19eab6">AddressFamily</a> family, int type, int protocol)</td></tr>
+<tr class="memdesc:a3b07e42c8ca73a819a4a1eb95ca08b56"><td class="mdescLeft">&#160;</td><td class="mdescRight">allows a subclass to create new socket  <br /></td></tr>
+<tr class="memitem:a1f434b9430d452a6dd263415c216594c" id="r_a1f434b9430d452a6dd263415c216594c"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a1f434b9430d452a6dd263415c216594c">InternetSocket</a> (<a class="el" href="structNET_1_1SimpleSocket_1_1AdoptSocketTag.html">AdoptSocketTag</a>, int sockfd, int type)</td></tr>
+<tr class="memdesc:a1f434b9430d452a6dd263415c216594c"><td class="mdescLeft">&#160;</td><td class="mdescRight">allows a subclass to take ownership of an existing socket  <br /></td></tr>
 <tr class="memitem:adaeeb637df37b75fca832fff7d746ed8" id="r_adaeeb637df37b75fca832fff7d746ed8"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#adaeeb637df37b75fca832fff7d746ed8">InternetSocket</a> (InternetSocket &amp;&amp;other) noexcept=default</td></tr>
-<tr class="memitem:a4684d7f8b29b43c51bcc25f01c7df437" id="r_a4684d7f8b29b43c51bcc25f01c7df437"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#a4684d7f8b29b43c51bcc25f01c7df437">listen</a> (int backlog=5)</td></tr>
-<tr class="memdesc:a4684d7f8b29b43c51bcc25f01c7df437"><td class="mdescLeft">&#160;</td><td class="mdescRight">listen for incoming connections  <br /></td></tr>
-<tr class="memitem:ae9af79a28259dad3318b15ac91ef18c5" id="r_ae9af79a28259dad3318b15ac91ef18c5"><td class="memItemLeft"><a class="el" href="structNET_1_1IOResult.html">IOResult</a>&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#ae9af79a28259dad3318b15ac91ef18c5">sendAll</a> (const void *buffer, size_t len)</td></tr>
-<tr class="memdesc:ae9af79a28259dad3318b15ac91ef18c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">send data through a connected socket  <br /></td></tr>
-<tr class="memitem:aa0ef8a33ae6e7279d2a2eb3661fae03c" id="r_aa0ef8a33ae6e7279d2a2eb3661fae03c"><td class="memItemLeft"><a class="el" href="structNET_1_1IOResult.html">IOResult</a>&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#aa0ef8a33ae6e7279d2a2eb3661fae03c">receiveAll</a> (void *buffer, size_t len)</td></tr>
-<tr class="memdesc:aa0ef8a33ae6e7279d2a2eb3661fae03c"><td class="mdescLeft">&#160;</td><td class="mdescRight">receive exactly the requested amount unless the peer disconnects  <br /></td></tr>
-<tr class="memitem:a5b5c42c7be2b83d2ba1c830c7d4a1cb8" id="r_a5b5c42c7be2b83d2ba1c830c7d4a1cb8"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#a5b5c42c7be2b83d2ba1c830c7d4a1cb8">acceptNative</a> () const</td></tr>
-<tr class="memdesc:a5b5c42c7be2b83d2ba1c830c7d4a1cb8"><td class="mdescLeft">&#160;</td><td class="mdescRight">direct accept syscall  <br /></td></tr>
-<tr class="memitem:a23f806c99ec86fe75872ac60d9af9996" id="r_a23f806c99ec86fe75872ac60d9af9996"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#a23f806c99ec86fe75872ac60d9af9996">accept</a> () const</td></tr>
-<tr class="memdesc:a23f806c99ec86fe75872ac60d9af9996"><td class="mdescLeft">&#160;</td><td class="mdescRight">retrying accept for use by stream sockets  <br /></td></tr>
-<tr class="memitem:af9cd7f2b28969fa1383d8e8751a868f5" id="r_af9cd7f2b28969fa1383d8e8751a868f5"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#af9cd7f2b28969fa1383d8e8751a868f5">timedAccept</a> (int timeout) const</td></tr>
-<tr class="memdesc:af9cd7f2b28969fa1383d8e8751a868f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">retrying accept with timeout for use by stream sockets  <br /></td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-pro-static-methods" class="groupheader"><a id="pro-static-methods" name="pro-static-methods"></a>
-Static Protected Member Functions</h2></td></tr>
-<tr class="memitem:a3457e2d858a0d4f04890e4bdf4e676d7" id="r_a3457e2d858a0d4f04890e4bdf4e676d7"><td class="memItemLeft">static void&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#a3457e2d858a0d4f04890e4bdf4e676d7">validateSocket</a> (int sockfd, int type, int protocol)</td></tr>
-<tr class="memdesc:a3457e2d858a0d4f04890e4bdf4e676d7"><td class="mdescLeft">&#160;</td><td class="mdescRight">check if external socket descriptor to fits the given parameters  <br /></td></tr>
+<tr class="memitem:a6ef141d767786731607a2db52d9c1095" id="r_a6ef141d767786731607a2db52d9c1095"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#a6ef141d767786731607a2db52d9c1095">listen</a> (int backlog=5)</td></tr>
+<tr class="memdesc:a6ef141d767786731607a2db52d9c1095"><td class="mdescLeft">&#160;</td><td class="mdescRight">listen for incoming connections  <br /></td></tr>
+<tr class="memitem:a7a1741f81c815fb705282dc1e4931796" id="r_a7a1741f81c815fb705282dc1e4931796"><td class="memItemLeft"><a class="el" href="namespaceNET.html#aaf70b419dfaefe3a31207434ee82ff4c">ConnectResult</a>&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#a7a1741f81c815fb705282dc1e4931796">finishConnect</a> (int timeout=0)</td></tr>
+<tr class="memdesc:a7a1741f81c815fb705282dc1e4931796"><td class="mdescLeft">&#160;</td><td class="mdescRight">check if a previously started connected attempt is finished  <br /></td></tr>
+<tr class="memitem:a5bdd569951e5bd51144fb232b9e2e5c7" id="r_a5bdd569951e5bd51144fb232b9e2e5c7"><td class="memItemLeft"><a class="el" href="structNET_1_1IOResult.html">IOResult</a>&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#a5bdd569951e5bd51144fb232b9e2e5c7">sendAll</a> (const void *buffer, size_t len)</td></tr>
+<tr class="memdesc:a5bdd569951e5bd51144fb232b9e2e5c7"><td class="mdescLeft">&#160;</td><td class="mdescRight">send data through a connected socket  <br /></td></tr>
+<tr class="memitem:a3405b52056d2c64f5f058b86c2ea9535" id="r_a3405b52056d2c64f5f058b86c2ea9535"><td class="memItemLeft"><a class="el" href="structNET_1_1IOResult.html">IOResult</a>&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#a3405b52056d2c64f5f058b86c2ea9535">receiveAll</a> (void *buffer, size_t len)</td></tr>
+<tr class="memdesc:a3405b52056d2c64f5f058b86c2ea9535"><td class="mdescLeft">&#160;</td><td class="mdescRight">receive exactly the requested amount unless the peer disconnects  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pro-attribs" class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -212,14 +213,14 @@ Protected Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="UDPSocket_8h_source.html#l00009">9</a> of file <a class="el" href="UDPSocket_8h_source.html">UDPSocket.h</a>.</p>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a8d0b8995262242a74ecfca1e507a29e6" name="a8d0b8995262242a74ecfca1e507a29e6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d0b8995262242a74ecfca1e507a29e6">&#9670;&#160;</a></span>UDPSocket()</h2>
+<a id="a108f4de6f8e8fe38c662362aae606b3a" name="a108f4de6f8e8fe38c662362aae606b3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a108f4de6f8e8fe38c662362aae606b3a">&#9670;&#160;</a></span>UDPSocket()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">UDPSocket::UDPSocket </td>
+          <td class="memname">NET::UDPSocket::UDPSocket </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="namespaceNET.html#a657e1fa5f020df28069800f3fb19eab6">AddressFamily</a></td>          <td class="paramname"><span class="paramname"><em>family</em></span><span class="paramdefsep"> = </span><span class="paramdefval"><a class="el" href="namespaceNET.html#a657e1fa5f020df28069800f3fb19eab6a18565c1ed23cf01bb372e354fbc670dd">IPv4</a></span></td><td>)</td>
           <td></td>
@@ -233,69 +234,9 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="UDPSocket_8cpp_source.html#l00032">32</a> of file <a class="el" href="UDPSocket_8cpp_source.html">UDPSocket.cpp</a>.</p>
-
 </div>
 </div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
-<a id="a23f806c99ec86fe75872ac60d9af9996" name="a23f806c99ec86fe75872ac60d9af9996"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a23f806c99ec86fe75872ac60d9af9996">&#9670;&#160;</a></span>accept()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int SimpleSocket::accept </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel protected">protected</span><span class="mlabel inherited">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>retrying accept for use by stream sockets </p>
-
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8cpp_source.html#l00216">216</a> of file <a class="el" href="SimpleSocket_8cpp_source.html">SimpleSocket.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a5b5c42c7be2b83d2ba1c830c7d4a1cb8" name="a5b5c42c7be2b83d2ba1c830c7d4a1cb8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5b5c42c7be2b83d2ba1c830c7d4a1cb8">&#9670;&#160;</a></span>acceptNative()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">int SimpleSocket::acceptNative </td>
-          <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel protected">protected</span><span class="mlabel inherited">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>direct accept syscall </p>
-
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8cpp_source.html#l00206">206</a> of file <a class="el" href="SimpleSocket_8cpp_source.html">SimpleSocket.cpp</a>.</p>
-
-</div>
-</div>
 <a id="aa6552ffddfa5a21312578503e4389fd2" name="aa6552ffddfa5a21312578503e4389fd2"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa6552ffddfa5a21312578503e4389fd2">&#9670;&#160;</a></span>addressFamily()</h2>
 
@@ -325,8 +266,8 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ad880218f09d15a3589c4ad5466160037" name="ad880218f09d15a3589c4ad5466160037"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad880218f09d15a3589c4ad5466160037">&#9670;&#160;</a></span>adoptNativeHandle()</h2>
+<a id="a7dfbf21fcb1516d63af1be41ca1b7455" name="a7dfbf21fcb1516d63af1be41ca1b7455"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7dfbf21fcb1516d63af1be41ca1b7455">&#9670;&#160;</a></span>adoptNativeHandle()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -335,7 +276,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="#a8d0b8995262242a74ecfca1e507a29e6">UDPSocket</a> UDPSocket::adoptNativeHandle </td>
+          <td class="memname"><a class="el" href="#a108f4de6f8e8fe38c662362aae606b3a">UDPSocket</a> NET::UDPSocket::adoptNativeHandle </td>
           <td>(</td>
           <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>sockfd</em></span></td><td>)</td>
           <td></td>
@@ -365,12 +306,10 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="UDPSocket_8cpp_source.html#l00038">38</a> of file <a class="el" href="UDPSocket_8cpp_source.html">UDPSocket.cpp</a>.</p>
-
 </div>
 </div>
-<a id="aa5a9ac4408c1103f151945781172682f" name="aa5a9ac4408c1103f151945781172682f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa5a9ac4408c1103f151945781172682f">&#9670;&#160;</a></span>bind() <span class="overload">[1/2]</span></h2>
+<a id="a0aa8de43a2a0fc13dba9b2b98c6d2dd5" name="a0aa8de43a2a0fc13dba9b2b98c6d2dd5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0aa8de43a2a0fc13dba9b2b98c6d2dd5">&#9670;&#160;</a></span>bind() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -379,7 +318,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void InternetSocket::bind </td>
+          <td class="memname">void NET::InternetSocket::bind </td>
           <td>(</td>
           <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>localAddress</em></span>, </td>
         </tr>
@@ -398,7 +337,7 @@ Protected Attributes</h2></td></tr>
 
 <p>bind socket to address / port </p>
 <p>Set the local port to the specified port and the local address to an interface.</p>
-<p><a class="el" href="classNET_1_1InternetSocket.html#a02046392ba4e5810f7dc900686ac9a93">bind()</a> attaches the local endpoint of the socket to the specified interface and port. Typically all servers use <a class="el" href="classNET_1_1InternetSocket.html#a02046392ba4e5810f7dc900686ac9a93">bind()</a> to attach to the local port specified by the used protocol. You just need to call bind if you want to restrict the connection to a specific local interface, or if you want to listen on a specific port. If you are just a client using <a class="el" href="classNET_1_1InternetSocket.html#ab5151cf3fcd5768c6d40e585774b417b" title="establish a connection with the given foreign address and port">connect()</a> to connect to a server, calling bind is most likely unnecessary.</p>
+<p><a class="el" href="classNET_1_1InternetSocket.html#a24f0bf3e2b081f02a348951bb497bfdc">bind()</a> attaches the local endpoint of the socket to the specified interface and port. Typically all servers use <a class="el" href="classNET_1_1InternetSocket.html#a24f0bf3e2b081f02a348951bb497bfdc">bind()</a> to attach to the local port specified by the used protocol. You just need to call bind if you want to restrict the connection to a specific local interface, or if you want to listen on a specific port. If you are just a client using <a class="el" href="classNET_1_1InternetSocket.html#adb221fc68184fbc3a8b0b5501a921b7c" title="establish a connection with the given foreign address and port">connect()</a> to connect to a server, calling bind is most likely unnecessary.</p>
 <p>To bind to a port &lt; 1023 you need eighter superuser access, or the SUID bit set on your program.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -414,12 +353,10 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="InternetSocket_8cpp_source.html#l00149">149</a> of file <a class="el" href="InternetSocket_8cpp_source.html">InternetSocket.cpp</a>.</p>
-
 </div>
 </div>
-<a id="a02046392ba4e5810f7dc900686ac9a93" name="a02046392ba4e5810f7dc900686ac9a93"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a02046392ba4e5810f7dc900686ac9a93">&#9670;&#160;</a></span>bind() <span class="overload">[2/2]</span></h2>
+<a id="a24f0bf3e2b081f02a348951bb497bfdc" name="a24f0bf3e2b081f02a348951bb497bfdc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24f0bf3e2b081f02a348951bb497bfdc">&#9670;&#160;</a></span>bind() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -428,7 +365,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void InternetSocket::bind </td>
+          <td class="memname">void NET::InternetSocket::bind </td>
           <td>(</td>
           <td class="paramtype">unsigned short</td>          <td class="paramname"><span class="paramname"><em>localPort</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span></td><td>)</td>
           <td></td>
@@ -440,16 +377,14 @@ Protected Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. Instead of the richer function with more arguments, this <a class="el" href="classNET_1_1InternetSocket.html#a02046392ba4e5810f7dc900686ac9a93">bind()</a> binds to any available interface / address </p>
+<p>This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts. Instead of the richer function with more arguments, this <a class="el" href="classNET_1_1InternetSocket.html#a24f0bf3e2b081f02a348951bb497bfdc">bind()</a> binds to any available interface / address </p>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="TCP_Server_8cpp-example.html#a2">TCP_Server.cpp</a>, <a class="el" href="UDP_Commands_8cpp-example.html#a1">UDP_Commands.cpp</a>, and <a class="el" href="UDP_Multicast_8cpp-example.html#a2">UDP_Multicast.cpp</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="InternetSocket_8cpp_source.html#l00141">141</a> of file <a class="el" href="InternetSocket_8cpp_source.html">InternetSocket.cpp</a>.</p>
-
 </div>
 </div>
-<a id="ab5151cf3fcd5768c6d40e585774b417b" name="ab5151cf3fcd5768c6d40e585774b417b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab5151cf3fcd5768c6d40e585774b417b">&#9670;&#160;</a></span>connect()</h2>
+<a id="adb221fc68184fbc3a8b0b5501a921b7c" name="adb221fc68184fbc3a8b0b5501a921b7c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adb221fc68184fbc3a8b0b5501a921b7c">&#9670;&#160;</a></span>connect()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -458,7 +393,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void InternetSocket::connect </td>
+          <td class="memname"><a class="el" href="namespaceNET.html#aaf70b419dfaefe3a31207434ee82ff4c">ConnectResult</a> NET::InternetSocket::connect </td>
           <td>(</td>
           <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>foreignAddress</em></span>, </td>
         </tr>
@@ -476,14 +411,15 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>establish a connection with the given foreign address and port </p>
-<p>If you are using a connection oriented socket (like <a class="el" href="classNET_1_1TCPSocket.html" title="TCP socket class.">TCPSocket</a>), you have to call <a class="el" href="classNET_1_1InternetSocket.html#ab5151cf3fcd5768c6d40e585774b417b" title="establish a connection with the given foreign address and port">connect()</a> on that socket in order to send data. However, if you are using a non-connection oriented socket (like <a class="el" href="classNET_1_1UDPSocket.html" title="UDP socket class.">UDPSocket</a>), calling connect on that socket will allow you to use the <a class="el" href="classNET_1_1SimpleSocket.html#aa05163ace5dbe56a53debe265045597f" title="send data through a connected socket">send()</a> function like on a connection oriented socket. If not connected, you would have to use sendTo</p>
+<p>If you are using a connection oriented socket (like <a class="el" href="classNET_1_1TCPSocket.html" title="TCP socket class.">TCPSocket</a>), you have to call <a class="el" href="classNET_1_1InternetSocket.html#adb221fc68184fbc3a8b0b5501a921b7c" title="establish a connection with the given foreign address and port">connect()</a> on that socket in order to send data. However, if you are using a non-connection oriented socket (like <a class="el" href="classNET_1_1UDPSocket.html" title="UDP socket class.">UDPSocket</a>), calling connect on that socket will allow you to use the <a class="el" href="classNET_1_1SimpleSocket.html#a05b8d7a1cfa458e7e4e79acb80185077" title="send data through a connected socket">send()</a> function like on a connection oriented socket. If not connected, you would have to use sendTo.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">foreignAddress</td><td>foreign address </td></tr>
-    <tr><td class="paramname">foreignPort</td><td>foreign port </td></tr>
+    <tr><td class="paramname">foreignPort</td><td>foreign </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="namespaceNET.html#aaf70b419dfaefe3a31207434ee82ff4c" title="result of the connection attempt">ConnectResult</a> </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname"><a class="el" href="classNET_1_1SocketException.html" title="Signals a problem with the execution of a socket call.">SocketException</a></td><td>thrown if unable to establish connection </td></tr>
@@ -493,12 +429,10 @@ Protected Attributes</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="TCP_Client_8cpp-example.html#a2">TCP_Client.cpp</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="InternetSocket_8cpp_source.html#l00075">75</a> of file <a class="el" href="InternetSocket_8cpp_source.html">InternetSocket.cpp</a>.</p>
-
 </div>
 </div>
-<a id="a107f5074fd3f153ce0c1d2329c755d8f" name="a107f5074fd3f153ce0c1d2329c755d8f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a107f5074fd3f153ce0c1d2329c755d8f">&#9670;&#160;</a></span>disconnect()</h2>
+<a id="ad1c5da36fdd720816fb8f162aa59798d" name="ad1c5da36fdd720816fb8f162aa59798d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad1c5da36fdd720816fb8f162aa59798d">&#9670;&#160;</a></span>disconnect()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -507,7 +441,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void SimpleSocket::disconnect </td>
+          <td class="memname">void NET::SimpleSocket::disconnect </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -521,8 +455,8 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Disconnect and unset any foreign addresses. </p>
-<p>This will ungracefully abort the connection by sending an RST frame. <a class="el" href="classNET_1_1SimpleSocket.html#a107f5074fd3f153ce0c1d2329c755d8f" title="Disconnect and unset any foreign addresses.">disconnect()</a> should not be used under normal circumstances, as it will terminate the connection OOB, preventing the other end of the communication from retrieving data that would still be available in the OS buffer.</p>
-<p>For normal termination of a connection use <a class="el" href="classNET_1_1SimpleSocket.html#a5b5500498eeb1292eea3c5dc4e531d19" title="shutdown the connection in the specified direction">shutdown()</a>.</p>
+<p>This will ungracefully abort the connection by sending an RST frame. <a class="el" href="classNET_1_1SimpleSocket.html#ad1c5da36fdd720816fb8f162aa59798d" title="Disconnect and unset any foreign addresses.">disconnect()</a> should not be used under normal circumstances, as it will terminate the connection OOB, preventing the other end of the communication from retrieving data that would still be available in the OS buffer.</p>
+<p>For normal termination of a connection use <a class="el" href="classNET_1_1SimpleSocket.html#a14abd5d3c196375b470435d7f3f3648b" title="shutdown the connection in the specified direction">shutdown()</a>.</p>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname"><a class="el" href="classNET_1_1SocketException.html" title="Signals a problem with the execution of a socket call.">SocketException</a></td><td>thrown if unable to disconnect </td></tr>
@@ -530,12 +464,10 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8cpp_source.html#l00148">148</a> of file <a class="el" href="SimpleSocket_8cpp_source.html">SimpleSocket.cpp</a>.</p>
-
 </div>
 </div>
-<a id="a41cbc933680e957b63c8dfd71989d619" name="a41cbc933680e957b63c8dfd71989d619"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a41cbc933680e957b63c8dfd71989d619">&#9670;&#160;</a></span>duplicateNativeHandle()</h2>
+<a id="aab3dc013480443a77d0cbe2eaba0c018" name="aab3dc013480443a77d0cbe2eaba0c018"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aab3dc013480443a77d0cbe2eaba0c018">&#9670;&#160;</a></span>duplicateNativeHandle()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -544,7 +476,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int SimpleSocket::duplicateNativeHandle </td>
+          <td class="memname">int NET::SimpleSocket::duplicateNativeHandle </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
@@ -559,12 +491,10 @@ Protected Attributes</h2></td></tr>
 
 <p>Duplicates the underlaying native socket descriptor. </p>
 
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8cpp_source.html#l00085">85</a> of file <a class="el" href="SimpleSocket_8cpp_source.html">SimpleSocket.cpp</a>.</p>
-
 </div>
 </div>
-<a id="ad473c333c130d87fcfdfe44b1309e128" name="ad473c333c130d87fcfdfe44b1309e128"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad473c333c130d87fcfdfe44b1309e128">&#9670;&#160;</a></span>getForeignAddress()</h2>
+<a id="a7a1741f81c815fb705282dc1e4931796" name="a7a1741f81c815fb705282dc1e4931796"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7a1741f81c815fb705282dc1e4931796">&#9670;&#160;</a></span>finishConnect()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -573,7 +503,47 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::string InternetSocket::getForeignAddress </td>
+          <td class="memname"><a class="el" href="namespaceNET.html#aaf70b419dfaefe3a31207434ee82ff4c">ConnectResult</a> NET::SimpleSocket::finishConnect </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>timeout</em></span><span class="paramdefsep"> = </span><span class="paramdefval">0</span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel protected">protected</span><span class="mlabel inherited">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>check if a previously started connected attempt is finished </p>
+<p>Use this to check if a non-blocking <a class="el" href="classNET_1_1InternetSocket.html#adb221fc68184fbc3a8b0b5501a921b7c" title="establish a connection with the given foreign address and port">connect()</a> call has completed.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">timeout</td><td>the timeout in ms after which we stop waiting, connection is still active </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classNET_1_1SocketException.html" title="Signals a problem with the execution of a socket call.">SocketException</a></td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a26f996c198c949e2d1e4f48bc4cb7086" name="a26f996c198c949e2d1e4f48bc4cb7086"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26f996c198c949e2d1e4f48bc4cb7086">&#9670;&#160;</a></span>getForeignAddress()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string NET::InternetSocket::getForeignAddress </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
@@ -585,7 +555,7 @@ Protected Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Get the foreign address. Call <a class="el" href="classNET_1_1InternetSocket.html#ab5151cf3fcd5768c6d40e585774b417b" title="establish a connection with the given foreign address and port">connect()</a> before using this function. </p><dl class="section return"><dt>Returns</dt><dd>foreign address or empty string when not connected </dd></dl>
+<p>Get the foreign address. Call <a class="el" href="classNET_1_1InternetSocket.html#adb221fc68184fbc3a8b0b5501a921b7c" title="establish a connection with the given foreign address and port">connect()</a> before using this function. </p><dl class="section return"><dt>Returns</dt><dd>foreign address or empty string when not connected </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname"><a class="el" href="classNET_1_1SocketException.html" title="Signals a problem with the execution of a socket call.">SocketException</a></td><td>thrown if unable to fetch foreign address </td></tr>
@@ -595,12 +565,10 @@ Protected Attributes</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="TCP_Client_Reconnect_8cpp-example.html#a4">TCP_Client_Reconnect.cpp</a>, and <a class="el" href="TCP_Server_8cpp-example.html#a5">TCP_Server.cpp</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="InternetSocket_8cpp_source.html#l00177">177</a> of file <a class="el" href="InternetSocket_8cpp_source.html">InternetSocket.cpp</a>.</p>
-
 </div>
 </div>
-<a id="a3bed9eaad1c7dfc3d3ad2515260cf388" name="a3bed9eaad1c7dfc3d3ad2515260cf388"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3bed9eaad1c7dfc3d3ad2515260cf388">&#9670;&#160;</a></span>getForeignPort()</h2>
+<a id="a89710d1bf797105b025c4ddfd4caaea3" name="a89710d1bf797105b025c4ddfd4caaea3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a89710d1bf797105b025c4ddfd4caaea3">&#9670;&#160;</a></span>getForeignPort()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -609,7 +577,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">unsigned short InternetSocket::getForeignPort </td>
+          <td class="memname">unsigned short NET::InternetSocket::getForeignPort </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
@@ -621,7 +589,7 @@ Protected Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>Get the foreign port. Call <a class="el" href="classNET_1_1InternetSocket.html#ab5151cf3fcd5768c6d40e585774b417b" title="establish a connection with the given foreign address and port">connect()</a> before using this function. </p><dl class="section return"><dt>Returns</dt><dd>foreign port or 0 when not connected </dd></dl>
+<p>Get the foreign port. Call <a class="el" href="classNET_1_1InternetSocket.html#adb221fc68184fbc3a8b0b5501a921b7c" title="establish a connection with the given foreign address and port">connect()</a> before using this function. </p><dl class="section return"><dt>Returns</dt><dd>foreign port or 0 when not connected </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname"><a class="el" href="classNET_1_1SocketException.html" title="Signals a problem with the execution of a socket call.">SocketException</a></td><td>thrown if unable to fetch foreign port </td></tr>
@@ -631,12 +599,10 @@ Protected Attributes</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="TCP_Client_Reconnect_8cpp-example.html#a5">TCP_Client_Reconnect.cpp</a>, and <a class="el" href="TCP_Server_8cpp-example.html#a6">TCP_Server.cpp</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="InternetSocket_8cpp_source.html#l00189">189</a> of file <a class="el" href="InternetSocket_8cpp_source.html">InternetSocket.cpp</a>.</p>
-
 </div>
 </div>
-<a id="acaf6862f1a15b8a69a259537cfb054e5" name="acaf6862f1a15b8a69a259537cfb054e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acaf6862f1a15b8a69a259537cfb054e5">&#9670;&#160;</a></span>getLocalAddress()</h2>
+<a id="a551f1fe68478f01a98de50241953f370" name="a551f1fe68478f01a98de50241953f370"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a551f1fe68478f01a98de50241953f370">&#9670;&#160;</a></span>getLocalAddress()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -645,7 +611,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::string InternetSocket::getLocalAddress </td>
+          <td class="memname">std::string NET::InternetSocket::getLocalAddress </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
@@ -665,12 +631,10 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="InternetSocket_8cpp_source.html#l00157">157</a> of file <a class="el" href="InternetSocket_8cpp_source.html">InternetSocket.cpp</a>.</p>
-
 </div>
 </div>
-<a id="a107aca419c74eb2785641b2ad4670433" name="a107aca419c74eb2785641b2ad4670433"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a107aca419c74eb2785641b2ad4670433">&#9670;&#160;</a></span>getLocalPort()</h2>
+<a id="a1daebeec59df97ad3d602e7a56af12b6" name="a1daebeec59df97ad3d602e7a56af12b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1daebeec59df97ad3d602e7a56af12b6">&#9670;&#160;</a></span>getLocalPort()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -679,7 +643,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">unsigned short InternetSocket::getLocalPort </td>
+          <td class="memname">unsigned short NET::InternetSocket::getLocalPort </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
@@ -699,12 +663,10 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="InternetSocket_8cpp_source.html#l00167">167</a> of file <a class="el" href="InternetSocket_8cpp_source.html">InternetSocket.cpp</a>.</p>
-
 </div>
 </div>
-<a id="a0e7bfe284c7085381b141b5fd85a4484" name="a0e7bfe284c7085381b141b5fd85a4484"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0e7bfe284c7085381b141b5fd85a4484">&#9670;&#160;</a></span>InternetSocket() <span class="overload">[1/3]</span></h2>
+<a id="a3b07e42c8ca73a819a4a1eb95ca08b56" name="a3b07e42c8ca73a819a4a1eb95ca08b56"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b07e42c8ca73a819a4a1eb95ca08b56">&#9670;&#160;</a></span>InternetSocket() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -713,7 +675,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classNET_1_1InternetSocket.html#a0e7bfe284c7085381b141b5fd85a4484">InternetSocket::InternetSocket</a> </td>
+          <td class="memname"><a class="el" href="classNET_1_1InternetSocket.html#a3b07e42c8ca73a819a4a1eb95ca08b56">NET::InternetSocket::InternetSocket</a> </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="namespaceNET.html#a657e1fa5f020df28069800f3fb19eab6">AddressFamily</a></td>          <td class="paramname"><span class="paramname"><em>family</em></span>, </td>
         </tr>
@@ -737,12 +699,10 @@ Protected Attributes</h2></td></tr>
 
 <p>allows a subclass to create new socket </p>
 
-<p class="definition">Definition at line <a class="el" href="InternetSocket_8cpp_source.html#l00121">121</a> of file <a class="el" href="InternetSocket_8cpp_source.html">InternetSocket.cpp</a>.</p>
-
 </div>
 </div>
-<a id="a28d15b135f35c5ad806c6beedab92f1d" name="a28d15b135f35c5ad806c6beedab92f1d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a28d15b135f35c5ad806c6beedab92f1d">&#9670;&#160;</a></span>InternetSocket() <span class="overload">[2/3]</span></h2>
+<a id="a1f434b9430d452a6dd263415c216594c" name="a1f434b9430d452a6dd263415c216594c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1f434b9430d452a6dd263415c216594c">&#9670;&#160;</a></span>InternetSocket() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -751,9 +711,9 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classNET_1_1InternetSocket.html#a0e7bfe284c7085381b141b5fd85a4484">InternetSocket::InternetSocket</a> </td>
+          <td class="memname"><a class="el" href="classNET_1_1InternetSocket.html#a3b07e42c8ca73a819a4a1eb95ca08b56">NET::InternetSocket::InternetSocket</a> </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structNET_1_1SimpleSocket_1_1AdoptSocketTag.html">AdoptSocketTag</a></td>          <td class="paramname"><span class="paramname"><em>tag</em></span>, </td>
+          <td class="paramtype"><a class="el" href="structNET_1_1SimpleSocket_1_1AdoptSocketTag.html">AdoptSocketTag</a></td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -775,8 +735,6 @@ Protected Attributes</h2></td></tr>
 
 <p>allows a subclass to take ownership of an existing socket </p>
 
-<p class="definition">Definition at line <a class="el" href="InternetSocket_8cpp_source.html#l00124">124</a> of file <a class="el" href="InternetSocket_8cpp_source.html">InternetSocket.cpp</a>.</p>
-
 </div>
 </div>
 <a id="adaeeb637df37b75fca832fff7d746ed8" name="adaeeb637df37b75fca832fff7d746ed8"></a>
@@ -789,7 +747,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classNET_1_1InternetSocket.html#a0e7bfe284c7085381b141b5fd85a4484">NET::InternetSocket::InternetSocket</a> </td>
+          <td class="memname"><a class="el" href="classNET_1_1InternetSocket.html#a3b07e42c8ca73a819a4a1eb95ca08b56">NET::InternetSocket::InternetSocket</a> </td>
           <td>(</td>
           <td class="paramtype">InternetSocket &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em>other</em></span></td><td>)</td>
           <td></td>
@@ -804,14 +762,77 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ac6cdb609f7f9579384129042f90cd220" name="ac6cdb609f7f9579384129042f90cd220"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac6cdb609f7f9579384129042f90cd220">&#9670;&#160;</a></span>joinGroup()</h2>
+<a id="a3b0e1fe3692349ad468df6a2333ea776" name="a3b0e1fe3692349ad468df6a2333ea776"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3b0e1fe3692349ad468df6a2333ea776">&#9670;&#160;</a></span>isBlocking()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool NET::SimpleSocket::isBlocking </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel inherited">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>returns true if socket is in blocking mode </p>
+
+</div>
+</div>
+<a id="abb14e811896b7474d1a86f5fd9664db6" name="abb14e811896b7474d1a86f5fd9664db6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abb14e811896b7474d1a86f5fd9664db6">&#9670;&#160;</a></span>isConnected()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool NET::SimpleSocket::isConnected </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel inherited">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>check if the kernel currently has an associated peer address </p>
+<p>For stream sockets, true means a peer association exists; it does not guarantee that the remote endpoint is alive or that I/O can succeed. A peer that has sent FIN may still be associated with the socket.</p>
+<p>For datagram sockets, true only indicates that <a class="el" href="classNET_1_1InternetSocket.html#adb221fc68184fbc3a8b0b5501a921b7c" title="establish a connection with the given foreign address and port">connect()</a> configured a default peer address; it does not establish a network connection.</p>
+<dl class="section return"><dt>Returns</dt><dd>false if getpeername() reports ENOTCONN </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classNET_1_1SocketException.html" title="Signals a problem with the execution of a socket call.">SocketException</a></td><td>for other getpeername() errors </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a865f78e6c2b806e0e4b2272086959933" name="a865f78e6c2b806e0e4b2272086959933"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a865f78e6c2b806e0e4b2272086959933">&#9670;&#160;</a></span>joinGroup()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void UDPSocket::joinGroup </td>
+          <td class="memname">void NET::UDPSocket::joinGroup </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>multicastGroup</em></span></td><td>)</td>
           <td></td>
@@ -835,18 +856,16 @@ Protected Attributes</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="UDP_Multicast_8cpp-example.html#a3">UDP_Multicast.cpp</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="UDPSocket_8cpp_source.html#l00098">98</a> of file <a class="el" href="UDPSocket_8cpp_source.html">UDPSocket.cpp</a>.</p>
-
 </div>
 </div>
-<a id="ad5f835c48b840e30b471e19d7c3cc2aa" name="ad5f835c48b840e30b471e19d7c3cc2aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad5f835c48b840e30b471e19d7c3cc2aa">&#9670;&#160;</a></span>leaveGroup()</h2>
+<a id="a7d75e529e04b47aa59e7cfc31711bd93" name="a7d75e529e04b47aa59e7cfc31711bd93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d75e529e04b47aa59e7cfc31711bd93">&#9670;&#160;</a></span>leaveGroup()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void UDPSocket::leaveGroup </td>
+          <td class="memname">void NET::UDPSocket::leaveGroup </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>multicastGroup</em></span></td><td>)</td>
           <td></td>
@@ -870,12 +889,10 @@ Protected Attributes</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="UDP_Multicast_8cpp-example.html#a11">UDP_Multicast.cpp</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="UDPSocket_8cpp_source.html#l00104">104</a> of file <a class="el" href="UDPSocket_8cpp_source.html">UDPSocket.cpp</a>.</p>
-
 </div>
 </div>
-<a id="a4684d7f8b29b43c51bcc25f01c7df437" name="a4684d7f8b29b43c51bcc25f01c7df437"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4684d7f8b29b43c51bcc25f01c7df437">&#9670;&#160;</a></span>listen()</h2>
+<a id="a6ef141d767786731607a2db52d9c1095" name="a6ef141d767786731607a2db52d9c1095"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6ef141d767786731607a2db52d9c1095">&#9670;&#160;</a></span>listen()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -884,7 +901,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void SimpleSocket::listen </td>
+          <td class="memname">void NET::SimpleSocket::listen </td>
           <td>(</td>
           <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>backlog</em></span><span class="paramdefsep"> = </span><span class="paramdefval">5</span></td><td>)</td>
           <td></td>
@@ -898,7 +915,7 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>listen for incoming connections </p>
-<p><a class="el" href="classNET_1_1SimpleSocket.html#a4684d7f8b29b43c51bcc25f01c7df437" title="listen for incoming connections">listen()</a> can be called on a bound socket. The socket will then go into a passive state and accept incoming connections. To answer to an incoming connection call <a class="el" href="classNET_1_1SimpleSocket.html#a23f806c99ec86fe75872ac60d9af9996" title="retrying accept for use by stream sockets">accept()</a> or <a class="el" href="classNET_1_1SimpleSocket.html#af9cd7f2b28969fa1383d8e8751a868f5" title="retrying accept with timeout for use by stream sockets">timedAccept()</a> on the socket.</p>
+<p><a class="el" href="classNET_1_1SimpleSocket.html#a6ef141d767786731607a2db52d9c1095" title="listen for incoming connections">listen()</a> can be called on a bound socket. The socket will then go into a passive state and accept incoming connections. To answer to an incoming connection call accept() or timedAccept() on the socket.</p>
 <p>The backlog is a buffer for incoming connections. If backlog is set to 0, the number of incoming connections is only limited by the operating system. If backlog is set to a value &gt; 0, only the upper limit of connections is set, the OS can limit the number further.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -912,8 +929,6 @@ Protected Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8cpp_source.html#l00199">199</a> of file <a class="el" href="SimpleSocket_8cpp_source.html">SimpleSocket.cpp</a>.</p>
 
 </div>
 </div>
@@ -942,12 +957,12 @@ Protected Attributes</h2></td></tr>
 
 <p>Return the native descriptor. Ownership remains with the object. </p>
 
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8h_source.html#l00112">112</a> of file <a class="el" href="SimpleSocket_8h_source.html">SimpleSocket.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SimpleSocket_8h_source.html#l00128">128</a> of file <a class="el" href="SimpleSocket_8h_source.html">SimpleSocket.h</a>.</p>
 
 </div>
 </div>
-<a id="a7e867144442c2fd38381a8a71f0f57c4" name="a7e867144442c2fd38381a8a71f0f57c4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7e867144442c2fd38381a8a71f0f57c4">&#9670;&#160;</a></span>peerDisconnected()</h2>
+<a id="a774dcd3aec69d20b173e346d73bc3202" name="a774dcd3aec69d20b173e346d73bc3202"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a774dcd3aec69d20b173e346d73bc3202">&#9670;&#160;</a></span>peerDisconnected()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -956,7 +971,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool SimpleSocket::peerDisconnected </td>
+          <td class="memname">bool NET::SimpleSocket::peerDisconnected </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
@@ -973,12 +988,10 @@ Protected Attributes</h2></td></tr>
 <p>Returns whether the OS currently reports hangup or error for the stream peer. A false result does not guarantee that the remote peer is reachable.</p>
 <dl class="section return"><dt>Returns</dt><dd>true if a peer disconnected or is no longer connected </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8cpp_source.html#l00178">178</a> of file <a class="el" href="SimpleSocket_8cpp_source.html">SimpleSocket.cpp</a>.</p>
-
 </div>
 </div>
-<a id="ab2c084ceb5c5773495566d37b2c99283" name="ab2c084ceb5c5773495566d37b2c99283"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab2c084ceb5c5773495566d37b2c99283">&#9670;&#160;</a></span>receive()</h2>
+<a id="a52c6d021b2382b673aded4721471a6d4" name="a52c6d021b2382b673aded4721471a6d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a52c6d021b2382b673aded4721471a6d4">&#9670;&#160;</a></span>receive()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -987,7 +1000,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structNET_1_1IOResult.html">IOResult</a> SimpleSocket::receive </td>
+          <td class="memname"><a class="el" href="structNET_1_1IOResult.html">IOResult</a> NET::SimpleSocket::receive </td>
           <td>(</td>
           <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>buffer</em></span>, </td>
         </tr>
@@ -1005,10 +1018,10 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>receive data from a bound socket </p>
-<p><a class="el" href="classNET_1_1SimpleSocket.html#ab2c084ceb5c5773495566d37b2c99283" title="receive data from a bound socket">receive()</a> can only be used on a socket that called <a class="el" href="classNET_1_1InternetSocket.html#a02046392ba4e5810f7dc900686ac9a93">bind()</a> or <a class="el" href="classNET_1_1InternetSocket.html#ab5151cf3fcd5768c6d40e585774b417b" title="establish a connection with the given foreign address and port">connect()</a> before. If you try to use <a class="el" href="classNET_1_1SimpleSocket.html#ab2c084ceb5c5773495566d37b2c99283" title="receive data from a bound socket">receive()</a> on a not bound socket, <a class="el" href="classNET_1_1SocketException.html" title="Signals a problem with the execution of a socket call.">SocketException</a> will be thrown.</p>
+<p><a class="el" href="classNET_1_1SimpleSocket.html#a52c6d021b2382b673aded4721471a6d4" title="receive data from a bound socket">receive()</a> can only be used on a socket that called <a class="el" href="classNET_1_1InternetSocket.html#a24f0bf3e2b081f02a348951bb497bfdc">bind()</a> or <a class="el" href="classNET_1_1InternetSocket.html#adb221fc68184fbc3a8b0b5501a921b7c" title="establish a connection with the given foreign address and port">connect()</a> before. If you try to use <a class="el" href="classNET_1_1SimpleSocket.html#a52c6d021b2382b673aded4721471a6d4" title="receive data from a bound socket">receive()</a> on a not bound socket, <a class="el" href="classNET_1_1SocketException.html" title="Signals a problem with the execution of a socket call.">SocketException</a> will be thrown.</p>
 <p>If using a stream oriented Socket, receive can return a part of a received messge, e.g. if you send 100 bytes, it's possible you will receive 50 bytes two times in a row. However, the order of the sent data will be preserved.</p>
 <p>If you are using a datagram oriented sockets, you will only receive whole datagrams. But beware of using a too small buffer. If the receive buffer is too small for the received datagram, the data you didn't read in the receive call will be discared.</p>
-<p>If the remote host has closed the connection (on a connection based socket like TCP) <a class="el" href="classNET_1_1SimpleSocket.html#ab2c084ceb5c5773495566d37b2c99283" title="receive data from a bound socket">receive()</a> will return PeerDisconnected in the result status. If you are using a connectionless protocol (like UDP) you may get DestinationUnavailable in the result status when the peer refuses via ICMP.</p>
+<p>If the remote host has closed the connection (on a connection based socket like TCP) <a class="el" href="classNET_1_1SimpleSocket.html#a52c6d021b2382b673aded4721471a6d4" title="receive data from a bound socket">receive()</a> will return PeerDisconnected in the result status. If you are using a connectionless protocol (like UDP) you may get DestinationUnavailable in the result status when the peer refuses via ICMP.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">buffer</td><td>the buffer the received data will be written to </td></tr>
@@ -1024,12 +1037,10 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8cpp_source.html#l00119">119</a> of file <a class="el" href="SimpleSocket_8cpp_source.html">SimpleSocket.cpp</a>.</p>
-
 </div>
 </div>
-<a id="aa0ef8a33ae6e7279d2a2eb3661fae03c" name="aa0ef8a33ae6e7279d2a2eb3661fae03c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa0ef8a33ae6e7279d2a2eb3661fae03c">&#9670;&#160;</a></span>receiveAll()</h2>
+<a id="a3405b52056d2c64f5f058b86c2ea9535" name="a3405b52056d2c64f5f058b86c2ea9535"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3405b52056d2c64f5f058b86c2ea9535">&#9670;&#160;</a></span>receiveAll()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1038,7 +1049,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structNET_1_1IOResult.html">IOResult</a> SimpleSocket::receiveAll </td>
+          <td class="memname"><a class="el" href="structNET_1_1IOResult.html">IOResult</a> NET::SimpleSocket::receiveAll </td>
           <td>(</td>
           <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>buffer</em></span>, </td>
         </tr>
@@ -1050,13 +1061,13 @@ Protected Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel protected">protected</span><span class="mlabel inherited">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel protected">protected</span><span class="mlabel inherited">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>receive exactly the requested amount unless the peer disconnects </p>
-<p><a class="el" href="classNET_1_1SimpleSocket.html#aa0ef8a33ae6e7279d2a2eb3661fae03c" title="receive exactly the requested amount unless the peer disconnects">receiveAll()</a> repeatedly calls <a class="el" href="classNET_1_1SimpleSocket.html#ab2c084ceb5c5773495566d37b2c99283" title="receive data from a bound socket">receive()</a> until len bytes have been received. This is useful for fixed-size data on TCP, where one <a class="el" href="classNET_1_1SimpleSocket.html#ab2c084ceb5c5773495566d37b2c99283" title="receive data from a bound socket">receive()</a> call is not guaranteed to return all bytes sent by the peer.</p>
+<p><a class="el" href="classNET_1_1SimpleSocket.html#a3405b52056d2c64f5f058b86c2ea9535" title="receive exactly the requested amount unless the peer disconnects">receiveAll()</a> repeatedly calls <a class="el" href="classNET_1_1SimpleSocket.html#a52c6d021b2382b673aded4721471a6d4" title="receive data from a bound socket">receive()</a> until len bytes have been received. This is useful for fixed-size data on TCP, where one <a class="el" href="classNET_1_1SimpleSocket.html#a52c6d021b2382b673aded4721471a6d4" title="receive data from a bound socket">receive()</a> call is not guaranteed to return all bytes sent by the peer.</p>
 <p>If the peer closes or resets the connection before len bytes arrive, the function returns an error status with the number of bytes received so far.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
@@ -1073,18 +1084,16 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8cpp_source.html#l00303">303</a> of file <a class="el" href="SimpleSocket_8cpp_source.html">SimpleSocket.cpp</a>.</p>
-
 </div>
 </div>
-<a id="a7b151adac0149a04efe1e0d2cee5dec4" name="a7b151adac0149a04efe1e0d2cee5dec4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7b151adac0149a04efe1e0d2cee5dec4">&#9670;&#160;</a></span>receiveFrom()</h2>
+<a id="ad6606a7e2c7925a101b5701b2444da16" name="ad6606a7e2c7925a101b5701b2444da16"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6606a7e2c7925a101b5701b2444da16">&#9670;&#160;</a></span>receiveFrom()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structNET_1_1IOResult.html">IOResult</a> UDPSocket::receiveFrom </td>
+          <td class="memname"><a class="el" href="structNET_1_1IOResult.html">IOResult</a> NET::UDPSocket::receiveFrom </td>
           <td>(</td>
           <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>buffer</em></span>, </td>
         </tr>
@@ -1126,12 +1135,10 @@ Protected Attributes</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="UDP_Commands_8cpp-example.html#a3">UDP_Commands.cpp</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="UDPSocket_8cpp_source.html#l00058">58</a> of file <a class="el" href="UDPSocket_8cpp_source.html">UDPSocket.cpp</a>.</p>
-
 </div>
 </div>
-<a id="aa05163ace5dbe56a53debe265045597f" name="aa05163ace5dbe56a53debe265045597f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa05163ace5dbe56a53debe265045597f">&#9670;&#160;</a></span>send()</h2>
+<a id="a05b8d7a1cfa458e7e4e79acb80185077" name="a05b8d7a1cfa458e7e4e79acb80185077"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a05b8d7a1cfa458e7e4e79acb80185077">&#9670;&#160;</a></span>send()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1140,7 +1147,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structNET_1_1IOResult.html">IOResult</a> SimpleSocket::send </td>
+          <td class="memname"><a class="el" href="structNET_1_1IOResult.html">IOResult</a> NET::SimpleSocket::send </td>
           <td>(</td>
           <td class="paramtype">const void *</td>          <td class="paramname"><span class="paramname"><em>buffer</em></span>, </td>
         </tr>
@@ -1158,9 +1165,9 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>send data through a connected socket </p>
-<p><a class="el" href="classNET_1_1SimpleSocket.html#aa05163ace5dbe56a53debe265045597f" title="send data through a connected socket">send()</a> can only be used on a socket that called <a class="el" href="classNET_1_1InternetSocket.html#ab5151cf3fcd5768c6d40e585774b417b" title="establish a connection with the given foreign address and port">connect()</a> before. If you try to use <a class="el" href="classNET_1_1SimpleSocket.html#aa05163ace5dbe56a53debe265045597f" title="send data through a connected socket">send()</a> on a not connected socket, <a class="el" href="classNET_1_1SocketException.html" title="Signals a problem with the execution of a socket call.">SocketException</a> will be thrown.</p>
-<p>If you are using a stream oriented socket (like <a class="el" href="classNET_1_1TCPSocket.html" title="TCP socket class.">TCPSocket</a>), the operating system is allowed to send only a part of the packet you told it to send, so <a class="el" href="classNET_1_1SimpleSocket.html#aa05163ace5dbe56a53debe265045597f" title="send data through a connected socket">send()</a> will return the number of bytes actually sent. It is your responsibility to resend the data not sent by <a class="el" href="classNET_1_1SimpleSocket.html#aa05163ace5dbe56a53debe265045597f" title="send data through a connected socket">send()</a></p>
-<p>If you are using a datagram oriented socket (like <a class="el" href="classNET_1_1UDPSocket.html" title="UDP socket class.">UDPSocket</a> or <a class="el" href="classNET_1_1SCTPSocket.html" title="SCTP socket class.">SCTPSocket</a>) the operating system will only send and receive complete datagrams, but <a class="el" href="classNET_1_1SimpleSocket.html#aa05163ace5dbe56a53debe265045597f" title="send data through a connected socket">send()</a> will fail if you are trying to send too much data. In that case <a class="el" href="classNET_1_1SocketException.html" title="Signals a problem with the execution of a socket call.">SocketException</a> will be thrown.</p>
+<p><a class="el" href="classNET_1_1SimpleSocket.html#a05b8d7a1cfa458e7e4e79acb80185077" title="send data through a connected socket">send()</a> can only be used on a socket that called <a class="el" href="classNET_1_1InternetSocket.html#adb221fc68184fbc3a8b0b5501a921b7c" title="establish a connection with the given foreign address and port">connect()</a> before. If you try to use <a class="el" href="classNET_1_1SimpleSocket.html#a05b8d7a1cfa458e7e4e79acb80185077" title="send data through a connected socket">send()</a> on a not connected socket, <a class="el" href="classNET_1_1SocketException.html" title="Signals a problem with the execution of a socket call.">SocketException</a> will be thrown.</p>
+<p>If you are using a stream oriented socket (like <a class="el" href="classNET_1_1TCPSocket.html" title="TCP socket class.">TCPSocket</a>), the operating system is allowed to send only a part of the packet you told it to send, so <a class="el" href="classNET_1_1SimpleSocket.html#a05b8d7a1cfa458e7e4e79acb80185077" title="send data through a connected socket">send()</a> will return the number of bytes actually sent. It is your responsibility to resend the data not sent by <a class="el" href="classNET_1_1SimpleSocket.html#a05b8d7a1cfa458e7e4e79acb80185077" title="send data through a connected socket">send()</a></p>
+<p>If you are using a datagram oriented socket (like <a class="el" href="classNET_1_1UDPSocket.html" title="UDP socket class.">UDPSocket</a> or <a class="el" href="classNET_1_1SCTPSocket.html" title="SCTP socket class.">SCTPSocket</a>) the operating system will only send and receive complete datagrams, but <a class="el" href="classNET_1_1SimpleSocket.html#a05b8d7a1cfa458e7e4e79acb80185077" title="send data through a connected socket">send()</a> will fail if you are trying to send too much data. In that case <a class="el" href="classNET_1_1SocketException.html" title="Signals a problem with the execution of a socket call.">SocketException</a> will be thrown.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">buffer</td><td>data to be send </td></tr>
@@ -1176,12 +1183,10 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8cpp_source.html#l00102">102</a> of file <a class="el" href="SimpleSocket_8cpp_source.html">SimpleSocket.cpp</a>.</p>
-
 </div>
 </div>
-<a id="ae9af79a28259dad3318b15ac91ef18c5" name="ae9af79a28259dad3318b15ac91ef18c5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae9af79a28259dad3318b15ac91ef18c5">&#9670;&#160;</a></span>sendAll()</h2>
+<a id="a5bdd569951e5bd51144fb232b9e2e5c7" name="a5bdd569951e5bd51144fb232b9e2e5c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5bdd569951e5bd51144fb232b9e2e5c7">&#9670;&#160;</a></span>sendAll()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1190,7 +1195,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structNET_1_1IOResult.html">IOResult</a> SimpleSocket::sendAll </td>
+          <td class="memname"><a class="el" href="structNET_1_1IOResult.html">IOResult</a> NET::SimpleSocket::sendAll </td>
           <td>(</td>
           <td class="paramtype">const void *</td>          <td class="paramname"><span class="paramname"><em>buffer</em></span>, </td>
         </tr>
@@ -1208,8 +1213,8 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>send data through a connected socket </p>
-<p><a class="el" href="classNET_1_1SimpleSocket.html#ae9af79a28259dad3318b15ac91ef18c5" title="send data through a connected socket">sendAll()</a> can only be used on a socket that called <a class="el" href="classNET_1_1InternetSocket.html#ab5151cf3fcd5768c6d40e585774b417b" title="establish a connection with the given foreign address and port">connect()</a> before. If you try to use <a class="el" href="classNET_1_1SimpleSocket.html#ae9af79a28259dad3318b15ac91ef18c5" title="send data through a connected socket">sendAll()</a> on a unconnected socket, a <a class="el" href="classNET_1_1SocketException.html" title="Signals a problem with the execution of a socket call.">SocketException</a> will be thrown.</p>
-<p>When using a stream oriented socket, the operating system is allowed to send only a part of the data you requested it to send. Because of this, you would have to check the number of sent bytes when using <a class="el" href="classNET_1_1SimpleSocket.html#aa05163ace5dbe56a53debe265045597f" title="send data through a connected socket">send()</a>, and resend unsent data manually. <a class="el" href="classNET_1_1SimpleSocket.html#ae9af79a28259dad3318b15ac91ef18c5" title="send data through a connected socket">sendAll()</a> takes that responsibility from you and resends as long as it needs, to completely send the data given to it.</p>
+<p><a class="el" href="classNET_1_1SimpleSocket.html#a5bdd569951e5bd51144fb232b9e2e5c7" title="send data through a connected socket">sendAll()</a> can only be used on a socket that called <a class="el" href="classNET_1_1InternetSocket.html#adb221fc68184fbc3a8b0b5501a921b7c" title="establish a connection with the given foreign address and port">connect()</a> before. If you try to use <a class="el" href="classNET_1_1SimpleSocket.html#a5bdd569951e5bd51144fb232b9e2e5c7" title="send data through a connected socket">sendAll()</a> on a unconnected socket, a <a class="el" href="classNET_1_1SocketException.html" title="Signals a problem with the execution of a socket call.">SocketException</a> will be thrown.</p>
+<p>When using a stream oriented socket, the operating system is allowed to send only a part of the data you requested it to send. Because of this, you would have to check the number of sent bytes when using <a class="el" href="classNET_1_1SimpleSocket.html#a05b8d7a1cfa458e7e4e79acb80185077" title="send data through a connected socket">send()</a>, and resend unsent data manually. <a class="el" href="classNET_1_1SimpleSocket.html#a5bdd569951e5bd51144fb232b9e2e5c7" title="send data through a connected socket">sendAll()</a> takes that responsibility from you and resends as long as it needs, to completely send the data given to it.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">buffer</td><td>data to be send </td></tr>
@@ -1225,18 +1230,16 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8cpp_source.html#l00290">290</a> of file <a class="el" href="SimpleSocket_8cpp_source.html">SimpleSocket.cpp</a>.</p>
-
 </div>
 </div>
-<a id="ac7d2be18e326a772a0f125bc15450901" name="ac7d2be18e326a772a0f125bc15450901"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac7d2be18e326a772a0f125bc15450901">&#9670;&#160;</a></span>sendTo()</h2>
+<a id="a129ed8c2d71ae845e231e4b05d9ff139" name="a129ed8c2d71ae845e231e4b05d9ff139"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a129ed8c2d71ae845e231e4b05d9ff139">&#9670;&#160;</a></span>sendTo()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structNET_1_1IOResult.html">IOResult</a> UDPSocket::sendTo </td>
+          <td class="memname"><a class="el" href="structNET_1_1IOResult.html">IOResult</a> NET::UDPSocket::sendTo </td>
           <td>(</td>
           <td class="paramtype">const void *</td>          <td class="paramname"><span class="paramname"><em>buffer</em></span>, </td>
         </tr>
@@ -1258,8 +1261,8 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Send the given buffer as a UDP datagram to the specified address / port.</p>
-<p>Can be substituted with <a class="el" href="classNET_1_1SimpleSocket.html#aa05163ace5dbe56a53debe265045597f" title="send data through a connected socket">send()</a> if the socket is first connected to an address and port. If <a class="el" href="#ac7d2be18e326a772a0f125bc15450901">sendTo()</a> is used on a connected socket, the specified destination parameters will be used.</p>
-<p>If the message you are trying to send is too long for one of the underlying protocols a <a class="el" href="classNET_1_1SocketException.html" title="Signals a problem with the execution of a socket call.">SocketException</a> will be thrown. Like <a class="el" href="classNET_1_1SimpleSocket.html#aa05163ace5dbe56a53debe265045597f" title="send data through a connected socket">send()</a>, <a class="el" href="#ac7d2be18e326a772a0f125bc15450901">sendTo()</a> blocks until the message was sent.</p>
+<p>Can be substituted with <a class="el" href="classNET_1_1SimpleSocket.html#a05b8d7a1cfa458e7e4e79acb80185077" title="send data through a connected socket">send()</a> if the socket is first connected to an address and port. If <a class="el" href="#a129ed8c2d71ae845e231e4b05d9ff139">sendTo()</a> is used on a connected socket, the specified destination parameters will be used.</p>
+<p>If the message you are trying to send is too long for one of the underlying protocols a <a class="el" href="classNET_1_1SocketException.html" title="Signals a problem with the execution of a socket call.">SocketException</a> will be thrown. Like <a class="el" href="classNET_1_1SimpleSocket.html#a05b8d7a1cfa458e7e4e79acb80185077" title="send data through a connected socket">send()</a>, <a class="el" href="#a129ed8c2d71ae845e231e4b05d9ff139">sendTo()</a> blocks until the message was sent.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">buffer</td><td>data to be send </td></tr>
@@ -1276,21 +1279,48 @@ Protected Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="UDP_Commands_8cpp-example.html#a5">UDP_Commands.cpp</a>, and <a class="el" href="UDP_Multicast_8cpp-example.html#a5">UDP_Multicast.cpp</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="UDP_Commands_8cpp-example.html#a5">UDP_Commands.cpp</a>, and <a class="el" href="UDP_Multicast_8cpp-example.html#a6">UDP_Multicast.cpp</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="UDPSocket_8cpp_source.html#l00044">44</a> of file <a class="el" href="UDPSocket_8cpp_source.html">UDPSocket.cpp</a>.</p>
+</div>
+</div>
+<a id="aa775ebaa641ab843ddf4b27f62bd1652" name="aa775ebaa641ab843ddf4b27f62bd1652"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa775ebaa641ab843ddf4b27f62bd1652">&#9670;&#160;</a></span>setBlocking()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NET::SimpleSocket::setBlocking </td>
+          <td>(</td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>blocking</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inherited">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>set socket to blocking or non-blocking I/O operations </p>
+<p>A non-blocking socket will return from all I/O operations right away. The <a class="el" href="namespaceNET.html#a6234637576bbb2ec0600642d629c2104" title="status of the I/O operation">IOStatus</a> WouldBlock is used to signify no work can be done at the moment. An event handler can use poll(), epoll(), etc. to monitor the socket for readyness for the next operation.</p>
+<p>All timed operations provided by socket classes are not affected. Timed calls wait up to timeout ms for even with non-blocking sockets. </p>
 
 </div>
 </div>
-<a id="a9d00dfd5fa5be755f7c834b68957d1f0" name="a9d00dfd5fa5be755f7c834b68957d1f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9d00dfd5fa5be755f7c834b68957d1f0">&#9670;&#160;</a></span>setMulticastInterfaceAddr()</h2>
+<a id="a87336b5754b4862b47825ba5d3a30879" name="a87336b5754b4862b47825ba5d3a30879"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87336b5754b4862b47825ba5d3a30879">&#9670;&#160;</a></span>setMulticastInterfaceAddr()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void UDPSocket::setMulticastInterfaceAddr </td>
+          <td class="memname">void NET::UDPSocket::setMulticastInterfaceAddr </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>address</em></span></td><td>)</td>
           <td></td>
@@ -1310,18 +1340,16 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="UDPSocket_8cpp_source.html#l00088">88</a> of file <a class="el" href="UDPSocket_8cpp_source.html">UDPSocket.cpp</a>.</p>
-
 </div>
 </div>
-<a id="a4dcfff33b45d1b84b5a602fc6f4a27f8" name="a4dcfff33b45d1b84b5a602fc6f4a27f8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4dcfff33b45d1b84b5a602fc6f4a27f8">&#9670;&#160;</a></span>setMulticastTTL()</h2>
+<a id="a1dec227254edced01f3e1412a9f851b7" name="a1dec227254edced01f3e1412a9f851b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1dec227254edced01f3e1412a9f851b7">&#9670;&#160;</a></span>setMulticastTTL()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void UDPSocket::setMulticastTTL </td>
+          <td class="memname">void NET::UDPSocket::setMulticastTTL </td>
           <td>(</td>
           <td class="paramtype">unsigned char</td>          <td class="paramname"><span class="paramname"><em>multicastTTL</em></span></td><td>)</td>
           <td></td>
@@ -1343,12 +1371,10 @@ Protected Attributes</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="UDP_Multicast_8cpp-example.html#a4">UDP_Multicast.cpp</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="UDPSocket_8cpp_source.html#l00081">81</a> of file <a class="el" href="UDPSocket_8cpp_source.html">UDPSocket.cpp</a>.</p>
-
 </div>
 </div>
-<a id="a927d978f6f79933d109433f607c8241a" name="a927d978f6f79933d109433f607c8241a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a927d978f6f79933d109433f607c8241a">&#9670;&#160;</a></span>setReuseAddress()</h2>
+<a id="a8ea467901136d616cfc0d5f472630736" name="a8ea467901136d616cfc0d5f472630736"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8ea467901136d616cfc0d5f472630736">&#9670;&#160;</a></span>setReceiveBufferSize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1357,7 +1383,34 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void InternetSocket::setReuseAddress </td>
+          <td class="memname">void NET::SimpleSocket::setReceiveBufferSize </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>bytes</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inherited">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>override default receive buffer size for this socket </p>
+
+</div>
+</div>
+<a id="ae0396b46d0aa19d6f7824df0af884d5c" name="ae0396b46d0aa19d6f7824df0af884d5c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae0396b46d0aa19d6f7824df0af884d5c">&#9670;&#160;</a></span>setReuseAddress()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NET::InternetSocket::setReuseAddress </td>
           <td>(</td>
           <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>enable</em></span></td><td>)</td>
           <td></td>
@@ -1371,7 +1424,7 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Enable or disable local address reuse. </p>
-<p>SO_REUSEADDR allows binding a local address that may still be associated with previous connections, e.g. TCP connections in TIME_WAIT. This option should be set before <a class="el" href="classNET_1_1InternetSocket.html#a02046392ba4e5810f7dc900686ac9a93">bind()</a>.</p>
+<p>SO_REUSEADDR allows binding a local address that may still be associated with previous connections, e.g. TCP connections in TIME_WAIT. This option should be set before <a class="el" href="classNET_1_1InternetSocket.html#a24f0bf3e2b081f02a348951bb497bfdc">bind()</a>.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">enable</td><td>true to enable address reuse </td></tr>
@@ -1387,12 +1440,10 @@ Protected Attributes</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="TCP_Server_8cpp-example.html#a1">TCP_Server.cpp</a>, and <a class="el" href="UDP_Multicast_8cpp-example.html#a1">UDP_Multicast.cpp</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="InternetSocket_8cpp_source.html#l00068">68</a> of file <a class="el" href="InternetSocket_8cpp_source.html">InternetSocket.cpp</a>.</p>
-
 </div>
 </div>
-<a id="a5b5500498eeb1292eea3c5dc4e531d19" name="a5b5500498eeb1292eea3c5dc4e531d19"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5b5500498eeb1292eea3c5dc4e531d19">&#9670;&#160;</a></span>shutdown()</h2>
+<a id="abc3f66011ed1506bff81a0fbccbd29ff" name="abc3f66011ed1506bff81a0fbccbd29ff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc3f66011ed1506bff81a0fbccbd29ff">&#9670;&#160;</a></span>setSendBufferSize()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1401,7 +1452,34 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void SimpleSocket::shutdown </td>
+          <td class="memname">void NET::SimpleSocket::setSendBufferSize </td>
+          <td>(</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>bytes</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inherited">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>override default send buffer size for this socket </p>
+
+</div>
+</div>
+<a id="a14abd5d3c196375b470435d7f3f3648b" name="a14abd5d3c196375b470435d7f3f3648b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14abd5d3c196375b470435d7f3f3648b">&#9670;&#160;</a></span>shutdown()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NET::SimpleSocket::shutdown </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="namespaceNET.html#a9b61e3d2422a1203909bd7985df95884">ShutdownDirection</a></td>          <td class="paramname"><span class="paramname"><em>type</em></span></td><td>)</td>
           <td></td>
@@ -1415,12 +1493,12 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>shutdown the connection in the specified direction </p>
-<p>This will gracefully end a connection by sending a FIN frame. Use this to end a normal communication cycle. To abort a connection see <a class="el" href="classNET_1_1SimpleSocket.html#a107f5074fd3f153ce0c1d2329c755d8f" title="Disconnect and unset any foreign addresses.">disconnect()</a>.</p>
-<p>Depending on the specified <a class="el" href="namespaceNET.html#a9b61e3d2422a1203909bd7985df95884">ShutdownDirection</a>, calls for that direction will stop working. Use this function if you want to have more control than just destroing the socket. It allows you to cut the connection in one direction, or both.</p>
-<p>If you use <a class="el" href="classNET_1_1SimpleSocket.html#a5b5500498eeb1292eea3c5dc4e531d19" title="shutdown the connection in the specified direction">shutdown()</a> on an unconnected socket, the corresponding calls will simply stop working.</p>
+<p>This will gracefully end a connection by sending a FIN frame. Use this to end a normal communication cycle. To abort a connection see <a class="el" href="classNET_1_1SimpleSocket.html#ad1c5da36fdd720816fb8f162aa59798d" title="Disconnect and unset any foreign addresses.">disconnect()</a>.</p>
+<p>Depending on the specified <a class="el" href="namespaceNET.html#a9b61e3d2422a1203909bd7985df95884" title="direction to close for a stream socket">ShutdownDirection</a>, calls for that direction will stop working. Use this function if you want to have more control than just destroing the socket. It allows you to cut the connection in one direction, or both.</p>
+<p>If you use <a class="el" href="classNET_1_1SimpleSocket.html#a14abd5d3c196375b470435d7f3f3648b" title="shutdown the connection in the specified direction">shutdown()</a> on an unconnected socket, the corresponding calls will simply stop working.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">type</td><td>the <a class="el" href="namespaceNET.html#a9b61e3d2422a1203909bd7985df95884">ShutdownDirection</a> that be used </td></tr>
+    <tr><td class="paramname">type</td><td>the <a class="el" href="namespaceNET.html#a9b61e3d2422a1203909bd7985df95884" title="direction to close for a stream socket">ShutdownDirection</a> that be used </td></tr>
   </table>
   </dd>
 </dl>
@@ -1433,12 +1511,10 @@ Protected Attributes</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="TCP_Server_8cpp-example.html#a11">TCP_Server.cpp</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8cpp_source.html#l00161">161</a> of file <a class="el" href="SimpleSocket_8cpp_source.html">SimpleSocket.cpp</a>.</p>
-
 </div>
 </div>
-<a id="af9cd7f2b28969fa1383d8e8751a868f5" name="af9cd7f2b28969fa1383d8e8751a868f5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af9cd7f2b28969fa1383d8e8751a868f5">&#9670;&#160;</a></span>timedAccept()</h2>
+<a id="ab9998237c386b9606006836f7b7d6dff" name="ab9998237c386b9606006836f7b7d6dff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9998237c386b9606006836f7b7d6dff">&#9670;&#160;</a></span>timedConnect()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1447,36 +1523,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int SimpleSocket::timedAccept </td>
-          <td>(</td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>timeout</em></span></td><td>)</td>
-          <td> const</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel protected">protected</span><span class="mlabel inherited">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>retrying accept with timeout for use by stream sockets </p>
-
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8cpp_source.html#l00232">232</a> of file <a class="el" href="SimpleSocket_8cpp_source.html">SimpleSocket.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a606cefbe73add4d6dddad89f1350925b" name="a606cefbe73add4d6dddad89f1350925b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a606cefbe73add4d6dddad89f1350925b">&#9670;&#160;</a></span>timedConnect()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="namespaceNET.html#aaf70b419dfaefe3a31207434ee82ff4c">ConnectResult</a> InternetSocket::timedConnect </td>
+          <td class="memname"><a class="el" href="namespaceNET.html#aaf70b419dfaefe3a31207434ee82ff4c">ConnectResult</a> NET::InternetSocket::timedConnect </td>
           <td>(</td>
           <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>foreignAddress</em></span>, </td>
         </tr>
@@ -1499,7 +1546,7 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>establish a connection with the given foreign address and port </p>
-<p>Provides timeout for TCP socket connection establishment. When a timeout occurs, the OS may still continue the connection attempt in the background. Use <a class="el" href="classNET_1_1SimpleSocket.html#a107f5074fd3f153ce0c1d2329c755d8f" title="Disconnect and unset any foreign addresses.">disconnect()</a> or destroy the socket to avoid this.</p>
+<p>Provides timeout for TCP socket connection establishment. When a timeout occurs, the OS may still continue the connection attempt in the background. Use <a class="el" href="classNET_1_1SimpleSocket.html#ad1c5da36fdd720816fb8f162aa59798d" title="Disconnect and unset any foreign addresses.">disconnect()</a> or destroy the socket to avoid this.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">foreignAddress</td><td>foreign address </td></tr>
@@ -1508,7 +1555,6 @@ Protected Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="namespaceNET.html#aaf70b419dfaefe3a31207434ee82ff4c">ConnectResult</a> </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname"><a class="el" href="classNET_1_1SocketException.html" title="Signals a problem with the execution of a socket call.">SocketException</a></td><td>thrown if unable to establish connection </td></tr>
@@ -1518,12 +1564,10 @@ Protected Attributes</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="TCP_Client_Reconnect_8cpp-example.html#a2">TCP_Client_Reconnect.cpp</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="InternetSocket_8cpp_source.html#l00083">83</a> of file <a class="el" href="InternetSocket_8cpp_source.html">InternetSocket.cpp</a>.</p>
-
 </div>
 </div>
-<a id="a90a7239e87f681acddc581082748b8a5" name="a90a7239e87f681acddc581082748b8a5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a90a7239e87f681acddc581082748b8a5">&#9670;&#160;</a></span>timedReceive()</h2>
+<a id="aa60b710b1f6b259013a6520eeaa7bdb5" name="aa60b710b1f6b259013a6520eeaa7bdb5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa60b710b1f6b259013a6520eeaa7bdb5">&#9670;&#160;</a></span>timedReceive()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1532,7 +1576,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structNET_1_1IOResult.html">IOResult</a> SimpleSocket::timedReceive </td>
+          <td class="memname"><a class="el" href="structNET_1_1IOResult.html">IOResult</a> NET::SimpleSocket::timedReceive </td>
           <td>(</td>
           <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>buffer</em></span>, </td>
         </tr>
@@ -1549,16 +1593,16 @@ Protected Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel inherited">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel inherited">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>receive data from a bound socket, return after the given timespan </p>
-<p><a class="el" href="classNET_1_1SimpleSocket.html#a90a7239e87f681acddc581082748b8a5" title="receive data from a bound socket, return after the given timespan">timedReceive()</a> can only be used on a socket that called <a class="el" href="classNET_1_1InternetSocket.html#a02046392ba4e5810f7dc900686ac9a93">bind()</a> or connect before. If you try to use <a class="el" href="classNET_1_1SimpleSocket.html#ab2c084ceb5c5773495566d37b2c99283" title="receive data from a bound socket">receive()</a> on a not bound socket, <a class="el" href="classNET_1_1SocketException.html" title="Signals a problem with the execution of a socket call.">SocketException</a> will be thrown.</p>
+<p><a class="el" href="classNET_1_1SimpleSocket.html#aa60b710b1f6b259013a6520eeaa7bdb5" title="receive data from a bound socket, return after the given timespan">timedReceive()</a> can only be used on a socket that called <a class="el" href="classNET_1_1InternetSocket.html#a24f0bf3e2b081f02a348951bb497bfdc">bind()</a> or connect before. If you try to use <a class="el" href="classNET_1_1SimpleSocket.html#a52c6d021b2382b673aded4721471a6d4" title="receive data from a bound socket">receive()</a> on a not bound socket, <a class="el" href="classNET_1_1SocketException.html" title="Signals a problem with the execution of a socket call.">SocketException</a> will be thrown.</p>
 <p>If using a stream oriented Socket, receive can return a part of a received messge, e.g. if you send 100 bytes, it's possible you will receive 50 bytes two times in a row. However, the order of the sent data will be preserved.</p>
 <p>If you are using a datagram oriented sockets, you will only receive whole datagrams. But beware of using a too small buffer. If the receive buffer is too small for the received datagram, the data you didn't read in the receive call will be discared.</p>
-<p>If the remote host has closed the connection (on a connection based socket like TCP) <a class="el" href="classNET_1_1SimpleSocket.html#ab2c084ceb5c5773495566d37b2c99283" title="receive data from a bound socket">receive()</a> will return PeerDisconnected in the result status. If you are using a connectionless protocol (like UDP) you may get DestinationUnavailable in the result status when the peer refuses via ICMP.</p>
+<p>If the remote host has closed the connection (on a connection based socket like TCP) <a class="el" href="classNET_1_1SimpleSocket.html#a52c6d021b2382b673aded4721471a6d4" title="receive data from a bound socket">receive()</a> will return PeerDisconnected in the result status. If you are using a connectionless protocol (like UDP) you may get DestinationUnavailable in the result status when the peer refuses via ICMP.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">buffer</td><td>the buffer the received data will be written to </td></tr>
@@ -1574,24 +1618,19 @@ Protected Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="TCP_Client_8cpp-example.html#a4">TCP_Client.cpp</a>, and <a class="el" href="TCP_Client_Reconnect_8cpp-example.html#a6">TCP_Client_Reconnect.cpp</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="TCP_Client_8cpp-example.html#a5">TCP_Client.cpp</a>, and <a class="el" href="TCP_Client_Reconnect_8cpp-example.html#a6">TCP_Client_Reconnect.cpp</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8cpp_source.html#l00142">142</a> of file <a class="el" href="SimpleSocket_8cpp_source.html">SimpleSocket.cpp</a>.</p>
-
 </div>
 </div>
-<a id="a225caff5fac24dd22c13899dda70915c" name="a225caff5fac24dd22c13899dda70915c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a225caff5fac24dd22c13899dda70915c">&#9670;&#160;</a></span>timedReceiveFrom()</h2>
+<a id="a12988db87eefc41db20606433210697a" name="a12988db87eefc41db20606433210697a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12988db87eefc41db20606433210697a">&#9670;&#160;</a></span>timedReceiveFrom()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structNET_1_1IOResult.html">IOResult</a> UDPSocket::timedReceiveFrom </td>
+          <td class="memname"><a class="el" href="structNET_1_1IOResult.html">IOResult</a> NET::UDPSocket::timedReceiveFrom </td>
           <td>(</td>
           <td class="paramtype">void *</td>          <td class="paramname"><span class="paramname"><em>buffer</em></span>, </td>
         </tr>
@@ -1616,11 +1655,6 @@ Protected Attributes</h2></td></tr>
           <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>timeout</em></span>&#160;)</td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 <p>Read up to len bytes data from this socket. The given buffer is where the data will be placed. If no host has sent a datagram before the timeout runs out, the function will return without changing the buffer.</p>
 <p>In order to receive data, the socket has to be bound at least to a specific port. This is done by explicitly binding the socket, or sending data through the socket.</p>
@@ -1644,12 +1678,10 @@ Protected Attributes</h2></td></tr>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="UDP_Multicast_8cpp-example.html#a7">UDP_Multicast.cpp</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="UDPSocket_8cpp_source.html#l00075">75</a> of file <a class="el" href="UDPSocket_8cpp_source.html">UDPSocket.cpp</a>.</p>
-
 </div>
 </div>
-<a id="a2c71ea5e5dc9837caf811da78cfd3b3a" name="a2c71ea5e5dc9837caf811da78cfd3b3a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2c71ea5e5dc9837caf811da78cfd3b3a">&#9670;&#160;</a></span>valid()</h2>
+<a id="a5ccd319fcf01dd3f58b9365bb3e24fa8" name="a5ccd319fcf01dd3f58b9365bb3e24fa8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ccd319fcf01dd3f58b9365bb3e24fa8">&#9670;&#160;</a></span>valid()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1658,7 +1690,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool SimpleSocket::valid </td>
+          <td class="memname">bool NET::SimpleSocket::valid </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td> const</td>
@@ -1666,52 +1698,12 @@ Protected Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel nodiscard">nodiscard</span><span class="mlabel noexcept">noexcept</span><span class="mlabel inherited">inherited</span></span>  </td>
+<span class="mlabels"><span class="mlabel noexcept">noexcept</span><span class="mlabel inherited">inherited</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
 <p>Returns true if socket is in a usable (non-moved) state and open. </p>
-
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8cpp_source.html#l00095">95</a> of file <a class="el" href="SimpleSocket_8cpp_source.html">SimpleSocket.cpp</a>.</p>
-
-</div>
-</div>
-<a id="a3457e2d858a0d4f04890e4bdf4e676d7" name="a3457e2d858a0d4f04890e4bdf4e676d7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3457e2d858a0d4f04890e4bdf4e676d7">&#9670;&#160;</a></span>validateSocket()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void SimpleSocket::validateSocket </td>
-          <td>(</td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>sockfd</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>type</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>protocol</em></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel static">static</span><span class="mlabel protected">protected</span><span class="mlabel inherited">inherited</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>check if external socket descriptor to fits the given parameters </p>
-
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8cpp_source.html#l00316">316</a> of file <a class="el" href="SimpleSocket_8cpp_source.html">SimpleSocket.cpp</a>.</p>
 
 </div>
 </div>
@@ -1736,7 +1728,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8h_source.html#l00322">322</a> of file <a class="el" href="SimpleSocket_8h_source.html">SimpleSocket.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SimpleSocket_8h_source.html#l00397">397</a> of file <a class="el" href="SimpleSocket_8h_source.html">SimpleSocket.h</a>.</p>
 
 </div>
 </div>
@@ -1784,13 +1776,12 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8h_source.html#l00321">321</a> of file <a class="el" href="SimpleSocket_8h_source.html">SimpleSocket.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SimpleSocket_8h_source.html#l00396">396</a> of file <a class="el" href="SimpleSocket_8h_source.html">SimpleSocket.h</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li>include/simple_socket/<a class="el" href="UDPSocket_8h_source.html">UDPSocket.h</a></li>
-<li>src/<a class="el" href="UDPSocket_8cpp_source.html">UDPSocket.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

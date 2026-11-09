@@ -14,7 +14,6 @@ var annotated_dup =
       [ "UDPSocket", "classNET_1_1UDPSocket.html", "classNET_1_1UDPSocket" ],
       [ "UnixDatagramSocket", "classNET_1_1UnixDatagramSocket.html", "classNET_1_1UnixDatagramSocket" ],
       [ "UnixSocket", "classNET_1_1UnixSocket.html", "classNET_1_1UnixSocket" ],
-      [ "UnixStreamSocket", "classNET_1_1UnixStreamSocket.html", "classNET_1_1UnixStreamSocket" ],
-      [ "SockAddress", "classNET_1_1SockAddress.html", "classNET_1_1SockAddress" ]
+      [ "UnixStreamSocket", "classNET_1_1UnixStreamSocket.html", "classNET_1_1UnixStreamSocket" ]
     ] ]
 ];

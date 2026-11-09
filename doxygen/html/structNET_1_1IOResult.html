@@ -33,7 +33,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.7.0</span>
+   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.8.0</span>
    </div>
   </td>
  </tr>
@@ -110,6 +110,11 @@ $(function() {
 
 <p><code>#include &lt;<a class="el" href="SimpleSocket_8h_source.html">simple_socket/SimpleSocket.h</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a5865aee6cbf246e067f270066f2d1b92" id="r_a5865aee6cbf246e067f270066f2d1b92"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a5865aee6cbf246e067f270066f2d1b92">operator bool</a> () const noexcept</td></tr>
+<tr class="memdesc:a5865aee6cbf246e067f270066f2d1b92"><td class="mdescLeft">&#160;</td><td class="mdescRight">simple check for successfull IO  <br /></td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
 <tr class="memitem:ac74ab0eb4d49d7e124037e414768cf41" id="r_ac74ab0eb4d49d7e124037e414768cf41"><td class="memItemLeft"><a class="el" href="namespaceNET.html#a6234637576bbb2ec0600642d629c2104">IOStatus</a>&#160;</td><td class="memItemRight"><a class="el" href="#ac74ab0eb4d49d7e124037e414768cf41">status</a></td></tr>
@@ -117,14 +122,45 @@ Public Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Success bytes is meaningful, including zero</p>
+<p>WouldBlock bytes == 0 only produced when socket is non-blocking</p>
 <p>Timeout bytes == 0</p>
 <p>PeerDisconnected bytes == 0 only produced for connection-oriented sockets</p>
 <p>DestinationUnavailable bytes == 0 primarily datagram semantics </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="TCP_Client_8cpp-example.html#_a3">TCP_Client.cpp</a>, <a class="el" href="TCP_Server_8cpp-example.html#_a7">TCP_Server.cpp</a>, <a class="el" href="UDP_Commands_8cpp-example.html#_a2">UDP_Commands.cpp</a>, and <a class="el" href="UDP_Multicast_8cpp-example.html#_a6">UDP_Multicast.cpp</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="TCP_Client_8cpp-example.html#_a4">TCP_Client.cpp</a>, <a class="el" href="TCP_Server_8cpp-example.html#_a7">TCP_Server.cpp</a>, <a class="el" href="UDP_Commands_8cpp-example.html#_a2">UDP_Commands.cpp</a>, and <a class="el" href="UDP_Multicast_8cpp-example.html#_a5">UDP_Multicast.cpp</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8h_source.html#l00073">73</a> of file <a class="el" href="SimpleSocket_8h_source.html">SimpleSocket.h</a>.</p>
-</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+<p class="definition">Definition at line <a class="el" href="SimpleSocket_8h_source.html#l00083">83</a> of file <a class="el" href="SimpleSocket_8h_source.html">SimpleSocket.h</a>.</p>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a5865aee6cbf246e067f270066f2d1b92" name="a5865aee6cbf246e067f270066f2d1b92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5865aee6cbf246e067f270066f2d1b92">&#9670;&#160;</a></span>operator bool()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">NET::IOResult::operator bool </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel explicit">explicit</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>simple check for successfull IO </p>
+
+<p class="definition">Definition at line <a class="el" href="SimpleSocket_8h_source.html#l00089">89</a> of file <a class="el" href="SimpleSocket_8h_source.html">SimpleSocket.h</a>.</p>
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="a0ac6a3006dbb99852bc8636a47d92083" name="a0ac6a3006dbb99852bc8636a47d92083"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0ac6a3006dbb99852bc8636a47d92083">&#9670;&#160;</a></span>bytes</h2>
 
@@ -136,10 +172,10 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="TCP_Client_8cpp-example.html#a7">TCP_Client.cpp</a>, <a class="el" href="TCP_Server_8cpp-example.html#a13">TCP_Server.cpp</a>, <a class="el" href="UDP_Commands_8cpp-example.html#a4">UDP_Commands.cpp</a>, and <a class="el" href="UDP_Multicast_8cpp-example.html#a10">UDP_Multicast.cpp</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="TCP_Client_8cpp-example.html#a8">TCP_Client.cpp</a>, <a class="el" href="TCP_Server_8cpp-example.html#a13">TCP_Server.cpp</a>, <a class="el" href="UDP_Commands_8cpp-example.html#a4">UDP_Commands.cpp</a>, and <a class="el" href="UDP_Multicast_8cpp-example.html#a10">UDP_Multicast.cpp</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8h_source.html#l00076">76</a> of file <a class="el" href="SimpleSocket_8h_source.html">SimpleSocket.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SimpleSocket_8h_source.html#l00086">86</a> of file <a class="el" href="SimpleSocket_8h_source.html">SimpleSocket.h</a>.</p>
 
 </div>
 </div>
@@ -154,10 +190,10 @@ Public Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="TCP_Client_8cpp-example.html#a5">TCP_Client.cpp</a>, <a class="el" href="TCP_Server_8cpp-example.html#a9">TCP_Server.cpp</a>, and <a class="el" href="UDP_Multicast_8cpp-example.html#a8">UDP_Multicast.cpp</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="TCP_Client_8cpp-example.html#a6">TCP_Client.cpp</a>, <a class="el" href="TCP_Server_8cpp-example.html#a9">TCP_Server.cpp</a>, and <a class="el" href="UDP_Multicast_8cpp-example.html#a8">UDP_Multicast.cpp</a>.</dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8h_source.html#l00075">75</a> of file <a class="el" href="SimpleSocket_8h_source.html">SimpleSocket.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SimpleSocket_8h_source.html#l00085">85</a> of file <a class="el" href="SimpleSocket_8h_source.html">SimpleSocket.h</a>.</p>
 
 </div>
 </div>

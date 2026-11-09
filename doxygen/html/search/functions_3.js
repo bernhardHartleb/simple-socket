@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['data_0',['data',['../classNET_1_1SockAddress.html#a993f541b3750df516bfdde8b46bd69dc',1,'NET::SockAddress::data() noexcept'],['../classNET_1_1SockAddress.html#ad8dfa101c26b0e66e1bc58a800d78f53',1,'NET::SockAddress::data() const noexcept']]],
-  ['disconnect_1',['disconnect',['../classNET_1_1SimpleSocket.html#a107f5074fd3f153ce0c1d2329c755d8f',1,'NET::SimpleSocket']]],
-  ['duplicatenativehandle_2',['duplicateNativeHandle',['../classNET_1_1SimpleSocket.html#a41cbc933680e957b63c8dfd71989d619',1,'NET::SimpleSocket']]]
+  ['disconnect_0',['disconnect',['../classNET_1_1SimpleSocket.html#ad1c5da36fdd720816fb8f162aa59798d',1,'NET::SimpleSocket']]],
+  ['duplicatenativehandle_1',['duplicateNativeHandle',['../classNET_1_1SimpleSocket.html#aab3dc013480443a77d0cbe2eaba0c018',1,'NET::SimpleSocket']]]
 ];
