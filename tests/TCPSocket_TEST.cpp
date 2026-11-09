@@ -328,14 +328,9 @@ public:
 		NET::TCPSocket client;
 		client.setBlocking(false);
 
-		const ConnectResult result = client.connect(LOOPBACK, port);
-		CPPUNIT_ASSERT(result == ConnectResult::Connected ||
-		               result == ConnectResult::InProgress);
-		if(result == ConnectResult::InProgress)
-		{
-			const ConnectResult result = client.finishConnect();
-			CPPUNIT_ASSERT_EQUAL(ConnectResult::Connected, result);
-		}
+		ConnectResult result = client.connect(LOOPBACK, port);
+		if(result == ConnectResult::InProgress) { result = client.finishConnect(1000); }
+		CPPUNIT_ASSERT_EQUAL(ConnectResult::Connected, result);
 
 		auto accepted = listener.timedAccept(1000);
 		CPPUNIT_ASSERT(accepted.has_value());
