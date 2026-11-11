@@ -418,8 +418,7 @@ ConnectResult SimpleSocket::finishConnect( int timeout)
 		throw SocketException("finishConnect failed", error);
 	});
 
-	auto expired = (timeout == 0) ? ConnectResult::InProgress : ConnectResult::Timeout;
-	return result.value_or(expired);
+	return result.value_or(ConnectResult::InProgress);
 }
 
 ConnectResult SimpleSocket::timedConnect( const SockAddress& addr, int timeout)
@@ -428,11 +427,11 @@ ConnectResult SimpleSocket::timedConnect( const SockAddress& addr, int timeout)
 	detail::NonBlockingGuard nonBlocking( m_socket);
 
 	// Asynchronous connection attempt
-	ConnectResult con = SimpleSocket::connect(addr);
+	ConnectResult result = SimpleSocket::connect(addr);
 
 	// continue with poll when InProgress
-	if( con != ConnectResult::InProgress)
-		return con;
+	if( result != ConnectResult::InProgress)
+		return result;
 
 	return finishConnect(timeout);
 }
