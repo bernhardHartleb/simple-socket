@@ -92,12 +92,12 @@ namespace NET
 	//! result of the connection attempt
 	enum class [[nodiscard]] ConnectResult
 	{
-		Connected,
-		InProgress,
-		Timeout,
-		Refused,
-		Aborted,
-		Unreachable
+		Connected,   ///< the connection is established
+		InProgress,  ///< the attempt is still pending, check again with finishConnect()
+		Timeout,     ///< the attempt timed out and was given up
+		Refused,     ///< the peer refused the connection
+		Aborted,     ///< the connection attempt was aborted or reset
+		Unreachable  ///< no route to the host or network
 	};
 
 	//! direction to close for a stream socket
