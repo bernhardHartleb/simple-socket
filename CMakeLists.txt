@@ -43,7 +43,8 @@ if(UNIX)
 	list(APPEND SIMPLE_SOCKET_SOURCES
 		src/UnixSocket.cpp
 		src/UnixDatagramSocket.cpp
-		src/UnixStreamSocket.cpp)
+		src/UnixStreamSocket.cpp
+		src/UnixSeqPacketSocket.cpp)
 endif()
 
 set(SIMPLE_SOCKET_HAVE_CAN OFF)

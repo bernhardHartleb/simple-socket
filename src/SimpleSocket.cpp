@@ -37,7 +37,7 @@ SocketException::SocketException( std::string_view message, int error)
 
 
 SimpleSocket::SimpleSocket( int domain, int type, int protocol)
-: m_connectionOriented(type == SOCK_STREAM)
+: m_connectionOriented(type == SOCK_STREAM || type == SOCK_SEQPACKET)
 {
 #ifdef SOCK_CLOEXEC
 	// prevent leaking socket descriptor on exec
@@ -49,7 +49,7 @@ SimpleSocket::SimpleSocket( int domain, int type, int protocol)
 
 SimpleSocket::SimpleSocket( AdoptSocketTag, int sockfd, int type)
 : m_socket(sockfd)
-, m_connectionOriented(type == SOCK_STREAM)
+, m_connectionOriented(type == SOCK_STREAM || type == SOCK_SEQPACKET)
 {
 	if(sockfd < 0)
 		throw SocketException("Tried to initialize Socket with invalid Handle", false);

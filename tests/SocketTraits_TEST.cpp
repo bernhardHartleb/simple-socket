@@ -6,6 +6,7 @@
 #ifdef SIMPLE_SOCKET_HAVE_UNIX
 #include <simple_socket/UnixStreamSocket.h>
 #include <simple_socket/UnixDatagramSocket.h>
+#include <simple_socket/UnixSeqPacketSocket.h>
 #endif
 
 #ifdef SIMPLE_SOCKET_HAVE_CAN
@@ -55,6 +56,11 @@ static_assert(!std::is_copy_constructible_v<NET::UnixDatagramSocket>);
 static_assert(!std::is_copy_assignable_v<NET::UnixDatagramSocket>);
 static_assert(std::is_nothrow_move_constructible_v<NET::UnixDatagramSocket>);
 static_assert(std::is_nothrow_move_assignable_v<NET::UnixDatagramSocket>);
+
+static_assert(!std::is_copy_constructible_v<NET::UnixSeqPacketSocket>);
+static_assert(!std::is_copy_assignable_v<NET::UnixSeqPacketSocket>);
+static_assert(std::is_nothrow_move_constructible_v<NET::UnixSeqPacketSocket>);
+static_assert(std::is_nothrow_move_assignable_v<NET::UnixSeqPacketSocket>);
 #endif
 
 #ifdef SIMPLE_SOCKET_HAVE_CAN

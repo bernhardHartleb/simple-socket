@@ -12,7 +12,8 @@ set(SIMPLE_SOCKET_TESTS
 if(SIMPLE_SOCKET_HAVE_UNIX)
 	list(APPEND SIMPLE_SOCKET_TESTS
 		UnixDatagramSocket_TEST.cpp
-		UnixStreamSocket_TEST.cpp)
+		UnixStreamSocket_TEST.cpp
+		UnixSeqPacketSocket_TEST.cpp)
 endif()
 
 if(SIMPLE_SOCKET_HAVE_CAN)
