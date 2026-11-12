@@ -34,19 +34,11 @@ private:
 		     + "-" + name + ".sock";
 	}
 
-	static void removeStaleSocket(const std::string& path)
-	{
-		::unlink(path.c_str());
-	}
-
 public:
 	void testConnectAcceptAndTransfer()
 	{
 		const std::string serverPath = socketPath(SERVER_SOCK);
 		const std::string clientPath = socketPath(CLIENT_SOCK);
-
-		removeStaleSocket(serverPath);
-		removeStaleSocket(clientPath);
 
 		NET::UnixStreamSocket server;
 		NET::UnixStreamSocket client;
@@ -83,8 +75,6 @@ public:
 	void testSendAll()
 	{
 		const std::string serverPath = socketPath(SERVER_SOCK);
-		removeStaleSocket(serverPath);
-
 		NET::UnixStreamSocket server;
 		NET::UnixStreamSocket client;
 
@@ -115,8 +105,6 @@ public:
 	void testTimedAccept()
 	{
 		const std::string serverPath = socketPath(SERVER_SOCK);
-		removeStaleSocket(serverPath);
-
 		NET::UnixStreamSocket server;
 
 		server.bind(serverPath);
@@ -151,8 +139,6 @@ public:
 	void testTimedReceive()
 	{
 		const std::string serverPath = socketPath(SERVER_SOCK);
-		removeStaleSocket(serverPath);
-
 		NET::UnixStreamSocket server;
 		NET::UnixStreamSocket client;
 
@@ -186,8 +172,6 @@ public:
 	void testGracefulShutdown()
 	{
 		const std::string serverPath = socketPath("unix-stream-shutdown");
-		removeStaleSocket(serverPath);
-
 		NET::UnixStreamSocket server;
 		NET::UnixStreamSocket client;
 
@@ -206,7 +190,6 @@ public:
 		IOResult recv = session.timedReceive(buffer, sizeof(buffer), 1000);
 		CPPUNIT_ASSERT_EQUAL(IOStatus::PeerDisconnected, recv.status);
 		CPPUNIT_ASSERT_EQUAL(0ul, recv.bytes);
-		// Distinguishes orderly stream EOF from a normal timeout
 		CPPUNIT_ASSERT(session.peerDisconnected());
 	}
 
@@ -214,9 +197,6 @@ public:
 	{
 		const std::string serverPath = socketPath(SERVER_SOCK);
 		const std::string clientPath = socketPath(CLIENT_SOCK);
-
-		removeStaleSocket(serverPath);
-		removeStaleSocket(clientPath);
 
 		CPPUNIT_ASSERT(::access(serverPath.c_str(), F_OK) != 0);
 		CPPUNIT_ASSERT(::access(clientPath.c_str(), F_OK) != 0);
@@ -258,7 +238,6 @@ public:
 	void testAdoptNativeHandle()
 	{
 		const std::string serverPath = socketPath("unix-stream-systemd");
-		removeStaleSocket(serverPath);
 
 		NET::UnixStreamSocket systemdOwned;
 		systemdOwned.bind(serverPath);

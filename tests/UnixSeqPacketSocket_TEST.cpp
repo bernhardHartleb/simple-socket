@@ -158,7 +158,6 @@ public:
 		IOResult recv = session.timedReceive(buffer, sizeof(buffer), 1000);
 		CPPUNIT_ASSERT_EQUAL(IOStatus::PeerDisconnected, recv.status);
 		CPPUNIT_ASSERT_EQUAL(0ul, recv.bytes);
-		// Distinguishes orderly stream EOF from a normal timeout
 		CPPUNIT_ASSERT(session.peerDisconnected());
 	}
 

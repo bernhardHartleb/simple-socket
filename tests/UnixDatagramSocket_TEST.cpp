@@ -33,19 +33,11 @@ private:
 		     + "-" + name + ".sock";
 	}
 
-	static void removeStaleSocket(const std::string& path)
-	{
-		::unlink(path.c_str());
-	}
-
 public:
 	void testSendToReceiveFrom()
 	{
 		const std::string senderPath   = socketPath(SEND_SOCK);
 		const std::string receiverPath = socketPath(REVC_SOCK);
-
-		removeStaleSocket(senderPath);
-		removeStaleSocket(receiverPath);
 
 		NET::UnixDatagramSocket sender;
 		NET::UnixDatagramSocket receiver;
@@ -74,9 +66,6 @@ public:
 	{
 		const std::string clientPath = socketPath(SEND_SOCK);
 		const std::string serverPath = socketPath(REVC_SOCK);
-
-		removeStaleSocket(clientPath);
-		removeStaleSocket(serverPath);
 
 		NET::UnixDatagramSocket client;
 		NET::UnixDatagramSocket server;
@@ -126,9 +115,6 @@ public:
 		const std::string senderPath   = socketPath(SEND_SOCK);
 		const std::string receiverPath = socketPath(REVC_SOCK);
 
-		removeStaleSocket(senderPath);
-		removeStaleSocket(receiverPath);
-
 		NET::UnixDatagramSocket sender;
 		NET::UnixDatagramSocket receiver;
 
@@ -165,9 +151,6 @@ public:
 		const std::string senderPath   = socketPath(SEND_SOCK);
 		const std::string receiverPath = socketPath(REVC_SOCK);
 
-		removeStaleSocket(senderPath);
-		removeStaleSocket(receiverPath);
-
 		NET::UnixDatagramSocket sender;
 		NET::UnixDatagramSocket receiver;
 
@@ -191,7 +174,6 @@ public:
 	void testSocketPathCleanup()
 	{
 		const std::string path = socketPath("unix-dgram-cleanup");
-		removeStaleSocket(path);
 		CPPUNIT_ASSERT(::access(path.c_str(), F_OK) != 0);
 
 		{
@@ -223,8 +205,6 @@ public:
 	void testAdoptNativeHandle()
 	{
 		const std::string serverPath = socketPath("unix-dgram-systemd");
-		removeStaleSocket(serverPath);
-
 		NET::UnixDatagramSocket systemdOwned;
 		systemdOwned.bind(serverPath);
 
@@ -263,8 +243,6 @@ public:
 	{
 		const std::string senderPath = socketPath("unix-nonblocking-sender");
 		const std::string receiverPath = socketPath("unix-nonblocking-receiver");
-		removeStaleSocket(senderPath);
-		removeStaleSocket(receiverPath);
 
 		NET::UnixDatagramSocket sender;
 		NET::UnixDatagramSocket receiver;
