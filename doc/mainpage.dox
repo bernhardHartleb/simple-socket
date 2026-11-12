@@ -7,7 +7,7 @@ An easy to use C++ socket and network library, for Unix based systems.
 The following features are currently available:
 
 - IPv4 / IPv6 TCP and UDP sockets
-- Unix-domain stream and datagram sockets
+- Unix-domain stream, seqpacket and datagram sockets
 - UDP multicast support (IPv4 only)
 - Blocking and Non-Blocking I/O using the same API
 - Timeout support for connect, accept and receive (poll)
