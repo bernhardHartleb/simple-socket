@@ -19,6 +19,8 @@ namespace NET::detail
 	//! check if external socket descriptor to fits the given parameters
 	void validateSocket( int sockfd, int type, int protocol);
 
+	//! create socketpair of given type
+	std::pair<int, int> createUnixSocketPair( int type, bool nonBlocking);
 
 	//! switch socket to non-blocking while instance lives
 	class NonBlockingGuard

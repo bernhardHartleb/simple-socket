@@ -33,6 +33,13 @@ namespace NET
 		[[nodiscard]] static UnixDatagramSocket adoptNativeHandle( int sockfd);
 
 		/*!
+		 * Construct a connected pair of Unix sockets in the given mode
+		 * \exception SocketException thrown if unable to create the sockets
+		 */
+		[[nodiscard]] static std::pair<UnixDatagramSocket, UnixDatagramSocket>
+		createPair( bool nonBlocking = false);
+
+		/*!
 		 * Send the given buffer as a datagram to the specified address / port.
 		 *
 		 * \param buffer data to be send

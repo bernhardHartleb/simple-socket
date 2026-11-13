@@ -33,6 +33,13 @@ namespace NET
 		 */
 		[[nodiscard]] static UnixStreamSocket adoptNativeHandle( int sockfd);
 
+		/*!
+		 * Construct a connected pair of Unix sockets in the given mode
+		 * \exception SocketException thrown if unable to create the sockets
+		 */
+		[[nodiscard]] static std::pair<UnixStreamSocket, UnixStreamSocket>
+		createPair( bool nonBlocking = false);
+
 		// Listen for incoming connections
 		using SimpleSocket::listen;
 

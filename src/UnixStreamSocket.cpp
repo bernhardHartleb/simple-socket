@@ -15,6 +15,15 @@ UnixStreamSocket UnixStreamSocket::adoptNativeHandle( int sockfd)
 	return UnixStreamSocket( AdoptSocketTag{}, sockfd, SOCK_STREAM);
 }
 
+std::pair<UnixStreamSocket, UnixStreamSocket> UnixStreamSocket::createPair( bool nonBlocking)
+{
+	auto pair = detail::createUnixSocketPair( SOCK_STREAM, nonBlocking);
+	return {
+		UnixStreamSocket( AdoptSocketTag{}, pair.first,  SOCK_STREAM),
+		UnixStreamSocket( AdoptSocketTag{}, pair.second, SOCK_STREAM)
+	};
+}
+
 std::optional<UnixStreamSocket> UnixStreamSocket::accept() const
 {
 	int ret = SimpleSocket::accept();

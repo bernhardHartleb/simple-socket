@@ -123,6 +123,22 @@ void detail::validateSocket( int sockfd, int type_req, int protocol_req)
 #endif
 }
 
+std::pair<int, int> detail::createUnixSocketPair( int type, bool nonBlocking)
+{
+	int fds[2];
+#ifdef SOCK_CLOEXEC
+	// prevent leaking socket descriptor on exec
+	type |= SOCK_CLOEXEC;
+#endif
+	if( nonBlocking)
+		type |= SOCK_NONBLOCK;
+
+	if( ::socketpair(AF_UNIX, type, 0, fds) < 0)
+		throw SocketException("socketpair failed");
+
+	return { fds[0], fds[1] };
+}
+
 detail::NonBlockingGuard::NonBlockingGuard(int fd) : m_fd(fd)
 {
 	m_flags = ::fcntl( m_fd, F_GETFL, 0);

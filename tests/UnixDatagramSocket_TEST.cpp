@@ -243,22 +243,15 @@ public:
 
 	void testNonBlockingSendToWouldBlock()
 	{
-		const std::string senderPath = socketPath("unix-nonblocking-sender");
-		const std::string receiverPath = socketPath("unix-nonblocking-receiver");
-
-		NET::UnixDatagramSocket sender;
-		NET::UnixDatagramSocket receiver;
-
-		sender.bind(senderPath);
-		receiver.bind(receiverPath);
-		sender.setBlocking(false);
+		auto [sender, receiver] = NET::UnixDatagramSocket::createPair(true);
 		CPPUNIT_ASSERT(!sender.isBlocking());
+		CPPUNIT_ASSERT(!receiver.isBlocking());
 
 		const char payload[] = "queued datagram";
 		bool sawWouldBlock = false;
 		for(unsigned i = 0; i < 1024; ++i) // bounded: receiver never reads
 		{
-			const IOResult result = sender.sendTo(payload, sizeof(payload), receiverPath);
+			const IOResult result = sender.send(payload, sizeof(payload));
 			if(result.status == IOStatus::WouldBlock)
 			{
 				CPPUNIT_ASSERT_EQUAL(size_t(0), result.bytes);

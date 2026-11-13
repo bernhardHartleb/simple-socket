@@ -15,6 +15,15 @@ UnixSeqPacketSocket UnixSeqPacketSocket::adoptNativeHandle( int sockfd)
 	return UnixSeqPacketSocket( AdoptSocketTag{}, sockfd, SOCK_SEQPACKET);
 }
 
+std::pair<UnixSeqPacketSocket, UnixSeqPacketSocket> UnixSeqPacketSocket::createPair( bool nonBlocking)
+{
+	auto pair = detail::createUnixSocketPair( SOCK_SEQPACKET, nonBlocking);
+	return {
+		UnixSeqPacketSocket( AdoptSocketTag{}, pair.first,  SOCK_SEQPACKET),
+		UnixSeqPacketSocket( AdoptSocketTag{}, pair.second, SOCK_SEQPACKET)
+	};
+}
+
 std::optional<UnixSeqPacketSocket> UnixSeqPacketSocket::accept() const
 {
 	int ret = SimpleSocket::accept();

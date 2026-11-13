@@ -16,6 +16,15 @@ UnixDatagramSocket UnixDatagramSocket::adoptNativeHandle( int sockfd)
 	return UnixDatagramSocket( AdoptSocketTag{}, sockfd, SOCK_DGRAM);
 }
 
+std::pair<UnixDatagramSocket, UnixDatagramSocket> UnixDatagramSocket::createPair( bool nonBlocking)
+{
+	auto pair = detail::createUnixSocketPair( SOCK_DGRAM, nonBlocking);
+	return {
+		UnixDatagramSocket( AdoptSocketTag{}, pair.first,  SOCK_DGRAM),
+		UnixDatagramSocket( AdoptSocketTag{}, pair.second, SOCK_DGRAM)
+	};
+}
+
 IOResult UnixDatagramSocket::sendTo( const void* buffer, size_t len, std::string_view foreignPath)
 {
 	SockAddress addr( foreignPath);

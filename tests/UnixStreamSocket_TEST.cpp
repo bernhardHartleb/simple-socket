@@ -140,16 +140,7 @@ public:
 
 	void testTimedReceive()
 	{
-		const std::string serverPath = socketPath(SERVER_SOCK);
-		NET::UnixStreamSocket server;
-		NET::UnixStreamSocket client;
-
-		server.bind(serverPath);
-		server.listen();
-		ConnectResult res = client.connect(serverPath);
-		CPPUNIT_ASSERT_EQUAL(ConnectResult::Connected, res);
-
-		NET::UnixStreamSocket session(*server.accept());
+		auto [session, client] = NET::UnixStreamSocket::createPair(false);
 
 		char buffer[64] = {};
 		// Connection exists, but no data is waiting
