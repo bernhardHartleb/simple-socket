@@ -294,15 +294,13 @@ namespace NET
 		 * connections. To answer to an incoming connection call accept() or
 		 * timedAccept() on the socket.
 		 *
-		 * The backlog is a buffer for incoming connections. If backlog is set
-		 * to 0, the number of incoming connections is only limited by the
-		 * operating system. If backlog is set to a value > 0, only the upper
-		 * limit of connections is set, the OS can limit the number further.
+		 * The backlog specifies the maximum requested number of
+		 * pending connections waiting to be accepted.
 		 *
-		 * \param backlog upper limit of pending incoming connections
+		 * \param backlog requested pending connection queue size
 		 * \exception SocketException
 		 */
-		void listen( int backlog = 5);
+		void listen( int backlog = 128);
 
 		//! check if a previously started connected attempt is finished
 		/*!
