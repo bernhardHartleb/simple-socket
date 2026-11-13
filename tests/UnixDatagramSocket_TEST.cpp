@@ -70,13 +70,15 @@ public:
 		NET::UnixDatagramSocket client;
 		NET::UnixDatagramSocket server;
 
+		ConnectResult res = client.connect(serverPath);
+		CPPUNIT_ASSERT_EQUAL(ConnectResult::Unreachable, res);
+
 		client.bind(clientPath);
 		server.bind(serverPath);
 
 		// No peer exists before connect()
 		CPPUNIT_ASSERT_EQUAL(std::string(), client.getForeignPath());
 
-		ConnectResult res;
 		res = client.connect(serverPath);
 		CPPUNIT_ASSERT_EQUAL(ConnectResult::Connected, res);
 		res = server.connect(clientPath);
