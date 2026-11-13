@@ -41,6 +41,8 @@ public:
 		NET::UnixSeqPacketSocket server;
 		NET::UnixSeqPacketSocket client;
 
+		ConnectResult res = client.connect(serverPath);
+		CPPUNIT_ASSERT_EQUAL(ConnectResult::Unreachable, res);
 		// No peer exists before connect()
 		CPPUNIT_ASSERT_EQUAL(std::string(), client.getForeignPath());
 
@@ -48,7 +50,7 @@ public:
 		server.listen();
 
 		client.bind(clientPath);
-		ConnectResult res = client.connect(serverPath);
+		res = client.connect(serverPath);
 		CPPUNIT_ASSERT_EQUAL(ConnectResult::Connected, res);
 
 		NET::UnixSeqPacketSocket session = *server.accept();

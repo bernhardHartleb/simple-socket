@@ -94,6 +94,7 @@ std::optional<ConnectResult> detail::connectResultFromError( int error) noexcept
 			return ConnectResult::Timeout;
 		case EHOSTUNREACH:
 		case ENETUNREACH:
+		case ENOENT:
 			return ConnectResult::Unreachable;
 		default:
 			return std::nullopt;
