@@ -356,7 +356,7 @@ namespace NET
 		SimpleSocket( AdoptSocketTag, int sockfd, int type);
 
 		//! protected destructor to avoid delete via base class
-		~SimpleSocket();
+		~SimpleSocket() noexcept;
 
 		// allow moving concrete classes
 		SimpleSocket( SimpleSocket&& other) noexcept;
