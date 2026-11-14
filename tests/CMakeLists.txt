@@ -1,5 +1,6 @@
 message("Building simple-socket tests:")
 
+find_package(Threads REQUIRED)
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(CPPUNIT REQUIRED IMPORTED_TARGET cppunit)
 
@@ -32,7 +33,7 @@ endif()
 #endif()
 
 add_executable(UnitTester test_runner.cpp ${SIMPLE_SOCKET_TESTS})
-target_link_libraries(UnitTester PRIVATE simple-socket PkgConfig::CPPUNIT)
+target_link_libraries(UnitTester PRIVATE simple-socket Threads::Threads PkgConfig::CPPUNIT)
 
 foreach(TS IN LISTS SIMPLE_SOCKET_TESTS)
 	get_filename_component(TN ${TS} NAME_WE)

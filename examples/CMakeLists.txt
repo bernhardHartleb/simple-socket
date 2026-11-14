@@ -1,5 +1,7 @@
 message("Building simple-socket examples:")
 
+find_package(Threads REQUIRED)
+
 set(SIMPLE_SOCKET_EXAMPLES
 	TCP_Client
 	TCP_Client_Reconnect
@@ -18,5 +20,5 @@ endif()
 foreach(EX IN LISTS SIMPLE_SOCKET_EXAMPLES)
 	message("* ${EX}")
 	add_executable(${EX} ${EX}.cpp)
-	target_link_libraries(${EX} PRIVATE simple-socket)
+	target_link_libraries(${EX} PRIVATE simple-socket Threads::Threads)
 endforeach()
