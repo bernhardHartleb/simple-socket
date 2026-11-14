@@ -21,6 +21,7 @@ if(SIMPLE_SOCKET_TOP_LEVEL)
 endif()
 
 include(GNUInstallDirs)
+include(CheckCXXSymbolExists)
 
 
 ### Sources
@@ -45,6 +46,13 @@ if(UNIX)
 		src/UnixDatagramSocket.cpp
 		src/UnixStreamSocket.cpp
 		src/UnixSeqPacketSocket.cpp)
+endif()
+
+check_cxx_symbol_exists(epoll_create1 "sys/epoll.h" SIMPLE_SOCKET_HAVE_EPOLL)
+
+if(SIMPLE_SOCKET_HAVE_EPOLL)
+	list(APPEND SIMPLE_SOCKET_SOURCES
+		src/EventHandler.cpp)
 endif()
 
 set(SIMPLE_SOCKET_HAVE_CAN OFF)

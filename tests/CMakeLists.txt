@@ -16,6 +16,11 @@ if(SIMPLE_SOCKET_HAVE_UNIX)
 		UnixSeqPacketSocket_TEST.cpp)
 endif()
 
+if(SIMPLE_SOCKET_HAVE_EPOLL)
+	list(APPEND SIMPLE_SOCKET_TESTS
+		EventHandler_TEST.cpp)
+endif()
+
 if(SIMPLE_SOCKET_HAVE_CAN)
 	list(APPEND SIMPLE_SOCKET_TESTS
 		CANSocket_TEST.cpp)
