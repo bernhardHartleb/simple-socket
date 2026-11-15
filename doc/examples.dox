@@ -1,21 +1,27 @@
 /*!
 \example TCP_Server.cpp
 This is an example for a very simple TCP server application.
+It waits for a clients, sends a fixed message and disconnect again.
+When nobody connects within 5s, the server shuts down.
 
 \b Output when the TCP_Client is started:
 \verbatim
-TCP server sucessfully sent data to the client.
+Waiting for a client...
+Client connected from 127.0.0.1:35296
+Successfully sent 43 bytes.
+Waiting for a client...
+Timed out waiting for a client.
 \endverbatim
 */
 
 /*!
 \example TCP_Client.cpp
 This is an example for a very simple TCP client application.
-
-\b Output when started without a server running: \c "Connection Refused"
+IT connects to a server, blocking until connected and reads available data until the read times out.
 
 \b Output when the TCP_Server example is running:
 \verbatim
+Using server: 127.0.0.1
 Received data from server: The quick brown fox jumps over the lazy dog
 \endverbatim
 */
@@ -23,20 +29,69 @@ Received data from server: The quick brown fox jumps over the lazy dog
 /*!
 \example TCP_Client_Reconnect.cpp
 A more advanced TCP client exmaple with reconection logic and full error handling.
+Demonstrates usability of real-world reconnect logic without an separate even loop.
+
+\b Output when the TCP_Server example is running:
+\verbatim
+Connect failed
+Connected to 127.0.0.1:47777
+Received data from server: The quick brown fox jumps over the lazy dog
+Server disconnected; reconnecting
+\endverbatim
 */
 
 /*!
 \example UDP_Multicast.cpp
-This is a simple example on how to do UDP multicast.
+This is a simple example on how to do UDP multicast sending and receiving.
 
 \b Output if any local network is available:
 \verbatim
-Your.local.ip.addr:47776 Welcome to our multicast group!
-We got another message.
+Received from 192.168.178.15:46734: Welcome to our multicast group!
 \endverbatim
 */
 
 /*!
 \example UDP_Commands.cpp
-UDP server and client demo, sending commands from console.
+UDP server and client in blocking mode, sending commands from console.
+
+\b Output when commands are sent via console agruments:
+\verbatim
+Listening for UDP commands on 127.0.0.1:47778
+Received from 127.0.0.1:52659 test
+Received from 127.0.0.1:35080 quit
+Stopping.
+\endverbatim
+*/
+
+/*!
+\example mini_ifconfig.cpp
+Very basic network configuration using the libraries built-in functions.
+
+\b Output without arguments lists all interfaces:
+\verbatim
+lo:
+        mtu 65536
+        inet 127.0.0.1 netmask 255.0.0.0 broadcast 0.0.0.0
+        ether
+enp12s0:
+        mtu 1500
+        inet 192.168.178.15 netmask 255.255.255.0 broadcast 192.168.178.255
+        ether 30:c5:99:5b:ea:63
+\endverbatim
+*/
+
+
+/*!
+\example EventHandler_Timer.cpp
+Demonstrates the use of different timers and basic use the the EventHAndler class.
+*/
+
+/*!
+\example UDP_Event_Receiver.cpp
+Shows how independent UDP receivers are dispatched by one event loop in a single thread.
+*/
+
+/*!
+\example TCP_Event_Server.cpp
+A full non-blocking TCP server handling multiple clients in a signle tread.
 */
