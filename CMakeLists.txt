@@ -131,6 +131,7 @@ target_compile_options(simple-socket
 
 if(SIMPLE_SOCKET_HAVE_UNIX)
 	target_compile_definitions(simple-socket PUBLIC SIMPLE_SOCKET_HAVE_UNIX)
+	target_compile_definitions(simple-socket PRIVATE $<$<PLATFORM_ID:Linux>:_GNU_SOURCE=1>)
 endif()
 
 if(SIMPLE_SOCKET_HAVE_CAN)

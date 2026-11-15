@@ -177,6 +177,9 @@ public:
 		NET::UnixStreamSocket session(*server.accept());
 		CPPUNIT_ASSERT(!session.peerDisconnected());
 
+		auto cred = client.peerCredentials();
+		CPPUNIT_ASSERT(cred.pid > 1);
+
 		client.shutdown(NET::STOP_SEND);
 
 		char buffer[16];

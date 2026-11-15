@@ -43,6 +43,20 @@ namespace NET
 		 */
 		std::string getForeignPath() const;
 
+		//! Unix credentials of a socket peer
+		struct PeerCredentials
+		{
+			pid_t pid; // process id (-1 if unavailable)
+			uid_t uid; // effective user ID
+			gid_t gid; // effective group ID
+		};
+
+		/*!
+		 * Returns the credentials of the peer process connected to this socket.
+		 * \exception SocketException thrown if not connected to unix socket
+		 */
+		PeerCredentials peerCredentials() const;
+
 	protected:
 		//! allows a subclass to create new socket
 		UnixSocket( int type, int protocol);

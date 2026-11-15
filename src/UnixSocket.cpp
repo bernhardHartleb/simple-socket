@@ -78,3 +78,18 @@ std::string UnixSocket::getForeignPath() const
 	}
 	return addr.address();
 }
+
+UnixSocket::PeerCredentials UnixSocket::peerCredentials() const
+{
+#if defined(__linux__)
+	struct ucred creds{};
+	socklen_t len = sizeof(creds);
+
+	if( ::getsockopt( m_socket, SOL_SOCKET, SO_PEERCRED, &creds, &len) < 0)
+		throw SocketException("Fetch of SO_PEERCRED failed (getsockopt)");
+
+	return { creds.pid, creds.uid, creds.gid };
+#else
+#error "Peer credentials not implemented for this platform"
+#endif
+}
