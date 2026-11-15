@@ -13,6 +13,7 @@ var classNET_1_1UnixSeqPacketSocket =
     [ "isConnected", "classNET_1_1UnixSeqPacketSocket.html#abb14e811896b7474d1a86f5fd9664db6", null ],
     [ "listen", "classNET_1_1UnixSeqPacketSocket.html#a4fbefd8e494de3bfa0e2e743b91d06bf", null ],
     [ "nativeHandle", "classNET_1_1UnixSeqPacketSocket.html#a830de7b14a78664508052051991ced63", null ],
+    [ "peerCredentials", "classNET_1_1UnixSeqPacketSocket.html#ae3e4125cd5483c1b40f13186a6fbf22d", null ],
     [ "peerDisconnected", "classNET_1_1UnixSeqPacketSocket.html#a774dcd3aec69d20b173e346d73bc3202", null ],
     [ "receive", "classNET_1_1UnixSeqPacketSocket.html#a52c6d021b2382b673aded4721471a6d4", null ],
     [ "receiveAll", "classNET_1_1UnixSeqPacketSocket.html#a3405b52056d2c64f5f058b86c2ea9535", null ],

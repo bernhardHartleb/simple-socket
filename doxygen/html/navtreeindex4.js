@@ -1,5 +1,17 @@
 var NAVTREEINDEX4 =
 {
+"namespaceNET.html#a6234637576bbb2ec0600642d629c2104":[3,0,0,18],
+"namespaceNET.html#a6234637576bbb2ec0600642d629c2104a333905113a456692308689b23e032249":[3,0,0,18,3],
+"namespaceNET.html#a6234637576bbb2ec0600642d629c2104a505a83f220c02df2f85c3810cd9ceb38":[3,0,0,18,0],
+"namespaceNET.html#a6234637576bbb2ec0600642d629c2104a6e01666a2ff1333a6ceeab4d917a9172":[3,0,0,18,4],
+"namespaceNET.html#a6234637576bbb2ec0600642d629c2104ac85a251cc457840f1e032f1b733e9398":[3,0,0,18,2],
+"namespaceNET.html#a6234637576bbb2ec0600642d629c2104ae799f8e2bec1c2593f034ec5060229e6":[3,0,0,18,1],
+"namespaceNET.html#a657e1fa5f020df28069800f3fb19eab6":[3,0,0,16],
+"namespaceNET.html#a657e1fa5f020df28069800f3fb19eab6a18565c1ed23cf01bb372e354fbc670dd":[3,0,0,16,0],
+"namespaceNET.html#a657e1fa5f020df28069800f3fb19eab6a8059a0b17480e790a863427324455b24":[3,0,0,16,1],
+"namespaceNET.html#a95d8269ce9e34533e328185b092ee528":[3,0,0,20],
+"namespaceNET.html#a9b61e3d2422a1203909bd7985df95884":[3,0,0,19],
+"namespaceNET.html#a9b61e3d2422a1203909bd7985df95884a033d3418b7b9455f3b5d7c6692155b3e":[3,0,0,19,1],
 "namespaceNET.html#a9b61e3d2422a1203909bd7985df95884aac8f7825323c5ef9954fc0a7eac781d7":[3,0,0,19,2],
 "namespaceNET.html#a9b61e3d2422a1203909bd7985df95884ae9cb5d756b0cef8d4de6e226890bee43":[3,0,0,19,0],
 "namespaceNET.html#aaf70b419dfaefe3a31207434ee82ff4c":[3,0,0,17],
@@ -44,5 +56,13 @@ var NAVTREEINDEX4 =
 "structNET_1_1NetworkAddressInfo.html#acabb7111ffde5e163408421527555156":[3,0,0,4,1],
 "structNET_1_1NetworkAddressInfo.html#acabb7111ffde5e163408421527555156":[4,0,0,4,1],
 "structNET_1_1SimpleSocket_1_1AdoptSocketTag.html":[3,0,0,9,0],
-"structNET_1_1SimpleSocket_1_1AdoptSocketTag.html":[4,0,0,9,0]
+"structNET_1_1SimpleSocket_1_1AdoptSocketTag.html":[4,0,0,9,0],
+"structNET_1_1UnixSocket_1_1PeerCredentials.html":[3,0,0,14,0],
+"structNET_1_1UnixSocket_1_1PeerCredentials.html":[4,0,0,14,0],
+"structNET_1_1UnixSocket_1_1PeerCredentials.html#a20b3fb8b7706af3a6ca7b1a215eae879":[3,0,0,14,0,2],
+"structNET_1_1UnixSocket_1_1PeerCredentials.html#a20b3fb8b7706af3a6ca7b1a215eae879":[4,0,0,14,0,2],
+"structNET_1_1UnixSocket_1_1PeerCredentials.html#a5993e5e0a7fc8720cdee5863d30d00d8":[3,0,0,14,0,0],
+"structNET_1_1UnixSocket_1_1PeerCredentials.html#a5993e5e0a7fc8720cdee5863d30d00d8":[4,0,0,14,0,0],
+"structNET_1_1UnixSocket_1_1PeerCredentials.html#a6ec6ed2e5c08b332d25887a69b5336ba":[3,0,0,14,0,1],
+"structNET_1_1UnixSocket_1_1PeerCredentials.html#a6ec6ed2e5c08b332d25887a69b5336ba":[4,0,0,14,0,1]
 };

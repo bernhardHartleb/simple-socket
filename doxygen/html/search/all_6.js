@@ -17,5 +17,6 @@ var searchData=
   ['getmtu_14',['getMTU',['../classNET_1_1NetworkInterface.html#a15da64837738c3f555980e3d11cc10fc',1,'NET::NetworkInterface']]],
   ['getnetmask_15',['getNetmask',['../classNET_1_1NetworkInterface.html#aa9f54a99b56e397b37974dcbf10e145a',1,'NET::NetworkInterface']]],
   ['getnetworkaddresses_16',['getNetworkAddresses',['../namespaceNET.html#a95d8269ce9e34533e328185b092ee528',1,'NET']]],
-  ['getnetworkinterfaces_17',['getNetworkInterfaces',['../namespaceNET.html#abb32304e7f86bf2379e62634ea55d930',1,'NET']]]
+  ['getnetworkinterfaces_17',['getNetworkInterfaces',['../namespaceNET.html#abb32304e7f86bf2379e62634ea55d930',1,'NET']]],
+  ['gid_18',['gid',['../structNET_1_1UnixSocket_1_1PeerCredentials.html#a5993e5e0a7fc8720cdee5863d30d00d8',1,'NET::UnixSocket::PeerCredentials']]]
 ];

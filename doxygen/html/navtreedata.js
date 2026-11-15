@@ -60,10 +60,10 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "CANRawSocket_8h.html",
-"classNET_1_1InternetSocket.html#a3b07e42c8ca73a819a4a1eb95ca08b56",
-"classNET_1_1SimpleSocket.html#aab3dc013480443a77d0cbe2eaba0c018",
-"classNET_1_1UnixDatagramSocket.html#abb14e811896b7474d1a86f5fd9664db6",
-"namespaceNET.html#a9b61e3d2422a1203909bd7985df95884aac8f7825323c5ef9954fc0a7eac781d7"
+"classNET_1_1InternetSocket.html#a26f996c198c949e2d1e4f48bc4cb7086",
+"classNET_1_1SimpleSocket.html#aa60b710b1f6b259013a6520eeaa7bdb5",
+"classNET_1_1UnixDatagramSocket.html#aa775ebaa641ab843ddf4b27f62bd1652",
+"namespaceNET.html#a6234637576bbb2ec0600642d629c2104"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

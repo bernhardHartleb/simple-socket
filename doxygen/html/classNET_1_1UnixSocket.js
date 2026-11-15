@@ -1,5 +1,6 @@
 var classNET_1_1UnixSocket =
 [
+    [ "PeerCredentials", "structNET_1_1UnixSocket_1_1PeerCredentials.html", "structNET_1_1UnixSocket_1_1PeerCredentials" ],
     [ "~UnixSocket", "classNET_1_1UnixSocket.html#a5c46081c201228f8dec0e56b3ac8fe8e", null ],
     [ "UnixSocket", "classNET_1_1UnixSocket.html#a85e1795d8378d34cf24843c72392455e", null ],
     [ "UnixSocket", "classNET_1_1UnixSocket.html#aa5d379282cceb7f697c78b7cd9a7d1c7", null ],
@@ -16,6 +17,7 @@ var classNET_1_1UnixSocket =
     [ "listen", "classNET_1_1UnixSocket.html#a4fbefd8e494de3bfa0e2e743b91d06bf", null ],
     [ "nativeHandle", "classNET_1_1UnixSocket.html#a830de7b14a78664508052051991ced63", null ],
     [ "operator=", "classNET_1_1UnixSocket.html#a8d1ac9b61eb1558641ec689a9086c402", null ],
+    [ "peerCredentials", "classNET_1_1UnixSocket.html#ae3e4125cd5483c1b40f13186a6fbf22d", null ],
     [ "peerDisconnected", "classNET_1_1UnixSocket.html#a774dcd3aec69d20b173e346d73bc3202", null ],
     [ "receive", "classNET_1_1UnixSocket.html#a52c6d021b2382b673aded4721471a6d4", null ],
     [ "receiveAll", "classNET_1_1UnixSocket.html#a3405b52056d2c64f5f058b86c2ea9535", null ],

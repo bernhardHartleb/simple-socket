@@ -107,8 +107,12 @@ $(function() {
   <div class="headertitle"><div class="title">TCP_Server.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<p>This is an example for a very simple TCP server application.</p>
-<p><b>Output</b> when the TCP_Client is started: </p><pre class="fragment">TCP server sucessfully sent data to the client.
+<p>This is an example for a very simple TCP server application. It waits for a clients, sends a fixed message and disconnect again. When nobody connects within 5s, the server shuts down.</p>
+<p><b>Output</b> when the TCP_Client is started: </p><pre class="fragment">Waiting for a client...
+Client connected from 127.0.0.1:35296
+Successfully sent 43 bytes.
+Waiting for a client...
+Timed out waiting for a client.
 </pre><div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="TCPSocket_8h.html">simple_socket/TCPSocket.h</a>&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>

@@ -8,6 +8,7 @@ var hierarchy =
     [ "NET::IOResult", "structNET_1_1IOResult.html", null ],
     [ "NET::NetworkAddressInfo", "structNET_1_1NetworkAddressInfo.html", null ],
     [ "NET::NetworkInterface", "classNET_1_1NetworkInterface.html", null ],
+    [ "NET::UnixSocket::PeerCredentials", "structNET_1_1UnixSocket_1_1PeerCredentials.html", null ],
     [ "NET::SimpleSocket", "classNET_1_1SimpleSocket.html", [
       [ "NET::CANSocket", "classNET_1_1CANSocket.html", [
         [ "NET::CANRawSocket", "classNET_1_1CANRawSocket.html", null ]

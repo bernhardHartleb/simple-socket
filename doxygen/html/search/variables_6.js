@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['scopeid_0',['scopeId',['../structNET_1_1NetworkAddressInfo.html#a80d94a3e5cc4a2d8569a675313fa37fa',1,'NET::NetworkAddressInfo']]],
-  ['status_1',['status',['../structNET_1_1IOResult.html#ac74ab0eb4d49d7e124037e414768cf41',1,'NET::IOResult']]]
+  ['name_0',['name',['../structNET_1_1NetworkAddressInfo.html#a022f30d63bc1a9eb15be71f2bba5fdf0',1,'NET::NetworkAddressInfo']]],
+  ['netmask_1',['netmask',['../structNET_1_1NetworkAddressInfo.html#a6926279ba2c6f72c1c8f0074c26a1209',1,'NET::NetworkAddressInfo']]]
 ];

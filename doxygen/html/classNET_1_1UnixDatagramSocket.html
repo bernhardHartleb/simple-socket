@@ -135,6 +135,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a8baab4035b92d0358d82198aebf8f0d8" id="r_a8baab4035b92d0358d82198aebf8f0d8"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1UnixSocket.html#a8baab4035b92d0358d82198aebf8f0d8">bind</a> (std::string_view localPath)</td></tr>
 <tr class="memitem:a8db6ab821a2001081dcca2d02edb51cb" id="r_a8db6ab821a2001081dcca2d02edb51cb"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1UnixSocket.html#a8db6ab821a2001081dcca2d02edb51cb">getLocalPath</a> () const</td></tr>
 <tr class="memitem:a034a014e33b09811df04416dd51b5b87" id="r_a034a014e33b09811df04416dd51b5b87"><td class="memItemLeft">std::string&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1UnixSocket.html#a034a014e33b09811df04416dd51b5b87">getForeignPath</a> () const</td></tr>
+<tr class="memitem:ae3e4125cd5483c1b40f13186a6fbf22d" id="r_ae3e4125cd5483c1b40f13186a6fbf22d"><td class="memItemLeft"><a class="el" href="structNET_1_1UnixSocket_1_1PeerCredentials.html">PeerCredentials</a>&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1UnixSocket.html#ae3e4125cd5483c1b40f13186a6fbf22d">peerCredentials</a> () const</td></tr>
 <tr class="memitem:a830de7b14a78664508052051991ced63" id="r_a830de7b14a78664508052051991ced63"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#a830de7b14a78664508052051991ced63">nativeHandle</a> () noexcept</td></tr>
 <tr class="memdesc:a830de7b14a78664508052051991ced63"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the native descriptor. Ownership remains with the object.  <br /></td></tr>
 <tr class="memitem:aab3dc013480443a77d0cbe2eaba0c018" id="r_aab3dc013480443a77d0cbe2eaba0c018"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#aab3dc013480443a77d0cbe2eaba0c018">duplicateNativeHandle</a> () const</td></tr>
@@ -666,6 +667,37 @@ Protected Attributes</h2></td></tr>
 <p>Return the native descriptor. Ownership remains with the object. </p>
 
 <p class="definition">Definition at line <a class="el" href="SimpleSocket_8h_source.html#l00128">128</a> of file <a class="el" href="SimpleSocket_8h_source.html">SimpleSocket.h</a>.</p>
+
+</div>
+</div>
+<a id="ae3e4125cd5483c1b40f13186a6fbf22d" name="ae3e4125cd5483c1b40f13186a6fbf22d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3e4125cd5483c1b40f13186a6fbf22d">&#9670;&#160;</a></span>peerCredentials()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structNET_1_1UnixSocket_1_1PeerCredentials.html">PeerCredentials</a> NET::UnixSocket::peerCredentials </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inherited">inherited</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Returns the credentials of the peer process connected to this socket. </p><dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classNET_1_1SocketException.html" title="Signals a problem with the execution of a socket call.">SocketException</a></td><td>thrown if not connected to unix socket </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1345,7 +1377,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="UnixSocket_8h_source.html#l00057">57</a> of file <a class="el" href="UnixSocket_8h_source.html">UnixSocket.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="UnixSocket_8h_source.html#l00071">71</a> of file <a class="el" href="UnixSocket_8h_source.html">UnixSocket.h</a>.</p>
 
 </div>
 </div>

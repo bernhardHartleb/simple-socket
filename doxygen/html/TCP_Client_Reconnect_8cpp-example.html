@@ -107,8 +107,12 @@ $(function() {
   <div class="headertitle"><div class="title">TCP_Client_Reconnect.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<p>A more advanced TCP client exmaple with reconection logic and full error handling.</p>
-<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="TCPSocket_8h.html">simple_socket/TCPSocket.h</a>&gt;</span></div>
+<p>A more advanced TCP client exmaple with reconection logic and full error handling. Demonstrates usability of real-world reconnect logic without an separate even loop.</p>
+<p><b>Output</b> when the TCP_Server example is running: </p><pre class="fragment">Connect failed
+Connected to 127.0.0.1:47777
+Received data from server: The quick brown fox jumps over the lazy dog
+Server disconnected; reconnecting
+</pre><div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="TCPSocket_8h.html">simple_socket/TCPSocket.h</a>&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#include &lt;array&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;chrono&gt;</span></div>

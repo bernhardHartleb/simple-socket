@@ -107,8 +107,12 @@ $(function() {
   <div class="headertitle"><div class="title">UDP_Commands.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<p>UDP server and client demo, sending commands from console.</p>
-<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="UDPSocket_8h.html">simple_socket/UDPSocket.h</a>&gt;</span></div>
+<p>UDP server and client in blocking mode, sending commands from console.</p>
+<p><b>Output</b> when commands are sent via console agruments: </p><pre class="fragment">Listening for UDP commands on 127.0.0.1:47778
+Received from 127.0.0.1:52659 test
+Received from 127.0.0.1:35080 quit
+Stopping.
+</pre><div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="UDPSocket_8h.html">simple_socket/UDPSocket.h</a>&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="preprocessor">#include &lt;array&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>

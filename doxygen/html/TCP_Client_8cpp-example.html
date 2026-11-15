@@ -107,9 +107,9 @@ $(function() {
   <div class="headertitle"><div class="title">TCP_Client.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<p>This is an example for a very simple TCP client application.</p>
-<p><b>Output</b> when started without a server running: <code>"Connection Refused"</code> </p>
-<p><b>Output</b> when the TCP_Server example is running: </p><pre class="fragment">Received data from server: The quick brown fox jumps over the lazy dog
+<p>This is an example for a very simple TCP client application. IT connects to a server, blocking until connected and reads available data until the read times out.</p>
+<p><b>Output</b> when the TCP_Server example is running: </p><pre class="fragment">Using server: 127.0.0.1
+Received data from server: The quick brown fox jumps over the lazy dog
 </pre><div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="TCPSocket_8h.html">simple_socket/TCPSocket.h</a>&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;<a class="code" href="SocketUtils_8h.html">simple_socket/SocketUtils.h</a>&gt;</span></div>
 <div class="line"> </div>

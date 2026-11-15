@@ -6,6 +6,7 @@ var NAVTREEINDEX0 =
 "CANSocket_8h_source.html":[5,0,1,0,1],
 "EventHandler_8h.html":[5,0,1,0,2],
 "EventHandler_8h_source.html":[5,0,1,0,2],
+"EventHandler_Timer_8cpp-example.html":[6,6],
 "InternetSocket_8h.html":[5,0,1,0,3],
 "InternetSocket_8h_source.html":[5,0,1,0,3],
 "NetworkInterface_8h.html":[5,0,1,0,4],
@@ -20,10 +21,12 @@ var NAVTREEINDEX0 =
 "TCPSocket_8h_source.html":[5,0,1,0,8],
 "TCP_Client_8cpp-example.html":[6,1],
 "TCP_Client_Reconnect_8cpp-example.html":[6,2],
+"TCP_Event_Server_8cpp-example.html":[6,8],
 "TCP_Server_8cpp-example.html":[6,0],
 "UDPSocket_8h.html":[5,0,1,0,9],
 "UDPSocket_8h_source.html":[5,0,1,0,9],
 "UDP_Commands_8cpp-example.html":[6,4],
+"UDP_Event_Receiver_8cpp-example.html":[6,7],
 "UDP_Multicast_8cpp-example.html":[6,3],
 "UnixDatagramSocket_8h.html":[5,0,1,0,10],
 "UnixDatagramSocket_8h_source.html":[5,0,1,0,10],
@@ -246,8 +249,5 @@ var NAVTREEINDEX0 =
 "classNET_1_1InternetSocket.html#a1f434b9430d452a6dd263415c216594c":[4,0,0,3,1],
 "classNET_1_1InternetSocket.html#a24f0bf3e2b081f02a348951bb497bfdc":[3,0,0,3,5],
 "classNET_1_1InternetSocket.html#a24f0bf3e2b081f02a348951bb497bfdc":[4,0,0,3,5],
-"classNET_1_1InternetSocket.html#a26f996c198c949e2d1e4f48bc4cb7086":[3,0,0,3,10],
-"classNET_1_1InternetSocket.html#a26f996c198c949e2d1e4f48bc4cb7086":[4,0,0,3,10],
-"classNET_1_1InternetSocket.html#a3405b52056d2c64f5f058b86c2ea9535":[3,0,0,3,21],
-"classNET_1_1InternetSocket.html#a3405b52056d2c64f5f058b86c2ea9535":[4,0,0,3,21]
+"classNET_1_1InternetSocket.html#a26f996c198c949e2d1e4f48bc4cb7086":[3,0,0,3,10]
 };
