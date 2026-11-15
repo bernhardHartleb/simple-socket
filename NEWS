@@ -1,3 +1,12 @@
+1.9.0
+~~~~~
+- Introduce new UnixSeqPacketSocket using SOCK_SEQPACKET
+- Allow direct construction of type-safe Unix socket pairs (socketpair)
+- Handle missing Unix path by reporting status Unreachable
+- Fix finishConnect() reporting Timeout when connect is still pending
+- Increase default TCP/Unix stream backlog size to 128
+- Simplify various unit tests by using socketpair
+
 1.8.0
 ~~~~~
 - Add support for non-blocking I/O using the same API
