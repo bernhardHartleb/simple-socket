@@ -2,7 +2,7 @@
 
 `simple-socket` is a lightweight C++17 based wrapper around POSIX socket APIs.
 It keeps the native socket model visible while providing RAII ownership, error handling, poll and convenience functions.
-The API uses strings for IPv4/6 addresses and keeps pointer handling to a minimum. Blocking socket operations have variants accepting a timeout.
+The API uses strings for IPv4/6 addresses and keeps pointer handling to a minimum. Blocking socket operations have variants accepting a timeout. Switching to async I/O is fully supported by the same interface.
 Functions for DNS resolution and limited network interface management are included.
 
 ## Features
@@ -50,10 +50,10 @@ int main()
         server.bind("127.0.0.1", 47777);
         server.listen();
 
-        std::cout << "Waiting for a client.\n";
-        NET::TCPSocket client = server.accept();
+        std::cout << "Waiting for a client...\n";
+        NET::TCPSocket client = *server.accept();
 
-        const char message[] = "hello from simple-socket\n";
+        const char message[] = "hello from simple-socket";
         NET::IOResult sent = client.sendAll(message, sizeof(message) - 1);
 
         if (sent.status == NET::IOStatus::PeerDisconnected)
