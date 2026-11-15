@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['receiveflag_0',['receiveFlag',['../classNET_1_1SCTPSocket.html#aabb7de5b5f3553d114ba6b4380046b56',1,'NET::SCTPSocket']]]
+  ['iostatus_0',['IOStatus',['../namespaceNET.html#a6234637576bbb2ec0600642d629c2104',1,'NET']]]
 ];

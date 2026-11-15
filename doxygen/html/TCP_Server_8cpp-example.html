@@ -33,7 +33,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.8.0</span>
+   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.9.0</span>
    </div>
   </td>
  </tr>
@@ -126,7 +126,7 @@ $(function() {
 <div class="line"> </div>
 <div class="line">    <span class="comment">// Listen locally on the given port</span></div>
 <div class="line">    server_socket.<a id="a2" name="a2"></a><a class="code hl_function" href="classNET_1_1InternetSocket.html#a24f0bf3e2b081f02a348951bb497bfdc">bind</a>(<span class="stringliteral">&quot;127.0.0.1&quot;</span>, 47777);</div>
-<div class="line">    server_socket.<a id="a3" name="a3"></a><a class="code hl_function" href="classNET_1_1TCPSocket.html#a6ef141d767786731607a2db52d9c1095">listen</a>();</div>
+<div class="line">    server_socket.<a id="a3" name="a3"></a><a class="code hl_function" href="classNET_1_1TCPSocket.html#a4fbefd8e494de3bfa0e2e743b91d06bf">listen</a>();</div>
 <div class="line"> </div>
 <div class="line">    <span class="keywordflow">while</span>(<span class="keyword">true</span>)</div>
 <div class="line">    {</div>
@@ -183,8 +183,8 @@ $(function() {
 <div class="ttc" id="aclassNET_1_1SocketException_html_a4175605c41f8230e18aa3323a2ef80c5"><div class="ttname"><a href="classNET_1_1SocketException.html#a4175605c41f8230e18aa3323a2ef80c5">NET::SocketException::what</a></div><div class="ttdeci">const char * what() const noexcept</div><div class="ttdoc">Returns a C-string describing the cause of the current error.</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00034">SimpleSocket.h:34</a></div></div>
 <div class="ttc" id="aclassNET_1_1TCPSocket_html"><div class="ttname"><a href="classNET_1_1TCPSocket.html">NET::TCPSocket</a></div><div class="ttdoc">TCP socket class.</div><div class="ttdef"><b>Definition</b> <a href="TCPSocket_8h_source.html#l00010">TCPSocket.h:11</a></div></div>
 <div class="ttc" id="aclassNET_1_1TCPSocket_html_a086cf6584add25cca3e285d86913452c"><div class="ttname"><a href="classNET_1_1TCPSocket.html#a086cf6584add25cca3e285d86913452c">NET::TCPSocket::timedAccept</a></div><div class="ttdeci">std::optional&lt; TCPSocket &gt; timedAccept(int timeout) const</div><div class="ttdoc">wait for another socket to connect</div></div>
+<div class="ttc" id="aclassNET_1_1TCPSocket_html_a4fbefd8e494de3bfa0e2e743b91d06bf"><div class="ttname"><a href="classNET_1_1TCPSocket.html#a4fbefd8e494de3bfa0e2e743b91d06bf">NET::TCPSocket::listen</a></div><div class="ttdeci">void listen(int backlog=128)</div><div class="ttdoc">listen for incoming connections</div></div>
 <div class="ttc" id="aclassNET_1_1TCPSocket_html_a5bdd569951e5bd51144fb232b9e2e5c7"><div class="ttname"><a href="classNET_1_1TCPSocket.html#a5bdd569951e5bd51144fb232b9e2e5c7">NET::TCPSocket::sendAll</a></div><div class="ttdeci">IOResult sendAll(const void *buffer, size_t len)</div><div class="ttdoc">send data through a connected socket</div></div>
-<div class="ttc" id="aclassNET_1_1TCPSocket_html_a6ef141d767786731607a2db52d9c1095"><div class="ttname"><a href="classNET_1_1TCPSocket.html#a6ef141d767786731607a2db52d9c1095">NET::TCPSocket::listen</a></div><div class="ttdeci">void listen(int backlog=5)</div><div class="ttdoc">listen for incoming connections</div></div>
 <div class="ttc" id="anamespaceNET_html_a6234637576bbb2ec0600642d629c2104a333905113a456692308689b23e032249"><div class="ttname"><a href="namespaceNET.html#a6234637576bbb2ec0600642d629c2104a333905113a456692308689b23e032249">NET::IOStatus::PeerDisconnected</a></div><div class="ttdeci">@ PeerDisconnected</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00060">SimpleSocket.h:60</a></div></div>
 <div class="ttc" id="anamespaceNET_html_a9b61e3d2422a1203909bd7985df95884a033d3418b7b9455f3b5d7c6692155b3e"><div class="ttname"><a href="namespaceNET.html#a9b61e3d2422a1203909bd7985df95884a033d3418b7b9455f3b5d7c6692155b3e">NET::STOP_SEND</a></div><div class="ttdeci">@ STOP_SEND</div><div class="ttdoc">disable all variants of send() on the socket, receive calls still work</div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00107">SimpleSocket.h:107</a></div></div>
 <div class="ttc" id="astructNET_1_1IOResult_html"><div class="ttname"><a href="structNET_1_1IOResult.html">NET::IOResult</a></div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00083">SimpleSocket.h:84</a></div></div>

@@ -33,7 +33,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.8.0</span>
+   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.9.0</span>
    </div>
   </td>
  </tr>
@@ -123,24 +123,28 @@ $(function() {
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span></div>
 <div class="line"><a id="l00033" name="l00033"></a><span class="lineno"><a class="line" href="classNET_1_1UnixDatagramSocket.html#ac7b89b16779743d252b89e7fa95874ac">   33</a></span>        [[nodiscard]] <span class="keyword">static</span> <a class="code hl_function" href="classNET_1_1UnixDatagramSocket.html#aa2bb855572dbee7456dd35d4760eec26">UnixDatagramSocket</a> <a class="code hl_function" href="classNET_1_1UnixDatagramSocket.html#ac7b89b16779743d252b89e7fa95874ac">adoptNativeHandle</a>( <span class="keywordtype">int</span> sockfd);</div>
 <div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="classNET_1_1UnixDatagramSocket.html#a844688352243498832088f0269fec189">   44</a></span>        <a class="code hl_struct" href="structNET_1_1IOResult.html">IOResult</a> <a class="code hl_function" href="classNET_1_1UnixDatagramSocket.html#a844688352243498832088f0269fec189">sendTo</a>( <span class="keyword">const</span> <span class="keywordtype">void</span>* buffer, <span class="keywordtype">size_t</span> len, std::string_view foreignPath);</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span></div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="classNET_1_1UnixDatagramSocket.html#a034b645363c964ab409ff5e7f3f8cba6">   56</a></span>        <a class="code hl_struct" href="structNET_1_1IOResult.html">IOResult</a> <a class="code hl_function" href="classNET_1_1UnixDatagramSocket.html#a034b645363c964ab409ff5e7f3f8cba6">receiveFrom</a>( <span class="keywordtype">void</span>* buffer, <span class="keywordtype">size_t</span> len, std::string&amp; sourcePath);</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span></div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno"><a class="line" href="classNET_1_1UnixDatagramSocket.html#a06cd47cf67558e2573515e2027370e04">   71</a></span>        <a class="code hl_struct" href="structNET_1_1IOResult.html">IOResult</a> <a class="code hl_function" href="classNET_1_1UnixDatagramSocket.html#a06cd47cf67558e2573515e2027370e04">timedReceiveFrom</a>( <span class="keywordtype">void</span>* buffer, <span class="keywordtype">size_t</span> len, std::string&amp; sourcePath, <span class="keywordtype">int</span> timeout);</div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>        <span class="comment">// allow construction by adopt</span></div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>        <span class="keyword">using </span><a class="code hl_function" href="classNET_1_1UnixSocket.html#a85e1795d8378d34cf24843c72392455e">UnixSocket::UnixSocket</a>;</div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>    };</div>
-</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>} <span class="comment">// namespace NET</span></div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>        [[nodiscard]] <span class="keyword">static</span> std::pair&lt;UnixDatagramSocket, UnixDatagramSocket&gt;</div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno"><a class="line" href="classNET_1_1UnixDatagramSocket.html#a2a75299ca0ab86efb59a9e50ac0a7c0e">   40</a></span>        <a class="code hl_function" href="classNET_1_1UnixDatagramSocket.html#a2a75299ca0ab86efb59a9e50ac0a7c0e">createPair</a>( <span class="keywordtype">bool</span> nonBlocking = <span class="keyword">false</span>);</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span></div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno"><a class="line" href="classNET_1_1UnixDatagramSocket.html#a844688352243498832088f0269fec189">   51</a></span>        <a class="code hl_struct" href="structNET_1_1IOResult.html">IOResult</a> <a class="code hl_function" href="classNET_1_1UnixDatagramSocket.html#a844688352243498832088f0269fec189">sendTo</a>( <span class="keyword">const</span> <span class="keywordtype">void</span>* buffer, <span class="keywordtype">size_t</span> len, std::string_view foreignPath);</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno"><a class="line" href="classNET_1_1UnixDatagramSocket.html#a034b645363c964ab409ff5e7f3f8cba6">   63</a></span>        <a class="code hl_struct" href="structNET_1_1IOResult.html">IOResult</a> <a class="code hl_function" href="classNET_1_1UnixDatagramSocket.html#a034b645363c964ab409ff5e7f3f8cba6">receiveFrom</a>( <span class="keywordtype">void</span>* buffer, <span class="keywordtype">size_t</span> len, std::string&amp; sourcePath);</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span></div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno"><a class="line" href="classNET_1_1UnixDatagramSocket.html#a06cd47cf67558e2573515e2027370e04">   78</a></span>        <a class="code hl_struct" href="structNET_1_1IOResult.html">IOResult</a> <a class="code hl_function" href="classNET_1_1UnixDatagramSocket.html#a06cd47cf67558e2573515e2027370e04">timedReceiveFrom</a>( <span class="keywordtype">void</span>* buffer, <span class="keywordtype">size_t</span> len, std::string&amp; sourcePath, <span class="keywordtype">int</span> timeout);</div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span><span class="preprocessor">#endif </span><span class="comment">// NET_UnixDatagramSocket_h__</span></div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>        <span class="comment">// allow construction by adopt</span></div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>        <span class="keyword">using </span><a class="code hl_function" href="classNET_1_1UnixSocket.html#a85e1795d8378d34cf24843c72392455e">UnixSocket::UnixSocket</a>;</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>    };</div>
+</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>} <span class="comment">// namespace NET</span></div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span> </div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span><span class="preprocessor">#endif </span><span class="comment">// NET_UnixDatagramSocket_h__</span></div>
 <div class="ttc" id="aUnixSocket_8h_html"><div class="ttname"><a href="UnixSocket_8h.html">UnixSocket.h</a></div></div>
 <div class="ttc" id="aclassNET_1_1UnixDatagramSocket_html_a034b645363c964ab409ff5e7f3f8cba6"><div class="ttname"><a href="classNET_1_1UnixDatagramSocket.html#a034b645363c964ab409ff5e7f3f8cba6">NET::UnixDatagramSocket::receiveFrom</a></div><div class="ttdeci">IOResult receiveFrom(void *buffer, size_t len, std::string &amp;sourcePath)</div></div>
 <div class="ttc" id="aclassNET_1_1UnixDatagramSocket_html_a06cd47cf67558e2573515e2027370e04"><div class="ttname"><a href="classNET_1_1UnixDatagramSocket.html#a06cd47cf67558e2573515e2027370e04">NET::UnixDatagramSocket::timedReceiveFrom</a></div><div class="ttdeci">IOResult timedReceiveFrom(void *buffer, size_t len, std::string &amp;sourcePath, int timeout)</div></div>
+<div class="ttc" id="aclassNET_1_1UnixDatagramSocket_html_a2a75299ca0ab86efb59a9e50ac0a7c0e"><div class="ttname"><a href="classNET_1_1UnixDatagramSocket.html#a2a75299ca0ab86efb59a9e50ac0a7c0e">NET::UnixDatagramSocket::createPair</a></div><div class="ttdeci">static std::pair&lt; UnixDatagramSocket, UnixDatagramSocket &gt; createPair(bool nonBlocking=false)</div></div>
 <div class="ttc" id="aclassNET_1_1UnixDatagramSocket_html_a844688352243498832088f0269fec189"><div class="ttname"><a href="classNET_1_1UnixDatagramSocket.html#a844688352243498832088f0269fec189">NET::UnixDatagramSocket::sendTo</a></div><div class="ttdeci">IOResult sendTo(const void *buffer, size_t len, std::string_view foreignPath)</div></div>
 <div class="ttc" id="aclassNET_1_1UnixDatagramSocket_html_a85e1795d8378d34cf24843c72392455e"><div class="ttname"><a href="classNET_1_1UnixDatagramSocket.html#a85e1795d8378d34cf24843c72392455e">NET::UnixDatagramSocket::UnixSocket</a></div><div class="ttdeci">UnixSocket(int type, int protocol)</div><div class="ttdoc">allows a subclass to create new socket</div></div>
 <div class="ttc" id="aclassNET_1_1UnixDatagramSocket_html_aa2bb855572dbee7456dd35d4760eec26"><div class="ttname"><a href="classNET_1_1UnixDatagramSocket.html#aa2bb855572dbee7456dd35d4760eec26">NET::UnixDatagramSocket::UnixDatagramSocket</a></div><div class="ttdeci">UnixDatagramSocket()</div></div>

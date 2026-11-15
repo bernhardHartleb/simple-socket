@@ -1,11 +1,9 @@
 var searchData=
 [
-  ['name_0',['name',['../structNET_1_1NetworkAddressInfo.html#a022f30d63bc1a9eb15be71f2bba5fdf0',1,'NET::NetworkAddressInfo::name'],['../classNET_1_1NetworkInterface.html#a8c576a3a15a66426060aaa6d02c68692',1,'NET::NetworkInterface::name()']]],
-  ['nativehandle_1',['nativeHandle',['../classNET_1_1SimpleSocket.html#a830de7b14a78664508052051991ced63',1,'NET::SimpleSocket']]],
-  ['net_2',['NET',['../namespaceNET.html',1,'']]],
-  ['netmask_3',['netmask',['../structNET_1_1NetworkAddressInfo.html#a6926279ba2c6f72c1c8f0074c26a1209',1,'NET::NetworkAddressInfo']]],
-  ['networkaddressinfo_4',['NetworkAddressInfo',['../structNET_1_1NetworkAddressInfo.html',1,'NET']]],
-  ['networkinterface_5',['NetworkInterface',['../classNET_1_1NetworkInterface.html',1,'NET::NetworkInterface'],['../classNET_1_1NetworkInterface.html#a02b07a12f19360caa5ef7408ed632dbd',1,'NET::NetworkInterface::NetworkInterface()']]],
-  ['networkinterface_2eh_6',['NetworkInterface.h',['../NetworkInterface_8h.html',1,'']]],
-  ['notackeddata_7',['notAckedData',['../classNET_1_1SCTPSocket.html#a463502d4569ff6b28a509f8fd5a0f006',1,'NET::SCTPSocket']]]
+  ['m_5fboundpath_0',['m_boundPath',['../classNET_1_1UnixSocket.html#a096fe42e3e8c68e868a8831a8aa3489c',1,'NET::UnixSocket']]],
+  ['m_5fconnectionoriented_1',['m_connectionOriented',['../classNET_1_1SimpleSocket.html#a3fb5e518e4483437776fc997ef172546',1,'NET::SimpleSocket']]],
+  ['m_5ffamily_2',['m_family',['../classNET_1_1InternetSocket.html#a8e3123134c81887a7d977df194d71678',1,'NET::InternetSocket']]],
+  ['m_5fsocket_3',['m_socket',['../classNET_1_1SimpleSocket.html#a721049909aca828a6dd9ee7868897d7c',1,'NET::SimpleSocket']]],
+  ['mainpage_2edox_4',['mainpage.dox',['../mainpage_8dox.html',1,'']]],
+  ['modify_5',['modify',['../classNET_1_1EventHandler.html#a10f0e409a9b5d1abb058d1e3d9b05b12',1,'NET::EventHandler']]]
 ];

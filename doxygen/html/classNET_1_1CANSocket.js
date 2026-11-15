@@ -13,7 +13,7 @@ var classNET_1_1CANSocket =
     [ "getLocalInterface", "classNET_1_1CANSocket.html#a9c9f15ac61d64157b72cfc5f304250d4", null ],
     [ "isBlocking", "classNET_1_1CANSocket.html#a3b0e1fe3692349ad468df6a2333ea776", null ],
     [ "isConnected", "classNET_1_1CANSocket.html#abb14e811896b7474d1a86f5fd9664db6", null ],
-    [ "listen", "classNET_1_1CANSocket.html#a6ef141d767786731607a2db52d9c1095", null ],
+    [ "listen", "classNET_1_1CANSocket.html#a4fbefd8e494de3bfa0e2e743b91d06bf", null ],
     [ "nativeHandle", "classNET_1_1CANSocket.html#a830de7b14a78664508052051991ced63", null ],
     [ "operator=", "classNET_1_1CANSocket.html#a3783ba8e70d75565168d69ea256261e4", null ],
     [ "peerDisconnected", "classNET_1_1CANSocket.html#a774dcd3aec69d20b173e346d73bc3202", null ],

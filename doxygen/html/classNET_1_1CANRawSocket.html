@@ -33,7 +33,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.8.0</span>
+   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.9.0</span>
    </div>
   </td>
  </tr>
@@ -185,8 +185,8 @@ Protected Member Functions</h2></td></tr>
 <tr class="memdesc:a759a0e67663e9b99b0e13e677430d90e"><td class="mdescLeft">&#160;</td><td class="mdescRight">get CAN interface name from socket address structure  <br /></td></tr>
 <tr class="memitem:a01df4a7d5b3d2bc4a3de1ebdbdebb3a9" id="r_a01df4a7d5b3d2bc4a3de1ebdbdebb3a9"><td class="memItemLeft">int&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1CANSocket.html#a01df4a7d5b3d2bc4a3de1ebdbdebb3a9">getInterfaceIndex</a> (std::string_view interface) const</td></tr>
 <tr class="memdesc:a01df4a7d5b3d2bc4a3de1ebdbdebb3a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">get CAN interface index from interface name  <br /></td></tr>
-<tr class="memitem:a6ef141d767786731607a2db52d9c1095" id="r_a6ef141d767786731607a2db52d9c1095"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#a6ef141d767786731607a2db52d9c1095">listen</a> (int backlog=5)</td></tr>
-<tr class="memdesc:a6ef141d767786731607a2db52d9c1095"><td class="mdescLeft">&#160;</td><td class="mdescRight">listen for incoming connections  <br /></td></tr>
+<tr class="memitem:a4fbefd8e494de3bfa0e2e743b91d06bf" id="r_a4fbefd8e494de3bfa0e2e743b91d06bf"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#a4fbefd8e494de3bfa0e2e743b91d06bf">listen</a> (int backlog=128)</td></tr>
+<tr class="memdesc:a4fbefd8e494de3bfa0e2e743b91d06bf"><td class="mdescLeft">&#160;</td><td class="mdescRight">listen for incoming connections  <br /></td></tr>
 <tr class="memitem:a7a1741f81c815fb705282dc1e4931796" id="r_a7a1741f81c815fb705282dc1e4931796"><td class="memItemLeft"><a class="el" href="namespaceNET.html#aaf70b419dfaefe3a31207434ee82ff4c">ConnectResult</a>&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#a7a1741f81c815fb705282dc1e4931796">finishConnect</a> (int timeout=0)</td></tr>
 <tr class="memdesc:a7a1741f81c815fb705282dc1e4931796"><td class="mdescLeft">&#160;</td><td class="mdescRight">check if a previously started connected attempt is finished  <br /></td></tr>
 <tr class="memitem:a5bdd569951e5bd51144fb232b9e2e5c7" id="r_a5bdd569951e5bd51144fb232b9e2e5c7"><td class="memItemLeft"><a class="el" href="structNET_1_1IOResult.html">IOResult</a>&#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1SimpleSocket.html#a5bdd569951e5bd51144fb232b9e2e5c7">sendAll</a> (const void *buffer, size_t len)</td></tr>
@@ -612,8 +612,8 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a6ef141d767786731607a2db52d9c1095" name="a6ef141d767786731607a2db52d9c1095"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ef141d767786731607a2db52d9c1095">&#9670;&#160;</a></span>listen()</h2>
+<a id="a4fbefd8e494de3bfa0e2e743b91d06bf" name="a4fbefd8e494de3bfa0e2e743b91d06bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4fbefd8e494de3bfa0e2e743b91d06bf">&#9670;&#160;</a></span>listen()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -624,7 +624,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void NET::SimpleSocket::listen </td>
           <td>(</td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>backlog</em></span><span class="paramdefsep"> = </span><span class="paramdefval">5</span></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>backlog</em></span><span class="paramdefsep"> = </span><span class="paramdefval">128</span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -636,11 +636,11 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>listen for incoming connections </p>
-<p><a class="el" href="classNET_1_1SimpleSocket.html#a6ef141d767786731607a2db52d9c1095" title="listen for incoming connections">listen()</a> can be called on a bound socket. The socket will then go into a passive state and accept incoming connections. To answer to an incoming connection call accept() or timedAccept() on the socket.</p>
-<p>The backlog is a buffer for incoming connections. If backlog is set to 0, the number of incoming connections is only limited by the operating system. If backlog is set to a value &gt; 0, only the upper limit of connections is set, the OS can limit the number further.</p>
+<p><a class="el" href="classNET_1_1SimpleSocket.html#a4fbefd8e494de3bfa0e2e743b91d06bf" title="listen for incoming connections">listen()</a> can be called on a bound socket. The socket will then go into a passive state and accept incoming connections. To answer to an incoming connection call accept() or timedAccept() on the socket.</p>
+<p>The backlog specifies the maximum requested number of pending connections waiting to be accepted.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">backlog</td><td>upper limit of pending incoming connections </td></tr>
+    <tr><td class="paramname">backlog</td><td>requested pending connection queue size </td></tr>
   </table>
   </dd>
 </dl>
@@ -1434,7 +1434,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8h_source.html#l00397">397</a> of file <a class="el" href="SimpleSocket_8h_source.html">SimpleSocket.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SimpleSocket_8h_source.html#l00395">395</a> of file <a class="el" href="SimpleSocket_8h_source.html">SimpleSocket.h</a>.</p>
 
 </div>
 </div>
@@ -1458,7 +1458,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="SimpleSocket_8h_source.html#l00396">396</a> of file <a class="el" href="SimpleSocket_8h_source.html">SimpleSocket.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="SimpleSocket_8h_source.html#l00394">394</a> of file <a class="el" href="SimpleSocket_8h_source.html">SimpleSocket.h</a>.</p>
 
 </div>
 </div>

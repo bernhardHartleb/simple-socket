@@ -1,6 +1,7 @@
 var hierarchy =
 [
     [ "NET::SimpleSocket::AdoptSocketTag", "structNET_1_1SimpleSocket_1_1AdoptSocketTag.html", null ],
+    [ "NET::EventHandler", "classNET_1_1EventHandler.html", null ],
     [ "std::exception", null, [
       [ "NET::SocketException", "classNET_1_1SocketException.html", null ]
     ] ],
@@ -18,6 +19,7 @@ var hierarchy =
       ] ],
       [ "NET::UnixSocket", "classNET_1_1UnixSocket.html", [
         [ "NET::UnixDatagramSocket", "classNET_1_1UnixDatagramSocket.html", null ],
+        [ "NET::UnixSeqPacketSocket", "classNET_1_1UnixSeqPacketSocket.html", null ],
         [ "NET::UnixStreamSocket", "classNET_1_1UnixStreamSocket.html", null ]
       ] ]
     ] ]

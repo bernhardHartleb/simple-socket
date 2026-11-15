@@ -33,7 +33,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.8.0</span>
+   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.9.0</span>
    </div>
   </td>
  </tr>
@@ -175,7 +175,7 @@ $(function() {
 <div class="line"><a id="l00060" name="l00060"></a><span class="lineno"><a class="line" href="classNET_1_1SCTPSocket.html#a803749d140527a0f7fcb4a8ad58e84a5">   60</a></span>        <a class="code hl_struct" href="structNET_1_1IOResult.html">IOResult</a> <a class="code hl_function" href="classNET_1_1SCTPSocket.html#a803749d140527a0f7fcb4a8ad58e84a5">timedReceive</a>( <span class="keywordtype">void</span>* data, <span class="keywordtype">size_t</span> maxLen, uint16_t&amp; stream, <a class="code hl_enumeration" href="classNET_1_1SCTPSocket.html#aabb7de5b5f3553d114ba6b4380046b56">receiveFlag</a>&amp; flag, <span class="keywordtype">int</span> timeout);</div>
 <div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>        <span class="comment">// Listen for incoming connections</span></div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="keyword">using </span><a class="code hl_function" href="classNET_1_1SimpleSocket.html#a6ef141d767786731607a2db52d9c1095">SimpleSocket::listen</a>;</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>        <span class="keyword">using </span><a class="code hl_function" href="classNET_1_1SimpleSocket.html#a4fbefd8e494de3bfa0e2e743b91d06bf">SimpleSocket::listen</a>;</div>
 <div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
 <div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>        <span class="comment">// Complete async connect attempt</span></div>
 <div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>        <span class="keyword">using </span><a class="code hl_function" href="classNET_1_1SimpleSocket.html#a7a1741f81c815fb705282dc1e4931796">SimpleSocket::finishConnect</a>;</div>
@@ -225,7 +225,7 @@ $(function() {
 <div class="ttc" id="aclassNET_1_1SCTPSocket_html_ae455e57ba610896a9319ad5206f8800f"><div class="ttname"><a href="classNET_1_1SCTPSocket.html#ae455e57ba610896a9319ad5206f8800f">NET::SCTPSocket::pendingData</a></div><div class="ttdeci">int pendingData() const</div></div>
 <div class="ttc" id="aclassNET_1_1SCTPSocket_html_aeb9444f6bb958642eb2b3c60c3713e60"><div class="ttname"><a href="classNET_1_1SCTPSocket.html#aeb9444f6bb958642eb2b3c60c3713e60">NET::SCTPSocket::inStreams</a></div><div class="ttdeci">unsigned inStreams() const</div></div>
 <div class="ttc" id="aclassNET_1_1SimpleSocket_html_a05b8d7a1cfa458e7e4e79acb80185077"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#a05b8d7a1cfa458e7e4e79acb80185077">NET::SimpleSocket::send</a></div><div class="ttdeci">IOResult send(const void *buffer, size_t len)</div><div class="ttdoc">send data through a connected socket</div></div>
-<div class="ttc" id="aclassNET_1_1SimpleSocket_html_a6ef141d767786731607a2db52d9c1095"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#a6ef141d767786731607a2db52d9c1095">NET::SimpleSocket::listen</a></div><div class="ttdeci">void listen(int backlog=5)</div><div class="ttdoc">listen for incoming connections</div></div>
+<div class="ttc" id="aclassNET_1_1SimpleSocket_html_a4fbefd8e494de3bfa0e2e743b91d06bf"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#a4fbefd8e494de3bfa0e2e743b91d06bf">NET::SimpleSocket::listen</a></div><div class="ttdeci">void listen(int backlog=128)</div><div class="ttdoc">listen for incoming connections</div></div>
 <div class="ttc" id="aclassNET_1_1SimpleSocket_html_a7a1741f81c815fb705282dc1e4931796"><div class="ttname"><a href="classNET_1_1SimpleSocket.html#a7a1741f81c815fb705282dc1e4931796">NET::SimpleSocket::finishConnect</a></div><div class="ttdeci">ConnectResult finishConnect(int timeout=0)</div><div class="ttdoc">check if a previously started connected attempt is finished</div></div>
 <div class="ttc" id="anamespaceNET_html"><div class="ttname"><a href="namespaceNET.html">NET</a></div><div class="ttdef"><b>Definition</b> <a href="CANRawSocket_8h_source.html#l00006">CANRawSocket.h:7</a></div></div>
 <div class="ttc" id="astructNET_1_1IOResult_html"><div class="ttname"><a href="structNET_1_1IOResult.html">NET::IOResult</a></div><div class="ttdef"><b>Definition</b> <a href="SimpleSocket_8h_source.html#l00083">SimpleSocket.h:84</a></div></div>

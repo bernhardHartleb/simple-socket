@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['override_5fprimary_0',['OVERRIDE_PRIMARY',['../classNET_1_1SCTPSocket.html#a8e19511f74b30615a3acd79b378141f9a2bea5ca93d0a7336328555f606bca8e7',1,'NET::SCTPSocket']]]
+  ['inprogress_0',['InProgress',['../namespaceNET.html#aaf70b419dfaefe3a31207434ee82ff4ca12d868c18cb29bf58f02b504be9033fd',1,'NET']]],
+  ['ipv4_1',['IPv4',['../namespaceNET.html#a657e1fa5f020df28069800f3fb19eab6a18565c1ed23cf01bb372e354fbc670dd',1,'NET']]],
+  ['ipv6_2',['IPv6',['../namespaceNET.html#a657e1fa5f020df28069800f3fb19eab6a8059a0b17480e790a863427324455b24',1,'NET']]]
 ];

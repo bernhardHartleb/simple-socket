@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['shutdown_0',['SHUTDOWN',['../classNET_1_1SCTPSocket.html#a5cacc0e36b9370338ae04154d18da02aa5fd408505ffab464d974b4bd2394a74a',1,'NET::SCTPSocket']]],
-  ['stop_5fboth_1',['STOP_BOTH',['../namespaceNET.html#a9b61e3d2422a1203909bd7985df95884aac8f7825323c5ef9954fc0a7eac781d7',1,'NET']]],
-  ['stop_5freceive_2',['STOP_RECEIVE',['../namespaceNET.html#a9b61e3d2422a1203909bd7985df95884ae9cb5d756b0cef8d4de6e226890bee43',1,'NET']]],
-  ['stop_5fsend_3',['STOP_SEND',['../namespaceNET.html#a9b61e3d2422a1203909bd7985df95884a033d3418b7b9455f3b5d7c6692155b3e',1,'NET']]],
-  ['success_4',['Success',['../namespaceNET.html#a6234637576bbb2ec0600642d629c2104a505a83f220c02df2f85c3810cd9ceb38',1,'NET']]]
+  ['peerclosed_0',['PeerClosed',['../classNET_1_1EventHandler.html#afdf6b959379932f8017c1e33d34b0853aeb29b8371df81c4c777e741c379610b4',1,'NET::EventHandler']]],
+  ['peerdisconnected_1',['PeerDisconnected',['../namespaceNET.html#a6234637576bbb2ec0600642d629c2104a333905113a456692308689b23e032249',1,'NET']]],
+  ['priority_2',['Priority',['../classNET_1_1EventHandler.html#afdf6b959379932f8017c1e33d34b0853a6ef20713353e7ff46e4bbe89eef18a18',1,'NET::EventHandler']]]
 ];

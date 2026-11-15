@@ -1,3 +1,23 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$structNET_1_1SimpleSocket_1_1AdoptSocketTag.html" title="used to safely adopt internal socket descriptor" alt="" coords="5,5,149,48"/>
+<area shape="rect" id="Node000000" href="$classNET_1_1SimpleSocket.html" title="A socket representing a basic communication endpoint." alt="" coords="5,107,141,133"/>
+<area shape="rect" id="Node000001" href="$classNET_1_1CANSocket.html" title="CAN socket class." alt="" coords="196,31,320,57"/>
+<area shape="poly" id="edge1_Node000000_Node000001" title=" " alt="" coords="120,98,225,56,222,60,123,102"/>
+<area shape="rect" id="Node000003" href="$classNET_1_1InternetSocket.html" title="Internet socket class." alt="" coords="189,107,328,133"/>
+<area shape="poly" id="edge3_Node000000_Node000003" title=" " alt="" coords="156,118,190,119,186,121,158,122"/>
+<area shape="rect" id="Node000007" href="$classNET_1_1UnixSocket.html" title="Unix domain socket class." alt="" coords="197,233,320,260"/>
+<area shape="poly" id="edge7_Node000000_Node000007" title=" " alt="" coords="107,140,239,232,235,234,106,145"/>
+<area shape="rect" id="Node000002" href="$classNET_1_1CANRawSocket.html" title="Raw CAN socket class." alt="" coords="394,5,545,32"/>
+<area shape="poly" id="edge2_Node000001_Node000002" title=" " alt="" coords="335,32,395,27,391,29,337,37"/>
+<area shape="rect" id="Node000004" href="$classNET_1_1SCTPSocket.html" title="SCTP socket class." alt="" coords="404,56,535,83"/>
+<area shape="poly" id="edge4_Node000003_Node000004" title=" " alt="" coords="331,100,413,82,408,84,333,105"/>
+<area shape="rect" id="Node000005" href="$classNET_1_1TCPSocket.html" title="TCP socket class." alt="" coords="408,107,530,133"/>
+<area shape="poly" id="edge5_Node000003_Node000005" title=" " alt="" coords="343,117,410,119,405,121,344,123"/>
+<area shape="rect" id="Node000006" href="$classNET_1_1UDPSocket.html" title="UDP socket class." alt="" coords="407,157,531,184"/>
+<area shape="poly" id="edge6_Node000003_Node000006" title=" " alt="" coords="332,135,413,156,408,157,332,140"/>
+<area shape="rect" id="Node000008" href="$classNET_1_1UnixDatagramSocket.html" title="Unix datagram socket class." alt="" coords="380,208,559,235"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="335,235,382,232,377,233,336,240"/>
+<area shape="rect" id="Node000009" href="$classNET_1_1UnixSeqPacketSocket.html" title="Unix domain sequential packet (SOCK_SEQPACKET) socket class." alt="" coords="376,259,562,285"/>
+<area shape="poly" id="edge9_Node000007_Node000009" title=" " alt="" coords="335,253,378,261,373,261,335,258"/>
+<area shape="rect" id="Node000010" href="$classNET_1_1UnixStreamSocket.html" title="Unix domain stream socket class." alt="" coords="387,309,551,336"/>
+<area shape="poly" id="edge10_Node000007_Node000010" title=" " alt="" coords="302,264,377,295,415,309,410,309,375,300,301,269"/>
 </map>

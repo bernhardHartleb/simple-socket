@@ -32,7 +32,7 @@ var classNET_1_1SCTPSocket =
     [ "InternetSocket", "classNET_1_1SCTPSocket.html#adaeeb637df37b75fca832fff7d746ed8", null ],
     [ "isBlocking", "classNET_1_1SCTPSocket.html#a3b0e1fe3692349ad468df6a2333ea776", null ],
     [ "isConnected", "classNET_1_1SCTPSocket.html#abb14e811896b7474d1a86f5fd9664db6", null ],
-    [ "listen", "classNET_1_1SCTPSocket.html#a6ef141d767786731607a2db52d9c1095", null ],
+    [ "listen", "classNET_1_1SCTPSocket.html#a4fbefd8e494de3bfa0e2e743b91d06bf", null ],
     [ "nativeHandle", "classNET_1_1SCTPSocket.html#a830de7b14a78664508052051991ced63", null ],
     [ "notAckedData", "classNET_1_1SCTPSocket.html#a463502d4569ff6b28a509f8fd5a0f006", null ],
     [ "outStreams", "classNET_1_1SCTPSocket.html#aa54b40e5db98b5d273f9fa4bdcaa832f", null ],

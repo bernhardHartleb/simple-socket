@@ -16,7 +16,7 @@ var classNET_1_1InternetSocket =
     [ "getLocalPort", "classNET_1_1InternetSocket.html#a1daebeec59df97ad3d602e7a56af12b6", null ],
     [ "isBlocking", "classNET_1_1InternetSocket.html#a3b0e1fe3692349ad468df6a2333ea776", null ],
     [ "isConnected", "classNET_1_1InternetSocket.html#abb14e811896b7474d1a86f5fd9664db6", null ],
-    [ "listen", "classNET_1_1InternetSocket.html#a6ef141d767786731607a2db52d9c1095", null ],
+    [ "listen", "classNET_1_1InternetSocket.html#a4fbefd8e494de3bfa0e2e743b91d06bf", null ],
     [ "nativeHandle", "classNET_1_1InternetSocket.html#a830de7b14a78664508052051991ced63", null ],
     [ "operator=", "classNET_1_1InternetSocket.html#ac2afc105d29b5f0a64205a6317ca4ba5", null ],
     [ "peerDisconnected", "classNET_1_1InternetSocket.html#a774dcd3aec69d20b173e346d73bc3202", null ],

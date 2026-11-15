@@ -1,0 +1,19 @@
+<map id="include/simple_socket/EventHandler.h" name="include/simple_socket/EventHandler.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="283,5,433,48"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,96,90,123"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="283,50,105,96,104,91,282,45"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="113,96,174,123"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="306,48,189,94,188,89,300,49"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="197,96,258,123"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="327,48,262,90,260,85,322,49"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="281,96,342,123"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="348,47,328,84,325,80,344,50"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="366,96,444,123"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="371,46,392,83,387,81,369,51"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="467,96,577,123"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="401,46,485,89,480,89,400,51"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="602,96,659,123"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="429,46,589,95,584,95,428,51"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="683,96,740,123"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="434,40,671,95,666,96,434,45"/>
+</map>

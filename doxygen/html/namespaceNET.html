@@ -33,7 +33,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.8.0</span>
+   <div id="projectname">simple-socket library<span id="projectnumber">&#160;1.9.0</span>
    </div>
   </td>
  </tr>
@@ -114,6 +114,7 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Raw CAN socket class.  <a href="classNET_1_1CANRawSocket.html#details">More...</a><br /></td></tr>
 <tr class="memitem:CANSocket" id="r_CANSocket"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1CANSocket.html">CANSocket</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">CAN socket class.  <a href="classNET_1_1CANSocket.html#details">More...</a><br /></td></tr>
+<tr class="memitem:EventHandler" id="r_EventHandler"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1EventHandler.html">EventHandler</a></td></tr>
 <tr class="memitem:InternetSocket" id="r_InternetSocket"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1InternetSocket.html">InternetSocket</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Internet socket class.  <a href="classNET_1_1InternetSocket.html#details">More...</a><br /></td></tr>
 <tr class="memitem:NetworkAddressInfo" id="r_NetworkAddressInfo"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="structNET_1_1NetworkAddressInfo.html">NetworkAddressInfo</a></td></tr>
@@ -131,6 +132,8 @@ Classes</h2></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">UDP socket class.  <a href="classNET_1_1UDPSocket.html#details">More...</a><br /></td></tr>
 <tr class="memitem:UnixDatagramSocket" id="r_UnixDatagramSocket"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1UnixDatagramSocket.html">UnixDatagramSocket</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unix datagram socket class.  <a href="classNET_1_1UnixDatagramSocket.html#details">More...</a><br /></td></tr>
+<tr class="memitem:UnixSeqPacketSocket" id="r_UnixSeqPacketSocket"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1UnixSeqPacketSocket.html">UnixSeqPacketSocket</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unix domain sequential packet (SOCK_SEQPACKET) socket class.  <a href="classNET_1_1UnixSeqPacketSocket.html#details">More...</a><br /></td></tr>
 <tr class="memitem:UnixSocket" id="r_UnixSocket"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1UnixSocket.html">UnixSocket</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Unix domain socket class.  <a href="classNET_1_1UnixSocket.html#details">More...</a><br /></td></tr>
 <tr class="memitem:UnixStreamSocket" id="r_UnixStreamSocket"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="classNET_1_1UnixStreamSocket.html">UnixStreamSocket</a></td></tr>
@@ -223,12 +226,18 @@ Functions</h2></td></tr>
 
 <p>result of the connection attempt </p>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aaf70b419dfaefe3a31207434ee82ff4ca2ec0d16e4ca169baedb9b2d50ec5c6d7" name="aaf70b419dfaefe3a31207434ee82ff4ca2ec0d16e4ca169baedb9b2d50ec5c6d7"></a>Connected&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="aaf70b419dfaefe3a31207434ee82ff4ca12d868c18cb29bf58f02b504be9033fd" name="aaf70b419dfaefe3a31207434ee82ff4ca12d868c18cb29bf58f02b504be9033fd"></a>InProgress&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="aaf70b419dfaefe3a31207434ee82ff4cac85a251cc457840f1e032f1b733e9398" name="aaf70b419dfaefe3a31207434ee82ff4cac85a251cc457840f1e032f1b733e9398"></a>Timeout&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="aaf70b419dfaefe3a31207434ee82ff4caf48b206184b7442983452ea4c3e88a3a" name="aaf70b419dfaefe3a31207434ee82ff4caf48b206184b7442983452ea4c3e88a3a"></a>Refused&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="aaf70b419dfaefe3a31207434ee82ff4ca721c28f4c74928cc9e0bb3fef345e408" name="aaf70b419dfaefe3a31207434ee82ff4ca721c28f4c74928cc9e0bb3fef345e408"></a>Aborted&#160;</td><td class="fielddoc"></td></tr>
-<tr><td class="fieldname"><a id="aaf70b419dfaefe3a31207434ee82ff4ca4bed942140642650ca78039de000796a" name="aaf70b419dfaefe3a31207434ee82ff4ca4bed942140642650ca78039de000796a"></a>Unreachable&#160;</td><td class="fielddoc"></td></tr>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="aaf70b419dfaefe3a31207434ee82ff4ca2ec0d16e4ca169baedb9b2d50ec5c6d7" name="aaf70b419dfaefe3a31207434ee82ff4ca2ec0d16e4ca169baedb9b2d50ec5c6d7"></a>Connected&#160;</td><td class="fielddoc"><p>the connection is established </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aaf70b419dfaefe3a31207434ee82ff4ca12d868c18cb29bf58f02b504be9033fd" name="aaf70b419dfaefe3a31207434ee82ff4ca12d868c18cb29bf58f02b504be9033fd"></a>InProgress&#160;</td><td class="fielddoc"><p>the attempt is still pending, check again with finishConnect() </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aaf70b419dfaefe3a31207434ee82ff4cac85a251cc457840f1e032f1b733e9398" name="aaf70b419dfaefe3a31207434ee82ff4cac85a251cc457840f1e032f1b733e9398"></a>Timeout&#160;</td><td class="fielddoc"><p>the attempt timed out and was given up </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aaf70b419dfaefe3a31207434ee82ff4caf48b206184b7442983452ea4c3e88a3a" name="aaf70b419dfaefe3a31207434ee82ff4caf48b206184b7442983452ea4c3e88a3a"></a>Refused&#160;</td><td class="fielddoc"><p>the peer refused the connection </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aaf70b419dfaefe3a31207434ee82ff4ca721c28f4c74928cc9e0bb3fef345e408" name="aaf70b419dfaefe3a31207434ee82ff4ca721c28f4c74928cc9e0bb3fef345e408"></a>Aborted&#160;</td><td class="fielddoc"><p>the connection attempt was aborted or reset </p>
+</td></tr>
+<tr><td class="fieldname"><a id="aaf70b419dfaefe3a31207434ee82ff4ca4bed942140642650ca78039de000796a" name="aaf70b419dfaefe3a31207434ee82ff4ca4bed942140642650ca78039de000796a"></a>Unreachable&#160;</td><td class="fielddoc"><p>no route to the host or network </p>
+</td></tr>
 </table>
 
 <p class="definition">Definition at line <a class="el" href="SimpleSocket_8h_source.html#l00093">93</a> of file <a class="el" href="SimpleSocket_8h_source.html">SimpleSocket.h</a>.</p>

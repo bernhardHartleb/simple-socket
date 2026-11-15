@@ -1,7 +1,11 @@
 var searchData=
 [
-  ['operator_20bool_0',['operator bool',['../structNET_1_1IOResult.html#a5865aee6cbf246e067f270066f2d1b92',1,'NET::IOResult']]],
-  ['operator_3d_1',['operator=',['../classNET_1_1CANSocket.html#a3783ba8e70d75565168d69ea256261e4',1,'NET::CANSocket::operator=()'],['../classNET_1_1InternetSocket.html#ac2afc105d29b5f0a64205a6317ca4ba5',1,'NET::InternetSocket::operator=()'],['../classNET_1_1SimpleSocket.html#a4c8ad3d5254e16471050c3aecb65f991',1,'NET::SimpleSocket::operator=(const SimpleSocket &amp;)=delete'],['../classNET_1_1SimpleSocket.html#a9e259636c88b95d931b3cc0ac8d53ef1',1,'NET::SimpleSocket::operator=(SimpleSocket &amp;&amp;other) noexcept'],['../classNET_1_1UnixSocket.html#a8d1ac9b61eb1558641ec689a9086c402',1,'NET::UnixSocket::operator=()']]],
-  ['outstreams_2',['outStreams',['../classNET_1_1SCTPSocket.html#aa54b40e5db98b5d273f9fa4bdcaa832f',1,'NET::SCTPSocket']]],
-  ['override_5fprimary_3',['OVERRIDE_PRIMARY',['../classNET_1_1SCTPSocket.html#a8e19511f74b30615a3acd79b378141f9a2bea5ca93d0a7336328555f606bca8e7',1,'NET::SCTPSocket']]]
+  ['name_0',['name',['../structNET_1_1NetworkAddressInfo.html#a022f30d63bc1a9eb15be71f2bba5fdf0',1,'NET::NetworkAddressInfo::name'],['../classNET_1_1NetworkInterface.html#a8c576a3a15a66426060aaa6d02c68692',1,'NET::NetworkInterface::name()']]],
+  ['nativehandle_1',['nativeHandle',['../classNET_1_1SimpleSocket.html#a830de7b14a78664508052051991ced63',1,'NET::SimpleSocket']]],
+  ['net_2',['NET',['../namespaceNET.html',1,'']]],
+  ['netmask_3',['netmask',['../structNET_1_1NetworkAddressInfo.html#a6926279ba2c6f72c1c8f0074c26a1209',1,'NET::NetworkAddressInfo']]],
+  ['networkaddressinfo_4',['NetworkAddressInfo',['../structNET_1_1NetworkAddressInfo.html',1,'NET']]],
+  ['networkinterface_5',['NetworkInterface',['../classNET_1_1NetworkInterface.html',1,'NET::NetworkInterface'],['../classNET_1_1NetworkInterface.html#a02b07a12f19360caa5ef7408ed632dbd',1,'NET::NetworkInterface::NetworkInterface()']]],
+  ['networkinterface_2eh_6',['NetworkInterface.h',['../NetworkInterface_8h.html',1,'']]],
+  ['notackeddata_7',['notAckedData',['../classNET_1_1SCTPSocket.html#a463502d4569ff6b28a509f8fd5a0f006',1,'NET::SCTPSocket']]]
 ];

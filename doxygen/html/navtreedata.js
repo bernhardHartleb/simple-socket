@@ -42,9 +42,10 @@ var NAVTREE =
       [ "Class Index", "classes.html", null ],
       [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
       [ "Class Members", "functions.html", [
-        [ "All", "functions.html", null ],
+        [ "All", "functions.html", "functions_dup" ],
         [ "Functions", "functions_func.html", null ],
         [ "Variables", "functions_vars.html", null ],
+        [ "Typedefs", "functions_type.html", null ],
         [ "Enumerations", "functions_enum.html", null ],
         [ "Enumerator", "functions_eval.html", null ]
       ] ]
@@ -59,9 +60,10 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "CANRawSocket_8h.html",
-"classNET_1_1NetworkInterface.html#a6a4f69bf797dc5c638eb4c835be82d76",
-"classNET_1_1TCPSocket.html#a774dcd3aec69d20b173e346d73bc3202",
-"classNET_1_1UnixSocket.html#ad1c5da36fdd720816fb8f162aa59798d"
+"classNET_1_1InternetSocket.html#a3b07e42c8ca73a819a4a1eb95ca08b56",
+"classNET_1_1SimpleSocket.html#aab3dc013480443a77d0cbe2eaba0c018",
+"classNET_1_1UnixDatagramSocket.html#abb14e811896b7474d1a86f5fd9664db6",
+"namespaceNET.html#a9b61e3d2422a1203909bd7985df95884aac8f7825323c5ef9954fc0a7eac781d7"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

@@ -1,0 +1,11 @@
+<map id="NET::UnixSeqPacketSocket" name="NET::UnixSeqPacketSocket">
+<area shape="rect" id="Node000001" title="Unix domain sequential packet (SOCK_SEQPACKET) socket class." alt="" coords="5,272,192,299"/>
+<area shape="rect" id="Node000002" href="$classNET_1_1UnixSocket.html" title="Unix domain socket class." alt="" coords="37,196,160,223"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="100,236,101,273,96,271,97,240"/>
+<area shape="rect" id="Node000003" href="$classNET_1_1SimpleSocket.html" title="A socket representing a basic communication endpoint." alt="" coords="10,97,145,124"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="84,137,98,196,93,196,82,142"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="170,97,249,124"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="182,136,115,197,111,193,185,132"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="146,5,272,48"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="210,61,212,98,207,96,208,66"/>
+</map>

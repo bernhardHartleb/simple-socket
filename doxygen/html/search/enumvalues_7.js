@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['refused_0',['Refused',['../namespaceNET.html#aaf70b419dfaefe3a31207434ee82ff4caf48b206184b7442983452ea4c3e88a3a',1,'NET']]]
+  ['override_5fprimary_0',['OVERRIDE_PRIMARY',['../classNET_1_1SCTPSocket.html#a8e19511f74b30615a3acd79b378141f9a2bea5ca93d0a7336328555f606bca8e7',1,'NET::SCTPSocket']]]
 ];
