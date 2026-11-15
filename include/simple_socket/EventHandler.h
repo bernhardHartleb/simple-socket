@@ -50,7 +50,8 @@ namespace NET
 		void remove(int fd); // Idempotent, including inside callbacks.
 
 		// Owned timers (CLOCK_MONOTONIC); delay/interval must be positive.
-		// One-shot timers are removed automatically immediately before their callback.
+		// One-shot timers are removed automatically after their callback,
+		// unless rearmed during callback execution.
 		// Timer IDs are not file descriptors. Timer methods are event-loop-thread only.
 		TimerId addOneShotTimer(std::chrono::milliseconds delay, TimerCallback callback);
 		TimerId addPeriodicTimer(std::chrono::milliseconds interval, TimerCallback callback);

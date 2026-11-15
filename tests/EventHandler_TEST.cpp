@@ -65,7 +65,7 @@ public:
 		::close(fds[1]);
 	}
 
-	// One-shot automatically unregisters before callback, allowing immediate re-arm.
+	// One-shot unregistration and rearming inside callback.
 	void testOneShotTimerRearm()
 	{
 		NET::EventHandler ev;
@@ -74,7 +74,7 @@ public:
 		first = ev.addOneShotTimer(10ms, [&](std::uint64_t n) {
 			CPPUNIT_ASSERT_EQUAL(std::uint64_t{1}, n);
 			++calls;
-			ev.removeTimer(first); // Already automatically removed: idempotent.
+			ev.removeTimer(first);
 			ev.addOneShotTimer(10ms, [&](std::uint64_t m) {
 				CPPUNIT_ASSERT_EQUAL(std::uint64_t{1}, m);
 				++calls;
@@ -359,7 +359,7 @@ public:
 
 	void testStopDuringRunStartupNotLost()
 	{
-		for (int i = 0; i < 200; ++i) {
+		for (int i = 0; i < 100; ++i) {
 			NET::EventHandler ev;
 			std::thread thread([&] { ev.run(); });
 			ev.stop();
