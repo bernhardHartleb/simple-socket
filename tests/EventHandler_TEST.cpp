@@ -34,6 +34,7 @@ class EventHandler_TEST : public CppUnit::TestFixture
 	CPPUNIT_TEST(testStopBeforeRunIsSticky);
 	CPPUNIT_TEST(testDeferredStopPreservesRemainingWork);
 	CPPUNIT_TEST(testStopDuringRunStartupNotLost);
+	CPPUNIT_TEST(testStatefulTimerCallback);
 	CPPUNIT_TEST_SUITE_END();
 
 public:
@@ -365,6 +366,22 @@ public:
 			ev.stop();
 			thread.join();
 		}
+	}
+
+	void testStatefulTimerCallback()
+	{
+		NET::EventHandler handler;
+		int observed = 0;
+
+		handler.addPeriodicTimer( std::chrono::milliseconds(1),
+			[&handler, &observed, count = 0](std::uint64_t) mutable
+			{
+				observed = ++count;
+				if(count == 3) handler.stop();
+			});
+
+		handler.run();
+		CPPUNIT_ASSERT_EQUAL(3, observed);
 	}
 };
 

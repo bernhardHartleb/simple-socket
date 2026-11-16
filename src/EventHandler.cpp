@@ -235,22 +235,29 @@ void EventHandler::dispatchTimer(TimerId id)
 
 	const bool oneShot = (it->second.interval.count() == 0);
 	const auto version = it->second.version;
-	auto callback = it->second.callback; // Safe if callback removes/rearms itself.
+	// Take ownership of the actual callback during execution
+	auto callback = std::move(it->second.callback);
 
-	// A one-shot stays registered through its callback so it can restart itself.
-	auto cleanupOneShot = [&] {
-		if (!oneShot) return;
-		const auto current = m_timers.find(id);
-		if (current != m_timers.end() && current->second.version == version)
+	// A one-shot stays registered through its callback so it can restart itself
+	auto finish = [&]() {
+		auto current = m_timers.find(id);
+		if (current == m_timers.end()) return;
+
+		if (oneShot && current->second.version == version) {
 			removeTimer(id);
+		} else {
+			current->second.callback = std::move(callback);
+		}
 	};
+
+	// Handle a callback removing itself or throwing
 	try {
 		callback(expirations);
-	} catch (...) {
-		cleanupOneShot();
+	} catch(...) {
+		finish();
 		throw;
 	}
-	cleanupOneShot();
+	finish();
 }
 
 void EventHandler::defer(std::function<void()> callback)
@@ -373,8 +380,26 @@ int EventHandler::wait(int timeoutMs)
 		if (it == m_registrations.end()) continue;
 
 		const int fd = it->second.fd;
-		auto callback = it->second.callback; // Safe if removed during callback.
-		callback(fd, m_ready[i].events);
+		const Events events = m_ready[i].events;
+		// Take ownership of the actual callback during execution
+		auto callback = std::move(it->second.callback);
+
+		// Restore if the registration still exists
+		auto restore = [&]() {
+			auto current = m_registrations.find(token);
+			if (current != m_registrations.end() && !current->second.callback) {
+				current->second.callback = std::move(callback);
+			}
+		};
+
+		// Handle a callback removing itself or throwing
+		try {
+			callback(fd, events);
+		} catch(...) {
+			restore();
+			throw;
+		}
+		restore();
 
 		if (m_stopRequested.load()) break;
 	}
